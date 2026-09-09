@@ -1,0 +1,40 @@
+# ==============================================================================
+# Cortex Persist — Zero-Entropy & Sovereign Security Filters (.gitignore)
+# ==============================================================================
+
+# Credentials & Machine-Specific Secret Stores (NEVER COMMIT)
+config.json
+*.key
+*.pem
+*.token
+*.secret
+.env*
+credentials.json
+service_account*.json
+
+# Ephemeral Workspace State & Local Runtime Caches
+projects/
+.cortex/
+sidecars/
+plugins_disabled/
+.migrated
+logs/
+*.log
+DevToolsActivePort
+
+# OS & Filesystem Metadata
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Python & Node Runtime Artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+node_modules/
+.npm/

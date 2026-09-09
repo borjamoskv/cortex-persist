@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "name": "babylon60-ide",
+  "version": "1.2.0",
+  "description": "BABYLON-60 IDE - The Visual Cortex and Thermodynamic Ark Environment with integrated 31-Skill CORTEX Engine and Agent Plugins 1.0.0 compliance.",
+  "author": "MOSKV-1",
+  "mcp": "mcp.json",
+  "sidecars": [
+    {
+      "id": "cortex-telemetry",
+      "name": "CORTEX-PERSIST",
+      "description": "Visual telemetry for the event ledger and BFT invariants.",
+      "file": "sidecars/cortex_telemetry.html",
+      "position": "right"
+    },
+    {
+      "id": "fast-smt-gate",
+      "name": "FAST-SMT-VERIFIER",
+      "description": "Sub-0.5s SMT Invariant Gate and RFC 9943 SCITT Receipt Generator.",
+      "file": "scripts/c5_verifiers/fast_smt_gate.py",
+      "position": "bottom"
+    }
+  ],
+  "agents": [
+    {
+      "id": "moskv1",
+      "file": "agents/moskv1.json"
+    },
+    {
+      "id": "moskvbot",
+      "file": "agents/moskvbot.json"
+    }
+  ],
+  "skills": [
+    {
+      "id": "babylon60-ide-orchestrator",
+      "file": "skills/babylon60-ide-orchestrator/SKILL.md"
+    }
+  ]
+}

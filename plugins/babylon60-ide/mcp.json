@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "kimi-nexus": {
+      "command": "python3",
+      "args": [
+        "/Users/borjafernandezangulo/10_PROJECTS/BABYLON-60/scripts/kimi_nexus/kimi_nexus.py"
+      ],
+      "env": {
+        "C5_REAL_STRICT": "1"
+      }
+    },
+    "wa-nexus": {
+      "command": "python3",
+      "args": [
+        "/Users/borjafernandezangulo/10_PROJECTS/BABYLON-60/scripts/wa_nexus/wa_nexus.py"
+      ]
+    }
+  }
+}
