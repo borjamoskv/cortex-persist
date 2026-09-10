@@ -184,8 +184,8 @@ Superponer este marco como capa de validación de Primitivas (Auditoría Post-Ag
 Cuando se audite, licencie o documente infraestructura de IA verificada formalmente (Lean 4, Coq, SMT, Rust) para comités de inversión, organismos notificadores o Due Diligence:
 
 ### 1. Modelo de Auditoría Tripartita (Zero Trust Architecture)
-- **Nivel 1 (Certificación Matemática Determinista):** Verificación estricta de tipos en el Kernel de Lean 4 (`sorry = 0`). Invariantes de seguridad probados formalmente como certeza matemática.
-- **Nivel 2 (Robustez y Mutación CI/CD):** 26 workflows automatizados con *Mutation Testing* (`cargo-mutants` >90% efectividad al matar mutantes sintéticos AST), SAST/DAST y atestación criptográfica SLSA Level 3/4.
+- **Nivel 1 (Certificación Matemática Determinista):** Especificación formal en Lean 4 (*in progress*). Objetivo: verificación estricta de tipos en el Kernel de Lean 4 (`sorry = 0`) e invariantes de seguridad probados formalmente como certeza matemática.
+- **Nivel 2 (Robustez y Mutación CI/CD):** Workflows CI/CD automatizados (SAST/DAST) con *Mutation Testing* mediante `cargo-mutants` (integración CI planificada) y atestación criptográfica SLSA Level 3/4.
 - **Nivel 3 (EU AI Act & Auditoría Externa):** Conformidad demostrada con los Arts. 9 (Gestión de Riesgos), 10 (Gobernanza de Datos), 14 (Supervisión Humana), 15 (Ciberseguridad y Precisión) y 17 (Sistema de Gestión de la Calidad) para Organismos Notificados y auditorías de caja blanca/negra.
 
 ### 2. Tríptico de Artefactos de Salida
@@ -329,5 +329,3 @@ Al evaluar o presentar métricas de financiación ante comités de inversión:
 2. **Infraestructura Criptográfica de Confianza (Capital de Alta Exergía):**
    - Rondas Seed de 2M$–3M$ y Series A de 15M$–20M$ tienen como objetivo establecer el **estándar técnico de facto** (estilo HashiCorp o Docker). 
    - No compite por el usuario final de Word; licencia el motor de auditoría y certificación AESIA a las propias aplicaciones de IA y a grandes corporaciones. Múltiplo de salida estándar: 25x–50x ARR.
-
-
