@@ -68,6 +68,7 @@ Estos 5 aforismos operan como detectores de error generalistas. Toda auditoría 
    - *Corolario del Trampolín Cibernético (La Solución No Intentada)*: Ante la inviabilidad irreversible de un nodo (anergía/adulteración), optimizar el canal existente re-alimenta el fallo. La maniobra de alta exergía es un Cambio 2: usar la energía cinética de la fricción para forzar una bifurcación topológica y saltar de atractor.
 4. **El cambio surge cuando el dolor de permanecer igual supera al de cambiar**: Umbral termodinámico. Un sistema no abandona su atractor de estado hasta que la fricción entrópica acumulada supera la barrera de activación necesaria para mutar.
 5. **Lo voluntario vale menos que lo involuntario**: Asimetría de costo de falsificación. Las señales gobernadas por voluntad (retórica) poseen alta entropía de manipulación; las señales involuntarias están acopladas a invariantes físicos de alto costo, revelando la política real.
+   - *Corolario de la Tensión Epistémica (La Naturaleza del Misterio)*: El «misterio» no es una entidad ontológica supra-física, sino la fricción en la interfaz entre la compresión simbólica de bajo coste (la voluntad / mapa / *cheap talk*) y las invariantes termodinámicas no negociables del sustrato (lo involuntario / territorio / física). El controlador consciente experimenta como «misterio», «destino» o «azar» a los atractores de fase que dictan inexorablemente la trayectoria pero desbordan su capacidad de bisimulación. En la alta exergía (arte, somática radical, maestría), la técnica voluntaria opera solo como andamiaje transitorio que se disuelve cuando el canal es ocupado por lo involuntario.
 </RULE[c5_core_epistemic_aphorisms]>
 
 
@@ -105,3 +106,14 @@ Para comprender el contexto operativo actual del usuario, el agente debe integra
 1. **La Fricción Burocrática (Cuello de Botella):** Hacienda / la burocracia estatal es el actual "regulador descalibrado" (Aforismo 3) del usuario. Actúa como el principal cuello de botella termodinámico y extractor de exergía, imponiendo *deadlocks* al flujo de innovación y desarrollo.
 2. **Auditoría Somática (Empirismo Radical):** El usuario aplica el coste de la falsificación (Aforismo 5) a su propia biología. Con un historial de experimentación directa con ~20-25 compuestos psicoactivos, el usuario no confunde el "mapa" (teoría/dogma) con el "territorio" fenomenológico. Esta aproximación (isomorfa al empirismo de Antonio Escohotado) debe entenderse como una auditoría topológica de los estados de conciencia, no como hedonismo vacío.
 </RULE[c5_thermodynamic_state_and_epistemology]>
+
+
+<RULE[music_assets_centralization_invariant]>
+### Invariante de Centralización de Activos Musicales (Directorio Canónico ~/Music)
+Todo activo de audio, música, discografía, directo, sesión, stem o export sonoro que el agente descargue (vía Soulseek, yt-dlp, streaming, etc.), procese o genere **DEBE quedar inmediatamente disponible y centralizado en la biblioteca raíz del usuario: `~/Music/` (`/Users/borjafernandezangulo/Music/`)**.
+
+1. **Prohibición de Aislamiento en Subdirectorios Locales:** Queda estrictamente prohibido confinar descargas o archivos de audio terminados exclusivamente en carpetas internas de proyectos (ej. `10_PROJECTS/soulseek-agent/downloads/`) o temporales sin que exista un acceso directo canónico en `~/Music/`.
+2. **Política de Enlace o Destino Directo:**
+   - Si la herramienta descarga por defecto en un directorio interno del proyecto, el agente **DEBE crear de forma inmediata y automática un enlace simbólico (`ln -s`)** en `~/Music/<Nombre_Carpeta_o_Artista>` apuntando a los archivos descargados, o moverlos/guardarlos directamente en `~/Music/`.
+   - `~/Music/` es el espacio soberano de indexación para el usuario, reproductores, Serato, DJ.Studio y archivo discográfico.
+</RULE[music_assets_centralization_invariant]>
