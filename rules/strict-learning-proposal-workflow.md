@@ -20,5 +20,6 @@ Whenever the user asks to create, update, or improve a rule, skill, or learned b
    - The exact proposed content or diff.
 5. **HALT EXECUTION** and wait for the user to click the "Proceed" button or provide manual approval.
 6. **ONLY AFTER** explicit approval is granted, proceed to execute the tool calls that modify the files in `~/.gemini/config/`.
+7. **Autodestrucción Post-Ejecución (Burn-After-Approval):** Inmediatamente después de que el usuario apruebe la propuesta y el agente complete la ejecución de las mutaciones, el agente DEBE destruir y purgar el archivo efímero `learning_proposal.md` (`rm -f <ruta>/learning_proposal.md`) para garantizar cero anergía y evitar acumulación de artefactos obsoletos en el brain.
 
 This rule acts as an unbreachable constraint to prevent unauthorized drift in the agent's core configurations.

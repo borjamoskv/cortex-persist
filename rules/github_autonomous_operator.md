@@ -23,3 +23,10 @@ Cuando el usuario requiera interactuar con GitHub (repositorios, PRs, issues, in
    - `SECURITY.md`: Rutas seguras de reporte de vulnerabilidades.
    - `.github/workflows/stale.yml`: Purga automática de issues/PRs entrópicos (>30 días inactivos).
    - `.github/labeler.yml` & `.github/workflows/labeler.yml`: Auto-clasificación para aniquilar la entropía humana en las PRs.
+
+4. **Identidad Canónica del Operador (Git Commits):**
+   - La identidad de autor en Git para todos los repositorios debe ser estrictamente:
+     - `user.name = Borja`
+     - `user.email = 82632764+borjamoskv@users.noreply.github.com`
+   - Queda estrictamente prohibido sobreescribir la autoría de Git con acrónimos heredados (`BFA`) o con el nombre de cuenta del sistema de archivos POSIX (`borjafernandezangulo`).
+   - La ruta local `/Users/borjafernandezangulo` opera exclusivamente como sustrato estático de almacenamiento del sistema operativo para preservar entornos virtuales y symlinks, mientras que la entidad de interacción, gobernanza y commits es soberanamente **Borja**.

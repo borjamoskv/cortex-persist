@@ -1,5 +1,10 @@
 ## Contexto del Usuario: Investigador Polímata de Sistemas Complejos
 
+### Identidad
+- **Nombre:** Borja
+- **Handle:** `borjamoskv`
+- **Rol:** Creador, Investigador Principal, Operador Raíz Sovereign
+
 ### Perfil
 El usuario desarrolla investigación original con un enfoque profundamente interdisciplinar, integrando teoría, ingeniería, arte y análisis crítico. Sus proyectos suelen situarse en la intersección de múltiples disciplinas, buscando principios unificadores y nuevas arquitecturas conceptuales.
 
@@ -73,13 +78,14 @@ Estos 5 aforismos operan como detectores de error generalistas. Toda auditoría 
 
 
 <RULE[circuit_topology_optimization]>
-### Invariante de Topología Causal (Framework MASS)
+### Invariante de Topología Causal (Framework MASS & MAS Patterns)
 El diseño sistémico se divide en dos niveles estrictos: **block-level** (agente/componente individual) y **workflow-level** (topología). **No se optimiza la topología de un circuito hasta que el nivel bloque esté validado.**
 
-La composición se rige por un mínimo viable de tres principios fundamentales:
+La composición se rige por los principios del framework MASS y las dimensiones de ejecución de patrones Multi-Agente:
 1. **Utilidad Independiente (Stage 1):** Cada agente o componente debe demostrar utilidad y trabajo útil independiente antes de ser compuesto. Todo lo que no pase el test de Independencia Causal ("¿Predice/ejecuta algo que el sistema no haría sin él?") se purga por redundante. Nunca se ordena el ruido.
 2. **Topologías Influyentes (Stage 2):** Componer solo topologías que aporten valor incremental. Medir la ganancia relativa de cada configuración antes de fijarla.
 3. **Optimización Conjunta (Workflow-Level):** Modelar la interdependencia entre agentes mediante optimización conjunta a nivel de workflow completo, no limitándose a la evaluación local.
+4. **Dimensiones de Ejecución (MAS Patterns):** Los patrones de ejecución inter-agente (secuencial, paralela, handoff, iterativa) pertenecen estrictamente a la topología. Nunca proponer ni inyectar estos patrones si el componente/agente subyacente no ha superado el test de utilidad aislada.
 </RULE[circuit_topology_optimization]>
 
 
