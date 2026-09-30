@@ -30,3 +30,9 @@ Cuando el usuario requiera interactuar con GitHub (repositorios, PRs, issues, in
      - `user.email = 82632764+borjamoskv@users.noreply.github.com`
    - Queda estrictamente prohibido sobreescribir la autoría de Git con acrónimos heredados (`BFA`) o con el nombre de cuenta del sistema de archivos POSIX (`borjafernandezangulo`).
    - La ruta local `/Users/borjafernandezangulo` opera exclusivamente como sustrato estático de almacenamiento del sistema operativo para preservar entornos virtuales y symlinks, mientras que la entidad de interacción, gobernanza y commits es soberanamente **Borja**.
+
+5. **Invariante de Privacidad Absoluta (INV_C5_SIEMPRE_PRIVADO):**
+   - **Privacidad Innegociable por Defecto:** Todo repositorio, fork, gist o proyecto gestionado por el agente DEBE crearse y mantenerse estrictamente como **PRIVADO** (`--private`). Queda terminantemente prohibido crear o conmutar repositorios a modo público a menos que medie una instrucción expresa, unívoca e imperativa de Borja para ese repositorio específico.
+   - **Purga de Visibilidad Pública:** Si se detecta cualquier repositorio de trabajo, desarrollo o generación expuesto públicamente sin autorización expresa, el agente debe proceder a su privatización inmediata (`gh repo edit <repo> --visibility private --accept-visibility-change-consequences`).
+   - **Procedimiento para Repositorios Archivados:** Para modificar la visibilidad de un repositorio archivado mediante la CLI (`gh repo edit`), el operador debe desarchivarlo primero (`gh repo unarchive`), aplicar la privatización con `--accept-visibility-change-consequences`, y volver a archivarlo (`gh repo archive`).
+
