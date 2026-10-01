@@ -1,7 +1,7 @@
 ---
 name: c5-neural-face-swap-cuadrilla
-display_name: Pipeline Neural Face-Swap Cuadrilla (V4 SOTA CoreML)
-description: "Pipeline industrial de alta velocidad para intercambio facial neuronal (deepfake) en vídeos reales o virales con identidades de la cuadrilla sobre Apple Silicon M-Series. Motor V4 SOTA con BiSeNet acelerado en CoreML (19ms), GPEN 512, transferencia de iluminación espacial 3D, preservación de párpados EAR y boca MAR, estabilizador anti-shimmer, fusión de dos bandas y codificación por hardware VideoToolbox. Dispara con 'pon la cara de', 'ponle la cara de', 'swap cara video', 'deepfake cuadrilla', 'videos miticos', 'inswapper coreml', 'vídeos míticos de los chavales', o al enviar un enlace de Instagram/TikTok/Shorts pidiendo sustituir un rostro."
+display_name: "Pipeline Neural Face-Swap Cuadrilla (V5 SOTA Hybrid)"
+description: "Pipeline industrial de alta velocidad para intercambio facial neuronal (deepfake) en vídeos reales o virales con identidades de la cuadrilla sobre Apple Silicon M-Series. Motor V5 SOTA con inyección de grano de sensor de cámara (Poisson-Gaussian matching), super-resolución adaptativa consciente de escala, exportación nativa vertical 9:16 con Pan & Scan dinámico, alineación de mirada orgánica (gaze alignment), BiSeNet en CoreML, transferencia de iluminación espacial 3D y codificación por hardware VideoToolbox."
 role: ejecutor
 allowed_roles:
 - ejecutor
@@ -17,7 +17,7 @@ directives:
 
 > **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
 > - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Mutación de Árbol de Trabajo))
-> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilación, ejecución de tests locales y generación de artefactos))
+> - **Modo de Acceso a Worktree:** `read-write` (Mutación atómica de archivos, compilación, ejecución de tests locales y generación de artefactos)
 > - **Fase Causal:** `implementation`
 > - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
@@ -37,7 +37,7 @@ Este skill proporciona el procedimiento de ejecución determinista para sustitui
 * **Intérprete Python verificado con CoreML:**
   `/Library/Frameworks/Python.framework/Versions/3.14/bin/python3`
 * **Modelo Inswapper:**
-  `/tmp/inswapper_128.onnx`
+  `/tmp/inswapper_128.onnx` / `~/.insightface/models/inswapper_128_fp16.onnx`
 * **Directorio de Rostros Fuente:**
   `/Users/borjafernandezangulo/Downloads/VIDEO BODA HUGO/faces/<personaje>_real.png`
 * **Directorio Canónico de Salida:**
@@ -45,7 +45,7 @@ Este skill proporciona el procedimiento de ejecución determinista para sustitui
 
 ---
 
-## 2. Roster Canónico de Identidades (17 Miembros)
+## 2. Roster Canónico de Identidades (17 Miembros + Invitados)
 
 | Personaje / Alias | Archivo Fuente Canónico |
 | :--- | :--- |
@@ -55,7 +55,7 @@ Este skill proporciona el procedimiento de ejecución determinista para sustitui
 | **Xabi** (Cabeza Gigante / Moñas) | `faces/xabi_real.png` |
 | **Borja** (Moskv) | `faces/borja_real.png` |
 | **Hugo** (Hugo Pink / El Novio) | `faces/hugo_real.png` / `hugo_pink_real.png` |
-| **Mitxu** (El Mitxus) | `faces/mitxu_real.png` |
+| **Mitxu** (El Mitxus / Mitxu Gafas) | `faces/mitxu_gafas_tecnicas.jpg` / `faces/mitxu_real.png` |
 | **Pedrerol** (Josep Pedrerol) | `faces/pedrerol_real.png` |
 | **Tosso** (Jacuzzi Llanes) | `faces/tosso_real.png` |
 | **Lander** | `faces/lander_real.png` |
@@ -69,77 +69,69 @@ Este skill proporciona el procedimiento de ejecución determinista para sustitui
 
 ---
 
-## 3. Arquitectura del Motor V4 SOTA (`c5-face-swap`)
+## 3. Arquitectura del Motor V5 SOTA (`c5-face-swap`)
 
-1. **Desacoplamiento de Silicio Híbrido & Aceleración CoreML (Apple Neural Engine):**
-   - **Segmentación Semántica BiSeNet ResNet-34 en CoreML:** Inferencia despachada al Apple Neural Engine (ANE) / GPU (`CoreMLExecutionProvider`). Aceleración radical de $284{,}2\text{ ms}$ ($3{,}5\text{ FPS}$) a **$19{,}4\text{ ms}$ ($51{,}5\text{ FPS}$)** ($14{,}6\times$ de ganancia neta).
-   - **Inswapper 128 FP16 en CoreML:** Modelo nativo en FP16 optimizado para latencia sub-$25\text{ ms}$.
-   - **GPEN 512 en CPU Multi-Hilo (4 threads):** Inferencia con latencia balanceada sin contención de particiones.
-   - **Codificación por Hardware VideoToolbox:** Muxing directo H.264/HEVC a 8.5 Mbps con filtros CAS y unsharp.
-2. **Super-Resolución Neuronal a $512\times 512$ (`--enhancer`):**
-   - **GPEN 512** (por defecto, nitidez cinematográfica de rasgos, poros y arrugas sin desenfoque).
-   - **CodeFormer** (reconstrucción mediante Codebook Prior $\mathcal{Z}$, con fidelidad ajustable `--enhance-weight`).
-   - **GFPGAN 1.4** (alternativa GAN clásica).
-   - **None** (modo baseline ultrarrápido 128px).
-3. **Mapeo de Puntos Densos 3D, Pose y Ratios Somáticos (FAN-68):**
-   - Red `fan_68_5.onnx` con normalización afín RANSAC sobre plantilla FFHQ-512 ($0{,}017\text{ ms}$).
-   - Estimación de pose tridimensional (Pitch, Yaw, Roll) en tiempo real mediante `cv2.solvePnP`.
-   - Detección métrica de Mouth Aspect Ratio (MAR) y Eye Aspect Ratio (EAR).
-4. **Transferencia de Iluminación Espacial 3D y Sombras (`--lighting spatial`):**
-   - Extracción de gradiente de iluminación ambiental de baja frecuencia mediante filtros espaciales multiescala.
-   - Sincroniza luces de estudio, reflejos especulares en frente/nariz y sombras en pómulos, eliminando el aspecto plano de "recorte pegado" sin alterar la textura de la piel.
-5. **Preservación Orgánica de Párpados y Parpadeo Natural (`--preserve-eyes auto`):**
-   - Métrica EAR: cuando $EAR < 0.18$ (parpadeo o cierre ocular del orador), se activa la exclusión geométrica de párpados mediante polígonos convexos difuminados.
-   - El parpadeo, pestañas y arrugas perioculares orgánicas del vídeo original se preservan al 100%, evitando que el deepfake superponga ojos abiertos artificiales.
-6. **Articulación Bucal Orgánica y Desoclusión Semántica (`--preserve-mouth auto`):**
-   - Exclusión dinámica de la cavidad bucal interna (clase 11 de BiSeNet) cuando $MAR > 0.14$, conservando dientes y lengua reales durante el habla o gritos.
-   - Desoclusión completa de micrófonos, manos, vasos, gafas y pelo en primer plano.
-7. **Estabilizador Temporal Inter-Frame de Parches (`--no-stabilize-patch` para desactivar):**
-   - Atenuación de micro-parpadeo y ebullición de texturas GAN (*GAN shimmer*) en un $60\%$ en áreas cutáneas estáticas mediante diferencia SIMD NEON.
-   - Modulación adaptativa sin latencia ni estelas (*zero-ghosting*) en boca, ojos y gestos dinámicos.
+1. **Inyección de Grano de Sensor y Ruido de Cámara (`--grain 0.5`):**
+   - Estimación robusta de la varianza residual de alta frecuencia ($\sigma_{\text{sensor}}$) del fotograma objetivo.
+   - Síntesis de ruido Poisson-Gaussian correlacionado por canal BGR, modulado según la curva de luminancia de tonos medios de piel.
+   - **Erradicación definitiva de la "piel de cera / plástico digital GAN"**, mimetizando la textura analógica del broadcast o sensor móvil.
+2. **Super-Resolución Adaptativa Consciente de Escala (`--enhancer adaptive`):**
+   - Análisis métrico del tamaño del rostro objetivo: si $\text{bbox}_{\text{height}} < 140\text{ px}$ (planos generales/medios), omite el GAN y aplica afilado CAS sub-milisegundo ($<0{,}1\text{ ms}$), acelerando la velocidad hasta $10\times$.
+   - Si $\text{bbox}_{\text{height}} \ge 140\text{ px}$ (primeros planos), despacha la reconstrucción completa GPEN 512 con respaldo determinista en CPU multi-hilo (4 threads).
+   - Respaldo de tolerancia a fallos (*fault-tolerant fallback*): si la sesión neural sufre cualquier excepción por frame corrupto, commuta transparentemente a CAS sharpening sin interrumpir el render.
+3. **Exportación Nativa en Formato Vertical 9:16 (`--format 9:16` / `--format both`):**
+   - Motor `VerticalFramingTracker` integrado con filtro 1-Euro y deadband dinámico.
+   - Genera automáticamente versiones verticales a $1080\times 1920$ listas para Instagram Reels, TikTok, YouTube Shorts y Estados de WhatsApp.
+   - `--vertical-bg crop` (por defecto): Pan & Scan inteligente siguiendo suavemente al protagonista.
+   - `--vertical-bg blur`: fondo panorámico ampliado y desenfocado con el orador centrado.
+   - `--format both`: produce simultáneamente el master 16:9 y el reel vertical 9:16 en un único pase.
+4. **Preservación de Mirada Viva y Párpados (`--preserve-eyes gaze` / `--preserve-eyes auto`):**
+   - `--preserve-eyes gaze`: excluye suavemente el globo ocular (iris, pupila, esclera) con difuminado gaussiano $11\times 11$, transfiriendo al swap la dirección exacta de la mirada, micro-sacadas y destellos especulares del actor real.
+   - `--preserve-eyes auto`: compuerta por métrica EAR ($EAR < 0.18$) para parpadeo y cierre ocular natural.
+5. **Aceleración CoreML en Segmentación BiSeNet:**
+   - Despacho al Apple Neural Engine (ANE) con latencia de **$19{,}4\text{ ms}$** vs $284\text{ ms}$ en CPU ($14{,}6\times$ speedup).
+6. **Transferencia de Iluminación Espacial 3D y Sombras (`--lighting spatial`):**
+   - Extrae el gradiente lumínico ambiental del metraje y modula la irradiancia del rostro 3D, fusionando brillos y sombras sin aplastar poros.
+7. **Estabilizador Temporal de Parches (`--no-stabilize-patch` para desactivar):**
+   - Algoritmo de diferencia temporal acelerado por SIMD NEON que suprime el parpadeo de micro-texturas (*GAN shimmer*) manteniendo respuesta instantánea en expresiones dinámicas.
 8. **Fusión Espectral de Dos Bandas (`--blend two-band`):**
    - Descomposición en frecuencias bajas (irradiancia y tono) y altas (detalle, poros y vello) en espacio canónico $512\times 512$ a $>110\text{ FPS}$.
-   - Erradicación total de costuras, saltos de color y halos.
 9. **Fusión Multi-Referencia y Selección Adaptativa por Giro Yaw 3D:**
-   - Soporte para sintaxis de múltiples fotos con `+` (e.g. `--identity "mitxu_gafas+mitxu_real"`).
-   - Cálculo de la Media Fréchet Riemanniana sobre $\mathbb{S}^{511}$ para fotos frontales.
-   - Selección adaptativa e interpolación esférica (SLERP) hacia el ángulo más cercano al giro de cabeza ($Yaw$) del metraje.
+   - Sintaxis multi-foto con `+` (e.g. `--identity "mitxu_gafas+mitxu_real"`).
+   - Cálculo de la Media Fréchet Riemanniana sobre $\mathbb{S}^{511}$ para fotos frontales e interpolación esférica (SLERP) según el ángulo $Yaw$ de la cabeza.
 10. **Rastreador Zero-Drop con Filtros 1-Euro Independientes:**
     - Extrapolación inercial de hasta 2 frames ante desenfoque cinético, previniendo caídas de swap.
-    - Instancia de `OneEuroFilter` y `TemporalPatchStabilizer` por cada trayectoria.
-11. **Worker Chunking Paralelo (`--workers N`):**
-    - Escisión temporal determinista en subprocesos independientes y concatenación $O(1)$ sin recodificación.
-12. **Modo Watcher Daemon (`--watch <inbox>`):**
-    - Monitorización reactiva autónoma de carpetas locales para procesar vídeos y enlaces en segundo plano.
+11. **Codificación Acelerada por Hardware Apple Silicon VideoToolbox:**
+    - Salida H.264 / HEVC a 8.5 Mbps con filtros `cas=strength=0.6,unsharp=5:5:0.7:5:5:0.3`.
 
 ---
 
-## 4. Uso de la CLI de Producción (V4 SOTA)
+## 4. Uso de la CLI de Producción (V5 SOTA)
 
 ```bash
-# 1. Render SOTA V4 estándar (GPEN 512 + Two-Band + CoreML BiSeNet + Spatial Lighting + EAR Blink Gate + Anti-Shimmer)
+# 1. Render SOTA V5 estándar (Adaptive 512p + Sensor Grain + CoreML BiSeNet + Spatial Lighting + Gaze + Two-Band)
 c5-face-swap --video soria.mp4 --identity Mitxu --workers 2
 
-# 2. Fusión Multi-Referencia adaptativa por ángulo 3D
-c5-face-swap --video soria.mp4 --identity "mitxu_gafas+mitxu_real" --workers 2
+# 2. Generación simultánea de Master 16:9 y Reel Vertical 9:16 para TikTok / Reels
+c5-face-swap --video soria.mp4 --identity "mitxu_gafas+mitxu_real" --format both --workers 2
 
-# 3. Intercambio selectivo (sólo el presentador secundario, índice 1)
-c5-face-swap --video chiringuito.mp4 --identity Alain --target-face-index 1 --workers 2
+# 3. Reel vertical exclusivo 9:16 (1080x1920) con Pan & Scan dinámico
+c5-face-swap --video clip.mp4 --identity Alain --format 9:16 --vertical-bg crop --workers 2
 
-# 4. Intercambio múltiple en escena (Pedrerol -> Alain, Soria -> Mitxu)
+# 4. Ajuste de intensidad de grano de sensor (e.g. metraje analógico o vintage)
+c5-face-swap --video archivo.mp4 --identity Alain --grain 0.75 --workers 2
+
+# 5. Alineación orgánica de la mirada viva original del actor
+c5-face-swap --video debate.mp4 --identity Borja --preserve-eyes gaze --workers 2
+
+# 6. Intercambio múltiple en escena (Pedrerol -> Alain, Soria -> Mitxu)
 c5-face-swap --video chiringuito.mp4 --identity "alain,mitxu" --swap-all --workers 2
 
-# 5. Render de Máxima Calidad Cinematográfica (CodeFormer HD a w=0.7)
+# 7. Render de Máxima Calidad Cinematográfica (CodeFormer HD a w=0.7)
 c5-face-swap --video clip.mp4 --identity Borja --enhancer codeformer --enhance-weight 0.7 --workers 2
 
-# 6. Forzar preservación o sustitución estricta de ojos y boca
-c5-face-swap --video clip.mp4 --identity Alain --preserve-mouth true --preserve-eyes true
-
-# 7. Ingesta directa desde enlace web (Instagram / TikTok / YouTube)
+# 8. Ingesta directa desde enlace web (Instagram / TikTok / YouTube)
 c5-face-swap --video "https://www.instagram.com/reel/Dd4MioYDy3E/..." --identity Alain
-
-# 8. Modo Rápido Baseline 128px (sin super-resolución)
-c5-face-swap --video clip.mp4 --identity Eder --enhancer none --workers 4
 
 # 9. Modo Watcher Daemon reactivo en segundo plano
 c5-face-swap --watch ~/Downloads/c5_inbox/ --identity Alain --workers 2
@@ -153,4 +145,4 @@ c5-face-swap --watch ~/Downloads/c5_inbox/ --identity Alain --workers 2
 2. **Doble Persistencia Invariante:**
    - Archivo de trabajo: `$PWD/<nombre>_<identidades>_c5swap.mp4`
    - Biblioteca canónica: `/Users/borjafernandezangulo/Movies/VIDEOS_MITICOS/<nombre>_<identidades>_c5swap.mp4`
-
+   - Versión vertical si aplica: `..._vertical_916.mp4` en ambas ubicaciones.

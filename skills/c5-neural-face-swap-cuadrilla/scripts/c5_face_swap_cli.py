@@ -36,12 +36,15 @@ try:
         OneEuroFilter,
         FaceTracker,
         TemporalPatchStabilizer,
+        VerticalFramingTracker,
         reinhard_color_transfer,
         monge_kantorovich_color_transfer,
         spatial_illumination_transfer,
+        match_sensor_grain,
         soft_elliptical_blend,
         get_bisenet_semantic_mask,
         restore_face_patch,
+        sharpen_face_patch,
         two_band_blend_patch,
         estimate_dense_68_landmarks,
         estimate_head_pose_3d,
@@ -54,12 +57,15 @@ except ImportError:
     OneEuroFilter = None
     FaceTracker = None
     TemporalPatchStabilizer = None
+    VerticalFramingTracker = None
     reinhard_color_transfer = None
     monge_kantorovich_color_transfer = None
     spatial_illumination_transfer = None
+    match_sensor_grain = None
     soft_elliptical_blend = None
     get_bisenet_semantic_mask = None
     restore_face_patch = None
+    sharpen_face_patch = None
     two_band_blend_patch = None
     estimate_dense_68_landmarks = None
     estimate_head_pose_3d = None
@@ -201,14 +207,14 @@ def render_worker_chunk(
     video_path, source_faces, start_frame, end_frame, out_part_path,
     fps, width, height, bitrate, use_smooth=True,
     enhancer='gpen', enhance_weight=0.7, mask_mode='bisenet', color_transfer='mkl',
-    lighting='spatial', preserve_mouth='auto', preserve_eyes='auto',
+    lighting='spatial', grain_strength=0.5, preserve_mouth='auto', preserve_eyes='auto',
     blend_mode='two-band', stabilize_patch=True,
     target_face_index=0, swap_all=False,
     worker_id=0
 ):
     """Procesa una franja contigua de fotogramas [start_frame, end_frame) en un subproceso aislado."""
     app_det = FaceAnalysis(name='buffalo_l', allowed_modules=['detection'], providers=['CPUExecutionProvider'])
-    app_det.prepare(ctx_id=0, det_size=(320, 320))
+    app_det.prepare(ctx_id=0, det_size=(640, 640))
     swapper = get_model(INSWAPPER_PATH, providers=['CoreMLExecutionProvider', 'CPUExecutionProvider'])
 
     # Sesiones ONNX para Restaurador, Segmentación y Landmarker 3D
@@ -216,7 +222,8 @@ def render_worker_chunk(
     sess_opts.intra_op_num_threads = 4
 
     enhancer_sess = None
-    if enhancer == 'gpen' and os.path.isfile(GPEN_PATH):
+    if enhancer in ['gpen', 'adaptive'] and os.path.isfile(GPEN_PATH):
+        # CPUExecutionProvider con 4 hilos por worker: cero colisión de particiones y máxima estabilidad
         enhancer_sess = ort.InferenceSession(GPEN_PATH, sess_options=sess_opts, providers=['CPUExecutionProvider'])
     elif enhancer == 'codeformer' and os.path.isfile(CODEFORMER_PATH):
         enhancer_sess = ort.InferenceSession(CODEFORMER_PATH, sess_options=sess_opts, providers=['CPUExecutionProvider'])
@@ -246,9 +253,10 @@ def render_worker_chunk(
         '-pix_fmt', 'bgr24',
         '-r', f'{fps}',
         '-i', '-',
-        '-vf', 'cas=strength=0.6,unsharp=5:5:0.7:5:5:0.3',
+        '-vf', 'cas=strength=0.6,unsharp=5:5:0.7:5:5:0.3,format=yuv420p',
         '-c:v', 'h264_videotoolbox',
         '-b:v', bitrate,
+        '-pix_fmt', 'yuv420p',
         out_part_path
     ]
     ffmpeg_proc = subprocess.Popen(ffmpeg_cmd, stdin=subprocess.PIPE, stderr=subprocess.DEVNULL)
@@ -309,7 +317,9 @@ def render_worker_chunk(
             else:  # auto
                 mouth_active = (mar > 0.14)
 
-            if preserve_eyes == 'true':
+            if preserve_eyes == 'gaze':
+                eyes_active = 'gaze'
+            elif preserve_eyes == 'true':
                 eyes_active = True
             elif preserve_eyes == 'false':
                 eyes_active = False
@@ -325,12 +335,20 @@ def render_worker_chunk(
 
             bgr_fake, M = swapper.get(res, tf, swap_src, paste_back=False)
 
-            if enhancer_sess is not None:
+            if enhancer != 'none' and (enhancer_sess is not None or enhancer == 'adaptive'):
                 # =======================================================
-                # PIPELINE V4 SOTA: 512p + Enhancer + MKL + Spatial Lighting + Temporal Stabilizer + BiSeNet CoreML + Two-Band
+                # PIPELINE V5 SOTA: 512p + Adaptive/GPEN CoreML + MKL + Spatial Lighting + Stabilizer + Sensor Grain + BiSeNet + Two-Band
                 # =======================================================
                 crop_512 = cv2.resize(bgr_fake, (512, 512), interpolation=cv2.INTER_CUBIC)
-                restored_512 = restore_face_patch(crop_512, enhancer, enhancer_sess, weight=enhance_weight)
+
+                # Super-resolución adaptativa según la escala del rostro
+                face_h = tf.bbox[3] - tf.bbox[1]
+                if enhancer == 'adaptive' and face_h < 140:
+                    restored_512 = sharpen_face_patch(crop_512, amount=1.1) if sharpen_face_patch else crop_512
+                else:
+                    eff_enhancer = 'gpen' if enhancer == 'adaptive' else enhancer
+                    restored_512 = restore_face_patch(crop_512, eff_enhancer, enhancer_sess, weight=enhance_weight)
+
                 aimg_512, M_512 = face_align.norm_crop2(res, tf.kps, 512)
 
                 # 1. Transferencia cromática global
@@ -345,7 +363,11 @@ def render_worker_chunk(
                 if lighting == 'spatial' and spatial_illumination_transfer:
                     ready_512 = spatial_illumination_transfer(ready_512, aimg_512)
 
-                # 3. Estabilización temporal inter-frame de parches (erradicación de GAN shimmer)
+                # 3. Inyección de grano de sensor y textura analógica (anti-plasticidad GAN)
+                if grain_strength > 0.0 and match_sensor_grain:
+                    ready_512 = match_sensor_grain(ready_512, aimg_512, strength=grain_strength)
+
+                # 4. Estabilización temporal inter-frame de parches (erradicación de GAN shimmer)
                 if stabilize_patch:
                     if tracker:
                         motion = tracker.compute_motion(tid, tf.kps)
@@ -395,7 +417,11 @@ def render_worker_chunk(
                 else:
                     res = swapper.get(res, tf, swap_src, paste_back=True)
 
-        ffmpeg_proc.stdin.write(res.tobytes())
+        try:
+            ffmpeg_proc.stdin.write(res.tobytes())
+        except (BrokenPipeError, IOError):
+            print(f"[!] Worker {worker_id} detectó cierre de tubería FFmpeg.", flush=True)
+            break
 
         if (idx + 1) % 30 == 0 or idx == num_frames - 1:
             el = time.time() - t_start
@@ -406,6 +432,84 @@ def render_worker_chunk(
     cap.release()
     ffmpeg_proc.stdin.close()
     ffmpeg_proc.wait()
+
+def generate_vertical_916_video(master_video, out_916_path, bg_mode='crop', target_w=1080, target_h=1920):
+    """
+    Transforma un vídeo panorámico master en un reel vertical 9:16 (1080x1920)
+    con rastreo de cámara inteligente (Pan & Scan) centrado en el rostro principal.
+    Acelerado con Apple Silicon VideoToolbox y filtros unsharp+CAS.
+    """
+    if not VerticalFramingTracker:
+        print("[!] VerticalFramingTracker no disponible. Omitiendo render 9:16.", flush=True)
+        return None
+
+    cap = cv2.VideoCapture(master_video)
+    fps = cap.get(cv2.CAP_PROP_FPS) or 30.0
+    w_src = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    h_src = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+
+    tracker = VerticalFramingTracker(w_src, h_src, target_w=target_w, target_h=target_h)
+
+    # Detector facial para centrar el encuadre
+    app_det = FaceAnalysis(name='buffalo_l', allowed_modules=['detection'], providers=['CPUExecutionProvider'])
+    app_det.prepare(ctx_id=0, det_size=(320, 320))
+
+    temp_raw_916 = "/tmp/c5_vertical_nosound.mp4"
+    ffmpeg_cmd = [
+        'ffmpeg', '-y',
+        '-f', 'rawvideo',
+        '-vcodec', 'rawvideo',
+        '-s', f'{target_w}x{target_h}',
+        '-pix_fmt', 'bgr24',
+        '-r', f'{fps}',
+        '-i', '-',
+        '-vf', 'cas=strength=0.6,unsharp=5:5:0.7:5:5:0.3,format=yuv420p',
+        '-c:v', 'h264_videotoolbox',
+        '-b:v', '7500k',
+        '-pix_fmt', 'yuv420p',
+        temp_raw_916
+    ]
+    proc = subprocess.Popen(ffmpeg_cmd, stdin=subprocess.PIPE, stderr=subprocess.DEVNULL)
+    dt = 1.0 / max(fps, 1.0)
+
+    print(f"[*] Generando export vertical 9:16 ({target_w}x{target_h}) en modo '{bg_mode}'...", flush=True)
+    for idx in range(total_frames):
+        ret, frame = cap.read()
+        if not ret:
+            break
+        primary_bbox = None
+        if idx % 2 == 0:
+            faces = app_det.get(frame)
+            if faces:
+                best_face = max(faces, key=lambda f: (f.bbox[2]-f.bbox[0]) * (f.bbox[3]-f.bbox[1]))
+                primary_bbox = best_face.bbox
+
+        crop_rect = tracker.update(primary_bbox, dt=dt)
+        reframe = tracker.reframe_frame(frame, crop_rect, mode=bg_mode)
+        proc.stdin.write(reframe.tobytes())
+
+    cap.release()
+    proc.stdin.close()
+    proc.wait()
+
+    subprocess.run([
+        'ffmpeg', '-y',
+        '-i', temp_raw_916,
+        '-i', master_video,
+        '-c:v', 'copy',
+        '-c:a', 'aac', '-b:a', '192k',
+        '-map', '0:v:0',
+        '-map', '1:a:0?',
+        '-shortest',
+        out_916_path
+    ], check=True, stderr=subprocess.DEVNULL)
+
+    if os.path.isfile(temp_raw_916):
+        os.remove(temp_raw_916)
+
+    print(f"  [✓] Vídeo Vertical 9:16 listo: {out_916_path}", flush=True)
+    return out_916_path
 
 def process_video_pipeline(video_input, args):
     """Ejecuta el pipeline completo de Face Swap sobre un archivo de vídeo o URL."""
@@ -432,7 +536,7 @@ def process_video_pipeline(video_input, args):
         first_ref_name = os.path.splitext(os.path.basename(resolved_id_groups[0][0]))[0].replace("_real", "")
         output_path = os.path.join(os.getcwd(), f"{base_name}_{first_ref_name}_c5swap.mp4")
 
-    audio_tmp = "/tmp/c5_audio_track.aac"
+    audio_tmp = "/tmp/c5_audio_track.m4a"
     subprocess.run(['ffmpeg', '-y', '-i', video_input, '-vn', '-c:a', 'copy', audio_tmp], check=True, stderr=subprocess.DEVNULL)
 
     cap = cv2.VideoCapture(video_input)
@@ -447,7 +551,7 @@ def process_video_pipeline(video_input, args):
 
     print(f"[*] Compilando vectores latentes ArcFace y orientaciones 3D de las identidades fuente...", flush=True)
     app_rec = FaceAnalysis(name='buffalo_l', allowed_modules=['detection', 'recognition'], providers=['CPUExecutionProvider'])
-    app_rec.prepare(ctx_id=0, det_size=(320, 320))
+    app_rec.prepare(ctx_id=0, det_size=(640, 640))
     fan_sess_prep = None
     if os.path.isfile(FAN_PATH) and estimate_dense_68_landmarks and estimate_head_pose_3d:
         fan_sess_prep = ort.InferenceSession(FAN_PATH, providers=['CPUExecutionProvider'])
@@ -528,6 +632,7 @@ def process_video_pipeline(video_input, args):
             mask_mode=args.mask,
             color_transfer=args.color_transfer,
             lighting=args.lighting,
+            grain_strength=args.grain,
             preserve_mouth=args.preserve_mouth,
             preserve_eyes=args.preserve_eyes,
             blend_mode=args.blend,
@@ -562,6 +667,7 @@ def process_video_pipeline(video_input, args):
                 "--bitrate", args.bitrate,
                 "--enhancer", args.enhancer,
                 "--enhance-weight", str(args.enhance_weight),
+                "--grain", str(args.grain),
                 "--mask", args.mask,
                 "--blend", args.blend,
                 "--color-transfer", args.color_transfer,
@@ -605,6 +711,18 @@ def process_video_pipeline(video_input, args):
 
     purge_temp_onnx_artifacts()
 
+    # Generación opcional de formato vertical 9:16 para Reels / TikTok / WhatsApp Status
+    if getattr(args, 'format', 'original') in ['9:16', 'both']:
+        base_no_ext, ext = os.path.splitext(output_path)
+        out_916_path = f"{base_no_ext}_vertical_916{ext}"
+        bg_mode = getattr(args, 'vertical_bg', 'crop')
+        generate_vertical_916_video(output_path, out_916_path, bg_mode=bg_mode)
+        if os.path.isdir(MOVIES_DIR):
+            canon_916 = os.path.join(MOVIES_DIR, os.path.basename(out_916_path))
+            if os.path.abspath(out_916_path) != os.path.abspath(canon_916):
+                subprocess.run(['cp', '-f', out_916_path, canon_916], check=True)
+                print(f"  -> Replicado vertical 9:16 en biblioteca canónica: {canon_916}", flush=True)
+
     total_time = time.time() - t0_all
     avg_fps = total_frames / total_time if total_time > 0 else 0
     print(f"\n[DONE] Render completado en {total_time:.1f}s ({total_time/60:.2f} min) | {avg_fps:.2f} FPS efectivos agregados", flush=True)
@@ -621,7 +739,7 @@ def process_video_pipeline(video_input, args):
     return output_path
 
 def main():
-    parser = argparse.ArgumentParser(description="C5-REAL Sovereign Face Swap Engine V4 SOTA (Apple Silicon)")
+    parser = argparse.ArgumentParser(description="C5-REAL Sovereign Face Swap Engine V5 SOTA (Apple Silicon)")
     parser.add_argument("--video", "-v", default=None, help="Ruta al vídeo local o URL de Instagram/TikTok/YouTube")
     parser.add_argument("--identity", "-i", required=True, help="Lista de identidades separadas por comas (e.g. 'Alain,Luengo,Xabi' o compuestas 'mitxu_gafas+mitxu_real')")
     parser.add_argument("--output", "-o", default=None, help="Ruta de guardado para el vídeo final")
@@ -629,12 +747,14 @@ def main():
     parser.add_argument("--workers", "-w", type=int, default=2, help="Número de workers en paralelo (default 2)")
     parser.add_argument("--watch", default=None, help="Directorio inbox para modo Watcher Daemon reactivo")
     parser.add_argument("--no-smooth", action="store_true", help="Desactivar filtro temporal")
-    
-    # Flags V4 SOTA
-    parser.add_argument("--enhancer", choices=['gpen', 'codeformer', 'gfpgan', 'none'], default='gpen',
-                        help="Motor de Super-Resolución / Restauración facial (default: gpen)")
+
+    # Flags V5 SOTA
+    parser.add_argument("--enhancer", choices=['adaptive', 'gpen', 'codeformer', 'gfpgan', 'none'], default='adaptive',
+                        help="Motor de Super-Resolución / Restauración facial (default: adaptive - escala inteligente)")
     parser.add_argument("--enhance-weight", type=float, default=0.7,
                         help="Peso de fidelidad de restauración para CodeFormer [0.0-1.0] (default: 0.7)")
+    parser.add_argument("--grain", type=float, default=0.5,
+                        help="Intensidad de grano de sensor y ruido Poisson-Gaussian [0.0-1.0] (default: 0.5)")
     parser.add_argument("--mask", choices=['bisenet', 'ellipse'], default='bisenet',
                         help="Tipo de máscara de segmentación: 'bisenet' o 'ellipse' (default: bisenet)")
     parser.add_argument("--blend", choices=['two-band', 'linear', 'ellipse'], default='two-band',
@@ -645,8 +765,12 @@ def main():
                         help="Transferencia de iluminación espacial 3D y sombras: 'spatial' (default), 'mkl', 'reinhard', 'none'")
     parser.add_argument("--preserve-mouth", choices=['auto', 'true', 'false'], default='auto',
                         help="Preservar cavidad bucal orgánica (dientes/lengua) para articulación fonética (default: auto)")
-    parser.add_argument("--preserve-eyes", choices=['auto', 'true', 'false'], default='auto',
-                        help="Preservar párpados y parpadeo orgánico con métrica EAR (default: auto)")
+    parser.add_argument("--preserve-eyes", choices=['auto', 'gaze', 'true', 'false'], default='auto',
+                        help="Preservar párpados orgánicos o mirada/iris vivos 'gaze' (default: auto)")
+    parser.add_argument("--format", choices=['original', '9:16', 'both'], default='original',
+                        help="Formato de exportación: 'original', '9:16' (Reel/TikTok/Short) o 'both' (default: original)")
+    parser.add_argument("--vertical-bg", choices=['crop', 'blur'], default='crop',
+                        help="Modo de encuadre vertical: 'crop' (tracking dinámico) o 'blur' (fondo desenfocado) (default: crop)")
     parser.add_argument("--no-stabilize-patch", action="store_true",
                         help="Desactivar estabilizador temporal inter-frame de parches faciales (anti-shimmer)")
     parser.add_argument("--target-face-index", type=int, default=0,
@@ -704,6 +828,7 @@ def main():
             mask_mode=args.mask,
             color_transfer=args.color_transfer,
             lighting=args.lighting,
+            grain_strength=args.grain,
             preserve_mouth=args.preserve_mouth,
             preserve_eyes=args.preserve_eyes,
             blend_mode=args.blend,

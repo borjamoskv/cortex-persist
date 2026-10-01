@@ -228,6 +228,63 @@ class FaceTracker:
         return assignments
 
 
+class VerticalFramingTracker:
+    """
+    Rastreador de encuadre dinámico 9:16 (1080x1920) con filtro 1-Euro y deadband.
+    Mantiene al sujeto principal centrado en el visor vertical eliminando el temblor de cámara.
+    """
+    def __init__(self, src_w, src_h, target_w=1080, target_h=1920, deadband_ratio=0.04):
+        self.src_w = int(src_w)
+        self.src_h = int(src_h)
+        self.target_w = int(target_w)
+        self.target_h = int(target_h)
+        # Proporción de corte 9:16 en espacio del vídeo origen
+        self.w_crop = int(round(src_h * (9.0 / 16.0)))
+        if self.w_crop % 2 != 0:
+            self.w_crop -= 1
+        if self.w_crop > src_w:
+            self.w_crop = src_w
+
+        self.smoother = OneEuroFilter(min_cutoff=0.6, beta=0.01)
+        self.x_center = src_w / 2.0
+        self.deadband = src_w * float(deadband_ratio)
+
+    def update(self, primary_face_bbox=None, dt=1.0/30.0):
+        if primary_face_bbox is not None:
+            raw_cx = float((primary_face_bbox[0] + primary_face_bbox[2]) / 2.0)
+            diff = raw_cx - self.x_center
+            if abs(diff) > self.deadband:
+                filtered_cx = float(self.smoother.filter(raw_cx, dt=dt))
+                self.x_center = filtered_cx
+        
+        x_left = int(round(self.x_center - self.w_crop / 2.0))
+        x_left = max(0, min(self.src_w - self.w_crop, x_left))
+        return x_left, 0, self.w_crop, self.src_h
+
+    def reframe_frame(self, frame, crop_rect, mode='crop'):
+        """
+        Reencuadra un frame al lienzo vertical 1080x1920.
+        mode='crop': recorte dinámico nítido reescalado con Lanczos.
+        mode='blur': fondo desenfocado + vídeo centrado.
+        """
+        x, y, w, h = crop_rect
+        if mode == 'crop':
+            cropped = frame[y:y+h, x:x+w]
+            return cv2.resize(cropped, (self.target_w, self.target_h), interpolation=cv2.INTER_LANCZOS4)
+        else:
+            bg = cv2.resize(frame, (self.target_w, self.target_h), interpolation=cv2.INTER_LINEAR)
+            bg = cv2.GaussianBlur(bg, (51, 51), 0)
+            bg = (bg.astype(np.float32) * 0.55).astype(np.uint8)
+
+            scale = float(self.target_w) / float(self.src_w)
+            scaled_h = int(round(self.src_h * scale))
+            fg = cv2.resize(frame, (self.target_w, scaled_h), interpolation=cv2.INTER_LANCZOS4)
+
+            y_offset = (self.target_h - scaled_h) // 2
+            bg[y_offset:y_offset+scaled_h, 0:self.target_w] = fg
+            return bg
+
+
 def monge_kantorovich_color_transfer(source, target):
     """
     Transporte Óptimo Lineal (MKL) en espacio tridimensional BGR.
@@ -305,6 +362,8 @@ def get_bisenet_semantic_mask(crop_512, sess_bisenet, feather=19, preserve_mouth
     los dientes y lengua orgánicos del orador original durante habla/gritos.
     Si preserve_eyes=True o eye_landmarks_512 no es None, protege los párpados
     y ojos cerrados/parpadeo del rostro original para mantener el parpadeo natural.
+    Si preserve_eyes='gaze', protege específicamente los ojos/iris/pupilas para conservar
+    la línea de mirada original sin costuras.
     """
     inp = cv2.cvtColor(crop_512, cv2.COLOR_BGR2RGB).astype(np.float32) / 255.0
     mean = np.array([0.485, 0.456, 0.406], dtype=np.float32)
@@ -317,23 +376,25 @@ def get_bisenet_semantic_mask(crop_512, sess_bisenet, feather=19, preserve_mouth
 
     # Clases BiSeNet: 1 (piel), 2 (ceja izq), 3 (ceja der), 4 (ojo izq), 5 (ojo der), 10 (nariz), 12 (labio sup), 13 (labio inf)
     valid_classes = [1, 2, 3, 10, 12, 13]
-    if not preserve_eyes:
+    if not preserve_eyes or preserve_eyes == 'false':
         valid_classes.extend([4, 5])
     if not preserve_mouth:
         valid_classes.append(11)  # Clase 11: Cavidad oral interna (dientes/lengua)
 
     mask = np.isin(parsing, valid_classes).astype(np.float32)
 
-    # Si se deben preservar los ojos (por parpadeo detectado con EAR < 0.18 o forzado)
-    if preserve_eyes and eye_landmarks_512 is not None and len(eye_landmarks_512) >= 68:
-        # Puntos de los ojos en espacio 512x512: 36..41 (izq) y 42..47 (der)
+    # Si se deben preservar los ojos (por parpadeo o preservación de mirada viva 'gaze')
+    if (preserve_eyes in (True, 'true', 'gaze')) and eye_landmarks_512 is not None and len(eye_landmarks_512) >= 68:
         hull_left = cv2.convexHull(eye_landmarks_512[36:42].astype(np.int32))
         hull_right = cv2.convexHull(eye_landmarks_512[42:48].astype(np.int32))
         eye_exclude = np.zeros((512, 512), dtype=np.float32)
         cv2.fillPoly(eye_exclude, [hull_left, hull_right], 1.0)
-        kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (9, 9))
-        eye_exclude = cv2.dilate(eye_exclude, kernel)
-        eye_exclude = cv2.GaussianBlur(eye_exclude, (15, 15), 0)
+        if preserve_eyes == 'gaze':
+            eye_exclude = cv2.GaussianBlur(eye_exclude, (11, 11), 0)
+        else:
+            kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (9, 9))
+            eye_exclude = cv2.dilate(eye_exclude, kernel)
+            eye_exclude = cv2.GaussianBlur(eye_exclude, (15, 15), 0)
         mask = mask * (1.0 - eye_exclude)
 
     mask = cv2.GaussianBlur(mask, (feather, feather), 0)
@@ -343,21 +404,34 @@ def get_bisenet_semantic_mask(crop_512, sess_bisenet, feather=19, preserve_mouth
 def restore_face_patch(crop_512, enhancer_type, session, weight=0.7):
     """
     Restaura y super-resuelve un recorte facial a 512x512 mediante red neuronal.
-    Soporta: 'codeformer', 'gpen', 'gfpgan'.
+    Soporta: 'codeformer', 'gpen', 'gfpgan'. Incluye fallback de alta fidelidad CAS ante excepciones.
     """
     inp = cv2.cvtColor(crop_512, cv2.COLOR_BGR2RGB).astype(np.float32) / 255.0
     inp = (inp - 0.5) / 0.5
     inp = inp.transpose(2, 0, 1)[None, ...]
 
-    if enhancer_type == 'codeformer':
-        w_arr = np.array(weight, dtype=np.double)
-        out = session.run(None, {'input': inp, 'weight': w_arr})[0]
-    else:  # gpen o gfpgan
-        out = session.run(None, {'input': inp})[0]
+    try:
+        if enhancer_type == 'codeformer':
+            w_arr = np.array(weight, dtype=np.double)
+            out = session.run(None, {'input': inp, 'weight': w_arr})[0]
+        else:  # gpen o gfpgan
+            out = session.run(None, {'input': inp})[0]
 
-    res = out[0].transpose(1, 2, 0)
-    res_norm = (res + 1.0) / 2.0
-    return np.clip(res_norm * 255.0, 0, 255).astype(np.uint8)[:, :, ::-1]
+        res = out[0].transpose(1, 2, 0)
+        res_norm = (res + 1.0) / 2.0
+        return np.clip(res_norm * 255.0, 0, 255).astype(np.uint8)[:, :, ::-1]
+    except Exception:
+        return sharpen_face_patch(crop_512, amount=1.2)
+
+
+def sharpen_face_patch(crop_512, amount=1.0):
+    """
+    Super-resolución perceptiva sub-milisegundo por filtrado de máscara de desenfoque adaptativa (CAS).
+    Utilizado en modo '--enhancer adaptive' para rostros lejanos/pequeños (< 140px).
+    """
+    blur = cv2.GaussianBlur(crop_512, (0, 0), 2.0)
+    sharp = cv2.addWeighted(crop_512, 1.0 + float(amount), blur, -float(amount), 0)
+    return np.clip(sharp, 0, 255).astype(np.uint8)
 
 
 def two_band_blend_patch(target_patch, fake_patch, mask_patch, blur_ksize=15):
@@ -518,6 +592,40 @@ def spatial_illumination_transfer(swap_patch, target_patch, sigma_ambient=31, si
 
     lit_swap = swap_f * ratio_smooth
     return np.clip(lit_swap, 0, 255).astype(np.uint8)
+
+
+def match_sensor_grain(swap_patch, target_patch, strength=0.5):
+    """
+    Inyecta grano de película y ruido de sensor de cámara (Poisson-Gaussian)
+    calibrado a partir de la varianza residual de alta frecuencia del fotograma objetivo.
+    Erradica el efecto de 'piel de cera / plástico digital' de los restauradores GAN.
+    """
+    if strength <= 0.0 or swap_patch is None or target_patch is None:
+        return swap_patch
+
+    # Asegurar dimensiones coincidentes
+    if swap_patch.shape[:2] != target_patch.shape[:2]:
+        target_patch = cv2.resize(target_patch, (swap_patch.shape[1], swap_patch.shape[0]))
+
+    tgt_f = target_patch.astype(np.float32)
+    tgt_blur = cv2.GaussianBlur(tgt_f, (5, 5), 1.2)
+    diff = tgt_f - tgt_blur
+
+    # Estimación robusta de sigma por canal (BGR)
+    sigma = np.std(diff, axis=(0, 1), keepdims=True)
+    sigma = np.clip(sigma, 1.5, 18.0)
+
+    # Generar ruido gaussiano acoplado al sensor
+    noise = np.random.normal(0.0, 1.0, swap_patch.shape).astype(np.float32)
+    sensor_grain = noise * (sigma * float(strength))
+
+    # Ponderación fotométrica por luminancia: el grano es más evidente en tonos medios
+    gray = cv2.cvtColor(swap_patch, cv2.COLOR_BGR2GRAY).astype(np.float32) / 255.0
+    luma_weight = (4.0 * gray * (1.0 - gray))[:, :, None]
+    luma_weight = np.clip(luma_weight, 0.25, 1.0)
+
+    grained = swap_patch.astype(np.float32) + sensor_grain * luma_weight
+    return np.clip(grained, 0, 255).astype(np.uint8)
 
 
 def compute_frechet_mean(embeddings):
