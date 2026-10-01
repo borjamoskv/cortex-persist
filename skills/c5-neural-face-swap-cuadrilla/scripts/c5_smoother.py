@@ -47,13 +47,59 @@ class OneEuroFilter:
         self.dx_prev = None
 
 
+class TemporalPatchStabilizer:
+    """
+    Estabilizador Temporal de Parches Faciales para erradicar el parpadeo de microtexturas (GAN shimmer)
+    en zonas estáticas de la piel, manteniendo respuesta instantánea (cero ghosting) en articulación
+    bucal, parpadeo y expresiones dinámicas.
+    """
+    def __init__(self, alpha_static=0.45, diff_min=4.0, diff_max=20.0):
+        self.prev_patch = None
+        self.alpha_static = float(alpha_static)
+        self.diff_min = float(diff_min)
+        self.diff_max = float(diff_max)
+        self.inv_range = 1.0 / max(self.diff_max - self.diff_min, 1e-4)
+
+    def stabilize(self, current_patch, motion_magnitude=0.0):
+        """
+        Aplica suavizado adaptativo por vóxeles en función de la variación local y desplazamiento global.
+        """
+        if self.prev_patch is None or current_patch is None:
+            if current_patch is not None:
+                self.prev_patch = current_patch.copy()
+            return current_patch
+
+        # Si hay movimiento brusco de cabeza (> 2.5 px), omitir estabilización temporal
+        if motion_magnitude > 2.5:
+            self.prev_patch = current_patch.copy()
+            return current_patch
+
+        # Diferencia acelerada por C++ SIMD NEON
+        diff_bgr = cv2.absdiff(current_patch, self.prev_patch)
+        diff_gray = cv2.cvtColor(diff_bgr, cv2.COLOR_BGR2GRAY)
+
+        alpha = np.clip((diff_gray.astype(np.float32) - self.diff_min) * self.inv_range, 0.0, 1.0)
+        alpha = (self.alpha_static + (1.0 - self.alpha_static) * alpha)[:, :, None]
+
+        if motion_magnitude > 0.8:
+            m_factor = np.clip((motion_magnitude - 0.8) / 1.7, 0.0, 1.0)
+            alpha = np.maximum(alpha, m_factor)
+
+        stabilized = (alpha * current_patch.astype(np.float32) + (1.0 - alpha) * self.prev_patch.astype(np.float32)).astype(np.uint8)
+        self.prev_patch = stabilized.copy()
+        return stabilized
+
+    def reset(self):
+        self.prev_patch = None
+
+
 class FaceTracker:
     """
-    Rastreador temporal determinista de identidades con Extrapolación Zero-Drop
-    y Filtros 1-Euro independientes por trayectoria.
+    Rastreador temporal determinista de identidades con Extrapolación Zero-Drop,
+    Filtros 1-Euro independientes por trayectoria y Estabilizador de Parches Temporales.
     """
     def __init__(self, max_lost=20, max_extrapolate=2, iou_thresh=0.25):
-        self.tracks = {}  # track_id: {'bbox': bbox, 'lost': 0, 'identity_idx': int, 'last_face': face, 'smoother': OneEuroFilter}
+        self.tracks = {}  # track_id: {'bbox': bbox, 'lost': 0, 'identity_idx': int, 'last_face': face, 'smoother': OneEuroFilter, 'stabilizer': TemporalPatchStabilizer, 'last_kps': ndarray}
         self.next_id = 0
         self.max_lost = max_lost
         self.max_extrapolate = max_extrapolate
@@ -71,13 +117,26 @@ class FaceTracker:
         denom = float(boxAArea + boxBArea - interArea)
         return interArea / denom if denom > 0 else 0.0
 
+    def get_stabilizer(self, tid):
+        if tid in self.tracks:
+            return self.tracks[tid].get('stabilizer')
+        return None
+
+    def compute_motion(self, tid, current_kps):
+        if tid in self.tracks and self.tracks[tid].get('last_kps') is not None:
+            last_k = self.tracks[tid]['last_kps']
+            motion = float(np.mean(np.linalg.norm(current_kps - last_k, axis=1)))
+            self.tracks[tid]['last_kps'] = current_kps.copy()
+            return motion
+        return 0.0
+
     def update(self, detected_faces, num_identities, dt=1.0/30.0, swap_all=False, target_index=None):
         """
         Asigna a cada rostro detectado un identity_idx estable temporalmente.
         Aplica suavizado 1-Euro por track y extrapola en frames sin detección (Zero-Drop).
         Si target_index is not None, sólo asigna el rostro de ese rango/índice.
         Si swap_all es False, nunca asigna identidades a caras secundarias no deseadas.
-        Retorna lista de tuplas (face, identity_idx).
+        Retorna lista de tuplas (face, identity_idx, track_id).
         """
         if not detected_faces:
             extrapolated = []
@@ -86,7 +145,7 @@ class FaceTracker:
                 if self.tracks[tid]['lost'] <= self.max_extrapolate and self.tracks[tid]['last_face'] is not None:
                     # Extrapolación inercial: reutilizar último rostro si tiene swap activo
                     if self.tracks[tid]['identity_idx'] >= 0:
-                        extrapolated.append((self.tracks[tid]['last_face'], self.tracks[tid]['identity_idx']))
+                        extrapolated.append((self.tracks[tid]['last_face'], self.tracks[tid]['identity_idx'], tid))
                 elif self.tracks[tid]['lost'] > self.max_lost:
                     del self.tracks[tid]
             return extrapolated
@@ -120,7 +179,7 @@ class FaceTracker:
                 self.tracks[tid]['lost'] = 0
                 self.tracks[tid]['last_face'] = det_face
                 if self.tracks[tid]['identity_idx'] >= 0:
-                    assignments.append((det_face, self.tracks[tid]['identity_idx']))
+                    assignments.append((det_face, self.tracks[tid]['identity_idx'], tid))
 
         # 2. Nuevas detecciones no emparejadas (ordenadas por área de caja: mayor rostro primero)
         used_indices = {tinfo['identity_idx'] for tinfo in self.tracks.values() if tinfo['lost'] == 0 and tinfo['identity_idx'] >= 0}
@@ -149,10 +208,12 @@ class FaceTracker:
                 'lost': 0,
                 'identity_idx': chosen_idx,
                 'last_face': det_face,
-                'smoother': smoother
+                'smoother': smoother,
+                'stabilizer': TemporalPatchStabilizer(),
+                'last_kps': det_face.kps.copy()
             }
             if chosen_idx >= 0:
-                assignments.append((det_face, chosen_idx))
+                assignments.append((det_face, chosen_idx, new_id))
 
         # 3. Purgar tracks perdidos o extrapolar si es un fallo transitorio de detección
         for tid in list(self.tracks.keys()):
@@ -160,7 +221,7 @@ class FaceTracker:
                 self.tracks[tid]['lost'] += 1
                 if self.tracks[tid]['lost'] <= self.max_extrapolate and self.tracks[tid]['last_face'] is not None:
                     if self.tracks[tid]['identity_idx'] >= 0:
-                        assignments.append((self.tracks[tid]['last_face'], self.tracks[tid]['identity_idx']))
+                        assignments.append((self.tracks[tid]['last_face'], self.tracks[tid]['identity_idx'], tid))
                 elif self.tracks[tid]['lost'] > self.max_lost:
                     del self.tracks[tid]
 
@@ -236,12 +297,14 @@ def soft_elliptical_blend(target_img, bgr_fake, M, feather=15):
     return np.clip(merged, 0, 255).astype(np.uint8)
 
 
-def get_bisenet_semantic_mask(crop_512, sess_bisenet, feather=19, preserve_mouth=False):
+def get_bisenet_semantic_mask(crop_512, sess_bisenet, feather=19, preserve_mouth=False, preserve_eyes=False, eye_landmarks_512=None):
     """
     Segmentación semántica precisa de rostros a 512x512 con BiSeNet ResNet-34.
     Aisla piel, cejas, ojos, nariz y labios, respetando gafas, pelo y manos.
     Si preserve_mouth=True, excluye la cavidad bucal interna (clase 11) para conservar
     los dientes y lengua orgánicos del orador original durante habla/gritos.
+    Si preserve_eyes=True o eye_landmarks_512 no es None, protege los párpados
+    y ojos cerrados/parpadeo del rostro original para mantener el parpadeo natural.
     """
     inp = cv2.cvtColor(crop_512, cv2.COLOR_BGR2RGB).astype(np.float32) / 255.0
     mean = np.array([0.485, 0.456, 0.406], dtype=np.float32)
@@ -253,11 +316,26 @@ def get_bisenet_semantic_mask(crop_512, sess_bisenet, feather=19, preserve_mouth
     parsing = np.argmax(out[0], axis=0)
 
     # Clases BiSeNet: 1 (piel), 2 (ceja izq), 3 (ceja der), 4 (ojo izq), 5 (ojo der), 10 (nariz), 12 (labio sup), 13 (labio inf)
-    valid_classes = [1, 2, 3, 4, 5, 10, 12, 13]
+    valid_classes = [1, 2, 3, 10, 12, 13]
+    if not preserve_eyes:
+        valid_classes.extend([4, 5])
     if not preserve_mouth:
         valid_classes.append(11)  # Clase 11: Cavidad oral interna (dientes/lengua)
 
     mask = np.isin(parsing, valid_classes).astype(np.float32)
+
+    # Si se deben preservar los ojos (por parpadeo detectado con EAR < 0.18 o forzado)
+    if preserve_eyes and eye_landmarks_512 is not None and len(eye_landmarks_512) >= 68:
+        # Puntos de los ojos en espacio 512x512: 36..41 (izq) y 42..47 (der)
+        hull_left = cv2.convexHull(eye_landmarks_512[36:42].astype(np.int32))
+        hull_right = cv2.convexHull(eye_landmarks_512[42:48].astype(np.int32))
+        eye_exclude = np.zeros((512, 512), dtype=np.float32)
+        cv2.fillPoly(eye_exclude, [hull_left, hull_right], 1.0)
+        kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (9, 9))
+        eye_exclude = cv2.dilate(eye_exclude, kernel)
+        eye_exclude = cv2.GaussianBlur(eye_exclude, (15, 15), 0)
+        mask = mask * (1.0 - eye_exclude)
+
     mask = cv2.GaussianBlur(mask, (feather, feather), 0)
     return mask
 
@@ -399,6 +477,47 @@ def compute_mouth_aspect_ratio(lm68):
     v2 = np.linalg.norm(lm68[63] - lm68[65])
     h = np.linalg.norm(lm68[60] - lm68[64])
     return float((v1 + v2) / max(2.0 * h, 1e-6))
+
+
+def compute_eye_aspect_ratio(lm68):
+    """
+    Calcula el Eye Aspect Ratio (EAR) a partir de los puntos densos de ambos ojos.
+    Valores < 0.18 indican parpadeo u ojos cerrados; valores > 0.25 indican ojos abiertos.
+    """
+    if lm68 is None or len(lm68) < 68:
+        return 0.30
+    p36, p37, p38, p39, p40, p41 = lm68[36:42]
+    ear_left = (np.linalg.norm(p37 - p41) + np.linalg.norm(p38 - p40)) / max(2.0 * np.linalg.norm(p36 - p39), 1e-6)
+    p42, p43, p44, p45, p46, p47 = lm68[42:48]
+    ear_right = (np.linalg.norm(p43 - p47) + np.linalg.norm(p44 - p46)) / max(2.0 * np.linalg.norm(p42 - p45), 1e-6)
+    return float((ear_left + ear_right) / 2.0)
+
+
+def spatial_illumination_transfer(swap_patch, target_patch, sigma_ambient=31, sigma_smooth=11, gain_min=0.5, gain_max=2.0):
+    """
+    Transfiere el gradiente de iluminación espacial y sombras 3D del target al swap.
+    Preserva los poros y detalles de alta frecuencia del swap eliminando el efecto 'plano' o 'recorte pegado'.
+    """
+    swap_f = swap_patch.astype(np.float32)
+    tgt_f = target_patch.astype(np.float32)
+
+    k_amb = int(sigma_ambient * 2) + 1
+    if k_amb % 2 == 0:
+        k_amb += 1
+    tgt_low = cv2.GaussianBlur(tgt_f, (k_amb, k_amb), sigma_ambient)
+    swap_low = cv2.GaussianBlur(swap_f, (k_amb, k_amb), sigma_ambient)
+
+    eps = 1e-4
+    ratio = (tgt_low + eps) / (swap_low + eps)
+    ratio = np.clip(ratio, gain_min, gain_max)
+
+    k_sm = int(sigma_smooth * 2) + 1
+    if k_sm % 2 == 0:
+        k_sm += 1
+    ratio_smooth = cv2.GaussianBlur(ratio, (k_sm, k_sm), sigma_smooth)
+
+    lit_swap = swap_f * ratio_smooth
+    return np.clip(lit_swap, 0, 255).astype(np.uint8)
 
 
 def compute_frechet_mean(embeddings):

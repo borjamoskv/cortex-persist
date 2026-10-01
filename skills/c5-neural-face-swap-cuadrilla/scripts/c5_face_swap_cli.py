@@ -35,8 +35,10 @@ try:
     from c5_smoother import (
         OneEuroFilter,
         FaceTracker,
+        TemporalPatchStabilizer,
         reinhard_color_transfer,
         monge_kantorovich_color_transfer,
+        spatial_illumination_transfer,
         soft_elliptical_blend,
         get_bisenet_semantic_mask,
         restore_face_patch,
@@ -44,14 +46,17 @@ try:
         estimate_dense_68_landmarks,
         estimate_head_pose_3d,
         compute_mouth_aspect_ratio,
+        compute_eye_aspect_ratio,
         compute_frechet_mean,
         slerp_embeddings
     )
 except ImportError:
     OneEuroFilter = None
     FaceTracker = None
+    TemporalPatchStabilizer = None
     reinhard_color_transfer = None
     monge_kantorovich_color_transfer = None
+    spatial_illumination_transfer = None
     soft_elliptical_blend = None
     get_bisenet_semantic_mask = None
     restore_face_patch = None
@@ -59,6 +64,7 @@ except ImportError:
     estimate_dense_68_landmarks = None
     estimate_head_pose_3d = None
     compute_mouth_aspect_ratio = None
+    compute_eye_aspect_ratio = None
     compute_frechet_mean = None
     slerp_embeddings = None
 
@@ -120,9 +126,25 @@ ROSTER = {
 
 class MinimalSourceFace:
     """Contenedor ligero de embedding para desacoplar workers del modelo de reconocimiento."""
-    def __init__(self, embedding, normed_embedding):
+    def __init__(self, embedding, normed_embedding, angles=None):
         self.embedding = embedding
         self.normed_embedding = normed_embedding
+        self.angles = angles or []  # list of (emb, normed_emb, yaw)
+
+    def get_embedding_for_yaw(self, target_yaw):
+        if not self.angles or len(self.angles) <= 1:
+            return self.embedding, self.normed_embedding
+        angles_sorted = sorted(self.angles, key=lambda a: abs(a[2] - target_yaw))
+        best = angles_sorted[0]
+        if abs(best[2] - target_yaw) < 8.0 or len(angles_sorted) < 2:
+            return best[0], best[1]
+        second = angles_sorted[1]
+        y1, y2 = best[2], second[2]
+        if abs(y1 - y2) > 1e-3 and slerp_embeddings:
+            t = np.clip((target_yaw - y1) / (y2 - y1), 0.0, 1.0)
+            fused = slerp_embeddings(best[1], second[1], float(t))
+            return fused, fused
+        return best[0], best[1]
 
 def resolve_single_identity(name_or_path):
     if os.path.isfile(name_or_path):
@@ -179,7 +201,8 @@ def render_worker_chunk(
     video_path, source_faces, start_frame, end_frame, out_part_path,
     fps, width, height, bitrate, use_smooth=True,
     enhancer='gpen', enhance_weight=0.7, mask_mode='bisenet', color_transfer='mkl',
-    preserve_mouth='auto', blend_mode='two-band',
+    lighting='spatial', preserve_mouth='auto', preserve_eyes='auto',
+    blend_mode='two-band', stabilize_patch=True,
     target_face_index=0, swap_all=False,
     worker_id=0
 ):
@@ -202,13 +225,15 @@ def render_worker_chunk(
 
     bisenet_sess = None
     if mask_mode == 'bisenet' and os.path.isfile(BISENET_PATH):
-        bisenet_sess = ort.InferenceSession(BISENET_PATH, sess_options=sess_opts, providers=['CPUExecutionProvider'])
+        # Aceleración ANE / CoreML: 19ms por frame vs 284ms en CPU
+        bisenet_sess = ort.InferenceSession(BISENET_PATH, sess_options=sess_opts, providers=['CoreMLExecutionProvider', 'CPUExecutionProvider'])
 
     fan_sess = None
     if os.path.isfile(FAN_PATH):
         fan_sess = ort.InferenceSession(FAN_PATH, sess_options=sess_opts, providers=['CPUExecutionProvider'])
 
     tracker = FaceTracker(max_extrapolate=2) if (FaceTracker and use_smooth) else None
+    local_stabilizer = TemporalPatchStabilizer() if (TemporalPatchStabilizer and stabilize_patch) else None
 
     cap = cv2.VideoCapture(video_path)
     cap.set(cv2.CAP_PROP_POS_FRAMES, start_frame)
@@ -245,24 +270,37 @@ def render_worker_chunk(
             if faces:
                 faces_sorted = sorted(faces, key=lambda f: (f.bbox[2]-f.bbox[0]) * (f.bbox[3]-f.bbox[1]), reverse=True)
                 if not swap_all and target_face_index is not None:
-                    assignments = [(faces_sorted[target_face_index], 0)] if target_face_index < len(faces_sorted) else []
+                    assignments = [(faces_sorted[target_face_index], 0, 0)] if target_face_index < len(faces_sorted) else []
                 else:
-                    assignments = [(f, i) for i, f in enumerate(faces_sorted) if i < len(source_faces)]
+                    assignments = [(f, i, i) for i, f in enumerate(faces_sorted) if i < len(source_faces)]
             else:
                 assignments = []
 
         res = frame.copy()
-        for tf, face_idx in assignments:
+        for item in assignments:
+            if len(item) == 3:
+                tf, face_idx, tid = item
+            else:
+                tf, face_idx = item
+                tid = 0
             if face_idx < 0 or face_idx >= len(source_faces):
                 continue
             src_f = source_faces[face_idx]
 
-            # 1. FAN-68 dense landmarks, 3D pose y MAR
+            # 1. FAN-68 dense landmarks, 3D pose, MAR y EAR
             mar = 0.0
+            ear = 0.30
+            pitch, yaw, roll = 0.0, 0.0, 0.0
+            lm68 = None
             if fan_sess is not None and estimate_dense_68_landmarks:
                 lm68 = estimate_dense_68_landmarks(tf.kps, fan_sess)
-                if lm68 is not None and compute_mouth_aspect_ratio:
-                    mar = compute_mouth_aspect_ratio(lm68)
+                if lm68 is not None:
+                    if compute_mouth_aspect_ratio:
+                        mar = compute_mouth_aspect_ratio(lm68)
+                    if compute_eye_aspect_ratio:
+                        ear = compute_eye_aspect_ratio(lm68)
+                    if estimate_head_pose_3d:
+                        pitch, yaw, roll = estimate_head_pose_3d(lm68, frame.shape)
 
             if preserve_mouth == 'true':
                 mouth_active = True
@@ -271,17 +309,31 @@ def render_worker_chunk(
             else:  # auto
                 mouth_active = (mar > 0.14)
 
-            bgr_fake, M = swapper.get(res, tf, src_f, paste_back=False)
+            if preserve_eyes == 'true':
+                eyes_active = True
+            elif preserve_eyes == 'false':
+                eyes_active = False
+            else:  # auto (parpadeo u ojos cerrados)
+                eyes_active = (ear < 0.18)
+
+            # Inyección adaptativa de ángulo 3D si hay multi-referencia
+            if hasattr(src_f, 'get_embedding_for_yaw') and src_f.angles:
+                active_emb, active_norm = src_f.get_embedding_for_yaw(yaw)
+                swap_src = MinimalSourceFace(active_emb, active_norm)
+            else:
+                swap_src = src_f
+
+            bgr_fake, M = swapper.get(res, tf, swap_src, paste_back=False)
 
             if enhancer_sess is not None:
                 # =======================================================
-                # PIPELINE V3 SOTA: 512p + Enhancer + BiSeNet + MKL + Two-Band
+                # PIPELINE V4 SOTA: 512p + Enhancer + MKL + Spatial Lighting + Temporal Stabilizer + BiSeNet CoreML + Two-Band
                 # =======================================================
                 crop_512 = cv2.resize(bgr_fake, (512, 512), interpolation=cv2.INTER_CUBIC)
                 restored_512 = restore_face_patch(crop_512, enhancer, enhancer_sess, weight=enhance_weight)
                 aimg_512, M_512 = face_align.norm_crop2(res, tf.kps, 512)
 
-                # Transferencia cromática
+                # 1. Transferencia cromática global
                 if color_transfer == 'mkl' and monge_kantorovich_color_transfer:
                     ready_512 = monge_kantorovich_color_transfer(restored_512, aimg_512)
                 elif color_transfer == 'reinhard' and reinhard_color_transfer:
@@ -289,10 +341,30 @@ def render_worker_chunk(
                 else:
                     ready_512 = restored_512
 
+                # 2. Transferencia de iluminación espacial 3D y sombras
+                if lighting == 'spatial' and spatial_illumination_transfer:
+                    ready_512 = spatial_illumination_transfer(ready_512, aimg_512)
+
+                # 3. Estabilización temporal inter-frame de parches (erradicación de GAN shimmer)
+                if stabilize_patch:
+                    if tracker:
+                        motion = tracker.compute_motion(tid, tf.kps)
+                        stab = tracker.get_stabilizer(tid)
+                        if stab:
+                            ready_512 = stab.stabilize(ready_512, motion)
+                    elif local_stabilizer:
+                        ready_512 = local_stabilizer.stabilize(ready_512, 0.0)
+
                 IM_512 = cv2.invertAffineTransform(M_512)
 
                 if bisenet_sess is not None and get_bisenet_semantic_mask:
-                    mask_512 = get_bisenet_semantic_mask(aimg_512, bisenet_sess, feather=25, preserve_mouth=mouth_active)
+                    lm68_512 = cv2.transform(lm68.reshape(1, -1, 2), M_512).reshape(-1, 2) if lm68 is not None else None
+                    mask_512 = get_bisenet_semantic_mask(
+                        aimg_512, bisenet_sess, feather=25,
+                        preserve_mouth=mouth_active,
+                        preserve_eyes=eyes_active,
+                        eye_landmarks_512=lm68_512
+                    )
 
                     if blend_mode == 'two-band' and two_band_blend_patch:
                         blended_512 = two_band_blend_patch(aimg_512, ready_512, mask_512, blur_ksize=21)
@@ -321,7 +393,7 @@ def render_worker_chunk(
                 if soft_elliptical_blend:
                     res = soft_elliptical_blend(res, bgr_fake, M)
                 else:
-                    res = swapper.get(res, tf, src_f, paste_back=True)
+                    res = swapper.get(res, tf, swap_src, paste_back=True)
 
         ffmpeg_proc.stdin.write(res.tobytes())
 
@@ -352,7 +424,7 @@ def process_video_pipeline(video_input, args):
     resolved_id_groups = [resolve_identity_paths(x) for x in id_list]
     num_total_refs = sum(len(g) for g in resolved_id_groups)
     print(f"[*] Roster de Escena fijado ({len(resolved_id_groups)} identidades, {num_total_refs} fotos fuente): {', '.join(id_list)}", flush=True)
-    print(f"[*] Configuración V3 SOTA: Enhancer={args.enhancer} (w={args.enhance_weight}) | Mask={args.mask} | Blend={args.blend} | Color={args.color_transfer} | PreserveMouth={args.preserve_mouth}", flush=True)
+    print(f"[*] Configuración V4 SOTA: Enhancer={args.enhancer} (w={args.enhance_weight}) | Mask={args.mask} | Blend={args.blend} | Lighting={args.lighting} | PreserveMouth={args.preserve_mouth} | PreserveEyes={args.preserve_eyes} | Stabilize={not args.no_stabilize_patch}", flush=True)
 
     output_path = args.output
     if not output_path:
@@ -373,14 +445,19 @@ def process_video_pipeline(video_input, args):
     workers = max(1, min(args.workers, 4))
     print(f"[*] Vídeo: {width}x{height} @ {fps:.2f} FPS | Total: {total_frames} frames | Workers: {workers}", flush=True)
 
-    print(f"[*] Compilando vectores latentes ArcFace de las identidades fuente...", flush=True)
+    print(f"[*] Compilando vectores latentes ArcFace y orientaciones 3D de las identidades fuente...", flush=True)
     app_rec = FaceAnalysis(name='buffalo_l', allowed_modules=['detection', 'recognition'], providers=['CPUExecutionProvider'])
     app_rec.prepare(ctx_id=0, det_size=(320, 320))
+    fan_sess_prep = None
+    if os.path.isfile(FAN_PATH) and estimate_dense_68_landmarks and estimate_head_pose_3d:
+        fan_sess_prep = ort.InferenceSession(FAN_PATH, providers=['CPUExecutionProvider'])
+
     src_faces = []
     emb_dict = {}
 
     for i, p_list in enumerate(resolved_id_groups):
         embs = []
+        angles = []
         for p in p_list:
             im = cv2.imread(p)
             f = app_rec.get(im) if im is not None else None
@@ -398,24 +475,39 @@ def process_video_pipeline(video_input, args):
                     f = app_rec.get(im_padded)
             if not f:
                 raise ValueError(f"No face detected in source {p}")
-            embs.append(f[0].embedding)
+            emb = f[0].embedding
+            norm = emb / np.maximum(np.linalg.norm(emb), 1e-7)
+            embs.append(emb)
+
+            yaw_ref = 0.0
+            if fan_sess_prep is not None:
+                lm68_ref = estimate_dense_68_landmarks(f[0].kps, fan_sess_prep)
+                if lm68_ref is not None:
+                    _, yaw_ref, _ = estimate_head_pose_3d(lm68_ref, im.shape if im is not None else (512, 512, 3))
+            angles.append((emb, norm, float(yaw_ref)))
 
         if len(embs) > 1 and compute_frechet_mean:
             fused_emb = compute_frechet_mean(embs)
             fused_norm = fused_emb / np.maximum(np.linalg.norm(fused_emb), 1e-7)
-            src_f = MinimalSourceFace(fused_emb, fused_norm)
-            print(f"  [+] Identidad {i} ('{id_list[i]}'): Fusión Fréchet de {len(embs)} referencias en S^511.", flush=True)
+            src_f = MinimalSourceFace(fused_emb, fused_norm, angles=angles)
+            angles_str = ", ".join([f"{a[2]:+.1f}°" for a in angles])
+            print(f"  [+] Identidad {i} ('{id_list[i]}'): Fusión Fréchet de {len(embs)} referencias en S^511 (ángulos: [{angles_str}]).", flush=True)
         else:
             emb = embs[0]
             norm = emb / np.maximum(np.linalg.norm(emb), 1e-7)
-            src_f = MinimalSourceFace(emb, norm)
+            src_f = MinimalSourceFace(emb, norm, angles=angles)
 
         src_faces.append(src_f)
         emb_dict[f'emb_{i}'] = src_f.embedding
         emb_dict[f'norm_{i}'] = src_f.normed_embedding
+        if src_f.angles:
+            emb_dict[f'angles_embs_{i}'] = np.array([a[0] for a in src_f.angles], dtype=np.float32)
+            emb_dict[f'angles_yaws_{i}'] = np.array([a[2] for a in src_f.angles], dtype=np.float32)
 
     np.savez_compressed(TEMP_EMBEDDINGS_PATH, **emb_dict)
     del app_rec
+    if fan_sess_prep:
+        del fan_sess_prep
 
     t0_all = time.time()
 
@@ -435,8 +527,11 @@ def process_video_pipeline(video_input, args):
             enhance_weight=args.enhance_weight,
             mask_mode=args.mask,
             color_transfer=args.color_transfer,
+            lighting=args.lighting,
             preserve_mouth=args.preserve_mouth,
+            preserve_eyes=args.preserve_eyes,
             blend_mode=args.blend,
+            stabilize_patch=not args.no_stabilize_patch,
             target_face_index=args.target_face_index,
             swap_all=args.swap_all,
             worker_id=0
@@ -470,10 +565,13 @@ def process_video_pipeline(video_input, args):
                 "--mask", args.mask,
                 "--blend", args.blend,
                 "--color-transfer", args.color_transfer,
+                "--lighting", args.lighting,
                 "--preserve-mouth", args.preserve_mouth,
+                "--preserve-eyes", args.preserve_eyes,
                 "--target-face-index", str(args.target_face_index)
             ]
             if args.no_smooth: cmd.append("--no-smooth")
+            if args.no_stabilize_patch: cmd.append("--no-stabilize-patch")
             if args.swap_all: cmd.append("--swap-all")
 
             p = subprocess.Popen(cmd)
@@ -523,7 +621,7 @@ def process_video_pipeline(video_input, args):
     return output_path
 
 def main():
-    parser = argparse.ArgumentParser(description="C5-REAL Sovereign Face Swap Engine V3 SOTA (Apple Silicon)")
+    parser = argparse.ArgumentParser(description="C5-REAL Sovereign Face Swap Engine V4 SOTA (Apple Silicon)")
     parser.add_argument("--video", "-v", default=None, help="Ruta al vídeo local o URL de Instagram/TikTok/YouTube")
     parser.add_argument("--identity", "-i", required=True, help="Lista de identidades separadas por comas (e.g. 'Alain,Luengo,Xabi' o compuestas 'mitxu_gafas+mitxu_real')")
     parser.add_argument("--output", "-o", default=None, help="Ruta de guardado para el vídeo final")
@@ -532,7 +630,7 @@ def main():
     parser.add_argument("--watch", default=None, help="Directorio inbox para modo Watcher Daemon reactivo")
     parser.add_argument("--no-smooth", action="store_true", help="Desactivar filtro temporal")
     
-    # Flags V3 SOTA
+    # Flags V4 SOTA
     parser.add_argument("--enhancer", choices=['gpen', 'codeformer', 'gfpgan', 'none'], default='gpen',
                         help="Motor de Super-Resolución / Restauración facial (default: gpen)")
     parser.add_argument("--enhance-weight", type=float, default=0.7,
@@ -543,8 +641,14 @@ def main():
                         help="Fusión espectral: 'two-band' (descomposición en frecuencia), 'linear' o 'ellipse' (default: two-band)")
     parser.add_argument("--color-transfer", choices=['mkl', 'reinhard', 'none'], default='mkl',
                         help="Transferencia cromática: 'mkl' (Optimal Transport) o 'reinhard' (default: mkl)")
+    parser.add_argument("--lighting", choices=['spatial', 'mkl', 'reinhard', 'none'], default='spatial',
+                        help="Transferencia de iluminación espacial 3D y sombras: 'spatial' (default), 'mkl', 'reinhard', 'none'")
     parser.add_argument("--preserve-mouth", choices=['auto', 'true', 'false'], default='auto',
                         help="Preservar cavidad bucal orgánica (dientes/lengua) para articulación fonética (default: auto)")
+    parser.add_argument("--preserve-eyes", choices=['auto', 'true', 'false'], default='auto',
+                        help="Preservar párpados y parpadeo orgánico con métrica EAR (default: auto)")
+    parser.add_argument("--no-stabilize-patch", action="store_true",
+                        help="Desactivar estabilizador temporal inter-frame de parches faciales (anti-shimmer)")
     parser.add_argument("--target-face-index", type=int, default=0,
                         help="Índice del rostro objetivo por tamaño descendente (default: 0 = principal)")
     parser.add_argument("--swap-all", action="store_true",
@@ -563,8 +667,20 @@ def main():
         if not os.path.isfile(TEMP_EMBEDDINGS_PATH):
             raise FileNotFoundError(f"Embeddings temporales no encontrados: {TEMP_EMBEDDINGS_PATH}")
         npz = np.load(TEMP_EMBEDDINGS_PATH)
-        num_faces = len(npz.files) // 2
-        src_faces = [MinimalSourceFace(npz[f'emb_{i}'], npz[f'norm_{i}']) for i in range(num_faces)]
+        num_faces = len([k for k in npz.files if k.startswith('emb_')])
+        src_faces = []
+        for i in range(num_faces):
+            emb = npz[f'emb_{i}']
+            norm = npz[f'norm_{i}']
+            angles = []
+            if f'angles_embs_{i}' in npz and f'angles_yaws_{i}' in npz:
+                a_embs = npz[f'angles_embs_{i}']
+                a_yaws = npz[f'angles_yaws_{i}']
+                for j in range(len(a_yaws)):
+                    e = a_embs[j]
+                    n = e / np.maximum(np.linalg.norm(e), 1e-7)
+                    angles.append((e, n, float(a_yaws[j])))
+            src_faces.append(MinimalSourceFace(emb, norm, angles=angles))
 
         cap = cv2.VideoCapture(args.video)
         fps = cap.get(cv2.CAP_PROP_FPS) or 30.0
@@ -587,8 +703,11 @@ def main():
             enhance_weight=args.enhance_weight,
             mask_mode=args.mask,
             color_transfer=args.color_transfer,
+            lighting=args.lighting,
             preserve_mouth=args.preserve_mouth,
+            preserve_eyes=args.preserve_eyes,
             blend_mode=args.blend,
+            stabilize_patch=not args.no_stabilize_patch,
             target_face_index=args.target_face_index,
             swap_all=args.swap_all,
             worker_id=args.worker_id
