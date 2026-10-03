@@ -1,13 +1,24 @@
 ---
 name: alphagenome-variant-impact-score
-description: >-
-  Score, annotate, and analyze the functional impact of genetic variants using AlphaGenome Variant Impact
-  (AVI) scores. Query variants in chr:pos:ref>alt format, annotate VCF/tabular callsets, perform
-  saturation mutagenesis window scans (1-based closed chr:start-end), and extract GENCODE v46 GTF
-  gene/exon/junction coordinates all via the AlphaGenome Atlas API.
+description: Score, annotate, and analyze the functional impact of genetic variants using AlphaGenome Variant Impact (AVI) scores. Query variants in chr:pos:ref>alt format, annotate VCF/tabular callsets, perform saturation mutagenesis window scans (1-based closed chr:start-end), and extract GENCODE v46 GTF gene/exon/junction coordinates all via the AlphaGenome Atlas API.
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # AlphaGenome Variant Impact (AVI) Analysis
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 Score and prioritize genetic variants using AlphaGenome Variant Impact (AVI)
 models via `scripts/alphagenome_atlas_avi.py`.

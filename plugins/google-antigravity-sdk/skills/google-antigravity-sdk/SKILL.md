@@ -1,9 +1,24 @@
 ---
 name: google-antigravity-sdk
-description: "Design, implement, and debug autonomous AI agents and multi-agent systems using the Google Antigravity (AGY) SDK. ACTIVATE this skill when the user wants to create, configure, or orchestrate Google Antigravity agents."
+description: Design, implement, and debug autonomous AI agents and multi-agent systems using the Google Antigravity (AGY) SDK. ACTIVATE this skill when the user wants to create, configure, or orchestrate Google Antigravity agents.
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
 
 # Google Antigravity SDK
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Modelado formal y especificaciones sin mutación de código))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
 
 ## Installation & Setup
 
@@ -16,27 +31,37 @@ ready:
     project's dependencies (e.g., `requirements.txt`, `pyproject.toml`).
 -   **Install Package**: Ensure the `google-antigravity` Python package is
     installed.
--   **Authentication Setup**: Check for a valid `GEMINI_API_KEY` environment
-    variable or a `.env` file (required to access Gemini models).
-    -   If credentials are missing, you MUST actively help the user get set up
-        with an API key by providing the following link:
-        -   Default to Google AI Studio:
-            `https://aistudio.google.com/app/api-keys`
-    -   Explain that the API key can be passed explicitly in code as shorthand
-        (e.g., `LocalAgentConfig(api_key="...")`) or automatically read from the
-        environment.
-    -   For Gemini Enterprise Agent Platform (formerly Vertex AI)
-        authentication, the SDK supports both Standard Mode and Express Mode:
-        -   **Standard Mode (ADC)**: Instruct the user to run
-            `gcloud auth application-default login` and configure the agent with
-            `vertex=True` along with `project` and `location` in
-            `LocalAgentConfig`.
-        -   **Express Mode (API Key)**: Configure the agent with `vertex=True`
-            along with `api_key="your-express-api-key"` in `LocalAgentConfig`
-            (no ADC or regional project/location needed).
-    -   **Note**: For local models (`LiteRTAgentConfig` or
+-   **Authentication Setup**:
+    -   The SDK defaults to hosted Gemini models with an API key
+        (`LocalAgentConfig`). When running on-device or without cloud
+        connectivity is desired, local models (`LiteRTAgentConfig` or
+        `LocalOpenAIAgentConfig`) can be used as an alternative without an API
+        key or cloud credentials.
+    -   **Hosted Models (Gemini - Default)**: Check for a valid `GEMINI_API_KEY`
+        environment variable or a `.env` file (required to access Gemini
+        models).
+        -   If credentials are missing, you MUST actively help the user get set
+            up with an API key by providing the following link:
+            -   Default to Google AI Studio:
+                `https://aistudio.google.com/app/api-keys`
+        -   Explain that the API key can be passed explicitly in code as
+            shorthand (e.g., `LocalAgentConfig(api_key="...")`) or automatically
+            read from the environment.
+        -   For Gemini Enterprise Agent Platform (formerly Vertex AI)
+            authentication, the SDK supports both Standard Mode and Express
+            Mode:
+            -   **Standard Mode (ADC)**: Instruct the user to run
+                `gcloud auth application-default login` and configure the agent
+                with `vertex=True` along with `project` and `location` in
+                `LocalAgentConfig`.
+            -   **Express Mode (API Key)**: Configure the agent with
+                `vertex=True` along with `api_key="your-express-api-key"` in
+                `LocalAgentConfig` (no ADC or regional project/location needed).
+    -   **Local Models (Alternative)**: For local models (`LiteRTAgentConfig` or
         `LocalOpenAIAgentConfig`), no API key or cloud credentials are needed.
-        See `references/local_models.md` for setup details.
+        LiteRT is the supported on-device runtime for local models (such as
+        Gemma 4 26B). See `references/local_models.md` and
+        `examples/getting_started/local_models.md` for setup details.
 
 ## Routing Table
 
@@ -57,9 +82,9 @@ relevant information.
 -   If the user needs to extend an agent's capabilities by integrating Model
     Context Protocol (MCP) servers, or configure tool permissions for the agent,
     read `references/mcp_integration.md`.
--   If the user needs to define safety policies, resolve execution order, or
-    restrict agent actions using predicates, read
-    `references/safety_policies.md`.
+-   If the user needs to define safety policies, resolve execution order,
+    restrict agent actions using predicates, or run terminal commands inside an
+    OS-level sandbox, read `references/safety_policies.md`.
 -   If the user needs to debug failed agents, stream logs, or implement error
     recovery using hooks to make agents robust, read
     `references/error_handling.md`.
@@ -67,10 +92,11 @@ relevant information.
     tokens), or build custom audit logs for advanced monitoring, read
     `references/observability.md`.
 -   If the user needs to see a list of built-in tools and understand their default state, read `references/built_in_tools.md`.
--   If the user needs to run agents locally using on-device models (e.g., Gemma
-    via LiteRT, or via OpenAI-compatible APIs), understand hardware
-    requirements, or set up a local model environment, read
-    `references/local_models.md`.
+-   If the user needs to run agents locally using on-device models
+    (`LiteRTAgentConfig` for the supported on-device runtime, or
+    `LocalOpenAIAgentConfig` for external OpenAI-compatible servers like
+    Ollama/LM Studio), understand hardware requirements, or configure local
+    execution, read `references/local_models.md`.
 
 ### Examples
 
@@ -98,7 +124,7 @@ relevant information.
     events or file system triggers in the background, read
     `examples/getting_started/periodic_trigger.md`.
 -   If the user needs to intercept agent lifecycle events (e.g., pre/post turn,
-    tool execution, errors) to customize execution flow, read
+    stop, tool execution, errors) to customize execution flow, read
     `examples/getting_started/hooks.md`.
 -   If the user needs to implement turn-level cancellation or programmatic
     stream aborts, read `examples/getting_started/cancellation.md`.
@@ -122,7 +148,10 @@ relevant information.
     tool calls) or proactive token budget controls (input, output, or
     total tokens) and handle `StopReason`, read
     `examples/getting_started/budget_limits.md`.
--   If the user needs to set up and run a local model agent (LiteRT with Gemma,
-    or an OpenAI-compatible server like Ollama), including model download,
-    hardware requirements, and context window configuration, read
+-   If the user needs to set up and run a local model agent (LiteRT, or an
+    OpenAI-compatible server like Ollama), including model download, hardware
+    requirements, and context compaction configuration, read
     `examples/getting_started/local_models.md`.
+-   If the user needs to configure conversation context limits and
+    compaction thresholds to handle long-running sessions, read
+    `examples/getting_started/compaction.md`.

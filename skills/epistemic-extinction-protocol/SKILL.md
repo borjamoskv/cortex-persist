@@ -1,10 +1,25 @@
 ---
 name: epistemic-extinction-protocol
-display_name: "Protocolo de Extinción Epistémica (Punto Fijo Ω)"
-description: "Protocolo de reducción dimensional y extinción epistémica (Punto Fijo Ω). Dispara con \"extinción epistémica\", \"punto fijo omega\", \"reducción dimensional\", \"epistemic extinction\"."
+display_name: Protocolo de Extinción Epistémica (Punto Fijo Ω)
+description: Protocolo de reducción dimensional y extinción epistémica (Punto Fijo Ω). Dispara con "extinción epistémica", "punto fijo omega", "reducción dimensional", "epistemic extinction", "punto fijo ω", "extinción conceptual".
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
 
 # Epistemic Extinction Protocol (Punto Fijo Ω)
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Lectura profunda y modelado formal; emisión de especificaciones sin mutación de código de producción))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
 
 ## 1. Contexto de Activación
 Este protocolo se activa automáticamente ante solicitudes de "extinción epistémica", "punto fijo omega", "purga de mediación", "extinción de dualidad verbal" o cuando el agente detecte alta fricción mediacional (explicaciones conversacionales excesivas, bucles de razonamiento sin mutación de silicio, sobre-amortiguamiento metacognitivo).

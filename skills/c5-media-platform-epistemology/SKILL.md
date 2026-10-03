@@ -1,9 +1,24 @@
 ---
 name: c5-media-platform-epistemology
-description: Heurísticas termodinámicas y epistémicas para procesamiento de audio largo, evasión de falsos positivos SPA (HTTP 200) y metadatos de plataformas (SoundCloud/YouTube). Dispara con "procesar audio largo", "descripción soundcloud", "scraping spa", "falsos positivos http 200".
+description: Heurísticas termodinámicas y epistémicas para procesamiento de audio largo, evasión de falsos positivos SPA (HTTP 200) y metadatos de plataformas (SoundCloud/YouTube). Dispara con "procesar audio largo", "descripción soundcloud", "scraping spa", "falsos positivos http 200", "media platform epistemology", "soundcloud metadata".
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Epistemología de Plataformas y Procesamiento Multimedia (C5-REAL)
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Mutación de Árbol de Trabajo))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilación, ejecución de tests locales y generación de artefactos))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 ### 1. Procesamiento de Audio de Larga Duración (Bypass de Memoria)
 - **Regla:** NUNCA cargues archivos de audio de gran tamaño (>15 min) directamente en librerías in-memory de Python (como `pydub` o `librosa`) para tareas iterativas. Esto provoca colapsos OOM (Out of Memory) y pérdida de exergía.

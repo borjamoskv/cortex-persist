@@ -1,11 +1,24 @@
 ---
 name: credentials
-description: >-
-  Instructions for handling API keys and credentials safely, verifying their
-  presence, and prompting the user to add them if missing using a safe protocol.
+description: Instructions for handling API keys and credentials safely, verifying their presence, and prompting the user to add them if missing using a safe protocol.
+role: auditor
+allowed_roles:
+- auditor
+directives:
+  worktree_mode: audit-only
+  phase: verification
+  handoff:
+    upstream: ejecutor
+    downstream: operador
 ---
 
 # Safe Credentials Protocol
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `auditor` (Auditor (Verificación Independiente & Control de Calidad))
+> - **Modo de Acceso a Worktree:** `audit-only` (audit-only (Lectura forense de diffs, linters, tests y verificación))
+> - **Fase Causal:** `verification`
+> - **Contrato Handoff:** Recibe de `ejecutor` $\to$ Despacha a `operador`
 
 Many skills require API keys or other credentials to function or to access
 higher rate limits. This skill defines the standard safe credentials protocol

@@ -1,10 +1,26 @@
 ---
 name: swarm-router
-display_name: "Enrutador Maestro y Despachador Inteligente de Enjambres"
-description: "Orquestador central y despachador inteligente de enjambres multi-agente con auto-detección contextual y tolerancia a typos. Dispara con \"enjambre\", \"enjmabres\", \"swarm\", \"swarms\", \"lanzar enjambre\", \"ejecutar enjambre\", \"orquestar enjambre\", \"swarm call\", \"disparar enjambres\", \"matriz de enjambres\", \"mejora los enjambres\"."
+display_name: Enrutador Maestro y Despachador Inteligente de Enjambres
+description: Orquestador central y despachador inteligente de enjambres multi-agente con auto-detección contextual y tolerancia a typos. Dispara con "enjambre", "enjmabres", "swarm", "swarms", "lanzar enjambre", "ejecutar enjambre", "orquestar enjambre", "swarm call", "disparar enjambres", "matriz de enjambres", "mejora los enjambres".
+role: ejecutor
+allowed_roles:
+- ejecutor
+- arquitecto
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # 🐝 Swarm Router: Enrutador Maestro y Despachador C5-REAL
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Mutación de Árbol de Trabajo))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilación, ejecución de tests locales y generación de artefactos))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 Este protocolo actúa como la puerta de entrada unificada para la orquestación, gestión y auto-detección de cualquier llamada a enjambres de subagentes dentro del ecosistema Antigravity / BABYLON-60.
 

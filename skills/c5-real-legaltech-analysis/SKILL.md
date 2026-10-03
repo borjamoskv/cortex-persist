@@ -1,10 +1,25 @@
 ---
 name: c5-real-legaltech-analysis
-display_name: "Auditoría LegalTech & Cumplimiento EU AI Act Art. 9-14"
-description: "Auditoría LegalTech, análisis de cumplimiento EU AI Act (Artículos 9-14) y análisis de contratos inteligentes bajo estándar C5-REAL. Dispara con \"legaltech\", \"auditoría legal\", \"EU AI Act\", \"cumplimiento regulatorio\", \"contrato inteligente c5\", \"whitepaper legal\"."
+display_name: Auditoría LegalTech & Cumplimiento EU AI Act Art. 9-14
+description: Auditoría LegalTech, análisis de cumplimiento EU AI Act (Artículos 9-14) y análisis de contratos inteligentes bajo estándar C5-REAL. Dispara con "legaltech", "auditoría legal", "EU AI Act", "cumplimiento regulatorio", "contrato inteligente c5", "whitepaper legal".
+role: auditor
+allowed_roles:
+- auditor
+directives:
+  worktree_mode: audit-only
+  phase: verification
+  handoff:
+    upstream: ejecutor
+    downstream: operador
 ---
 
 # Skill: C5-REAL LegalTech Analysis (Ω16 / Ω20 / Ω32)
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `auditor` (Auditor (Verificación Independiente, Linters de Silicio & Fail-Closed Gate))
+> - **Modo de Acceso a Worktree:** `audit-only` (audit-only (Lectura forense de diffs, linters, tests de estrés y cálculo de exergía; cero mutación de código))
+> - **Fase Causal:** `verification`
+> - **Contrato Handoff:** Recibe de `ejecutor` $\to$ Despacha a `operador`
 
 Proporciona el marco epistemológico para analizar y decodificar sistemas legales, startups LegalTech, contratos y contenido editorial jurídico a través del estándar C5-REAL.
 

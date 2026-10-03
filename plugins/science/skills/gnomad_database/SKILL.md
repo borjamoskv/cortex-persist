@@ -1,15 +1,26 @@
 ---
 name: gnomad-database
-description: >
-  Query the Genome Aggregation Database (gnomAD). Use when determining the
-  rarity or allele frequency of specific genetic variants, retrieving gene
-  constraint metrics (pLI, LOEUF) to assess loss-of-function intolerance,
-  finding variants in a genomic region or gene, or querying structural variants.
-  Don't use for analyzing individual patient genomes, tracking somatic mutations
-  in cancer (use COSMIC), or requesting raw sequencing reads (use ENA).
+description: 'Query the Genome Aggregation Database (gnomAD). Use when determining the rarity or allele frequency of specific genetic variants, retrieving gene constraint metrics (pLI, LOEUF) to assess loss-of-function intolerance, finding variants in a genomic region or gene, or querying structural variants. Don''t use for analyzing individual patient genomes, tracking somatic mutations in cancer (use COSMIC), or requesting raw sequencing reads (use ENA).
+
+  '
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # gnomAD Database
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 ## Prerequisites
 

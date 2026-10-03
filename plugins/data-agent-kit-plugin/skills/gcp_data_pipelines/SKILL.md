@@ -1,19 +1,30 @@
 ---
 name: gcp-data-pipelines
-description: 'Primary entry point for building, managing, and orchestrating data pipelines
-  on Google Cloud. Guides users to the appropriate skill for dbt, Dataflow (Apache
-  Beam), Dataform, Spark (Dataproc Serverless), BigQuery Data Transfer Service (DTS)
-  or orchestration pipeline using Cloud Composer. Clarify requirements and resolve
-  ambiguity for creating, updating and running data pipelines.
+description: 'Primary entry point for building, managing, and orchestrating data pipelines on Google Cloud. Guides users to the appropriate skill for dbt, Dataflow (Apache Beam), Dataform, Spark (Dataproc Serverless), BigQuery Data Transfer Service (DTS) or orchestration pipeline using Cloud Composer. Clarify requirements and resolve ambiguity for creating, updating and running data pipelines.
 
   '
 license: Apache-2.0
 metadata:
   version: v1
   publisher: google
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # GCP Data Pipelines Skill
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 Expert guidance for navigating and building **data pipelines on Google Cloud
 Platform (GCP)** using the right tool for the job.

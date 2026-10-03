@@ -1,10 +1,25 @@
 ---
 name: suno-bracket-tagging
-display_name: "Protocolo de Ingeniería Acústica y Control Causal para Audio AI (Suno/Udio/YuE)"
-description: "Protocolo de ingeniería acústica forense, control causal, etiquetado estructurado [...], cadena de señal física, desensamblado ontológico de artistas y rescate espectral en DAW para motores de síntesis de audio AI (Suno, Udio, YuE, DDSP). Dispara con \"suno prompt\", \"udio tags\", \"prompt musical\", \"etiquetas suno\", \"control causal audio\", \"audio ai\", \"jailbreak acustico\", \"des-plasticar audio\"."
+display_name: Protocolo de Ingeniería Acústica y Control Causal para Audio AI (Suno/Udio/YuE)
+description: Protocolo de ingeniería acústica forense, control causal, etiquetado estructurado [...], cadena de señal física, desensamblado ontológico de artistas y rescate espectral en DAW para motores de síntesis de audio AI (Suno, Udio, YuE, DDSP). Dispara con "suno prompt", "udio tags", "prompt musical", "etiquetas suno", "control causal audio", "audio ai", "jailbreak acustico", "des-plasticar audio".
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Protocolo C5: Ingeniería Acústica y Control Causal para Audio AI
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Mutación de Árbol de Trabajo))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilación, ejecución de tests locales y generación de artefactos))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 Este protocolo rige la estructuración determinista de prompts, anotaciones de ingeniería de sonido, gramática de corchetes `[...]` y rescate exergético para motores de síntesis de audio neuronal (Suno AI v3.5/v4, Udio, YuE, Stable Audio).
 

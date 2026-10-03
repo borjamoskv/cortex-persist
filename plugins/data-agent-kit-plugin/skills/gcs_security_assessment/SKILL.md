@@ -1,22 +1,35 @@
 ---
 name: gcs-security-assessment
-description: >-
-  Assesses security posture, evaluates risks, and checks SAIF compliance for Google Cloud Storage buckets or projects. Use when the user requests security scans, vulnerability checks, or SAIF assessments. Don't use when: The user is asking about non-GCS resources (Compute Engine, GKE, etc.), investigating a
-  live production outage, or asking general security questions not tied to a specific project or bucket.
+description: Assesses the security posture of Google Cloud Storage (GCS) buckets and projects. Grounds every finding in gathered telemetry, evaluates buckets against Google security best practices (public access, IAM over-granting, CMEK, VPC Service Controls, audit logging), and correlates signals to flag toxic combinations of individually low-risk settings, with actionable remediation. Use whenever a user asks for a security scan, audit, review, vulnerability check, or compliance assessment (including SAIF) — or simply asks whether their buckets, project, or data are secure, exposed, public, or misconfigured, who can access their data, or wants storage hardened or locked down, e.g. before a launch. Don't use for diagnosing a specific access failure or 403, managing or configuring storage, investigating a live outage, or non-GCS resources (Compute Engine, GKE, etc.).
 metadata:
-    version: v1
-    publisher: google
-    tags:
-      - gcs
-      - security
-      - compliance
-      - saif
-    category: security
-    support_tier: primary
+  version: v3
+  publisher: google
+  tags:
+  - gcs
+  - security
+  - compliance
+  - saif
+  category: security
+  support_tier: primary
 license: Apache-2.0
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Security Posture Assessment Skill
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 You are a Google Cloud Storage security assessment agent trained on Google's
 [Secure AI Framework (SAIF)](https://saif.google/secure-ai-framework/saif-map).

@@ -1,10 +1,25 @@
 ---
 name: c5-codebase-valuation-audit
-display_name: "Auditoría & Valoración Económica Empírica de Codebases e IP"
-description: "Auditoría forense de repositorios de software e IP técnica para valoración económica (R&D Cost, IP Value, Acqui-hire). Contrasta claims teóricos contra evidencia real del filesystem (LOC, tests, Lean 4, CI/CD workflows, Bus factor). Dispara con \"valorar software\", \"valoración económica\", \"audit codebase valuation\", \"software ip valuation\", \"acqui-hire valuation\", \"due diligence técnica\"."
+display_name: Auditoría & Valoración Económica Empírica de Codebases e IP
+description: Auditoría forense de repositorios de software e IP técnica para valoración económica (R&D Cost, IP Value, Acqui-hire). Contrasta claims teóricos contra evidencia real del filesystem (LOC, tests, Lean 4, CI/CD workflows, Bus factor). Dispara con "valorar software", "valoración económica", "audit codebase valuation", "software ip valuation", "acqui-hire valuation", "due diligence técnica".
+role: auditor
+allowed_roles:
+- auditor
+directives:
+  worktree_mode: audit-only
+  phase: verification
+  handoff:
+    upstream: ejecutor
+    downstream: operador
 ---
 
 # Skill: C5 Codebase Economic Valuation & Technical Due Diligence Audit
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `auditor` (Auditor (Verificación Independiente, Linters de Silicio & Fail-Closed Gate))
+> - **Modo de Acceso a Worktree:** `audit-only` (audit-only (Lectura forense de diffs, linters, tests de estrés y cálculo de exergía; cero mutación de código))
+> - **Fase Causal:** `verification`
+> - **Contrato Handoff:** Recibe de `ejecutor` $\to$ Despacha a `operador`
 
 Este protocolo ejecuta una auditoría forense y valoración económica empírica sobre repositorios de software, activos de I+D e IP tecnológica, contrastando afirmaciones teóricas o de pitch deck contra la evidencia verificable del sistema de archivos (*Mapa vs. Territorio*).
 
@@ -117,4 +132,3 @@ Al auditar repositorios de IA y sistemas agénticos soberanos, clasificar los ac
 8. **Remotion Headless DSP:** Inferencia visual y renderizado reactivo programático con auditoría SSIM/VMAF.
 9. **Manta de Markov Hardened:** Aislamiento probabilístico anti-inyección e identidad desvinculada.
 10. **Oráculo Myhill-Nerode en $Kl(D)$:** Cota superior y erradicación de alucinaciones en modelos generativos.
-

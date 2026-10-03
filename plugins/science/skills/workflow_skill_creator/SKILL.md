@@ -1,15 +1,26 @@
 ---
 name: workflow-skill-creator
-description: >
-  Distills a completed user workflow or interaction into a reusable agent
-  skill. Use when the user asks to turn their workflow, interaction, or
-  multi-step process into a skill, or when they say "make this a skill",
-  "create a skill from what we just did", "package this workflow" or similar.
-  Do not use for creating skills from scratch without an existing workflow
-  (use a generic skill-creator for that).
+description: 'Distills a completed user workflow or interaction into a reusable agent skill. Use when the user asks to turn their workflow, interaction, or multi-step process into a skill, or when they say "make this a skill", "create a skill from what we just did", "package this workflow" or similar. Do not use for creating skills from scratch without an existing workflow (use a generic skill-creator for that).
+
+  '
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Workflow-to-Skill Distiller
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 Turns a completed workflow into a reusable agent skill. Specifically, this skill
 extracts patterns from an interaction or workflow that **already happened** and

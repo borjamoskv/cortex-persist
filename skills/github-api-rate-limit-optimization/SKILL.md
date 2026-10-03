@@ -1,10 +1,25 @@
 ---
 name: github-api-rate-limit-optimization
-display_name: "Optimización Resiliente de Tasa API GitHub (Error 429)"
-description: "Optimización de cuotas y manejo resiliente de límites de tasa (Rate Limits 429) en API de GitHub. Dispara con \"github rate limit\", \"error 429 github\", \"optimizar github api\", \"secondary rate limit\"."
+display_name: Optimización Resiliente de Tasa API GitHub (Error 429)
+description: Optimización de cuotas y manejo resiliente de límites de tasa (Rate Limits 429) en API de GitHub. Dispara con "github rate limit", "error 429 github", "optimizar github api", "secondary rate limit", "evitar 429 github", "resiliencia api github".
+role: auditor
+allowed_roles:
+- auditor
+directives:
+  worktree_mode: audit-only
+  phase: verification
+  handoff:
+    upstream: ejecutor
+    downstream: operador
 ---
 
 # GitHub API Rate Limit Optimization Protocol
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `auditor` (Auditor (Verificación Independiente, Linters de Silicio & Fail-Closed Gate))
+> - **Modo de Acceso a Worktree:** `audit-only` (audit-only (Lectura forense de diffs, linters, tests de estrés y cálculo de exergía; cero mutación de código))
+> - **Fase Causal:** `verification`
+> - **Contrato Handoff:** Recibe de `ejecutor` $\to$ Despacha a `operador`
 
 Al desarrollar scripts, agentes o aplicaciones que interactúan con la API de GitHub, se deben aplicar estrictamente las siguientes reglas para evitar bloqueos por el Rate Limit primario y los Límites Secundarios (Secondary Rate Limits).
 
@@ -42,4 +57,3 @@ Al desarrollar scripts, agentes o aplicaciones que interactúan con la API de Gi
 - **Bypass de 404 en Repositorios Privados:** Las peticiones web sin autenticación (`read_url_content`) devolverán 404 en repositorios privados. Utiliza `gh repo view` o `gh api` a través de la CLI autenticada del sistema para acceder a metadatos, READMEs y árboles de archivos.
 - **Escapado de Parámetros en ZSH:** Al invocar `gh api` con query parameters (ej. `?recursive=1`), entrecomilla siempre la URL (`"repos/owner/repo/git/trees/HEAD?recursive=1"`) para evitar errores de coincidencia de patrones en zsh (`no matches found`).
 - **Extracción Determinista de Contenido:** Para leer READMEs o archivos específicos mediante `gh api`, utiliza expresiones jq y decodificación base64: `gh api repos/owner/repo/readme --jq '.content' | base64 --decode`.
-

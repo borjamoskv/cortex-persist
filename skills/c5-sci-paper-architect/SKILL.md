@@ -1,10 +1,25 @@
 ---
 name: c5-sci-paper-architect
-display_name: "Arquitecto de Publicaciones Científicas, Traducción & Citas SOTA"
-description: "Redacción, traducción (信达雅 - Faithfulness, Expressiveness, Elegance), pulido académico y maquetación de papers científicos para NeurIPS, CVPR, ICML, ACL e IEEE. Conversión batch de citas (APA, MLA, IEEE, Harvard, BibTeX). Dispara con \"sci-paper\", \"redirección paper\", \"paper latex\", \"neurips template\", \"cvpr paper\", \"camera-ready paper\", \"traducción académica\", \"pulir texto académico\", \"convertir citas\", \"bibtex converter\"."
+display_name: Arquitecto de Publicaciones Científicas, Traducción & Citas SOTA
+description: Redacción, traducción (信达雅 - Faithfulness, Expressiveness, Elegance), pulido académico y maquetación de papers científicos para NeurIPS, CVPR, ICML, ACL e IEEE. Conversión batch de citas (APA, MLA, IEEE, Harvard, BibTeX). Dispara con "sci-paper", "redirección paper", "paper latex", "neurips template", "cvpr paper", "camera-ready paper", "traducción académica", "pulir texto académico", "convertir citas", "bibtex converter".
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
 
 # Skill: C5 Scientific Paper & Scholarly Writing Architect
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Lectura profunda y modelado formal; emisión de especificaciones sin mutación de código de producción))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
 
 Este protocolo orquesta la generación, refinamiento prose-level, traducción bilingüe de alta fidelidad y maquetación de artículos científicos para conferencias y revistas de impacto mundial (CVPR, NeurIPS, ICML, ACL, IEEE/ACM Transactions).
 
@@ -46,4 +61,3 @@ graph TD
 1. **Paquete de Código TeX:** Archivos `.tex`, `.bib` y scripts de compilación `tectonic` / `pdflatex`.
 2. **Reporte de Refinamiento:** Comparativa de párrafos pulidos con justificación de cambios estilísticos.
 3. **Catálogo de Citas Normalizado:** Archivo de referencias verificado y convertido al estilo objetivo.
-

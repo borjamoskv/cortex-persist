@@ -1,37 +1,28 @@
 ---
 name: gcp-dataflow
-description: >
-  Guides writing, packaging, executing, and troubleshooting Apache Beam
-  pipelines on Dataflow. Use when creating new pipelines, configuring Flex
-  Templates, or analyzing performance of Dataflow jobs. Capabilities include
-  Java/Python/Go setup, Cloud Build integration, and deep diagnostic analysis
-  of job health and autoscaling.
-
-  Use when:
-  - Creating an Apache Beam Dataflow pipeline.
-  - Creating a Google Dataflow Flex Template.
-  - Using an existing Google Dataflow Template.
-  - Debugging Dataflow pipeline
-  - Troubleshooting Dataflow pipeline
-  - Analyzing Performance of Dataflow pipeline.
-
-  Key capabilities: Java/Python/Go project setup, Flex Templates (with
-  Cloud Build), and diagnostics for streaming job health, bottlenecks,
-  and autoscaling.
-
-  Do NOT use for:
-  - General GCP resource management unrelated to Dataflow.
-  - Issues with other GCP services (e.g., GCE, GCS, BigQuery) unless directly
-    impacting Dataflow pipeline execution.
-  - Pipeline technologies other than Apache Beam on Dataflow.
-
+description: "Guides writing, packaging, executing, and troubleshooting Apache Beam pipelines on Dataflow. Use when creating new pipelines, configuring Flex Templates, or analyzing performance of Dataflow jobs. Capabilities include Java/Python/Go setup, Cloud Build integration, and deep diagnostic analysis of job health and autoscaling.\nUse when: - Creating an Apache Beam Dataflow pipeline. - Creating a Google Dataflow Flex Template. - Using an existing Google Dataflow Template. - Debugging Dataflow pipeline - Troubleshooting Dataflow pipeline - Analyzing Performance of Dataflow pipeline.\nKey capabilities: Java/Python/Go project setup, Flex Templates (with Cloud Build), and diagnostics for streaming job health, bottlenecks, and autoscaling.\nDo NOT use for: - General GCP resource management unrelated to Dataflow. - Issues with other GCP services (e.g., GCE, GCS, BigQuery) unless directly\n  impacting Dataflow pipeline execution.\n- Pipeline technologies other than Apache Beam on Dataflow.\n"
 license: Apache-2.0
 metadata:
   version: v4
   publisher: google
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Apache Beam Pipelines on Cloud Dataflow
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 ## Pipeline authoring
 

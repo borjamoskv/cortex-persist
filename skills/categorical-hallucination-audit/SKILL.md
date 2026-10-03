@@ -1,10 +1,25 @@
 ---
 name: categorical-hallucination-audit
-display_name: "Auditoría Categórica de Alucinación & Cota Kl(D)"
-description: "Protocolo de formalización categórica de arquitecturas cognitivas, Categorías de Markov, desintegración bayesiana y medición cuantitativa de alucinación en Kl(D). Dispara con \"alucinación categórica\", \"cota de confabulación\", \"desintegración bayesiana\", \"Kl(D) audit\", \"Myhill-Nerode estocástico\", \"geometría de alucinación\", \"cota de lipschitz\", \"mean shift 1d\"."
+display_name: Auditoría Categórica de Alucinación & Cota Kl(D)
+description: Protocolo de formalización categórica de arquitecturas cognitivas, Categorías de Markov, desintegración bayesiana y medición cuantitativa de alucinación en Kl(D). Dispara con "alucinación categórica", "cota de confabulación", "desintegración bayesiana", "Kl(D) audit", "Myhill-Nerode estocástico", "geometría de alucinación", "cota de lipschitz", "mean shift 1d".
+role: auditor
+allowed_roles:
+- auditor
+directives:
+  worktree_mode: audit-only
+  phase: verification
+  handoff:
+    upstream: ejecutor
+    downstream: operador
 ---
 
 # Categorical Realization, Markov Categories & Stochastic Hallucination Audit Protocol
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `auditor` (Auditor (Verificación Independiente, Linters de Silicio & Fail-Closed Gate))
+> - **Modo de Acceso a Worktree:** `audit-only` (audit-only (Lectura forense de diffs, linters, tests de estrés y cálculo de exergía; cero mutación de código))
+> - **Fase Causal:** `verification`
+> - **Contrato Handoff:** Recibe de `ejecutor` $\to$ Despacha a `operador`
 
 Este protocolo proporciona el procedimiento metodológico y formal para analizar, verificar e implementar máquinas de estados cognitivos, extensiones de Kan de contexto y cotas cuantitativas de alucinación/confabulación en sistemas estocásticos.
 

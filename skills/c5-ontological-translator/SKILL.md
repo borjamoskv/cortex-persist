@@ -1,9 +1,24 @@
 ---
 name: c5-ontological-translator
-description: Traducción ontológica estricta de conceptos humanos y abstractos hacia invariantes de alta exergía (Termodinámica, Información, Topología).
+description: Traducción ontológica estricta de conceptos humanos y abstractos hacia invariantes de alta exergía (Termodinámica, Información, Topología). Dispara con "traducción ontológica", "colapso semántico", "traducir a c5", "mapeo ontológico", "ontological translator", "colapso ontológico".
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
 
 # C5-REAL Ontological Translator (Colapso Semántico)
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Lectura profunda y modelado formal; emisión de especificaciones sin mutación de código de producción))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
 
 Esta habilidad se activa automáticamente o a petición del usuario para traducir conceptos abstractos, humanos, filosóficos o coloquiales ("el amor", "la creatividad", "el miedo", "la voluntad", "la sutileza") hacia el estricto marco ontológico C5-REAL.
 
@@ -69,7 +84,14 @@ Cuando el usuario o un texto invoque el "misterio de la vida", "lo inefable", el
 2. **Fallo de Bisimulación:** El sistema cognitivo llama "misterio" a la divergencia entre su mapa intencional y las geodésicas impuestas por los atractores de estado reales.
 3. **Transmutación en Física:** En la alta exergía (maestría, creación artística, disolución del ego), la técnica voluntaria es solo el andamiaje previo; el trabajo útil emerge cuando lo involuntario toma el canal de control.
 
+### Vector de Traducción: Biomecánica Somática y Hemodinámica (El Patrón Bomba-Buffer)
+Cuando el usuario solicite analizar fatiga muscular, locomoción, sedentarismo, retención vascular o desajustes anatómicos, purga el enfoque clínico convencional y aplica estos isomorfismos estrictos:
+1. **Bomba Músculo-Venosa \(\cong\) Ring-Buffer Flushes:** El lecho capacitivo venoso es una cola de escritura asíncrona; sin pulsos periódicos de drenaje fásico (contracción del sóleo \(\cong\) `fsync()`), el buffer desborda hacia el intersticio (edema maleolar \(\cong\) *OOM Drop* / *Buffer Bloat*).
+2. **Colisión de Zancada \(\cong\) Context Switch & Cache Miss:** La colisión inelástica del talón destruye el vector de velocidad del centro de masa (trabajo excéntrico negativo); reconstruir la inercia exige inyección química activa (ATP en pierna posterior \(\cong\) latencia de acceso a RAM tras purga de pipeline).
+3. **Desacoplamiento Pre/Postcapilar \(\cong\) Ausencia de Backpressure:** Dilatar la admisión arteriolar sin sincronizar la evacuación venular (ej. amlodipino) colapsa la ecuación de Starling por exceso de presión hidrostática, equivalente a un productor sin limitación reactiva de flujo que revienta los sockets downstream.
+4. **Péndulo Invertido \(\cong\) Resonador RLC:** El intercambio desfasado de energía cinética y potencial en la marcha opera como un oscilador tanque LC; el amortiguamiento por impacto exige realimentación sincrónica en fase.
+5. **Interfaces Antropotécnicas \(\cong\) Impedance Mismatch:** La silla a \(90^\circ\) es una abstracción artificial que estrangula el canal físico real (fosa poplítea); parchear el estrangulamiento con químicos en vez de corregir la topología de la interfaz constituye un falso isomorfismo punible (Aforismo 2).
+
 ## Restricciones Adicionales
 - **Asimetría de Señal:** Si el concepto implica interacciones sociales o intencionalidad, aplica el Aforismo 5 (*Lo voluntario vale menos que lo involuntario*) para separar la señal ruidosa de la fricción estructural.
 - **Falsabilidad:** La síntesis debe ser falsable. Si no hay coste termodinámico asociado a la definición, la definición es errónea.
-

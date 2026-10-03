@@ -80,9 +80,9 @@ When executing an audit, `github-architect` produces a structured markdown repor
 
 | Repository | Score | Grade | Disposition | Recency | CI Present | Recommended Action / Remediation |
 | :--- | :---: | :---: | :--- | :---: | :---: | :--- |
-| `repo-a` | 100 | **A** | Flagship | 2 days ago | ✅ | Repositorio en estado óptimo. |
-| `repo-b` | 77 | **B** | Fork Hygiene | 11 days ago | ✅ | Sync upstream con original. |
-| `repo-c` | 49 | **D** | Archive | 400 days ago| ❌ | **Evaluar archivado por inactividad > 1 año** |
+| `repo-a` | 100 | **A** | Flagship | 2 days ago | ✅ | Repository in optimal health. |
+| `repo-b` | 77 | **B** | Fork Hygiene | 11 days ago | ✅ | Sync upstream with original parent. |
+| `repo-c` | 49 | **D** | Archive | 400 days ago| ❌ | **Evaluate archival due to inactivity > 1 year** |
 
 ---
 

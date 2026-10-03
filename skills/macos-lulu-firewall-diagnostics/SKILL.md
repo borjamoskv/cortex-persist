@@ -1,10 +1,25 @@
 ---
 name: macos-lulu-firewall-diagnostics
-display_name: "Diagnóstico de Firewall & Sockets macOS (LuLu / Little Snitch)"
-description: "Diagnóstico de reglas de red local, sockets y firewall en macOS (LuLu / Little Snitch). Dispara con \"lulu firewall\", \"little snitch\", \"redes macos\", \"diagnóstico firewall\"."
+display_name: Diagnóstico de Firewall & Sockets macOS (LuLu / Little Snitch)
+description: Diagnóstico de reglas de red local, sockets y firewall en macOS (LuLu / Little Snitch). Dispara con "lulu firewall", "little snitch", "redes macos", "diagnóstico firewall", "reglas de red macos", "bloqueo sockets mac".
+role: auditor
+allowed_roles:
+- auditor
+directives:
+  worktree_mode: audit-only
+  phase: verification
+  handoff:
+    upstream: ejecutor
+    downstream: operador
 ---
 
 # LuLu Firewall Diagnostic Protocol
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `auditor` (Auditor (Verificación Independiente, Linters de Silicio & Fail-Closed Gate))
+> - **Modo de Acceso a Worktree:** `audit-only` (audit-only (Lectura forense de diffs, linters, tests de estrés y cálculo de exergía; cero mutación de código))
+> - **Fase Causal:** `verification`
+> - **Contrato Handoff:** Recibe de `ejecutor` $\to$ Despacha a `operador`
 
 Cuando el usuario comparta una alerta del firewall LuLu o Little Snitch bloqueando una conexión en macOS, ejecuta este protocolo para diagnosticar la legitimidad del tráfico:
 
@@ -28,3 +43,21 @@ Cuando el usuario comparta una alerta del firewall LuLu o Little Snitch bloquean
   - **Destino IP/CDN:** [Propietario]
   - **Causa Operativa:** [Por qué se conecta]
   - **Directiva de Acción:** Recomendar explícitamente "Permitir" o "Bloquear".
+
+
+---
+
+## 5. Herramientas Forenses de Diagnóstico de Red (macOS CLI)
+
+Inspección de sockets activos y procesos bloqueados sin herramientas de terceros:
+
+```bash
+# 1. Listar sockets TCP en escucha con PID y proceso exacto:
+lsof -nP -iTCP -sTCP:LISTEN
+
+# 2. Mapear conexiones establecidas por un proceso específico (ej. node / wasm-pack):
+lsof -nP -iTCP -a -c node
+
+# 3. Extraer estadísticas de ruteo y resolución de host de la interfaz activa:
+netstat -rn -f inet | grep default
+```

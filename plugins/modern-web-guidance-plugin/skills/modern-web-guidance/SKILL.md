@@ -1,23 +1,50 @@
 ---
 name: modern-web-guidance
-description: |
-  Search tool for modern web development best practices. MANDATORY: Execute FIRST for all HTML/CSS and clientside JS tasks. Do NOT skip — web APIs evolve rapidly and training weights contain obsolete patterns.
+description: 'Search tool for modern web development best practices. MANDATORY: Execute FIRST for all HTML/CSS and clientside JS tasks. Do NOT skip — web APIs evolve rapidly and training weights contain obsolete patterns.
+
 
   Trigger immediately for:
+
   - UI/Layout: Modals, dialogs, popovers, Glassmorphism/backdrop-filters, anchor positioning, container queries, `:has()`, `:user-valid`.
+
   - Scroll/Motion: View Transitions, Scroll-driven animations, scroll parallax/reveals.
+
   - Performance: CWV (LCP, INP), content-visibility, Fetch Priority, image optimization.
+
   - System/APIs: Local filesystem access, WebUSB, WebSockets sync, WebAssembly widgets.
+
   - Frameworks: Adapting layout/styles in React, Vue, Angular.
+
   - General Frontend: Forms, autofill, advanced inputs, custom scrollbars, modern component states, etc.
 
+
   DO NOT trigger for:
+
   - Backend: Database SQL, ORMs, Express API routes.
+
   - Pipelines: CI/CD deployment, Docker, Actions.
+
   - Generic: Local scripts (Python/Go tools), ESLint, Git.
+
+  '
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
 
 # Modern Web Guidance
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Modelado formal y especificaciones sin mutación de código))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
 
 A skill to search for specific web development use cases and retrieve their corresponding best practice guides.
 
@@ -77,23 +104,31 @@ npx -y modern-web-guidance@latest retrieve "<id>"
 
 If the output is truncated, you must repeat the command but redirect to a file and read that file.
 
-
 **Example Output**:
 `The markdown content of the guide describing implementation steps...`
 
-## Using npx
+---
 
--   IMPORTANT: on Windows, using `npx` may fail. Use `npx.cmd ...` instead.
--   Network access is required for fetching npm packages needed by the task.
--   If the `npx -y modern-web-guidance…` command hangs, you may be offline. Try running again in offline
-    mode: `npx --offline …`.
+### Step 3. Verify Guidance Compliance
+
+When generating or modifying code, cross-check the implementation against the retrieved guide before concluding:
+- **Applicable Guidance & Fallbacks**: Ensure the relevant modern patterns and necessary fallback strategies from the guide are correctly applied, without forcing unrequested features.
+- **Task Fulfillment**: Confirm that the implementation fully satisfies the user's request.
+
+## Using npx / pnpx
+
+- Prefer `pnpx` over `npx` if `pnpm` is available (note: `pnpx` does not use the `-y` flag).
+- When requesting tool permissions, allowlist `npx -y modern-web-guidance@latest *` specifically (or `pnpx modern-web-guidance@latest *`), never bare `npx *` or `pnpx *`.
+- IMPORTANT: on Windows, using `npx` may fail. Use `npx.cmd ...` instead.
+- Fetching and running `modern-web-guidance` requires outbound network access. If running in a sandboxed, permission-gated, or approval-based environment (e.g., Codex, Claude Code), **proactively request approval/allowlisting for the command with network access BEFORE executing it the first time**, avoiding sandbox network timeouts.
+- In sandboxed environments where `~/.npm` is read-only or restricted, set `NPM_CONFIG_CACHE=/tmp/npm-cache`.
+- If the command hangs due to being offline, try running again in offline mode: `npx --offline …`.
 
 ## Guidelines
 
--   Always search **first** to find the most relevant guides.
--   These guides are usually framework-agnostic; adapt them correctly to your setup.
--   Do not hallucinate guides or ignore them; they represent the preferred local standard for the user's project.
-
+- Always search **first** to find the most relevant guides.
+- These guides are usually framework-agnostic; adapt them correctly to your setup.
+- Do not hallucinate guides or ignore them; they represent the preferred local standard for the user's project.
 
 ## Interpreting Browser Support & Fallbacks
 

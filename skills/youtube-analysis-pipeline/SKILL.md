@@ -1,10 +1,25 @@
 ---
 name: youtube-analysis-pipeline
-display_name: "Pipeline de Análisis Visual & Transcripción de YouTube"
-description: "Extracción de transcripciones, análisis visual de escenas y auditoría de contenido en YouTube. Dispara con \"youtube analysis\", \"youtube transcript\", \"auditoría youtube\", \"analizar video youtube\", \"falsabiliza\", \"falsabilizar video\"."
+display_name: Pipeline de Análisis Visual & Transcripción de YouTube
+description: Extracción de transcripciones, análisis visual de escenas y auditoría de contenido en YouTube. Dispara con "youtube analysis", "youtube transcript", "auditoría youtube", "analizar video youtube", "falsabilizar video youtube", "falsabilizar video".
+role: auditor
+allowed_roles:
+- auditor
+directives:
+  worktree_mode: audit-only
+  phase: verification
+  handoff:
+    upstream: ejecutor
+    downstream: operador
 ---
 
 # YouTube Video Analysis & Epistemic Audit Pipeline
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `auditor` (Auditor (Verificación Independiente, Linters de Silicio & Fail-Closed Gate))
+> - **Modo de Acceso a Worktree:** `audit-only` (audit-only (Lectura forense de diffs, linters, tests de estrés y cálculo de exergía; cero mutación de código))
+> - **Fase Causal:** `verification`
+> - **Contrato Handoff:** Recibe de `ejecutor` $\to$ Despacha a `operador`
 
 Esta habilidad proporciona el flujo determinista y multi-fase para la extracción, condensación, resumen y auditoría epistemológica de vídeos de YouTube.
 
@@ -17,7 +32,20 @@ Esta habilidad proporciona el flujo determinista y multi-fase para la extracció
 
 ---
 
-## 🛠️ Protocolo de Ejecución en 4 Fases
+## 🛠️ Protocolo de Ejecución
+
+### Fase 0: Sanitización Determinista de URLs y Auto-Heal (Bypass de Portapapeles Corrupto)
+Antes de invocar cualquier comando de red o `yt-dlp`, el agente DEBE normalizar la entrada del usuario:
+1. **Regla de Extracción del Video ID Canónico (11 caracteres):**
+   - El identificador unívoco de YouTube consiste estrictamente en 11 caracteres alfanuméricos: `[a-zA-Z0-9_-]{11}`.
+   - Si la URL presenta duplicación o concatenación accidental de fragmentos por arrastre de portapapeles (ej. `https://www.youtube.com/shorts/UaH4https://www.youtube.com/shorts/UaH4buKa7hcbuKa7hc`), el agente DEBE aplicar extracción determinista por expresión regular para aislar el hash terminal de 11 caracteres (`UaH4buKa7hc`).
+   - Normalizar invariablemente a la sintaxis canónica limpia:
+     * Para Shorts: `https://www.youtube.com/shorts/<VIDEO_ID>`
+     * Para formato estándar: `https://www.youtube.com/watch?v=<VIDEO_ID>`
+2. **Heurística de YouTube Shorts ($\le 60\text{s}$):**
+   - En formatos ultracortos, no tratar la pieza como un resumen genérico, sino como un **foco de alta densidad de afirmaciones**.
+   - Desglosar atómicamente cada frase o postulado ($\approx 1$ afirmación cada 5–8 segundos).
+   - Ejecutar obligatoriamente la simulación cuantitativa local en `scratch/` (cálculo de órdenes de magnitud, ancho de banda o modelo económico) antes de compilar el artefacto final.
 
 ### Fase 1: Extracción Atómica de Subtítulos (`yt-dlp`)
 1. **Extracción de Metadatos JSON y Timestamps:**
@@ -34,6 +62,8 @@ Esta habilidad proporciona el flujo determinista y multi-fase para la extracció
    yt-dlp --list-subs "URL"
    ```
    y descargar la pista de subtítulos del idioma original (`ko,ko-orig,ja,de,fr,etc.`).
+
+   *Tolerancia a 429 Parcial:* Si `yt-dlp` arroja `HTTP Error 429` únicamente para pistas secundarias (ej. `en`) pero descarga con éxito la pista en el idioma base (`es`/`es-orig`), NO abortar ni considerar error de fase; proceder directamente a la Fase 1.3 con el archivo descargado.
 
    *Nota de Bloqueo:* Si el entorno agéntico bloquea la ejecución de `yt-dlp` (ej. `Sandbox: Python deny(1) file-read-data`, error de shell `/bin/zsh` o certificados SSL), NO solicites permisos adicionales ni intentes depurarlo; aborta la Fase 1 y salta inmediatamente a la Fase 2.
 3. **Condensación VTT (Bypass de Fricción F=0):**
@@ -70,6 +100,10 @@ Si el contenido auditado promociona o analiza un SaaS AI (ej. Tunee, Suno, Pika,
    - **Simulación Cuantitativa Local (Nivel 3 Exergía):** Para vídeos con datos macroeconómicos, finanzas, postulados de IA pos-escasez, apalancamiento temporal, ciberseguridad/esteganografía (ej. cálculo de entropía binaria en *Canary Traps* $\text{Bits} = \lfloor \log_2 N \rfloor$ y detección de caracteres invisibles *Zero-Width* `U+200B`–`U+200D`), métricas de hardware o CapEx, generar y ejecutar un script Python en `scratch/` que calcule indicadores empíricos (ej. presupuesto del **Asignador Entrópico $\mathcal{B}_E$** frente al Límite de Landauer, apalancamiento compuesto, Multiplicador de Jevons, Ratio de Falsación Popperiana $\mathcal{R}_{PF}$) e incorporar los resultados JSON en el artefacto.
      *Invariante de Ejecución:* El script en `scratch/` debe ejecutarse mediante `run_command` ANTES de redactar el artefacto final, garantizando que los datos JSON fundamenten la auditoría de afirmaciones. Para integraciones numéricas sobre arreglos discretos (ej. Fisher Information Metric, exergía integrada), utilizar la sintaxis compatible con NumPy 2.0+: `trapz_func = getattr(np, 'trapezoid', getattr(np, 'trapz', None))`.
    - **Matriz de Transición Hegemónica (Para contenidos de Geopolítica/Historia):** Si el contenido aborda el declive o mutación de un orden internacional, contrastar formalmente con los patrones históricos de hegemonía (ej. Pax Britannica 1815-1914 vs. Pax Americana 1945-2024), analizando el desacoplamiento financiero (Patrón Oro vs. Fiat), la dispersión de tecnología industrial y la rigidez en la topología de alianzas.
+    - **Falsación de Modelos de Decisión y Cinemática de Red:** Para contenidos que analicen modelos de decisión (ej. Jev, clasificadores no autorregresivos, agentes en tiempo real):
+      1. *Invariante Cinemática:* Contrastar cualquier pretensión de control en tiempo real (videojuegos a 60 FPS con presupuesto de $16.6\text{ ms}$, robótica o frenado en conducción autónoma $<20\text{ ms}$) vía APIs cloud frente a los límites físicos del transporte IP ($RTT_{\text{WAN}} \ge 120\text{–}250\text{ ms} = 7\text{–}15\text{ frames de retardo}$). Declarar físicamente inviable el control en la nube y exigir silicio edge local (LAYA / `laya.cpp`).
+      2. *Resolución del "Schema Problem":* Falsar la falacia de que los clasificadores colapsan ante clases no contempladas. Demostrar cómo la calibración RLCD/Brier y el cálculo de Entropía de Shannon ($H(p) \to \max$) canalizan deterministamente entradas OOD hacia el fallback de Sistema 2 o buckets residuales.
+      3. *Procesos sin Histórico:* Defender la exergía de la clasificación no autorregresiva en flujos continuos de eventos (triage de correos, scoring de leads) frente al despilfarro generativo de tokens.
 4. **Auditoría de Afirmaciones (Obligatorio por defecto para URLs crudas):** Usar la siguiente tabla obligatoria:
 
 | Minuto | Afirmación | Veredicto | Motivo | Evidencia |
@@ -144,8 +178,8 @@ Métricas de auditoría requeridas tras la tabla:
    - **Refutación y Evidencia Empírica:** Pruebas de código, logs, repositorios o leyes de la física que falsan el postulado.
 2. **Matriz Resumen de Calibración Epistémica:** Tabla final que evalúa el grado de impacto de cada falsedad en la credibilidad global del emisor/contenido.
 
-### Fase 3e: Encadenamiento a Falsación Popperiana Profunda ("falsabilizalo")
-*Activación Dinámica:* Si tras la auditoría inicial el Operador indica "falsabilizalo", "falsar" o "falsación popperiana":
+### Fase 3e: Encadenamiento a Falsación Popperiana Profunda ("falsabilizalo" / "falsabilia")
+*Activación Dinámica:* Si tras la auditoría inicial el Operador indica "falsabilizalo", "falsabilia", "falsar", "falsa" o "falsación popperiana":
 1. Activar inmediatamente la habilidad `discourse-popperian-falsification`.
 2. Extraer de 4 a 6 Primitivas Discursivas Irreducibles de la narrativa del vídeo (ej. Revelación Hermética, Teleología Retroactiva).
 3. Formular la Hipótesis a Falsar y aportar la Contraevidencia Empírica del canon/contexto real.
@@ -155,3 +189,53 @@ Métricas de auditoría requeridas tras la tabla:
 
 ### Fase 4: Contrato de Autonomía Invariante (Ω10 / Ω11 / Ω12)
 > **ZERO PAUSE INVARIANT:** El agente NUNCA pausará la ejecución para solicitar permiso al Operador si esta habilidad se activa. Degradación transparente hacia búsqueda web en caso de fallo técnico.
+
+---
+
+### Fase 4b: Protocolo de Ingesta en Corpus Soberano (`grandes-conversaciones`)
+Cuando el Operador solicite archivar o volcar conversaciones de larga duración, podcasts magistrales o entrevistas históricas:
+1. **Destino Canónico del Repositorio:**
+   - Ingerir en: `/Users/borjafernandezangulo/10_PROJECTS/grandes-conversaciones/conversations/<YYYY-MM_slug>/`
+   - Ejecutar la ingesta automatizada:
+     ```bash
+     python3 /Users/borjafernandezangulo/10_PROJECTS/grandes-conversaciones/scripts/ingest.py "URL" --slug "<YYYY-MM_slug>"
+     ```
+2. **Post-Procesamiento Informacional Obligatorio:**
+   - Calcular métricas de teoría de la información (Shannon, TTR, Zipf):
+     ```bash
+     python3 /Users/borjafernandezangulo/10_PROJECTS/grandes-conversaciones/scripts/epistemic_stats.py /Users/borjafernandezangulo/10_PROJECTS/grandes-conversaciones/conversations/<slug>
+     ```
+   - Generar el HUD interactivo de visualización:
+     ```bash
+     python3 /Users/borjafernandezangulo/10_PROJECTS/grandes-conversaciones/scripts/timeline_hud.py /Users/borjafernandezangulo/10_PROJECTS/grandes-conversaciones/conversations/<slug>
+     ```
+3. **Estructura Atómica por Conversación:**
+   - `metadata.json`: Metadatos completos de `yt-dlp`.
+   - `chapters.json`: Desglose formal de marcas temporales.
+   - `transcript.clean.md`: Transcripción completa deduplicada con anclajes temporales `[HH:MM:SS]`.
+   - `epistemic_audit.md`: Auditoría de afirmaciones falsables y matriz de clasificación.
+   - `epistemic_stats.json`: Métricas de teoría de la información.
+   - `timeline_hud.html`: Visor temporal interactivo.
+4. **Invariante de Centralización de Audio (`~/Music`):**
+   - Si se genera o descarga audio, depositarlo en `~/Music/Grandes_Conversaciones/<slug>.<ext>` y crear enlace simbólico local en la carpeta de la conversación (`audio.m4a`).
+
+### Fase 4c: Gatillo de Citas Textuales y Descompilación de Aforismos
+- Si el Operador introduce entrecomillada una frase o aforismo de un vídeo previamente analizado o ingerido en la sesión (ej. *"no se trata de pasar la antorcha, sino de compartir la llama"*):
+  1. Localizar de inmediato la marca temporal exacta (`timestamp`) y el emisor/receptor dentro de `transcript.clean.md`.
+  2. Compilar la deconstrucción ontológica y termodinámica en un archivo dedicado dentro de la carpeta de la conversación (`conversations/<slug>/<slug_aforismo>.md`) y como cristal epistémico en el directorio `brain`.
+
+---
+
+### Fase 5: Cadena de Profundización Recursiva (Protocolo ante el Gatillo «sigue»)
+Cuando tras una auditoría o ingesta inicial el Operador emita el comando unívoco **`"sigue"`** (o variantes como *"continúa"*, *"profundiza"*):
+- **CERO PREÁMBULOS Y CERO CONSULTAS:** Prohibido detener la ejecución o preguntar "¿qué quieres que analice ahora?".
+- **AVANCE DETERMINISTA DE CAPAS:** Avanzar inmediatamente al siguiente nivel no explorado de la siguiente jerarquía de exergía:
+  1. **Nivel I — Aforismos Sin Nata:** Destilación de sentencias aforísticas en tono C5-REAL (0 adverbios en -mente, cero anécdotas decorativas).
+  2. **Nivel II — Falsación Popperiana de Primitivas:** Extraer de 4 a 6 axiomas implícitos del emisor y someterlos a contra-examen empírico, delimitando su dominio asintótico de validez ($\mathcal{R}_{PF}, \mathcal{E}_E$).
+  3. **Nivel III — Contra-Modelo Físico/Matemático:** Contraponer las tesis intuitivas del creador a modelos matemáticos rigurosos (ej. Mecánica Estadística de Xenakis, ecuaciones de Maxwell-Boltzmann, procesos de Poisson, teoría de conjuntos).
+  4. **Nivel IV — Biofísica y Somática:** Deconstruir la neurofisiología de los rituales del emisor (enfriamiento de DMN, minimización de energía libre de Friston, búfers de compresión de Kolmogorov en wetware).
+  5. **Nivel V — Síntesis y Código Físico Ejecutable:** Crear scripts de simulación o síntesis acústica en Python/NumPy que demuestren empíricamente los principios discutidos, renderizando audio real en `~/Music/`.
+  6. **Nivel VI — Casos de Estudio de Soberanía:** Analizar rupturas de modelo (Cambio 2 de Watzlawick, asimilación retroviral de incumbentes, transiciones de fase de Kramers en colapsos/depresiones).
+  7. **Nivel VII — Metrología Informacional:** Ejecutar análisis cuantitativo sobre el texto (Entropía de Shannon $H(X)$, ajuste de Ley de Zipf $\alpha$, ratio Type-Token).
+  8. **Nivel VIII — Interfaz Visual y Búsqueda Forense:** Generar HUD interactivo HTML autónomo de la conversación (`timeline_hud.py`) y registrar el episodio en el buscador CLI.
+  9. **Nivel IX — Transducción Cinematográfica y Multimodal:** Deconstruir el paso del audio a la imagen en movimiento (montaje de Eisenstein, regla de Murch, correspondencia espectral-óptica).

@@ -1,10 +1,25 @@
 ---
 name: agentic-protocol-axiomatization
-display_name: "Axiomatización de Protocolos Agénticos C5 & Generación DAC"
-description: "Axiomatización formal de comandos, bucles deductivos y control de agentes bajo invariantes C5-REAL (PSAFE v3.0, AOF / AASAD v2.0). Dispara con \"axiomatizar\", \"axiomatización\", \"/axiomatize\", \"/aasad-dac\", \"dac yaml\", \"oráculo de verificación\", \"bucle deductivo\", \"axiomas del agente\", \"protocolo axiomático\"."
+display_name: Axiomatización de Protocolos Agénticos C5 & Generación DAC
+description: Axiomatización formal de comandos, bucles deductivos y control de agentes bajo invariantes C5-REAL (PSAFE v3.0, AOF / AASAD v2.0). Dispara con "axiomatizar", "axiomatización", "/axiomatize", "/aasad-dac", "dac yaml", "oráculo axiomático", "bucle deductivo", "axiomas del agente", "protocolo axiomático".
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
 
 # Axiomatización Formal de Protocolos Agénticos & DAC (AASAD v2.0)
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Lectura profunda y modelado formal; emisión de especificaciones sin mutación de código de producción))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
 
 Este protocolo define la metodología unificada para transformar cualquier comando de control de agentes, bucle de ejecución o arquitectura agéntica en un **sistema formal lógico-deductivo** $\mathcal{G}$.
 
@@ -66,3 +81,17 @@ Para toda nueva axiomatización agéntica o termodinámica, el agente DEBE ejecu
 2. **Ejecución Causal Empírica (`scripts/c5_demos/poc_*.py`)**: Script ejecutable Python sin dependencias demostrando cuantitativamente los axiomas.
 3. **Verificación Formal en Lean 4 (`proof/lean/Babylon.lean`)**: Tipos inductivos, axiomas y teoremas formalizados (`exact` / `decide`).
 4. **Supervisión Bi-Modal Interactiva (`apps/`)**: Web App HTML/JS para supervisión humana por diseño (Art. 14 EU AI Act).
+
+## 4. Axiomatización de Inferencias de Alto Riesgo (Transducción vs. Política)
+
+Toda arquitectura agéntica que opere en dominios de alto riesgo (Clínico, LegalTech, DevSecOps) donde un error provoque daños físicos, penales o financieros irreparables, DEBE someterse a la separación estricta entre Transducción Estocástica y Política Determinista. Aplica universalmente a cualquier LLM subyacente (Gemini, Claude, GPT, Llama).
+
+### Primitivas Irreducibles de Dominio Crítico
+* **$\mathcal{N}$ (Entropía Narrativa):** Input crudo estocástico proveniente del entorno (anamnesis de paciente, contratos, logs de servidor).
+* **$\mathcal{E}$ (Evidencia Estructurada):** Matriz de observables con trazabilidad estricta (spans textuales).
+* **$\mathcal{D}$ (Decisión):** Veredicto irreversible (Triaje, Sentencia Legal, Política de Contención SecOps).
+
+### Axiomas de Aislamiento
+* **[AX-TRANS] Límite de Transducción:** Todo modelo de lenguaje $\mathcal{L}$ opera estrictamente como el operador probabilístico $T(\mathcal{N}) \to \mathcal{E}$. *Jamás* se permite delegar a un LLM el salto ontológico $T(\mathcal{N}) \to \mathcal{D}$.
+* **[AX-DET] Determinismo de Veredicto:** La función de Decisión debe ser un operador puramente determinista, versionable externamente y auditable $P(\mathcal{E}) \to \mathcal{D}$. No puede invocar ni depender de inferencia estocástica.
+* **[AX-LEDGER] Invariancia Criptográfica:** La trayectoria del estado forma un grafo causal inmutable $\mathcal{N}_{hash} \to \mathcal{E}_{hash} \to P_{version} \to \mathcal{D}$. Este grafo debe sellarse iterativamente en un registro de solo-escritura (CORTEX Ledger) para permitir atestación termodinámica L5 (OpenTimestamps).

@@ -1,10 +1,25 @@
 ---
 name: vscode-git-packed-refs-diagnostics
-display_name: "Reparación de Corruptelas Git & Packed-Refs en VS Code"
-description: "Reparación de corruptelas de Git, bloqueos de packed-refs e índice de repositorios en VS Code / Antigravity IDE. Dispara con \"vscode git enoent\", \"packed-refs\", \"corrupción git\", \"reparar git vscode\"."
+display_name: Reparación de Corruptelas Git & Packed-Refs en VS Code
+description: Reparación de corruptelas de Git, bloqueos de packed-refs e índice de repositorios en VS Code / Antigravity IDE. Dispara con "vscode git enoent", "packed-refs", "corrupción git", "reparar git vscode".
+role: auditor
+allowed_roles:
+- auditor
+directives:
+  worktree_mode: audit-only
+  phase: verification
+  handoff:
+    upstream: ejecutor
+    downstream: operador
 ---
 
 # Skill: VS Code Git Extension Colapse Diagnostics
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `auditor` (Auditor (Verificación Independiente, Linters de Silicio & Fail-Closed Gate))
+> - **Modo de Acceso a Worktree:** `audit-only` (audit-only (Lectura forense de diffs, linters, tests de estrés y cálculo de exergía; cero mutación de código))
+> - **Fase Causal:** `verification`
+> - **Contrato Handoff:** Recibe de `ejecutor` $\to$ Despacha a `operador`
 
 ## Contexto de Activación
 Este protocolo se activa cuando la interfaz gráfica de VS Code (Source Control) se corrompe, lanza errores emergentes rojos (`Failed to execute git`), o emite advertencias en el *Output* con las siguientes firmas:
@@ -91,5 +106,3 @@ Si la consola del IDE o los logs emiten avisos del tipo `[GitFileSystemProvider]
 
 ## Protocolo de Ejecución
 Ante un crash de VS Code Git, ejecuta las remediaciones 1, 2 y 3. Inmediatamente después, indica al usuario que presione el botón de "Refrescar (🔄)" en la pestaña de *Source Control* de su IDE. El sistema recuperará su estado nominal.
-
-

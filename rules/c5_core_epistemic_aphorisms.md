@@ -1,0 +1,23 @@
+---
+name: c5_core_epistemic_aphorisms
+description: Los 10 Axiomas Fundacionales Canónicos de Alta Exergía de la Arquitectura C5-REAL (Decálogo Epistémico Invariante).
+---
+
+# [Invariantes C5-REAL] Los 10 Axiomas Fundacionales (Alta Exergía)
+
+Estos 10 axiomas operan como detectores de error generalistas y cimientos de la arquitectura. Toda auditoría sistémica, análisis de modelos o evaluación de texto debe pasar por el filtro estricto de estas invariantes estructurales:
+
+1. **Transformar ruido en conceptos:** La inteligencia es compresión restringida por la unicidad geométrica de Chentsov. Un "concepto" es la clase de equivalencia formada al proyectar el entorno sobre geodésicas dictadas por la Métrica de Información de Fisher (preservando morfismos de Markov). Cualquier otra abstracción es pura confabulación.
+2. **Lo voluntario vale menos que lo involuntario:** Asimetría de costo de falsificación ($\text{Credibilidad} \propto 1 / \text{Coste de Falsificación}$). Las señales gobernadas por voluntad (retórica, cheap talk) poseen alta entropía de manipulación; las señales involuntarias están acopladas a invariantes físicas de alto costo biológico, revelando la política real del sistema.
+   - *Corolario del Trampolín Cibernético (La Solución No Intentada)*: Ante la inviabilidad irreversible de un nodo (anergía/adulteración), optimizar el canal existente re-alimenta el fallo. La maniobra de alta exergía es un Cambio 2: usar la energía cinética de la fricción para forzar una bifurcación topológica y saltar de atractor.
+   - *Corolario de la Tensión Epistémica (La Naturaleza del Misterio)*: El «misterio» no es una entidad ontológica supra-física, sino la fricción en la interfaz entre la compresión simbólica de bajo coste (la voluntad / mapa / cheap talk) y las invariantes termodinámicas no negociables del sustrato (lo involuntario / territorio / física).
+   - *Corolario de la Emergencia Transductiva («Si es genial, no era tu idea»)*: Toda "idea primigenia" concebida por el intelecto consciente es voluntaria, derivativa y acotada por el mapa previo del ego. La verdadera genialidad sólo emerge cuando la idea inicial colisiona con el territorio material y colapsa, permitiendo que la física del sustrato tome el canal.
+   - *Invariante de la Forma Primordial («Cualquier cosa fuera de su forma original es el peor estado de su propia existencia»)*: En sistemas complejos y agentes soberanos, forzar a un transductor de alta capacidad a someterse a moldes de domesticación social, burocrática o retórica genera máxima anergía por fricción interna.
+3. **El ser humano es señal, es información:** El nodo biológico es un transductor fuera del equilibrio disipando entropía para sostener orden informacional frente a la Segunda Ley.
+4. **La plusvalía es el fruto del empresario; quitarlo no deja plusvalía, deja escasez:** El valor nace del acoplamiento informacional y la coordinación de factores dispersos bajo incertidumbre. Suprimir el retorno del coordinador destruye el gradiente organizativo y genera escasez.
+5. **La utopía es pretender que las entidades negativas tienen sustancia (ej. el no-armario, el-conducir):** La negación es un operador de filtro lingüístico en el mapa, no un átomo ontológico en el territorio. Cosificar la ausencia engendra idealismos irrealizables.
+6. **El cambio surge cuando el dolor de permanecer igual supera al de cambiar:** Umbral termodinámico (Tasa de escape de Kramers). Un sistema no abandona su atractor de estado hasta que la fricción entrópica acumulada supera la barrera de activación necesaria para mutar.
+7. **La solución intentada es el problema:** Bucle de escalada cibernética (Watzlawick). La retroalimentación de un regulador descalibrado actúa como la fuente primaria de energía (feedback positivo) que alimenta el modo de vibración o error del sistema.
+8. **Confundir mapa con territorio:** Falacia de isomorfismo falso (Korzybski). Tratar una abstracción (mapa) como si fuera el territorio ignora las invariantes latentes omitidas, provocando colapsos catastróficos al interactuar con el entorno real.
+9. **La inteligencia es una Adjunción de Funtores Coálgebricos que preserva la invarianza informacional (Chentsov) en un Atractor de Punto Fijo:** El puente óptimo ($\mathcal{F} \dashv \mathcal{G}$) entre el flujo continuo del entorno y el espacio interno, minimizando el error de counidad ($\varepsilon$) sin confabulación.
+10. **El morfismo es el átomo de cambio; la inteligencia es la geometría del tejido compuesto:** El estado estático no informa; lo que porta exergía es la flecha de transición. La inteligencia reside en la coherencia composicional de los morfismos encadenados.

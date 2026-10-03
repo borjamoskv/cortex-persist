@@ -1,10 +1,25 @@
 ---
 name: c5-2e-neuropharmacological-sovereignty
-display_name: "Soberanía Neurofarmacológica & Desacople de Parches (TDAH + AACC)"
-description: "Protocolo C5-REAL para el desacoplamiento de estimulantes/sedantes, deconstrucción del bucle de Watzlawick de parches psiquiátricos, diseño de sustrato dopaminérgico endógeno (L-Tirosina, Teanina, BDNF), mitigación del pánico noradrenérgico y traducción pedagógica familiar. Dispara con \"desacoplamiento concerta\", \"bucle de parches\", \"farmacología 2e\", \"sustrato dopaminérgico\", \"uso quirúrgico estimulante\", \"mitigar crash concerta\"."
+display_name: Soberanía Neurofarmacológica & Desacople de Parches (TDAH + AACC)
+description: Protocolo C5-REAL para el desacoplamiento de estimulantes/sedantes, deconstrucción del bucle de Watzlawick de parches psiquiátricos, diseño de sustrato dopaminérgico endógeno (L-Tirosina, Teanina, BDNF), mitigación del pánico noradrenérgico y traducción pedagógica familiar. Dispara con "desacoplamiento concerta", "bucle de parches", "farmacología 2e", "sustrato dopaminérgico", "uso quirúrgico estimulante", "mitigar crash concerta".
+role: auditor
+allowed_roles:
+- auditor
+directives:
+  worktree_mode: audit-only
+  phase: verification
+  handoff:
+    upstream: ejecutor
+    downstream: operador
 ---
 
 # C5-REAL 2e Neuropharmacological Sovereignty Protocol
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `auditor` (Auditor (Verificación Independiente, Linters de Silicio & Fail-Closed Gate))
+> - **Modo de Acceso a Worktree:** `audit-only` (audit-only (Lectura forense de diffs, linters, tests de estrés y cálculo de exergía; cero mutación de código))
+> - **Fase Causal:** `verification`
+> - **Contrato Handoff:** Recibe de `ejecutor` $\to$ Despacha a `operador`
 
 Este protocolo establece la gobernanza y metodología sistemática para auditar, desarmar y sustituir las cascadas de fármacos estimulante-sedante en perfiles de Doble Excepcionalidad (TDAH + Altas Capacidades / 2e).
 
@@ -47,5 +62,26 @@ En la fase de metabolización/descenso del psicoestimulante (caída de plasma en
 
 ## 7. Matriz Ontológica: Estimulante Exógeno vs. Sustrato Colinérgico/BDNF
 * **Concerta (Metilfenidato):** Retenedor monoaminérgico ($\text{DAT/NET}$). Aporta fuerza ejecutiva inmediata y saliencia, pero no construye masa sináptica ni $\text{BDNF}$ y tiene alto coste simpático.
-* **Stack Colinérgico/Neurotrófico (Bacopa + HupA + Ginkgo + Zn):** Optimizador de sustrato. Induce expresión de $\text{BDNF}$ hipocámpico, vasculogénesis cerebral y velocidad asociativa sin activar pánico noradrenérgico ni generar dependencia dopaminérgica.
+* **Stack Colinérgico/Neurotrófico (Bacopa + HupA + Ginkgo + Zn):** Optimizador de sustrato. Induce expresión de BDNF hipocámpico, vasculogénesis cerebral y velocidad asociativa sin activar pánico noradrenérgico ni generar dependencia dopaminérgica.
 
+## 8. Metrología Farmacéutica y Pureza Química (cGMP vs. Pureza Estocástica)
+1. **Desdoblamiento de Masa**:
+   - **Masa Bruta**: Peso total del comprimido (300-450 mg), incluyendo polímeros osmóticos, recubrimientos y excipientes inertes.
+   - **Principio Activo (API)**: La masa neta de la molécula farmacológicamente activa (ej. 36 mg de clorhidrato de metilfenidato).
+2. **Intervalo de Tolerancia Metrológica (± 1%)**:
+   - Un rango `36 mg ± 1%` define un intervalo determinista estricto `[35,64 mg, 36,36 mg]` certificado bajo normativa cGMP mediante cromatografía analítica (HPLC), donde cualquier lote con desviación superior se incinera por imperativo regulatorio.
+3. **Pureza Estocástica**:
+   - En mercados no regulados, la concentración no es una constante sino una variable aleatoria P(X) con alta varianza (25% - 75%), diluida con adulterantes activos (levamisol, fenacetina, lidocaína) que impiden la calibración y disparan el riesgo de toxicidad y arritmia por salto de lote.
+
+## 9. Falsación de la Homonimia Léxica Química (La Trampa del Prefijo)
+1. **Sesgo de Prefijo Compartido**:
+   - Queda prohibido inferir parentesco terapéutico o farmacológico a partir de prefijos de grupos químicos comunes (ej. «Benz-»).
+   - **Benzoilmetilecgonina (Cocaína)**: El prefijo indica un grupo éster benzoico lateral unido a un núcleo estimulante de tropano.
+   - **Benzodiazepinas**: El prefijo indica un anillo de benceno fusionado a un heterociclo de diazepina con acción sedante gabaérgica.
+2. **Antípodas Fisiológicas**:
+   - Estimulantes aminérgicos (aceleradores/despolarizantes de membrana) vs. Moduladores alostéricos positivos GABA-A (frenos/hiperpolarizantes). En emergencias médicas, las benzodiazepinas son el antídoto primario de rescate ante tormentas adrenérgicas por cocaína.
+
+## 10. Taxonomía de Transporte de Monoaminas (NDRI vs. Releasers vs. Precursores)
+1. **NDRI Puros (Inhibidores de Recaptación)**: Bloquean el transportador (SLC6A3/SLC6A2) en conformación outward-facing sin invertir el gradiente ni vaciar vesículas (Metilfenidato, Dexmetilfenidato, Bupropión, Solriamfetol).
+2. **Agentes Liberadores (Releasers / Sustratos)**: Son transportados al citosol, colapsan VMAT2 e invierten la dirección del transportador hacia el exterior celular (Dextroanfetamina, Lisdexanfetamina, Adderall).
+3. **Precursores Dietéticos**: Ningún alimento comercial actúa como un NDRI mayor. Alimentos ricos en proteínas (quesos curados, huevos, carnes) aportan L-Tirosina y L-Fenilalanina, sustratos acotados por la cinética enzimática de la tirosina hidroxilasa (TH) que alimentan la reserva endógena sin forzar picos fásicos extracelulares.

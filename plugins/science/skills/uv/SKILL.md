@@ -1,12 +1,24 @@
 ---
 name: uv
-description: >-
-  Checks whether the uv Python package manager is installed and installs it if
-  missing. Ensures uv is on PATH. Use when another skill requires uv as a
-  prerequisite.
+description: Checks whether the uv Python package manager is installed and installs it if missing. Ensures uv is on PATH. Use when another skill requires uv as a prerequisite.
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # uv (Python Package Manager)
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 `uv` is a fast Python package manager used by Science Skills to run their Python
 CLI scripts. Many skills depend on `uv` being installed and on

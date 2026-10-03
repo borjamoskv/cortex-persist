@@ -1,10 +1,25 @@
 ---
 name: c5-interactive-gantt-planner
-display_name: "Planificador Interactivo Gantt y Ruta Crítica"
-description: "Generación de diagramas Gantt y mapas de historias HTML interactivos con análisis de Ruta Crítica (Critical Path Method - CPM) e identificación de holguras. Dispara con \"gantt planner\", \"gantt chart\", \"critical path\", \"ruta crítica\", \"mapa de historias\"."
+display_name: Planificador Interactivo Gantt y Ruta Crítica
+description: Generación de diagramas Gantt y mapas de historias HTML interactivos con análisis de Ruta Crítica (CPM) e identificación de holguras. Dispara con "gantt planner", "gantt chart", "critical path", "ruta crítica", "mapa de historias", "cronograma interactivo", "cpm critical path".
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
 
 # Skill: C5 Interactive Gantt & Critical Path Planner
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Lectura profunda y modelado formal; emisión de especificaciones sin mutación de código de producción))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
 
 Este protocolo construye diagramas de Gantt interactivos en HTML/SVG con cálculo explícito de la Ruta Crítica (CPM) y holguras de tareas.
 

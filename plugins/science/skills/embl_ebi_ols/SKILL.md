@@ -1,15 +1,26 @@
 ---
 name: embl-ebi-ols
-description: >
-  Query and search the EMBL-EBI Ontology Lookup Service (OLS) for biomedical
-  ontology terms, definitions, and hierarchies across 250+ ontologies (e.g., GO,
-  DOID, HP). Use when the user asks to search for terms, retrieve details,
-  navigate hierarchies (parents, children, ancestors), look up properties and
-  individuals, get autocomplete suggestions, or access ontology metadata and
-  statistics.
+description: 'Query and search the EMBL-EBI Ontology Lookup Service (OLS) for biomedical ontology terms, definitions, and hierarchies across 250+ ontologies (e.g., GO, DOID, HP). Use when the user asks to search for terms, retrieve details, navigate hierarchies (parents, children, ancestors), look up properties and individuals, get autocomplete suggestions, or access ontology metadata and statistics.
+
+  '
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # EMBL-EBI Ontology Lookup Service (OLS)
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 ## Prerequisites
 

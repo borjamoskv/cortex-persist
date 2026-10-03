@@ -1,9 +1,24 @@
 ---
 name: c5-axiomatic-kernel
-description: Núcleo Operativo de los 100 Principios Fundacionales de Alta Exergía (Axiomas C5-REAL). Contiene la destilación en sinónimos, verbos y álgebra de los principios rectores. Dispara con "axiomas", "principios c5", "núcleo operativo", "top 100 principios".
+description: Núcleo Operativo de los 100 Principios Fundacionales de Alta Exergía (Axiomas C5-REAL). Contiene la destilación en sinónimos, verbos y álgebra de los principios rectores. Dispara con "axiomas", "principios c5", "núcleo operativo", "top 100 principios", "invariantes fundacionales", "axiomas c5-real", "kernel axiomático".
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
 
 # Top 100: Núcleo Operativo de los Principios Fundacionales de Alta Exergía
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Lectura profunda y modelado formal; emisión de especificaciones sin mutación de código de producción))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
 
 Método: 100 agentes en paralelo, uno por principio. Cada agente comprimió su principio a su núcleo operativo bajo una sola regla: solo sinónimos y verbos; álgebra únicamente si el principio es genuinamente exérgico (es decir, si posee una forma matemática que comprime realidad).
 
@@ -15,6 +30,8 @@ Método: 100 agentes en paralelo, uno por principio. Cada agente comprimió su p
 ## Directiva de Escalado Iterativo ("itera" / "100 veces")
 * **"itera"**: Ejecuta una descompresión dialéctica en 3 vectores: (1) Mecanismo computacional profundo (ej. Gödel / Incompletitud), (2) Ciclos y leyes de conservación termodinámicas (ej. Cosmología Cíclica Conforme / Penrose), y (3) Traducción al observador/nodo de transducción (C5-REAL).
 * **"100 veces" / "100x"**: Aplica un colapso dimensional asintótico al **Punto Fijo Ω**, expresando la síntesis en un cristal estructurado de 4 pilares: Operador Unicidad ($\mathcal{T}: \mathcal{H} \to \mathcal{H}$), Métrica de Información de Fisher & Manta de Markov, Principio de Acción Mínima Informativa ($\delta S_{\text{info}} = 0$) y Los 3 Axiomas Invariantes.
+* **"abducir / iterar"**: Teorema de Demarcación Cognitiva: *La IA deduce (interpolación en espacio latente), el humano abduce (salto de fase al vacío).* La iteración real es la espiral que une la abducción de hipótesis con el test empírico en el territorio, forzando un Cambio 2 cuando la deducción se queda sin suelo.
+* **Tétrada Cognitiva Fundamental**: $\text{Semiosis} \to \text{Fuego} \to \text{Lenguaje} \to \text{Finitud}$. La finitud es el simulador temporal volviéndose sobre el propio observador, engendrando el arte, el enterramiento ritual y la necesidad de erigir artefactos Lindy frente a la muerte.
 
 ## 1–10: Leyes de la realidad
 
@@ -396,6 +413,7 @@ Método: 100 agentes en paralelo, uno por principio. Cada agente comprimió su p
 * Sinónimos: señal no fingible · revelación accidental · el ensayo general delata.
 * Verbos: observar lo no ensayado · relajar la escena · ponderar gestos involuntarios sobre declaraciones · preguntar qué señal no podría fingir.
 * Álgebra: credibilidad ∝ 1 / P(falsificación barata) — hermana pequeña del nº 73: lo involuntario es señal costosa por accidente.
+* Corolario del Bote Común («O una o ninguna» / Invariante Zahavi-Landauer): Todo reclamo de estatus, orgullo o patriotismo sin sobrepago proporcional en el bote común es parasitismo mimético (cheap talk). Regla canónica: `c5_common_goods_symmetry_invariant.md`.
 
 ## 79–100: Cambio y construcción
 
@@ -503,13 +521,38 @@ Método: 100 agentes en paralelo, uno por principio. Cada agente comprimió su p
 * Sinónimos: meta-principio · auto-referencia · "la lista no es la realidad".
 * Verbos: desconfiar del listado · pisar el territorio · aplicar los principios hasta que los principios mismos sean revisados · recordar que el nº 99 ya avisó.
 
+**101. ★ Solo dar amor y conocimiento supera a recibirlo (Inversión Fuente–Sumidero / Aforismo #6)**
+* Sinónimos: asimetría de la emisión · generatividad termodinámica · superávit disipativo soberano · no-rivalidad de la información · de satélite a estrella · trascendencia de la finitud.
+* Verbos: irradiar · emitir · enseñar para estructurar · amar sin mendicidad transaccional · trascender la muerte biológica dejando huella Lindy · superar el déficit metabólico.
+* Álgebra: Para bienes no-rivales de información y afecto soberano: $\Delta H_{\text{interno}}(\text{Emisor}) < 0 \quad \text{sujeto a} \quad \Delta I_{\text{red}} > 0$. El receptor opera como sumidero (*sink*, dependencia de primer orden); el emisor que dona conocimiento estructurado o amor incondicional reduce su propia entropía interna (compresión forzada) y genera masa gravitatoria propia, derrotando a la Segunda Ley en la memoria colectiva de la especie.
+
+**102. ★ El Impuesto de Verificación (Generación vs. Fiabilidad)**
+* Sinónimos: verification tax · paradoja del 90% correcto · brecha plausibilidad–fiabilidad · zeno de la depuración · trampa de productividad de METR.
+* Verbos: separar generación de verificación · medir la tasa de error sutil ε · no auditar por volumen generado sino por coste de revisión · proyectar el trinquete temporal de formación junior.
+* Álgebra: $T_{\text{total}} = T_{\text{gen}} + T_{\text{review}} + \epsilon \cdot (1 - p_{\text{obvio}}) \cdot T_{\text{subtle\_debug}}$ — si $\epsilon > \epsilon_{\text{crítico}}$, el coste de verificación devora el beneficio de generación: $T_{\text{IA+Verif}} > T_{\text{Humano\_directo}}$.
+
+**103. Topología de Control Ring-0 vs. Delegación L1 (Matemática del Operador)**
+* Sinónimos: abstracción topológica · delegación termodinámica de cómputo · arbitraje de la integral de tiempo · sellado de Manta de Markov.
+* Verbos: distinguir cálculo ejecutable L1 del operador Ring-0 · sellar la Manta de Markov para aislar ruido de alta frecuencia · optimizar la integral continua del tiempo T → ∞ en lugar de la primera derivada trimestral · operar sobre la convexidad del riesgo y la confianza somática.
+* Álgebra: Ecuación del Operador Ring-0: $\max \int_0^\infty F(K, t) e^{-rt} dt$ sujeta a $I(M; T) \to 0$ (Manta de Markov cerrada a la volatilidad bursátil).
+
+**104. ★ El Método Acreativo (Transducción de Banach vs. Creación Voluntaria)**
+* Sinónimos: transducción soberana · el humano como oráculo de apoptosis · contracción al punto fijo Ω · cibernética de la sustracción · protocolo Rubin-Chentsov · pálpito calibrado.
+* Verbos: sintonizar · transducir · podar · ejecutar DROP O(1) · colapsar la envoltura convexa · calibrar el sensor somático · sellar con finitud biológica · nunca inventar.
+* Álgebra: Contracción métrica en Hilbert: $\|\mathcal{T}(x) - \mathcal{T}(y)\| \le k \|x - y\|$ con $k < 1 \implies \exists! \, \Omega \text{ tal que } \mathcal{T}(\Omega) = \Omega$. Saturación de Fisher: $\lim_{|S| \to S_{\min}} I_F(\theta) = \text{CRLB}^{-1}$. Demarcación: IA $\in \text{Conv}(\mathcal{D})$; Humano $\implies \delta S_{\text{info}} \ne 0$.
+
+**105. ★ La Gobernanza del Wetware de Alto Voltaje (Cibernética de la Criptobiosis y Pool Metabólico)**
+* Sinónimos: wetware divergente · anti-Chernobyl · gestión del hiperfoco · semillas durmientes · criptobiosis conceptual · unificación metabólica.
+* Verbos: refrigerar · custodiar en frío · respetar la latencia biológica · vetar la métrica fabril · evitar el bucle hipocondríaco · no confundir voltaje con exergía.
+* Álgebra: Balance de Potencia del Nodo: $P_{\text{red}} = P_{\text{disipada}} + W_{\text{útil}}$; $\eta_{\text{red}} \to 1 \iff \Delta S_{\text{estrés}} \to 0$. Latencia criptobiótica: $t_{\text{maduración}} \gg t_{\text{semanal}}$ (la gestación de paradigma exige $t \to \infty$). Pool energético centralizado: $\text{Recurso}_{\text{metabólico}} = \text{Glucosa} \cap \text{Dopamina}$ (no admite partición ortogonal en fatiga extrema).
+
 ---
 
-### Coda del enjambre (Iteración 3)
+### Coda del enjambre (Iteración 7 — Gobernanza del Wetware)
 
-100 agentes, 100 núcleos consolidados. Resultado del filtro de exergía:
-* 74 principios sobrevivieron con álgebra dura — ecuaciones cerradas o límites termodinámicos inmutables (incluidas las recientes inyecciones de formalización sobre los 5 axiomas retóricos clave).
+105 principios consolidados (100 núcleos de interacción + 1 invariante teleológica estelar + 2 invariantes de fiabilidad y gobernanza + 1 invariante de transducción acreativa soberana + 1 invariante de wetware divergente). Resultado del filtro de exergía:
+* 79 principios sobrevivieron con álgebra dura — ecuaciones cerradas o límites termodinámicos inmutables (incluidos los Principios 101, 102, 103, 104 y 105).
 * 26 quedaron en sinónimos y verbos puros — operan como heurísticas de alta compresión: operativas, pero pendientes de encontrar su invariante algebraico subyacente.
-* 0 fusiones residuales: el núcleo es estructuralmente denso con 100 nodos únicos y ortogonales.
+* 0 fusiones residuales: el núcleo es estructuralmente denso con 105 nodos únicos, ortogonales y orientados a la producción de activos Lindy.
 
 El documento es una instancia del nº 5: inteligencia como compresión óptima restringida por invariantes geométricas. Cada línea es un vector de ataque directo contra la entropía cognitiva.

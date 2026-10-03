@@ -1,10 +1,25 @@
 ---
 name: browser-subagent-orchestrator
-display_name: "Orquestador CDP de Subagente de Navegador Web"
-description: "Orquestación de subagente de navegador web autónomo para scraping interactivo, navegación CDP y extracción estructurada de DOM. Dispara con \"subagente navegador\", \"browser subagent\", \"navegar web\", \"scraping interactivo\", \"automatizar navegador\", \"CDP scraping\"."
+display_name: Orquestador CDP de Subagente de Navegador Web
+description: Orquestación de subagente de navegador web autónomo para scraping interactivo, navegación CDP y extracción estructurada de DOM. Dispara con "subagente navegador", "browser subagent", "navegar web", "scraping interactivo", "automatizar navegador", "CDP scraping".
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Skill: Browser Subagent Orchestrator (C5-REAL / Ω)
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Mutación de Árbol de Trabajo))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilación, ejecución de tests locales y generación de artefactos))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 Este protocolo rige la preparación de prompts, la orquestación de sesiones continuas y la resiliencia ante fallos para la herramienta `browser_subagent`.
 
@@ -62,6 +77,23 @@ Si `browser_subagent` o `open_browser_url` reporta fallo o bloqueo de Cloudflare
 1. **Nivel 1:** `browser_subagent` interactivo estándar.
 2. **Nivel 2:** Enrutado inmediato a `read_url_content` si la página es pública y estática.
 3. **Nivel 3:** Ejecución de un script local en Python con `playwright` + `undetected-chromedriver` mediante `run_command` en `/tmp/` para evadir bloqueos headless sin depender del viewport visual del hypervisor.
+
+---
+
+### 3.1. Mitigación de Bloqueo CDP en macOS (Symlink Bug)
+Si el subagente reporta el error `Could not find DevToolsActivePort for chrome...`:
+1. El agente debe auditar la existencia de un symlink corrupto ejecutando:
+   `ls -la "$HOME/Library/Application Support/Google/Chrome/DevToolsActivePort"`
+2. Si apunta a un directorio `/tmp/` inexistente, ejecutar inmediatamente:
+   `rm "$HOME/Library/Application Support/Google/Chrome/DevToolsActivePort"`
+3. Instruir al usuario a cerrar Chrome y relanzarlo con:
+   `/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222`
+
+### 3.2. Fallback Autónomo ante Ausencia de DevToolsActivePort
+Si el entorno reporta `Could not find DevToolsActivePort for chrome...`:
+1. **NO pausar la ejecución ni requerir reinicio interactivo del usuario** si la consulta puede satisfacerse mediante endpoints estructurados o repositorios públicos.
+2. **Enrutamiento Inmediato:** Conmutar de forma automática al Nivel 2 ejecutando consultas directas contra APIs REST públicas (ej. API de arXiv `https://export.arxiv.org/api/query`, Semantic Scholar, CrossRef, PubMed).
+3. Integrar los resultados en el cristal cognitivo sin degradar el tiempo de respuesta del sistema.
 
 ---
 

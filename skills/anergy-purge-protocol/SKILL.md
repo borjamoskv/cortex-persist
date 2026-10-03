@@ -1,10 +1,25 @@
 ---
 name: anergy-purge-protocol
-display_name: "Motor de Purga de Código Muerto y Redundancias (Dead Code & Artifact Cleanup)"
-description: "Motor de purga de código muerto, artefactos efímeros y reducción de deuda técnica. Purga tokens ineficientes, código muerto, caches colgados y redundancias. Dispara con \"purga de anergía\", \"limpiar código muerto\", \"dead code cleanup\", \"eliminar deuda técnica\", \"purga de redundancias\", \"limpiar caches\"."
+display_name: Motor de Purga de Código Muerto y Redundancias (Dead Code & Artifact Cleanup)
+description: Motor de purga de código muerto, artefactos efímeros, redundancia documental (Jaccard) y reducción de deuda técnica. Dispara con "purga de anergía", "limpiar código muerto", "dead code cleanup", "eliminar deuda técnica", "purga de redundancias", "limpiar caches", "busca redundancias", "auditoría documental", "document redundancy", "entropía documental", "limpiar docs", "epistemic redundancy audit", "colapso de redundancias".
+role: auditor
+allowed_roles:
+- auditor
+directives:
+  worktree_mode: audit-only
+  phase: verification
+  handoff:
+    upstream: ejecutor
+    downstream: operador
 ---
 
 # Skill: Code & Artifact Redundancy Purge Protocol
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `auditor` (Auditor (Verificación Independiente, Linters de Silicio & Fail-Closed Gate))
+> - **Modo de Acceso a Worktree:** `audit-only` (audit-only (Lectura forense de diffs, linters, tests de estrés y cálculo de exergía; cero mutación de código))
+> - **Fase Causal:** `verification`
+> - **Contrato Handoff:** Recibe de `ejecutor` $\to$ Despacha a `operador`
 
 Implementa el principio de **Cero Artefactos Inútiles (Zero-Residual)**: tras PoC, stress tests o
 acumulación de build artifacts, el workspace DEBE permanecer perfectamente isomórfico
@@ -33,8 +48,8 @@ a un árbol git limpio.
 Ejecutar los scans siguientes para mapear el estado real global:
 
 ```bash
-WORKSPACE=/Users/borjafernandezangulo/10_PROJECTS
-CORTEX_DIR=/Users/borjafernandezangulo/.cortex
+WORKSPACE=$HOME/10_PROJECTS
+CORTEX_DIR=$HOME/.cortex
 TRM_DIR=$WORKSPACE/Teorema-Robinson-Moskv
 
 # 1. SQLite artifacts (Global)
@@ -62,8 +77,8 @@ Ejecutar en un único bloque `set -e` para garantizar atomicidad:
 
 ```bash
 set -e
-WORKSPACE=/Users/borjafernandezangulo/10_PROJECTS
-CORTEX_DIR=/Users/borjafernandezangulo/.cortex
+WORKSPACE=$HOME/10_PROJECTS
+CORTEX_DIR=$HOME/.cortex
 TRM_DIR=$WORKSPACE/Teorema-Robinson-Moskv
 echo "[PURGE:START] $(date -u +%Y-%m-%dT%H:%M:%SZ)"
 echo ""
@@ -126,7 +141,7 @@ echo "[PURGE:COMPLETE] $(date -u +%Y-%m-%dT%H:%M:%SZ)"
 ## Fase 2 — Verificación Post-Purga (Ω22 Falsifiabilidad)
 
 ```bash
-TRM_DIR=/Users/borjafernandezangulo/10_PROJECTS/Teorema-Robinson-Moskv
+TRM_DIR=$HOME/10_PROJECTS/Teorema-Robinson-Moskv
 
 # Git state debe mostrar solo M legítimos, cero ?? de binarios compilados
 git -C "$TRM_DIR" status --short | head -20
@@ -165,8 +180,8 @@ Si el Operador invoca **"más"** (o equivalentes) después de una purga completa
 
 Ejecutar:
 ```bash
-WORKSPACE=/Users/borjafernandezangulo/10_PROJECTS
-CORTEX_DIR=/Users/borjafernandezangulo/.cortex
+WORKSPACE=$HOME/10_PROJECTS
+CORTEX_DIR=$HOME/.cortex
 
 TOTAL_RECOVERED=0
 echo "💀 [FASE 3] INICIANDO PURGA DE CACHÉS PROFUNDAS (.next, dist, build, .cache) ---"
@@ -209,8 +224,8 @@ vercel rm borjamoskv_site simplify_portfolio_ui_ux --safe --yes
 Si el Operador invoca **"más"** de forma iterativa tras completar las Fases 1 a 4, el sistema ejecutará la Fase 5 sobre el host y los sistemas de memoria:
 
 ```bash
-WORKSPACE=/Users/borjafernandezangulo/10_PROJECTS
-VAULT=/Users/borjafernandezangulo/20_VAULT
+WORKSPACE=$HOME/10_PROJECTS
+VAULT=$HOME/20_VAULT
 
 echo "💀 [FASE 5] ESCAVACIÓN DE CACHÉS GLOBALES Y BASURA DEL OS ---"
 
@@ -290,3 +305,14 @@ Activar este skill cuando el usuario escriba cualquiera de:
 - **Auto-Trigger:** Self-activates whenever workspace un-tracked binary size exceeds 50MB or post-PoC execution.
 
 > **SANDBOX ADAPTABILITY INVARIANT:** The scripts defined in this protocol use global absolute paths (`10_PROJECTS`, `.cortex`). If the agent is operating under a Sandbox restriction, the agent MUST autonomously dynamically scope `WORKSPACE` to its current permitted root (e.g., `$PWD` of the active workspace) and omit `CORTEX_DIR` to avoid execution blocking.
+
+
+---
+
+## Protocolo de Detección de Redundancia Documental (Similitud Jaccard)
+
+1. **Detección de Archivos Clónicos**:
+   - Recorrer archivos `.md` y calcular similitud Jaccard de tokens.
+   - Cualquier par con similitud $> 0.80$ se cataloga como *Clon Estructural* candidato a colapso inmediato.
+2. **Detección de Encabezados Duplicados**:
+   - Extraer encabezados `#`, `##`, `###` e identificar duplicidad en el corpus para forzar una única Fuente de Verdad (Single Source of Truth).

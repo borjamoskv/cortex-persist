@@ -1,11 +1,27 @@
 ---
 name: dart-setup-ffi-assets
-description: "Guides agents in compiling and packaging C/C++ source code into dynamic or static libraries (Code Assets) using Dart's Native Assets hook system (via hook/build.dart and hook/link.dart utilizing package:hooks and package:native_toolchain_c). Use when a user asks to: 'setup native assets', 'compile C/C++ source code', 'bundle dynamic libraries', 'build native C code', 'link native assets', 'implement build.dart or link.dart hooks', or 'integrate C/C++ interop in Dart/Flutter'. Helps agents avoid manual toolchain orchestration and configures secure hash-validated binary downloads or advanced linker tree-shaking with package:record_use mapping."
+description: 'Guides agents in compiling and packaging C/C++ source code into dynamic or static libraries (Code Assets) using Dart''s Native Assets hook system (via hook/build.dart and hook/link.dart utilizing package:hooks and package:native_toolchain_c). Use when a user asks to: ''setup native assets'', ''compile C/C++ source code'', ''bundle dynamic libraries'', ''build native C code'', ''link native assets'', ''implement build.dart or link.dart hooks'', or ''integrate C/C++ interop in Dart/Flutter''. Helps agents avoid manual toolchain orchestration and configures secure hash-validated binary downloads or advanced linker tree-shaking with package:record_use mapping.'
 metadata:
   model: models/gemini-3.1-pro-preview
   last_modified: Fri, 29 May 2026 09:10:00 GMT
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
+
 # Compiling C Code into Code Assets with Native Assets Hooks
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 Integrate and automate the compilation and packaging of native C/C++ source code into **Code Assets** under Dart's overarching **Native Assets** feature using build and link hooks.
 

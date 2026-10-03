@@ -4,8 +4,24 @@ description: Entrypoint structure, exit codes, cross-platform scripts. Use when 
 metadata:
   model: models/gemini-3.1-pro-preview
   last_modified: Fri, 04 May 2026 17:41:00 GMT
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
+
 # Building Dart CLI Applications
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Modelado formal y especificaciones sin mutación de código))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
 
 ## Contents
 - [Project Setup & Architecture](#project-setup--architecture)

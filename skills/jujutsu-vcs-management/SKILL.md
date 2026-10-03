@@ -1,10 +1,25 @@
 ---
 name: jujutsu-vcs-management
-display_name: "Control de Versiones Determinista Jujutsu VCS (jj)"
-description: "Control de versiones determinista con Jujutsu VCS (jj) e integración con Git DAG. Dispara con \"jujutsu vcs\", \"jj repo\", \"jujutsu git\", \"control de versiones jj\"."
+display_name: Control de Versiones Determinista Jujutsu VCS (jj)
+description: Control de versiones determinista con Jujutsu VCS (jj) e integración con Git DAG. Dispara con "jujutsu vcs", "jj repo", "jujutsu git", "control de versiones jj", "jj vcs", "jujutsu management".
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Jujutsu (jj) VCS Management Protocol
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Mutación de Árbol de Trabajo))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilación, ejecución de tests locales y generación de artefactos))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 Esta habilidad define la topología de control de versiones cuando el ecosistema opera bajo Jujutsu en lugar de Git clásico, garantizando la consistencia del DAG y la compatibilidad con herramientas de fricción latente (Lefthook).
 

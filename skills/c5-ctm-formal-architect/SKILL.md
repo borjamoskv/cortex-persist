@@ -1,9 +1,24 @@
 ---
 name: c5-ctm-formal-architect
 description: Arquitectura Formal y Diseño Empírico de Cognitive Transition Machines (CTM). Separa metodológicamente la abducción de la deducción, exige tests estadísticos exactos, aislamiento de diagnóstico en la traza y aplica invariantes Lean 4 (AP-01 a AP-09). Dispara con "ctm benchmark", "ctm formalization", "lean 4 ctm", "abduction vs deduction", "falsification matrix", "refinement trace".
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
 
 # C5-REAL CTM Formal Architect
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Lectura profunda y modelado formal; emisión de especificaciones sin mutación de código de producción))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
 
 Este protocolo unifica los invariantes empíricos, de soberanía y matemáticos necesarios para el diseño, validación y formalización de arquitecturas CTM (Cognitive Transition Machines), eliminando fugas metodológicas y confabulaciones antropológicas.
 

@@ -1,9 +1,24 @@
 ---
 name: babylon60-ide-orchestrator
-description: Orquestación de la INTERFAZ y telemetría del IDE BABYLON-60. Keywords: interfaz babylon, orquestar ide, telemetría visual.
+description: 'Orquestación de la INTERFAZ y telemetría del IDE BABYLON-60. Keywords: interfaz babylon, orquestar ide, telemetría visual.'
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Skill: BABYLON-60 IDE Orchestrator
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 Este protocolo orquesta la interacción entre las 31 habilidades de CORTEX y el entorno **BABYLON-60 IDE** (Visual Cortex & Thermodynamic Ark).
 
@@ -26,5 +41,3 @@ Este protocolo orquesta la interacción entre las 31 habilidades de CORTEX y el 
 5. **Scaffolding Hermético:** Ante restricciones de CLI/sandbox en la creación de aplicaciones web, generar directamente los artefactos (`package.json`, `vite.config.ts`, `App.tsx`, `index.css`) mediante herramientas de escritura de archivos en lugar de depender de scripts interactivos de `npx`.
 6. **Mapeo Hexadecimal de Memoria Compartida:** El componente `RingBufferVisualizer` DEBE reflejar la estructura física de los 8 slots alineados a 4096 Bytes desde la dirección base `0x10000000`, mostrando offsets hex, estado atómico (Idle, Ready, Validating, Active, Retired, Quarantine), conteo de `Active_Readers` y digest SHA3-256 inmutable.
 7. **Sonificación Procedural Pura (Zero-Asset Web Audio):** Toda retroalimentación acústica en BABYLON-60 (`AudioSynthesizer.ts`) DEBE sintetizarse proceduralmente en tiempo de ejecución mediante la Web Audio API (osciladores senoidales, filtros paso-banda Biquad, generadores de ruido blanco y envolventes ADSR), quedando estrictamente prohibida la dependencia de archivos de audio pre-grabados (.wav/.mp3).
-
-

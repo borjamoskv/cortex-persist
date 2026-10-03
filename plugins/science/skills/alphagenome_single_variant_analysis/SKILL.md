@@ -1,17 +1,26 @@
 ---
 name: alphagenome-single-variant-analysis
-description: >
-  Analyzes genetic variant effects on gene expression (RNA-seq), chromatin
-  accessibility (DNASE), histone marks (ChIP), and transcription factors
-  using the AlphaGenome API. Use when the user asks about non-coding variant effects,
-  pathogenicity, clinical significance, disease associations, functional
-  effects, gene expression changes, splicing disruption, or regulatory effects
-  in promoters and enhancers. Also use for resolving biological terms to
-  tissue/cell-type ontologies (UBERON/CL) or analyzing variants in
-  chr:pos:ref>alt format.
+description: 'Analyzes genetic variant effects on gene expression (RNA-seq), chromatin accessibility (DNASE), histone marks (ChIP), and transcription factors using the AlphaGenome API. Use when the user asks about non-coding variant effects, pathogenicity, clinical significance, disease associations, functional effects, gene expression changes, splicing disruption, or regulatory effects in promoters and enhancers. Also use for resolving biological terms to tissue/cell-type ontologies (UBERON/CL) or analyzing variants in chr:pos:ref>alt format.
+
+  '
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Variant Analysis using AlphaGenome
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 ## Prerequisites
 

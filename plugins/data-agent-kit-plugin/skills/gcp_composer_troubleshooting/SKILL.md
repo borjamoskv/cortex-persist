@@ -1,18 +1,30 @@
 ---
 name: gcp-composer-troubleshooting
-description: 'Provides expert guidance for troubleshooting Cloud Composer (Apache
-  Airflow) and Orchestration pipelines. Use this skill when the user asks to generate
-  Root Cause Analysis (RCA), troubleshoot or fix a failed pipeline, DAG in Composer
-  environment and generate RCA report.
+description: 'Provides expert guidance for troubleshooting Cloud Composer (Apache Airflow) and Orchestration pipelines. Use this skill when the user asks to generate Root Cause Analysis (RCA), troubleshoot or fix a failed pipeline, DAG in Composer environment and generate RCA report.
 
   '
 license: Apache-2.0
 metadata:
   version: v1
   publisher: google
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Composer Troubleshooting Expert Skill
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 This skill provides specialized instructions for troubleshooting Cloud Composer
 (Airflow) pipelines, utilizing gcloud composer and logs tools to fetch remote

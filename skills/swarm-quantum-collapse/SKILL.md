@@ -1,10 +1,25 @@
 ---
 name: swarm-quantum-collapse
-display_name: "Sincronización Swarm & Colapso Cuántico Multi-Repositorio"
-description: "Orquesta un enjambre Python P×S calibrado empíricamente para forzar la sincronización (Colapso Cuántico) de múltiples repositorios de forma simultánea. Purga locks, ancla ramas, fuerza SSH y realiza commit/push determinista. Dispara con \"swarm quantum collapse\", \"colapso cuántico\", \"sincronizar enjambre\", \"orquestar repos\", \"swarm sync\"."
+display_name: Sincronización Swarm & Colapso Cuántico Multi-Repositorio
+description: Orquesta un enjambre Python P×S calibrado empíricamente para forzar la sincronización (Colapso Cuántico) de múltiples repositorios simultáneos. Dispara con "swarm quantum collapse", "colapso cuántico", "sincronizar enjambre", "orquestar repos", "swarm sync", "colapso multirrepo", "sincronización cuántica".
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # 🌌 Swarm Quantum Collapse (Colapso Cuántico Empírico P×S)
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Mutación de Árbol de Trabajo))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilación, ejecución de tests locales y generación de artefactos))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 ## Cuándo usar esta Skill
 - Cuando el usuario solicite "Colapso Cuántico", "Purga de anergia", "purga anergia", "limpiar anergia", "Sincronizar todo el clúster", o auditar masivamente el workspace (> 50 repositorios).
@@ -75,7 +90,7 @@ def process_chunk(chunk, s_threads):
 def ignite_swarm(p_cores, s_threads):
     if not os.path.exists(REPOS_LIST):
         print("🔍 Generando lista de repositorios dinámicamente...")
-        cmd = "find /Users/borjafernandezangulo/10_PROJECTS -name '.git' -type d -maxdepth 3"
+        cmd = "find ~/10_PROJECTS -name '.git' -type d -maxdepth 3"
         res = subprocess.run(cmd, shell=True, capture_output=True, text=True)
         repos = [os.path.dirname(line.strip()) for line in res.stdout.splitlines() if line.strip()]
     else:
@@ -121,4 +136,3 @@ if __name__ == '__main__':
 1. Si no existe `/tmp/repos_to_collapse.txt`, el script descubre automáticamente los 69 repositorios del workspace.
 2. Escribe la plantilla en `/tmp/quantum_collapse_swarm.py`.
 3. Ejecútalo con `python3 /tmp/quantum_collapse_swarm.py --p 4 --s 1` (Óptimo Pareto de Cero Thrashing) o `--p 2 --s 4` (Máximo Throughput NVMe).
-

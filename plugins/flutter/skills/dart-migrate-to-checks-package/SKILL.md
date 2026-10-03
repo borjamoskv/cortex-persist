@@ -1,13 +1,29 @@
 ---
 name: dart-migrate-to-checks-package
-description: |-
-  Replace the usage of `expect` and similar functions from `package:matcher`
-  to `package:checks` equivalents.
+description: 'Replace the usage of `expect` and similar functions from `package:matcher`
+
+  to `package:checks` equivalents.'
 metadata:
   model: models/gemini-3.1-pro-preview
   last_modified: Tue, 09 Jun 2026 19:30:00 GMT
+role: auditor
+allowed_roles:
+- auditor
+directives:
+  worktree_mode: audit-only
+  phase: verification
+  handoff:
+    upstream: ejecutor
+    downstream: operador
 ---
+
 # Migrating Dart Tests to Package Checks
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `auditor` (Auditor (Verificación Independiente & Control de Calidad))
+> - **Modo de Acceso a Worktree:** `audit-only` (audit-only (Lectura forense de diffs, linters, tests y verificación))
+> - **Fase Causal:** `verification`
+> - **Contrato Handoff:** Recibe de `ejecutor` $\to$ Despacha a `operador`
 
 Use this skill when you need to migrate a Dart test suite from the legacy
 `package:matcher` (which is exported by default from `package:test/test.dart`)

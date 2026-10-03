@@ -1,12 +1,26 @@
 ---
 name: gtex-database
-description: >
-  Use when you want to retrieve quantitative RNA expression data and variant
-  eQTL information from the GTEx (Genotype-Tissue Expression) Project across 54
-  non-diseased tissue sites.
+description: 'Use when you want to retrieve quantitative RNA expression data and variant eQTL information from the GTEx (Genotype-Tissue Expression) Project across 54 non-diseased tissue sites.
+
+  '
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # GTEx Database Integration
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 This skill retrieves transcriptomics data (RNA expression baselines) and
 expression Quantitative Trait Loci (eQTLs) from the GTEx Portal API V2. It

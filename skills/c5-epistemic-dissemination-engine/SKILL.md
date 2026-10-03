@@ -1,10 +1,25 @@
 ---
 name: c5-epistemic-dissemination-engine
-display_name: "Motor de Difusión Epistémica Multicanal y Oratoria Retórica"
-description: "Adaptación de investigaciones y papers para LinkedIn, Twitter/X, WeChat, Zhihu y Slack, integrando el Triángulo Retórico Aristotélico y cues de oratoria. Dispara con \"diseminación epistémica\", \"divulgación multicanal\", \"hilo de twitter\", \"adaptar artículo\", \"cross-platform\", \"oratoria retórica\", \"keynote speech\"."
+display_name: Motor de Difusión Epistémica Multicanal y Oratoria Retórica
+description: Adaptación de investigaciones y papers para LinkedIn, Twitter/X, WeChat, Zhihu y Slack, integrando el Triángulo Retórico Aristotélico y cues de oratoria. Dispara con "diseminación epistémica", "divulgación multicanal", "hilo de twitter", "adaptar artículo", "cross-platform", "oratoria retórica", "keynote speech".
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Skill: C5 Epistemic Dissemination Engine & Rhetorical Oratory
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Mutación de Árbol de Trabajo))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilación, ejecución de tests locales y generación de artefactos))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 Este motor transforma investigaciones científicas, arquitecturas de software y preprints densos en piezas de divulgación optimizadas para plataformas multicanal, preservando la exergía conceptual y eliminando la anergía o el slop mediático.
 

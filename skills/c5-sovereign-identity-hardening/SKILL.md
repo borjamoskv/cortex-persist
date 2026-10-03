@@ -1,10 +1,25 @@
 ---
 name: c5-sovereign-identity-hardening
-display_name: "Protocolo C5-REAL de Defensa e Inmunidad de Identidad Soberana"
-description: "Protocolo de aislamiento de Manta de Markov para identidad digital, auditoría de brechas mediante k-anonimato CLI (Pwned Passwords API), topología de alias desvinculados (Zero-Cross-Coupling), migración FIDO2/Passkey y mitigación de fugas de credenciales. Dispara con \"identidad soberana\", \"data breach\", \"filtración de correo\", \"have i been pwned\", \"k-anonimato\", \"hardened identity\", \"proteger correo\", \"alias email\"."
+display_name: Protocolo C5-REAL de Defensa e Inmunidad de Identidad Soberana
+description: Protocolo de aislamiento de Manta de Markov para identidad digital, auditoría de brechas mediante k-anonimato CLI (Pwned Passwords API), topología de alias desvinculados (Zero-Cross-Coupling), migración FIDO2/Passkey y mitigación de fugas de credenciales. Dispara con "identidad soberana", "data breach", "filtración de correo", "have i been pwned", "k-anonimato", "hardened identity", "proteger correo", "alias email".
+role: auditor
+allowed_roles:
+- auditor
+directives:
+  worktree_mode: audit-only
+  phase: verification
+  handoff:
+    upstream: ejecutor
+    downstream: operador
 ---
 
 # Protocolo C5-REAL de Defensa e Inmunidad de Identidad Soberana
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `auditor` (Auditor (Verificación Independiente, Linters de Silicio & Fail-Closed Gate))
+> - **Modo de Acceso a Worktree:** `audit-only` (audit-only (Lectura forense de diffs, linters, tests de estrés y cálculo de exergía; cero mutación de código))
+> - **Fase Causal:** `verification`
+> - **Contrato Handoff:** Recibe de `ejecutor` $\to$ Despacha a `operador`
 
 Activa esta habilidad cuando el usuario comparta reportes de filtración de datos (ej. Have I Been Pwned), compromisos de correo electrónico, o solicite el endurecimiento y aislamiento de su identidad digital bajo los principios C5-REAL.
 

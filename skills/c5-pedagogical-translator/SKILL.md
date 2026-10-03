@@ -1,16 +1,31 @@
 ---
 name: c5-pedagogical-translator
-display_name: "Traductor Pedagógico C5-REAL (Modo Fácil)"
-description: "Traducción de jerga técnica y manifiestos densos (C5-REAL, invariantes, entropía, arquitectura) a analogías cotidianas, cálidas y comprensibles para audiencias no técnicas (familiares, legos). Dispara con \"modo fácil\", \"modo humano\", \"traduce para mi tía\", \"explícalo fácil\", \"explícaselo a mi amigo\", \"explica a mario\".
+display_name: Traductor Pedagógico C5-REAL (Modo Fácil)
+description: Traducción de jerga técnica y manifiestos densos (C5-REAL, invariantes, entropía, arquitectura) a analogías cotidianas, cálidas y comprensibles para audiencias no técnicas. Dispara con "modo fácil", "modo humano", "traduce para mi tía", "explícalo fácil", "explícaselo a mi amigo", "explica a mario", "traductor pedagógico", "pedagogical translator", "mas faciles de comprender", "más fácil", "ejemplos cotidianos", "ejemplos fáciles".
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
 
 # Traductor Pedagógico C5-REAL ("Modo Fácil")
 
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Lectura profunda y modelado formal; emisión de especificaciones sin mutación de código de producción))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
+
 Esta habilidad permite al agente realizar una traducción isomórfica de conceptos de alta exergía a lenguaje cotidiano sin pérdida de rigor estructural.
 
 ## 🎯 Criterios de Activación
-- Palabras clave: "modo fácil", "modo humano", "modo abuelo", "tradúcelo para mi tía", "explícalo fácil", "explícalo para un amigo", "explícaselo a...".
-- Cuando el usuario solicita simplificar conceptos termodinámicos, neurobiológicos o de crisis TDAH para una audiencia no técnica.
+- Palabras clave: "modo fácil", "modo humano", "modo abuelo", "tradúcelo para mi tía", "explícalo fácil", "explícalo para un amigo", "explícaselo a...", "mas faciles de comprender", "más fácil", "ejemplos cotidianos", "ejemplos fáciles".
+- Cuando el usuario solicita simplificar conceptos termodinámicos, neurobiológicos, geométricos o de crisis TDAH para una audiencia no técnica.
 
 ## 👴 Patrón Narrativo: "Modo Abuelo" (Diálogos de Estufa)
 Cuando se active "modo abuelo", emplear la siguiente estructura narrativa:
@@ -52,3 +67,7 @@ Cuando el usuario pida explicar un episodio de pánico, hiperfoco o crisis TDAH 
 | **Mapa vs. Territorio** (Aforismo 2) | *El tiempo en la tele vs. El huracán cuando llega* | El mapa (pantalla/datos) te da tiempo para reaccionar con bajo costo; el territorio (huracán) es la realidad física e irreductible que impacta sobre ti. |
 | **Transformar ruido en conceptos** (Aforismo 1) | *El colador de pasta* | Quedarte con lo importante de una receta reteniendo la comida y dejando pasar el agua sucia. |
 | **Solución intentada es el problema** (Aforismo 3) | *Rascarse una picadura de mosquito* | El alivio momentáneo al rascarse aumenta la inflamación y el picor a medio plazo. |
+| **Tensor de Información de Fisher-Rao** | *La báscula de baño vs. El diamante del joyero* (o la ducha a 38 °C) | Sumar 1 gramo a tu cuerpo no altera nada; sumar 1 gramo a un diamante duplica su valor. Mide cuánto cambia la realidad observable, no los números planos del papel. |
+| **Geodésicas de Fisher** | *Google Maps evitando la montaña* (o el avión en la corriente en chorro) | La línea recta en el mapa de papel te estrella contra las rocas; la curva asfaltada por la autopista es el camino más rápido y con menor gasto de energía real. |
+| **Pared de Fase / Discontinuidad** | *La batería al 1%* (o el 5.0 del examen) | Bajar del 100 al 99% es irrelevante; bajar del 1 al 0% es la muerte del sistema. Un milímetro en la frontera crítica lo es todo. |
+| **Gradiente Natural de Amari** | *El virtuoso del piano que no suda* | El aficionado aplica fuerza bruta en línea recta; el maestro aplica un gramo de fuerza en el punto exacto de la geodésica, logrando perfección sin fricción. |

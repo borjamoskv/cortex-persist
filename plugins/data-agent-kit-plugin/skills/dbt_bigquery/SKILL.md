@@ -1,17 +1,28 @@
 ---
 name: dbt-bigquery
-description: Expert guidance for creating, modifying, and optimizing dbt pipelines
-  for BigQuery. Use this skill whenever user asks for generating or modifying a dbt
-  model or project. Activate this skill when the user - Creates, modifies, or troubleshoots
-  **dbt models or pipelines** - Needs to **optimize SQL** within a dbt project - Is
-  **setting up a new dbt project** or configuring existing one
+description: Expert guidance for creating, modifying, and optimizing dbt pipelines for BigQuery. Use this skill whenever user asks for generating or modifying a dbt model or project. Activate this skill when the user - Creates, modifies, or troubleshoots **dbt models or pipelines** - Needs to **optimize SQL** within a dbt project - Is **setting up a new dbt project** or configuring existing one
 license: Apache-2.0
 metadata:
-  version: v5
+  version: v6
   publisher: google
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # dbt Expert Skill for BigQuery
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 Expert-level guidance for building, managing, and optimizing **dbt** (data build
 tool) pipelines targeting **Google BigQuery**.
@@ -57,6 +68,8 @@ Follow these steps when fulfilling dbt-related requests:
     GCS URIs.
     -   **List Datasets**: `bq ls --project_id=<PROJECT_ID>`
     -   **List Tables**: `bq ls <PROJECT_ID>:<DATASET_ID>`
+    -   **List Graphs**: ``bq query --use_legacy_sql=false "SELECT * FROM
+        `<PROJECT_ID>.<DATASET_ID>.INFORMATION_SCHEMA.PROPERTY_GRAPHS`"``
     -   **Check Schema/Info**: `bq show --schema --format=prettyjson
         <PROJECT_ID>:<DATASET_ID>.<TABLE_ID>` or `bq show --format=prettyjson
         <PROJECT_ID>:<DATASET_ID>.<TABLE_ID>`

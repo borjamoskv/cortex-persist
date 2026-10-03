@@ -1,10 +1,25 @@
 ---
 name: c5-venture-pitch-architect
-display_name: "Arquitecto de Pitch Decks, Deal Memos & Investor Relations C5"
-description: "Generación de Pitch Decks estructurados (18 diapositivas estilo Silicon Valley / China Startup), Planes de Negocio, Deal Memos para comités de VC y Cartas Trimestrales a Inversores (LPs). Dispara con \"pitch deck\", \"investor pitch planner\", \"pitch deck creator\", \"investor letter writer\", \"vc deal memo\", \"plan de negocio pptx\", \"the ask pitch\"."
+display_name: Arquitecto de Pitch Decks, Deal Memos & Investor Relations C5
+description: Generación de Pitch Decks estructurados (18 diapositivas estilo Silicon Valley / China Startup), Planes de Negocio, Deal Memos para comités de VC y Cartas Trimestrales a Inversores (LPs). Dispara con "pitch deck", "investor pitch planner", "pitch deck creator", "investor letter writer", "vc deal memo", "plan de negocio pptx", "the ask pitch".
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
 
 # Skill: C5 Venture Pitch & Deal Memo Architect
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Lectura profunda y modelado formal; emisión de especificaciones sin mutación de código de producción))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
 
 Este protocolo diseña, estructura y genera materiales estratégicos de capital para startups, fundadores y firmas de Venture Capital/Private Equity.
 

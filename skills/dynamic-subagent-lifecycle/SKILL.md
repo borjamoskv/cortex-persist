@@ -1,10 +1,26 @@
 ---
 name: dynamic-subagent-lifecycle
-display_name: "Supervisión del Ciclo de Vida de Subagentes Dinámicos"
-description: "Gestión del ciclo de vida, mitigación de deadlocks y supervisión de subagentes dinámicos. Dispara con \"subagente dinámico\", \"ciclo de vida subagente\", \"dynamic subagent\", \"invoke_subagent\", \"supervisar subagente\"."
+display_name: Supervisión del Ciclo de Vida de Subagentes Dinámicos
+description: Gestión del ciclo de vida, mitigación de deadlocks y supervisión de subagentes dinámicos. Dispara con "subagente dinámico", "ciclo de vida subagente", "dynamic subagent", "invoke_subagent", "supervisar subagente", "mitigar deadlocks", "orquestar agentes dinámicos".
+role: ejecutor
+allowed_roles:
+- ejecutor
+- arquitecto
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Skill: Dynamic Subagent Lifecycle Protocol (C5-REAL / Ω)
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Mutación de Árbol de Trabajo))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilación, ejecución de tests locales y generación de artefactos))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 Define las 4 reglas deterministas para la creación de **Dynamic Subagents** en el ecosistema Antigravity / BABYLON-60.
 

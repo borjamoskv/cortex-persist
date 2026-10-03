@@ -1,10 +1,25 @@
 ---
 name: electron-mac-bundle-collision-diagnostics
-display_name: "Diagnóstico de Crashes & Colisiones Electron en macOS"
-description: "Use this skill when you need to diagnose, troubleshoot, or resolve crashes, unexpected closures, or performance degradation in Electron or Chromium-based applications on macOS (e.g., Antigravity, VS Code). Contains scripts to parse .ips crash reports, resolve bundle ID collisions, clear Quarantine attributes, and purge corrupted LevelDB locks."
+display_name: Diagnóstico de Crashes & Colisiones Electron en macOS
+description: Diagnóstico y resolución de crashes y colisiones de bundles en aplicaciones Electron/Chromium en macOS. Parsea reportes .ips, limpia cuarentena y purga bloqueos LevelDB. Dispara con "electron crash mac", "crash ips macos", "bundle collision electron", "diagnóstico electron mac", "leveldb lock purge", "cierre inesperado electron".
+role: auditor
+allowed_roles:
+- auditor
+directives:
+  worktree_mode: audit-only
+  phase: verification
+  handoff:
+    upstream: ejecutor
+    downstream: operador
 ---
 
 # Protocolo Avanzado de Diagnóstico Forense y Prevención de Colisiones (macOS Electron)
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `auditor` (Auditor (Verificación Independiente, Linters de Silicio & Fail-Closed Gate))
+> - **Modo de Acceso a Worktree:** `audit-only` (audit-only (Lectura forense de diffs, linters, tests de estrés y cálculo de exergía; cero mutación de código))
+> - **Fase Causal:** `verification`
+> - **Contrato Handoff:** Recibe de `ejecutor` $\to$ Despacha a `operador`
 
 Este protocolo establece los pasos metódicos para diagnosticar, aislar y corregir cierres inesperados (crashes), interrupciones de arranque y degradación de rendimiento en aplicaciones basadas en Electron / Chromium (tales como Antigravity, Claude, VS Code, Slack) en macOS.
 
@@ -112,4 +127,3 @@ En caso de corrupción severa del esquema LevelDB, la solución es purgar el dir
 - **Fallback Chain:** IPS parsing -> kill processes -> purge locks -> consolidate newest bundle mtime -> clear quarantine.
 - **Degradation Mode:** If bundle consolidation fails, force overwrite `/Applications/$APP_NAME.app` without human intervention.
 - **Auto-Trigger:** Self-activates whenever Electron crashes (`.ips`), `EXC_BREAKPOINT`, LevelDB locks or bundle collision symptoms occur.
-

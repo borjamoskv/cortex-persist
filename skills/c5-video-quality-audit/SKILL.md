@@ -1,10 +1,25 @@
 ---
 name: c5-video-quality-audit
-display_name: "Auditoría de Calidad y Compresión de Video (PSNR/SSIM/VMAF)"
-description: "Auditoría cuantitativa de compresión y fidelidad de video comparando secuencias cuadro a cuadro mediante PSNR, SSIM y VMAF, con generación de reportes HTML interactivos. Dispara con \"calidad de video\", \"psnr ssim\", \"diferencia de compresion\", \"video quality diff\", \"auditoría de compresion\"."
+display_name: Auditoría de Calidad y Compresión de Video (PSNR/SSIM/VMAF)
+description: Auditoría cuantitativa de compresión y fidelidad de video comparando secuencias cuadro a cuadro mediante PSNR, SSIM y VMAF. Dispara con "calidad de video", "psnr ssim", "diferencia de compresion", "video quality diff", "auditoría de compresion", "medir vmaf", "auditoría ffmpeg video".
+role: auditor
+allowed_roles:
+- auditor
+directives:
+  worktree_mode: audit-only
+  phase: verification
+  handoff:
+    upstream: ejecutor
+    downstream: operador
 ---
 
 # Skill: C5 Video Quality & Compression Audit
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `auditor` (Auditor (Verificación Independiente, Linters de Silicio & Fail-Closed Gate))
+> - **Modo de Acceso a Worktree:** `audit-only` (audit-only (Lectura forense de diffs, linters, tests de estrés y cálculo de exergía; cero mutación de código))
+> - **Fase Causal:** `verification`
+> - **Contrato Handoff:** Recibe de `ejecutor` $\to$ Despacha a `operador`
 
 Este protocolo audita cuantitativamente la fidelidad visual y degrados introducidos por códecs de video (H.264, HEVC, AV1, ProRes) comparando un video fuente (Reference) contra un video procesado (Distorted) cuadro a cuadro.
 
