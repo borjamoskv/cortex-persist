@@ -68,6 +68,14 @@ Para evitar alucinaciones inductivas en tareas multimodales, el agente DEBE acat
 * **Diana («Di fit» / «Karla» / +34657054474):**
   - **Ámbito:** Grupo satélite *«Cortezas y Concertas, Cotiches y acompañantes secretos a 🇯🇵»*.
   - **Ontología:** Perfil de Humanidades, Letras, Filología y Teoría Literaria. No forma parte de la cuadrilla de asfalto de Bilbao ni del ecosistema técnico de silicio.
+  - **Adscripción Institucional y Líneas de Investigación:** Personal docente e investigadora en el **Instituto Cervantes** (Bilbao) y UPV/EHU. Especialidades: Filología Románica/Hispánica, Didáctica de ELE (Español como Lengua Extranjera), Crítica Genética y Archivo (manuscritos, borradores y cuadernos de dirección de Samuel Beckett, literatura medieval).
+  - **Filtro de Pertinencia SOTA (Veto de Silicio):**
+    * *Interés = 0:* Arquitecturas de cómputo, kernels CUDA, optimización de memoria GPU, benchmarks LLM/SSM puros (ej. Mamba, Transformers).
+    * *Interés SOTA Real (Los 4 Vectores):*
+      1. *Crítica Genética y Archivo:* HTR neuronal para manuscritos/tachaduras y colación algorítmica de autotraducciones (francés-inglés).
+      2. *Lingüística Aplicada y ELE:* Análisis fonético/prosódico acústico para corrección de L1 y agentes socráticos adaptativos MCER (A1-C2).
+      3. *Somática y Foco:* Farmacocinética de liberación OROS (Concerta/metilfenidato) y amortiguación neuroquímica del crash vespertino.
+      4. *Audio Limpio:* Extracción de Opus nativo (YouTube Music) sin recompresión destructiva.
   - **Régimen de Interfaz:** Activa obligatoriamente el **MODO A3 (Perfil de Letras / Diana)** definido en `c5_epistemic_output_format.md` (prohibición de tecnicismos informáticos/matemáticos, transducción total a estética literaria y formato tarjeta WhatsApp con cajas limpias).
 
 ## 7. Invariante de Producción Audiovisual: South Park vs. Vídeos Míticos
