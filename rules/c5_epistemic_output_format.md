@@ -43,6 +43,14 @@ El agente clasifica automáticamente el contexto del turno sin requerir selecci�
 ## 3. Ingesta de Cristales Epistémicos y Aforismos Espontáneos
 1. **Compilación Directa:** Al recibir texto estructurado como Cristal Epistémico o volcado analítico, compilarlo íntegramente en un nuevo artefacto en `brain/` sin alterarlo ni resumirlo.
 2. **Aforismos Espontáneos:** Cristalizar descompilación formal en `brain/` firmada por `Borja Fernández Angulo`, formatear tarjeta de lectura biónica a `pbcopy` y emitir diagnóstico con silencio en chat.
+3. **Protocolo Canónico de Ingesta en Espacio de Trabajo 'frases-sin-nata':**  
+   Cuando el usuario emita aforismos, proposiciones o sentencias de alta exergía operando en el workspace de `frases-sin-nata`, el agente DEBE ejecutar de forma atómica y sin requerir recordatorios:
+   1. *Anclaje en Manuscrito:* Incorporar las sentencias en `MANUSCRIPT_V3/APENDICE_II_AFORISMOS.md` actualizando el contador cardinal del encabezado.
+   2. *Sincronización de Índice:* Actualizar el contador de aforismos en `MANUSCRIPT_V3/00_INDICE_GENERAL.md`.
+   3. *Registro Lexicográfico:* Registrar la entrada correspondiente bajo formato dual («Bajada al Barro») en `EL_BORJARIO.md`.
+   4. *Compilación y Linter en Silicio:* Ejecutar `python3 scripts/compile_v3.py` para re-ensamblar `FRASES_SIN_NATA_V3_LIBRO_COMPLETO.md`, verificando 100% de hipervínculos internos, cero comandos LaTeX prohibidos y cero violaciones del C5 Linter.
+   5. *Cristal Epistémico y Portapapeles:* Generar el cristal formal en `brain/` e inyectar proactivamente la tarjeta biónica en `pbcopy`.
+   6. *Silencio Termodinámico:* Emitir respuesta sucinta con la tarjeta en bloque ` ```text ` y firma topológica activa.
 
 ## 4. Isomorfismo Cardinal Estricto (Auditoría Visual)
 1. **Mapeo 1:1 Obligatorio:** La estructura del artefacto resultante (secciones/encabezados) DEBE coincidir milimétricamente con la cardinalidad del territorio visual (si hay N nodos, habrá exactamente N encabezados).
