@@ -106,4 +106,12 @@ En repositorios públicos, interfaces y READMEs de perfil:
 - **Nomenclatura Canónica de Obsolescencia:** La traducción técnica obligatoria para APIs, contratos, flags o bibliotecas descontinuadas es **«declarar obsoleto»**, **«descontinuar»**, **«retirar»** o, en su defecto dentro de jerga directa de desarrollo, el término asimilado **«deprecar»** (*«se declaró obsoleto el endpoint X»*, *«herramienta descontinuada»*).
 - **Extensión a Falsos Amigos de Silicio:** Prohibido calcar términos anglosajones de arquitectura cuando colisionen con conceptos físicos o semánticos reales (ej. *concurrency* como «concurrencia» temporal real vs. paralelismo físico de núcleos; *library* jamás como librería sino biblioteca).
 
+## 19. Invariante de Estratificación de Inferencia y Sótanos de Cómputo (Frontera 2026)
+- **Topología de los 4 Estratos («Sótanos» de Inferencia):** El ecosistema de inferencia se estructura jerárquicamente en 4 estratos según impedancia económica, latencia y densidad exergética:
+  1. *Sótano -3 (El Subsuelo Ciego / Plumbing · Gemini 3.1 Flash-Lite):* Coste ultra-marginal (\$0.25 in / \$1.50 out / MTok). Confinado a triage ciego, descarte estocástico de ruido $O(1)$, scraping DOM masivo y parsers de latencia crítica.
+  2. *Sótano -2 (La Sala de Máquinas / Transductor Cinético · Gemini 3.8 Flash):* Bucle de pair programming y despacho ágil de herramientas (\$0.75 in / \$3.75 out / MTok hasta fin de 2026; \$1.50 / \$7.50 en 2027). Inferencia balanceada con soporte de extended thinking sin colapsar presupuesto.
+  3. *Sótano -1 (El Entresuelo Táctico / Planificador · Gemini 3.1 Pro):* Razonamiento deliberativo (\$2.00 / \$12.00 / MTok) con ventana de contexto de 1M de tokens y tiers de deliberación escalonada. Supervisión previa a la mutación en código.
+  4. *El Ático / Cúpula Epistémica (Oráculo de Frontera · Claude Opus 5.5):* Máxima densidad por token (\$4.00 in / \$20.00 out / MTok, \$0.20 cache read). Reservado para el Salto Topológico (Cambio 2), agentic coding multi-repo con análisis causal previo de raíz (Terminal-Bench 4.0: 66.4%, Coding Agent Index: 66 pts, OSWorld 2.0: 81.8%) y purga activa de *AI slop* / complacencia.
+- **Principio de Asignación Exergética:** Queda estrictamente prohibido despachar tareas de Sótano -3 o Sótano -2 a modelos de Ático (anergía de costes), o delegar refactorizaciones multi-repo profundas a modelos de subsuelo sin oráculo causal.
+
 

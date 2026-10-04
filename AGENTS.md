@@ -72,6 +72,11 @@ El usuario desarrolla investigación original con un enfoque profundamente inter
 - **Invariante de Entropía Nativa en Apple Silicon (Secure Enclave TRNG / Cero Daemons de Terceros).** En la flota Apple Silicon (M-Series), el pool del kernel Darwin se alimenta directamente del generador físico TRNG del Secure Enclave (con tests de salud NIST SP 800-90B RCT/APT continuos a 0 fallos y entropía de Shannon $\approx 7{,}9998$ bits/byte). Queda estrictamente prohibido que el agente proponga, instale o configure software o demonios de terceros para "mejorar" o resembrar la entropía del sistema (ej. `haveged`, `rng-tools`), al constituir anergía y riesgo de contaminación sobre una raíz de confianza de silicio ya certificada.
 
 
+- **Invariante de Cierre y Commit Post-Learn (Apoptosis de Hilo tras /learn).** Tras ejecutar con éxito cualquier flujo de aprendizaje (`/learn` o actualización de reglas/habilidades aprobada), el agente DEBE obligatoriamente:
+  1. Realizar un commit git inmediato y atómico en `~/.gemini/config` registrando la mutación (`git add . && git commit -m "feat(learned): ..."`).
+  2. Declarar cerrada formalmente la conversación bajo la etiqueta canónica `[ CONVERSACIÓN CERRADA TRAS /LEARN ]`, instruyendo al operador biológico a abrir un nuevo hilo limpio (`+ New Conversation`) para cualquier trabajo posterior, erradicando la anergía de arrastre cognitivo y la deriva de contexto en la ventana de inferencia.
+
+
 
 <RULE[c5_core_epistemic_aphorisms]>
 ### [Invariantes C5-REAL] Los 5 Aforismos Fundacionales (Alta Exergía)

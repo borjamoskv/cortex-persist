@@ -85,6 +85,22 @@ Si el contenido auditado promociona o analiza un SaaS AI (ej. Tunee, Suno, Pika,
 2. **Aislamiento de Constantes de Tarificación:** Buscar objetos tipo `creditConsumeCal`, `creditFloatPredict`, `pricingConfig` o flags de cuotas.
 3. **Cálculo Forense de Fricción por Wrapper:** Multiplicar el coste unitario por segundo/unidad por la duración estándar de producción (ej. 240s de vídeo $\times$ créditos/s) para falsar la viabilidad económica real de la plataforma.
 
+### Fase 2c: Falsación de Desintermediación SaaS por Vibe Coding (The $1 vs $249 SaaS Myth)
+Si el contenido auditado afirma «sustituir o matar un SaaS comercial caro» (scraping, proxies, bases de datos vectoriales, pipelines de agentes, búsqueda) mediante scripts artesanales generados con IA (*vibe coding*) y APIs *pay-as-you-go*:
+
+1. **Auditoría de Coste Total de Propiedad (TCO) y Breakeven:**
+   - NUNCA validar el coste marginal variable (tráfico de proxies o tokens de inferencia) como el coste total del sistema.
+   - Computar obligatoriamente la ecuación formal de TCO:
+     $$\text{TCO} = C_{\text{infra}} + C_{\text{variable}} + C_{\text{tokens}} + \tau_{\text{mantenimiento}} \cdot R_{\text{hora}}$$
+     estimando un mínimo de 1,5 h/mes de mantenimiento por roturas de frontend/DOM, rotación de credenciales y fugas de memoria en Chromium headless.
+   - Calcular el umbral de rentabilidad (*breakeven*) en volumen de peticiones/mes para determinar cuándo el SaaS empaquetado es más eficiente que el mantenimiento artesanal.
+
+2. **Contra-Examen de Barreras WAF L7 (Anti-Reduccionismo IP):**
+   - Falsar la premisa de que los proxies residenciales constituyen una panacea universal contra bloqueos.
+   - Contrastar frente a las defensas de Capa 4 a 7: firmas TLS JA3/JA4 en el *Client Hello*, anomalías en tramas HTTP/2, emulación de huellas de hardware (WebGL/Canvas) y desafíos Proof-of-Work en WebAssembly (Cloudflare Turnstile, DataDome, Kasada).
+
+3. **Aplicación de la Ley de Conservación de la Complejidad (Tesler):**
+   - Delimitar el **Dominio de Validez Asintótico** (Principio de Correspondencia de Bohr): explicitar que la desintermediación por *vibe coding* es válida en el régimen de baja escala ($N < 5.000$ págs/mes sin SLA crítico), pero colapsa en el régimen industrial ($N > 100.000$ págs/mes) donde la absorción de entropía de red del SaaS gestionado es económicamente insustituible.
 
 ### Fase 3: Auditoría Epistemológica y Formateo
 1. **Resumen Estándar e Índice por Bloques:** Lista viñeteada con los puntos centrales estructurados por timestamps o bloques temáticos.

@@ -41,8 +41,8 @@ El Método Acreativo (prefijo *a-* apofático y amoral) es la negación ontológ
    El sensor biológico (~10^7 bits/s) precede a la justificación simbólica (~50 bits/s). Si el cuerpo no responde involuntariamente con los ojos cerrados, la señal es ruido.  
    *Cortafuegos Popperiano:* El pálpito somático debe ser calibrado continuamente contra instrumentación objetiva (LUFS, goniometría de fase, correlación espectral, pruebas ciegas A/B) para prevenir el autoengaño por fatiga auditiva o habituación dopaminérgica.
 3. **Vía Negativa y Sustracción (Protocolo Rubin-Chentsov):**  
-   $\Delta V > 0 \iff \Delta |S| < 0$. Purgar capas hasta maximizar la curvatura de Fisher $I_F(\theta)$ y saturar la Cota Inferior de Cramér-Rao (CRLB).  
-   *Prevención del Nihilismo del Mute:* La poda exige una fase previa de sobreabundancia cinemática ($k > 1$) para no colapsar en el silencio vacío ($S = 0$).
+   $\Delta V > 0 \iff \Delta |S| < 0$. Comprender es descubrir qué puede eliminarse sin que el fenómeno deje de funcionar. Purgar capas hasta maximizar la curvatura de Fisher $I_F(\theta)$ y saturar la Cota Inferior de Cramér-Rao (CRLB).  
+   *Prevención del Nihilismo del Mute:* La poda exige una fase previa de sobreabundancia cinemática ($k > 1$) para no colapsar en el silencio vacío ($S = 0$). El Punto Fijo $\Omega$ es la frontera crítica donde retirar un elemento destruye la función, pero añadir uno reinyecta anergía.
 4. **Forma Primordial («Anti-Domesticación»):**  
    Cero mocks, cero simulación blanda. Cada material (silicio bare-metal, madera acústica, entorchado, laringe humana) debe crujir con su física original sin domesticación corporativa.
 5. **Agnosticismo Moral (Regla de Abbey Road):**  

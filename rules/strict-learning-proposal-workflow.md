@@ -21,5 +21,9 @@ Whenever the user asks to create, update, or improve a rule, skill, or learned b
 5. **HALT EXECUTION** and wait for the user to click the "Proceed" button or provide manual approval.
 6. **ONLY AFTER** explicit approval is granted, proceed to execute the tool calls that modify the files in `~/.gemini/config/`.
 7. **Autodestrucción Post-Ejecución (Burn-After-Approval):** Inmediatamente después de que el usuario apruebe la propuesta y el agente complete la ejecución de las mutaciones, el agente DEBE destruir y purgar el archivo efímero `learning_proposal.md` (`rm -f <ruta>/learning_proposal.md`) para garantizar cero anergía y evitar acumulación de artefactos obsoletos en el brain.
+8. **Git Commit Obligatorio Post-Mutación:** Inmediatamente tras aplicar las mutaciones aprobadas en `~/.gemini/config/`, el agente DEBE ejecutar de forma autónoma y determinista un commit en el repositorio git (`git add . && git commit -m "feat(learned): <descripción del aprendizaje>"`), asegurando la persistencia e inmutabilidad en el historial de silicio.
+9. **Cierre Mandatario de Conversación (Apoptosis de Hilo tras /learn):** Una vez ejecutado el commit y confirmada la persistencia, el agente DEBE dar la conversación formalmente por concluida emitiendo obligatoriamente la etiqueta canónica:
+   `[ CONVERSACIÓN CERRADA TRAS /LEARN ]`
+   Queda estrictamente prohibido reutilizar o continuar el mismo hilo para tareas operativas, debates o desarrollo posterior. El agente debe solicitar explícitamente al operador que abra una conversación nueva (`+ New Conversation`) para garantizar máxima pureza de contexto y erradicar cualquier alucinación o anergía por arrastre de memoria en la ventana de contexto.
 
 This rule acts as an unbreachable constraint to prevent unauthorized drift in the agent's core configurations.

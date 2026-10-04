@@ -83,8 +83,9 @@ FACES_DIR = "/Users/borjafernandezangulo/Downloads/VIDEO BODA HUGO/faces"
 MOVIES_DIR = "/Users/borjafernandezangulo/Movies/VIDEOS_MITICOS"
 MODELS_DIR = os.path.expanduser("~/.insightface/models")
 
+INSWAPPER_FP32_PATH = os.path.join(MODELS_DIR, "inswapper_128.onnx")
 INSWAPPER_FP16_PATH = os.path.join(MODELS_DIR, "inswapper_128_fp16.onnx")
-INSWAPPER_PATH = INSWAPPER_FP16_PATH if os.path.isfile(INSWAPPER_FP16_PATH) else "/tmp/inswapper_128.onnx"
+INSWAPPER_PATH = INSWAPPER_FP32_PATH if os.path.isfile(INSWAPPER_FP32_PATH) else INSWAPPER_FP16_PATH
 CODEFORMER_PATH = os.path.join(MODELS_DIR, "codeformer.onnx")
 GPEN_PATH = os.path.join(MODELS_DIR, "gpen_bfr_512.onnx")
 GFPGAN_PATH = os.path.join(MODELS_DIR, "gfpgan_1.4.onnx")
@@ -335,7 +336,7 @@ def render_worker_chunk(
 
             bgr_fake, M = swapper.get(res, tf, swap_src, paste_back=False)
 
-            if enhancer != 'none' and (enhancer_sess is not None or enhancer == 'adaptive'):
+            if enhancer != 'none' and (enhancer_sess is not None or enhancer in ['adaptive', 'unsharp']):
                 # =======================================================
                 # PIPELINE V5 SOTA: 512p + Adaptive/GPEN CoreML + MKL + Spatial Lighting + Stabilizer + Sensor Grain + BiSeNet + Two-Band
                 # =======================================================
@@ -343,8 +344,8 @@ def render_worker_chunk(
 
                 # Super-resolución adaptativa según la escala del rostro
                 face_h = tf.bbox[3] - tf.bbox[1]
-                if enhancer == 'adaptive' and face_h < 140:
-                    restored_512 = sharpen_face_patch(crop_512, amount=1.1) if sharpen_face_patch else crop_512
+                if enhancer == 'unsharp' or (enhancer == 'adaptive' and face_h < 140):
+                    restored_512 = sharpen_face_patch(crop_512, amount=1.2) if sharpen_face_patch else crop_512
                 else:
                     eff_enhancer = 'gpen' if enhancer == 'adaptive' else enhancer
                     restored_512 = restore_face_patch(crop_512, eff_enhancer, enhancer_sess, weight=enhance_weight)
@@ -749,7 +750,7 @@ def main():
     parser.add_argument("--no-smooth", action="store_true", help="Desactivar filtro temporal")
 
     # Flags V5 SOTA
-    parser.add_argument("--enhancer", choices=['adaptive', 'gpen', 'codeformer', 'gfpgan', 'none'], default='adaptive',
+    parser.add_argument("--enhancer", choices=['adaptive', 'unsharp', 'gpen', 'codeformer', 'gfpgan', 'none'], default='adaptive',
                         help="Motor de Super-Resolución / Restauración facial (default: adaptive - escala inteligente)")
     parser.add_argument("--enhance-weight", type=float, default=0.7,
                         help="Peso de fidelidad de restauración para CodeFormer [0.0-1.0] (default: 0.7)")

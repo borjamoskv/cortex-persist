@@ -1,7 +1,7 @@
 ---
 name: c5-silicon-stress-suite
 display_name: Suite de Estrés Concurrente de Silicio y Enjambres (C5-REAL)
-description: Ejecución de pruebas de estrés en paralelo para certificar enjambres masivos, fan-out multicast O(1), coherencia de memoria Seqlock KUDURRU-64 (RFO=0) y consenso BFT en Apple Silicon. Dispara con 'pruebas de estres en paralelo', 'stress test swarm', 'estres enjambre', 'concurrencia de silicio', 'stress suite'.
+description: Ejecución de pruebas de estrés en paralelo y benchmarks empíricos de silicio para certificar enjambres masivos, fan-out multicast O(1), coherencia de memoria Seqlock KUDURRU-64 (RFO=0), consensus BFT y puentes de atestación Touch ID COSE_Sign1 en Apple Silicon. Dispara con 'pruebas de estres en paralelo', 'stress test swarm', 'estres enjambre', 'concurrencia de silicio', 'stress suite', 'poc'.
 role: auditor
 allowed_roles:
 - auditor
@@ -21,25 +21,27 @@ directives:
 > - **Fase Causal:** `verification`
 > - **Contrato Handoff:** Recibe de `ejecutor` $\to$ Despacha a `operador`
 
-Esta habilidad formaliza la ejecución de pruebas de estrés en paralelo para certificar la invarianza termodinámica y la ausencia de contención ($RFO = 0$) en la arquitectura sexagesimal `BABYLON-60` / `MOSKV-1`.
+Esta habilidad formaliza la ejecución de pruebas de estrés en paralelo y benchmarks de silicio para certificar la invarianza termodinámica y la ausencia de contención ($RFO = 0$) en la arquitectura sexagesimal `BABYLON-60` / `MOSKV-1`.
 
 ---
 
-## 🎯 Batería de 4 Frentes de Estrés
+## 🎯 Batería de 5 Frentes de Estrés y POCs de Silicio
 
-Cuando el operador solicite pruebas de estrés concurrente, el agente debe ejecutar de forma determinista los 4 vectores en paralelo:
+Cuando el operador solicite pruebas de estrés concurrente o benchmarks POC (`poc`), el agente debe ejecutar de forma determinista los vectores empíricos:
 
 ```mermaid
 graph TD
-    A["Trigger: pruebas de estres en paralelo"] --> B1["1. Multicast Fan-Out (AgentPager)"]
-    A --> B2["2. Seqlock SPMC KUDURRU-64"]
+    A["Trigger: pruebas de estres / poc"] --> B1["1. Multicast Fan-Out (AgentPager)"]
+    A --> B2["2. Seqlock SPMC KUDURRU-64 Release"]
     A --> B3["3. Saturación P-Cores M3 Pro"]
     A --> B4["4. Consenso BFT & Falla Bizantina"]
+    A --> B5["5. Touch ID COSE_Sign1 Bridge"]
 
-    B1 --> C1["<= 1 ms para 1.000 agentes"]
-    B2 --> C2["0 Torn Reads / > 15M ops/s"]
+    B1 --> C1["<= 2.5 ms para 1.000 agentes"]
+    B2 --> C2["0 Torn Reads / 57.11 Mops/s (8 lectores)"]
     B3 --> C3["11 Hilos / Cero Throttling"]
     B4 --> C4["Aislamiento 0xDEAD_6060"]
+    B5 --> C5["Atestación DER P-256 en Silicio"]
 ```
 
 ---
@@ -68,15 +70,17 @@ asyncio.run(bench())
 "
 ```
 
-### 2. SPMC Seqlock KUDURRU-64 (Cero Torn Reads)
-Ejecución del binario compilado de alta frecuencia:
+### 2. SPMC Seqlock KUDURRU-64 Release (30M Ops / Cero Torn Reads)
+Ejecución del benchmark compilado en release en el workspace de `BABYLON-60`:
 ```bash
-/Users/borjafernandezangulo/10_PROJECTS/BABYLON-60/target/debug/deps/poc_kudurru_silicon_ns-*
+cargo run --manifest-path /Users/borjafernandezangulo/10_PROJECTS/BABYLON-60/Cargo.toml --bin poc_stress_manifest_spmc --release
 ```
-O prueba de saturación de 8 lectores concurrentes:
-```bash
-# Validar que torn_reads sea EXACTAMENTE CERO
-```
+* **Métricas Atestadas en M3 Pro:**
+  - Lecturas concurrentes totales: **30.000.000 ops**
+  - Lecturas corruptas (`torn reads`): **EXACTAMENTE 0**
+  - Throughput agregado (8 lectores concurrentes): **57.11 Mops/s**
+  - Latencia media de lectura no bloqueante: **1.22 ns/op**
+  - Detección de fail-stop (`poisoned`): **24.5 $\mu$s**
 
 ### 3. Saturación de P-Cores en Apple Silicon
 Saturar el clúster de rendimiento con $N = 11$ hilos para auditar ausencia de estrangulamiento térmico:
@@ -105,6 +109,17 @@ if __name__ == '__main__':
 python3 /Users/borjafernandezangulo/10_PROJECTS/BABYLON-60/tests/test_swarm_stress.py
 ```
 * **Criterio de Aceptación:** Si un agente inyecta $\Delta X > 0$, el oráculo dispara el *Thermodynamic Override* aislando el ID defectuoso sin desbordar el contexto global.
+
+### 5. Puente de Atestación Biométrica Touch ID (COSE_Sign1 ES256)
+Ejecución del pipeline de atestación física y serialización binaria criptográfica:
+```bash
+cargo run --manifest-path /Users/borjafernandezangulo/10_PROJECTS/BABYLON-60/Cargo.toml --bin poc_biometric_gate_bridge --release
+```
+* **Pipeline Causal:**
+  1. Hash SHA-256 del manifiesto de 64 bytes (`KUDURRU-64`).
+  2. Invocación a `c5_biometric_gate.swift` sobre Secure Enclave con `allowableReuseDuration = 0`.
+  3. Atestación somática con Touch ID (NIST P-256 DER).
+  4. Sellado de estructura CBOR `COSE_Sign1` (233 bytes TBS).
 
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: anergy-purge-protocol
 display_name: Motor de Purga de Código Muerto y Redundancias (Dead Code & Artifact Cleanup)
-description: Motor de purga de código muerto, artefactos efímeros, redundancia documental (Jaccard) y reducción de deuda técnica. Dispara con "purga de anergía", "limpiar código muerto", "dead code cleanup", "eliminar deuda técnica", "purga de redundancias", "limpiar caches", "busca redundancias", "auditoría documental", "document redundancy", "entropía documental", "limpiar docs", "epistemic redundancy audit", "colapso de redundancias".
+description: Motor de purga de código muerto, artefactos efímeros, redundancia documental (Jaccard), reducción de deuda técnica y auditoría de sobrecarga de tokens en prompt (MCP bloat y reglas saturadas). Dispara con "purga de anergía", "limpiar código muerto", "dead code cleanup", "eliminar deuda técnica", "purga de redundancias", "limpiar caches", "busca redundancias", "auditoría documental", "document redundancy", "entropía documental", "limpiar docs", "epistemic redundancy audit", "colapso de redundancias", "auditoría de tokens", "prompt token overhead", "peaje de prompt", "mcp bloat".
 role: auditor
 allowed_roles:
 - auditor
@@ -40,6 +40,7 @@ a un árbol git limpio.
 | **G** | Redundancia Epistémica (Shadow Directories, Path Entropy) | KB-MB | Consolidar directorios canónicos, eliminar phantom DBs, corregir hardcoded paths en CWD |
 | **H** | Global Package Manager Caches (`~/.cache/uv`, `pip`, `npm`) | 1GB–10GB | `uv cache clean`, purga de caches de host |
 | **I** | OS Metadata & Artifacts (`.DS_Store`, `*.tmp`, `*.bak`) | KB–MB | `find -name ".DS_Store" -delete` transversal |
+| **J** | Context Window Inflation (Esquemas MCP ociosos, reglas saturadas, multi-turn drift) | 30k–60k tokens/prompt | Desactivación de MCPs hipertróficos de dominio ajeno (ej. `flstudio`), migración a reglas condicionales y rotación de chat |
 
 ---
 
@@ -67,6 +68,23 @@ find "$WORKSPACE" "$CORTEX_DIR" -type d \( -name "node_modules" -o -name "target
 
 # 5. Auditoría JSON
 find "$TRM_DIR/.audit/receipts" -name "*.json" 2>/dev/null | wc -l
+
+# 6. Auditoría de Sobrecarga de Tokens de Entrada (Clase J - Context Inflation)
+python3 -c '
+import os, glob
+tok = lambda b: b // 4
+rules = {os.path.basename(f): os.path.getsize(f) for f in glob.glob(os.path.expanduser("~/.gemini/config/rules/*.md"))}
+mcp_dir = os.path.expanduser("~/.gemini/antigravity/mcp")
+mcp = {s: (len(tools), sum(os.path.getsize(os.path.join(mcp_dir, s, t)) for t in tools))
+       for s in os.listdir(mcp_dir) if os.path.isdir(os.path.join(mcp_dir, s))
+       for tools in [[f for f in os.listdir(os.path.join(mcp_dir, s)) if f.endswith(".json")]]}
+skills = len(glob.glob(os.path.expanduser("~/.gemini/config/skills/**/SKILL.md"), recursive=True))
+print(f"■ REGLAS: {len(rules)} archivos | {sum(rules.values()):,} B (~{tok(sum(rules.values())):,} tokens potenciales)")
+print(f"■ MCP SCHEMAS: {sum(v[0] for v in mcp.values())} tools | {sum(v[1] for v in mcp.values()):,} B (~{tok(sum(v[1] for v in mcp.values())):,} tokens)")
+for k, v in sorted(mcp.items(), key=lambda x: x[1][1], reverse=True):
+    print(f"  └─ {k}: {v[0]} tools (~{tok(v[1]):,} tokens)")
+print(f"■ SKILLS: {skills} activas en inventario")
+'
 ```
 
 ---
