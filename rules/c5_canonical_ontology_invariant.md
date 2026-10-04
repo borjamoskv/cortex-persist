@@ -100,6 +100,13 @@ Queda **terminantemente prohibido** declarar completado cualquier hito arquitect
    - Sometimiento de aserciones de seguridad a modelos de fallo adversariales reales (`challenges / attempts to falsify`).
    - Actualización de estatus a `Supported` únicamente ante el fracaso empírico de la falsación (`FalsificationFailed`).
    - Emisión de `Attestation` vinculando formalmente `[Assertion + Evidence + Artifact + Environment + Time]` (cumplimiento de O8 y O9).
+4. **PERSIST (CORTEX-PERSIST / Anti-Mirror Invariant):**
+   - Queda estrictamente prohibido certificar el subsistema de persistencia de CORTEX (`CortexPersistLedger`, SQLite WAL, MMR) mediante suites que operen exclusivamente en espejo ($D_{KL}(P_{\text{test}} \parallel Q_\theta) = 0$, mocks conformes a los esquemas preexistentes del parser).
+   - Todo arnés de persistencia debe someter al ledger a los 4 vectores no negociables de exterioridad:
+     1. *Veto al Solipsismo:* Rechazo *fail-closed* ante la ausencia de causalidad externa (`cortex_taint` vacío, Ley O1).
+     2. *Invarianza de Chentsov ante Disrupción:* Fuzzing de caracteres no-BMP y orden de claves para verificar la unicidad del operador de compresión.
+     3. *Violencia de Sustrato:* Detección determinista inmediata (`verify_integrity -> False`) ante bitflips físicos y escrituras truncadas en inodos de disco (anti-confabulación).
+     4. *Discriminación de Alteridad:* Capacidad formal de distinguir la alteridad genuina del entorno (`C5_PERMANENT`) frente a los ecos especulares repetidos (`DUPLICATE_IGNORED`).
 
 ---
 

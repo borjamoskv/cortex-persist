@@ -25,7 +25,7 @@ Esta habilidad formaliza la ejecución de pruebas de estrés en paralelo y bench
 
 ---
 
-## 🎯 Batería de 5 Frentes de Estrés y POCs de Silicio
+## 🎯 Batería de 6 Frentes de Estrés y POCs de Silicio
 
 Cuando el operador solicite pruebas de estrés concurrente o benchmarks POC (`poc`), el agente debe ejecutar de forma determinista los vectores empíricos:
 
@@ -36,12 +36,14 @@ graph TD
     A --> B3["3. Saturación P-Cores M3 Pro"]
     A --> B4["4. Consenso BFT & Falla Bizantina"]
     A --> B5["5. Touch ID COSE_Sign1 Bridge"]
+    A --> B6["6. Exterior Cognitivo CORTEX-Persist"]
 
     B1 --> C1["<= 2.5 ms para 1.000 agentes"]
     B2 --> C2["0 Torn Reads / 57.11 Mops/s (8 lectores)"]
     B3 --> C3["11 Hilos / Cero Throttling"]
     B4 --> C4["Aislamiento 0xDEAD_6060"]
     B5 --> C5["Atestación DER P-256 en Silicio"]
+    B6 --> C6["4 Vectores Anti-Solipsismo (145/145 PASSED)"]
 ```
 
 ---
@@ -120,6 +122,13 @@ cargo run --manifest-path /Users/borjafernandezangulo/10_PROJECTS/BABYLON-60/Car
   2. Invocación a `c5_biometric_gate.swift` sobre Secure Enclave con `allowableReuseDuration = 0`.
   3. Atestación somática con Touch ID (NIST P-256 DER).
   4. Sellado de estructura CBOR `COSE_Sign1` (233 bytes TBS).
+
+### 6. Falsación de Exterior Cognitivo en CORTEX-Persist (Anti-Mirror Harness)
+Valida que el ledger criptográfico resista disrupciones no contenidas en su modelo sintáctico previo (veto a taints vacíos, Chentsov UTF-8 fuzzing, bitflips físicos y alteridad vs. eco):
+```bash
+pytest /Users/borjafernandezangulo/10_PROJECTS/BABYLON-60/tests/test_cortex_exterior_cognitivo_harness.py -v
+```
+* **Criterio de Aceptación:** 5/5 PASSED en < 0.5s, `verify_integrity() -> False` inmediato ante bitflips en inodos, y cero aceptación de eventos huérfanos sin taint.
 
 ---
 
