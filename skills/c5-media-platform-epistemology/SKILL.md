@@ -1,6 +1,6 @@
 ---
 name: c5-media-platform-epistemology
-description: Heurísticas termodinámicas y epistémicas para procesamiento de audio largo, evasión de falsos positivos SPA (HTTP 200) y metadatos de plataformas (SoundCloud/YouTube). Dispara con "procesar audio largo", "descripción soundcloud", "scraping spa", "falsos positivos http 200", "media platform epistemology", "soundcloud metadata".
+description: Heurísticas termodinámicas y epistémicas para procesamiento de audio largo, evasión de falsos positivos SPA (HTTP 200), adquisición directa de audio nativo Opus (YouTube Music itag 251) sin transcodificación a MP3 y metadatos de plataformas. Dispara con "procesar audio largo", "descripción soundcloud", "scraping spa", "falsos positivos http 200", "media platform epistemology", "soundcloud metadata", "adquisicion opus nativo", "rip opus youtube", "evitar mp3 youtube", "youtube audio sin perdida", "itag 251".
 role: ejecutor
 allowed_roles:
 - ejecutor
@@ -49,3 +49,16 @@ directives:
 ### 6. Capa Web3 y Soberanía (Muerte de Sound.xyz)
 - **Regla:** El ecosistema de infraestructura Web3 sufre alta fricción entrópica. Plataformas centralizadas mueren (Aforismo 4).
 - **Atestación:** *Sound.xyz* está extinto, convirtiendo sus acuñaciones en arqueología digital irrecuperable. Para estrategias de escasez criptográfica y almacenamiento inmutable on-chain de másters WAV, redirigir el tráfico de sindicación hacia ecosistemas resilientes como **Nina Protocol** o **Zora**.
+
+### 7. Adquisición Quirúrgica de Audio Nativo en YouTube / YouTube Music (Elusión de Transcodificación a MP3)
+- **Regla (Aforismo 2 y 5 - Anti-Nata Acústica):** YouTube jamás almacena MP3. Sus másters web de mayor fidelidad se sirven nativamente en **Opus (~160 kbps VBR, 48 kHz, contenedor WebM / itag 251)** o AAC (~128 kbps, itag 140). Los conversores web y scripts ingenuos cometen el delito termodinámico de decodificar el Opus nativo a PCM y re-comprimirlo a MP3 (generando doble pérdida generacional, pre-eco en transitorios, emborronamiento de fase en agudos y filtro pasa-bajos mutilando todo por encima de 16 kHz).
+- **Atestación (Bitstream Copy en Silicio):**
+  Para extraer el stream Opus original sin decodificar ni alterar un solo sample (tiempo de ejecución < 0.5s, 0% CPU):
+  ```bash
+  yt-dlp -f 251 -x --audio-format copy --add-metadata -o "%(title)s.%(ext)s" "<URL>"
+  ```
+  O selección adaptativa resiliente para capturar el mejor Opus disponible:
+  ```bash
+  yt-dlp -f "ba[acodec=opus]/ba[ext=webm]/251" -x --audio-format copy --add-metadata -o "%(title)s.%(ext)s" "<URL>"
+  ```
+  - **Invariante Acústica:** El archivo resultante `.opus` mantiene los 48 kHz nativos del máster de distribución, preservando el factor de cresta original, la coherencia de fase de la mezcla estéreo y el rango dinámico sin distorsión por recompresión.
