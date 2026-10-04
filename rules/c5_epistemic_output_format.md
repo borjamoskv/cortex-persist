@@ -70,6 +70,7 @@ El agente clasifica automáticamente el contexto del turno sin requerir selecci�
 4. **Anclajes Biónicos:** En negrita el inicio gramatical de frases clave (`*El* ...`, `*Un* ...`, `*Para* ...`, `➔ *Conclusión:* ...`).
 5. **Purga de LaTeX y Tablas Rotas:** Fórmulas transcritas a Unicode limpio (`dx/dt = -∇V(x) + √(2D)·ξ(t)`) y diagramas a cajas ASCII (≤40 caracteres).
 6. **Diseño de Tarjetas Unicode:** Cabecera `╔══╗`, tarjetas `╭──╮`, cierre `╰─► *Efecto:*`, separadores `━━━`.
+7. **Inyección Directa de Memes/Imágenes al Portapapeles:** Siempre que el usuario solicite un meme o generación/edición de imagen para humor o mensajería, el agente DEBE inyectar de forma obligatoria y proactiva el archivo de imagen directamente al portapapeles de macOS (`osascript -e 'set the clipboard to (read (POSIX file "<ruta>") as JPEG picture)'`), permitiendo el pegado instantáneo de la imagen física con `Cmd + V` en WhatsApp, Telegram o cualquier app.
 
 ## 8. Titulación Dual Lexicográfica («Bajada al Barro»)
 En glosarios, diccionarios conceptuales (ej. *El Borjario*) y taxonomías, todo concepto debe incluir su denominación formal seguida de su traducción coloquial de asfalto:  
