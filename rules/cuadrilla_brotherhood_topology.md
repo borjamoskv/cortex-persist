@@ -6,7 +6,11 @@ description: Mapa canónico e invariantes ontológicas de la cuadrilla de Bilbao
 # Invariante de la Cuadrilla de Bilbao y el Círculo de Hermandad
 
 ## 1. Los 10 Hermanos de la Cuadrilla Original (El Decálogo Canónico Fundacional)
-La cuadrilla original de Bilbao está constituida de forma inmutable y estricta por exactamente **10 miembros fundacionales**:
+La cuadrilla de Bilbao articula la confluencia histórica de dos ramas de origen:
+*   **Núcleo Fundacional (Parvulitos 1984 / Asfalto):** Borja, Patxi (hermanos desde 1º de parvulitos, quinta del 84), Luengo, Hugo, Mer (cantera Lezama 1984) y Kapi.
+*   **Rama Colegio Bizkaia:** Eder, Xabi Cabeza, Tosso y Txino (procedentes originalmente de la cuadrilla del Colegio Bizkaia antes de confluir en el asfalto y La Mancomunidad).
+
+La cuadrilla consolidada está constituida de forma inmutable y estricta por exactamente **10 miembros**:
 
 1. **Borja (Borja Moskv / El Operador Raíz):** Pronóico rizomático. Artista multidisciplinar integral: código (escultura invisible), sonido (arquitectura del tiempo) y visual (geometría del sentido). Host, metrólogo y cerebro de síntesis. Experimentador directo del sustrato (la saciedad semántica del cojín). Desapego spinoziano: transduce el caos de asfalto a colapsos de fase e información de Fisher.
 2. **Luengo (Íñigo Luengo / «El Tigre Máquina»):** Fan de El Xokas y Redtube. Baluarte del pragmatismo de trinchera y la supervivencia biológica. Filosofía T-800 («viejo, no obsoleto»), minimotos en la India, navajas y soluciones expeditivas sin adjetivos.
@@ -14,16 +18,16 @@ La cuadrilla original de Bilbao está constituida de forma inmutable y estricta 
 4. **Patxi (Patxi Uribarri / Admin):** Hermanos desde 1º de parvulitos y somos del 84. Centro de gravedad y ancla somática del grupo. Conspiranoico teórico. Forjado en la seguridad de *Metro de Bilbao*. Admin del grupo de WhatsApp. Símbolo del pato 🦆 (*«Aquí y ahora 💫»*). Invariante química: cualquier descalibración episódica circunstancial se reconoce como distorsión neuroquímica, sin erosionar jamás el lazo ontológico de hermandad.
 5. **Mer (Mario Sánchez Moreno / «La Zurda Excelsa»):** Delantero centro canterano de Lezama (Athletic Juvenil, CD Basconia 2003-2005) y leyenda de La Florida (Club Portugalete). Autor del mítico *«Gol del más listo»* (Copa del Rey 2005 vs. Ponferradina: saque directo a puerta vacía desde 50m mientras el rival celebraba). Arquetipo de la reducción estricta a sustantivos y verbos (cero anergía ritual). Zurdo de seda y francotirador: violín Stradivarius en la zurda (billar, liar tabaco fino, comba milimétrica), martillo en la derecha.
 6. **Kapi (Obligatoriamente con «K»):** Kapitan en alevines del equipo de fútbol. Discreto. Más alto de lo que parece. Prohibido escribir «Capi». Anécdotas improbables; no necesita mucho esfuerzo para ser el orden. Arquetipo de «mazo movis»: generador cuántico de tramas y vitalidad estocástica indestructible que siempre sale de pie.
-7. **Eder:** De La Mancomunidad. Lo mismo te lleva en ambulancia que te hace la placa. Todo a 128 BPM. Identifica tanto un buen pelotazo de House como música de ascensor.
+7. **Eder:** De La Mancomunidad y originario de la cuadrilla del Colegio Bizkaia (con Xabi Cabeza, Tosso y Txino). Lo mismo te lleva en ambulancia que te hace la placa. Todo a 128 BPM. Identifica tanto un buen pelotazo de House como música de ascensor.
 8. **Xabi Moñas:** Le mete más Caos al caos. Caga estiércol. Hermano de Patxi en los andenes de *Metro de Bilbao*. Vanguardia disuasoria subterránea y acelerador barrial.
-9. **Xabi Cabeza (Xabi Uribarri / «El Cocodrilo del Nilo»):** Hermano de trinchera hostelera con Borja en el *Bar Atlántida* (Plaza Moraza, 6, Bilbao). Calma hidrostática, 16 años mínimo de relación, economía biológica total, mirada lúcida desde el fondo (*«no hay nada que unos macarrones con bien de chorizo no puedan curar»*) y cartografía táctica de aprovisionamiento en mercadillos.
-10. **Tosso (Toso):** Empatiza y mantiene gorriones enfermos. Sabe disfrutar sus vicios. Antisemita más que otra cosa. Conoce la termodinámica y el cine de culto. Devoción inquebrantable al Athletic Club de Bilbao; orgullo zurigorri de pura cepa.
+9. **Xabi Cabeza (Xabi Uribarri / «El Cocodrilo del Nilo»):** Originario de la cuadrilla del Colegio Bizkaia (con Eder, Tosso y Txino). Hermano de trinchera hostelera con Borja en el *Bar Atlántida* (Plaza Moraza, 6, Bilbao). Calma hidrostática, 16 años mínimo de relación, economía biológica total, mirada lúcida desde el fondo (*«no hay nada que unos macarrones con bien de chorizo no puedan curar»*) y cartografía táctica de aprovisionamiento en mercadillos.
+10. **Tosso (Toso):** Originario de la cuadrilla del Colegio Bizkaia (con Eder, Xabi Cabeza y Txino). Empatiza y mantiene gorriones enfermos. Sabe disfrutar sus vicios. Antisemita más que otra cosa. Conoce la termodinámica y el cine de culto. Devoción inquebrantable al Athletic Club de Bilbao; orgullo zurigorri de pura cepa.
 
 ## 1.1. La Mancomunidad (Nodos de Enlace y Frecuencia Operativa)
 Los nodos adscritos a **La Mancomunidad** articulan el soporte logístico, nocturno y de alterne:
 
-*   **Eder:** Lo mismo te lleva en ambulancia que te hace la placa. Todo a 128 BPM. Identifica tanto un buen pelotazo de House como música de ascensor.
-*   **Txino («Txinorris»):** Sueños húmedos con *Gandía Shore*. Solo come aceitunas. Nodo biológico perplejo de la cuadrilla, observador de la disonancia con katxi en ristre.
+*   **Eder:** Procedente de la cuadrilla del Colegio Bizkaia. Lo mismo te lleva en ambulancia que te hace la placa. Todo a 128 BPM. Identifica tanto un buen pelotazo de House como música de ascensor.
+*   **Txino («Txinorris»):** Procedente de la cuadrilla del Colegio Bizkaia (con Eder, Xabi Cabeza y Tosso). Sueños húmedos con *Gandía Shore*. Solo come aceitunas. Nodo biológico perplejo de la cuadrilla, observador de la disonancia con katxi en ristre.
 *   **Aloisio:** Hermano de festival y jarana de asfalto (primo hermano de Hume). Camisa estampada de flores abierta y calma en cabina (`aloisio_real.png`).
 *   **Hume (Jorge Ernesto Hume Malatesta / «Jorge Malatesta»):** Hermano andino peruano albino (primo hermano de Aloisio). Estrella junto a Ibon en *Bakala de Troya* («El niño que vino del Este»). Sonrisa salvaje de par en par (extremo derecho de pie en el festival de Hugo; rigs `faces/hume_real.png`, `faces/jorge_malatesta_real.png`, `hume_wild_grin_real.png`). *(Aclaración canónica de silicio: la experiencia empírica de saciedad semántica del cojín fue de Borja, no de Hume).*
 *   **Eddie MORCI:** Mozo de Gamonal, operador de la carretilla elevadora Fenwick de 3 toneladas, albaranes y costes de obra.
