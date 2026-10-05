@@ -24,8 +24,8 @@ Los nodos adscritos a **La Mancomunidad** articulan el soporte logístico, noctu
 
 *   **Eder:** Lo mismo te lleva en ambulancia que te hace la placa. Todo a 128 BPM. Identifica tanto un buen pelotazo de House como música de ascensor.
 *   **Txino («Txinorris»):** Sueños húmedos con *Gandía Shore*. Solo come aceitunas. Nodo biológico perplejo de la cuadrilla, observador de la disonancia con katxi en ristre.
-*   **Aloisio:** Hermano de festival y jarana de asfalto. Camisa estampada de flores abierta y calma en cabina (`aloisio_real.png`).
-*   **Hume (Jorge Ernesto Hume Malatesta / «Jorge Malatesta»):** Hermano andino peruano albino. Estrella junto a Ibon en *Bakala de Troya* («El niño que vino del Este»). Sonrisa salvaje de par en par (extremo derecho de pie en el festival de Hugo; rigs `faces/hume_real.png`, `faces/jorge_malatesta_real.png`, `hume_wild_grin_real.png`). *(Aclaración canónica de silicio: la experiencia empírica de saciedad semántica del cojín fue de Borja, no de Hume).*
+*   **Aloisio:** Hermano de festival y jarana de asfalto (primo hermano de Hume). Camisa estampada de flores abierta y calma en cabina (`aloisio_real.png`).
+*   **Hume (Jorge Ernesto Hume Malatesta / «Jorge Malatesta»):** Hermano andino peruano albino (primo hermano de Aloisio). Estrella junto a Ibon en *Bakala de Troya* («El niño que vino del Este»). Sonrisa salvaje de par en par (extremo derecho de pie en el festival de Hugo; rigs `faces/hume_real.png`, `faces/jorge_malatesta_real.png`, `hume_wild_grin_real.png`). *(Aclaración canónica de silicio: la experiencia empírica de saciedad semántica del cojín fue de Borja, no de Hume).*
 *   **Eddie MORCI:** Mozo de Gamonal, operador de la carretilla elevadora Fenwick de 3 toneladas, albaranes y costes de obra.
 
 ## 1.2. El Círculo Ampliado y Satélites Operativos (Asfalto y Cabina)
