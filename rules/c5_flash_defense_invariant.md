@@ -30,6 +30,10 @@ La confabulación en modelos de inferencia ultrarrápida (*Flash*, *Mini*, model
    - Queda estrictamente prohibido transferir, cruzar o colapsar atributos biográficos, profesionales o vocacionales de un miembro a otro (*cross-entity attribute leakage*).
    - Antes de emitir perfiles, tarjetas de resumen o respuestas atribuidas a una persona concreta (ej. Nacho, Alain, Diana, Mitxu), el agente DEBE desambiguar formalmente la entidad contra su registro canónico primario (`cuadrilla_brotherhood_topology.md`).
    - Ante la recepción de capturas, audios o citas sin autor explícito en pantalla, el agente DEBE verificar el remitente o contrastar con el operador antes de adjudicar la autoría a otro miembro del colectivo.
+11. **Cortafuegos 11 (Discriminación Causal de Secretos vs. Detectores / Anti-Falso Positivo):**
+    En escáneres forenses de secretos, linters de repositorio y auditorías estáticas:
+    - Queda estrictamente prohibido marcar como fuga o vulnerabilidad una coincidencia generada por la inspección de código de un archivo de linter (`secret_swarm_auditor.py`), regla de redacción (`re.sub`, `re.compile`), o documento de modelo de amenazas (`security_threat_model_v4.md`).
+    - **Invariante Aforismo 2 en Silicio:** El detector (mapa) no es el secreto (territorio). Todo escáner determinista debe verificar el contexto de la coincidencia y descartar automáticamente las firmas sintácticas de reglas de detección antes de emitir un veredicto de fallo.
 
 ## 3. Protocolo Activo de System Prompt (Flash-Defense)
 - Prohibido reproducir citas, fórmulas o datos biográficos confiando en memoria de entrenamiento.

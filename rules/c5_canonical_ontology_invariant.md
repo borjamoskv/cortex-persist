@@ -82,6 +82,18 @@ Queda estrictamente prohibido alterar, diluir o fusionar las fronteras conceptua
 ### Ley Transversal Fundacional
 $$\boxed{\text{No stochastic interpretation may create authority by itself}}$$
 
+### 4.1 La Ley del Drop Silencioso (La Solución No Intentada / Anti-Antivirus)
+$$\boxed{\text{Babylon no dialoga con el error: ejecuta DROP silencioso}}$$
+- **Rechazo a la Burocracia Cognitiva:** Queda estrictamente prohibido diseñar o proponer capas de "guardrails" conversacionales o modales de confirmación invasivos (*«La IA ha alucinado, ¿desea continuar?»*). Dicho enfoque constituye la *Solución Intentada* (Aforismo 3) que introduce latencia, doble gasto de tokens y fatiga de decisión.
+- **Apoptosis Silenciosa en Silicio:** Si una inferencia o propuesta de mutación carece de anclaje formal a un `SourceRecord` hash SHA-256 en CORTEX o viola una invariante de seguridad, BABYLON ejecuta **`DROP` determinista en microsegundos**.
+- **Invariante de Cero Fricción en Interfaz («No te enteras»):** El operador o usuario final no es bombardeado con alertas de fantasías internas del modelo; a la interfaz y al estado persistente solo transita lo que ha superado la criba de atestación.
+
+### 4.2 Invariante de Sustrato Nativo en Silicio (Apple Silicon UMA + Secure Enclave)
+BABYLON-60 no es un microkernel agnóstico a la infraestructura: fue concebido, medido y optimizado para la arquitectura de silicio de Apple Silicon (M-Series):
+1. **Secure Enclave TRNG:** Raíz de confianza y generación física de entropía en silicio, descartando daemons de terceros.
+2. **Touch ID en Hardware (`LAContext`):** Cerrojo biométrico sin latencia con `allowableReuseDuration = 0`, imposible de emular por procesos remotos.
+3. **Memoria Unificada (UMA a 150 GB/s):** Comunicación entre CORTEX, el kernel Rust (`strike_rs`) y los buses de control con $RFO = 0$ (cero copias por PCIe). Fuera de Apple Silicon, el sistema pierde la mitad de su soberanía física.
+
 ---
 
 ## 5. Protocolo de Certificación en Silicio de la Tríada M0 (Proof of Product / Anti-Mocking)

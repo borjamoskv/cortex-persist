@@ -216,15 +216,15 @@ def render_worker_chunk(
     """Procesa una franja contigua de fotogramas [start_frame, end_frame) en un subproceso aislado."""
     app_det = FaceAnalysis(name='buffalo_l', allowed_modules=['detection'], providers=['CPUExecutionProvider'])
     app_det.prepare(ctx_id=0, det_size=(640, 640))
-    swapper = get_model(INSWAPPER_PATH, providers=['CoreMLExecutionProvider', 'CPUExecutionProvider'])
+    swapper = get_model(INSWAPPER_PATH, providers=['CPUExecutionProvider'])
 
     # Sesiones ONNX para Restaurador, Segmentación y Landmarker 3D
     sess_opts = ort.SessionOptions()
-    sess_opts.intra_op_num_threads = 4
+    sess_opts.intra_op_num_threads = 2
 
     enhancer_sess = None
     if enhancer in ['gpen', 'adaptive'] and os.path.isfile(GPEN_PATH):
-        # CPUExecutionProvider con 4 hilos por worker: cero colisión de particiones y máxima estabilidad
+        # CPUExecutionProvider con 2 hilos por worker: cero colisión de particiones y máxima estabilidad
         enhancer_sess = ort.InferenceSession(GPEN_PATH, sess_options=sess_opts, providers=['CPUExecutionProvider'])
     elif enhancer == 'codeformer' and os.path.isfile(CODEFORMER_PATH):
         enhancer_sess = ort.InferenceSession(CODEFORMER_PATH, sess_options=sess_opts, providers=['CPUExecutionProvider'])
@@ -233,8 +233,7 @@ def render_worker_chunk(
 
     bisenet_sess = None
     if mask_mode == 'bisenet' and os.path.isfile(BISENET_PATH):
-        # Aceleración ANE / CoreML: 19ms por frame vs 284ms en CPU
-        bisenet_sess = ort.InferenceSession(BISENET_PATH, sess_options=sess_opts, providers=['CoreMLExecutionProvider', 'CPUExecutionProvider'])
+        bisenet_sess = ort.InferenceSession(BISENET_PATH, sess_options=sess_opts, providers=['CPUExecutionProvider'])
 
     fan_sess = None
     if os.path.isfile(FAN_PATH):
