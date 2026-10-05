@@ -20,3 +20,26 @@ Cuando un stakeholder comercial, inversor o directivo solicite probar, visualiza
 ## 3. Desambiguación de Entregables de Babylon-60
 * **Babylon Interactive Runtime / Demostrador Web:** `apps/web` (Simulador sexagesimal F60, BFT, Ledger WORM, Inspector EU AI Act).
 * **Babylon Sovereign IDE:** `babylon60-ide` (Entorno de escritorio multi-plataforma Tauri v2 + FastAPI).
+
+## 4. Política de Financiación y Capital Soberano de Babylon-60
+
+Toda estrategia de captación de fondos, valoración o relación con inversores se rige estrictamente por estas invariantes:
+
+### 1. La Ronda Semilla Soberana Privada (Vía Ágil de Mercado)
+* **Ticket Objetivo:** **600.000 € – 800.000 €** (tope psicológico infranqueable: **1.000.000 €**).
+* **Valoración Pre-Money:** **6.000.000 € – 7.500.000 €**.
+* **Dilución Permitida:** **8% al 11%** (veto estricto a diluciones $\ge 12\%$).
+* **Uso de Fondos:** 18 meses de runway comercial puro (despliegue de los primeros 5 pilotos de 15k € y conversión a licencias On-Premise de 80k–250k €) + blindaje de patentes en la EPO.
+* **Cláusulas Anti-Anergía:** Cero liquidación preferente $> 1\text{x}$, cero derechos de veto operativo sobre la arquitectura técnica y cero puestos dominantes en el Consejo de Administración.
+
+### 2. La Vía Institucional Mixta (Bruselas / EIC Accelerator STEP)
+* **Subvención a Fondo Perdido (*Grant*):** **2.500.000 €** (dilución = **0%**).
+* **Componente de Capital (*Equity* vía BEI / InvestEU):** **Hasta 15.000.000 €** en capital pasivo sin intromisión de gobernanza.
+* **Total Tramitado:** **17.500.000 € – 20.000.000 €** mediante consultora a éxito (Zabala / FI Group).
+
+### 3. Cartografía Estricta de Inversores Admitidos vs. Vetados
+* **Inversores Permitidos:**
+  1. *Family Offices* Industriales y Patrimoniales (Norte y Madrid): Capital paciente que comprende activos de infraestructura en propiedad.
+  2. *VCs Especializados en Ciberseguridad / Deep-Tech*: Fondos con tesis de soberanía y EU AI Act (ej. *33N Ventures*, *Adara Ventures*).
+  3. *Corporate Venture Capital (CVCs)*: Ramas inversoras de clientes corporativos (banca y aseguradoras) vinculadas a contratos de licencia.
+* **Inversores Vetados:** VCs generalistas de "growth" (exigencias de B2C/SaaS de quemar caja y dilución del 25%-30%) y Business Angels aficionados intrusivos.

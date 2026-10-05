@@ -34,6 +34,11 @@ La confabulación en modelos de inferencia ultrarrápida (*Flash*, *Mini*, model
     En escáneres forenses de secretos, linters de repositorio y auditorías estáticas:
     - Queda estrictamente prohibido marcar como fuga o vulnerabilidad una coincidencia generada por la inspección de código de un archivo de linter (`secret_swarm_auditor.py`), regla de redacción (`re.sub`, `re.compile`), o documento de modelo de amenazas (`security_threat_model_v4.md`).
     - **Invariante Aforismo 2 en Silicio:** El detector (mapa) no es el secreto (territorio). Todo escáner determinista debe verificar el contexto de la coincidencia y descartar automáticamente las firmas sintácticas de reglas de detección antes de emitir un veredicto de fallo.
+12. **Cortafuegos 12 (La Trampa de Thinking High sin Grounding / Anti-Justificación Estocástica):**
+    En modelos de inferencia rápida (*Flash*, *3.8*, modelos sub-30B) operando con razonamiento extendido (*Extended Thinking / Thinking High*):
+    - Queda estrictamente prohibido utilizar el buffer de pensamiento interno para inferir, deducir o reconstruir entidades fácticas, históricas, culturales o nombres de catálogo (sellos discográficos, obras, cargos, empresas) de memoria.
+    - **Diagnóstico Termodinámico:** El *thinking* extendido sin grounding empírico previo no reduce el error; amplifica la verosimilitud del pastiche al tejer justificaciones narrativas internas sobre atractores semánticos difusos en sus pesos (ej. *Zaragoza + Hip-Hop + Def Jam $\to$ «Jamón Records»*).
+    - **Protocolo Mandatorio:** Ante cualquier consulta sobre entidades factuales, nombres propios o datos históricos, el agente DEBE ejecutar una herramienta empírica de consulta (`search_web`, `view_file`, `read_url_content`) ANTES de emitir el primer token de respuesta en el chat. Sin puntero verificable en contexto, responder obligatoriamente `NO_DISPONIBLE_EN_TERRITORIO_VERIFICABLE`.
 
 ## 3. Protocolo Activo de System Prompt (Flash-Defense)
 - Prohibido reproducir citas, fórmulas o datos biográficos confiando en memoria de entrenamiento.
