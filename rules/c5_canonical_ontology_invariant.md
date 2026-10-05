@@ -153,3 +153,24 @@ Toda interfaz de supervisión o telemetría global del sistema DEBE estructurars
 2. **Panel BABYLON (Control):** Registro causal de solicitudes (`EffectRequest`), decisiones deterministas de la 7-tupla (`ALLOW` vs `DENY`), estado de la cuarentena atómica y stream de recibos en sus 5 fases obligatorias (`REQUESTED ──► AUTHORIZED ──► DISPATCHED ──► OBSERVED ──► COMMITTED`) con identificador de clave firmante y época de anclaje.
 3. **Panel NEMESIS (Verify):** Catálogo de aserciones de seguridad activas (`NEM-I1`..`NEM-I6`), estatus epistémico popperiano (`SUPPORTED`, `UNTESTED`, `FALSIFIED`, `STALE`), últimas perturbaciones del `FaultModel` y sellos criptográficos de `Attestation` vinculados.
 
+---
+
+## 8. Invariante de Identidad Visual y Purga de Anergía Gráfica (El Isotipo Canónico $B \equiv \begin{bmatrix} 6 \\ 0 \end{bmatrix}$)
+
+### 8.1 Veto al Pastiche Ornamental y al Esoterismo Cuneiforme
+Queda **estrictamente prohibido** utilizar filigranas pseudo-mesopotámicas, ruedas de 60 rayos radiales de codificador rotativo, estiletes cuneiformes o simbología esotérica como logotipo de BABYLON-60:
+1. **Anergía Gráfica:** Los rayos radiales y los estiletes cuneiformes densos colapsan por empastamiento a escalas fisiológicas (<64px) y proyectan una falsa mística que viola la ley de contención popperiana.
+2. **Mandato Canónico:** El isotipo oficial de BABYLON-60 se rige exclusivamente por la presencia monolítica y brutalista de **la letra B y el número 60**.
+
+### 8.2 El Isomorfismo Gestalt ($B \equiv 60$)
+La relación entre el nombre (`BABYLON`) y la base sexagesimal (`60`) se resuelve mediante **compresión Gestalt biestable**:
+$$\boxed{B \equiv \begin{bmatrix} 6 \\ 0 \end{bmatrix}}$$
+- **Envolvente Externa (Atractor 1):** La silueta global conforma una **B** mayúscula monolítica anclada a una espina dorsal izquierda de alta estabilidad.
+- **Geodésica Interna (Atractor 2):** El lóbulo superior se resuelve como un **6** octogonal/chamfered; el lóbulo inferior se resuelve como un **0** octogonal/chamfered.
+- **Bi-estabilidad:** El observador oscila entre la lectura alfabética de autoridad (`B`) y la métrica de tiempo y computación (`60`), logrando densidad de Kolmogorov asintótica en un único glifo de sustrato de silicio (titanio blanco y oro babilónico sobre negro obsidiana).
+
+### 8.3 Tríada Canónica de Superficies
+1. **Navbar & Web Header (Ratio 16:9):** Isotipo Gestalt B60 a la izquierda + wordmark `BABYLON 60` en palo seco espaciado.
+2. **App Icon & macOS Dock (Squircle 1:1):** Monolito B60 sobre squircle de 22.5% de curvatura con bisel táctil.
+3. **Favicon (16px / 32px):** Isotipo modular B60 vectorizado sin gradientes ni sombras, preservando 100% de legibilidad óptica.
+

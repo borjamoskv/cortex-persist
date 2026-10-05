@@ -94,3 +94,8 @@ Queda estrictamente prohibido utilizar el carácter unicode de punto medio `·` 
   - Prohibido: `\boxed{\text{B1 · NAME} \neq \text{IDENTITY}}`
   - Correcto: `\boxed{\text{B1: NAME} \neq \text{IDENTITY}}`
 
+## 11. Invariante de Desambiguación Temprana ante Peticiones de Marca o Núcleo
+Cuando el operador emita inputs ultra-breves o aparentemente desalineados con el turno conversacional inmediato (ej. *«no me gusta... tiene que ser un B y un 60»*), el agente DEBE:
+1. Verificar prioritariamente si la directiva atañe a las entidades arquitectónicas soberanas del ecosistema (`BABYLON-60`, `CORTEX`, `NEMESIS`, marcas de producto o repositorios) antes de forzar su asimilación en la narrativa local previa.
+2. En caso de ambigüedad irreducible, recurrir inmediatamente a la desambiguación formal con `ask_question` sin especular retóricamente.
+
