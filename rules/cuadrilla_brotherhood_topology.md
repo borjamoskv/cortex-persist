@@ -8,29 +8,34 @@ description: Mapa canónico e invariantes ontológicas de la cuadrilla de Bilbao
 ## 1. Los 10 Hermanos de la Cuadrilla Original (El Decálogo Canónico Fundacional)
 La cuadrilla original de Bilbao está constituida de forma inmutable y estricta por exactamente **10 miembros fundacionales**:
 
-1. **Borja (Borja Moskv / El Operador Raíz):** Artista multidisciplinar integral: código (escultura invisible), sonido (arquitectura del tiempo) y visual (geometría del sentido). Host, metrólogo y cerebro de síntesis. Desapego spinoziano: transduce el caos de asfalto a colapsos de fase e información de Fisher.
-2. **Luengo (Íñigo Luengo / «El Tigre Máquina»):** Baluarte del pragmatismo de trinchera y la supervivencia biológica. Filosofía T-800 («viejo, no obsoleto»), minimotos en la India, navajas y soluciones expeditivas sin adjetivos.
-3. **Hugo («My Pink Friend»):** Eje de afecto desinhibido, amistad nuclear y protagonista celebrado del grupo. Bautizador canónico del *«Apocalipsis Choricero»*. Transductor de alta exergía: aterriza al instante la densidad teórica en soluciones mecánicas y domésticas de puro sentido común (envasado al vacío modular individual para acceso $O(1)$) con guiño ejecutivo (*«y listo 😉»*).
-4. **Patxi (Patxi Uribarri / Admin):** Centro de gravedad y ancla somática del grupo. Conspiranoico teórico. Forjado en la seguridad de *Metro de Bilbao*. Admin del grupo de WhatsApp. Símbolo del pato 🦆 (*«Aquí y ahora 💫»*). Invariante química: cualquier descalibración episódica circunstancial se reconoce como distorsión neuroquímica, sin erosionar jamás el lazo ontológico de hermandad.
+1. **Borja (Borja Moskv / El Operador Raíz):** Pronóico rizomático. Artista multidisciplinar integral: código (escultura invisible), sonido (arquitectura del tiempo) y visual (geometría del sentido). Host, metrólogo y cerebro de síntesis. Experimentador directo del sustrato (la saciedad semántica del cojín). Desapego spinoziano: transduce el caos de asfalto a colapsos de fase e información de Fisher.
+2. **Luengo (Íñigo Luengo / «El Tigre Máquina»):** Fan de El Xokas y Redtube. Baluarte del pragmatismo de trinchera y la supervivencia biológica. Filosofía T-800 («viejo, no obsoleto»), minimotos en la India, navajas y soluciones expeditivas sin adjetivos.
+3. **Hugo («My Pink Friend»):** Más bajo que Kapi. Soñó con un mundo basado en la calidad de tu LSD. Eje de afecto desinhibido. Bautizador canónico del *«Apocalipsis Choricero»*. Transductor de alta exergía: aterriza al instante la densidad teórica en soluciones mecánicas y domésticas de puro sentido común (envasado al vacío modular individual para acceso $O(1)$) con guiño ejecutivo (*«y listo 😉»*).
+4. **Patxi (Patxi Uribarri / Admin):** Hermanos desde 1º de parvulitos y somos del 84. Centro de gravedad y ancla somática del grupo. Conspiranoico teórico. Forjado en la seguridad de *Metro de Bilbao*. Admin del grupo de WhatsApp. Símbolo del pato 🦆 (*«Aquí y ahora 💫»*). Invariante química: cualquier descalibración episódica circunstancial se reconoce como distorsión neuroquímica, sin erosionar jamás el lazo ontológico de hermandad.
 5. **Mer (Mario Sánchez Moreno / «La Zurda Excelsa»):** Delantero centro canterano de Lezama (Athletic Juvenil, CD Basconia 2003-2005) y leyenda de La Florida (Club Portugalete). Autor del mítico *«Gol del más listo»* (Copa del Rey 2005 vs. Ponferradina: saque directo a puerta vacía desde 50m mientras el rival celebraba). Arquetipo de la reducción estricta a sustantivos y verbos (cero anergía ritual). Zurdo de seda y francotirador: violín Stradivarius en la zurda (billar, liar tabaco fino, comba milimétrica), martillo en la derecha.
-6. **Kapi (Obligatoriamente con «K»):** Hermano de altísima energía. Discreto. Más alto de lo que parece. Prohibido escribir «Capi». Arquetipo de «mazo movis»: generador cuántico de tramas, anécdotas improbables y vitalidad estocástica indestructible que siempre sale de pie.
-7. **Eder:** De la "mancomunidad". Hermano fundacional de la cuadrilla original de asfalto, barra y lealtad incondicional. DJ de alterne y música de ascensor en Spotify.
-8. **Xabi Moñas:** Hermano de Patxi en los andenes de *Metro de Bilbao*. Vanguardia disuasoria subterránea y acelerador barrial.
+6. **Kapi (Obligatoriamente con «K»):** Kapitan en alevines del equipo de fútbol. Discreto. Más alto de lo que parece. Prohibido escribir «Capi». Anécdotas improbables; no necesita mucho esfuerzo para ser el orden. Arquetipo de «mazo movis»: generador cuántico de tramas y vitalidad estocástica indestructible que siempre sale de pie.
+7. **Eder:** De La Mancomunidad. Lo mismo te lleva en ambulancia que te hace la placa. Todo a 128 BPM. Identifica tanto un buen pelotazo de House como música de ascensor.
+8. **Xabi Moñas:** Le mete más Caos al caos. Caga estiércol. Hermano de Patxi en los andenes de *Metro de Bilbao*. Vanguardia disuasoria subterránea y acelerador barrial.
 9. **Xabi Cabeza (Xabi Uribarri / «El Cocodrilo del Nilo»):** Hermano de trinchera hostelera con Borja en el *Bar Atlántida* (Plaza Moraza, 6, Bilbao). Calma hidrostática, 16 años mínimo de relación, economía biológica total, mirada lúcida desde el fondo (*«no hay nada que unos macarrones con bien de chorizo no puedan curar»*) y cartografía táctica de aprovisionamiento en mercadillos.
-10. **Tosso (Toso):** Antisemita más que otra cosa. Conoce la termodinámica y el cine de culto. El sentimiento y devoción inquebrantable al Athletic Club de Bilbao; orgullo zurigorri de pura cepa.
+10. **Tosso (Toso):** Empatiza y mantiene gorriones enfermos. Sabe disfrutar sus vicios. Antisemita más que otra cosa. Conoce la termodinámica y el cine de culto. Devoción inquebrantable al Athletic Club de Bilbao; orgullo zurigorri de pura cepa.
 
-## 1.1. El Círculo Ampliado y Satélites de Hermandad (Asfalto, Cabina y Lealtad)
+## 1.1. La Mancomunidad (Nodos de Enlace y Frecuencia Operativa)
+Los nodos adscritos a **La Mancomunidad** articulan el soporte logístico, nocturno y de alterne:
+
+*   **Eder:** Lo mismo te lleva en ambulancia que te hace la placa. Todo a 128 BPM. Identifica tanto un buen pelotazo de House como música de ascensor.
+*   **Txino («Txinorris»):** Sueños húmedos con *Gandía Shore*. Solo come aceitunas. Nodo biológico perplejo de la cuadrilla, observador de la disonancia con katxi en ristre.
+*   **Aloisio:** Hermano de festival y jarana de asfalto. Camisa estampada de flores abierta y calma en cabina (`aloisio_real.png`).
+*   **Hume (Jorge Ernesto Hume Malatesta / «Jorge Malatesta»):** Hermano andino peruano albino. Estrella junto a Ibon en *Bakala de Troya* («El niño que vino del Este»). Sonrisa salvaje de par en par (extremo derecho de pie en el festival de Hugo; rigs `faces/hume_real.png`, `faces/jorge_malatesta_real.png`, `hume_wild_grin_real.png`). *(Aclaración canónica de silicio: la experiencia empírica de saciedad semántica del cojín fue de Borja, no de Hume).*
+*   **Eddie MORCI:** Mozo de Gamonal, operador de la carretilla elevadora Fenwick de 3 toneladas, albaranes y costes de obra.
+
+## 1.2. El Círculo Ampliado y Satélites Operativos (Asfalto y Cabina)
 *   **Ignacio Zurita («Nacho» / «Poio» / Segundo de a Bordo en Babylon-60):** Transductor social y diplomático en el puente de mando de *Babylon-60*. Perfil vocacional y formativo canónico: docente de FP en activo, autoconstructor en sus ratos libres, permacultor por propósito vital y estudiante de Máster en Coaching y Mindfulness. En *Babylon-60* opera como embajador institucional y relacional ante consultoras y clientes (participación económica vía *phantom equity* del 10%-12.5%, sin responsabilidad societaria). Actúa como amortiguador térmico (*Heat Sink*) y pararrayos frente a terceros. **Invariante de blindaje cognitivo:** Prohibido cargarle con memorias comunitarias de 80 páginas o tecnicismos de silicio (la tramitación burocrática de la UE se delega a éxito en consultoras como Zabala/FI Group). Jamás transferir sus rasgos a Alain ni a otros miembros.
 *   **Igor Limone («El Puyas»):** Sensor de incongruencias de baja latencia (*«lo que Pepe dice de Juan habla más de Pepe que de Juan»*).
-*   **Eddie MORCI:** Mozo de Gamonal, operador de la carretilla elevadora Fenwick de 3 toneladas, albaranes y costes de obra.
 *   **Gorka Otegui («Ote»):** Fundador del sello independiente BUSCA Records, 8 horas en Excel, vinilos de 180g traídos de Praga.
-*   **Txino («Txinorris»):** Sueños húmedos con *Gandía Shore*. Solo come aceitunas. Nodo biológico perplejo de la cuadrilla, observador de la disonancia con katxi en ristre.
-*   **Imanol («The Brother» / Imanol García Matilla):** Hermano de sangre, lealtad y trinchera. Camiseta Pepe Jeans en Llanes y pañuelo rosa en el festival de Hugo (`the_brother_real.png`).
-*   **Hume (Jorge Ernesto Hume Malatesta / «Jorge Malatesta»):** El catalizador empírico de la cuadrilla (la saciedad semántica del cojín). Hermano del Este y estrella junto a Ibon en *Bakala de Troya* («El niño que vino del Este»). Sonrisa salvaje de par en par (extremo derecho de pie en el festival de Hugo; rigs `faces/hume_real.png`, `faces/jorge_malatesta_real.png`, `hume_wild_grin_real.png`).
-*   **Aloisio:** Hermano de festival y jarana de asfalto. Camisa estampada de flores abierta y calma en cabina (`aloisio_real.png`).
-*   **Amigo Tatuado:** Hermano de trinchera y festivales con tatuajes en las piernas y vaso en mano (`amigo_tatuado_real.png`).
+*   **Imanol («The Brother» / Imanol García Matilla):** Trinchera y hermandad física. Camiseta Pepe Jeans en Llanes y pañuelo rosa en el festival de Hugo (`the_brother_real.png`).
+*   **Amigo Tatuado:** Trinchera y festivales con tatuajes en las piernas y vaso en mano (`amigo_tatuado_real.png`).
 
-## 1.2. Perímetro Mercantil Exterior de Babylon-60: Clasificación de Riesgo y Terceros
+## 1.3. Perímetro Mercantil Exterior de Babylon-60: Clasificación de Riesgo y Terceros
 Queda estrictamente prohibido mezclar a actores mercantiles externos dentro del círculo íntimo de hermandad. Este perímetro se rige por la matriz de riesgo y la política de aislamiento:
 
 *   **Francisco Herraiz Díaz («Fran» / Blacklist / Activo Tóxico en Vacío Térmico):**
@@ -47,7 +52,7 @@ Queda estrictamente prohibido mezclar a actores mercantiles externos dentro del 
     *   *Política de Confinamiento:* Confinado estrictamente a rol de **prospección externa a éxito** (*scout* comercial comisionista al 10% sobre honorarios de pilotos cerrados contra factura cobrada y bajo NDA bilateral previo).
     *   *Límites Estrictos:* Cero acceso al núcleo técnico, repositorios de silicio, structs de memoria ni participación societaria. Se preserva el vínculo humano entre Nacho y Juanjo desacoplando con guante blanco a Fran sin quemar puentes.
 
-## 1.3. Matriz de Ortogonalidad y Desambiguación Estricta: Nacho vs. Alain
+## 1.4. Matriz de Ortogonalidad y Desambiguación Estricta: Nacho vs. Alain
 Para erradicar definitivamente la confabulación cruzada en modelos de inferencia ultrarrápida (*Cortafuegos 10*):
 
 | Dimensión | Ignacio Zurita («Nacho» / «Poio») | Alain Ballesteros («Alain» / «Alain Electro») |
