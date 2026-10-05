@@ -1,6 +1,6 @@
 ---
 name: c5-canonical-ontology-invariant
-description: Invariante de Ontología Canónica Congelada v1.0.0 (CORTEX, BABYLON, NEMESIS). Fija las 10 Leyes Ontológicas (O1-O10), la demarcación estricta entre hecho, decisión y evidencia, y el veto absoluto a la autoridad estocástica.
+description: Invariante de Ontología Canónica Congelada v1.0.0 (CORTEX, BABYLON, NEMESIS). Fija las 11 Leyes Ontológicas (O1-O11), la demarcación estricta entre hecho, decisión y evidencia, y el veto absoluto a la autoridad estocástica.
 trigger: "always_on"
 ---
 
@@ -66,7 +66,7 @@ Queda estrictamente prohibido alterar, diluir o fusionar las fronteras conceptua
 
 ---
 
-## 4. Las Diez Leyes Ontológicas Invariantes (O1 - O10)
+## 4. Las Once Leyes Ontológicas Invariantes (O1 - O11)
 
 - **O1:** `SOURCE ≠ INFERENCE` — Ningún registro de origen puede suplantarse por una inferencia, ni una inferencia simular ser fuente primaria.
 - **O2:** `INFERENCE ≠ AUTHORITY` — Ningún modelo probabilístico posee autoridad intrínseca.
@@ -78,6 +78,7 @@ Queda estrictamente prohibido alterar, diluir o fusionar las fronteras conceptua
 - **O8:** `EVIDENCE ≠ ASSERTION` — La evidencia es la observación física; la aserción es la hipótesis formal falsable.
 - **O9:** `ATTESTATION ≠ TRUTH` — Una atestación vincula evidencia y entorno bajo una firma; la firma prueba integridad, no infalibilidad.
 - **O10:** `UI ≠ AUTHORITY` — Ninguna interfaz visual puede emitir efectos ni arrogarse autoridad; es mera proyección pasiva de evidencia.
+- **O11:** `MACHINE INFERENCE ≠ PREDICTION ERROR` — La máquina no experimenta error de predicción. Su proyección estadística es una verdad absoluta en bucle abierto (la flecha es solo de ida); el choque termodinámico y la evaluación del error existen única y exclusivamente en la ontología del operador biológico acoplado al territorio.
 
 ### Ley Transversal Fundacional
 $$\boxed{\text{No stochastic interpretation may create authority by itself}}$$
