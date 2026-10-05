@@ -6,8 +6,9 @@ description: Mapa canónico e invariantes ontológicas de la cuadrilla de Bilbao
 # Invariante de la Cuadrilla de Bilbao y el Círculo de Hermandad
 
 ## 1. Los 10 Hermanos de la Cuadrilla Original (El Decálogo Canónico Fundacional)
-La cuadrilla de Bilbao articula la confluencia histórica de dos ramas de origen:
-*   **Núcleo Fundacional (Parvulitos 1984 / Asfalto):** Borja, Patxi (hermanos desde 1º de parvulitos, quinta del 84), Luengo, Hugo, Mer (cantera Lezama 1984) y Kapi.
+La cuadrilla de Bilbao articula la confluencia histórica de tres ramas canónicas de origen:
+*   **Núcleo Epalza (Parvulitos 1984 / Origen):** Patxi, Borja (El Operador Raíz) + Hume + Mario (Mer).
+*   **Núcleo Theos:** Hugo, Kapi y Luengo.
 *   **Rama Colegio Bizkaia:** Eder, Xabi Cabeza, Tosso y Txino (procedentes originalmente de la cuadrilla del Colegio Bizkaia antes de confluir en el asfalto y La Mancomunidad).
 
 La cuadrilla consolidada está constituida de forma inmutable y estricta por exactamente **10 miembros**:
