@@ -1,7 +1,7 @@
 ---
 name: c5-information-thermodynamics
 display_name: Termodinámica de la Información y Geometría Estadística
-description: Auditoría, formulación y análisis de teoría de la información, entropía de Shannon, entropía cruzada, divergencia KL (forward vs reverse), métrica de Fisher, teorema de Chentsov, transporte óptimo de Wasserstein (esquema JKO), identidad de De Bruijn, modelos generativos de difusión (Score Matching), y termodinámica física de no equilibrio (Landauer, Crooks, Jarzynski) en arquitecturas de IA. Dispara con "entropía de shannon", "divergencia kl", "kullback leibler", "entropía cruzada", "cross-entropy", "forward kl", "reverse kl", "fisher information", "teorema de chentsov", "landauer limit", "semantic entropy", "information geometry", "termodinámica de la información", "amari natural gradient", "flujo de wasserstein", "jko scheme", "identidad de de bruijn", "score matching", "difusión termodinámica", "fokker planck", "mehler kernel".
+description: Auditoría, formulación y análisis de teoría de la información, entropía de Shannon, entropía cruzada, divergencia KL (forward vs reverse), métrica de Fisher, teorema de Chentsov, transporte óptimo de Wasserstein (esquema JKO), identidad de De Bruijn, modelos generativos de difusión (Score Matching), termodinámica física de no equilibrio (Landauer, Crooks, Jarzynski) en arquitecturas de IA, y protocolo de auditoría de entropía en tres estratos (silicio, codebase y transductor lingüístico KISH Ω₁₇). Dispara con "entropía de shannon", "divergencia kl", "kullback leibler", "entropía cruzada", "cross-entropy", "forward kl", "reverse kl", "fisher information", "teorema de chentsov", "landauer limit", "semantic entropy", "information geometry", "termodinámica de la información", "amari natural gradient", "flujo de wasserstein", "jko scheme", "identidad de de bruijn", "score matching", "difusión termodinámica", "fokker planck", "mehler kernel", "audita entropía", "audita entropia", "audita entropai", "entropy audit", "auditoría de entropía".
 role: arquitecto
 allowed_roles:
 - arquitecto
@@ -101,3 +101,24 @@ Ante consultas sobre incertidumbre, muestreo o confabulaciones en LLMs:
 * **Perplejidad:** Exponencial de Shannon $\text{PPL} = 2^{H}$.
 * **Temperatura de Gibbs:** $P(x_i) \propto \exp(z_i / T)$. $T \to 0$ colapsa la entropía de Shannon a cero; $T \to \infty$ maximiza la entropía a distribución uniforme ($\log_2 |\mathcal{V}|$).
 * **Entropía Semántica (Farquhar / Oxford):** Cálculo de Shannon sobre clases de equivalencia de significado (clusters proposicionales) para distinguir incertidumbre lingüística de alucinación epistémica.
+
+## 9. Protocolo Canónico de Auditoría de Entropía C5-REAL (Tres Estratos)
+
+Ante la instrucción *"audita entropía"* o comandos análogos (`audita entropai`, `entropy audit`), el agente DEBE ejecutar una auditoría en silicio estructurada en 3 estratos independientes:
+
+1. **Estrato 1: Entropía Física de Silicio (Darwin / Apple Silicon TRNG):**
+   - Extraer una muestra de 64 KB de `/dev/urandom` y calcular la entropía de Shannon $H(X)$.
+   - Verificar que $H(X) \approx 7.9998 \text{ bits/byte}$ (eficiencia $> 99.96\%$).
+   - Verificar la ausencia estricta de demonios de entropía de terceros (`haveged`, `rng-tools`), en estricto cumplimiento de la Invariante de Entropía Nativa en Apple Silicon.
+2. **Estrato 2: Entropía de Codebase & Topología Estructural:**
+   - Medir la distribución de entropía de Shannon $H(X)$ sobre archivos `.rs`, `.py`, `.ts`, `.astro`, `.md`, `.json`.
+   - Calcular la matriz de similitud Jaccard $J(A, B)$ sobre tokens de documentos para detectar clones epistémicos ($J \ge 0.75$).
+   - Detectar encabezados duplicados intra-corpus y alertas de caracteres invisibles Zero-Width Space (`\u200b`, `\u200c`, `\u200d`, `\ufeff`).
+   - **Invariante de Exclusión de Carpetas Parásitas:** Prohibido escanear directorios recursivos de reportes (`AUDIT_REPORTS_2026`, `AUDITORIAS_EPISTEMICAS`, `node_modules`, `dist`, `.git`, `.venv`), confinando la auditoría a los proyectos activos para evitar bloqueos por sobrecarga ($N > 70.000$ archivos).
+3. **Estrato 3: Entropía Lingüística del Transductor KISH (Ω₁₇):**
+   - Utilizar el motor `babylon60.transducers.linguistic_entropy.LinguisticEntropyDetector`.
+   - Medir entropía de caracteres, palabras, bigramas y trigramas.
+   - Computar diversidad léxica (TTR y Moving Average TTR, $k=50$).
+   - Evaluar Burstiness de Goh-Barabási ($B \in [-1, 1]$) y Context Rot Score.
+   - Auditar Slop Density (clichés y teatro verde de LLMs) y certificar la Puntuación Exergética final $[0.0, 100.0]$.
+

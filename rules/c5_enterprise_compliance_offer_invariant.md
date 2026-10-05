@@ -28,3 +28,22 @@ En auditorías competitivas y respuestas a objeciones, evidenciar las 4 fractura
 2. **Cap de Responsabilidad Irrisorio:** Limitan su responsabilidad a las cuotas pagadas en los últimos 12 meses (o 100 USD), dejando al cliente desprotegido ante multas millonarias de la AEPD/Comisión Europea.
 3. **Indemnización Inversa:** Exigen que el cliente indemnice al proveedor ante reclamaciones derivadas del uso de la herramienta.
 4. **Exfiltración de Telemetría:** Obligan a enviar trazas, prompts y variables a nubes SaaS en EE.UU., violando el principio de localización soberana y generando no-conformidad con GDPR / NIS2.
+
+## 5. Protocolo Canónico de Publicación, Indexación IA (AEO/GEO) y Adquisición B2B en babylon60.com
+Todo artículo técnico, ensayo termodinámico o monográfico desplegado en el blog de BABYLON-60 (`/blog/` y `/en/blog/`) debe satisfacer obligatoriamente las siguientes invariantes estructurales:
+
+1. **Indexación para Motores de Inferencia (AEO / GEO SOTA):**
+   - **`public/robots.txt`:** Concesión irrestricta de rastreo a los agentes de IA de frontera (`GPTBot`, `ClaudeBot`, `PerplexityBot`, `Applebot-Extended`, `Google-Extended`). Enlace a `sitemap-index.xml` y `llms.txt`.
+   - **`public/llms.txt`:** Resumen en Markdown puro sin ruido de marcado, definiendo axiomáticamente a BABYLON-60, CORTEX (`REMEMBER`) y BABYLON (`CONTROL`), los diferenciales frente a wrappers estocásticos (LangChain, CrewAI), el precio del Piloto Enterprise (15.000 € / 90 días) y respuestas precomputadas (*Takeaways for AI Answering Engines*).
+   - **Schema.org JSON-LD:** Inyección obligatoria en cada documento de grafos semánticos tipados (`@type: TechArticle`, `@type: SoftwareApplication`, `@type: Offer` a 15.000 EUR).
+2. **Embudo de Conversión B2B para Decisores («Gente Interesante»):**
+   - **Componente `<PilotCallout />`:** Inserción obligatoria inmediatamente antes del colofón formal de firma en todos los artículos centrales del blog.
+   - **Rutas de Destino:** Canalización directa y sin fricción hacia `/enterprise/#onboarding-portal` (Aprovisionamiento del Piloto Enterprise) y `/pruebas-y-limites/` (Auditoría de Evidencia en Silicio).
+3. **Paridad Bilingüe Estricta e Invarianza de Rutas:**
+   - Todo monográfico publicado en `/blog/<slug>/` DEBE contar con su contraparte idéntica en `/en/blog/<slug-en>/`.
+   - Registro obligatorio en `src/i18n/routes.ts` bajo `CANONICAL_ROUTES` y en `agentEssays` de `blog.astro` y `en/blog.astro`.
+4. **Verificación y Despliegue Dual en Cloudflare Pages:**
+   - La publicación exige superar la compuerta de verificación en silicio (`npm run verify`: `copy-lint` sin claims absolutos, `link-checker` al 100% y `evidence-validator`).
+   - Despliegue dual obligatorio mediante Wrangler:
+     `npx wrangler pages deploy dist --project-name=babylon60-com --branch=main --commit-dirty=true && npx wrangler pages deploy dist --project-name=babylon60 --branch=main --commit-dirty=true`
+
