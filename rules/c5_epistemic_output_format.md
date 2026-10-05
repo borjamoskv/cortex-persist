@@ -87,3 +87,10 @@ En glosarios, diccionarios conceptuales (ej. *El Borjario*) y taxonomías, todo 
 ## 9. Invariante de Pureza Ontológica y Cero Fuga Personal
 1. **Purga Estricta de Intimidad:** Prohibido incluir referencias íntimas, sexuales, sentimentales o anécdotas privadas en compendios públicos.
 2. **Transducción a Sistemas Dinámicos:** Toda experiencia somática/motriz se descompila rigurosamente en términos de neurociencia, biomecánica, propiocepción y física de sistemas (*blindsight parietal*, *histéresis de fase*, *cinemática balística*).
+
+## 10. Invariante de Renderizado KaTeX Limpio (Veto al Punto Medio en KaTeX / Anti-\cdotp)
+Queda estrictamente prohibido utilizar el carácter unicode de punto medio `·` dentro de bloques KaTeX (`\text{...}` o modo matemático dentro de `\boxed{...}` o `$$...$$`), ya que el motor de renderizado KaTeX de la interfaz de usuario falla fatalmente con el error `Undefined control sequence: \cdotp`.
+- **Obligatorio:** Utilizar siempre dos puntos (`:`) o guion ASCII (`-`) para separar identificadores:
+  - Prohibido: `\boxed{\text{B1 · NAME} \neq \text{IDENTITY}}`
+  - Correcto: `\boxed{\text{B1: NAME} \neq \text{IDENTITY}}`
+

@@ -88,3 +88,70 @@ Para evitar el atrapamiento en mínimos locales mediocres en paisajes de fitness
 | **10** | **Asimetría Silicio-Wetware** | El silicio calcula millones de conjeturas; el humano ejerce el corte. | El Humano como Oráculo de Selección en $dC/dn \to 0$. |
 | **11** | **Estrategia Retroviral** | Viste la obra con la cápside estándar y hackea el canal enemigo. | Simbiogénesis y desarticulación del monopolio del Leviatán. |
 | **12** | **Sello de Finitud** | Trabaja como si tu sangre tuviese fecha de caducidad inminente (la tiene). | Segunda Ley de la Termodinámica (Seguro Lindy). |
+
+---
+
+## 5. La Ley Fundamental de la Acreación y Formulación Matemática
+
+$$
+\boxed{
+\text{Mejorar} =
+\text{eliminar grados de libertad parásitos}
+\;\text{sin reducir potencia causal}
+}
+$$
+
+- **No es minimalismo:** Cero estética decorativa del vacío.
+- **No es austeridad:** Cero resignación moral por escasez.
+- **No es «hacer menos»:** Cero simplismo mutilador.
+- **Es quitar lo que no cambia el resultado:** *«Si quitarlo no cambia nada, nunca estuvo haciendo trabajo»*.
+
+### Secuencia Canónica (7 Fases)
+$$\text{OBSERVAR} \longrightarrow \text{DETECTAR REDUNDANCIA} \longrightarrow \text{AISLAR INVARIANTES} \longrightarrow \text{SUSTRAER} \longrightarrow \text{ESTRESAR} \longrightarrow \text{VERIFICAR} \longrightarrow \text{NOMBRAR}$$
+
+### Condición de Iteración Acreativa ($I_A$) y Densidad Acreativa ($\rho_A$)
+$$
+I_A \iff \Delta C < 0 \;\land\; \Delta P \ge 0 \;\land\; \Delta O > 0
+$$
+$$
+\rho_A = \frac{P \cdot O \cdot R}{C} \qquad (\Delta \rho_A > 0)
+$$
+Donde $C$ es complejidad efectiva, $P$ potencia causal, $O$ observabilidad y $R$ robustez ante perturbaciones.
+
+---
+
+## 6. La Arquitectura Triádica y la Teoría del Entre
+
+El Método Acreativo se articula en tres territorios irreducibles:
+1. **El Primate:** Produce intención, valor, corte, sesgo, finitud y experiencia.
+2. **El Ordenador:** Produce escala, formalización, memoria, búsqueda, repetibilidad y transformación.
+3. **El espacio entre nosotros:** Produce negociación de significado, corrección, redistribución de agencia y nuevas formas de cognición.
+
+### Tesis Central de Acoplamiento
+$$
+\text{Primate} \neq \text{Ordenador}
+$$
+$$
+\text{IA} \neq \text{Primate} + \text{Ordenador}
+$$
+$$
+\text{IA} = \text{dinámica emergente del acoplamiento entre ambos}
+$$
+
+$$
+\boxed{
+\text{Acreación} = \text{eliminar interferencia} + \text{preservar fricción útil} + \text{hacer visible la diferencia causal}
+}
+$$
+*«Acrear es retirar interferencia del acoplamiento hasta que quede visible qué diferencia cambia realmente el sistema».*
+
+### Las Ocho Leyes del Acoplamiento
+1. **El nombre llega el último.**
+2. **Iterar sin redundar.**
+3. **La fricción útil produce señal.**
+4. **El error útil permite corrección.**
+5. **Comprender es comprimir sin perder potencia.**
+6. **Un sistema sin exterior cognitivo solo se confirma.**
+7. **La IA no reside por completo en ninguno de los dos extremos. Ocurre en la relación que los modifica.**
+8. **Toda relación que no pueda modificar a sus participantes es solo transmisión. Cuando sí los modifica: hay acoplamiento.**
+
