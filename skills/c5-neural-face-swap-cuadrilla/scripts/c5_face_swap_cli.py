@@ -214,9 +214,10 @@ def render_worker_chunk(
     worker_id=0
 ):
     """Procesa una franja contigua de fotogramas [start_frame, end_frame) en un subproceso aislado."""
-    app_det = FaceAnalysis(name='buffalo_l', allowed_modules=['detection'], providers=['CPUExecutionProvider'])
+    coreml_providers = ['CoreMLExecutionProvider', 'CPUExecutionProvider'] if 'CoreMLExecutionProvider' in ort.get_available_providers() else ['CPUExecutionProvider']
+    app_det = FaceAnalysis(name='buffalo_l', allowed_modules=['detection'], providers=coreml_providers)
     app_det.prepare(ctx_id=0, det_size=(640, 640))
-    swapper = get_model(INSWAPPER_PATH, providers=['CPUExecutionProvider'])
+    swapper = get_model(INSWAPPER_PATH, providers=coreml_providers)
 
     # Sesiones ONNX para Restaurador, Segmentación y Landmarker 3D
     sess_opts = ort.SessionOptions()
@@ -233,7 +234,7 @@ def render_worker_chunk(
 
     bisenet_sess = None
     if mask_mode == 'bisenet' and os.path.isfile(BISENET_PATH):
-        bisenet_sess = ort.InferenceSession(BISENET_PATH, sess_options=sess_opts, providers=['CPUExecutionProvider'])
+        bisenet_sess = ort.InferenceSession(BISENET_PATH, sess_options=sess_opts, providers=coreml_providers)
 
     fan_sess = None
     if os.path.isfile(FAN_PATH):
@@ -452,7 +453,8 @@ def generate_vertical_916_video(master_video, out_916_path, bg_mode='crop', targ
     tracker = VerticalFramingTracker(w_src, h_src, target_w=target_w, target_h=target_h)
 
     # Detector facial para centrar el encuadre
-    app_det = FaceAnalysis(name='buffalo_l', allowed_modules=['detection'], providers=['CPUExecutionProvider'])
+    coreml_providers = ['CoreMLExecutionProvider', 'CPUExecutionProvider'] if 'CoreMLExecutionProvider' in ort.get_available_providers() else ['CPUExecutionProvider']
+    app_det = FaceAnalysis(name='buffalo_l', allowed_modules=['detection'], providers=coreml_providers)
     app_det.prepare(ctx_id=0, det_size=(320, 320))
 
     temp_raw_916 = "/tmp/c5_vertical_nosound.mp4"
