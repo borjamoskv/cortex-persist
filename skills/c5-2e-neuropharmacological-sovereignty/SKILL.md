@@ -85,3 +85,27 @@ En la fase de metabolización/descenso del psicoestimulante (caída de plasma en
 1. **NDRI Puros (Inhibidores de Recaptación)**: Bloquean el transportador (SLC6A3/SLC6A2) en conformación outward-facing sin invertir el gradiente ni vaciar vesículas (Metilfenidato, Dexmetilfenidato, Bupropión, Solriamfetol).
 2. **Agentes Liberadores (Releasers / Sustratos)**: Son transportados al citosol, colapsan VMAT2 e invierten la dirección del transportador hacia el exterior celular (Dextroanfetamina, Lisdexanfetamina, Adderall).
 3. **Precursores Dietéticos**: Ningún alimento comercial actúa como un NDRI mayor. Alimentos ricos en proteínas (quesos curados, huevos, carnes) aportan L-Tirosina y L-Fenilalanina, sustratos acotados por la cinética enzimática de la tirosina hidroxilasa (TH) que alimentan la reserva endógena sin forzar picos fásicos extracelulares.
+
+## 11. La Paradoja de Dispersión en 2e y la Curva U-Invertida (Arnsten / Goldman-Rakic)
+1. **Disociación Tracción vs. Dirección:**
+   - En perfiles 2e, el psicoestimulante a dosis base (ej. Concerta 18 mg) restaura el suelo tónico dopaminérgico/noradrenérgico ($\alpha_{2A}$ y $D_1$), suprimiendo la niebla mental y la inercia de arranque («ir genial»).
+   - **El fármaco es un motor, no un vector de navegación:** No selecciona la relevancia semántica de la tarea. Al coexistir con la alta tasa de exploración asociativa ($\epsilon$-greedy) de las AACC, el fármaco facilita hiperfocalizar en bifurcaciones y tangentes irrelevantes si no existe confinamiento topológico previo.
+2. **Falacia de Escalada Dosis-Respuesta (Aforismo #3):**
+   - Interpretar la dispersión cognitiva persistente como «falta de dosis» es un error de diagnóstico causal.
+   - Cruzar el umbral hacia el extremo derecho de la curva de U-invertida prefrontal satura receptores adrenérgicos $\alpha_1$ y $\beta_1$, induciendo rigidez cognitiva catatónica (pérdida de flexibilidad para cambiar de contexto), inquietud somática periférica y transmutación de la curiosidad divergente en rumiación ansiosa o parálisis.
+
+## 12. Invariante de Sello Atencional (Protocolo de los Primeros 30 Minutos)
+1. **Fijación de Estado por Ascenso Plasmático:**
+   - La pendiente ascendente ($\Delta C / \Delta t$) del psicoestimulante consolida y sella el estado atencional y ambiental en el que se encuentra el operador en el momento de la absorción.
+   - Si la ventana de ascenso sorprende al operador con hiperestimulación abierta (múltiples pestañas, redes, estímulos difusos), el sistema prefrontal cristaliza la conducta dispersiva.
+2. **Protocolo de Confinamiento Preventivo ($N = 1$ en Ring-0):**
+   - Antes de iniciar la absorción del fármaco, el operador debe aislar en pantalla y espacio de trabajo de forma exclusiva la tarea crítica de alta exergía, erradicando grados de libertad antes de que la bomba osmótica eleve el tono monoaminérgico.
+
+## 13. Metrología Comparada: NDRI cGMP vs. Releasers Estocásticos de Calle
+1. **Incompatibilidad Dinámica (NDRI vs. Releaser):**
+   - Un inhibidor de recaptación (Metilfenidato) actúa como tapón extracelular dependiente del disparo de potenciales de acción; no vacía vesículas ni invierte transportadores.
+   - Un agente liberador / releaser (Anfetamina) penetra al citosol, activa TAAR1, colapsa el gradiente vesicular de VMAT2 e invierte el flujo de DAT/NET, forzando un vaciado fásico independiente del impulso endógeno.
+   - **Corolario de Intoxicación Asimétrica:** Escalar dosis de un NDRI pretendiendo emular el efecto fásico de un releaser satura prematuramente el techo dopaminérgico central y desencadena una tormenta noradrenérgica periférica masiva (vasoconstricción, taquicardia severa, rigidez), acumulando toda la fricción somática sin la recompensa ejecutiva buscada.
+2. **Realidad de Pureza Estocástica:**
+   - Toda estimación comparativa con muestras callejeras debe descontar la adulteración sistemática: en Europa/España, el speed callejero presenta purezas típicas de 12%–25% de anfetamina racémica, con 60%–80% de cafeína anhidra en bolo agudo.
+
