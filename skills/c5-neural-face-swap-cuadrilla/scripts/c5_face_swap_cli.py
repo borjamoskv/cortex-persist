@@ -79,7 +79,9 @@ from insightface.app import FaceAnalysis
 from insightface.model_zoo import get_model
 from insightface.utils import face_align
 
-FACES_DIR = "/Users/borjafernandezangulo/Downloads/VIDEO BODA HUGO/faces"
+FACES_DIR = "/Users/borjafernandezangulo/10_PROJECTS/cuadrilla-neural-vault/faces/real"
+if not os.path.isdir(FACES_DIR):
+    FACES_DIR = "/Users/borjafernandezangulo/Downloads/VIDEO BODA HUGO/faces"
 MOVIES_DIR = "/Users/borjafernandezangulo/Movies/VIDEOS_MITICOS"
 MODELS_DIR = os.path.expanduser("~/.insightface/models")
 
@@ -544,8 +546,14 @@ def process_video_pipeline(video_input, args):
         first_ref_name = os.path.splitext(os.path.basename(resolved_id_groups[0][0]))[0].replace("_real", "")
         output_path = os.path.join(os.getcwd(), f"{base_name}_{first_ref_name}_c5swap.mp4")
 
-    audio_tmp = "/tmp/c5_audio_track.m4a"
-    subprocess.run(['ffmpeg', '-y', '-i', video_input, '-vn', '-c:a', 'copy', audio_tmp], check=True, stderr=subprocess.DEVNULL)
+    session_id = f"{int(time.time())}_{os.getpid()}"
+    audio_tmp = f"/tmp/c5_audio_{session_id}.m4a"
+    has_audio = False
+    try:
+        subprocess.run(['ffmpeg', '-y', '-i', video_input, '-vn', '-c:a', 'copy', audio_tmp], check=True, stderr=subprocess.DEVNULL)
+        has_audio = os.path.exists(audio_tmp) and os.path.getsize(audio_tmp) > 0
+    except Exception:
+        has_audio = False
 
     cap = cv2.VideoCapture(video_input)
     total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
@@ -629,7 +637,7 @@ def process_video_pipeline(video_input, args):
             source_faces=src_faces,
             start_frame=0,
             end_frame=total_frames,
-            out_part_path="/tmp/c5_video_nosound.mp4",
+            out_part_path=f"/tmp/c5_video_nosound_{session_id}.mp4",
             fps=fps,
             width=width,
             height=height,
@@ -649,7 +657,7 @@ def process_video_pipeline(video_input, args):
             swap_all=args.swap_all,
             worker_id=0
         )
-        concat_video = "/tmp/c5_video_nosound.mp4"
+        concat_video = f"/tmp/c5_video_nosound_{session_id}.mp4"
     else:
         chunk_size = total_frames // workers
         subprocs = []
@@ -660,7 +668,7 @@ def process_video_pipeline(video_input, args):
         for w_idx in range(workers):
             sf = w_idx * chunk_size
             ef = total_frames if (w_idx == workers - 1) else (w_idx + 1) * chunk_size
-            part_p = f"/tmp/c5_part_{w_idx}.mp4"
+            part_p = f"/tmp/c5_part_{session_id}_{w_idx}.mp4"
             part_files.append(part_p)
 
             cmd = [
@@ -698,24 +706,27 @@ def process_video_pipeline(video_input, args):
             if ret != 0:
                 raise RuntimeError(f"Worker {idx} terminó con error (exit code {ret}).")
 
-        concat_list = "/tmp/c5_concat_list.txt"
+        concat_list = f"/tmp/c5_concat_list_{session_id}.txt"
         with open(concat_list, "w") as fp:
             for pf in part_files:
                 fp.write(f"file '{pf}'\n")
 
-        concat_video = "/tmp/c5_merged_chunks.mp4"
+        concat_video = f"/tmp/c5_merged_chunks_{session_id}.mp4"
         subprocess.run(['ffmpeg', '-y', '-f', 'concat', '-safe', '0', '-i', concat_list, '-c', 'copy', concat_video], check=True, stderr=subprocess.DEVNULL)
 
     print(f"[*] Muxing de pista sonora final -> {output_path}...", flush=True)
-    subprocess.run([
-        'ffmpeg', '-y',
-        '-i', concat_video,
-        '-i', audio_tmp,
-        '-c:v', 'copy',
-        '-c:a', 'aac', '-b:a', '192k',
-        '-shortest',
-        output_path
-    ], check=True, stderr=subprocess.DEVNULL)
+    if has_audio:
+        subprocess.run([
+            'ffmpeg', '-y',
+            '-i', concat_video,
+            '-i', audio_tmp,
+            '-c:v', 'copy',
+            '-c:a', 'aac', '-b:a', '192k',
+            '-shortest',
+            output_path
+        ], check=True, stderr=subprocess.DEVNULL)
+    else:
+        shutil.move(concat_video, output_path)
 
     purge_temp_onnx_artifacts()
 
