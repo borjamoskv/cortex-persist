@@ -1,0 +1,17 @@
+{
+  "workspace-confinement-gate": {
+    "enabled": true,
+    "PreToolUse": [
+      {
+        "matcher": "write_to_file|replace_file_content",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 /Users/borjafernandezangulo/10_PROJECTS/60_SCRIPTS/workspace_hook_validator.py",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
