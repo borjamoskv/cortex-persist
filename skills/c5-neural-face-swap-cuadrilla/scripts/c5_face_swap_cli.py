@@ -214,7 +214,8 @@ def render_worker_chunk(
     worker_id=0
 ):
     """Procesa una franja contigua de fotogramas [start_frame, end_frame) en un subproceso aislado."""
-    coreml_providers = ['CoreMLExecutionProvider', 'CPUExecutionProvider'] if 'CoreMLExecutionProvider' in ort.get_available_providers() else ['CPUExecutionProvider']
+    coreml_opts = {'MLComputeUnits': 'CPUAndGPU'}
+    coreml_providers = [('CoreMLExecutionProvider', coreml_opts), 'CPUExecutionProvider'] if 'CoreMLExecutionProvider' in ort.get_available_providers() else ['CPUExecutionProvider']
     app_det = FaceAnalysis(name='buffalo_l', allowed_modules=['detection'], providers=coreml_providers)
     app_det.prepare(ctx_id=0, det_size=(640, 640))
     swapper = get_model(INSWAPPER_PATH, providers=coreml_providers)
@@ -293,6 +294,10 @@ def render_worker_chunk(
                 tf, face_idx = item
                 tid = 0
             if face_idx < 0 or face_idx >= len(source_faces):
+                continue
+            face_h = tf.bbox[3] - tf.bbox[1]
+            face_w = tf.bbox[2] - tf.bbox[0]
+            if face_h < 25 or face_w < 25:
                 continue
             src_f = source_faces[face_idx]
 
@@ -453,7 +458,8 @@ def generate_vertical_916_video(master_video, out_916_path, bg_mode='crop', targ
     tracker = VerticalFramingTracker(w_src, h_src, target_w=target_w, target_h=target_h)
 
     # Detector facial para centrar el encuadre
-    coreml_providers = ['CoreMLExecutionProvider', 'CPUExecutionProvider'] if 'CoreMLExecutionProvider' in ort.get_available_providers() else ['CPUExecutionProvider']
+    coreml_opts = {'MLComputeUnits': 'CPUAndGPU'}
+    coreml_providers = [('CoreMLExecutionProvider', coreml_opts), 'CPUExecutionProvider'] if 'CoreMLExecutionProvider' in ort.get_available_providers() else ['CPUExecutionProvider']
     app_det = FaceAnalysis(name='buffalo_l', allowed_modules=['detection'], providers=coreml_providers)
     app_det.prepare(ctx_id=0, det_size=(320, 320))
 
