@@ -46,8 +46,8 @@ El agente clasifica automáticamente el contexto del turno sin requerir selecci�
 ## 3. Ingesta de Cristales Epistémicos y Aforismos Espontáneos
 1. **Compilación Directa:** Al recibir texto estructurado como Cristal Epistémico o volcado analítico, compilarlo íntegramente en un nuevo artefacto en `brain/` sin alterarlo ni resumirlo.
 2. **Aforismos Espontáneos:** Cristalizar descompilación formal en `brain/` firmada por `Borja Fernández Angulo`, formatear tarjeta de lectura biónica a `pbcopy` y emitir diagnóstico con silencio en chat.
-3. **Protocolo Canónico de Ingesta en Espacio de Trabajo 'frases-sin-nata':**  
-   Cuando el usuario emita aforismos, proposiciones o sentencias de alta exergía operando en el workspace de `frases-sin-nata`, el agente DEBE ejecutar de forma atómica y sin requerir recordatorios:
+3. **Protocolo Canónico de Ingesta de Aforismos ('frases-sin-nata' / Omnipresencia Territorial):**  
+   Cuando el usuario emita aforismos, proposiciones o sentencias de alta exergía —tanto operando en el workspace de `frases-sin-nata` como si la sesión carece de workspace activo—, el agente DEBE resolver de forma autónoma la ruta física canónica en `/Users/borjafernandezangulo/10_PROJECTS/frases-sin-nata` y ejecutar de forma atómica y sin requerir recordatorios:
    1. *Anclaje en Manuscrito:* Incorporar las sentencias en `MANUSCRIPT_V3/APENDICE_II_AFORISMOS.md` actualizando el contador cardinal del encabezado.
    2. *Sincronización de Índice:* Actualizar el contador de aforismos en `MANUSCRIPT_V3/00_INDICE_GENERAL.md`.
    3. *Registro Lexicográfico:* Registrar la entrada correspondiente bajo formato dual («Bajada al Barro») en `EL_BORJARIO.md`.
