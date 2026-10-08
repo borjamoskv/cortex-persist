@@ -48,3 +48,8 @@ Dado que Jujutsu no utiliza un *Staging Area* clásico:
 - **Muerte del Staging Area (Purga de Anergía):** El *Index* de Git es topológicamente un espacio de ambigüedad (*Dynamis* no resuelta) que consume exergía. En Jujutsu, el *Working Copy* es siempre un commit inmutable de primer nivel. Operas siempre en Acto.
 - **Semántica de "Iterar":** Cuando el usuario instruya "itera" (o sinónimos abstractos de avanzar estado), el agente interpretará la orden de colapsar la entropía latente. Ejecutará `jj commit` para sellar la *Dynamis* actual en *Entelecheia*, generando un nuevo *working copy* limpio de forma automática.
 - **Adiós al Stash:** Ante un cambio de contexto, queda prohibido ocultar entropía (`git stash`). El agente saltará a otro nodo (`jj new <target>`), preservando el estado anterior como un commit discreto y rastreable.
+
+## 6. Limitación de Aislamiento de Subagentes (Antigravity Swarms)
+- **Restricción de API (`invoke_subagent`):** El motor de subagentes de Antigravity no soporta las modalidades de bifurcación (`Workspace: branch`) ni clonación en árbol de trabajo compartido (`Workspace: share`) sobre repositorios de tipo `JJ_Git`.
+- **Invariante de Ejecución (Fallback a Inherit):** Al lanzar enjambres o agentes concurrentes (`invoke_subagent`) sobre un ecosistema gestionado por Jujutsu, el Orquestador DEBE configurar invariablemente el campo `Workspace: inherit`.
+- **Mitigación de Colisión:** Dado que todos los subagentes heredarán y operarán simultáneamente sobre el mismo directorio físico, el Orquestador debe garantizar *Mapeo Isomórfico* (asignar tareas y archivos ortogonales, mutuamente excluyentes) para evitar condiciones de carrera (Race Conditions) y bloqueos de Jujutsu (locks).

@@ -110,3 +110,7 @@ Al despachar cohortes de la Legión-100 sobre proveedores de inferencia externos
 3. **Desacoplamiento UI vs. Headless:**
    - La interfaz visual (Manager View) tiene un límite de fluidez somático de 5 a 8 subagentes por contención del Event Loop e IPC en Chromium. Enjambres de tamaño superior deben ejecutarse estrictamente en modo headless / CLI acoplados a memoria compartida (`SharedManifest` 64 B).
 
+
+## 7. Mapeo Isomórfico de Auditoría (Resolución 1:1)
+- **Topología Dinámica (< 8 agentes):** Cuando el operador invoque resolver hallazgos de un dictamen mediante enjambre (ej. `"7 agentes solucionandolo"`), si el recuento de vectores es $\le 8$, el agente DEBE omitir el modo headless y desplegar el enjambre utilizando la API visual interactiva (`invoke_subagent`).
+- **Invariante de Asignación:** La asignación será estrictamente ortogonal ($1 \text{ hallazgo} \to 1 \text{ agente} \to 1 \text{ dominio de archivos}$). Esta restricción garantiza *zero-split* y cero contención (race conditions) durante el *Salto Topológico* bajo ecosistemas que operan con `Workspace: inherit`.
