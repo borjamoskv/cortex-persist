@@ -1,7 +1,7 @@
 ---
 name: c5-silicon-stress-suite
 display_name: Suite de Estrés Concurrente de Silicio y Enjambres (C5-REAL)
-description: Ejecución de pruebas de estrés en paralelo y benchmarks empíricos de silicio para certificar enjambres masivos, fan-out multicast O(1), coherencia de memoria Seqlock KUDURRU-64 (RFO=0), consensus BFT y puentes de atestación Touch ID COSE_Sign1 en Apple Silicon. Dispara con 'pruebas de estres en paralelo', 'stress test swarm', 'estres enjambre', 'concurrencia de silicio', 'stress suite', 'poc'.
+description: Ejecución de pruebas de estrés en paralelo y benchmarks empíricos de silicio para certificar enjambres masivos, fan-out multicast O(1), coherencia de memoria Seqlock KUDURRU-64 (RFO=0), consensus BFT y puentes de atestación Touch ID COSE_Sign1 en Apple Silicon. Dispara con 'pruebas de estres', 'pruebas de estres en paralelo', 'stress test swarm', 'estres enjambre', 'concurrencia de silicio', 'stress suite', 'poc', 'test de estres', 'estres silicio'.
 role: auditor
 allowed_roles:
 - auditor
@@ -80,9 +80,9 @@ cargo run --manifest-path /Users/borjafernandezangulo/10_PROJECTS/BABYLON-60/Car
 * **Métricas Atestadas en M3 Pro:**
   - Lecturas concurrentes totales: **30.000.000 ops**
   - Lecturas corruptas (`torn reads`): **EXACTAMENTE 0**
-  - Throughput agregado (8 lectores concurrentes): **57.11 Mops/s**
+  - Throughput agregado (8 lectores concurrentes): **59.03 Mops/s**
   - Latencia media de lectura no bloqueante: **1.22 ns/op**
-  - Detección de fail-stop (`poisoned`): **24.5 $\mu$s**
+  - Detección de fail-stop (`poisoned`): **27.7 $\mu$s**
 
 ### 3. Saturación de P-Cores en Apple Silicon
 Saturar el clúster de rendimiento con $N = 11$ hilos para auditar ausencia de estrangulamiento térmico:
