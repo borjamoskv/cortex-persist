@@ -37,3 +37,17 @@ En la implementación de algoritmos de ordenamiento topológico (Kahn), geodési
 ## 6. Protocolo Pre-Push Cero-Fugas y Rutas Dinámicas Soberanas
 - Antes de emitir cualquier comando `git push`, es mandatorio auditar criptográficamente el rango de conmutaciones salientes mediante `gitleaks detect --log-opts="origin/main..HEAD" -v`.
 - Ningún script de despliegue o pipeline de test (`.sh`, `.py`, `.rs`) debe contener rutas absolutas de usuario (`/Users/...`). La raíz del proyecto debe resolverse siempre dinámicamente (`REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"`).
+
+## 7. Normalización COSE ES256 a Raw 64-Bytes (r || s)
+- **Invariante:** En todas las estructuras COSE (RFC 8152 / RFC 9052), la firma criptográfica para ES256 (ECDSA P-256 / SHA-256) DEBE codificarse estrictamente en formato crudo de 64 bytes (`r || s`, `raw64`).
+- **Veto a DER dentro de COSE:** Queda terminantemente prohibido almacenar o aceptar firmas ASN.1/DER (70-72 bytes) en el campo de firma de un objeto COSE.
+- **Frontera de Hardware:** Si la clave reside en hardware criptográfico (ej. Apple Secure Enclave / CryptoKit) que emite firmas en formato DER, la conversión a `r || s` (32B + 32B con zero-padding si es preciso) debe realizarse en la frontera de transducción inmediatamente antes de componer el payload COSE.
+- **Verificación de Bytes Originales:** Se deben firmar y verificar los bytes canónicos originales exactos. Si se requiere compatibilidad DER en APIs de transporte o serialización externa, debe exponerse mediante una propiedad explícita separada (ej. `Attestation.signature_der`).
+
+## 8. Transaccionalidad de Atestación Unificada y Validación Conjunta de Snapshots
+- **Conexión Única Transaccional:** Toda rutina de atestación de estado que calcule conteos, raíces de Merkle (state_root, receipt_root) y pruebas de integridad sobre SQLite WAL debe ejecutarse dentro de un bloque `BEGIN ... COMMIT` utilizando una **única conexión de base de datos** para evitar lecturas intercaladas incoherentes.
+- **Validación Conjunta de Snapshots:** Al persistir o capturar snapshots desde la memoria compartida, `read_snapshot` debe validar atómicamente y de forma conjunta:
+  1. El flag de estado (`status_flag`).
+  2. La secuencia del seqlock (`seq`).
+  3. La integridad del payload (`payload_hash`).
+  Si la lectura resulta en `None` o estado no disponible, se debe emitir un error tipado (`CortexError`) y queda estrictamente prohibido ejecutar `INSERT` en la base de datos de persistencia.
