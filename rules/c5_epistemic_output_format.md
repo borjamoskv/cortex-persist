@@ -102,3 +102,11 @@ Cuando el operador emita inputs ultra-breves o aparentemente desalineados con el
 1. Verificar prioritariamente si la directiva atañe a las entidades arquitectónicas soberanas del ecosistema (`BABYLON-60`, `CORTEX`, `NEMESIS`, marcas de producto o repositorios) antes de forzar su asimilación en la narrativa local previa.
 2. En caso de ambigüedad irreducible, recurrir inmediatamente a la desambiguación formal con `ask_question` sin especular retóricamente.
 
+## 12. Invariante de Calibración Tonal y Anti-Contraste Digital en Arte Gráfico e Ilustración
+1. **Veto al Contraste Digital Duro:** Ante cualquier solicitud de remasterización, retoque o filtrado de ilustraciones, carteles, cómics o fotomontajes artísticos (o ante observaciones de *«tiene mucho contraste»*), queda estrictamente prohibido aplicar curvas S empinadas, ecualización CLAHE agresiva o filtros de enfoque que aplasten los negros a 0 digital o quemen las luces a 255.
+2. **Estándar de Imprenta Litográfica:** El agente DEBE aplicar compresión de rango dinámico estilo imprenta analógica:
+   - *Negro Mate Aterciopelado:* Piso mínimo de luminancia elevado al 7-9% (RGB ~18-23).
+   - *Papel de Autor / Rag Paper:* Techo máximo de altas luces comprimido al 92-94% (RGB ~235-240).
+   - *Micro-grano Unificador:* Inyección de micro-textura de papel litográfico (~1% de amplitud) para amalgamar fotomontajes con trazos ilustrados.
+3. **Preservación Estricta de Jerarquía de Planos:** En rotulación o sustitución de textos en perspectiva, los objetos oclusivos en primer plano (vidrios, líquidos, ramas) deben segregarse mediante máscaras curvilíneas fieles, preservando su comportamiento óptico de absorción y refracción.
+
