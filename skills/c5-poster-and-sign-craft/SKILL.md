@@ -1,7 +1,7 @@
 ---
 name: c5-poster-and-sign-craft
 display_name: Pipeline de Remasterización Gráfica, Rotulación en Perspectiva y Filtrado Analógico
-description: Protocolo de alta precisión para remasterización de cartelería e ilustración 4K, rotulación tipográfica en perspectiva (sign painting) con eliminación limpia de caracteres previos, preservación de jerarquía óptica (líquidos/vidrios en primer plano) y filtrado de imprenta analógica / vintage cómic de bajo contraste. Dispara con "remasterizar cartel", "rotular letrero", "cambiar texto cartel", "sign craft", "filtro vintage comic", "bajar contraste imagen", "quitar contraste duro", "poster remaster".
+description: Protocolo de alta precisión para remasterización de cartelería e ilustración 4K, rotulación tipográfica en perspectiva (sign painting) con eliminación limpia de caracteres previos, preservación de jerarquía óptica (líquidos/vidrios en primer plano), maquetación y auditoría de carteles clubbing/underground (brutalist flyers), y filtrado de imprenta analógica / vintage cómic de bajo contraste. Dispara con "remasterizar cartel", "rotular letrero", "cambiar texto cartel", "sign craft", "filtro vintage comic", "bajar contraste imagen", "quitar contraste duro", "poster remaster", "maquetación cartel", "analizar cartel", "flyer underground", "auditoría tipográfica cartel".
 role: ejecutor
 allowed_roles:
 - ejecutor
@@ -90,3 +90,30 @@ final_bgr = np.clip(toned + grain, 0.0, 1.0)
    - JPEG Master (`Q=98`, `subsampling=0`, `dpi=(300, 300)`).
    - PNG Master (Lossless, optimizado, `dpi=(300, 300)`).
 2. **Inyección en Portapapeles macOS (`NSPasteboard`):** Copiar automáticamente la imagen al portapapeles para pegado instantáneo con `Cmd + V`.
+
+---
+
+## 4. Auditoría y Maquetación de Cartelería Clubbing / Brutalist Flyer
+
+### A. Jerarquía de Masas y Proporción Tipográfica
+1. **Titular Principal (Headliner):**
+   - Tipografía condensada *heavy* (*Impact*, *Compacta*, *Titling Gothic* pesada).
+   - Ocupación del tercio superior con masa crítica suficiente para impacto a media distancia.
+   - Texturizado analógico / micro-grano: Prohibido blanco vectorial digital puro (`#FFFFFF`). Utilizar tono hueso/marfil (`#F0EADE` o `#EAE4D8`) con erosión sutil para integrar con iluminación de flash.
+2. **Bloque Secundario (Support / Residents):**
+   - Misma familia o sinergia geométrica con reducción de escala al $35\% - 40\%$ respecto al titular.
+   - Espaciado (*leading*) ajustado sin solapamiento de astas descendentes.
+
+### B. Retícula Arquitectónica sobre Fotografía
+- **Aprovechamiento de Líneas Físicas:** El texto debe reposar sobre la arquitectura del fondo (alicatados, juntas de azulejos, muros, vigas), utilizándolas como retícula (*grid*) natural.
+- **Franja de Respeto / Aire:** Mantener separación física entre la base de la tipografía y los sujetos o la línea de acción de la fotografía.
+
+### C. Dinámica de Lectura en Z y Anclajes Perimetrales
+- **Vértice Superior Izquierdo (TL):** Sello de promotora o badge identitario (*JARANA Klubba*), admitiendo ligera rotación dinámica de estilo *fanzine*.
+- **Vértice Superior Derecho (TR):** Bloque técnico de metadatos (fecha, hora, año) alineado a la derecha, aprovechando zonas de baja luminancia del fondo.
+- **Núcleo Central / Inferior:** Narrativa fotográfica cruda (flash directo, estética *Martin Parr* / *Juergen Teller*).
+- **Vértice Inferior Derecho (BR):** Logotipo canónico del recinto (*Stereo Rocks*), cerrando la diagonal visual de salida.
+
+### D. Tolerancias Mecánicas de Imprenta (Guillotina y Sangre)
+- **Margen de Seguridad Perimetral:** En cartelería destinada a pegada física o imprenta offset/digital, todo logotipo perimetral debe mantener un margen de respeto mínimo de **$3 \text{ a } 5\text{ mm}$** respecto al borde de corte para evitar mordeduras por tolerancia de guillotina.
+
