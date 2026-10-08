@@ -42,6 +42,18 @@ Superar el Linter Acústico es **condición necesaria, pero NO suficiente** para
   2. *Inferencia Neuronal con Latente Masivo:* Modelos de difusión (Suno v4 / Udio) cuyos pesos capturan la huella holográfica de la interpretación humana real.
   3. *Transducción Directa del Operador Biológico:* Grabación directa de la interpretación del usuario (Ring-0) sobre el hardware o teclado MIDI en el DAW, actuando el silicio como mero canal esclavo.
 
+### 3.1 Las 6 Invariantes Anti-Máquina de Producción Orgánica (Protocolo «La luz tarda» / Lindstrøm)
+Para que ningún activo acústico suene a máquina o autómata estéril, la producción debe satisfacer estrictamente:
+1. **Veto a la Aleatorización Estéril (Fake Humanize):** El micro-groove humano no es ruido blanco ni fluctuación gaussiana ciega sobre todas las notas. Es un vector físico con intención somática: atraso causal del bajo eléctrico respecto al bombo (+4 a +8 ms *behind-the-beat*), aceleración sutil al encarar caídas de compás y respeto sagrado por el silencio sin rellenar.
+2. **Tomas Continuas vs. Bucles Copiados:** Exigencia de tomas largas completas (ej. 6 minutos ininterrumpidos en congas, shaker, pandereta) para preservar la micro-fatiga biológica, variaciones de presión de palma y respiración natural, erradicando la fatiga de bucle (*copy-paste fatigue*).
+3. **Erradicación del Efecto Metralleta (*Machine-Gun Effect*):** Veto a muestras idénticas consecutivas; alternancia estricta de articulaciones (*round-robin* >= 5 tomas o síntesis diferencial continua).
+4. **Suavizado de Transitorios y Veto a Agudos Plásticos:** Corte suave por encima de 14 kHz en platos, ataques de púa y sintetizadores; redondeo mediante saturación analógica de cinta/válvulas para fusionar timbres con la madera acústica.
+5. **Cohesión por Sala Compartida (*Shared Convolution Room*):** Todos los instrumentos envían una fracción de señal a un bus auxiliar de sala común (madera o placa EMT 140 con pre-delay de 18 ms), unificando la reverberación en un único volumen de aire físico.
+6. **El Test de Escucha a Bajo Volumen (*The Whisper Test*):** Verificación a 55–60 dB SPL. Si el motivo melódico y el diálogo bajo-bombo pierden inteligibilidad o conmoción a bajo volumen, el arreglo o la mezcla dependen de volumen bruto y se declaran descalibrados.
+
+### 3.2 Demarcación de Honestidad Mapa vs. Territorio (Aforismo 2 y 5)
+Cuando el Operador comparta una composición como guía de producción sin monitorización física directa disponible, el agente tiene terminantemente prohibido afirmar que ha realizado una «escucha humana», «revisión de grabación» o «auditoría de máster final» (*cheap talk*), debiendo tratar el activo estrictamente como *Mapa Canónico de Producción* y partitura simbólica.
+
 ---
 
 ## 4. Matriz de Decisión y Salida Fail-Closed

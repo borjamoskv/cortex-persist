@@ -34,8 +34,13 @@ Este skill formaliza la macro-orquestación de la **Falsación Popperiana**, la 
 - **Invariante Epistémica:** El agente DEBE compilar un artefacto Markdown destructivo documentando los vectores de colapso. Silencio termodinámico en el chat (solo puntero de alta exergía).
 
 ### 2. Síntesis (Salto Topológico / Cambio 2 Recursivo)
-**Triggers:** `itera`, `itrera`, `itra`, `iteraa`, `iytera`, `salto topológico` (tolerancia fonética estricta a variantes cortas)
+**Triggers:** `itera`, `itrera`, `itra`, `iteraa`, `iytera`, `salto topológico`, `itera swarm`, `itera enjambre`, `swarm itera` (tolerancia fonética estricta a variantes cortas y composición con enjambres)
 - **Acción:** Tras una falsación o síntesis previa, ante el pulso de iteración, el agente **NO** optimiza el estado previo reparando errores superficiales (Aforismo 3), sino que utiliza la fricción (Aforismo 4) para forzar un **Salto Topológico (Cambio 2)**.
+- **El Macro-Operador Compuesto `itera swarm`:**
+  Cuando el operador emita `itera swarm`, la Síntesis (Cambio 2) no se restringe a una formulación textual o arquitectónica abstracta. El agente DEBE despachar de inmediato la Matriz de Enjambre (ej. SHARUR-3600 con 100 agentes en 5 cohortes o script local) para forzar la **materialización física en silicio**:
+  1. Ejecución paralela de las 5 cohortes (Silicio, Lógica Formal/Tonnetz, Dinámica Somática, Espacio Acústico, Perímetros/SCITT).
+  2. Compilación determinista de código ejecutable (scripts DSP, binarios, partituras MIDI o contratos).
+  3. Verificación fail-closed mediante linters de silicio (Linter Rubin, linters formales de tipos) antes de devolver el control.
 - **Escalada Recursiva Canónica en 6 Niveles:**
   - **Nivel 1 (Hardware / Línea de Caché L1):** Contrato indivisible de 64 bytes (`KUDURRU-64`, `align(64)`) con Seqlock SPMC ($RFO = 0$, cero *torn reads*) para erradicar el jitter de Garbage Collection.
     - *Invariante de Compilación Standalone (Lean 4 Core):* Cuando se invoque la verificación directa en silicio (`lean <archivo>.lean`), la formalización debe confinarse estrictamente a primitivas y lemas algebraicos de Lean 4 Core (`Int`, enteros escalados en punto fijo, identidades de producto y negación), erradicando dependencias externas de Mathlib para garantizar compilación AOT determinista con cero errores en < 2 segundos.
