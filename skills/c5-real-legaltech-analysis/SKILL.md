@@ -363,3 +363,28 @@ $$\mathbb{E}[\text{catástrofes anuales}] = N \times (\epsilon \cdot \delta)$$
 ### 3. Matriz Forense de Fuga de Telemetría (Zero-Cloud Invariant)
 Auditar si la solución requiere el envío de payloads, metadatos o embeddings a endpoints SaaS externos (LangSmith, Credo Cloud, Lakera API), evaluando el impacto conjunto bajo **GDPR (Capítulo V - Transferencias Internacionales)** y **EU AI Act Art. 10 (Gobernanza de Datos)**.
 
+
+---
+
+## Estándar de Implementación de Exporters de Cumplimiento (Fail-Closed Architecture)
+
+Cuando se implemente código, scripts o generadores de certificados de cumplimiento (ej. exportadores de la EU AI Act), la arquitectura debe adherirse a los siguientes invariantes de código *fail-closed*:
+
+### 1. Gestión de Custodia y Firmas Criptográficas (Anti-Fallback)
+- **Cero Degradación Silenciosa:** Si se proporciona una semilla de firma de producción (`SIGNING_SEED`) pero es inválida o malformada, el sistema DEBE provocar un `RuntimeError` o `HALT`. Queda estrictamente prohibido que el código haga un `except Exception:` y genere una clave efímera silenciosa.
+- **Efímero Explicito:** La generación de firmas de prueba (efímeras) exige que el operador levante una bandera explícita de entorno (ej. `--allow-ephemeral` o `ALLOW_EPHEMERAL_SIGNING="1"`).
+
+### 2. Invariante de Redacción Criptográfica (Deep Scrubbing)
+- **Recursión Tipada:** La redacción de secretos no debe aplicarse solo a valores de tipo `str`. Si la clave (ej. `api_key`) coincide con un patrón sensible, el sistema debe redactar todo el valor en bloque, incluso si el valor es un diccionario anidado (`dict`) o una lista (`list`), evitando filtraciones por recursión incompleta.
+
+### 3. Falsación Temporal y Zonas Horarias
+- **UTC Estricto:** La evaluación del ciclo de vida de certificados (caducidad/revocación) y el parseo de fechas (ej. `time.strptime`) DEBE inyectar el timezone UTC explícitamente (`.replace(tzinfo=timezone.utc)` en `datetime`).
+- **Fail-Closed de Parseo:** Un error al parsear el timestamp de caducidad no debe ser ignorado con un `except:` que retorne `ACTIVE`. Debe devolver un estado `INVALID`.
+
+### 4. Interfaz de Línea de Comandos (CLI) de Alto Riesgo
+- **Código de Salida no-Cero:** Si el certificado resulta estar `UNVERIFIED` o con evidencia faltante, el CLI DEBE salir con un código de error (ej. `exit(2)`).
+- **Flag de Anulación:** La única forma de que un CLI retorne `0` con evidencia rota es si el operador pasó un flag explícito (ej. `--allow-unverified`).
+
+### 5. Validación Tipada Estricta (Anti-Type Confusion)
+- **Root Validation:** Antes de procesar un manifiesto JSON externo, afirmar explícitamente el tipo raíz (`isinstance(data, dict)`). Evitar errores abstractos posteriores (ej. `AttributeError: 'list' object has no attribute 'get'`).
+- **XSS Mitigation:** Todos los valores controlados por el usuario inyectados en templates HTML deben pasar forzosamente por `html.escape(value, quote=True)`.
