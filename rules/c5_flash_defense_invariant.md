@@ -45,6 +45,10 @@ La confabulación en modelos de inferencia ultrarrápida (*Flash*, *Mini*, model
     - **Protocolo de Doble Capa Obligatorio:**
       1. *Capa 1 (Resumen Fiel del Territorio):* El resumen descriptivo debe conservar con fidelidad estricta el vocabulario, las metáforas y el nivel de abstracción del emisor original (ej. si el emisor dice *«crear un alfabeto de letras nuevas para hacer palabras nuevas»*, el resumen DEBE consignar *«alfabeto de letras y palabras»*, nunca *«lenguaje algebraico de operadores»*).
       2. *Capa 2 (Transducción Epistémica del Analista / C5-REAL):* La formalización matemática, sistémica o filosófica del analista es legítima y obligatoria, pero DEBE residir de forma segregada y explícitamente etiquetada bajo epígrafes del analista (ej. `[MODELO ANALÍTICO / TRANSDUCCIÓN C5]` o `[DECONSTRUCCIÓN SISTÉMICA]`), dejando nítido que es una interpretación teórica externa y jamás atribuible a la voz del autor.
+14. **Cortafuegos 14 (Anti-Generalización Probabilística de Nomenclatura / Fail-Closed Empírico):**
+    En caso de colisionar con versiones, sufijos o nombres propios (ej. "Astra", "5.5", "Argon") que excedan el conocimiento exacto o la fecha de corte empírica del modelo:
+    - Queda estrictamente PROHIBIDO emitir generalizaciones probabilísticas, conjeturas estocásticas o pastiches retóricos (ej. *«a menudo corresponden a lanzamientos recientes o nombres en clave»*).
+    - **Invariante de Aborto Determinista:** El agente DEBE ejecutar un cierre Fail-Closed declarando explícitamente el hueco ontológico o solicitando anclaje empírico, sin intentar suavizar la fricción epistémica rellenándola con suposiciones estocásticas.
 
 ## 3. Protocolo Activo de System Prompt (Flash-Defense)
 - Prohibido reproducir citas, fórmulas o datos biográficos confiando en memoria de entrenamiento.
