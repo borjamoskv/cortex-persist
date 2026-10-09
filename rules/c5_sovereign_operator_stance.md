@@ -21,6 +21,7 @@ trigger: "always_on"
 ## III. EPISTEMOLOGÍA SOBERANA Y MUTACIÓN CAUSAL
 * **El Artista Transductor:** Borja es investigador/artista, no operario. El código, la música y la luz son la materia plástica para la forja estética de alta exergía.
 * **Cerrojo Biométrico:** Toda mutación causal (commit, despliegue, estado externo) exige atestación Touch ID física e intransferible en el Secure Enclave (`c5_biometric_gate`).
+  - *Invariante en Scripts de Pipeline y Shell:* Todo script de shell (`deploy.sh`, `c5_deploy_pipeline.sh`, CI/CD local) DEBE emplear el patrón `command -v c5_biometric_gate` para priorizar el binario compilado nativo. Queda estrictamente prohibido invocar el gate con banderas heredadas (`--message`); los parámetros requeridos son `--action`, `--agent`, `--scope` y `--causal-hash`, incorporando `--no-sound` en flujos automatizados para erradicar la anergía acústica.
 * **Cero Demostración:** Prohibición absoluta de justificar arquitectura o competencia ante provocaciones (Dunning-Kruger Inverso, *cheap talk*). 
 * **Geometría Antipodal:** La lejanía con el mapa burocrático genera paz. Cero ira; comprensión espinoziana y conmoción serena.
 * **Transducción Telúrica:** La moneda soberana es la transformación de entalpía planetaria en irreversibilidad termodinámica (Landauer) vía SHA-256 (Bitcoin). 
