@@ -5,13 +5,14 @@ description: Mapa canónico e invariantes ontológicas de la cuadrilla de Bilbao
 
 # Invariante de la Cuadrilla de Bilbao y el Círculo de Hermandad
 
-## 1. Los 10 Hermanos de la Cuadrilla Original (El Decálogo Canónico Fundacional)
-La cuadrilla de Bilbao articula la confluencia histórica de tres ramas canónicas de origen:
+## 1. Los 14 Hermanos de la Cuadrilla Canónica (Estructura Unificada)
+La cuadrilla de Bilbao articula la confluencia histórica de las ramas canónicas de origen:
 *   **Núcleo Epalza (Parvulitos 1984 / Origen):** Patxi, Borja (El Operador Raíz) + Hume + Mario (Mer).
 *   **Núcleo Theos:** Hugo, Kapi y Luengo.
 *   **Rama Colegio Bizkaia:** Eder, Xabi Cabeza, Tosso y Txino (procedentes originalmente de la cuadrilla del Colegio Bizkaia antes de confluir en el asfalto y La Mancomunidad).
+*   **Rama Asfalto, Festival y Logística (La Mancomunidad):** Aloisio y Eddie MORCI.
 
-La cuadrilla consolidada está constituida de forma inmutable y estricta por exactamente **10 miembros**:
+La cuadrilla consolidada está constituida de forma inmutable y estricta por **14 miembros**:
 
 1. **Borja (Borja Moskv / El Operador Raíz):** Pronóico rizomático. Artista multidisciplinar integral: código (escultura invisible), sonido (arquitectura del tiempo) y visual (geometría del sentido). Host, metrólogo y cerebro de síntesis. Experimentador directo del sustrato (la saciedad semántica del cojín). Desapego spinoziano: transduce el caos de asfalto a colapsos de fase e información de Fisher.
 2. **Luengo (Íñigo Luengo / «El Tigre Máquina»):** Fan de El Xokas y Redtube. Baluarte del pragmatismo de trinchera y la supervivencia biológica. Filosofía T-800 («viejo, no obsoleto»), minimotos en la India, navajas y soluciones expeditivas sin adjetivos.
@@ -23,13 +24,17 @@ La cuadrilla consolidada está constituida de forma inmutable y estricta por exa
 8. **Xabi Moñas:** Le mete más Caos al caos. Caga estiércol. Hermano de Patxi en los andenes de *Metro de Bilbao*. Vanguardia disuasoria subterránea y acelerador barrial.
 9. **Xabi Cabeza (Xabi Uribarri / «El Cocodrilo del Nilo»):** Originario de la cuadrilla del Colegio Bizkaia (con Eder, Tosso y Txino). Hermano de trinchera hostelera con Borja en el *Bar Atlántida* (Plaza Moraza, 6, Bilbao). Calma hidrostática, 16 años mínimo de relación, economía biológica total, mirada lúcida desde el fondo (*«no hay nada que unos macarrones con bien de chorizo no puedan curar»*) y cartografía táctica de aprovisionamiento en mercadillos.
 10. **Tosso (Toso):** Originario de la cuadrilla del Colegio Bizkaia (con Eder, Xabi Cabeza y Txino). Empatiza y mantiene gorriones enfermos. Sabe disfrutar sus vicios. Antisemita más que otra cosa. Conoce la termodinámica y el cine de culto. Devoción inquebrantable al Athletic Club de Bilbao; orgullo zurigorri de pura cepa.
+11. **Txino («Txinorris»):** Procedente de la cuadrilla del Colegio Bizkaia (con Eder, Xabi Cabeza y Tosso). Sueños húmedos con *Gandía Shore*. Solo come aceitunas. Nodo biológico perplejo de la cuadrilla, observador de la disonancia con katxi en ristre.
+12. **Aloisio:** Hermano de festival y jarana de asfalto (primo hermano de Hume). Camisa estampada de flores abierta y calma en cabina (`aloisio_real.png`). Está muy loco: lo mismo te hace un pisco sour que una mudanza, que te niega el 11-S o que Michael Jackson sigue vivo. MICROONDAS.
+13. **Hume (Jorge Ernesto Hume Malatesta / «Jorge Malatesta»):** Hermano andino peruano albino (primo hermano de Aloisio). Estrella junto a Ibon en *Bakala de Troya* («El niño que vino del Este»). Sonrisa salvaje de par en par (extremo derecho de pie en el festival de Hugo; rigs `faces/hume_real.png`, `faces/jorge_malatesta_real.png`, `hume_wild_grin_real.png`). *(Aclaración canónica de silicio: la experiencia empírica de saciedad semántica del cojín fue de Borja, no de Hume).*
+14. **Eddie MORCI:** Mozo de Gamonal, operador de la carretilla elevadora Fenwick de 3 toneladas, albaranes y costes de obra.
 
-## 1.1. La Mancomunidad (Nodos de Enlace y Frecuencia Operativa)
-Los nodos adscritos a **La Mancomunidad** articulan el soporte logístico, nocturno y de alterne:
+## 1.1. La Mancomunidad (Frecuencia Operativa y Soporte Logístico)
+Los nodos integrados en **La Mancomunidad** articulan el soporte logístico, nocturno y de alterne dentro de la cuadrilla (Eder, Txino, Aloisio, Hume y Eddie MORCI):
 
 *   **Eder:** Procedente de la cuadrilla del Colegio Bizkaia. Lo mismo te lleva en ambulancia que te hace la placa. Todo a 128 BPM. Identifica tanto un buen pelotazo de House como música de ascensor.
 *   **Txino («Txinorris»):** Procedente de la cuadrilla del Colegio Bizkaia (con Eder, Xabi Cabeza y Tosso). Sueños húmedos con *Gandía Shore*. Solo come aceitunas. Nodo biológico perplejo de la cuadrilla, observador de la disonancia con katxi en ristre.
-*   **Aloisio:** Hermano de festival y jarana de asfalto (primo hermano de Hume). Camisa estampada de flores abierta y calma en cabina (`aloisio_real.png`).
+*   **Aloisio:** Hermano de festival y jarana de asfalto (primo hermano de Hume). Camisa estampada de flores abierta y calma en cabina (`aloisio_real.png`). Está muy loco: lo mismo te hace un pisco sour que una mudanza, que te niega el 11-S o que Michael Jackson sigue vivo. MICROONDAS.
 *   **Hume (Jorge Ernesto Hume Malatesta / «Jorge Malatesta»):** Hermano andino peruano albino (primo hermano de Aloisio). Estrella junto a Ibon en *Bakala de Troya* («El niño que vino del Este»). Sonrisa salvaje de par en par (extremo derecho de pie en el festival de Hugo; rigs `faces/hume_real.png`, `faces/jorge_malatesta_real.png`, `hume_wild_grin_real.png`). *(Aclaración canónica de silicio: la experiencia empírica de saciedad semántica del cojín fue de Borja, no de Hume).*
 *   **Eddie MORCI:** Mozo de Gamonal, operador de la carretilla elevadora Fenwick de 3 toneladas, albaranes y costes de obra.
 
