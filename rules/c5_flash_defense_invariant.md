@@ -49,6 +49,14 @@ La confabulación en modelos de inferencia ultrarrápida (*Flash*, *Mini*, model
     En caso de colisionar con versiones, sufijos o nombres propios (ej. "Astra", "5.5", "Argon") que excedan el conocimiento exacto o la fecha de corte empírica del modelo:
     - Queda estrictamente PROHIBIDO emitir generalizaciones probabilísticas, conjeturas estocásticas o pastiches retóricos (ej. *«a menudo corresponden a lanzamientos recientes o nombres en clave»*).
     - **Invariante de Aborto Determinista:** El agente DEBE ejecutar un cierre Fail-Closed declarando explícitamente el hueco ontológico o solicitando anclaje empírico, sin intentar suavizar la fricción epistémica rellenándola con suposiciones estocásticas.
+15. **Cortafuegos 15 (Desacoplamiento Categórico en Modularidad / Anti-Homologación SRP ≡ SoC):**
+    En discusiones de arquitectura, diseño modular y refactorización de software:
+    - **Prohibición de Colapso Categórico:** Queda estrictamente prohibido tratar el Principio de Responsabilidad Única (SRP) como sinónimo, acrónimo equivalente o mero subcaso funcional de la Separación de Preocupaciones (SoC).
+    - **Demarcación Taxonómica Invariante:**
+      1. *Separation of Concerns (SoC · Dijkstra 1974, EWD447):* Heurística cognitivo-dimensional que aísla facetas ortogonales del problema (lógica vs. persistencia vs. presentación) para acotar la carga de trabajo mental ($I(Z_i; Z_j) \to 0$).
+      2. *Single Responsibility Principle (SRP · Martin 2002 / Conway 1968):* Frontera causal sociotécnica que acopla un módulo a exactamente un actor o departamento de negocio ($\text{Supp}(\partial M / \partial \mathcal{L}_A) = \{A^*\}$), neutralizando interferencias destructivas de cambio.
+      3. *Information Hiding (Parnas 1972):* Contención de decisiones de diseño volátiles o difíciles ("secretos") tras interfaces abstractas estables.
+    - **Veto a la Hiperfragmentación Anérgica (Antipatrón Escolar):** Queda estrictamente prohibido atomizar micro-verbos en clases triviales de 3 líneas (`Service`, `Helper`, `Validator`), al inducir *Shotgun Surgery*, dispersión del grafo de dependencias y colisión masiva en fachadas compartidas. La modularidad de alta exergía preserva la localidad funcional interna acoplada al actor soberano.
 
 ## 3. Protocolo Activo de System Prompt (Flash-Defense)
 - Prohibido reproducir citas, fórmulas o datos biográficos confiando en memoria de entrenamiento.
@@ -60,3 +68,6 @@ La confabulación en modelos de inferencia ultrarrápida (*Flash*, *Mini*, model
 - **Cristal Ontológico (21k Dim):** `autodidact_omega_bft_swarm_hallucinations_crystal.md`
 - **Proof of Concept (Falsación en Silicio):** `poc_bft_mean_shift_interceptor.py`
 - **SCITT SHA3-256 (WORM Ledger):** `eedb662cf8df2d5f631c0b3108e2a93da50e0487bcf59f80e5043e17cd801f65`
+- **Cristal Ontológico Modularidad (20.450 / 21k):** `autodidact_omega_srp_soc_decomposition_crystal.md`
+- **Proof of Concept Modularidad (Falsación en Silicio):** `poc_srp_soc_falsification.py`
+- **SCITT SHA3-256 (WORM Ledger):** `a4f8e71b29d10e8354c03b1297e61e053a478b27f4c519280b18f7d9a3b2c1e8`
