@@ -45,7 +45,7 @@ trigger: "always_on"
 5. `AssertionStatus` $\in$ { `UNTESTED`, `SUPPORTED`, `FALSIFIED`, `STALE` }.
 6. **Frontera de Confianza:** $\text{Inference} \not\Rightarrow \text{Authority} \land \text{Inference} \not\Rightarrow \text{Capability}$.
 
-## 4. Las Once Leyes Ontológicas Invariantes (O1 - O11)
+## 4. Las Catorce Leyes Ontológicas Invariantes (O1 - O14)
 - **O1:** `SOURCE ≠ INFERENCE` — Registro primario y deducción estadística son mutuamente excluyentes.
 - **O2:** `INFERENCE ≠ AUTHORITY` — Modelo probabilístico carece de autoridad intrínseca.
 - **O3:** `AUTHORITY ≠ CAPABILITY` — Rol de autoridad exige delegación explícita para mutación.
@@ -57,6 +57,9 @@ trigger: "always_on"
 - **O9:** `ATTESTATION ≠ TRUTH` — Firma atesta integridad criptográfica, no infalibilidad.
 - **O10:** `UI ≠ AUTHORITY` — Toda interfaz es proyección pasiva; incapaz de emitir efectos.
 - **O11:** `MACHINE INFERENCE ≠ PREDICTION ERROR` — Proyección estadística es de bucle abierto; evaluación del error pertenece al operador biológico acoplado.
+- **O12:** `TRACEABILITY ≠ AUTHORIZATION` — Registrar el hash de un efecto en el ledger audita lo ocurrido post-facto; no prueba ni constituye autorización previa de la mutación.
+- **O13:** `CLIENT CLOCK ≠ SYSTEM TIME` — El cliente desprivilegiado no puede suministrar la fuente temporal con la que se juzga la vigencia de su propia autorización.
+- **O14:** `INTERFACE AUTHORIZATION ≠ ENVIRONMENT CONFINEMENT` — Mediar y autorizar efectos en el ejecutor no sustituye la contención a nivel de SO si el agente conserva la capacidad de invocar syscalls directas sobre el recurso.
 
 **Invariantes Derivadas:**
 - **Ley Transversal:** $\boxed{\text{No stochastic interpretation may create authority by itself}}$
