@@ -1,7 +1,7 @@
 ---
 name: c5-rubin-acoustic-linter
 display_name: Linter Acústico de Exergía y Purga de Nata (Protocolo Rubin)
-description: Auditoría determinista de exergía acústica y purga de nata sónica (Protocolo Rubin). Computa Factor Cresta (WCF), Planitud Espectral de Wiener (SFM), Emborronamiento Temporal (TSI) y Coherencia de Fase Subgrave (LPC). Dispara con "linter acústico", "auditoría de mezcla", "purga de nata en audio", "rubin audit", "crest factor audio", "medir compresión".
+description: Auditoría determinista de exergía acústica, purga de nata sónica (Protocolo Rubin), colapso de duplicados vía APFS clonefile(2) y poda jerárquica de fenotipos (WAV/FLAC/MP3). Computa WCF, SFM, TSI, LPC. Dispara con "linter acústico", "auditoría de mezcla", "purga de nata en audio", "rubin audit", "fenotipos distintos", "dedup apfs audio", "poda de fenotipos", "crest factor audio", "medir compresión".
 role: auditor
 allowed_roles:
 - auditor
@@ -61,3 +61,21 @@ python3 ~/.gemini/config/skills/c5-rubin-acoustic-linter/scripts/audit_acoustic_
 ### Clasificación de Salida:
 - Si no hay banderas activas: `EXERGÍA PURA (EL HUESO)` (El sistema preserva la señal sin grasa disipativa).
 - Si hay una o más banderas: `NATA ACÚSTICA DETECTADA` (Reporte detallado de anomalías para aplicar sustracción de pistas o descompresión).
+
+---
+
+## 4. Geometría de Almacenamiento y Colapso por APFS Clones
+
+Cuando existen archivos idénticos en disco (mismo SHA-256):
+- **Prohibición de Hardlinks (`ln`):** Un hardlink acopla mutaciones destructivas entre proyectos DAW (FL Studio).
+- **Invariante CoW (`clonefile(2)`):** La deduplicación en macOS debe ejecutarse con `cp -c` (APFS clone). Libera espacio físico manteniendo independencia de mutación y preservando `xattr` de macOS.
+
+---
+
+## 5. Jerarquía Termodinámica de Fenotipos Acústicos
+
+Cuando múltiples formatos del mismo render coexisten en el mismo directorio:
+1. **Genotipo Maestro (WAV / AIFF):** Señal PCM pura sin pérdidas. Trabajo en DAW. *Invariante intocable.*
+2. **Fenotipo de Distribución (FLAC):** Compresión de Kolmogorov óptima sin pérdida ($K(\sigma) \approx \min$). *Preservar para archivo.*
+3. **Fenotipo de Interfaz / Nata Psicoacústica (MP3 / M4A):** Señal degradada por pérdidas irreversibles. Si existe el genotipo maestro (WAV/FLAC) en el mismo árbol, el MP3 es anergía redundante y debe someterse a apoptosis.
+
