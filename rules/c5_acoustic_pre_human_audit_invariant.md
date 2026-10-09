@@ -59,3 +59,11 @@ Cuando el Operador comparta una composición como guía de producción sin monit
 ## 4. Matriz de Decisión y Salida Fail-Closed
 1. **Si el Test Acústico y la Auditoría Tímbrica se superan:** Se certifica la entrega adjuntando las métricas cuantitativas del linter.
 2. **Si el Test Acústico FALLA:** Prohibición absoluta de *cheap talk*. Declarar el fallo forense inmediato y derivar el trabajo a FL Studio o a modelos neuronales.
+---
+
+## 5. Invariante de Transcripción ASR / Whisper (Anti-Fuga Anglocéntrica)
+En cualquier pipeline de procesamiento o cosecha de voz en castellano empleando OpenAI Whisper o variantes (, ):
+1. **Veto a Checkpoints Monolingües:** Prohibición absoluta de usar modelos con sufijo  (, , etc.) para material en castellano.
+2. **Forzado Determinista de Tarea e Idioma:** En toda invocación de inferencia es mandatorio declarar explícitamente:
+   -  (para neutralizar la traducción forzada al inglés).
+   -  (para anular el fallo del clasificador estocástico de los primeros 30s).
