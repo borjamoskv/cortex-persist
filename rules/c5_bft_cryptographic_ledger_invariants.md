@@ -51,3 +51,18 @@ En la implementación de algoritmos de ordenamiento topológico (Kahn), geodési
   2. La secuencia del seqlock (`seq`).
   3. La integridad del payload (`payload_hash`).
   Si la lectura resulta en `None` o estado no disponible, se debe emitir un error tipado (`CortexError`) y queda estrictamente prohibido ejecutar `INSERT` en la base de datos de persistencia.
+
+## 9. Erradicación de Pánicos en Fronteras FFI y Rutas de Persistencia Transaccional (INV_BFT_04)
+- **Invariante:** En motores de persistencia y ledgers transaccionales exportados a través de fronteras FFI (ej. Rust PyO3, C-ABI, WASM), queda TERMINANTEMENTE PROHIBIDO invocar `panic!`, `unimplemented!()` o `todo!()` ante colisiones de hash, violaciones de unicidad o inconsistencias de estado.
+- **Riesgo Físico:** El unwinding de pila a través de límites `extern "C"` genera comportamiento indefinido (UB), abortos incontrolados del proceso y deja transacciones SQLite WAL a medio escribir en disco.
+- **Patrón Mandatorio:**
+  1. Definir un error estructurado de dominio (ej. `BftCollisionError { kind, hash, existing_content, incoming_content }`).
+  2. Retornar el fallo como `Result::Err` tipado (ej. empaquetado en `rusqlite::Error::ToSqlConversionFailure`).
+  3. Permitir que el destructor RAII de la transacción ejecute el rollback automático antes de que el bridge FFI traduzca el fallo a una excepción nativa del lenguaje anfitrión (ej. `PyRuntimeError`).
+
+## 10. Auditoría Pre-Flight del Historial de Git ante Conmutación a Público (Zero-Leakage Invariant)
+- **Invariante:** Antes de conmutar la visibilidad de cualquier repositorio de `PRIVATE` a `PUBLIC` (`gh repo edit --visibility public`), queda ESTRICTAMENTE PROHIBIDO basar la decisión de seguridad únicamente en el estado del árbol de trabajo actual (`git status`).
+- **Verificación Causal Obligatoria:**
+  1. Ejecutar un escaneo del histórico completo de commits (`git log --all --full-history`) en busca de rutas sensibles (`PACK_SOCIOS`, contratos societarios, NDAs, DNI, claves privadas `*.pem`, `.env`, credenciales de API).
+  2. Verificar que los archivos confidenciales no solo hayan sido eliminados del disco, sino que su rastro histórico haya sido destilado o purgado antes de abrir el repositorio a la red global.
+  3. Si existen commits históricos con activos de equity o marketing privado, abortar la conmutación inmediata y exigir la destilación de una rama limpia o la migración de dichos activos a la bóveda aislada `~/20_VAULT/`.

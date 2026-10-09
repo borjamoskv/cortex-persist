@@ -54,6 +54,7 @@ directives:
 - **Public vs. Private Taxonomy**: Enforce C5-REAL separation (Standards/Theory/Tools -> Public; Arbitrage/System Mutators/Alphas -> Private).
 - **Zero-Debt Kebab-Case Normalization**: Rename repos to clean kebab-case leveraging GitHub's native URL & Git remote redirect guarantee.
 - **Agent Commit Hygiene**: Audit and polish public commit messages to eliminate raw agent placeholder text.
+- **Zero-Leakage Pre-Flight History Audit**: When transitioning any repository from `private` to `public`, inspecting the working tree alone is strictly prohibited. The architect must verify the complete commit history (`git log --all`) to ensure no confidential corporate documents (equity splits, partner agreements, NDAs), private keys, or `.env` secrets remain in historical blobs before toggling visibility.
 
 ---
 
