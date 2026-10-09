@@ -75,3 +75,16 @@ Al realizar remezclas, reworks o restauraciones a partir de temas con pistas sep
 2. **Preservación Biológica Estricta:** Conservar exclusivamente las capas portadoras de transducción viva o melódica esencial (voz principal, formantes, subgrave original).
 3. **Re-síntesis Analógica Exergética:** La base rítmica debe forjarse desde cero mediante síntesis de silicio (barrido de oscilador senoidal puro, saturación WDF analógica y polirritmia euclidiana con swing orgánico), garantizando una pegada física libre de pre-ringing y un Factor Cresta real $\ge 11.5\text{ dB}$.
 
+## 11. Invariante de Síntesis Musical Bare-Metal en Silicio, Stems Multitrack y Exportación MIDI (Sovereign DSP Forge)
+Cuando el agente sintetice, compile o programe un tema musical directamente en silicio fuera de entornos de DAW cerrados:
+1. **La Tríada de Entrega Sonora Bare-Metal:**
+   Queda estrictamente prohibido entregar únicamente un script o un archivo WAV aislado y declarar el trabajo completado. Todo proyecto musical bare-metal debe generar obligatoriamente:
+   - **Master Final PCM WAV:** Master estéreo procesado con soft-clipping analógico, corte DC subsónico (< 25 Hz) y preservación de transitorios.
+   - **Paquete de Stems Aislados Multitrack:** Separación estricta de pistas instrumentales en WAV 16/24-bit (Bombo/Kicks, Cajas/Claps/Glitches, Línea de Bajo/Acid, Sintetizadores/Leads, Vocoder/Voz, Atmósferas/FX) para remezcla y producción en DAW.
+   - **Archivo MIDI SMF Tipo 1 Multicanal (`.mid`):** Partitura simbólica con pistas independientes cuantizadas y humanizadas (Conductor con tempo BPM, pistas de bajo, lead melódico y percusión según mapa General MIDI) para arrastre e importación inmediata en FL Studio, Ableton Live o Logic.
+2. **Validación Obligatoria Rubin Gate:**
+   El master compilado debe superar de forma obligatoria y previa a la entrega el Linter Acústico Rubin (`audit_acoustic_exergy.py`), acreditando Factor Cresta de club (8.0 dB a 12.0 dB), planitud espectral SFM < 0.15 y coherencia de fase LPC ≥ 0.85 (Veredicto: EXERGÍA PURA).
+3. **Indexación Inmediata en `~/Music/`:**
+   Todo activo generado debe ser enlazado automáticamente mediante symlink canónico (`ln -s`) en `~/Music/<Nombre_del_Track>` conforme a `music_assets_centralization_invariant.md`.
+
+
