@@ -41,6 +41,7 @@ a un árbol git limpio.
 | **H** | Global Package Manager Caches (`~/.cache/uv`, `pip`, `npm`) | 1GB–10GB | `uv cache clean`, purga de caches de host |
 | **I** | OS Metadata & Artifacts (`.DS_Store`, `*.tmp`, `*.bak`) | KB–MB | `find -name ".DS_Store" -delete` transversal |
 | **J** | Context Window Inflation (Esquemas MCP ociosos, reglas saturadas, multi-turn drift) | 30k–60k tokens/prompt | Desactivación de MCPs hipertróficos de dominio ajeno (ej. `flstudio`), migración a reglas condicionales y rotación de chat |
+| **K** | Domain Bleed / Contaminación de Dominio (OPSEC societario, marketing B2B o audios dentro de repos de código) | 100MB–3GB | Evacuación atómica hacia `~/20_VAULT/` (Socios/Marketing) y `~/Music/` (Audio); nunca purga destructiva de IP valiosa. |
 
 ---
 
@@ -311,6 +312,19 @@ Activar este skill cuando el usuario escriba cualquiera de:
 - `mejoralo` (cuando se apunte a un directorio con sospecha de shadow files)
 - `consolida`
 - `redundancia epistemica`
+- `recolectar basura`
+- `swarm 100 basura`
+
+---
+
+## Fase 6 — Enjambre SHARUR-3600 de Recolección de Basura (Swarm-100 GC)
+
+Cuando el operador invoque recolectar basura de forma masiva u organizada en un monorepo complejo, el agente despacha 100 agentes in-memory ($RFO = 0$) distribuidos en 5 cohortes funcionales de 20 agentes:
+1. **Cohorte 1 (000–019):** Audio, Stems y Multimedia ➔ Evacuar a `~/Music/LIBRARY/` y `~/.audit/whatsapp_nacho/`.
+2. **Cohorte 2 (020–039):** OPSEC y Documentos Societarios (Equity, NDAs, directivas privadas) ➔ Evacuar a `~/20_VAULT/SOCIOS_*/`.
+3. **Cohorte 3 (040–059):** Marketing B2B y Colas CRM (listas frías, JSONL) ➔ Evacuar a `~/20_VAULT/MARKETING_OUTREACH/`.
+4. **Cohorte 4 (060–079):** Binarios compilados, bundles macOS (`.app`) y clones HTML estáticos ➔ Purga determinista.
+5. **Cohorte 5 (080–099):** Logs masivos continuos (`*.log` >10 MB) y cachés de compilación (`.lake`, `.pytest_cache`) ➔ Purga y truncado a 0 bytes.
 
 ---
 
