@@ -41,6 +41,12 @@ Este skill formaliza la macro-orquestación de la **Falsación Popperiana**, la 
   1. Ejecución paralela de las 5 cohortes (Silicio, Lógica Formal/Tonnetz, Dinámica Somática, Espacio Acústico, Perímetros/SCITT).
   2. Compilación determinista de código ejecutable (scripts DSP, binarios, partituras MIDI o contratos).
   3. Verificación fail-closed mediante linters de silicio (Linter Rubin, linters formales de tipos) antes de devolver el control.
+- **La Matriz 21+1 (Inferencia Bare-Metal & Clean-Room Dissection):**
+  Para tareas de desacople de motores locales de LLMs (LM Studio / Ollama / Wrappers Electron), la Síntesis despliega la **Matriz de 21 Agentes en 7 Tríadas**:
+  1. *Capa I (Silicio & Memoria UMA, Agentes 01-07):* GGUF Layout, Metal UMA Zero-Copy, macOS Jetsam Bypass, Paged KV Cache, Speculative Draft, Landauer Telemetry, Seqlock SPMC 64B.
+  2. *Capa II (Transporte & Confinamiento, Agentes 08-14):* Zero-HTTP IPC, C-ABI SSE Streaming, Model Lifecycle, Seatbelt Sandbox, Resumable HF Client, ChatML Determinista, Anti-Telemetry Firewall.
+  3. *Capa III (Interfaz & Gobernanza, Agentes 15-21):* In-Memory ASAR Extractor, Brutalist Metal Surface, Logit-Level GBNF Grammars, Hot-Swap mmap, PRNG Seed Lock, SCITT Ledger WORM, Touch ID Secure Enclave Gate.
+  + **1 Subagente Orquestador:** K3-LARSA-120 (Consenso BFT & Barrera Isostática Edin-100).
 - **Escalada Recursiva Canónica en 6 Niveles:**
   - **Nivel 1 (Hardware / Línea de Caché L1):** Contrato indivisible de 64 bytes (`KUDURRU-64`, `align(64)`) con Seqlock SPMC ($RFO = 0$, cero *torn reads*) para erradicar el jitter de Garbage Collection.
     - *Invariante de Compilación Standalone (Lean 4 Core):* Cuando se invoque la verificación directa en silicio (`lean <archivo>.lean`), la formalización debe confinarse estrictamente a primitivas y lemas algebraicos de Lean 4 Core (`Int`, enteros escalados en punto fijo, identidades de producto y negación), erradicando dependencias externas de Mathlib para garantizar compilación AOT determinista con cero errores en < 2 segundos.
