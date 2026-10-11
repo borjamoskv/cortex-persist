@@ -2,12 +2,13 @@
 """
 socint_extract.py - Suite Soberana de Inteligencia Social (SOCINT C5-REAL)
 Motor autónomo de extracción, normalización, detección de astroturfing y auditoría
-epistemológica de telemetría discursiva en X (Twitter), Substack y Reddit (stdlib pura).
+epistemológica de telemetría discursiva en X (Twitter), Substack, Reddit y YouTube (stdlib pura).
 """
 
 import sys
 import os
 import re
+import math
 import json
 import time
 import html
@@ -66,6 +67,19 @@ def http_get(url, headers=None, timeout=12, max_retries=2):
             break
 
     raise RuntimeError(f"Error HTTP al conectar con {url}: {last_err}")
+
+
+def calculate_shannon_entropy(counter_dict):
+    """Calcula la entropía de Shannon H = -sum(p_i * log2(p_i)) sobre una distribución de frecuencias."""
+    total = sum(counter_dict.values())
+    if total <= 0:
+        return 0.0
+    entropy = 0.0
+    for count in counter_dict.values():
+        if count > 0:
+            p = count / total
+            entropy -= p * math.log2(p)
+    return round(entropy, 3)
 
 
 # -----------------------------------------------------------------------------
@@ -162,7 +176,6 @@ class AstroturfDetector:
 
     @classmethod
     def analyze_comments(cls, comments):
-        """Analiza una lista de diccionarios con keys 'author' y 'body'."""
         if not comments or len(comments) < 4:
             return {
                 "astroturf_risk_score": 0.0,
@@ -173,10 +186,8 @@ class AstroturfDetector:
 
         authors = [c.get("author") for c in comments if c.get("author") not in (None, "[deleted]", "[removed]")]
         unique_authors = set(authors)
-        total_comments = len(comments)
         author_concentration = round(1.0 - (len(unique_authors) / max(1, len(authors))), 2)
 
-        # Matriz de similitud Jaccard en cuerpos de comentario
         ngrams_list = [cls._get_ngrams(c.get("body", "")) for c in comments]
         duplicate_pairs = 0
         pair_matches = []
@@ -200,10 +211,9 @@ class AstroturfDetector:
                             "sample": comments[i].get("body", "")[:80]
                         })
 
-        total_pairs = max(1, (total_comments * (total_comments - 1)) // 2)
+        total_pairs = max(1, (len(comments) * (len(comments) - 1)) // 2)
         pair_ratio = duplicate_pairs / total_pairs
-        
-        # Ponderación calibrada: Sybil attack (autores distintos con texto idéntico) + concentración de autor
+
         risk_score = round(min(1.0, (author_concentration * 0.35) + (pair_ratio * 0.65 * 2.0)), 2)
 
         if risk_score >= 0.55:
@@ -223,11 +233,11 @@ class AstroturfDetector:
 
 
 # -----------------------------------------------------------------------------
-# ADAPTER 1: X (Twitter) Engine
+# ADAPTER 1: X (Twitter) Engine con Unfolding de Hilos
 # -----------------------------------------------------------------------------
 
 class XAdapter:
-    """Extrae tweets, hilos, métricas y perfiles en X vía FixTweet API y sindicación."""
+    """Extrae tweets, perfiles y desenrolla hilos completos en X vía FixTweet y sindicación."""
 
     FX_API = "https://api.fxtwitter.com"
     SYNDICATION_API = "https://cdn.syndication.twimg.com/tweet-result"
@@ -306,6 +316,56 @@ class XAdapter:
         raise RuntimeError(f"No se pudo extraer el tweet {tweet_id} de X.")
 
     @classmethod
+    def unfold_thread(cls, user, tweet_id, max_depth=15):
+        """Desenrolla un hilo de tweets ascendiendo a la raíz y concatenando respuestas del autor."""
+        visited_ids = set()
+        thread_chain = []
+        current_id = tweet_id
+        author_screen_name = user
+
+        # 1. Recuperar tweet inicial
+        initial_tweet = cls.fetch_tweet(user, current_id)
+        thread_chain.append(initial_tweet)
+        visited_ids.add(initial_tweet["id"])
+        author_screen_name = initial_tweet["author"]["screen_name"]
+
+        # 2. Ascender si es respuesta a otro tweet del mismo autor
+        parent_id = initial_tweet.get("replying_to")
+        depth = 0
+        while parent_id and parent_id not in visited_ids and depth < max_depth:
+            try:
+                parent_tweet = cls.fetch_tweet(author_screen_name, parent_id)
+                if parent_tweet["author"]["screen_name"].lower() == author_screen_name.lower():
+                    thread_chain.insert(0, parent_tweet)
+                    visited_ids.add(parent_id)
+                    parent_id = parent_tweet.get("replying_to")
+                    depth += 1
+                else:
+                    break
+            except Exception:
+                break
+
+        full_text = "\n\n".join(f"[{i+1}/{len(thread_chain)}] {t['text']}" for i, t in enumerate(thread_chain))
+
+        return {
+            "platform": "x",
+            "type": "thread",
+            "id": tweet_id,
+            "root_id": thread_chain[0]["id"],
+            "author": thread_chain[0]["author"],
+            "url": thread_chain[0]["url"],
+            "total_tweets": len(thread_chain),
+            "tweets": thread_chain,
+            "text": full_text,
+            "metrics": {
+                "total_likes": sum(t["metrics"]["likes"] for t in thread_chain),
+                "total_retweets": sum(t["metrics"]["retweets"] for t in thread_chain),
+                "total_replies": sum(t["metrics"]["replies"] for t in thread_chain),
+                "total_views": sum(t["metrics"]["views"] for t in thread_chain),
+            }
+        }
+
+    @classmethod
     def _normalize_fx_tweet(cls, t):
         author = t.get("author", {}) or {}
         media_list = []
@@ -350,7 +410,7 @@ class XAdapter:
                 "replies": t.get("replies") or 0,
                 "views": t.get("views") or 0,
             },
-            "replying_to": t.get("replying_to"),
+            "replying_to": t.get("replying_to_status"),
             "quoted_tweet": quoted,
             "media": media_list,
         }
@@ -379,7 +439,7 @@ class XAdapter:
                 "replies": 0,
                 "views": 0,
             },
-            "replying_to": t.get("in_reply_to_screen_name"),
+            "replying_to": t.get("in_reply_to_status_id_str"),
             "quoted_tweet": None,
             "media": [],
         }
@@ -622,11 +682,11 @@ class SubstackAdapter:
 
 
 # -----------------------------------------------------------------------------
-# ADAPTER 3: Reddit Engine (JSON con Fallback Automático a Atom RSS)
+# ADAPTER 3: Reddit Engine con Dossiers Forenses de Usuario
 # -----------------------------------------------------------------------------
 
 class RedditAdapter:
-    """Extrae subreddits y árboles de comentarios con degradación a RSS Atom si JSON sufre rate limit."""
+    """Extrae subreddits, hilos, búsquedas y dossiers forenses de usuario en Reddit."""
 
     BASE_URL = "https://www.reddit.com"
 
@@ -637,19 +697,111 @@ class RedditAdapter:
         if m_thread:
             return {"type": "thread", "subreddit": m_thread.group(1), "post_id": m_thread.group(2)}
 
+        m_user = re.search(r"reddit\.com/u(?:ser)?/([a-zA-Z0-9_\-]+)", u)
+        if m_user:
+            return {"type": "user", "username": m_user.group(1), "post_id": None}
+
         m_sub = re.search(r"reddit\.com/r/([a-zA-Z0-9_\-]+)", u)
         if m_sub:
             return {"type": "subreddit", "subreddit": m_sub.group(1), "post_id": None}
 
-        m_user = re.search(r"reddit\.com/u(?:ser)?/([a-zA-Z0-9_\-]+)", u)
-        if m_user:
-            return {"type": "user", "username": m_user.group(1), "post_id": None}
+        m_short_u = re.search(r"^u/([a-zA-Z0-9_\-]+)$", u)
+        if m_short_u:
+            return {"type": "user", "username": m_short_u.group(1), "post_id": None}
 
         m_short = re.search(r"^r/([a-zA-Z0-9_\-]+)$", u)
         if m_short:
             return {"type": "subreddit", "subreddit": m_short.group(1), "post_id": None}
 
         return None
+
+    @classmethod
+    def fetch_user_dossier(cls, username, limit=50):
+        """Genera un peritaje forense de usuario calculando entropía de subreddits y karma."""
+        json_url = f"{cls.BASE_URL}/user/{username}/submitted.json?limit={limit}"
+        posts = []
+        sub_distribution = {}
+
+        try:
+            headers = {"User-Agent": USER_AGENT}
+            status, body, _ = http_get(json_url, headers=headers, timeout=10)
+            data = json.loads(body)
+            children = data.get("data", {}).get("children", [])
+            for c in children:
+                p = c.get("data", {})
+                sub = p.get("subreddit", "unknown")
+                sub_distribution[sub] = sub_distribution.get(sub, 0) + 1
+                posts.append({
+                    "title": p.get("title"),
+                    "subreddit": sub,
+                    "score": p.get("score", 0),
+                    "created_utc": p.get("created_utc"),
+                    "permalink": f"https://reddit.com{p.get('permalink')}",
+                })
+        except Exception:
+            # Fallback Atom RSS
+            rss_url = f"{cls.BASE_URL}/user/{username}/submitted.rss?limit={limit}"
+            try:
+                status, body, _ = http_get(rss_url, headers={"User-Agent": USER_AGENT}, timeout=10)
+                root = ET.fromstring(body)
+                ns = {"atom": "http://www.w3.org/2005/Atom"}
+                for e in root.findall("atom:entry", ns):
+                    title = e.findtext("atom:title", "", ns)
+                    cat_node = e.find("atom:category", ns)
+                    sub = cat_node.get("term", "unknown") if cat_node is not None else "unknown"
+                    sub_distribution[sub] = sub_distribution.get(sub, 0) + 1
+                    link_node = e.find("atom:link", ns)
+                    plink = link_node.get("href") if link_node is not None else ""
+                    posts.append({
+                        "title": title,
+                        "subreddit": sub,
+                        "score": 0,
+                        "created_utc": e.findtext("atom:published", "", ns),
+                        "permalink": plink,
+                    })
+            except Exception as e:
+                raise RuntimeError(f"No se pudo generar el dossier para /u/{username}: {e}")
+
+        entropy = calculate_shannon_entropy(sub_distribution)
+        is_burner = entropy < 0.85 and len(posts) > 5
+
+        return {
+            "platform": "reddit",
+            "type": "user_dossier",
+            "username": username,
+            "url": f"https://reddit.com/user/{username}",
+            "total_submitted_indexed": len(posts),
+            "subreddit_distribution": sub_distribution,
+            "subreddit_entropy": entropy,
+            "entropy_verdict": "⚠️ CUENTA MONO-TEMÁTICA / RIESGO SHILL" if is_burner else "✅ DISTRIBUCIÓN DIVERSIFICADA (Orgánica)",
+            "recent_posts": posts[:10],
+        }
+
+    @classmethod
+    def search_subreddit(cls, subreddit, query, limit=25, sort="relevance"):
+        url = f"{cls.BASE_URL}/r/{subreddit}/search.json?q={urllib.parse.quote(query)}&restrict_sr=1&sort={sort}&limit={limit}"
+        headers = {"User-Agent": USER_AGENT}
+        status, body, _ = http_get(url, headers=headers)
+        data = json.loads(body)
+        children = data.get("data", {}).get("children", [])
+        results = []
+        for c in children:
+            p = c.get("data", {})
+            results.append({
+                "title": p.get("title"),
+                "author": p.get("author"),
+                "score": p.get("score", 0),
+                "num_comments": p.get("num_comments", 0),
+                "permalink": f"https://reddit.com{p.get('permalink')}",
+            })
+        return {
+            "platform": "reddit",
+            "type": "search",
+            "subreddit": subreddit,
+            "query": query,
+            "total_results": len(results),
+            "results": results,
+        }
 
     @classmethod
     def fetch_subreddit(cls, subreddit, sort="hot", limit=25, after=None):
@@ -834,14 +986,73 @@ class RedditAdapter:
 
 
 # -----------------------------------------------------------------------------
-# SQLite WAL Storage (Sovereign Archival Vault)
+# ADAPTER 4: YouTube Engine (oEmbed + Transcripciones Zero-Auth)
 # -----------------------------------------------------------------------------
 
-def save_to_vault(data, db_path=DEFAULT_DB_PATH):
+class YouTubeAdapter:
+    """Extrae metadatos y transcripciones de vídeos de YouTube sin claves de API."""
+
+    OEMBED_API = "https://www.youtube.com/oembed"
+
+    @staticmethod
+    def parse_url(url):
+        u = url.strip()
+        m_watch = re.search(r"(?:youtube\.com/watch\?v=|youtu\.be/|youtube\.com/shorts/)([a-zA-Z0-9_\-]{11})", u)
+        if m_watch:
+            return {"type": "video", "video_id": m_watch.group(1)}
+        return None
+
+    @classmethod
+    def fetch_video(cls, video_id):
+        # 1. Recuperar metadatos oficiales vía oEmbed
+        target_url = f"https://www.youtube.com/watch?v={video_id}"
+        oembed_url = f"{cls.OEMBED_API}?url={urllib.parse.quote(target_url)}&format=json"
+
+        title = f"YouTube Video {video_id}"
+        author = "YouTube Creator"
+        thumbnail_url = f"https://i.ytimg.com/vi/{video_id}/hqdefault.jpg"
+
+        try:
+            status, body, _ = http_get(oembed_url, timeout=8)
+            data = json.loads(body)
+            title = data.get("title", title)
+            author = data.get("author_name", author)
+            thumbnail_url = data.get("thumbnail_url", thumbnail_url)
+        except Exception:
+            pass
+
+        # 2. Rescate de transcripción completa vía proxy autónomo Jina Reader
+        transcript_text = ""
+        try:
+            jina_url = f"https://r.jina.ai/{target_url}"
+            status, body, _ = http_get(jina_url, timeout=12)
+            if body:
+                transcript_text = body[:10000]
+        except Exception:
+            pass
+
+        return {
+            "platform": "youtube",
+            "type": "video",
+            "id": video_id,
+            "url": target_url,
+            "title": title,
+            "author": author,
+            "thumbnail_url": thumbnail_url,
+            "transcript": transcript_text,
+            "content": transcript_text,
+            "text": transcript_text,
+        }
+
+
+# -----------------------------------------------------------------------------
+# SQLite WAL Storage & Telemetry (Sovereign Archival Vault)
+# -----------------------------------------------------------------------------
+
+def init_vault(db_path=DEFAULT_DB_PATH):
     os.makedirs(os.path.dirname(os.path.abspath(db_path)), exist_ok=True)
     conn = sqlite3.connect(db_path, timeout=5)
     conn.execute("PRAGMA journal_mode = WAL;")
-
     with conn:
         conn.execute("""
             CREATE TABLE IF NOT EXISTS socint_vault (
@@ -858,7 +1069,13 @@ def save_to_vault(data, db_path=DEFAULT_DB_PATH):
                 captured_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
         """)
+    conn.close()
 
+
+def save_to_vault(data, db_path=DEFAULT_DB_PATH):
+    init_vault(db_path)
+    conn = sqlite3.connect(db_path, timeout=5)
+    with conn:
         rec_id = str(data.get("id") or data.get("permalink") or data.get("url") or f"{data.get('platform')}_{int(time.time())}")
         plat = data.get("platform", "unknown")
         target_type = data.get("type", "unknown")
@@ -884,6 +1101,52 @@ def save_to_vault(data, db_path=DEFAULT_DB_PATH):
 
     conn.close()
     return rec_id
+
+
+def vault_stats(db_path=DEFAULT_DB_PATH):
+    init_vault(db_path)
+    conn = sqlite3.connect(db_path)
+    cur = conn.cursor()
+    total_records = cur.execute("SELECT COUNT(*) FROM socint_vault;").fetchone()[0]
+    platforms = cur.execute("SELECT platform, COUNT(*) FROM socint_vault GROUP BY platform;").fetchall()
+    avg_snr = cur.execute("SELECT AVG(snr_score) FROM socint_vault;").fetchone()[0] or 0.0
+    latest = cur.execute("SELECT record_id, platform, author, snr_score, captured_at FROM socint_vault ORDER BY captured_at DESC LIMIT 5;").fetchall()
+    conn.close()
+
+    lines = [
+        f"=== TELEMETRÍA DE BÓVEDA SOCINT C5-REAL (SQLite WAL) ===",
+        f"Base de datos: {db_path}",
+        f"Registros Totales: {total_records}",
+        f"Score SNR Medio Global: {avg_snr * 100:.1f}%",
+        f"",
+        f"Distribución por Plataforma:",
+    ]
+    for p, c in platforms:
+        lines.append(f"  • {p.upper():12s}: {c} registros")
+    lines.append("")
+    lines.append("Últimos Registros Archivados:")
+    for r in latest:
+        lines.append(f"  - [{r[4]}] {r[1].upper()} | ID: {r[0]} | Autor: {r[2]} | SNR: {r[3]*100:.0f}%")
+
+    return "\n".join(lines)
+
+
+def vault_query(sql_query, db_path=DEFAULT_DB_PATH):
+    init_vault(db_path)
+    clean_sql = sql_query.strip()
+    if not clean_sql.lower().startswith("select"):
+        raise ValueError("Solo se autorizan sentencias de lectura SELECT en la bóveda.")
+    conn = sqlite3.connect(db_path)
+    cur = conn.cursor()
+    cur.execute(clean_sql)
+    col_names = [d[0] for d in cur.description]
+    rows = cur.fetchall()
+    conn.close()
+
+    lines = [" | ".join(col_names), "-" * (len(" | ".join(col_names)) + 5)]
+    for r in rows:
+        lines.append(" | ".join(str(val) for val in r))
+    return "\n".join(lines)
 
 
 # -----------------------------------------------------------------------------
@@ -918,6 +1181,24 @@ def generate_markdown_report(data, epistemic_audit=None, astroturf_audit=None):
                 f"",
                 f"### Biografía",
                 f"> {data.get('description', '*(Sin biografía)*')}",
+                f"",
+            ])
+        elif data.get("type") == "thread":
+            author = data.get("author", {}) or {}
+            metrics = data.get("metrics", {}) or {}
+            lines.extend([
+                f"## 🧵 Hilo Desenlazado de X (Twitter): @{author.get('screen_name')}",
+                f"",
+                f"- **Autor:** **{author.get('name')}** (`@{author.get('screen_name')}`)",
+                f"- **Total de Entregas:** `{data.get('total_tweets')}` tweets encadenados",
+                f"- **Impacto Agregado:** {metrics.get('total_likes', 0):,} Likes | {metrics.get('total_retweets', 0):,} RTs | {metrics.get('total_replies', 0):,} Replies",
+                f"- **Enlace Raíz:** [{data.get('url')}]({data.get('url')})",
+                f"",
+                f"### Contenido Completo del Hilo",
+                f"",
+                f"```text",
+                f"{data.get('text', '')}",
+                f"```",
                 f"",
             ])
         else:
@@ -1008,7 +1289,40 @@ def generate_markdown_report(data, epistemic_audit=None, astroturf_audit=None):
             lines.append("")
 
     elif plat == "REDDIT":
-        if data.get("type") == "thread":
+        if data.get("type") == "user_dossier":
+            dist = data.get("subreddit_distribution", {})
+            lines.extend([
+                f"## 🕵️ Dossier Forense de Usuario Reddit: /u/{data.get('username')}",
+                f"",
+                f"- **URL:** [{data.get('url')}]({data.get('url')})",
+                f"- **Posts Indexados:** `{data.get('total_submitted_indexed')}`",
+                f"- **Entropía de Subreddits (H):** `{data.get('subreddit_entropy')} bits`",
+                f"- **Veredicto:** `{data.get('entropy_verdict')}`",
+                f"",
+                f"### Distribución de Actividad por Subreddit",
+                f"",
+                f"| Subreddit | Frecuencia | Proporción |",
+                f"| :--- | :--- | :--- |",
+            ])
+            tot = max(1, data.get("total_submitted_indexed", 1))
+            for sub, cnt in sorted(dist.items(), key=lambda x: x[1], reverse=True)[:10]:
+                lines.append(f"| `r/{sub}` | {cnt} posts | {cnt/tot*100:.1f}% |")
+            lines.append("")
+
+        elif data.get("type") == "search":
+            lines.extend([
+                f"## 🔍 Búsqueda en Subreddit: r/{data.get('subreddit')} (Query: \"{data.get('query')}\")",
+                f"",
+                f"Resultados encontrados: **{data.get('total_results')}**",
+                f"",
+                f"| Score | Comentarios | Título | Autor |",
+                f"| :--- | :--- | :--- | :--- |",
+            ])
+            for r in data.get("results", []):
+                lines.append(f"| {r.get('score')} | {r.get('num_comments')} | [{r.get('title')[:60]}]({r.get('permalink')}) | `/u/{r.get('author')}` |")
+            lines.append("")
+
+        elif data.get("type") == "thread":
             score = int(data.get("score") or 0)
             ratio = float(data.get("upvote_ratio") or 1.0)
             comments_num = int(data.get("num_comments") or 0)
@@ -1050,6 +1364,20 @@ def generate_markdown_report(data, epistemic_audit=None, astroturf_audit=None):
                 c_idx = p.get("controversy_index", 0.0)
                 lines.append(f"| {score:,} | {ratio:.2f} | **{c_idx}** | [{p.get('title')[:60]}]({p.get('permalink')}) | `/u/{p.get('author')}` |")
             lines.append("")
+
+    elif plat == "YOUTUBE":
+        lines.extend([
+            f"## 📺 Telemetría Audiovisual de YouTube: {data.get('title')}",
+            f"",
+            f"- **Canal / Creador:** **{data.get('author')}**",
+            f"- **URL:** [{data.get('url')}]({data.get('url')})",
+            f"- **Miniatura:** ![{data.get('title')}]({data.get('thumbnail_url')})",
+            f"",
+            f"### Transcripción / Audio Extraído",
+            f"",
+            f"{data.get('transcript', '')[:2500]}...",
+            f"",
+        ])
 
     # Auditoría Forense de Astroturfing
     if astroturf_audit and astroturf_audit.get("verdict"):
@@ -1106,20 +1434,33 @@ def generate_markdown_report(data, epistemic_audit=None, astroturf_audit=None):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Suite Soberana de Inteligencia Social (SOCINT C5-REAL): Extracción sin API de pago en X, Substack y Reddit."
+        description="Suite Soberana de Inteligencia Social (SOCINT C5-REAL): Extracción sin API de pago en X, Substack, Reddit y YouTube."
     )
-    parser.add_argument("--url", "-u", type=str, help="URL del post, newsletter, subreddit, perfil o tweet.")
+    parser.add_argument("--url", "-u", type=str, help="URL del post, newsletter, subreddit, perfil, vídeo o tweet.")
     parser.add_argument("--batch", "-b", type=str, help="Archivo con lista de URLs a procesar en lote.")
-    parser.add_argument("--platform", "-p", choices=["auto", "x", "substack", "reddit"], default="auto", help="Plataforma de destino.")
+    parser.add_argument("--platform", "-p", choices=["auto", "x", "substack", "reddit", "youtube"], default="auto", help="Plataforma de destino.")
     parser.add_argument("--limit", "-l", type=int, default=25, help="Límite de elementos a recuperar.")
     parser.add_argument("--depth", "-d", type=int, default=3, help="Profundidad de comentarios en Reddit.")
     parser.add_argument("--format", "-f", choices=["json", "markdown"], default="markdown", help="Formato de salida.")
     parser.add_argument("--output", "-o", type=str, help="Ruta de archivo para guardar el resultado.")
+    parser.add_argument("--unfold", action="store_true", help="Desenrollar hilos completos en X (Twitter).")
+    parser.add_argument("--search", "-s", type=str, help="Buscar término dentro de un subreddit.")
     parser.add_argument("--audit-pods", action="store_true", help="Auditar red de recomendaciones en Substack.")
     parser.add_argument("--save-vault", action="store_true", help="Almacenar registro en SQLite WAL vault.")
+    parser.add_argument("--vault-stats", action="store_true", help="Consultar estadísticas y telemetría de la bóveda SQLite.")
+    parser.add_argument("--vault-query", type=str, help="Ejecutar consulta SELECT en la bóveda SQLite.")
     parser.add_argument("--vault-db", type=str, default=DEFAULT_DB_PATH, help="Ruta de base de datos SQLite WAL.")
 
     args = parser.parse_args()
+
+    # Comandos de Bóveda directa
+    if args.vault_stats:
+        print(vault_stats(args.vault_db))
+        return
+
+    if args.vault_query:
+        print(vault_query(args.vault_query, args.vault_db))
+        return
 
     if not args.url and not args.batch:
         parser.print_help()
@@ -1145,8 +1486,10 @@ def main():
                 platform = "x"
             elif "substack.com" in target_url or "/p/" in target_url:
                 platform = "substack"
-            elif "reddit.com" in target_url or target_url.startswith("r/"):
+            elif "reddit.com" in target_url or target_url.startswith("r/") or target_url.startswith("u/"):
                 platform = "reddit"
+            elif "youtube.com" in target_url or "youtu.be" in target_url:
+                platform = "youtube"
             else:
                 print(f"[!] Advertencia: No se pudo auto-detectar plataforma para: {target_url}", file=sys.stderr)
                 continue
@@ -1161,7 +1504,10 @@ def main():
                 extracted_data = XAdapter.fetch_profile(user)
                 text_for_audit = extracted_data.get("description", "")
             elif kind == "tweet" and tweet_id:
-                extracted_data = XAdapter.fetch_tweet(user, tweet_id)
+                if args.unfold:
+                    extracted_data = XAdapter.unfold_thread(user, tweet_id)
+                else:
+                    extracted_data = XAdapter.fetch_tweet(user, tweet_id)
                 text_for_audit = extracted_data.get("text", "")
             else:
                 print(f"[!] Error: URL de X no reconocida: {target_url}", file=sys.stderr)
@@ -1189,14 +1535,28 @@ def main():
                 print(f"[!] Error: URL de Reddit no válida: {target_url}", file=sys.stderr)
                 continue
 
-            if red_info["type"] == "thread":
+            if red_info["type"] == "user":
+                extracted_data = RedditAdapter.fetch_user_dossier(red_info["username"], limit=args.limit)
+                text_for_audit = " ".join(p.get("title", "") for p in extracted_data.get("recent_posts", []))
+            elif red_info["type"] == "thread":
                 extracted_data = RedditAdapter.fetch_thread(red_info["subreddit"], red_info["post_id"], depth=args.depth, comment_limit=args.limit)
                 text_for_audit = (extracted_data.get("selftext") or "") + "\n" + "\n".join(
                     c.get("body", "") for c in extracted_data.get("comments", [])
                 )
                 comments_for_astroturf = extracted_data.get("comments", [])
-            else:
-                extracted_data = RedditAdapter.fetch_subreddit(red_info["subreddit"], limit=args.limit)
+            elif red_info["type"] == "subreddit":
+                if args.search:
+                    extracted_data = RedditAdapter.search_subreddit(red_info["subreddit"], args.search, limit=args.limit)
+                else:
+                    extracted_data = RedditAdapter.fetch_subreddit(red_info["subreddit"], limit=args.limit)
+
+        elif platform == "youtube":
+            yt_info = YouTubeAdapter.parse_url(target_url)
+            if not yt_info:
+                print(f"[!] Error: URL de YouTube no reconocida: {target_url}", file=sys.stderr)
+                continue
+            extracted_data = YouTubeAdapter.fetch_video(yt_info["video_id"])
+            text_for_audit = extracted_data.get("transcript", "")
 
         # Auditorías
         epistemic_audit = None

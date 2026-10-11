@@ -38,41 +38,31 @@ En redes públicas, la señal está sumergida en un océano de *cheap talk*, bot
 La suite dispone de una herramienta de línea de comandos en **stdlib pura** (cero dependencias externas como Selenium, Playwright o wrappers hinchados) con soporte para almacenamiento SQLite WAL:
 
 ```bash
-# Extracción de post o hilo en X (Twitter)
+# Desenrollar hilo completo en X (Twitter) hasta la raíz
 python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
   --url "https://x.com/username/status/1844000000000000000" \
-  --format markdown --save-vault
+  --unfold --format markdown --save-vault
 
-# Auditoría forense de perfil de usuario en X (Twitter)
+# Peritaje forense de usuario en Reddit con cálculo de entropía H(sub)
 python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
-  --url "https://x.com/username" \
-  --format markdown
+  --url "u/username" --limit 50 --format markdown
 
-# Extracción de entrega completa de Substack con comentarios
+# Búsqueda contextual dentro de un subreddit
 python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
-  --url "https://danluu.substack.com/p/velocity" \
-  --format markdown
+  --url "r/LocalLLaMA" --search "quantization" --limit 20 --format markdown
 
-# Auditoría de Cártel de Recomendaciones (PODs) en Substack
+# Extracción de vídeo y transcripción en YouTube (Zero-Auth)
 python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
-  --url "https://substack_name.substack.com" \
-  --audit-pods --format json
+  --url "https://www.youtube.com/watch?v=dQw4w9WgXcQ" --format markdown
 
-# Barrido de subreddit con cálculo de Índice de Controversia
+# Consultar estadísticas agregadas y telemetría de la Bóveda SQLite WAL
+python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py --vault-stats
+
+# Ejecutar consulta SQL de lectura sobre el histórico archivado
 python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
-  --url "r/LocalLLaMA" \
-  --limit 25 --format markdown
+  --vault-query "SELECT platform, author, snr_score FROM socint_vault WHERE snr_score > 0.60 LIMIT 10"
 
-# Extracción profunda de hilo con detector de Astroturfing
-python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
-  --url "https://www.reddit.com/r/MachineLearning/comments/1fxyzab/title/" \
-  --depth 3 --limit 50 --save-vault --output /tmp/reddit_audit.md
-
-# Procesamiento en lote (Batch) desde archivo de texto
-python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
-  --batch /tmp/investigation_urls.txt --save-vault --format markdown
-
-# Ejecución de Suite de Verificación Determinista (Offline)
+# Ejecución de la Suite de Verificación Determinista Offline (12/12)
 python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/test_socint.py
 ```
 
@@ -117,16 +107,22 @@ python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/test_socint.p
 1. **Barrido de Subreddit:**
    - Endpoint primario: `https://www.reddit.com/r/{subreddit}/{sort}.json?limit={limit}`.
    - Fallback de silicio: `https://www.reddit.com/r/{subreddit}/{sort}.rss` (Atom XML) si Reddit responde con HTTP 403 o 429 por límite de IP sin sesión.
-2. **Árbol Jerárquico de Comentarios:**
-   - Endpoint: `https://www.reddit.com/r/{subreddit}/comments/{id}.json?depth={depth}&limit={limit}`.
-   - Parsea recursivamente el árbol de respuestas (`kind == "t1"`), preservando autor, puntuación neta y profundidad de anidamiento.
-3. **Métrica C5 de Índice de Controversia:**
-   $$\text{Controversy Index} = (1.0 - \text{upvote\_ratio}) \cdot \sqrt{N_{\text{comments}}}$$
-   - Valores elevados señalan debates con polarización real o *brigading* artificial; valores bajos con ratio $>0.95$ señalan consenso comunitario o cámaras de eco.
+4. **Dossier Forense de Usuario y Entropía Shannon:**
+   - Analiza `/user/{username}/submitted` y calcula la entropía de Shannon sobre la distribución de subreddits:
+     $$H_{\text{sub}} = -\sum p_i \log_2(p_i)$$
+   - $H_{\text{sub}} < 0.85$ bits con $>5$ posts señala una cuenta monotemática utilizada para spam, shill o astroturfing.
 
 ---
 
-## 🤖 6. Detector Forense de Astroturfing (Similitud Jaccard N-Grams)
+## 📺 6. Adaptador YouTube: Metadatos y Transcripciones Zero-Auth
+
+- **Extracción de Metadatos:** Invocación a `https://www.youtube.com/oembed?url={video_url}&format=json` (título, creador, miniatura).
+- **Rescate de Transcripción:** Recuperación de subtítulos y audio transcrito mediante proxy autónomo Jina Reader sin requerir Google Cloud Console ni API keys.
+- **Auditoría Epistemológica Integrada:** El texto del vídeo se somete a la matriz cuádruple C5-REAL para medir el ratio de afirmaciones fundamentadas frente a clickbait.
+
+---
+
+## 🤖 7. Detector Forense de Astroturfing (Similitud Jaccard N-Grams)
 
 Para desenmascarar granjas de bots, cuentas títere (*sockpuppets*) y ataques Sybil:
 1. **Extracción y Tokenización:** Descompone los comentarios en 3-gramas de palabras consecutivas.
@@ -141,7 +137,7 @@ Para desenmascarar granjas de bots, cuentas títere (*sockpuppets*) y ataques Sy
 
 ---
 
-## ⚖️ 7. Matriz de Clasificación Epistemológica (Las 4 Categorías C5-REAL)
+## ⚖️ 8. Matriz de Clasificación Epistemológica (Las 4 Categorías C5-REAL)
 
 Todo texto procesado por la suite se clasifica automáticamente en 4 estratos epistémicos:
 
