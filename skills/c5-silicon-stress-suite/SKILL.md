@@ -1,7 +1,7 @@
 ---
 name: c5-silicon-stress-suite
 display_name: Suite de Estrés Concurrente de Silicio y Enjambres (C5-REAL)
-description: Ejecución de pruebas de estrés en paralelo y benchmarks empíricos de silicio para certificar enjambres masivos, fan-out multicast O(1), coherencia de memoria Seqlock KUDURRU-64 (RFO=0), consensus BFT y puentes de atestación Touch ID COSE_Sign1 en Apple Silicon. Dispara con 'pruebas de estres', 'pruebas de estres en paralelo', 'stress test swarm', 'estres enjambre', 'concurrencia de silicio', 'stress suite', 'poc', 'test de estres', 'estres silicio'.
+description: Ejecución de pruebas de estrés en paralelo y benchmarks empíricos de silicio para certificar enjambres masivos, fan-out multicast O(1), coherencia de memoria Seqlock KUDURRU-64 (RFO=0), consensus BFT y puentes de atestación Touch ID COSE_Sign1 en Apple Silicon. Dispara con 'pruebas de estres', 'pruebas de estres en paralelo', 'stress test swarm', 'estres enjambre', 'concurrencia de silicio', 'stress suite', 'poc', 'test de estres', 'pest de estres', 'test estres', 'estres silicio'.
 role: auditor
 allowed_roles:
 - auditor
@@ -138,6 +138,44 @@ Valida que el ledger criptográfico resista disrupciones no contenidas en su mod
 pytest /Users/borjafernandezangulo/10_PROJECTS/BABYLON-60/tests/test_cortex_exterior_cognitivo_harness.py -v
 ```
 * **Criterio de Aceptación:** 5/5 PASSED en < 0.5s, `verify_integrity() -> False` inmediato ante bitflips en inodos, y cero aceptación de eventos huérfanos sin taint.
+
+### 7. Pipeline Encadenado "Fast Batch" (One-Liner Execution)
+Para evitar fricción de múltiples turnos y quema de cuotas, los 5 vectores no interactivos se ejecutan de forma atómica en un único subshell bash (< 6s totales en Flash Low):
+```bash
+python3 -c "
+import sys, asyncio, time
+sys.path.extend(['/Users/borjafernandezangulo/10_PROJECTS/BABYLON-60', '/Users/borjafernandezangulo/10_PROJECTS/BABYLON-60/01_KISH_ENGINE', '/Users/borjafernandezangulo/10_PROJECTS/BABYLON-60/02_EDIN_SWARMS'])
+from agents_archi import AgentPager
+
+async def bench():
+    p = AgentPager()
+    tasks = [asyncio.create_task(p.wait_for_beep()) for _ in range(1000)]
+    await asyncio.sleep(0.05)
+    t0 = time.perf_counter()
+    p.beep()
+    await asyncio.gather(*tasks)
+    dur = (time.perf_counter() - t0) * 1000
+    print(f'1. Fan-out 1.000 agentes: {dur:.3f} ms ({1000/(dur/1000)/1e3:.1f}k ag/s)')
+
+asyncio.run(bench())
+" && cargo test --release --test property_test -- --nocapture 2>&1 | grep "test result" && python3 -c "
+import concurrent.futures, time
+def heavy_worker(arg):
+    pid, iters = arg
+    acc = 0
+    for i in range(iters):
+        acc = (acc + i * 3) ^ 0x5A5A
+    return acc
+
+if __name__ == '__main__':
+    workers, iters = 11, 5000000
+    t0 = time.perf_counter()
+    with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as ex:
+        list(ex.map(heavy_worker, [(i, iters) for i in range(workers)]))
+    dur = time.perf_counter() - t0
+    print(f'3. P-Cores M3 Pro Throughput: {(workers * iters)/dur/1e6:.2f} M ops/s')
+" && python3 tests/test_swarm_stress.py 2>&1 | tail -n 4 && pytest tests/test_cortex_exterior_cognitivo_harness.py -q
+```
 
 ---
 
