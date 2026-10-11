@@ -1,6 +1,6 @@
 ---
 name: anergy-purge-protocol
-description: Purga de código muerto, artefactos efímeros, anergía de conversaciones, ghost listeners y sobrecarga de tokens en prompt. Dispara con "purga de anergía", "dead code", "limpiar conversaciones", "anergia de conversaciones", "ghost listeners", "prompt bloat", "redundancia documental".
+description: Purga de código muerto, artefactos efímeros, entropía de workspace, anergía de conversaciones, ghost listeners y sobrecarga de tokens en prompt. Dispara con "purga de anergía", "purga de entropia", "purga de entropía", "entropia", "dead code", "limpiar conversaciones", "anergia de conversaciones", "ghost listeners", "prompt bloat", "redundancia documental".
 role: auditor
 allowed_roles:
 - auditor
@@ -39,6 +39,7 @@ a un árbol git limpio.
 | **G** | Redundancia Epistémica (Shadow Directories, Path Entropy) | KB-MB | Consolidar directorios canónicos, eliminar phantom DBs, corregir hardcoded paths en CWD |
 | **H** | Global Package Manager Caches (`~/.cache/uv`, `pip`, `npm`) | 1GB–10GB | `uv cache clean`, purga de caches de host |
 | **I** | OS Metadata & Artifacts (`.DS_Store`, `*.tmp`, `*.bak`) | KB–MB | `find -name ".DS_Store" -delete` transversal |
+| **I2** | Audiovisual Studio Scratch (`scratch_*`, `*_OLD_*.mp3`, `out/test_*`, `*_swarm_chunks`) | 50MB–500MB | Purga determinista preservando actas formales (`out/itera_100/`), renders maestros (`*_siglo.mp4`) y stems F5-TTS (`*.wav`) |
 | **J** | Context Window Inflation (Prompt tax, esquemas MCP ociosos, plugins ajenos, multi-turn drift, KV Cache bloat) | 30k–60k tokens/prompt | Desactivación de MCPs hipertróficos, contención de plugins no afines, migración a reglas condicionales y rotación de chat |
 | **K** | Domain Bleed / Contaminación de Dominio (OPSEC societario, marketing B2B o audios dentro de repos de código) | 100MB–3GB | Evacuación atómica hacia `~/20_VAULT/` (Socios/Marketing) y `~/Music/` (Audio); nunca purga destructiva de IP valiosa. |
 | **L** | Conversation Anergy & Ghost Listeners (`conversation_summaries.db`, transcripts huérfanos sin artefactos) | 10–2.000 hilos | Forzar `CASCADE_RUN_STATUS_IDLE`, desenlazar `workspace_uris` con UUIDs canónicos (36 chars), purga de logs masivos y apoptosis de hilo tras hitos |
@@ -307,6 +308,12 @@ Residuos retenidos (Ω2 — no purgar sin empiria del Operador):
 
 Activar este skill cuando el usuario escriba cualquiera de:
 - `purga anergia`
+- `purga de anergia`
+- `purga de anergía`
+- `purga de entropia`
+- `purga de entropía`
+- `entropia`
+- `entropía`
 - `purge anergy`
 - `limpia workspace`
 - `limpia el repo`

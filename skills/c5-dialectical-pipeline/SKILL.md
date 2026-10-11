@@ -44,6 +44,8 @@ Este skill formaliza la macro-orquestación de la **Falsación Popperiana**, la 
   1. Ejecución paralela de las 5 cohortes (Silicio, Lógica Formal/Tonnetz, Dinámica Somática, Espacio Acústico, Perímetros/SCITT).
   2. Compilación determinista de código ejecutable (scripts DSP, binarios, partituras MIDI o contratos).
   3. Verificación fail-closed mediante linters de silicio (Linter Rubin, linters formales de tipos) antes de devolver el control.
+- **Acoplamiento con Motores Locales de Iteración (`./itera_100.sh`):**
+  Si el workspace contiene un ejecutable `./itera_100.sh` o script `scripts/itera_100.py`, el agente DEBE invocar de inmediato este motor de silicio local para ejecutar las 100 iteraciones no-redundantes, emitir las 20 actas formales y compilar el dashboard HTML autónomo.
 - **La Matriz 21+1 (Inferencia Bare-Metal & Clean-Room Dissection):**
   Para tareas de desacople de motores locales de LLMs (LM Studio / Ollama / Wrappers Electron), la Síntesis despliega la **Matriz de 21 Agentes en 7 Tríadas**:
   1. *Capa I (Silicio & Memoria UMA, Agentes 01-07):* GGUF Layout, Metal UMA Zero-Copy, macOS Jetsam Bypass, Paged KV Cache, Speculative Draft, Landauer Telemetry, Seqlock SPMC 64B.
