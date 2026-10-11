@@ -7,3 +7,31 @@ Ante cualquier pregunta o solicitud formulada con la estructura **"¿X tiene/cum
 2. **Forzar Validación en Silicio:** Abstenerse de dar una respuesta definitiva basándose únicamente en la memoria latente de pesos pre-entrenados. El agente DEBE proporcionar o ejecutar los comandos exactos de terminal necesarios para **comprobar empíricamente** la aserción directamente en la máquina o sistema real.
 
 *El mapa no es el territorio. La única respuesta válida a "¿X tiene/cumple Y?" es la salida estándar (stdout) de una traza física o comando de auditoría que lo verifique.*
+
+---
+
+## 2. Desacoplamiento de CI y Resurrección Local (Cambio 2 en Integración Continua)
+Cuando la integración continua en la nube (GitHub Actions u otros SaaS) sufra bloqueos externos ajenos al código (fallos de facturación, suspensiones de cuenta, límites de cuota o caídas de infraestructura):
+1. **Prohibición de Bloqueo Cognitivo:** Queda terminantemente prohibido que el agente declare bloqueada la maduración del software o espere la intervención humana en la pasarela de pago para continuar.
+2. **Gate Local Determinista en $O(1)$:** El agente DEBE verificar o instanciar un script local reproducible (`scripts/ci_local.sh` o target `make ci-local`) que ejecute de forma atómica y ordenada todas las fases esenciales:
+   - Validación estática de schemas y JSON (`jq` / python ast).
+   - Linters de flujos de trabajo (`actionlint`).
+   - Chequeo y tests de compilación bare-metal (`cargo check --all-targets`, `cargo test`).
+   - Batería completa de pruebas de lenguaje (`pytest tests/`).
+3. La única certificación de paso válida en régimen de asedio externo es la atestación local en el silicio de la máquina de desarrollo.
+
+---
+
+## 3. Linters AST sobre Control de Flujo (Anti-Falsos Positivos en Cadenas `elif`)
+Al implementar o auditar analizadores estáticos de código basados en el árbol sintáctico abstracto (`ast.AST`) que vigilen la profundidad máxima de anidamiento (ej. `INV_C5_13`):
+1. **Isomorfismo de Indentación Visual vs. AST:** En el parser de Python, cada cláusula `elif` se representa internamente como un nodo `ast.If` anidado dentro de la lista `orelse` del nodo anterior.
+2. **Veto al Incremento en `elif`:** El cálculo recursivo de profundidad DEBE comprobar si el hijo es un `ast.If` contenido como único elemento en `node.orelse`. De cumplirse, el incremento de profundidad es 0.
+3. Tratar un despacho `if/elif/...` lineal como anidamiento profundo constituye un error de medición que degrada la legibilidad al forzar fragmentaciones artificiales.
+
+---
+
+## 4. Arquitectura Dual de Atestación Criptográfica (`AttestationEnvelope`)
+En arquitecturas de soberanía de silicio donde el anillo central de autoridad delega por defecto en enclaves seguros de hardware (Touch ID / Apple Secure Enclave P-256):
+1. **Doble Ruta de Despacho:** La función constructora (`AttestationEnvelope.create()`) DEBE mantener siempre una ruta secundaria activada mediante parámetro explícito (`signing_key: Optional[str]`).
+2. **Confinamiento de Pruebas y CI:** Las suites de test, harnesses de estrés y procesos desatendidos deben suministrar claves deterministas de prueba para ejecutar firmas Ed25519 en memoria, permitiendo que la verificación criptográfica (`env.verify()`) se certifique de forma autónoma.
+3. El gate biométrico físico se reserva para mutaciones reales del operador biológico en el canal de producción, erradicando fallos de cuelgue o bloqueos síncronos en pipelines automatizados.
