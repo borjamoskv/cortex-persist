@@ -1035,6 +1035,24 @@
       }
     },
     {
+      "name": "c5-sovereign-inference-runtime",
+      "tier": 20500,
+      "category": "Systems",
+      "display_name": "Motor Soberano de Inferencia y Adaptador LM Studio C5-REAL",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
       "name": "c5-sre-postmortem-architect",
       "tier": 19500,
       "category": "Governance",
