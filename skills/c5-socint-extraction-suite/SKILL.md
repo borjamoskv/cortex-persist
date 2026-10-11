@@ -21,7 +21,7 @@ directives:
 > - **Fase Causal:** `implementation`
 > - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
-Esta suite unifica los tres vectores principales de extracción, normalización e ingestión de telemetría discursiva en plataformas públicas (**X / Twitter**, **Substack** y **Reddit**), eludiendo muros de registro, JavaScript reactivo forzado y APIs corporativas cerradas mediante acceso directo a silicio y endpoints estáticos en Python stdlib pura.
+Esta suite unifica los tres vectores principales de extracción, normalización, detección de astroturfing e ingestión de telemetría discursiva en plataformas públicas (**X / Twitter**, **Substack** y **Reddit**), eludiendo muros de registro, JavaScript reactivo forzado y APIs corporativas cerradas mediante acceso directo a silicio y endpoints estáticos en Python stdlib pura.
 
 ---
 
@@ -29,21 +29,26 @@ Esta suite unifica los tres vectores principales de extracción, normalización 
 
 En redes públicas, la señal está sumergida en un océano de *cheap talk*, bots de astroturfing y cárteles de recomendación mutua. La suite aplica el **Aforismo 5 de C5-REAL** (*Lo voluntario vale menos que lo involuntario*):
 1. **Señales Voluntarias (Baja Exergía / Alto Ruido):** Declaraciones de intenciones, hilos promocionales, retórica moral, hypes de 100x y testimonios no reproducibles.
-2. **Señales Involuntarias (Alta Exergía / Evidencia Dura):** Hashes de commit (`git`), referencias legales vinculantes (`BOE/BORME`), benchmarks empíricos con métricas reproducibles ($p_{99}$, $ms$, $tokens/s$), timestamps inmutables, ratio de controversia en Reddit y grafos topológicos de recomendación cruzada.
+2. **Señales Involuntarias (Alta Exergía / Evidencia Dura):** Hashes de commit (`git`), referencias legales vinculantes (`BOE/BORME`), benchmarks empíricos con métricas reproducibles ($p_{99}$, $ms$, $tokens/s$), timestamps inmutables, ratio de controversia en Reddit, similitud léxica Jaccard entre cuentas bot y grafos topológicos de recomendación cruzada.
 
 ---
 
 ## ⚙️ 2. Motor CLI en Silicio (`scripts/socint_extract.py`)
 
-La suite dispone de una herramienta de línea de comandos en **stdlib pura** (cero dependencias externas como Selenium, Playwright o wrappers hinchados):
+La suite dispone de una herramienta de línea de comandos en **stdlib pura** (cero dependencias externas como Selenium, Playwright o wrappers hinchados) con soporte para almacenamiento SQLite WAL:
 
 ```bash
 # Extracción de post o hilo en X (Twitter)
 python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
   --url "https://x.com/username/status/1844000000000000000" \
+  --format markdown --save-vault
+
+# Auditoría forense de perfil de usuario en X (Twitter)
+python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
+  --url "https://x.com/username" \
   --format markdown
 
-# Extracción de entrega completa de Substack
+# Extracción de entrega completa de Substack con comentarios
 python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
   --url "https://danluu.substack.com/p/velocity" \
   --format markdown
@@ -58,20 +63,28 @@ python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extrac
   --url "r/LocalLLaMA" \
   --limit 25 --format markdown
 
-# Extracción profunda de hilo y árbol de comentarios en Reddit
+# Extracción profunda de hilo con detector de Astroturfing
 python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
   --url "https://www.reddit.com/r/MachineLearning/comments/1fxyzab/title/" \
-  --depth 3 --limit 50 --output /tmp/reddit_audit.md
+  --depth 3 --limit 50 --save-vault --output /tmp/reddit_audit.md
+
+# Procesamiento en lote (Batch) desde archivo de texto
+python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
+  --batch /tmp/investigation_urls.txt --save-vault --format markdown
+
+# Ejecución de Suite de Verificación Determinista (Offline)
+python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/test_socint.py
 ```
 
 ---
 
-## 🛰️ 3. Adaptador X (Twitter): Hilos, Métricas y Desacople de Auth
+## 🛰️ 3. Adaptador X (Twitter): Hilos, Perfiles y Desacople de Auth
 
 ### Pipeline de Resolución Multicapa (Fail-Closed)
 1. **Capa 1 (FixTweet / FxTwitter API):**
-   - Invocación directa a `https://api.fxtwitter.com/{user}/status/{id}`.
-   - Retorna payload JSON sin cookies ni sesión: texto íntegro, fecha ISO, autor (`followers`, `screen_name`), media (fotos/vídeos), tweet citado (*quoted tweet*) y métricas (`likes`, `retweets`, `replies`, `views`).
+   - Invocación directa a `https://api.fxtwitter.com/{user}/status/{id}` o `/status/{id}`.
+   - Retorna payload JSON sin cookies ni sesión: texto íntegro, fecha ISO, autor (`followers`, `following`, `screen_name`), media (fotos/vídeos), tweet citado (*quoted tweet*) y métricas (`likes`, `retweets`, `replies`, `views`).
+   - Endpoint de perfil: `https://api.fxtwitter.com/{username}` para telemetría forense de cuentas (fecha de creación, badges de verificación, ratios).
 2. **Capa 2 (Twimg Syndication Endpoint):**
    - Si Capa 1 falla, consulta el CDN de sindicación oficial de X:
      `https://cdn.syndication.twimg.com/tweet-result?id={id}&token={token}`.
@@ -85,9 +98,9 @@ python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extrac
 ## 📰 4. Adaptador Substack: Archivos, Artículos y Auditoría de PODs
 
 ### Bypass de WAF y API JSON Nativa
-1. **Lectura de Artículo Completo:**
-   - Invocación a `https://{domain}/api/v1/posts/{slug}`.
-   - Retorna el HTML semántico limpio del artículo, eliminando popups de suscripción y paywalls blandos.
+1. **Lectura de Artículo y Comentarios:**
+   - Invocación a `https://{domain}/api/v1/posts/{slug}` y `https://{domain}/api/v1/posts/{post_id}/comments`.
+   - Retorna el HTML semántico limpio del artículo y las reacciones de suscriptores, eliminando popups de suscripción y paywalls blandos.
 2. **Archivo Cronológico Completo:**
    - Invocación paginada a `https://{domain}/api/v1/archive?sort=new&limit=50&offset=0`.
    - Indexa títulos, fechas, número de palabras, comentarios y recuento de likes.
@@ -100,10 +113,10 @@ python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extrac
 
 ## 👾 5. Adaptador Reddit: Minería de Hilos, Árboles y Controversia
 
-### Extracción Determinista vía Sufijo `.json`
+### Extracción Determinista con Degradación a Atom RSS
 1. **Barrido de Subreddit:**
-   - Endpoint: `https://www.reddit.com/r/{subreddit}/{sort}.json?limit={limit}`.
-   - Filtra automáticamente posts fijados institucionales (`stickied: true`).
+   - Endpoint primario: `https://www.reddit.com/r/{subreddit}/{sort}.json?limit={limit}`.
+   - Fallback de silicio: `https://www.reddit.com/r/{subreddit}/{sort}.rss` (Atom XML) si Reddit responde con HTTP 403 o 429 por límite de IP sin sesión.
 2. **Árbol Jerárquico de Comentarios:**
    - Endpoint: `https://www.reddit.com/r/{subreddit}/comments/{id}.json?depth={depth}&limit={limit}`.
    - Parsea recursivamente el árbol de respuestas (`kind == "t1"`), preservando autor, puntuación neta y profundidad de anidamiento.
@@ -113,7 +126,22 @@ python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extrac
 
 ---
 
-## ⚖️ 6. Matriz de Clasificación Epistemológica (Las 4 Categorías C5-REAL)
+## 🤖 6. Detector Forense de Astroturfing (Similitud Jaccard N-Grams)
+
+Para desenmascarar granjas de bots, cuentas títere (*sockpuppets*) y ataques Sybil:
+1. **Extracción y Tokenización:** Descompone los comentarios en 3-gramas de palabras consecutivas.
+2. **Similitud Jaccard por Pares:**
+   $$J(A, B) = \frac{|A \cap B|}{|A \cup B|}$$
+   Pares con $J(A, B) > 0.60$ se marcan como duplicados sintéticos.
+3. **Score Ponderado de Riesgo Astroturf:**
+   $$\text{Risk Score} = \min\left(1.0, 0.35 \cdot \text{ConcentraciónAutor} + 1.30 \cdot \frac{N_{\text{pares\_duplicados}}}{N_{\text{pares\_posibles}}}\right)$$
+   - $\ge 55\%$: Campaña artificial / Granja de bots confirmada.
+   - $25\% - 54\%$: Repetición léxica moderada o saturación de autor.
+   - $< 25\%$: Discusión comunitaria orgánica.
+
+---
+
+## ⚖️ 7. Matriz de Clasificación Epistemológica (Las 4 Categorías C5-REAL)
 
 Todo texto procesado por la suite se clasifica automáticamente en 4 estratos epistémicos:
 
@@ -129,7 +157,15 @@ $$\text{SNR} = \frac{N_{\text{hechos}} + N_{\text{experimental}} + N_{\text{mode
 
 ---
 
-## 🔒 7. Contrato de Autonomía Fail-Closed (Ω10 / Ω11 / Ω12)
+## 🏛️ 8. Bóveda Local SQLite WAL (`socint_vault.db`)
+
+Con la bandera `--save-vault`, toda investigación se archiva en una base de datos local SQLite bajo modo WAL (`PRAGMA journal_mode = WAL;`) en `~/.gemini/antigravity/socint_vault.db`:
+- Registra `record_id`, `platform`, `target_type`, `url`, `author`, `title`, `raw_content`, `metrics_json`, `epistemic_counts_json`, `snr_score` y `captured_at`.
+- Operación idempotente (`INSERT OR REPLACE`), protegiendo la evidencia histórica frente a eliminación de tweets o borrado de posts.
+
+---
+
+## 🔒 9. Contrato de Autonomía Fail-Closed (Ω10 / Ω11 / Ω12)
 
 - **Ω10 (Zero Pause Transition):** El agente no debe detener la ejecución ni solicitar autorización al operador para saltar de la API primaria al fallback de sindicación o lector Markdown ante un error HTTP (403, 429).
 - **Ω11 (Degradación Determinista):**
