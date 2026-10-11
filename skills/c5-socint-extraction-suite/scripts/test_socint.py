@@ -12,41 +12,72 @@ import sqlite3
 from pathlib import Path
 
 # Añadir ruta del paquete
+# Añadir rutas de resolución
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 try:
-    import socint_extract as mod
+    from socint.core import (
+        EpistemicClassifier,
+        AstroturfDetector,
+        ActorNetwork,
+        TemporalForensics,
+        LexicalDispersion,
+        IdentityPivotEngine,
+        SentimentAffectEngine,
+        compute_merkle_root,
+        calculate_shannon_entropy,
+        clean_html,
+        XAdapter,
+        SubstackAdapter,
+        RedditAdapter,
+        YouTubeAdapter,
+        HackerNewsAdapter,
+        BlueskyAdapter,
+        TelegramAdapter,
+        GitHubAdapter,
+        MastodonAdapter,
+        PredictionMarketAdapter,
+        WikipediaAdapter,
+        save_to_vault,
+        vault_stats,
+        vault_query,
+        generate_markdown_report,
+        generate_html_report,
+        generate_csv_report,
+    )
 except ImportError:
-    from socint import core as mod
-
-EpistemicClassifier = mod.EpistemicClassifier
-AstroturfDetector = mod.AstroturfDetector
-ActorNetwork = mod.ActorNetwork
-TemporalForensics = mod.TemporalForensics
-LexicalDispersion = mod.LexicalDispersion
-IdentityPivotEngine = mod.IdentityPivotEngine
-calculate_shannon_entropy = mod.calculate_shannon_entropy
-clean_html = mod.clean_html
-XAdapter = mod.XAdapter
-SubstackAdapter = mod.SubstackAdapter
-RedditAdapter = mod.RedditAdapter
-YouTubeAdapter = mod.YouTubeAdapter
-HackerNewsAdapter = mod.HackerNewsAdapter
-BlueskyAdapter = mod.BlueskyAdapter
-TelegramAdapter = mod.TelegramAdapter
-GitHubAdapter = mod.GitHubAdapter
-MastodonAdapter = mod.MastodonAdapter
-PredictionMarketAdapter = mod.PredictionMarketAdapter
-WikipediaAdapter = mod.WikipediaAdapter
-save_to_vault = mod.save_to_vault
-vault_stats = mod.vault_stats
-vault_query = mod.vault_query
-generate_markdown_report = mod.generate_markdown_report
-generate_html_report = mod.generate_html_report
-generate_csv_report = mod.generate_csv_report
+    import socint_extract as _m
+    EpistemicClassifier = _m.EpistemicClassifier
+    AstroturfDetector = _m.AstroturfDetector
+    ActorNetwork = _m.ActorNetwork
+    TemporalForensics = _m.TemporalForensics
+    LexicalDispersion = _m.LexicalDispersion
+    IdentityPivotEngine = _m.IdentityPivotEngine
+    SentimentAffectEngine = _m.SentimentAffectEngine
+    compute_merkle_root = _m.compute_merkle_root
+    calculate_shannon_entropy = _m.calculate_shannon_entropy
+    clean_html = _m.clean_html
+    XAdapter = _m.XAdapter
+    SubstackAdapter = _m.SubstackAdapter
+    RedditAdapter = _m.RedditAdapter
+    YouTubeAdapter = _m.YouTubeAdapter
+    HackerNewsAdapter = _m.HackerNewsAdapter
+    BlueskyAdapter = _m.BlueskyAdapter
+    TelegramAdapter = _m.TelegramAdapter
+    GitHubAdapter = _m.GitHubAdapter
+    MastodonAdapter = _m.MastodonAdapter
+    PredictionMarketAdapter = _m.PredictionMarketAdapter
+    WikipediaAdapter = _m.WikipediaAdapter
+    save_to_vault = _m.save_to_vault
+    vault_stats = _m.vault_stats
+    vault_query = _m.vault_query
+    generate_markdown_report = _m.generate_markdown_report
+    generate_html_report = _m.generate_html_report
+    generate_csv_report = _m.generate_csv_report
 
 def run_tests():
-    print("=== SOCINT C5-REAL DETERMINISTIC TEST SUITE (30/30 OMNIVECTOR) ===")
+    print("=== SOCINT C5-REAL DETERMINISTIC TEST SUITE (35/35 OMNIVECTOR) ===")
     passed = 0
     total = 0
 
@@ -410,6 +441,73 @@ def run_tests():
     assert "RÁFAGA COORDINADA" in full_md
     passed += 1
     print("  [PASS] 30. Full Omnivector Report Synthesis (Temporal + Lexical + Epistemic)")
+
+    # 31. Merkle Root Hash & Cryptographic Tree Computation
+    total += 1
+    sample_evidence = {
+        "url": "https://x.com/borjamoskv/status/12345",
+        "author": "borjamoskv",
+        "content": "Axioma C5: Transformar ruido en conceptos.",
+        "timestamp": 1728680000
+    }
+    m_root = compute_merkle_root(sample_evidence)
+    assert len(m_root) == 64
+    # Determinism test
+    assert m_root == compute_merkle_root(sample_evidence)
+    # Tamper test
+    sample_evidence_tampered = dict(sample_evidence, content="Contenido manipulado")
+    assert m_root != compute_merkle_root(sample_evidence_tampered)
+    passed += 1
+    print("  [PASS] 31. Merkle Root Hash & Cryptographic Tree Computation (Tamper-Proof)")
+
+    # 32. ActorNetwork Gephi XML GEXF Export
+    total += 1
+    gexf_str = net.to_gexf()
+    assert gexf_str.startswith("<?xml")
+    assert "<gexf" in gexf_str and "<nodes>" in gexf_str and "<edges>" in gexf_str
+    assert "borjamoskv" in gexf_str
+    passed += 1
+    print("  [PASS] 32. ActorNetwork Gephi XML GEXF Graph Serialization")
+
+    # 33. SentimentAffectEngine Polarity Scoring
+    total += 1
+    pos_score = SentimentAffectEngine.score_text("Excelente trabajo, una solución innovadora y un gran éxito.")
+    neg_score = SentimentAffectEngine.score_text("Una estafa absoluta, terrible fraude y fracaso total.")
+    assert pos_score > 0.50
+    assert neg_score < -0.50
+    passed += 1
+    print("  [PASS] 33. SentimentAffectEngine Valence & Polarity Scoring (Zero Dependencies)")
+
+    # 34. SentimentAffectEngine Thread Analysis & Outrage Flagging
+    total += 1
+    hostile_comments = [
+        {"body": "Esto es una estafa y un fraude total"},
+        {"body": "Odio este desastre de proyecto, una basura"},
+        {"body": "Un fracaso absoluto y terrible"},
+        {"body": "Genial proyecto, muy positivo"}
+    ]
+    sent_res = SentimentAffectEngine.analyze_thread(hostile_comments)
+    assert sent_res["mean_polarity"] < 0
+    assert sent_res["emotional_volatility"] > 0
+    assert "INDIGNACIÓN POLARIZADA" in sent_res["verdict"] or sent_res["mean_polarity"] < -0.20
+    passed += 1
+    print("  [PASS] 34. SentimentAffectEngine Outrage & Emotional Volatility Detection")
+
+    # 35. Full Omnivector Report Synthesis with Merkle Attestation & Sentiment
+    total += 1
+    mock_post_apex = dict(mock_post_full)
+    mock_post_apex["sentiment_affect"] = sent_res
+    mock_post_apex["merkle_seal"] = {
+        "merkle_root": m_root,
+        "leaf_count": 4,
+        "sealed_at": "2026-10-11T23:55:00Z"
+    }
+    apex_md = generate_markdown_report(mock_post_apex, audit, res_bot)
+    assert "Análisis de Sentimiento & Volatilidad Emocional" in apex_md
+    assert "Sello Criptográfico de Evidencia (Merkle Attestation)" in apex_md
+    assert m_root in apex_md
+    passed += 1
+    print("  [PASS] 35. Full Omnivector Attestation Report (Merkle + Sentiment + Topology)")
 
     print(f"\n[✓] ALL {passed}/{total} OMNIVECTOR VERIFICATION CHECKS PASSED DETERMINISTICALLY.")
 

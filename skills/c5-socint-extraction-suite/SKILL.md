@@ -81,7 +81,23 @@ python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extrac
 # 9. Consultar telemetría y registros de la Bóveda SQLite WAL
 python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py --vault-stats
 
-# 10. Ejecución de la Suite de Verificación Determinista Offline (20/20)
+# 10. Análisis forense temporal, dispersión léxica y pivotado de identidad
+python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
+  --url "https://x.com/username/status/1844000000000000000" --temporal-check --lexical-check --pivot-check
+
+# 11. Exportar grafo de red (Mermaid, Graphviz DOT, Gephi GEXF)
+python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
+  --url "https://news.ycombinator.com/item?id=38000000" --export-mermaid grafo.mmd --export-dot grafo.dot --export-gexf grafo.gexf
+
+# 12. Dashboard HTML forense interactivo offline & CSV RFC 4180
+python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
+  --url "https://x.com/username/status/1844000000000000000" --export-html reporte.html --export-csv registros.csv
+
+# 13. Sello de atestación criptográfica Merkle (SHA-256 Tree) & análisis de afecto
+python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
+  --url "https://x.com/username/status/1844000000000000000" --sentiment-check --merkle-seal
+
+# 14. Ejecución de la Suite de Verificación Determinista Offline (35/35)
 python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/test_socint.py
 ```
 
@@ -126,7 +142,24 @@ Con `--save-vault`, toda investigación se archiva de forma duradera en `~/.gemi
 
 ---
 
-## 🔒 6. Contrato de Autonomía Fail-Closed (Ω10 / Ω11 / Ω12)
+## 🔬 6. Módulos Forenses Avanzados & Atestación Criptográfica (v1.3.0)
+
+1. **TemporalForensics:**
+   - Coeficiente de Ráfaga: $B = \frac{\sigma - \mu}{\sigma + \mu} \in [-1, 1]$
+   - Factor de Fano: $F = \frac{\sigma^2}{\mu}$
+   - Detección de *Bot Drip* periódico ($B \to -1, F \ll 1$) vs. *Ráfagas CIB coordinadas* ($B > 0.40, F > 10$).
+2. **LexicalDispersion (Hapax Legomena):**
+   - Ratio $V/N$ (Type-Token Ratio) y proporción de palabras únicas ($Hapax/V$) para distinguir prosa humana rica de monotonía estocástica generada por LLMs.
+3. **ActorNetwork & Grafos:**
+   - Extracción de menciones `@user`, enlaces e interacciones. Exportación directa a **Mermaid (`.mmd`)**, **Graphviz (`.dot`)** y **Gephi XML (`.gexf`)**.
+4. **SentimentAffectEngine:**
+   - Detección de polaridad (valencia $\in [-1, 1]$), ratio de indignación (*outrage ratio*) y volatilidad emocional en hilos de discusión.
+5. **Merkle Attestation:**
+   - Árbol binario criptográfico SHA-256 sobre hojas canónicas ordenadas (`compute_merkle_root`), garantizando integridad forense inalterable y no repudio.
+
+---
+
+## 🔒 7. Contrato de Autonomía Fail-Closed (Ω10 / Ω11 / Ω12)
 
 - **Ω10 (Zero Pause Transition):** El agente no debe detener la ejecución ni solicitar autorización al operador para alternar entre adaptadores o ejecutar fallbacks de sindicación/Atom.
 - **Ω11 (Degradación Determinista):**

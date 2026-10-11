@@ -352,6 +352,32 @@ class ActorNetwork:
         lines.append("}")
         return "\n".join(lines)
 
+    def to_gexf(self):
+        """Exporta la red al formato GEXF 1.2 (Graph Exchange XML) para Gephi."""
+        sorted_nodes = sorted(list(self.nodes))
+        node_map = {n: idx for idx, n in enumerate(sorted_nodes)}
+        lines = [
+            '<?xml version="1.0" encoding="UTF-8"?>',
+            '<gexf xmlns="http://www.gexf.net/1.2draft" version="1.2">',
+            '  <graph mode="static" defaultedgetype="directed">',
+            '    <nodes>'
+        ]
+        for idx, n in enumerate(sorted_nodes):
+            safe_lbl = html.escape(str(n))
+            lines.append(f'      <node id="{idx}" label="{safe_lbl}" />')
+        lines.append('    </nodes>')
+        lines.append('    <edges>')
+        for idx, e in enumerate(self.edges):
+            s_id = node_map.get(e["source"], 0)
+            t_id = node_map.get(e["target"], 0)
+            w = e.get("weight", 1)
+            rel = html.escape(str(e.get("type", "interacts")))
+            lines.append(f'      <edge id="{idx}" source="{s_id}" target="{t_id}" weight="{w}" label="{rel}" />')
+        lines.append('    </edges>')
+        lines.append('  </graph>')
+        lines.append('</gexf>')
+        return "\n".join(lines)
+
 
 # -----------------------------------------------------------------------------
 # TEMPORAL FORENSICS & BURSTINESS ENGINE (Poisson vs Coordinated Drip)
@@ -480,6 +506,103 @@ class IdentityPivotEngine:
         }
 
 
+# -----------------------------------------------------------------------------
+# SENTIMENT & EMOTIONAL VOLATILITY ENGINE (Zero external dependencies)
+# -----------------------------------------------------------------------------
+
+class SentimentAffectEngine:
+    """Motor léxico ligero de polaridad y volatilidad emocional (Zero-deps)."""
+
+    POSITIVE_WORDS = {
+        "excelente", "increible", "brillante", "exito", "positivo", "genial",
+        "avance", "innovacion", "solucion", "solido", "gran", "mejor", "victoria",
+        "acierto", "valioso", "great", "excellent", "amazing", "breakthrough",
+        "success", "positive", "good", "best", "solution", "innovative", "solid", "win"
+    }
+
+    NEGATIVE_WORDS = {
+        "estafa", "fraude", "fracaso", "falso", "terrible", "desastre", "odio",
+        "basura", "humo", "scam", "troll", "trampa", "horrible", "peor",
+        "crisis", "fraud", "fail", "disaster", "hate", "trash", "worst", "broken"
+    }
+
+    @classmethod
+    def score_text(cls, text):
+        tokens = set(re.findall(r'\w+', text.lower()))
+        if not tokens:
+            return 0.0
+        pos_count = len(tokens.intersection(cls.POSITIVE_WORDS))
+        neg_count = len(tokens.intersection(cls.NEGATIVE_WORDS))
+        diff = pos_count - neg_count
+        total = pos_count + neg_count
+        return round(diff / max(1, total), 3) if total > 0 else 0.0
+
+    @classmethod
+    def analyze_thread(cls, comments):
+        if not comments:
+            return {
+                "mean_polarity": 0.0,
+                "emotional_volatility": 0.0,
+                "outrage_flag": False,
+                "verdict": "SIN COMENTARIOS"
+            }
+        scores = [cls.score_text(c.get("body") or c.get("text") or "") for c in comments]
+        mean_pol = round(sum(scores) / len(scores), 3)
+        var = sum((s - mean_pol)**2 for s in scores) / len(scores)
+        volatility = round(math.sqrt(var), 3)
+        outrage_flag = (mean_pol < -0.30 and volatility > 0.35)
+
+        if outrage_flag:
+            verdict = "⚠️ INDIGNACIÓN POLARIZADA DETECTADA (Manufactured Outrage / Hostile Swarm)"
+        elif mean_pol > 0.25:
+            verdict = "✅ TONO PREDOMINANTEMENTE FAVORABLE / ALINEADO"
+        elif mean_pol < -0.25:
+            verdict = "⚠️ TONO CRÍTICO O HOSTIL GENERALIZADO"
+        else:
+            verdict = "ℹ️ TONO NEUTRO O EQUILIBRADO"
+
+        return {
+            "mean_polarity": mean_pol,
+            "emotional_volatility": volatility,
+            "outrage_flag": outrage_flag,
+            "verdict": verdict
+        }
+
+
+# -----------------------------------------------------------------------------
+# MERKLE ATTESTATION & CRYPTOGRAPHIC PROOF (Tamper-Evident Evidence Seal)
+# -----------------------------------------------------------------------------
+
+def compute_merkle_root(fields_dict):
+    """Calcula la raíz de Merkle SHA-256 sobre los campos de evidencia indexados."""
+    import hashlib
+    leaves = []
+    for k in sorted(fields_dict.keys()):
+        val = fields_dict[k]
+        if isinstance(val, (dict, list)):
+            val_bytes = json.dumps(val, sort_keys=True, ensure_ascii=False).encode("utf-8")
+        else:
+            val_bytes = str(val).encode("utf-8")
+        leaves.append(hashlib.sha256(val_bytes).hexdigest())
+
+    current = sorted(leaves)
+    if not current:
+        return hashlib.sha256(b"").hexdigest()
+
+    while len(current) > 1:
+        next_level = []
+        for i in range(0, len(current), 2):
+            if i + 1 < len(current):
+                combined = (current[i] + current[i+1]).encode("utf-8")
+            else:
+                combined = (current[i] + current[i]).encode("utf-8")
+            next_level.append(hashlib.sha256(combined).hexdigest())
+        current = next_level
+
+    return current[0]
+
+
+# -----------------------------------------------------------------------------
 # ADAPTER 1: X (Twitter) Engine
 # -----------------------------------------------------------------------------
 
@@ -2146,6 +2269,35 @@ def generate_markdown_report(data, epistemic_audit=None, astroturf_audit=None):
             f"",
         ])
 
+    # Análisis de Sentimiento y Afecto
+    sentiment = data.get("sentiment_affect")
+    if sentiment:
+        lines.extend([
+            f"---",
+            f"",
+            f"## 🎭 Análisis de Sentimiento & Volatilidad Emocional",
+            f"",
+            f"- **Veredicto de Tono:** `{sentiment.get('verdict')}`",
+            f"- **Polaridad Media:** `{sentiment.get('mean_polarity') * 100:+.1f}%`",
+            f"- **Volatilidad Emocional:** `{sentiment.get('emotional_volatility')}`",
+            f"- **Alerta de Indignación Polarizada:** `{'SÍ' if sentiment.get('outrage_flag') else 'NO'}`",
+            f"",
+        ])
+
+    # Sello Criptográfico Merkle
+    merkle_seal = data.get("merkle_seal")
+    if merkle_seal:
+        lines.extend([
+            f"---",
+            f"",
+            f"## 🔒 Sello Criptográfico de Evidencia (Merkle Attestation)",
+            f"",
+            f"- **Merkle Root:** `{merkle_seal.get('merkle_root')}`",
+            f"- **Campos Sellados:** `{merkle_seal.get('leaf_count')}`",
+            f"- **Timestamp de Sello:** `{merkle_seal.get('sealed_at')}`",
+            f"",
+        ])
+
     return "\n".join(lines)
 
 
@@ -2297,9 +2449,12 @@ def main():
     parser.add_argument("--network", action="store_true", help="Construir y reportar el grafo de red de actores.")
     parser.add_argument("--export-mermaid", type=str, help="Exportar grafo de interacción en sintaxis Mermaid.")
     parser.add_argument("--export-dot", type=str, help="Exportar grafo de interacción en sintaxis Graphviz DOT.")
+    parser.add_argument("--export-gexf", type=str, help="Exportar grafo de interacción en formato Gephi XML GEXF.")
     parser.add_argument("--pivot", type=str, help="Generar dossier de investigación unificada para un handle a través de las 11 plataformas.")
     parser.add_argument("--burst-check", action="store_true", help="Auditar dinámica temporal de comentarios para detectar bots periódicos o ráfagas CIB.")
     parser.add_argument("--lexical-check", action="store_true", help="Calcular densidad léxica y ratio de Hapax Legomena contra texto sintético.")
+    parser.add_argument("--sentiment-check", action="store_true", help="Calcular polaridad y volatilidad emocional en comentarios.")
+    parser.add_argument("--merkle-seal", action="store_true", help="Sellar evidencia con raíz criptográfica de Merkle (tamper-evidence).")
     parser.add_argument("--save-vault", action="store_true", help="Almacenar registro en SQLite WAL vault.")
     parser.add_argument("--vault-stats", action="store_true", help="Consultar estadísticas y telemetría de la bóveda SQLite.")
     parser.add_argument("--vault-query", type=str, help="Ejecutar consulta SELECT en la bóveda SQLite.")
@@ -2512,8 +2667,18 @@ def main():
         if text_for_audit.strip():
             extracted_data["lexical_dispersion"] = LexicalDispersion.analyze_text(text_for_audit)
 
+        if comments_for_astroturf:
+            extracted_data["sentiment_affect"] = SentimentAffectEngine.analyze_thread(comments_for_astroturf)
+
+        merkle_root = compute_merkle_root(extracted_data)
+        extracted_data["merkle_seal"] = {
+            "merkle_root": merkle_root,
+            "leaf_count": len(extracted_data),
+            "sealed_at": datetime.now(timezone.utc).isoformat()
+        }
+
         actor_network = None
-        if args.network or args.export_mermaid or args.export_dot or args.format == "html":
+        if args.network or args.export_mermaid or args.export_dot or args.export_gexf or args.format == "html":
             actor_network = ActorNetwork.extract_from_data(extracted_data)
             extracted_data["actor_network"] = actor_network.to_dict()
 
@@ -2526,6 +2691,11 @@ def main():
             with open(os.path.expanduser(args.export_dot), "w", encoding="utf-8") as df:
                 df.write(actor_network.to_dot())
             print(f"[✓] Grafo Graphviz DOT exportado en: {args.export_dot}")
+
+        if args.export_gexf and actor_network:
+            with open(os.path.expanduser(args.export_gexf), "w", encoding="utf-8") as gf:
+                gf.write(actor_network.to_gexf())
+            print(f"[✓] Grafo Gephi GEXF exportado en: {args.export_gexf}")
 
         if args.format == "json":
             all_reports.append(json.dumps(extracted_data, indent=2, ensure_ascii=False))
