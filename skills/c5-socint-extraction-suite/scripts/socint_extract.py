@@ -255,6 +255,103 @@ class AstroturfDetector:
 
 
 # -----------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
+# ACTOR NETWORK & ENTITY GRAPH ANALYZER (Pure Stdlib)
+# -----------------------------------------------------------------------------
+
+class ActorNetwork:
+    """Extrae y modela el grafo de interacción (menciones @handle, enlaces externos y pares autor-réplica)."""
+
+    def __init__(self):
+        self.nodes = set()
+        self.edges = []
+
+    def add_interaction(self, source, target, rel_type="interacts", weight=1):
+        if not source or not target or source == target:
+            return
+        source_clean = str(source).strip()
+        target_clean = str(target).strip()
+        if not source_clean or not target_clean or source_clean == target_clean:
+            return
+        self.nodes.add(source_clean)
+        self.nodes.add(target_clean)
+        for edge in self.edges:
+            if edge["source"] == source_clean and edge["target"] == target_clean and edge["type"] == rel_type:
+                edge["weight"] += weight
+                return
+        self.edges.append({
+            "source": source_clean,
+            "target": target_clean,
+            "type": rel_type,
+            "weight": weight
+        })
+
+    @classmethod
+    def extract_from_data(cls, data):
+        net = cls()
+        author = data.get("author") or data.get("username") or data.get("channel") or "source_author"
+
+        text = data.get("text") or data.get("content") or data.get("selftext") or data.get("description") or ""
+        mentions = re.findall(r'(?:@|u/)([a-zA-Z0-9_\.\-]+)', text)
+        for m in mentions:
+            net.add_interaction(author, m, rel_type="mentions")
+
+        urls = re.findall(r'https?://([a-zA-Z0-9_\.\-]+)', text)
+        for u in urls:
+            if not any(skip in u for skip in ["twitter.com", "x.com", "t.co", "fxtwitter.com"]):
+                net.add_interaction(author, f"domain:{u}", rel_type="references_domain")
+
+        comments = data.get("comments", [])
+        for c in comments:
+            c_author = c.get("author") or "anon"
+            if c_author and c_author not in ("[deleted]", "[removed]"):
+                net.add_interaction(c_author, author, rel_type="replies_to")
+            c_body = c.get("body") or c.get("text") or ""
+            c_mentions = re.findall(r'(?:@|u/)([a-zA-Z0-9_\.\-]+)', c_body)
+            for cm in c_mentions:
+                net.add_interaction(c_author, cm, rel_type="mentions")
+
+        for rec in data.get("recommendations", []):
+            rec_name = rec.get("name") or rec.get("domain") or rec.get("title")
+            if rec_name:
+                net.add_interaction(author, rec_name, rel_type="recommends")
+
+        return net
+
+    def to_dict(self):
+        return {
+            "nodes": sorted(list(self.nodes)),
+            "edges": self.edges,
+            "total_nodes": len(self.nodes),
+            "total_edges": len(self.edges)
+        }
+
+    def to_mermaid(self):
+        lines = ["graph TD"]
+        if not self.edges:
+            for n in sorted(list(self.nodes))[:15]:
+                safe_n = re.sub(r'["\(\)\[\]]', '', str(n))
+                lines.append(f'    node_{abs(hash(n)) % 65536}["{safe_n}"]')
+            return "\n".join(lines)
+
+        for edge in self.edges[:30]:
+            s = re.sub(r'["\(\)\[\]]', '', str(edge["source"]))
+            t = re.sub(r'["\(\)\[\]]', '', str(edge["target"]))
+            w = edge["weight"]
+            lbl = f"{edge['type']}" + (f" ({w})" if w > 1 else "")
+            lines.append(f'    n_{abs(hash(s)) % 65536}["{s}"] -->|"{lbl}"| n_{abs(hash(t)) % 65536}["{t}"]')
+        return "\n".join(lines)
+
+    def to_dot(self):
+        lines = ["digraph ActorNetwork {", "    rankdir=LR;", "    node [shape=box];"]
+        for edge in self.edges:
+            s = str(edge["source"]).replace('"', '\\"')
+            t = str(edge["target"]).replace('"', '\\"')
+            lines.append(f'    "{s}" -> "{t}" [label="{edge["type"]}", weight={edge["weight"]}];')
+        lines.append("}")
+        return "\n".join(lines)
+
 # ADAPTER 1: X (Twitter) Engine
 # -----------------------------------------------------------------------------
 
@@ -1894,6 +1991,130 @@ def generate_markdown_report(data, epistemic_audit=None, astroturf_audit=None):
 # Main CLI Orchestrator (Omnivectorial)
 # -----------------------------------------------------------------------------
 
+
+def generate_html_report(data, epistemic_audit=None, astroturf_audit=None, actor_network=None):
+    """Genera un panel HTML autónomo, sin dependencias CDN, con modo oscuro y CSS embebido."""
+    plat = data.get("platform", "UNKNOWN")
+    url = data.get("url", "")
+    extracted_at = data.get("extracted_at", "")
+
+    snr_val = f"{epistemic_audit.get('signal_ratio', 0.5) * 100:.1f}%" if epistemic_audit else "N/A"
+    astroturf_val = f"{astroturf_audit.get('astroturf_risk_score', 0.0) * 100:.1f}%" if astroturf_audit else "N/A"
+    verdict = astroturf_audit.get("verdict", "No evaluado") if astroturf_audit else "No evaluado"
+
+    net_nodes = actor_network.to_dict()["total_nodes"] if actor_network else 0
+    net_edges = actor_network.to_dict()["total_edges"] if actor_network else 0
+
+    html_template = f"""<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SOCINT Forensics · {html.escape(plat)}</title>
+<style>
+  :root {{
+    --bg: #0d1117;
+    --card-bg: #161b22;
+    --border: #30363d;
+    --text: #c9d1d9;
+    --heading: #f0f6fc;
+    --accent: #58a6ff;
+    --success: #3fb950;
+    --warning: #d29922;
+    --danger: #f85149;
+  }}
+  body {{
+    margin: 0;
+    padding: 24px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+  }}
+  .container {{ max-width: 960px; margin: 0 auto; }}
+  header {{ border-bottom: 1px solid var(--border); padding-bottom: 16px; margin-bottom: 24px; }}
+  h1, h2, h3 {{ color: var(--heading); }}
+  .grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; }}
+  .card {{ background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }}
+  .metric {{ font-size: 28px; font-weight: bold; color: var(--accent); }}
+  .badge {{ display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600; background: var(--border); }}
+  pre, code {{ background: #0b0e14; border: 1px solid var(--border); border-radius: 6px; padding: 12px; overflow-x: auto; color: #79c0ff; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }}
+  footer {{ margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; color: #8b949e; text-align: center; }}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>🔍 SOCINT Forensic Dossier · <span style="color:var(--accent);">{html.escape(plat)}</span></h1>
+    <div><strong>Objetivo:</strong> <a href="{html.escape(url)}" style="color:var(--accent);" target="_blank">{html.escape(url)}</a></div>
+    <div><small>Indexado en silicio: {html.escape(extracted_at)}</small></div>
+  </header>
+
+  <div class="grid">
+    <div class="card">
+      <div class="badge">EPISTEMIC SNR</div>
+      <div class="metric">{snr_val}</div>
+      <small>Pureza metodológica C5-REAL</small>
+    </div>
+    <div class="card">
+      <div class="badge">ASTROTURF RISK</div>
+      <div class="metric">{astroturf_val}</div>
+      <small>{html.escape(verdict)}</small>
+    </div>
+    <div class="card">
+      <div class="badge">ACTOR NETWORK</div>
+      <div class="metric">{net_nodes} / {net_edges}</div>
+      <small>Nodos / Interacciones mapeadas</small>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:24px;">
+    <h2>📄 Telemetría Primaria</h2>
+    <pre>{html.escape(json.dumps(data, indent=2, ensure_ascii=False))}</pre>
+  </div>
+
+  <footer>
+    C5-REAL Forensic Engine · Zero External Dependencies · Borja Fernández Angulo
+  </footer>
+</div>
+</body>
+</html>"""
+    return html_template
+
+
+def generate_csv_report(data_list):
+    """Genera un reporte tabular en formato CSV RFC 4180."""
+    import csv
+    import io
+    out = io.StringIO()
+    writer = csv.writer(out, quoting=csv.QUOTE_MINIMAL)
+    writer.writerow([
+        "platform", "url", "author", "extracted_at",
+        "epistemic_snr", "astroturf_risk", "total_comments", "content_preview"
+    ])
+
+    for item in data_list:
+        author = item.get("author") or item.get("username") or item.get("channel") or "anon"
+        snr = item.get("epistemic_audit", {}).get("signal_ratio", "") if item.get("epistemic_audit") else ""
+        astro = item.get("astroturf_audit", {}).get("astroturf_risk_score", "") if item.get("astroturf_audit") else ""
+        comments_cnt = len(item.get("comments", []))
+        content = item.get("text") or item.get("content") or item.get("selftext") or item.get("description") or ""
+        preview = re.sub(r'\s+', ' ', content)[:200].strip()
+
+        writer.writerow([
+            item.get("platform", ""),
+            item.get("url", ""),
+            author,
+            item.get("extracted_at", ""),
+            snr,
+            astro,
+            comments_cnt,
+            preview
+        ])
+
+    return out.getvalue()
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Suite Soberana de Inteligencia Social (SOCINT C5-REAL): Extracción omnivectorial sin API de pago en 11 plataformas."
@@ -1906,11 +2127,14 @@ def main():
     ], default="auto", help="Plataforma de destino.")
     parser.add_argument("--limit", "-l", type=int, default=25, help="Límite de elementos a recuperar.")
     parser.add_argument("--depth", "-d", type=int, default=3, help="Profundidad de comentarios.")
-    parser.add_argument("--format", "-f", choices=["json", "markdown"], default="markdown", help="Formato de salida.")
+    parser.add_argument("--format", "-f", choices=["json", "markdown", "html", "csv"], default="markdown", help="Formato de salida.")
     parser.add_argument("--output", "-o", type=str, help="Ruta de archivo para guardar el resultado.")
     parser.add_argument("--unfold", action="store_true", help="Desenrollar hilos completos en X (Twitter).")
     parser.add_argument("--search", "-s", type=str, help="Buscar término dentro de un subreddit.")
     parser.add_argument("--audit-pods", action="store_true", help="Auditar red de recomendaciones en Substack.")
+    parser.add_argument("--network", action="store_true", help="Construir y reportar el grafo de red de actores.")
+    parser.add_argument("--export-mermaid", type=str, help="Exportar grafo de interacción en sintaxis Mermaid.")
+    parser.add_argument("--export-dot", type=str, help="Exportar grafo de interacción en sintaxis Graphviz DOT.")
     parser.add_argument("--save-vault", action="store_true", help="Almacenar registro en SQLite WAL vault.")
     parser.add_argument("--vault-stats", action="store_true", help="Consultar estadísticas y telemetría de la bóveda SQLite.")
     parser.add_argument("--vault-query", type=str, help="Ejecutar consulta SELECT en la bóveda SQLite.")
@@ -1942,6 +2166,7 @@ def main():
         urls_to_process = [args.url.strip()]
 
     all_reports = []
+    extracted_items_for_csv = []
 
     for target_url in urls_to_process:
         platform = args.platform
@@ -2100,12 +2325,37 @@ def main():
             rec_id = save_to_vault(extracted_data, args.vault_db)
             extracted_data["vault_record_id"] = rec_id
 
+        actor_network = None
+        if args.network or args.export_mermaid or args.export_dot or args.format == "html":
+            actor_network = ActorNetwork.extract_from_data(extracted_data)
+            extracted_data["actor_network"] = actor_network.to_dict()
+
+        if args.export_mermaid and actor_network:
+            with open(os.path.expanduser(args.export_mermaid), "w", encoding="utf-8") as mf:
+                mf.write(actor_network.to_mermaid())
+            print(f"[✓] Grafo Mermaid exportado en: {args.export_mermaid}")
+
+        if args.export_dot and actor_network:
+            with open(os.path.expanduser(args.export_dot), "w", encoding="utf-8") as df:
+                df.write(actor_network.to_dot())
+            print(f"[✓] Grafo Graphviz DOT exportado en: {args.export_dot}")
+
         if args.format == "json":
             all_reports.append(json.dumps(extracted_data, indent=2, ensure_ascii=False))
+        elif args.format == "html":
+            all_reports.append(generate_html_report(extracted_data, epistemic_audit, astroturf_audit, actor_network))
+        elif args.format == "csv":
+            extracted_items_for_csv.append(extracted_data)
         else:
-            all_reports.append(generate_markdown_report(extracted_data, epistemic_audit, astroturf_audit))
+            rep = generate_markdown_report(extracted_data, epistemic_audit, astroturf_audit)
+            if args.network and actor_network:
+                rep += f"\n\n## 🕸️ Grafo de Interacciones (Mermaid)\n\n```mermaid\n{actor_network.to_mermaid()}\n```\n"
+            all_reports.append(rep)
 
-    final_output = "\n\n---\n\n".join(all_reports)
+    if args.format == "csv":
+        final_output = generate_csv_report(extracted_items_for_csv)
+    else:
+        final_output = "\n\n---\n\n".join(all_reports)
 
     if args.output:
         out_path = os.path.expanduser(args.output)
