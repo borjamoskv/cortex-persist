@@ -45,3 +45,10 @@ AVISOS (13):
   ... y 3 más.
 
 [PASS] 100% de las 136 habilidades son plenamente conformes con la Tríada Declarativa CORTEX.
+
+## 5. Invariante de Presupuesto de Prompt (Límite de Kolmogorov · INV_C5_SKILL_BUDGET)
+Para prevenir el colapso del presupuesto de contexto (Prompt Tax / Silent Drop) en el Language Server de Antigravity:
+- El campo `description` en el frontmatter YAML de TODO `SKILL.md` **TIENE ESTRICTAMENTE PROHIBIDO** superar los **350 caracteres**.
+- **Cero Prosa Burocrática:** La descripción debe limitarse a una (1) frase concisa seguida obligatoriamente de sus triggers exactos (`Dispara con "..."`).
+- Cualquier explicación extendida, tutorial o detalle arquitectónico debe residir exclusivamente en el cuerpo Markdown del archivo, NUNCA en el YAML frontmatter.
+- Todo commit en ecosistemas C5-REAL está protegido por un git hook en Silicio (Ring-0) que rechazará con `exit 1` cualquier violación de esta cota.
