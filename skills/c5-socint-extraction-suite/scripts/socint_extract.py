@@ -378,6 +378,59 @@ class ActorNetwork:
         lines.append('</gexf>')
         return "\n".join(lines)
 
+    def compute_centrality(self, damping=0.85, max_iter=40, tol=1e-5):
+        """Calcula métricas de centralidad en silicio (Grado y PageRank / Power Iteration) sin dependencias."""
+        nodes = sorted(list(self.nodes))
+        N = len(nodes)
+        if N == 0:
+            return {"in_degree": {}, "out_degree": {}, "pagerank": {}, "top_influencers": []}
+
+        in_degree = {n: 0 for n in nodes}
+        out_degree = {n: 0 for n in nodes}
+        out_links = {n: [] for n in nodes}
+
+        for e in self.edges:
+            s = e["source"]
+            t = e["target"]
+            w = e.get("weight", 1)
+            if s in out_degree:
+                out_degree[s] += w
+                out_links[s].append((t, w))
+            if t in in_degree:
+                in_degree[t] += w
+
+        # Power Iteration PageRank
+        pr = {n: 1.0 / N for n in nodes}
+        for _ in range(max_iter):
+            next_pr = {n: (1.0 - damping) / N for n in nodes}
+            for u in nodes:
+                total_w = sum(w for _, w in out_links[u])
+                if total_w > 0:
+                    for v, w in out_links[u]:
+                        if v in next_pr:
+                            next_pr[v] += damping * pr[u] * (w / total_w)
+                else:
+                    for v in nodes:
+                        next_pr[v] += damping * pr[u] / N
+
+            err = sum(abs(next_pr[n] - pr[n]) for n in nodes)
+            pr = next_pr
+            if err < tol:
+                break
+
+        total_pr = sum(pr.values())
+        if total_pr > 0:
+            pr = {n: round(score / total_pr, 5) for n, score in pr.items()}
+
+        sorted_pr = sorted(pr.items(), key=lambda x: x[1], reverse=True)
+
+        return {
+            "in_degree": in_degree,
+            "out_degree": out_degree,
+            "pagerank": pr,
+            "top_influencers": [{"node": n, "score": s, "in_degree": in_degree.get(n, 0)} for n, s in sorted_pr[:10]]
+        }
+
 
 # -----------------------------------------------------------------------------
 # TEMPORAL FORENSICS & BURSTINESS ENGINE (Poisson vs Coordinated Drip)
@@ -429,6 +482,70 @@ class TemporalForensics:
             "fano_factor": fano,
             "coordinated_clusters": coordinated_clusters,
             "mean_delta_sec": round(mu, 2),
+            "verdict": verdict
+        }
+
+
+# -----------------------------------------------------------------------------
+# COORDINATED ACTION MATRIX & CIB CO-OCCURRENCE ENGINE
+# -----------------------------------------------------------------------------
+
+class CoordinatedActionMatrix:
+    """Detecta co-amplificación y sincronización de actores sobre objetivos comunes en ventanas breves."""
+
+    @staticmethod
+    def analyze_co_actions(comments, time_window_sec=60):
+        """Identifica parejas de actores que intervienen en proximidad temporal estrecha (<= time_window_sec)."""
+        if not comments or len(comments) < 2:
+            return {
+                "co_actions": [],
+                "total_synchronized_pairs": 0,
+                "max_co_occurrences": 0,
+                "cib_synchronization_score": 0.0,
+                "verdict": "DATOS INSUFICIENTES"
+            }
+
+        pairs = {}
+        sorted_comments = sorted(
+            [c for c in comments if (c.get("timestamp") or c.get("created_utc")) and c.get("author") not in (None, "[deleted]", "[removed]")],
+            key=lambda x: float(x.get("timestamp") or x.get("created_utc") or 0)
+        )
+
+        for i in range(len(sorted_comments)):
+            a1 = sorted_comments[i]["author"]
+            t1 = float(sorted_comments[i].get("timestamp") or sorted_comments[i].get("created_utc") or 0)
+            for j in range(i + 1, len(sorted_comments)):
+                a2 = sorted_comments[j]["author"]
+                t2 = float(sorted_comments[j].get("timestamp") or sorted_comments[j].get("created_utc") or 0)
+                delta = t2 - t1
+                if delta > time_window_sec:
+                    break
+                if a1 != a2:
+                    pair_key = tuple(sorted([a1, a2]))
+                    pairs[pair_key] = pairs.get(pair_key, 0) + 1
+
+        sorted_pairs = sorted(
+            [{"actor_a": k[0], "actor_b": k[1], "co_occurrences": v} for k, v in pairs.items()],
+            key=lambda x: x["co_occurrences"],
+            reverse=True
+        )
+
+        total_interactions = len(sorted_comments)
+        max_co = sorted_pairs[0]["co_occurrences"] if sorted_pairs else 0
+        cib_score = round(min(1.0, (max_co * 2.0) / max(1, total_interactions)), 3)
+
+        if cib_score >= 0.50:
+            verdict = "⚠️ ALTA CO-SINCRONIZACIÓN (Posible campaña de astroturfing orquestada)"
+        elif cib_score >= 0.20:
+            verdict = "⚠️ CO-OCURRENCIA MODERADA (Pares de cuentas recurrentes en ráfagas)"
+        else:
+            verdict = "✅ COORDINACIÓN BAJA O NULA (Distribución de actores asíncrona)"
+
+        return {
+            "co_actions": sorted_pairs[:10],
+            "total_synchronized_pairs": len(pairs),
+            "max_co_occurrences": max_co,
+            "cib_synchronization_score": cib_score,
             "verdict": verdict
         }
 
@@ -600,6 +717,118 @@ def compute_merkle_root(fields_dict):
         current = next_level
 
     return current[0]
+
+
+# -----------------------------------------------------------------------------
+# STIX 2.1 THREAT INTELLIGENCE SERIALIZER (OASIS Open CTI Standard)
+# -----------------------------------------------------------------------------
+
+class StixThreatIntel:
+    """Serializa la evidencia y deducciones forenses a STIX 2.1 para OpenCTI, MISP y Splunk."""
+
+    @staticmethod
+    def generate_bundle(post_data, astroturf_audit=None, temporal_audit=None, sentiment_audit=None):
+        import uuid
+        from datetime import datetime, timezone
+
+        now_iso = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z")
+        bundle_id = f"bundle--{uuid.uuid4()}"
+        objects = []
+
+        author = post_data.get("author") or post_data.get("username") or post_data.get("channel") or "unknown-target"
+        platform = post_data.get("platform") or "web"
+        url = post_data.get("url") or ""
+        target_uuid = uuid.uuid5(uuid.NAMESPACE_URL, url or author)
+        target_id = f"identity--{target_uuid}"
+
+        target_identity = {
+            "type": "identity",
+            "spec_version": "2.1",
+            "id": target_id,
+            "created": now_iso,
+            "modified": now_iso,
+            "name": f"{author} ({platform})",
+            "identity_class": "individual",
+            "description": f"Actor investigated via SOCINT C5-REAL on {platform}",
+            "contact_information": url
+        }
+        objects.append(target_identity)
+
+        obs_id = f"observed-data--{uuid.uuid4()}"
+        observed_obj = {
+            "type": "observed-data",
+            "spec_version": "2.1",
+            "id": obs_id,
+            "created": now_iso,
+            "modified": now_iso,
+            "first_observed": now_iso,
+            "last_observed": now_iso,
+            "number_observed": 1,
+            "objects": {
+                "0": {
+                    "type": "url",
+                    "value": url or "https://unknown.local"
+                },
+                "1": {
+                    "type": "user-account",
+                    "account_login": author,
+                    "account_type": platform
+                }
+            }
+        }
+        objects.append(observed_obj)
+
+        if astroturf_audit and astroturf_audit.get("astroturf_risk_score", 0) >= 0.25:
+            ind_id = f"indicator--{uuid.uuid4()}"
+            risk = astroturf_audit.get("astroturf_risk_score")
+            ind_obj = {
+                "type": "indicator",
+                "spec_version": "2.1",
+                "id": ind_id,
+                "created": now_iso,
+                "modified": now_iso,
+                "name": f"SOCINT Astroturf Detection ({int(risk*100)}% risk)",
+                "description": astroturf_audit.get("verdict"),
+                "indicator_types": ["anomalous-activity"],
+                "pattern": f"[user-account:account_type = '{platform}']",
+                "pattern_type": "stix",
+                "valid_from": now_iso
+            }
+            objects.append(ind_obj)
+
+            rel_id = f"relationship--{uuid.uuid4()}"
+            objects.append({
+                "type": "relationship",
+                "spec_version": "2.1",
+                "id": rel_id,
+                "created": now_iso,
+                "modified": now_iso,
+                "relationship_type": "indicates",
+                "source_ref": ind_id,
+                "target_ref": target_id
+            })
+
+        if temporal_audit and "RÁFAGA" in temporal_audit.get("verdict", ""):
+            ind_t_id = f"indicator--{uuid.uuid4()}"
+            objects.append({
+                "type": "indicator",
+                "spec_version": "2.1",
+                "id": ind_t_id,
+                "created": now_iso,
+                "modified": now_iso,
+                "name": "Coordinated Inauthentic Behavior Burst",
+                "description": temporal_audit.get("verdict"),
+                "indicator_types": ["anomalous-activity"],
+                "pattern": f"[user-account:account_type = '{platform}']",
+                "pattern_type": "stix",
+                "valid_from": now_iso
+            })
+
+        return {
+            "type": "bundle",
+            "id": bundle_id,
+            "objects": objects
+        }
 
 
 # -----------------------------------------------------------------------------
@@ -2298,6 +2527,36 @@ def generate_markdown_report(data, epistemic_audit=None, astroturf_audit=None):
             f"",
         ])
 
+    # Métricas de Centralidad y Actores Clave
+    centrality = data.get("network_centrality")
+    if centrality:
+        lines.extend([
+            f"---",
+            f"",
+            f"## 🌐 Centralidad de Red & Actores Clave (PageRank & Degree)",
+            f"",
+        ])
+        for inf in centrality.get("top_influencers", [])[:5]:
+            lines.append(f"- **{inf['node']}**: PageRank `{inf['score']:.5f}` | In-Degree `{inf['in_degree']}`")
+        lines.append("")
+
+    # Matriz de Acción Coordinada (CIB)
+    co_actions = data.get("coordinated_actions")
+    if co_actions:
+        lines.extend([
+            f"---",
+            f"",
+            f"## 🤝 Matriz de Acción Coordinada (CIB Co-Occurrence)",
+            f"",
+            f"- **Veredicto de Sincronización:** `{co_actions.get('verdict')}`",
+            f"- **Score de Sincronización CIB:** `{co_actions.get('cib_synchronization_score') * 100:.1f}%`",
+            f"- **Pares Sincronizados:** `{co_actions.get('total_synchronized_pairs')}`",
+            f"",
+        ])
+        for p in co_actions.get("co_actions", [])[:5]:
+            lines.append(f"- **@{p['actor_a']}** ⟷ **@{p['actor_b']}**: `{p['co_occurrences']}` co-ocurrencias en ráfaga")
+        lines.append("")
+
     return "\n".join(lines)
 
 
@@ -2450,6 +2709,9 @@ def main():
     parser.add_argument("--export-mermaid", type=str, help="Exportar grafo de interacción en sintaxis Mermaid.")
     parser.add_argument("--export-dot", type=str, help="Exportar grafo de interacción en sintaxis Graphviz DOT.")
     parser.add_argument("--export-gexf", type=str, help="Exportar grafo de interacción en formato Gephi XML GEXF.")
+    parser.add_argument("--centrality-check", action="store_true", help="Calcular métricas de centralidad y PageRank en el grafo de actores.")
+    parser.add_argument("--cib-matrix", action="store_true", help="Analizar sincronización temporal y co-ocurrencia de pares de cuentas sospechosas.")
+    parser.add_argument("--export-stix", type=str, help="Exportar paquete de inteligencia de amenazas en formato STIX 2.1 JSON.")
     parser.add_argument("--pivot", type=str, help="Generar dossier de investigación unificada para un handle a través de las 11 plataformas.")
     parser.add_argument("--burst-check", action="store_true", help="Auditar dinámica temporal de comentarios para detectar bots periódicos o ráfagas CIB.")
     parser.add_argument("--lexical-check", action="store_true", help="Calcular densidad léxica y ratio de Hapax Legomena contra texto sintético.")
@@ -2678,9 +2940,26 @@ def main():
         }
 
         actor_network = None
-        if args.network or args.export_mermaid or args.export_dot or args.export_gexf or args.format == "html":
+        if args.network or args.centrality_check or args.export_mermaid or args.export_dot or args.export_gexf or args.format == "html":
             actor_network = ActorNetwork.extract_from_data(extracted_data)
             extracted_data["actor_network"] = actor_network.to_dict()
+
+        if (args.centrality_check or args.network) and actor_network:
+            extracted_data["network_centrality"] = actor_network.compute_centrality()
+
+        if args.cib_matrix and comments_for_astroturf:
+            extracted_data["coordinated_actions"] = CoordinatedActionMatrix.analyze_co_actions(comments_for_astroturf)
+
+        if args.export_stix:
+            stix_bundle = StixThreatIntel.generate_bundle(
+                extracted_data,
+                astroturf_audit,
+                extracted_data.get("temporal_forensics"),
+                extracted_data.get("sentiment_affect")
+            )
+            with open(os.path.expanduser(args.export_stix), "w", encoding="utf-8") as sf:
+                json.dump(stix_bundle, sf, indent=2, ensure_ascii=False)
+            print(f"[✓] Bundle STIX 2.1 exportado en: {args.export_stix}")
 
         if args.export_mermaid and actor_network:
             with open(os.path.expanduser(args.export_mermaid), "w", encoding="utf-8") as mf:

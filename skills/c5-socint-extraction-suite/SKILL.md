@@ -97,7 +97,11 @@ python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extrac
 python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
   --url "https://x.com/username/status/1844000000000000000" --sentiment-check --merkle-seal
 
-# 14. Ejecución de la Suite de Verificación Determinista Offline (35/35)
+# 14. Centralidad de red (PageRank), matriz CIB de co-ocurrencia y STIX 2.1
+python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
+  --url "https://news.ycombinator.com/item?id=38000000" --centrality-check --cib-matrix --export-stix threat_intel.json
+
+# 15. Ejecución de la Suite de Verificación Determinista Offline (40/40)
 python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/test_socint.py
 ```
 
@@ -142,20 +146,24 @@ Con `--save-vault`, toda investigación se archiva de forma duradera en `~/.gemi
 
 ---
 
-## 🔬 6. Módulos Forenses Avanzados & Atestación Criptográfica (v1.3.0)
+## 🔬 6. Módulos Forenses Avanzados & Atestación Criptográfica (v1.4.0)
 
-1. **TemporalForensics:**
+1. **TemporalForensics & CoordinatedActionMatrix:**
    - Coeficiente de Ráfaga: $B = \frac{\sigma - \mu}{\sigma + \mu} \in [-1, 1]$
    - Factor de Fano: $F = \frac{\sigma^2}{\mu}$
    - Detección de *Bot Drip* periódico ($B \to -1, F \ll 1$) vs. *Ráfagas CIB coordinadas* ($B > 0.40, F > 10$).
+   - Matriz de co-acción para pares de actores en ventanas temporales estrechas ($\Delta t \le 60\text{s}$).
 2. **LexicalDispersion (Hapax Legomena):**
    - Ratio $V/N$ (Type-Token Ratio) y proporción de palabras únicas ($Hapax/V$) para distinguir prosa humana rica de monotonía estocástica generada por LLMs.
-3. **ActorNetwork & Grafos:**
-   - Extracción de menciones `@user`, enlaces e interacciones. Exportación directa a **Mermaid (`.mmd`)**, **Graphviz (`.dot`)** y **Gephi XML (`.gexf`)**.
+3. **ActorNetwork & Centralidad (PageRank):**
+   - Extracción de menciones `@user`, enlaces e interacciones. Centralidad de Grado y PageRank matricial por Power Iteration.
+   - Exportación a **Mermaid (`.mmd`)**, **Graphviz (`.dot`)** y **Gephi XML (`.gexf`)**.
 4. **SentimentAffectEngine:**
    - Detección de polaridad (valencia $\in [-1, 1]$), ratio de indignación (*outrage ratio*) y volatilidad emocional en hilos de discusión.
-5. **Merkle Attestation:**
+5. **Merkle Attestation & Sello Criptográfico:**
    - Árbol binario criptográfico SHA-256 sobre hojas canónicas ordenadas (`compute_merkle_root`), garantizando integridad forense inalterable y no repudio.
+6. **StixThreatIntel (STIX 2.1):**
+   - Exportación de paquetes estándar de CTI con objetos `identity`, `observed-data`, `indicator` y `relationship` para OpenCTI/MISP.
 
 ---
 

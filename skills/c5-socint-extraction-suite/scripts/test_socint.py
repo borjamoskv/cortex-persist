@@ -22,9 +22,11 @@ try:
         AstroturfDetector,
         ActorNetwork,
         TemporalForensics,
+        CoordinatedActionMatrix,
         LexicalDispersion,
         IdentityPivotEngine,
         SentimentAffectEngine,
+        StixThreatIntel,
         compute_merkle_root,
         calculate_shannon_entropy,
         clean_html,
@@ -52,9 +54,11 @@ except ImportError:
     AstroturfDetector = _m.AstroturfDetector
     ActorNetwork = _m.ActorNetwork
     TemporalForensics = _m.TemporalForensics
+    CoordinatedActionMatrix = _m.CoordinatedActionMatrix
     LexicalDispersion = _m.LexicalDispersion
     IdentityPivotEngine = _m.IdentityPivotEngine
     SentimentAffectEngine = _m.SentimentAffectEngine
+    StixThreatIntel = _m.StixThreatIntel
     compute_merkle_root = _m.compute_merkle_root
     calculate_shannon_entropy = _m.calculate_shannon_entropy
     clean_html = _m.clean_html
@@ -77,7 +81,7 @@ except ImportError:
     generate_csv_report = _m.generate_csv_report
 
 def run_tests():
-    print("=== SOCINT C5-REAL DETERMINISTIC TEST SUITE (35/35 OMNIVECTOR) ===")
+    print("=== SOCINT C5-REAL DETERMINISTIC TEST SUITE (40/40 OMNIVECTOR) ===")
     passed = 0
     total = 0
 
@@ -508,6 +512,70 @@ def run_tests():
     assert m_root in apex_md
     passed += 1
     print("  [PASS] 35. Full Omnivector Attestation Report (Merkle + Sentiment + Topology)")
+
+    # 36. Degree Centrality (In-Degree & Out-Degree)
+    total += 1
+    cent = net.compute_centrality()
+    assert "in_degree" in cent and "out_degree" in cent
+    assert cent["in_degree"].get("borjamoskv", 0) > 0
+    assert cent["out_degree"].get("borjamoskv", 0) > 0
+    passed += 1
+    print("  [PASS] 36. ActorNetwork Degree Centrality (In-Degree & Out-Degree)")
+
+    # 37. Power Iteration PageRank Convergence & Influencer Ranking
+    total += 1
+    pr = cent["pagerank"]
+    assert len(pr) > 0
+    assert abs(sum(pr.values()) - 1.0) < 0.05
+    top_inf = cent["top_influencers"]
+    assert len(top_inf) > 0
+    assert any(inf["node"] == "borjamoskv" for inf in top_inf)
+    passed += 1
+    print("  [PASS] 37. Power Iteration PageRank Convergence & Influencer Ranking")
+
+    # 38. CoordinatedActionMatrix (CIB Co-Occurrence & Temporal Windowing)
+    total += 1
+    sync_comments = [
+        {"author": "sockpuppet1", "timestamp": 1728680000, "body": "Campaña spam 1"},
+        {"author": "sockpuppet2", "timestamp": 1728680010, "body": "Campaña spam 2"},
+        {"author": "sockpuppet1", "timestamp": 1728680100, "body": "Campaña spam 3"},
+        {"author": "sockpuppet2", "timestamp": 1728680115, "body": "Campaña spam 4"},
+    ]
+    co_res = CoordinatedActionMatrix.analyze_co_actions(sync_comments, time_window_sec=60)
+    assert co_res["total_synchronized_pairs"] >= 1
+    assert co_res["max_co_occurrences"] >= 2
+    assert co_res["cib_synchronization_score"] > 0
+    assert "ALTA CO-SINCRONIZACIÓN" in co_res["verdict"] or "CO-OCURRENCIA" in co_res["verdict"]
+    passed += 1
+    print("  [PASS] 38. CoordinatedActionMatrix CIB Co-Occurrence & Burst Pairing")
+
+    # 39. STIX 2.1 Threat Intel Bundle Generation & Schema Validation
+    total += 1
+    stix = StixThreatIntel.generate_bundle(
+        sample_evidence,
+        astroturf_audit={"astroturf_risk_score": 0.85, "verdict": "ALTO RIESGO"},
+        temporal_audit={"verdict": "⚠️ RÁFAGA COORDINADA DETECTADA"}
+    )
+    assert stix["type"] == "bundle"
+    assert len(stix["objects"]) >= 3
+    assert any(o["type"] == "identity" for o in stix["objects"])
+    assert any(o["type"] == "observed-data" for o in stix["objects"])
+    assert any(o["type"] == "indicator" for o in stix["objects"])
+    assert any(o["type"] == "relationship" for o in stix["objects"])
+    passed += 1
+    print("  [PASS] 39. STIX 2.1 Threat Intel Bundle Generation & Spec Validation")
+
+    # 40. Full Omnivector Attestation Dossier (Merkle + STIX + Centrality + Affect + CIB)
+    total += 1
+    mock_post_v14 = dict(mock_post_apex)
+    mock_post_v14["network_centrality"] = cent
+    mock_post_v14["coordinated_actions"] = co_res
+    v14_md = generate_markdown_report(mock_post_v14, audit, res_bot)
+    assert "Centralidad de Red & Actores Clave" in v14_md
+    assert "Matriz de Acción Coordinada" in v14_md
+    assert "Sello Criptográfico de Evidencia" in v14_md
+    passed += 1
+    print("  [PASS] 40. End-to-End Omnivector Attestation Dossier (Merkle + STIX + Centrality + Affect)")
 
     print(f"\n[✓] ALL {passed}/{total} OMNIVECTOR VERIFICATION CHECKS PASSED DETERMINISTICALLY.")
 
