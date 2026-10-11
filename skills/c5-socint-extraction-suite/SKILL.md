@@ -1,7 +1,7 @@
 ---
 name: c5-socint-extraction-suite
 display_name: Suite Soberana de Inteligencia Social (SOCINT C5-REAL)
-description: 'Extracción e ingestión SOCINT en Reddit, Substack y X sin APIs de pago, con clasificación epistémica cuádruple y detección de astroturfing. Dispara con "socint suite", "inteligencia social", "scraping redes", "reddit socint", "extraer subreddit", "substack socint", "auditar tweet", "analizar hilo x", "hilo twitter audit".'
+description: 'Suite SOCINT omnivectorial en 11 plataformas (X, Substack, Reddit, YouTube, HN, Bluesky, Telegram, GitHub, Mastodon, Polymarket, Wikipedia) con detección de astroturfing y bóveda SQLite. Dispara con "socint suite", "inteligencia social", "scraping redes", "reddit socint", "substack socint", "auditar tweet", "analizar hilo x".'
 role: ejecutor
 allowed_roles:
   - ejecutor
@@ -13,7 +13,7 @@ directives:
     downstream: auditor
 ---
 
-# Suite Soberana de Inteligencia Social (SOCINT C5-REAL)
+# Suite Soberana de Inteligencia Social (SOCINT C5-REAL Omnivectorial)
 
 > **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
 > - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Mutación de Árbol de Trabajo))
@@ -21,110 +21,75 @@ directives:
 > - **Fase Causal:** `implementation`
 > - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
-Esta suite unifica los tres vectores principales de extracción, normalización, detección de astroturfing e ingestión de telemetría discursiva en plataformas públicas (**X / Twitter**, **Substack** y **Reddit**), eludiendo muros de registro, JavaScript reactivo forzado y APIs corporativas cerradas mediante acceso directo a silicio y endpoints estáticos en Python stdlib pura.
+Esta suite unifica la extracción, normalización, detección de astroturfing y auditoría epistemológica de telemetría discursiva en **11 plataformas públicas**, eludiendo muros de registro, JavaScript reactivo forzado y APIs corporativas cerradas mediante acceso directo a silicio y endpoints estáticos en Python stdlib pura.
 
 ---
 
-## 🏛️ 1. Axiomas Cibernéticos SOCINT (Aforismo 5)
+## 🌐 1. Matriz de Cobertura Omnivectorial (11 Plataformas)
 
-En redes públicas, la señal está sumergida en un océano de *cheap talk*, bots de astroturfing y cárteles de recomendación mutua. La suite aplica el **Aforismo 5 de C5-REAL** (*Lo voluntario vale menos que lo involuntario*):
-1. **Señales Voluntarias (Baja Exergía / Alto Ruido):** Declaraciones de intenciones, hilos promocionales, retórica moral, hypes de 100x y testimonios no reproducibles.
-2. **Señales Involuntarias (Alta Exergía / Evidencia Dura):** Hashes de commit (`git`), referencias legales vinculantes (`BOE/BORME`), benchmarks empíricos con métricas reproducibles ($p_{99}$, $ms$, $tokens/s$), timestamps inmutables, ratio de controversia en Reddit, similitud léxica Jaccard entre cuentas bot y grafos topológicos de recomendación cruzada.
+| Plataforma | Adaptador en Silicio | Mecanismo de Extracción Zero-Auth | Telemetría / Entidad Extraída |
+| :--- | :--- | :--- | :--- |
+| **X (Twitter)** | `XAdapter` | FixTweet API (`api.fxtwitter.com`) & CDN Twimg Syndication | Tweets, hilos completos (`--unfold`), métricas, perfiles. |
+| **Substack** | `SubstackAdapter` | REST Archive API (`/api/v1/archive`), Posts y RSS | Artículos, comentarios de suscriptores, cárteles (PODs). |
+| **Reddit** | `RedditAdapter` | JSON API nativa con degradación a Atom RSS (`.rss`) | Hilos, subreddits, búsqueda, dossiers y entropía $H_{\text{sub}}$. |
+| **YouTube** | `YouTubeAdapter` | oEmbed API (`youtube.com/oembed`) & Proxy Jina | Título, creador, miniatura, transcripción íntegra de audio. |
+| **Hacker News** | `HackerNewsAdapter` | Algolia REST API (`hn.algolia.com`) & Firebase v0 | Historias, puntos, árboles anidados de comentarios, karma. |
+| **Bluesky** | `BlueskyAdapter` | AT Protocol Public AppView (`public.api.bsky.app`) | Posts, hilos descentralizados, reposts, likes, perfiles. |
+| **Telegram** | `TelegramAdapter` | Vista previa web estática de canales (`t.me/s/`) | Mensajes, recuento de vistas, canales de reenvío. |
+| **GitHub** | `GitHubAdapter` | Atom Feeds de actividad (`github.com/{u}.atom`) y commits | Eventos públicos, historial de commits, issues y PRs. |
+| **Mastodon** | `MastodonAdapter` | REST API pública de instancias federadas (`/api/v1/statuses`) | Toots, reblogs, favoritos y respuestas federadas. |
+| **Mercados de Predicción** | `PredictionMarketAdapter` | Polymarket Gamma API & Manifold Markets REST | Probabilidad implícita, volumen transaccionado, liquidez. |
+| **Wikipedia** | `WikipediaAdapter` | MediaWiki Revisions API (`wikipedia.org/w/api.php`) | Historial de revisiones, guerras de edición y reversiones. |
 
 ---
 
 ## ⚙️ 2. Motor CLI en Silicio (`scripts/socint_extract.py`)
 
-La suite dispone de una herramienta de línea de comandos en **stdlib pura** (cero dependencias externas como Selenium, Playwright o wrappers hinchados) con soporte para almacenamiento SQLite WAL:
-
 ```bash
-# Desenrollar hilo completo en X (Twitter) hasta la raíz
+# 1. Desenrollar hilo completo en X (Twitter) hasta la raíz
 python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
-  --url "https://x.com/username/status/1844000000000000000" \
-  --unfold --format markdown --save-vault
+  --url "https://x.com/username/status/1844000000000000000" --unfold --save-vault
 
-# Peritaje forense de usuario en Reddit con cálculo de entropía H(sub)
+# 2. Peritaje forense de usuario en Reddit con cálculo de entropía H(sub)
 python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
   --url "u/username" --limit 50 --format markdown
 
-# Búsqueda contextual dentro de un subreddit
+# 3. Discusión completa en Hacker News con árbol anidado de comentarios
 python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
-  --url "r/LocalLLaMA" --search "quantization" --limit 20 --format markdown
+  --url "https://news.ycombinator.com/item?id=38000000" --format markdown
 
-# Extracción de vídeo y transcripción en YouTube (Zero-Auth)
+# 4. Hilo descentralizado en Bluesky (AT Protocol)
 python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
-  --url "https://www.youtube.com/watch?v=dQw4w9WgXcQ" --format markdown
+  --url "https://bsky.app/profile/user.bsky.social/post/3kabc123" --format markdown
 
-# Consultar estadísticas agregadas y telemetría de la Bóveda SQLite WAL
+# 5. Canal público de Telegram con recuento de vistas
+python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
+  --url "https://t.me/s/channel_name" --format markdown
+
+# 6. Actividad pública de desarrollador en GitHub
+python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
+  --url "https://github.com/torvalds" --format markdown
+
+# 7. Probabilidad y volumen en Polymarket o Manifold
+python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
+  --url "https://polymarket.com/event/slug-name" --format markdown
+
+# 8. Peritaje de guerras de edición en Wikipedia
+python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
+  --url "https://es.wikipedia.org/wiki/Nombre_Articulo" --format markdown
+
+# 9. Consultar telemetría y registros de la Bóveda SQLite WAL
 python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py --vault-stats
 
-# Ejecutar consulta SQL de lectura sobre el histórico archivado
-python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
-  --vault-query "SELECT platform, author, snr_score FROM socint_vault WHERE snr_score > 0.60 LIMIT 10"
-
-# Ejecución de la Suite de Verificación Determinista Offline (12/12)
+# 10. Ejecución de la Suite de Verificación Determinista Offline (20/20)
 python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/test_socint.py
 ```
 
 ---
 
-## 🛰️ 3. Adaptador X (Twitter): Hilos, Perfiles y Desacople de Auth
+## 🤖 3. Detector Forense de Astroturfing (Similitud Jaccard N-Grams)
 
-### Pipeline de Resolución Multicapa (Fail-Closed)
-1. **Capa 1 (FixTweet / FxTwitter API):**
-   - Invocación directa a `https://api.fxtwitter.com/{user}/status/{id}` o `/status/{id}`.
-   - Retorna payload JSON sin cookies ni sesión: texto íntegro, fecha ISO, autor (`followers`, `following`, `screen_name`), media (fotos/vídeos), tweet citado (*quoted tweet*) y métricas (`likes`, `retweets`, `replies`, `views`).
-   - Endpoint de perfil: `https://api.fxtwitter.com/{username}` para telemetría forense de cuentas (fecha de creación, badges de verificación, ratios).
-2. **Capa 2 (Twimg Syndication Endpoint):**
-   - Si Capa 1 falla, consulta el CDN de sindicación oficial de X:
-     `https://cdn.syndication.twimg.com/tweet-result?id={id}&token={token}`.
-   - Extrae el texto plano del tweet y metadatos del autor sin ejecutar JavaScript.
-3. **Capa 3 (Proxy Autónomo Jina Reader):**
-   - `https://r.jina.ai/https://x.com/{user}/status/{id}` para rescate en formato Markdown.
-4. **Capa 4 (Headless / JXA):** Degradación al subagente `/browser` o automatización de Safari local si se activa un WAF severo.
-
----
-
-## 📰 4. Adaptador Substack: Archivos, Artículos y Auditoría de PODs
-
-### Bypass de WAF y API JSON Nativa
-1. **Lectura de Artículo y Comentarios:**
-   - Invocación a `https://{domain}/api/v1/posts/{slug}` y `https://{domain}/api/v1/posts/{post_id}/comments`.
-   - Retorna el HTML semántico limpio del artículo y las reacciones de suscriptores, eliminando popups de suscripción y paywalls blandos.
-2. **Archivo Cronológico Completo:**
-   - Invocación paginada a `https://{domain}/api/v1/archive?sort=new&limit=50&offset=0`.
-   - Indexa títulos, fechas, número de palabras, comentarios y recuento de likes.
-3. **Auditoría Forense de PODs (Cárteles de Recomendación):**
-   - Endpoint: `https://{domain}/api/v1/recommendations`.
-   - Detecta si la publicación forma parte de un círculo de auto-promoción inflada (*reciprocal backscratching*) analizando si $>15$ newsletters se recomiendan circularmente sin base técnica.
-4. **Fallback RSS:** `https://{domain}/feed` para publicaciones con DNS personalizado o WAF activado.
-
----
-
-## 👾 5. Adaptador Reddit: Minería de Hilos, Árboles y Controversia
-
-### Extracción Determinista con Degradación a Atom RSS
-1. **Barrido de Subreddit:**
-   - Endpoint primario: `https://www.reddit.com/r/{subreddit}/{sort}.json?limit={limit}`.
-   - Fallback de silicio: `https://www.reddit.com/r/{subreddit}/{sort}.rss` (Atom XML) si Reddit responde con HTTP 403 o 429 por límite de IP sin sesión.
-4. **Dossier Forense de Usuario y Entropía Shannon:**
-   - Analiza `/user/{username}/submitted` y calcula la entropía de Shannon sobre la distribución de subreddits:
-     $$H_{\text{sub}} = -\sum p_i \log_2(p_i)$$
-   - $H_{\text{sub}} < 0.85$ bits con $>5$ posts señala una cuenta monotemática utilizada para spam, shill o astroturfing.
-
----
-
-## 📺 6. Adaptador YouTube: Metadatos y Transcripciones Zero-Auth
-
-- **Extracción de Metadatos:** Invocación a `https://www.youtube.com/oembed?url={video_url}&format=json` (título, creador, miniatura).
-- **Rescate de Transcripción:** Recuperación de subtítulos y audio transcrito mediante proxy autónomo Jina Reader sin requerir Google Cloud Console ni API keys.
-- **Auditoría Epistemológica Integrada:** El texto del vídeo se somete a la matriz cuádruple C5-REAL para medir el ratio de afirmaciones fundamentadas frente a clickbait.
-
----
-
-## 🤖 7. Detector Forense de Astroturfing (Similitud Jaccard N-Grams)
-
-Para desenmascarar granjas de bots, cuentas títere (*sockpuppets*) y ataques Sybil:
+Desenmascara granjas de bots, cuentas títere (*sockpuppets*) y ataques Sybil:
 1. **Extracción y Tokenización:** Descompone los comentarios en 3-gramas de palabras consecutivas.
 2. **Similitud Jaccard por Pares:**
    $$J(A, B) = \frac{|A \cap B|}{|A \cup B|}$$
@@ -137,9 +102,9 @@ Para desenmascarar granjas de bots, cuentas títere (*sockpuppets*) y ataques Sy
 
 ---
 
-## ⚖️ 8. Matriz de Clasificación Epistemológica (Las 4 Categorías C5-REAL)
+## ⚖️ 4. Matriz de Clasificación Epistemológica (Las 4 Categorías C5-REAL)
 
-Todo texto procesado por la suite se clasifica automáticamente en 4 estratos epistémicos:
+Todo texto procesado se clasifica automáticamente en 4 estratos epistémicos:
 
 | Categoría Epistémica | Indicadores Lingüísticos & Silicio | Veredicto Operativo |
 | :--- | :--- | :--- |
@@ -153,17 +118,17 @@ $$\text{SNR} = \frac{N_{\text{hechos}} + N_{\text{experimental}} + N_{\text{mode
 
 ---
 
-## 🏛️ 8. Bóveda Local SQLite WAL (`socint_vault.db`)
+## 🏛️ 5. Bóveda Local SQLite WAL (`socint_vault.db`)
 
-Con la bandera `--save-vault`, toda investigación se archiva en una base de datos local SQLite bajo modo WAL (`PRAGMA journal_mode = WAL;`) en `~/.gemini/antigravity/socint_vault.db`:
+Con `--save-vault`, toda investigación se archiva de forma duradera en `~/.gemini/antigravity/socint_vault.db` (`PRAGMA journal_mode = WAL;`):
 - Registra `record_id`, `platform`, `target_type`, `url`, `author`, `title`, `raw_content`, `metrics_json`, `epistemic_counts_json`, `snr_score` y `captured_at`.
-- Operación idempotente (`INSERT OR REPLACE`), protegiendo la evidencia histórica frente a eliminación de tweets o borrado de posts.
+- Operación idempotente (`INSERT OR REPLACE`), protegiendo la evidencia histórica frente a eliminación de tweets, mensajes o posts.
 
 ---
 
-## 🔒 9. Contrato de Autonomía Fail-Closed (Ω10 / Ω11 / Ω12)
+## 🔒 6. Contrato de Autonomía Fail-Closed (Ω10 / Ω11 / Ω12)
 
-- **Ω10 (Zero Pause Transition):** El agente no debe detener la ejecución ni solicitar autorización al operador para saltar de la API primaria al fallback de sindicación o lector Markdown ante un error HTTP (403, 429).
+- **Ω10 (Zero Pause Transition):** El agente no debe detener la ejecución ni solicitar autorización al operador para alternar entre adaptadores o ejecutar fallbacks de sindicación/Atom.
 - **Ω11 (Degradación Determinista):**
-  $$\text{API Directa JSON} \xrightarrow{\text{error}} \text{Sindicación/RSS} \xrightarrow{\text{error}} \text{Proxy Lector Markdown} \xrightarrow{\text{error}} \text{Subagente Browser}$$
+  $$\text{API Directa JSON} \xrightarrow{\text{error}} \text{Sindicación/RSS/Atom} \xrightarrow{\text{error}} \text{Proxy Lector Markdown} \xrightarrow{\text{error}} \text{Subagente Browser}$$
 - **Ω12 (Atestación Limpia):** Los datos extraídos deben exportarse limpios de scripts o trackers, respetando la Manta de Markov y almacenándose en `/tmp/` o en el artefacto de la conversación.

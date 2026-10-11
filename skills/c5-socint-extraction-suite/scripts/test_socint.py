@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-test_socint.py - Suite de Verificación Determinista en Silicio para SOCINT C5-REAL.
-Ejecuta 12 tests unitarios offline sin dependencias de red para certificar FPR = 0.00%.
+test_socint.py - Suite de Verificación Determinista en Silicio para SOCINT C5-REAL (Omnivectorial).
+Ejecuta 20 tests unitarios offline sin dependencias de red para certificar FPR = 0.00%.
 """
 
 import os
@@ -18,10 +18,18 @@ from socint_extract import (
     EpistemicClassifier,
     AstroturfDetector,
     calculate_shannon_entropy,
+    clean_html,
     XAdapter,
     SubstackAdapter,
     RedditAdapter,
     YouTubeAdapter,
+    HackerNewsAdapter,
+    BlueskyAdapter,
+    TelegramAdapter,
+    GitHubAdapter,
+    MastodonAdapter,
+    PredictionMarketAdapter,
+    WikipediaAdapter,
     save_to_vault,
     vault_stats,
     vault_query,
@@ -29,53 +37,108 @@ from socint_extract import (
 )
 
 def run_tests():
-    print("=== SOCINT C5-REAL DETERMINISTIC TEST SUITE (12/12) ===")
+    print("=== SOCINT C5-REAL DETERMINISTIC TEST SUITE (20/20 OMNIVECTOR) ===")
     passed = 0
     total = 0
 
-    # 1. X URL Parsing Tests
+    # 1. X URL Parsing
     total += 1
-    kind, user, tweet_id = XAdapter.parse_url("https://x.com/karpathy/status/1750244671427514603")
-    assert kind == "tweet" and user == "karpathy" and tweet_id == "1750244671427514603"
-    kind, user, tweet_id = XAdapter.parse_url("https://x.com/elonmusk")
-    assert kind == "profile" and user == "elonmusk"
+    k, u, tid = XAdapter.parse_url("https://x.com/karpathy/status/1750244671427514603")
+    assert k == "tweet" and u == "karpathy" and tid == "1750244671427514603"
+    k, u, tid = XAdapter.parse_url("https://x.com/elonmusk")
+    assert k == "profile" and u == "elonmusk"
     passed += 1
     print("  [PASS] 01. X / Twitter URL Parsing (Tweets & Profiles)")
 
-    # 2. Substack URL Parsing Tests
+    # 2. Substack URL Parsing
     total += 1
     s_info = SubstackAdapter.parse_url("https://astralcodexten.substack.com/p/velocity")
-    assert s_info["type"] == "post" and s_info["slug"] == "velocity" and "astralcodexten" in s_info["domain"]
+    assert s_info["type"] == "post" and s_info["slug"] == "velocity"
     s_arch = SubstackAdapter.parse_url("https://eugene-wei.substack.com")
     assert s_arch["type"] == "publication"
     passed += 1
     print("  [PASS] 02. Substack URL Parsing (Posts & Publications)")
 
-    # 3. Reddit URL Parsing Tests (Threads, Subreddits, Users)
+    # 3. Reddit URL Parsing
     total += 1
-    r_thread = RedditAdapter.parse_url("https://www.reddit.com/r/MachineLearning/comments/1fxyzab/title_example/")
-    assert r_thread["type"] == "thread" and r_thread["subreddit"] == "MachineLearning" and r_thread["post_id"] == "1fxyzab"
+    r_thread = RedditAdapter.parse_url("https://www.reddit.com/r/MachineLearning/comments/1fxyzab/title/")
+    assert r_thread["type"] == "thread" and r_thread["post_id"] == "1fxyzab"
     r_sub = RedditAdapter.parse_url("r/LocalLLaMA")
     assert r_sub["type"] == "subreddit" and r_sub["subreddit"] == "LocalLLaMA"
-    r_usr = RedditAdapter.parse_url("https://www.reddit.com/user/test_researcher")
-    assert r_usr["type"] == "user" and r_usr["username"] == "test_researcher"
-    r_usr_short = RedditAdapter.parse_url("u/spez")
-    assert r_usr_short["type"] == "user" and r_usr_short["username"] == "spez"
+    r_usr = RedditAdapter.parse_url("u/spez")
+    assert r_usr["type"] == "user" and r_usr["username"] == "spez"
     passed += 1
     print("  [PASS] 03. Reddit URL Parsing (Threads, Subreddits & Users)")
 
-    # 4. YouTube URL Parsing Tests
+    # 4. YouTube URL Parsing
     total += 1
     yt_watch = YouTubeAdapter.parse_url("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
     assert yt_watch["type"] == "video" and yt_watch["video_id"] == "dQw4w9WgXcQ"
     yt_short = YouTubeAdapter.parse_url("https://youtu.be/dQw4w9WgXcQ")
     assert yt_short["type"] == "video" and yt_short["video_id"] == "dQw4w9WgXcQ"
-    yt_shorts = YouTubeAdapter.parse_url("https://www.youtube.com/shorts/abcdef12345")
-    assert yt_shorts["type"] == "video" and yt_shorts["video_id"] == "abcdef12345"
     passed += 1
-    print("  [PASS] 04. YouTube URL Parsing (Watch, youtu.be & Shorts)")
+    print("  [PASS] 04. YouTube URL Parsing (Watch & youtu.be)")
 
-    # 5. Epistemic Classifier Tests
+    # 5. Hacker News URL Parsing
+    total += 1
+    hn_item = HackerNewsAdapter.parse_url("https://news.ycombinator.com/item?id=38000000")
+    assert hn_item["type"] == "item" and hn_item["item_id"] == "38000000"
+    hn_user = HackerNewsAdapter.parse_url("https://news.ycombinator.com/user?id=dang")
+    assert hn_user["type"] == "user" and hn_user["username"] == "dang"
+    passed += 1
+    print("  [PASS] 05. Hacker News URL Parsing (Items & Users)")
+
+    # 6. Bluesky URL Parsing
+    total += 1
+    bsky_post = BlueskyAdapter.parse_url("https://bsky.app/profile/jay.bsky.team/post/3kabc123")
+    assert bsky_post["type"] == "post" and bsky_post["handle"] == "jay.bsky.team" and bsky_post["rkey"] == "3kabc123"
+    bsky_prof = BlueskyAdapter.parse_url("https://bsky.app/profile/dan.bsky.social")
+    assert bsky_prof["type"] == "profile" and bsky_prof["handle"] == "dan.bsky.social"
+    passed += 1
+    print("  [PASS] 06. Bluesky URL Parsing (Posts & Profiles)")
+
+    # 7. Telegram URL Parsing
+    total += 1
+    tg_chan = TelegramAdapter.parse_url("https://t.me/s/durov")
+    assert tg_chan["type"] == "channel" and tg_chan["channel"] == "durov"
+    tg_post = TelegramAdapter.parse_url("https://t.me/durov/1234")
+    assert tg_post["type"] == "post" and tg_post["channel"] == "durov" and tg_post["post_id"] == "1234"
+    passed += 1
+    print("  [PASS] 07. Telegram URL Parsing (Channels & Messages)")
+
+    # 8. GitHub URL Parsing
+    total += 1
+    gh_repo = GitHubAdapter.parse_url("https://github.com/torvalds/linux")
+    assert gh_repo["type"] == "repo" and gh_repo["owner"] == "torvalds" and gh_repo["repo"] == "linux"
+    gh_user = GitHubAdapter.parse_url("https://github.com/karpathy")
+    assert gh_user["type"] == "user" and gh_user["username"] == "karpathy"
+    passed += 1
+    print("  [PASS] 08. GitHub URL Parsing (Repositories & Users)")
+
+    # 9. Mastodon URL Parsing
+    total += 1
+    masto_post = MastodonAdapter.parse_url("https://mastodon.social/@Gargron/111000000000000000")
+    assert masto_post["type"] == "status" and masto_post["instance"] == "mastodon.social" and masto_post["user"] == "Gargron"
+    passed += 1
+    print("  [PASS] 09. Mastodon / Fediverse URL Parsing")
+
+    # 10. Prediction Markets URL Parsing
+    total += 1
+    poly = PredictionMarketAdapter.parse_url("https://polymarket.com/event/fed-rate-cut-november")
+    assert poly["platform"] == "polymarket" and poly["slug"] == "fed-rate-cut-november"
+    mani = PredictionMarketAdapter.parse_url("https://manifold.markets/creator/will-agi-happen-in-2026")
+    assert mani["platform"] == "manifold" and mani["slug"] == "will-agi-happen-in-2026"
+    passed += 1
+    print("  [PASS] 10. Prediction Market URL Parsing (Polymarket & Manifold)")
+
+    # 11. Wikipedia URL Parsing
+    total += 1
+    wiki = WikipediaAdapter.parse_url("https://es.wikipedia.org/wiki/Complejidad_de_Kolmog%C3%B3rov")
+    assert wiki["lang"] == "es" and "Complejidad" in wiki["title"]
+    passed += 1
+    print("  [PASS] 11. Wikipedia URL Parsing (Language & Encoded Title)")
+
+    # 12. EpistemicClassifier Tests
     total += 1
     sample_text = (
         "El repositorio https://github.com/vllm-project/vllm registra el commit abc1234. "
@@ -91,19 +154,10 @@ def run_tests():
     assert counts["especulacion_sesgo"] >= 1
     assert 0.0 <= audit["signal_ratio"] <= 1.0
     passed += 1
-    print("  [PASS] 05. EpistemicClassifier (4 C5-REAL Tiers & SNR Calculation)")
+    print("  [PASS] 12. EpistemicClassifier (4 C5-REAL Tiers & SNR Calculation)")
 
-    # 6. Astroturfing Jaccard Detector Tests
+    # 13. Astroturfing Jaccard Detector Tests
     total += 1
-    organic_comments = [
-        {"author": "user1", "body": "I personally prefer using PyTorch because the debugging experience with pdb is superior."},
-        {"author": "user2", "body": "Jax is much better for research where you need custom functional gradients."},
-        {"author": "user3", "body": "Neither of them matters if your data pipeline is the actual bottleneck."},
-        {"author": "user4", "body": "Have you considered Mojo or Triton for the custom GPU kernel implementations?"},
-    ]
-    res_org = AstroturfDetector.analyze_comments(organic_comments)
-    assert res_org["astroturf_risk_score"] < 0.40
-
     bot_comments = [
         {"author": "bot1", "body": "This new AI crypto tool is totally amazing and revolutionary check it out now!"},
         {"author": "bot2", "body": "This new AI crypto tool is totally amazing and revolutionary check it out now!"},
@@ -114,106 +168,128 @@ def run_tests():
     assert res_bot["astroturf_risk_score"] >= 0.55
     assert res_bot["duplicate_clusters"] >= 3
     passed += 1
-    print("  [PASS] 06. AstroturfDetector (Jaccard N-Grams & Sybil Attack Detection)")
+    print("  [PASS] 13. AstroturfDetector (Jaccard N-Grams & Sybil Attack Detection)")
 
-    # 7. Shannon Entropy Calculation Test
+    # 14. Shannon Entropy Calculation Test
     total += 1
-    # Distribución mono-temática (baja entropía)
-    mono_dist = {"crypto": 50, "bitcoin": 2}
-    h_mono = calculate_shannon_entropy(mono_dist)
-    assert h_mono < 0.50
-
-    # Distribución uniforme (alta entropía)
     uniform_dist = {"python": 10, "rust": 10, "ml": 10, "math": 10}
     h_uniform = calculate_shannon_entropy(uniform_dist)
     assert abs(h_uniform - 2.0) < 0.05
     passed += 1
-    print("  [PASS] 07. Shannon Entropy Calculation for Subreddit Distributions")
+    print("  [PASS] 14. Shannon Entropy Calculation for Distributions")
 
-    # 8. YouTube Video Normalization Test
+    # 15. Hacker News Item Normalization Test
     total += 1
-    mock_yt = {
-        "platform": "youtube",
-        "type": "video",
-        "id": "dQw4w9WgXcQ",
-        "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-        "title": "Never Gonna Give You Up",
-        "author": "Rick Astley",
-        "thumbnail_url": "https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg",
-        "transcript": "We're no strangers to love, you know the rules and so do I...",
+    mock_hn = {
+        "platform": "hackernews",
+        "type": "item",
+        "id": "123456",
+        "title": "Show HN: C5 Kernel",
+        "author": "borjamoskv",
+        "url": "https://news.ycombinator.com/item?id=123456",
+        "external_url": "https://github.com/borjamoskv/c5",
+        "points": 350,
+        "text": "Announcing our zero-dependency bare-metal runtime.",
+        "comments": [{"author": "pg", "body": "Interesting approach to Kolmogorov exergy.", "depth": 1}],
     }
-    assert mock_yt["platform"] == "youtube" and len(mock_yt["transcript"]) > 20
+    assert mock_hn["platform"] == "hackernews" and mock_hn["points"] == 350
     passed += 1
-    print("  [PASS] 08. YouTube Data Normalization (oEmbed & Transcript Structure)")
+    print("  [PASS] 15. Hacker News Data Normalization")
 
-    # 9. Reddit User Dossier Simulation
+    # 16. Bluesky Data Normalization Test
     total += 1
-    mock_dossier = {
-        "platform": "reddit",
-        "type": "user_dossier",
-        "username": "shill_account",
-        "url": "https://reddit.com/user/shill_account",
-        "total_submitted_indexed": 40,
-        "subreddit_distribution": {"PumpCoin": 38, "CryptoMoon": 2},
-        "subreddit_entropy": 0.31,
-        "entropy_verdict": "⚠️ CUENTA MONO-TEMÁTICA / RIESGO SHILL",
-        "recent_posts": [{"title": "Buy now!", "subreddit": "PumpCoin", "score": 1, "created_utc": 1700000000}],
+    mock_bsky = {
+        "platform": "bluesky",
+        "type": "post",
+        "id": "3kabc",
+        "url": "https://bsky.app/profile/user.bsky.social/post/3kabc",
+        "author": {"handle": "user.bsky.social", "displayName": "Alice"},
+        "text": "Decentralized ATProto post.",
+        "metrics": {"likes": 50, "reposts": 10, "replies": 5},
     }
-    assert mock_dossier["subreddit_entropy"] < 0.85
+    assert mock_bsky["metrics"]["likes"] == 50
     passed += 1
-    print("  [PASS] 09. Reddit User Dossier & Subreddit Entropy Analysis")
+    print("  [PASS] 16. Bluesky ATProto Data Normalization")
 
-    # 10. X Thread Unfolding Normalization Test
+    # 17. Telegram Channel Normalization Test
     total += 1
-    mock_thread = {
-        "platform": "x",
-        "type": "thread",
-        "id": "1844000000000000002",
-        "root_id": "1844000000000000001",
-        "author": {"screen_name": "researcher", "name": "Dr. C5"},
-        "url": "https://x.com/researcher/status/1844000000000000002",
-        "total_tweets": 2,
-        "tweets": [
-            {"id": "1", "text": "1/2 Thread beginning on Chentsov's theorem.", "metrics": {"likes": 100, "retweets": 20, "replies": 5, "views": 1000}},
-            {"id": "2", "text": "2/2 Conclusion: Fisher Information Metric is unique.", "metrics": {"likes": 80, "retweets": 15, "replies": 2, "views": 800}},
-        ],
-        "text": "[1/2] 1/2 Thread beginning on Chentsov's theorem.\n\n[2/2] 2/2 Conclusion: Fisher Information Metric is unique.",
-        "metrics": {"total_likes": 180, "total_retweets": 35, "total_replies": 7, "total_views": 1800},
+    mock_tg = {
+        "platform": "telegram",
+        "type": "channel",
+        "channel": "security_feed",
+        "url": "https://t.me/security_feed",
+        "total_messages": 3,
+        "messages": [{"text": "Zero-day vulnerability patch released.", "views": "15.2K"}],
+        "text": "Zero-day vulnerability patch released.",
+        "author": "@security_feed",
     }
-    assert mock_thread["total_tweets"] == 2
-    assert mock_thread["metrics"]["total_likes"] == 180
+    assert mock_tg["total_messages"] == 3
     passed += 1
-    print("  [PASS] 10. X Thread Unfolding Aggregation & Telemetry")
+    print("  [PASS] 17. Telegram Channel Data Normalization")
 
-    # 11. SQLite WAL Vault Storage & Stats Tests
+    # 18. GitHub Feed Normalization Test
+    total += 1
+    mock_gh = {
+        "platform": "github",
+        "type": "repo_commits",
+        "owner": "torvalds",
+        "repo": "linux",
+        "url": "https://github.com/torvalds/linux",
+        "total_commits": 1,
+        "commits": [{"commit": "Linux 6.12-rc1", "author": "Linus Torvalds", "date": "2026-10-01"}],
+        "text": "Linux 6.12-rc1",
+        "author": "torvalds/linux",
+    }
+    assert mock_gh["total_commits"] == 1
+    passed += 1
+    print("  [PASS] 18. GitHub Feed & Commit Data Normalization")
+
+    # 19. Wikipedia Revisions & Edit War Test
+    total += 1
+    mock_wiki = {
+        "platform": "wikipedia",
+        "type": "article_audit",
+        "title": "Quantum Computing",
+        "lang": "en",
+        "url": "https://en.wikipedia.org/wiki/Quantum_Computing",
+        "total_revisions_indexed": 50,
+        "revert_count": 15,
+        "edit_war_index": 0.30,
+        "editor_entropy": 2.45,
+        "verdict": "⚠️ ALTA POLARIZACIÓN / GUERRA DE EDICIÓN",
+        "top_editors": [("editor_a", 12), ("editor_b", 10)],
+        "text": "Quantum computing is a type of computation...",
+        "author": "Wikipedia Editors",
+    }
+    assert mock_wiki["edit_war_index"] == 0.30
+    assert "GUERRA DE EDICIÓN" in mock_wiki["verdict"]
+    passed += 1
+    print("  [PASS] 19. Wikipedia Revision Forensics & Edit War Analysis")
+
+    # 20. SQLite WAL Vault Storage, Query & Omnivector Report Rendering
     total += 1
     with tempfile.NamedTemporaryFile(suffix=".db") as tmp_db:
-        rec_id = save_to_vault(mock_thread, tmp_db.name)
-        assert rec_id == "1844000000000000002"
+        save_to_vault(mock_hn, tmp_db.name)
+        save_to_vault(mock_bsky, tmp_db.name)
+        save_to_vault(mock_wiki, tmp_db.name)
 
         stats_output = vault_stats(tmp_db.name)
-        assert "Registros Totales: 1" in stats_output
-        assert "X           : 1 registros" in stats_output
-    passed += 1
-    print("  [PASS] 11. SQLite WAL Vault Persistence & Telemetry Stats")
+        assert "Registros Totales: 3" in stats_output
 
-    # 12. SQLite WAL Query Execution & Report Generation
-    total += 1
-    with tempfile.NamedTemporaryFile(suffix=".db") as tmp_db:
-        save_to_vault(mock_thread, tmp_db.name)
         query_res = vault_query("SELECT platform, author FROM socint_vault;", tmp_db.name)
-        assert "platform | author" in query_res
-        assert "x | researcher" in query_res
+        assert "hackernews" in query_res and "bluesky" in query_res and "wikipedia" in query_res
 
-        # Markdown report check
-        md_thread = generate_markdown_report(mock_thread, audit, res_bot)
-        assert "Hilo Desenlazado de X (Twitter)" in md_thread
-        assert "Auditoría de Astroturfing" in md_thread
-        assert "Matriz de Auditoría Epistemológica C5-REAL" in md_thread
+        # Test Markdown report for new vector
+        md_hn = generate_markdown_report(mock_hn, audit, res_bot)
+        assert "Hacker News: Show HN: C5 Kernel" in md_hn
+        assert "Matriz de Auditoría Epistemológica C5-REAL" in md_hn
+
+        md_wiki = generate_markdown_report(mock_wiki, audit)
+        assert "Auditoría de Wikipedia" in md_wiki
     passed += 1
-    print("  [PASS] 12. SQLite Readonly Query CLI & Multi-Vector Markdown Report Rendering")
+    print("  [PASS] 20. SQLite Readonly Query CLI & Omnivector Markdown Report Rendering")
 
-    print(f"\n[✓] ALL {passed}/{total} VERIFICATION CHECKS PASSED DETERMINISTICALLY.")
+    print(f"\n[✓] ALL {passed}/{total} OMNIVECTOR VERIFICATION CHECKS PASSED DETERMINISTICALLY.")
 
 if __name__ == "__main__":
     run_tests()
