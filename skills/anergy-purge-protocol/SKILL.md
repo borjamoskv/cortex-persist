@@ -42,6 +42,7 @@ a un árbol git limpio.
 | **I** | OS Metadata & Artifacts (`.DS_Store`, `*.tmp`, `*.bak`) | KB–MB | `find -name ".DS_Store" -delete` transversal |
 | **J** | Context Window Inflation (Esquemas MCP ociosos, reglas saturadas, multi-turn drift) | 30k–60k tokens/prompt | Desactivación de MCPs hipertróficos de dominio ajeno (ej. `flstudio`), migración a reglas condicionales y rotación de chat |
 | **K** | Domain Bleed / Contaminación de Dominio (OPSEC societario, marketing B2B o audios dentro de repos de código) | 100MB–3GB | Evacuación atómica hacia `~/20_VAULT/` (Socios/Marketing) y `~/Music/` (Audio); nunca purga destructiva de IP valiosa. |
+| **L** | UI State Drift & Ghost Listeners (`conversation_summaries.db`) | 10–500 hilos | Forzar `CASCADE_RUN_STATUS_IDLE`, desenlazar `workspace_uris` de sumideros de anergía (>200 steps, 0 artefactos) con UUIDs canónicos (36 chars) |
 
 ---
 
@@ -332,6 +333,32 @@ Cuando el operador invoque recolectar basura de forma masiva u organizada en un 
 3. **Cohorte 3 (040–059):** Marketing B2B y Colas CRM (listas frías, JSONL) ➔ Evacuar a `~/20_VAULT/MARKETING_OUTREACH/`.
 4. **Cohorte 4 (060–079):** Binarios compilados, bundles macOS (`.app`) y clones HTML estáticos ➔ Purga determinista.
 5. **Cohorte 5 (080–099):** Logs masivos continuos (`*.log` >10 MB) y cachés de compilación (`.lake`, `.pytest_cache`) ➔ Purga y truncado a 0 bytes.
+
+---
+
+## Fase 7 — Antigravity UI State & Ghost Listener Apoptosis (Clase L)
+
+Cuando la barra lateral de Antigravity sufra latencia, spinners perpetuos o saturación por hilos de alto cómputo sin artefactos (>200 steps, 0 *.md):
+
+1. **Backup Causal:**
+   ```bash
+   cp ~/.gemini/antigravity/conversation_summaries.db ~/.gemini/antigravity/conversation_summaries.db.bak_$(date +%s)
+   ```
+
+2. **Apoptosis de Ghost Listeners:**
+   Forzar a estado ocioso los hilos marcados en falso `CASCADE_RUN_STATUS_RUNNING` o `not_fully_idle = 1`:
+   ```sql
+   UPDATE conversation_summaries 
+   SET status = 'CASCADE_RUN_STATUS_IDLE', not_fully_idle = 0 
+   WHERE workspace_uris LIKE '%<WORKSPACE>%' AND (status = 'CASCADE_RUN_STATUS_RUNNING' OR not_fully_idle = 1);
+   ```
+
+3. **Cuarentena de Sumideros de Anergía (Regla de UUID Canónico de 36 Chars):**
+   Desenlazar el workspace de hilos sin artefactos cristalizados utilizando SIEMPRE el UUID completo (`conversation_id` de 36 caracteres, prohibido prefijo `[:8]`):
+   ```python
+   # Purgar workspace_uris preservando registros crudos
+   cur.execute('UPDATE conversation_summaries SET workspace_uris = "[]" WHERE conversation_id = ?', (full_uuid_36_chars,))
+   ```
 
 ---
 

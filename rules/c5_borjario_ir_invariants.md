@@ -8,7 +8,7 @@ trigger: "always_on"
 
 ## 1. Las Seis Invariantes Constitucionales (B1 - B6)
 
-- **B1: NAME ≠ IDENTITY:** La identidad de un concepto reside exclusivamente en `concept_id` inmutable (formato `BJR-XXXXXX`). El nombre (`canonical_name`) o slug pueden mutar sin romper referencias históricas ni dependencias de grafo.
+- **B1: NAME ≠ IDENTITY (CANONICAL UUID MANDATE):** La identidad de un concepto o registro en silicio reside exclusivamente en su identificador inmutable (`concept_id` formato `BJR-XXXXXX` o `UUID-v4` de 36 caracteres). El nombre (`canonical_name`) o slug pueden mutar sin romper referencias históricas ni dependencias de grafo. Queda terminantemente prohibido utilizar slugs, nombres léxicos o prefijos truncados (ej. `id[:8]`) en sentencias de mutación causal (`WHERE conversation_id = ?`), al provocar desalineaciones estocásticas entre el mapa analítico y el territorio en base de datos.
 - **B2: DEFINITION ≠ EVIDENCE:** Una definición léxica describe un modelo; no constituye prueba física. Todo claim empírico exige un `EvidenceRef` acoplado.
 - **B3: CLAIM ⇒ SCOPE:** Todo claim sin delimitación explícita de contorno técnico (hardware, compilador, sistema operativo, condiciones de carga) constituye *overclaim* y es rechazado de forma fail-closed (`BJR-E013`).
 - **B4: FALSIFICATION ⇒ DEPENDENCY REVIEW:** La falsación empírica de una aserción dispara revisión dirigida de nodos dependientes (`cortex impact`), distinguiendo invariantes estructurales de claims de rendimiento local (`Falsify(c) ⇒ Review(Dependents(c))`).
