@@ -191,7 +191,7 @@ class AstroturfDetector:
 
     @staticmethod
     def _get_ngrams(text, n=3):
-        tokens = re.findall(r'\b\w+\b', text.lower())
+        tokens = re.findall(r"\w+", text.lower())
         if len(tokens) < n:
             return set(tokens)
         return set(" ".join(tokens[i:i+n]) for i in range(len(tokens) - n + 1))
@@ -351,6 +351,134 @@ class ActorNetwork:
             lines.append(f'    "{s}" -> "{t}" [label="{edge["type"]}", weight={edge["weight"]}];')
         lines.append("}")
         return "\n".join(lines)
+
+
+# -----------------------------------------------------------------------------
+# TEMPORAL FORENSICS & BURSTINESS ENGINE (Poisson vs Coordinated Drip)
+# -----------------------------------------------------------------------------
+
+class TemporalForensics:
+    """Analiza la dinámica temporal de comentarios para detectar campañas coordinadas y bots periódicos."""
+
+    @staticmethod
+    def analyze_timestamps(timestamps):
+        if not timestamps or len(timestamps) < 3:
+            return {
+                "burstiness": 0.0,
+                "fano_factor": 1.0,
+                "coordinated_clusters": 0,
+                "mean_delta_sec": 0.0,
+                "verdict": "DATOS INSUFICIENTES (Muestra temporal reducida)"
+            }
+
+        sorted_ts = sorted([float(t) for t in timestamps])
+        deltas = [sorted_ts[i+1] - sorted_ts[i] for i in range(len(sorted_ts) - 1)]
+        mu = sum(deltas) / len(deltas)
+        if mu <= 0:
+            return {
+                "burstiness": -1.0,
+                "fano_factor": 0.0,
+                "coordinated_clusters": len(deltas),
+                "mean_delta_sec": 0.0,
+                "verdict": "⚠️ ALERTA: Envío simultáneo masivo (Delta 0s)"
+            }
+
+        var = sum((d - mu)**2 for d in deltas) / len(deltas)
+        sigma = math.sqrt(var)
+        burstiness = round((sigma - mu) / (sigma + mu) if (sigma + mu) > 0 else 0.0, 3)
+        fano = round(var / mu, 3)
+        coordinated_clusters = sum(1 for d in deltas if d <= 15)
+
+        if burstiness <= -0.70 and fano < 0.15:
+            verdict = "⚠️ INYECCIÓN PERIÓDICA DETECTADA (Bot scheduler / Cron determinista)"
+        elif coordinated_clusters >= 3 and burstiness > 0.25:
+            verdict = "⚠️ RÁFAGA COORDINADA DETECTADA (Coordinated Inauthentic Behavior / Bot Burst)"
+        elif burstiness > 0.40:
+            verdict = "ℹ️ ACTIVIDAD POR RÁFAGAS (Picos orgánicos de atención o viralidad)"
+        else:
+            verdict = "✅ LLEGADA POISSONIANA (Interacción orgánica aleatoria)"
+
+        return {
+            "burstiness": burstiness,
+            "fano_factor": fano,
+            "coordinated_clusters": coordinated_clusters,
+            "mean_delta_sec": round(mu, 2),
+            "verdict": verdict
+        }
+
+
+# -----------------------------------------------------------------------------
+# LEXICAL DISPERSION & HAPAX ENTROPY ANALYZER
+# -----------------------------------------------------------------------------
+
+class LexicalDispersion:
+    """Mide la riqueza del vocabulario y la tasa de Hapax Legomena para detectar texto sintético LLM."""
+
+    @staticmethod
+    def analyze_text(text):
+        tokens = re.findall(r"\w+", text.lower())
+        if not tokens:
+            return {"total_tokens": 0, "vocabulary": 0, "hapax_ratio": 0.0, "lexical_density": 0.0, "verdict": "TEXTO VACÍO"}
+
+        counts = {}
+        for t in tokens:
+            counts[t] = counts.get(t, 0) + 1
+
+        hapax = sum(1 for c in counts.values() if c == 1)
+        hapax_ratio = round(hapax / len(counts), 3) if counts else 0.0
+        density = round(len(counts) / len(tokens), 3)
+
+        if density < 0.25 and len(tokens) > 50:
+            verdict = "⚠️ VOCABULARIO HIPER-REPETITIVO (Posible spam o texto prefabricado)"
+        elif hapax_ratio > 0.45:
+            verdict = "✅ ALTA VARIEDAD LÉXICA (Patrón natural de habla humana)"
+        else:
+            verdict = "ℹ️ DISPERSIÓN LÉXICA ESTÁNDAR"
+
+        return {
+            "total_tokens": len(tokens),
+            "vocabulary": len(counts),
+            "hapax_ratio": hapax_ratio,
+            "lexical_density": density,
+            "verdict": verdict
+        }
+
+
+# -----------------------------------------------------------------------------
+# CROSS-PLATFORM IDENTITY PIVOT ENGINE (Unified Footprint Dossier)
+# -----------------------------------------------------------------------------
+
+class IdentityPivotEngine:
+    """Genera un dossier de investigación unificada expandiendo un handle hacia las 11 plataformas."""
+
+    PLATFORM_TEMPLATES = {
+        "x": "https://x.com/{handle}",
+        "bluesky": "https://bsky.app/profile/{handle}.bsky.social",
+        "github": "https://github.com/{handle}",
+        "telegram": "https://t.me/{handle}",
+        "reddit": "https://reddit.com/user/{handle}",
+        "substack": "https://{handle}.substack.com",
+        "youtube": "https://www.youtube.com/@{handle}",
+        "hackernews": "https://news.ycombinator.com/user?id={handle}",
+        "mastodon": "https://mastodon.social/@{handle}",
+    }
+
+    @classmethod
+    def generate_dossier_targets(cls, handle):
+        clean_handle = re.sub(r'^[@/]|(?:u/)', '', str(handle).strip())
+        targets = []
+        for plat, tmpl in cls.PLATFORM_TEMPLATES.items():
+            targets.append({
+                "platform": plat,
+                "handle": clean_handle,
+                "candidate_url": tmpl.format(handle=clean_handle)
+            })
+        return {
+            "handle": clean_handle,
+            "total_candidate_platforms": len(targets),
+            "targets": targets
+        }
+
 
 # ADAPTER 1: X (Twitter) Engine
 # -----------------------------------------------------------------------------
@@ -1740,10 +1868,12 @@ def generate_markdown_report(data, epistemic_audit=None, astroturf_audit=None):
             replies = int(metrics.get("replies") or 0)
             views = int(metrics.get("views") or 0)
 
+            author_display = (author.get('name') or author.get('screen_name')) if isinstance(author, dict) else str(author)
+            screen_display = author.get('screen_name', author_display) if isinstance(author, dict) else str(author)
             lines.extend([
                 f"## 🛰️ Telemetría de Publicación (X/Twitter)",
                 f"",
-                f"- **Autor:** **{author.get('name') or author.get('screen_name')}** (`@{author.get('screen_name')}`)",
+                f"- **Autor:** **{author_display}** (`@{screen_display}`)",
                 f"- **URL:** [{data.get('url')}]({data.get('url')})",
                 f"- **Fecha:** `{data.get('created_at', 'N/A')}`",
                 f"- **Métricas de Impacto:** {likes:,} Likes | {retweets:,} RTs | {replies:,} Replies | {views:,} Views",
@@ -1984,6 +2114,38 @@ def generate_markdown_report(data, epistemic_audit=None, astroturf_audit=None):
             f"",
         ])
 
+    # Análisis de Dispersión Léxica
+    lexical = data.get("lexical_dispersion")
+    if lexical:
+        lines.extend([
+            f"---",
+            f"",
+            f"## 📚 Dispersión Léxica & Entropía de Vocabulario",
+            f"",
+            f"- **Tokens Totales:** `{lexical.get('total_tokens')}`",
+            f"- **Vocabulario Único:** `{lexical.get('vocabulary')}`",
+            f"- **Densidad Léxica:** `{lexical.get('lexical_density') * 100:.1f}%`",
+            f"- **Ratio Hapax Legomena (Unicidad):** `{lexical.get('hapax_ratio') * 100:.1f}%`",
+            f"- **Diagnóstico:** `{lexical.get('verdict')}`",
+            f"",
+        ])
+
+    # Análisis de Dinámica Temporal
+    temporal = data.get("temporal_forensics")
+    if temporal:
+        lines.extend([
+            f"---",
+            f"",
+            f"## ⏱️ Dinámica Temporal & Ráfagas (CIB Detection)",
+            f"",
+            f"- **Veredicto Temporal:** `{temporal.get('verdict')}`",
+            f"- **Índice de Burstiness (B):** `{temporal.get('burstiness')}`",
+            f"- **Factor de Fano:** `{temporal.get('fano_factor')}`",
+            f"- **Ráfagas Coordinadas (<=15s):** `{temporal.get('coordinated_clusters')}`",
+            f"- **Intervalo Medio entre Llegadas:** `{temporal.get('mean_delta_sec')}s`",
+            f"",
+        ])
+
     return "\n".join(lines)
 
 
@@ -2135,6 +2297,9 @@ def main():
     parser.add_argument("--network", action="store_true", help="Construir y reportar el grafo de red de actores.")
     parser.add_argument("--export-mermaid", type=str, help="Exportar grafo de interacción en sintaxis Mermaid.")
     parser.add_argument("--export-dot", type=str, help="Exportar grafo de interacción en sintaxis Graphviz DOT.")
+    parser.add_argument("--pivot", type=str, help="Generar dossier de investigación unificada para un handle a través de las 11 plataformas.")
+    parser.add_argument("--burst-check", action="store_true", help="Auditar dinámica temporal de comentarios para detectar bots periódicos o ráfagas CIB.")
+    parser.add_argument("--lexical-check", action="store_true", help="Calcular densidad léxica y ratio de Hapax Legomena contra texto sintético.")
     parser.add_argument("--save-vault", action="store_true", help="Almacenar registro en SQLite WAL vault.")
     parser.add_argument("--vault-stats", action="store_true", help="Consultar estadísticas y telemetría de la bóveda SQLite.")
     parser.add_argument("--vault-query", type=str, help="Ejecutar consulta SELECT en la bóveda SQLite.")
@@ -2148,6 +2313,16 @@ def main():
 
     if args.vault_query:
         print(vault_query(args.vault_query, args.vault_db))
+        return
+
+    if args.pivot:
+        dossier = IdentityPivotEngine.generate_dossier_targets(args.pivot)
+        if args.format == "json":
+            print(json.dumps(dossier, indent=2, ensure_ascii=False))
+        else:
+            print(f"=== DOSSIER DE IDENTIDAD UNIFICADA (OSINT PIVOT) · @{dossier['handle']} ===")
+            for t in dossier["targets"]:
+                print(f"  [{t['platform'].upper():<12}] {t['candidate_url']}")
         return
 
     if not args.url and not args.batch:
@@ -2324,6 +2499,18 @@ def main():
         if args.save_vault:
             rec_id = save_to_vault(extracted_data, args.vault_db)
             extracted_data["vault_record_id"] = rec_id
+
+        if comments_for_astroturf:
+            ts_list = [
+                c.get("created_utc") or c.get("timestamp")
+                for c in comments_for_astroturf
+                if (c.get("created_utc") or c.get("timestamp")) is not None
+            ]
+            if ts_list:
+                extracted_data["temporal_forensics"] = TemporalForensics.analyze_timestamps(ts_list)
+
+        if text_for_audit.strip():
+            extracted_data["lexical_dispersion"] = LexicalDispersion.analyze_text(text_for_audit)
 
         actor_network = None
         if args.network or args.export_mermaid or args.export_dot or args.format == "html":

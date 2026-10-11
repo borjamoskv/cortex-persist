@@ -22,6 +22,9 @@ except ImportError:
 EpistemicClassifier = mod.EpistemicClassifier
 AstroturfDetector = mod.AstroturfDetector
 ActorNetwork = mod.ActorNetwork
+TemporalForensics = mod.TemporalForensics
+LexicalDispersion = mod.LexicalDispersion
+IdentityPivotEngine = mod.IdentityPivotEngine
 calculate_shannon_entropy = mod.calculate_shannon_entropy
 clean_html = mod.clean_html
 XAdapter = mod.XAdapter
@@ -43,7 +46,7 @@ generate_html_report = mod.generate_html_report
 generate_csv_report = mod.generate_csv_report
 
 def run_tests():
-    print("=== SOCINT C5-REAL DETERMINISTIC TEST SUITE (25/25 OMNIVECTOR) ===")
+    print("=== SOCINT C5-REAL DETERMINISTIC TEST SUITE (30/30 OMNIVECTOR) ===")
     passed = 0
     total = 0
 
@@ -354,6 +357,59 @@ def run_tests():
     assert "borjamoskv" in csv_rep
     passed += 1
     print("  [PASS] 25. Tabular CSV Export (RFC 4180 Escaping & Extraction)")
+
+    # 26. TemporalForensics Periodic Bot Drip Detection
+    total += 1
+    bot_drip_ts = [1000, 1010, 1020, 1030, 1040, 1050]
+    tf_drip = TemporalForensics.analyze_timestamps(bot_drip_ts)
+    assert tf_drip["burstiness"] <= -0.70
+    assert tf_drip["fano_factor"] < 0.15
+    assert "INYECCIÓN PERIÓDICA" in tf_drip["verdict"]
+    passed += 1
+    print("  [PASS] 26. TemporalForensics Periodic Bot Drip / Scheduler Detection")
+
+    # 27. TemporalForensics Coordinated Burst Detection (CIB)
+    total += 1
+    burst_ts = [1000, 1002, 1003, 1005, 1007, 1200]
+    tf_burst = TemporalForensics.analyze_timestamps(burst_ts)
+    assert tf_burst["coordinated_clusters"] >= 3
+    assert tf_burst["burstiness"] > 0.25
+    assert "RÁFAGA COORDINADA" in tf_burst["verdict"]
+    passed += 1
+    print("  [PASS] 27. TemporalForensics Coordinated Burst Detection (CIB Bot Burst)")
+
+    # 28. LexicalDispersion & Hapax Legomena Richness
+    total += 1
+    test_text_human = "La teoría de sistemas complejos explora atractores no lineales, bifurcaciones de fase y dinámica de redes en física estadística."
+    lex_res = LexicalDispersion.analyze_text(test_text_human)
+    assert lex_res["total_tokens"] > 10
+    assert lex_res["vocabulary"] > 10
+    assert lex_res["hapax_ratio"] > 0.50
+    assert "ALTA VARIEDAD LÉXICA" in lex_res["verdict"]
+    passed += 1
+    print("  [PASS] 28. LexicalDispersion & Hapax Legomena Richness (Anti-LLM Monotony)")
+
+    # 29. IdentityPivotEngine Candidate Dossier Generation
+    total += 1
+    pivot_res = IdentityPivotEngine.generate_dossier_targets("@borjamoskv")
+    assert pivot_res["handle"] == "borjamoskv"
+    assert pivot_res["total_candidate_platforms"] >= 9
+    assert any(t["platform"] == "github" and "borjamoskv" in t["candidate_url"] for t in pivot_res["targets"])
+    assert any(t["platform"] == "bluesky" and "borjamoskv" in t["candidate_url"] for t in pivot_res["targets"])
+    passed += 1
+    print("  [PASS] 29. IdentityPivotEngine Cross-Platform Footprint Dossier Generation")
+
+    # 30. Full Markdown Report with Lexical & Temporal Sections
+    total += 1
+    mock_post_full = dict(mock_post_for_net)
+    mock_post_full["temporal_forensics"] = tf_burst
+    mock_post_full["lexical_dispersion"] = lex_res
+    full_md = generate_markdown_report(mock_post_full, audit, res_bot)
+    assert "Dispersión Léxica & Entropía de Vocabulario" in full_md
+    assert "Dinámica Temporal & Ráfagas" in full_md
+    assert "RÁFAGA COORDINADA" in full_md
+    passed += 1
+    print("  [PASS] 30. Full Omnivector Report Synthesis (Temporal + Lexical + Epistemic)")
 
     print(f"\n[✓] ALL {passed}/{total} OMNIVECTOR VERIFICATION CHECKS PASSED DETERMINISTICALLY.")
 
