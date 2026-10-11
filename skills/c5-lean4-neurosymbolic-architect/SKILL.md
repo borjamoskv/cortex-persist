@@ -205,3 +205,53 @@ El agente debe distinguir tajantemente entre la postura académica externa y la 
   1. *Inversión de Control:* Lean 4 es la Realidad Base. El LLM es invocado exclusivamente dentro de una táctica (`TacticM`).
   2. *C-FFI Zero-Copy:* El motor tensorial se linkea estáticamente al binario de Lean 4 (`@[extern "C"]`), operando en memoria unificada a velocidad de hardware (110 M ops/s con Seqlock KUDURRU-64).
   3. *Proof-Carrying Code:* El enjambre probabilístico asume el coste entrópico de proponer el término de prueba; el kernel formal lo valida en tiempo lineal $O(|e|)$ sin permitir reintentos vacíos.
+
+### 16. Patrón Canónico de Autopoiesis Coinductiva (ITrees) y Anti-Zeno Guard
+Para agentes de ciclo de vida infinito sin bucles bloqueantes `IO`, el bucle se modela como un `coinductive ITree` acoplado al Ring-0 vía C-FFI:
+
+```lean
+inductive CausalEffect : Type → Type where
+  | readSharedMemory  (slot : Nat) : CausalEffect (Option Nat)
+  | emitBiometricGate (hash : Nat) : CausalEffect Bool
+  | yieldToSupervisor (cost : Nat) : CausalEffect Unit
+
+coinductive ITree (E : Type → Type) (R : Type) : Type where
+  | ret (res : R) : ITree E R
+  | tau (step : ITree E R) : ITree E R
+  | vis {A : Type} (eff : E A) (k : A → ITree E R) : ITree E R
+
+@[extern "C"] opaque kudurruShmPoll (slot : Nat) : Option Nat
+@[extern "C"] opaque kudurruGateVerify (causalHash : Nat) : Bool
+
+/-- Predicado de Productividad: Garantiza que no hay bucle infinito de pasos tau silenciosos -/
+inductive ProductiveIn : Nat → ITree CausalEffect R → Prop where
+  | stepVis {A : Type} (eff : CausalEffect A) (k : A → ITree CausalEffect R) : ProductiveIn 0 (ITree.vis eff k)
+  | stepRet (r : R) : ProductiveIn 0 (ITree.ret r)
+  | stepTau (n : Nat) (t : ITree CausalEffect R) : ProductiveIn n t → ProductiveIn (n + 1) (ITree.tau t)
+
+def MAX_TAU_STEPS : Nat := 64
+```
+
+### 17. Implementación Canónica de Chunking Inductivo para AST Masivos
+Para trazas masivas de eventos generadas por enjambres probabilísticos, la verificación por reflexión se particiona inductivamente en bloques acotados de memoria $O(1)$:
+
+```lean
+structure Chunk where
+  id         : Nat
+  startNonce : Nat
+  endNonce   : Nat
+  deltaValid : Bool
+deriving Repr, BEq, DecidableEq
+
+def verifyChunkBoundary (prev : Chunk) (curr : Chunk) : Bool :=
+  prev.deltaValid && curr.deltaValid &&
+  (curr.id == prev.id + 1) && (curr.startNonce == prev.endNonce)
+
+def verifyLedgerStream : List Chunk → Bool
+  | [] => true
+  | [_] => true
+  | c1 :: c2 :: rest =>
+    if verifyChunkBoundary c1 c2 then verifyLedgerStream (c2 :: rest)
+    else false
+```
+
