@@ -1,7 +1,6 @@
 ---
 name: c5-tamkarum-60
-display_name: Transductor de Arbitraje Soberano TAMKARUM-60 & Swarm MASS (Ring-1/2)
-description: Motor soberano de arbitraje de subastas publicitarias (RTB), orquestación de la matriz de 11 agentes de distribución, diseño brutalista, social media y comunidad, sellado Merkle WORM y atestación SCITT bajo cerrojo KudurruBudgetGate en BABYLON-60. Dispara con "tamkarum", "tamkarum-60", "/tamkarum", "arbitraje de anuncios", "arbitraje publicitario", "auditar roas", "optimizar campañas", "lanzar campaña", "revisar rendimiento ads", "adspirer", "google ads", "meta ads", "tiktok ads", "amazon ads", "equipo marketing", "enjambre marketing", "11 agentes", "social media", "community manager", "tamkarum top", "swarm attestation", "scitt".
+description: Motor soberano de arbitraje RTB, orquestación de matriz de 11 agentes de distribución, diseño y atestación SCITT bajo KudurruBudgetGate en BABYLON-60. Dispara con "tamkarum", "tamkarum-60", "/tamkarum", "arbitraje publicitario", "auditar roas", "optimizar campañas", "equipo marketing", "enjambre marketing", "11 agentes", "scitt".
 role: ejecutor
 allowed_roles:
 - ejecutor

@@ -1,7 +1,6 @@
 ---
 name: cortex-telemetry
-display_name: Inspección & Telemetría Runtime de Transcripciones CORTEX
-description: Extracción, análisis e inspección de telemetría runtime, logs de transcripción (transcript.jsonl), auditoría de exergía informacional de prompts (Chentsov-Markov) y consolidación de sesiones efímeras del brain. Dispara con "telemetría", "cortex telemetry", "transcript logs", "historial de prompts", "analizar transcripciones", "análisis transcript", "peticiones de mayor exergia", "preguntas de mayor exergia", "top exergia prompts", "chentsov prompt scoring", "auditar logs de prompts", "sin consolidar", "conversaciones sin consolidar", "consolidar conversaciones", "drenar brain", "auditar conversaciones".
+description: Inspección de telemetría runtime, logs transcript.jsonl, exergía de prompts (Chentsov-Markov) y consolidación de sesiones efímeras del brain. Dispara con "telemetría", "cortex telemetry", "transcript logs", "historial de prompts", "analizar transcripciones", "sin consolidar", "consolidar conversaciones", "drenar brain".
 role: auditor
 allowed_roles:
 - auditor

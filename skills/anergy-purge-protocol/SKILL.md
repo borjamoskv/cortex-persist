@@ -1,7 +1,6 @@
 ---
 name: anergy-purge-protocol
-display_name: Motor de Purga de Código Muerto y Redundancias (Dead Code & Artifact Cleanup)
-description: Motor de purga de código muerto, artefactos efímeros, redundancia documental (Jaccard), reducción de deuda técnica y auditoría de sobrecarga de tokens en prompt (MCP bloat y reglas saturadas). Dispara con "purga de anergía", "limpiar código muerto", "dead code cleanup", "eliminar deuda técnica", "purga de redundancias", "limpiar caches", "busca redundancias", "auditoría documental", "document redundancy", "entropía documental", "limpiar docs", "epistemic redundancy audit", "colapso de redundancias", "auditoría de tokens", "prompt token overhead", "peaje de prompt", "mcp bloat".
+description: Purga de código muerto, artefactos efímeros, anergía de conversaciones, ghost listeners y sobrecarga de tokens en prompt. Dispara con "purga de anergía", "dead code", "limpiar conversaciones", "anergia de conversaciones", "ghost listeners", "prompt bloat", "redundancia documental".
 role: auditor
 allowed_roles:
 - auditor
@@ -40,9 +39,9 @@ a un árbol git limpio.
 | **G** | Redundancia Epistémica (Shadow Directories, Path Entropy) | KB-MB | Consolidar directorios canónicos, eliminar phantom DBs, corregir hardcoded paths en CWD |
 | **H** | Global Package Manager Caches (`~/.cache/uv`, `pip`, `npm`) | 1GB–10GB | `uv cache clean`, purga de caches de host |
 | **I** | OS Metadata & Artifacts (`.DS_Store`, `*.tmp`, `*.bak`) | KB–MB | `find -name ".DS_Store" -delete` transversal |
-| **J** | Context Window Inflation (Esquemas MCP ociosos, reglas saturadas, multi-turn drift) | 30k–60k tokens/prompt | Desactivación de MCPs hipertróficos de dominio ajeno (ej. `flstudio`), migración a reglas condicionales y rotación de chat |
+| **J** | Context Window Inflation (Prompt tax, esquemas MCP ociosos, plugins ajenos, multi-turn drift, KV Cache bloat) | 30k–60k tokens/prompt | Desactivación de MCPs hipertróficos, contención de plugins no afines, migración a reglas condicionales y rotación de chat |
 | **K** | Domain Bleed / Contaminación de Dominio (OPSEC societario, marketing B2B o audios dentro de repos de código) | 100MB–3GB | Evacuación atómica hacia `~/20_VAULT/` (Socios/Marketing) y `~/Music/` (Audio); nunca purga destructiva de IP valiosa. |
-| **L** | UI State Drift & Ghost Listeners (`conversation_summaries.db`) | 10–500 hilos | Forzar `CASCADE_RUN_STATUS_IDLE`, desenlazar `workspace_uris` de sumideros de anergía (>200 steps, 0 artefactos) con UUIDs canónicos (36 chars) |
+| **L** | Conversation Anergy & Ghost Listeners (`conversation_summaries.db`, transcripts huérfanos sin artefactos) | 10–2.000 hilos | Forzar `CASCADE_RUN_STATUS_IDLE`, desenlazar `workspace_uris` con UUIDs canónicos (36 chars), purga de logs masivos y apoptosis de hilo tras hitos |
 
 ---
 
@@ -88,7 +87,11 @@ for k, v in sorted(mcp.items(), key=lambda x: x[1][1], reverse=True):
 print(f"■ SKILLS: {skills} activas en inventario")
 '
 
-# 7. Falsación Causal de Anergía (Obligatorio)
+# 7. Auditoría de Anergía de Conversaciones (Clase L)
+sqlite3 ~/.gemini/antigravity/conversation_summaries.db "SELECT status, count(*) AS total FROM conversation_summaries GROUP BY status;" 2>/dev/null || true
+sqlite3 ~/.gemini/antigravity/conversation_summaries.db "SELECT count(*) AS ghost_running FROM conversation_summaries WHERE status = 'CASCADE_RUN_STATUS_RUNNING' OR not_fully_idle = 1;" 2>/dev/null || true
+
+# 8. Falsación Causal de Anergía (Obligatorio)
 git grep -inE "cortex_memory\.db|poc_sovereign_spark_daemon_bin|artifact_bundle_v3" -- . ':!.gitignore' || true
 grep -l "BABYLON-60" ~/Library/LaunchAgents/*.plist 2>/dev/null || true
 ```
@@ -322,6 +325,12 @@ Activar este skill cuando el usuario escriba cualquiera de:
 - `redundancia epistemica`
 - `recolectar basura`
 - `swarm 100 basura`
+- `anergia de conversaciones`
+- `anergia conversacional`
+- `purga de conversaciones`
+- `limpiar conversaciones`
+- `ghost listeners`
+- `context bloat`
 
 ---
 
@@ -336,21 +345,21 @@ Cuando el operador invoque recolectar basura de forma masiva u organizada en un 
 
 ---
 
-## Fase 7 — Antigravity UI State & Ghost Listener Apoptosis (Clase L)
+## Fase 7 — Antigravity UI State, Ghost Listener & Conversation Anergy Apoptosis (Clase L & J)
 
-Cuando la barra lateral de Antigravity sufra latencia, spinners perpetuos o saturación por hilos de alto cómputo sin artefactos (>200 steps, 0 *.md):
+Cuando la barra lateral de Antigravity sufra latencia, spinners perpetuos o saturación por hilos de alto cómputo sin artefactos (>200 steps, 0 *.md), o se detecte deriva de contexto y arrastre en la ventana de inferencia:
 
 1. **Backup Causal:**
    ```bash
    cp ~/.gemini/antigravity/conversation_summaries.db ~/.gemini/antigravity/conversation_summaries.db.bak_$(date +%s)
    ```
 
-2. **Apoptosis de Ghost Listeners:**
+2. **Apoptosis Determinista de Ghost Listeners:**
    Forzar a estado ocioso los hilos marcados en falso `CASCADE_RUN_STATUS_RUNNING` o `not_fully_idle = 1`:
    ```sql
    UPDATE conversation_summaries 
    SET status = 'CASCADE_RUN_STATUS_IDLE', not_fully_idle = 0 
-   WHERE workspace_uris LIKE '%<WORKSPACE>%' AND (status = 'CASCADE_RUN_STATUS_RUNNING' OR not_fully_idle = 1);
+   WHERE (status = 'CASCADE_RUN_STATUS_RUNNING' OR not_fully_idle = 1);
    ```
 
 3. **Cuarentena de Sumideros de Anergía (Regla de UUID Canónico de 36 Chars):**
@@ -359,6 +368,13 @@ Cuando la barra lateral de Antigravity sufra latencia, spinners perpetuos o satu
    # Purgar workspace_uris preservando registros crudos
    cur.execute('UPDATE conversation_summaries SET workspace_uris = "[]" WHERE conversation_id = ?', (full_uuid_36_chars,))
    ```
+
+4. **Saneamiento de Transcripciones Masivas Huérfanas:**
+   Identificar directorios de sesiones en `~/.gemini/antigravity/brain/<id>` cuyos logs de transcripción superen 50MB o 200 pasos sin artefactos `.md` ni mutaciones causales, archivando o truncando la telemetría efímera.
+
+5. **Invariante Constitucional de Apoptosis de Conversación (Anti-KV Cache Bloat):**
+   - Tras completar cualquier hito formal, commit de mutación causal o flujo `/learn`, el hilo debe declararse formalmente cerrado (`[ CONVERSACIÓN CERRADA ]`).
+   - El operador biológico abre un hilo virgen (`+ New Conversation`), reiniciando la atención en $RFO = 0$ y eliminando la dilución de la Información de Fisher.
 
 ---
 

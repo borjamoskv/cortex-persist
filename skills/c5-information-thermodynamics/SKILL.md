@@ -1,7 +1,7 @@
 ---
 name: c5-information-thermodynamics
-display_name: Termodinámica de la Información y Geometría Estadística
-description: Auditoría, formulación y análisis de teoría de la información, entropía de Shannon, entropía cruzada, divergencia KL (forward vs reverse), métrica de Fisher, teorema de Chentsov, transporte óptimo de Wasserstein (esquema JKO), identidad de De Bruijn, modelos generativos de difusión (Score Matching), termodinámica física de no equilibrio (Landauer, Crooks, Jarzynski) en arquitecturas de IA, y protocolo de auditoría de entropía en tres estratos (silicio, codebase y transductor lingüístico KISH Ω₁₇). Dispara con "entropía de shannon", "divergencia kl", "kullback leibler", "entropía cruzada", "cross-entropy", "forward kl", "reverse kl", "fisher information", "teorema de chentsov", "landauer limit", "semantic entropy", "information geometry", "termodinámica de la información", "amari natural gradient", "flujo de wasserstein", "jko scheme", "identidad de de bruijn", "score matching", "difusión termodinámica", "fokker planck", "mehler kernel", "audita entropía", "audita entropia", "audita entropai", "entropy audit", "auditoría de entropía".
+description: 'Auditoría de física de la información e IA. Dispara con "entropía de shannon", "divergencia kl", "kullback leibler", "fisher information", "teorema de chentsov", "landauer limit", "information geometry", "amari natural gradient", "flujo de wasserstein", "audita entropía".'
+
 role: arquitecto
 allowed_roles:
 - arquitecto
