@@ -140,3 +140,14 @@ Para animaciones de podcast cómico o satírico (estilo South Park / Landpark), 
     /Users/borjafernandezangulo/Music/<Nombre_Video>_Master.mp4
   ```
 - **Verificación:** Ejecutar `ls -lh` sobre el destino. Si el tamaño excede 20 MB, re-comprimir con `-b:v 600k`. Eliminar el archivo `.mp4` crudo temporal tras verificar.
+
+
+---
+
+### Fase 9: Invariante de Generación de B-Roll Estocástico (GFlow / NER en Tiempo Real)
+Para automatizar la mutación visual de fondos y assets en base a la narrativa hablada, el script de Python encargado de generar el mapeo de audio (envolventes) DEBE implementar el siguiente patrón concurrente asíncrono:
+
+1. **Desacoplamiento I/O vs CPU:** Ejecutar la extracción de envolvente (Numpy/Librosa) en un hilo dedicado mediante `asyncio.to_thread` para evitar bloquear el *event loop*.
+2. **NER Concurrente:** Procesar el archivo JSON del guion en paralelo usando el SDK de la IA (ej. `google-genai` con modelo Gemini Flash/Pro) para extraer 1-2 entidades clave de *Visual B-Roll* por cada intervención hablada.
+3. **Orquestación Sub-Procesos CLI (GFlow):** Por cada entidad extraída, encolar un proceso asíncrono (`asyncio.create_subprocess_exec`) invocando al motor `gflow image t2i "<entidad>" --out public/broll/ --json`.
+4. **Mutación de Estado Reactivo:** Capturar el JSON de salida de GFlow, aislar la URL relativa de la imagen generada, y asociarla al `line_id` de la transcripción en el artifact de salida principal (`envelope.json`). Esto permite a los componentes React de Remotion consumir los assets generados dinámicamente según avance la línea de tiempo.
