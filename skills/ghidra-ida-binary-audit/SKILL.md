@@ -46,3 +46,11 @@ Esta habilidad instaura la doctrina operativa para manipular, desensamblar y aud
 ### 4. Cuarentena Termodinámica (Aislamiento de Binarios)
 - Está estrictamente prohibido ejecutar binarios no verificados con `./binario` dentro del terminal activo. 
 - Toda extracción y análisis debe ser estático a menos que el usuario exprese explícitamente el uso de un entorno virtual (*sandbox*) para trazado de memoria (GDB / lldb).
+
+---
+
+### 5. Veto al MCP Bloat y Aislamiento de Configuración
+- **Rechazo de Middlewares de Terceros:** Queda prohibido el uso de servidores MCP externos que expongan decenas de esquemas masivos de herramientas en el contexto del modelo para tareas de desensamblado. Dichos esquemas consumen miles de tokens de sistema fijos por turno y degradan la capacidad de razonamiento del LLM.
+- **Aislamiento Estricto de Configuración:** Ninguna herramienta de ingeniería inversa debe modificar archivos de configuración globales de clientes de IA (`mcp_config.json`, `.claude.json`, `.cursor/mcp.json`). La invocación de Ghidra o IDA debe operar de forma efímera, determinista y autónoma mediante la línea de comandos headless (`analyzeHeadless`).
+- **Triage Rápido en Mach-O (< 90 ms):** Antes de invocar desensamblado pesado en Ghidra, ejecutar triage estático nativo con `otool -hv`, `otool -L` y `codesign -dvvv` para aislar arquitectura, dylibs y firmas criptográficas en milisegundos.
+
