@@ -72,17 +72,26 @@ asyncio.run(bench())
 "
 ```
 
-### 2. SPMC Seqlock KUDURRU-64 Release (30M Ops / Cero Torn Reads)
-Ejecución del benchmark compilado en release en el workspace de `BABYLON-60`:
+### 2. SPMC Seqlock KUDURRU-64 Release (Property Tests & Cero Torn Reads)
+Ejecución de las pruebas de propiedad y consistencia Seqlock en release en el workspace de `BABYLON-60`:
 ```bash
-cargo run --manifest-path /Users/borjafernandezangulo/10_PROJECTS/BABYLON-60/Cargo.toml --bin poc_stress_manifest_spmc --release
+cargo test --release --test property_test -- --nocapture
 ```
 * **Métricas Atestadas en M3 Pro:**
-  - Lecturas concurrentes totales: **30.000.000 ops**
-  - Lecturas corruptas (`torn reads`): **EXACTAMENTE 0**
-  - Throughput agregado (8 lectores concurrentes): **59.03 Mops/s**
-  - Latencia media de lectura no bloqueante: **1.22 ns/op**
-  - Detección de fail-stop (`poisoned`): **27.7 $\mu$s**
+  - `prop_valid_writer_transitions`: OK
+  - `prop_bisimulation_partitioning`: OK
+  - `prop_seqlock_publish_read_consistency`: OK (Cero lecturas corruptas / torn reads)
+
+### 2.1. Matriz de Selección de Modelos para Pruebas de Estrés
+* **Estrés en Silicio / Carga Pura (CPU, Concurrencia, Cargo, Bash):**
+  - **Recomendado:** `Gemini 3.8 Flash · Nivel Low`
+  - **Razón:** Latencia mínima (<500 ms), transducción directa de comandos, cero sobrecarga y sin quema de cuotas.
+* **Estrés Lógico / Adversarial / Formal / Fuzzing Z3:**
+  - **Recomendado:** `Claude Opus 5.5` o `Gemini Pro · Nivel High`
+  - **Razón:** Máxima profundidad de razonamiento para diseñar vectores de ataque, detectar condiciones de carrera y validar resoluciones del solver Z3.
+* **Refactorización Concurrente de Código:**
+  - **Recomendado:** `Claude Sonnet 5.5 · Nivel Medium`
+  - **Razón:** Precisión sintáctica en Rust y estricta adherencia al sistema de tipos.
 
 ### 3. Saturación de P-Cores en Apple Silicon
 Saturar el clúster de rendimiento con $N = 11$ hilos para auditar ausencia de estrangulamiento térmico:
