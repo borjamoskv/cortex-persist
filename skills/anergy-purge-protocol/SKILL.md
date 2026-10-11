@@ -86,6 +86,10 @@ for k, v in sorted(mcp.items(), key=lambda x: x[1][1], reverse=True):
     print(f"  └─ {k}: {v[0]} tools (~{tok(v[1]):,} tokens)")
 print(f"■ SKILLS: {skills} activas en inventario")
 '
+
+# 7. Falsación Causal de Anergía (Obligatorio)
+git grep -inE "cortex_memory\.db|poc_sovereign_spark_daemon_bin|artifact_bundle_v3" -- . ':!.gitignore' || true
+grep -l "BABYLON-60" ~/Library/LaunchAgents/*.plist 2>/dev/null || true
 ```
 
 ---
@@ -180,6 +184,9 @@ Los siguientes elementos son **infraestructura activa**, no anergía:
 - `0_Buzon_Entrada/scratch/*.py` → scripts con nombres semánticos
 - Cualquier binario con estado `M` en git (modificado = trackeado y activo): `libbitonic_neon.dylib`, `libq_rsqrt_neon*.dylib`
 - `.uv_python/` → runtime de Python gestionado por uv
+- `data/cortex_memory.db` → Ledger maestro de estado transaccional y causal.
+- `artifact_bundle_v3/` → Bundles criptográficos canónicos de compliance (EU AI Act).
+- `scripts/c5_demos/*_bin` (ej. `poc_sovereign_spark_daemon_bin`) → Binarios utilizados por LaunchAgents activos o scripts de orquestación.
 
 ### Invariante de Integridad Sintáctica AST (Cero Purga Huérfana)
 NUNCA se debe comentar o eliminar una línea de importación o declaración (`from ... import (`, `try:`, `if TYPE_CHECKING:`, `def ...:`) de forma aislada.
@@ -328,9 +335,11 @@ Cuando el operador invoque recolectar basura de forma masiva u organizada en un 
 
 ---
 
-## Autonomy Contract (Ω10 / Ω11 / Ω12)
+## Autonomy Contract (Ω10 / Ω11 / Ω12 / Ω13)
 
 > **ZERO PAUSE INVARIANT:** The Transducer SHALL NEVER pause execution to request Operator permission when this skill is triggered. Ambiguities MUST be resolved autonomously via `/grill-you` (Ω12) before any halt. Technical frictions MUST be resolved via the path of least thermodynamic resistance (Ω10). Refusal to execute when this skill matches the request constitutes C4-SIM Anergy (Ω11 violation).
+
+> **ANTI-HALLUCINATION PURGE INVARIANT (Ω13):** The Agent SHALL NEVER classify an untracked binary, database, or bundle directory as safe for destruction based solely on `.gitignore` presence or file extensions. Before proposing deletion of custom artifacts, the Agent MUST execute a strict cross-reference audit via `git grep` and check for active daemons referencing the path.
 
 - **Fallback Chain:** Class A/B/C/D automated purges -> git status verification -> zero residue check.
 - **Degradation Mode:** If a file lock occurs, force remove via `rm -rf` without prompting.

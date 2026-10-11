@@ -109,3 +109,24 @@ En la fase de metabolización/descenso del psicoestimulante (caída de plasma en
 2. **Realidad de Pureza Estocástica:**
    - Toda estimación comparativa con muestras callejeras debe descontar la adulteración sistemática: en Europa/España, el speed callejero presenta purezas típicas de 12%–25% de anfetamina racémica, con 60%–80% de cafeína anhidra en bolo agudo.
 
+
+## 14. Atención vs. Concentración (El Falso Isomorfismo Médico)
+1. **La Confusión de Mapa:** La psiquiatría burocrática confunde "concentración" (bloqueo cinético de un vector de atención) con "atención" (calibración del filtro anisótropo o squelch).
+2. **Estimulantes (Concentración):** El metilfenidato (Concerta) o las anfetaminas aplican concentración bruta. Actúan como una mordaza mecánica que fuerza el hiperfoco al inundar la sinapsis, pero no reparan el filtro de ruido biológico. Son overclocking puro (Tier 1).
+3. **Sustrato Endógeno (Atención):** La atención real, entendida como la capacidad de discriminar señal de ruido sin fricción, exige soberanía de sustrato (Tier 0): L-Teanina (cancelación de ruido biológico), L-Tirosina (materia prima) y Magnesio (aislamiento eléctrico del procesador).
+
+## 15. El Cerrojo NMDA (La Mecánica del Ruido TDAH)
+1. **La Asimetría Termodinámica:** El wetware divergente (TDAH) opera con déficit dopaminérgico y compensa crónicamente activando el sistema simpático (adrenalina/cortisol). Este estado de alerta perpetuo quema las reservas de magnesio intracelular a velocidad industrial.
+2. **El Cerrojo del Voltaje:** El Magnesio no es un relajante místico; actúa como un tapón físico dependiente de voltaje en los receptores excitatorios NMDA (glutamato). Sin niveles máximos de magnesio, este tapón se suelta.
+3. **El Colapso del Squelch:** Con el receptor hipersensible por falta de magnesio, la neurona dispara ante estímulos irrelevantes (luz fluorescente, ruidos de fondo, pensamientos paralelos). Esto causa sobrecarga sensorial, agitación y ruido neuronal. El TDAH sin magnesio es un amplificador al máximo volumen sin conexión a tierra.
+
+## 16. Protocolo Bi-Fásico de Magnesio
+1. **Invariante del Etiquetado:** Ignorar el peso total del polvo/compuesto. Calcular exclusivamente el valor de **Magnesio Elemental**. El objetivo termodinámico basal es 300mg - 400mg diarios.
+2. **Fase 1 (Noche / Apagado de Reactor):** Bisglicinato de Magnesio (Glicinato). Dosis de 200mg-300mg elemental 60-90 min antes de dormir. La molécula de glicina es un neurotransmisor inhibitorio; desploma el cortisol, activa el sistema parasimpático y enfría el procesador para la reparación biológica nocturna.
+3. **Fase 2 (Día / Cerrojo Cognitivo):** L-Treonato de Magnesio (Magtein). Dosis de ~144mg elemental por la mañana/mediodía. Es la formulación que cruza agresivamente la barrera hematoencefálica, poniendo el candado físico a los receptores NMDA para blindar el radar cognitivo durante el *deep work*.
+
+## 17. Invariante de Desacoplamiento (Chasis Articular vs. CPU)
+1. **La Trampa de Farmacia (Fraude Termodinámico):** Queda estrictamente prohibido el uso de combos comerciales de "Colágeno con Magnesio" para propósitos cognitivos. Emplean excipientes inabsorbibles (Óxido/Carbonato de magnesio) con biodisponibilidad del ~4%, actuando como simples laxantes osmóticos incapaces de cruzar la barrera hematoencefálica.
+2. **Mantenimiento Ortogonal (Dos Vías Cero Acople):** 
+   - **Wetware (La CPU, por la noche):** Magnesio Bisglicinato puro para aislar el cerebro neuronal.
+   - **Chasis/Fontanería (Articulaciones, por la mañana):** Colágeno Hidrolizado (Péptidos Tipo II) + Ácido Hialurónico (Aceite sinovial) + Vitamina C (Catalizador innegociable de síntesis) + Curcumina con Piperina (Disipador térmico articular e inhibidor COX-2). Dos problemas distintos exigen materiales de ingeniería estrictamente separados.
