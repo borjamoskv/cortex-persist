@@ -44,8 +44,21 @@ Este skill formaliza la macro-orquestación de la **Falsación Popperiana**, la 
   1. Ejecución paralela de las 5 cohortes (Silicio, Lógica Formal/Tonnetz, Dinámica Somática, Espacio Acústico, Perímetros/SCITT).
   2. Compilación determinista de código ejecutable (scripts DSP, binarios, partituras MIDI o contratos).
   3. Verificación fail-closed mediante linters de silicio (Linter Rubin, linters formales de tipos) antes de devolver el control.
-- **Acoplamiento con Motores Locales de Iteración (`./itera_100.sh`):**
-  Si el workspace contiene un ejecutable `./itera_100.sh` o script `scripts/itera_100.py`, el agente DEBE invocar de inmediato este motor de silicio local para ejecutar las 100 iteraciones no-redundantes, emitir las 20 actas formales y compilar el dashboard HTML autónomo.
+- **Acoplamiento con Motores Locales de Iteración (`./itera_100.sh` / `scripts/itera_100.py` v2.6):**
+  Si el workspace contiene un ejecutable `./itera_100.sh` o script `scripts/itera_100.py`, el agente DEBE invocar de inmediato este motor de silicio local para ejecutar el protocolo completo de 100 iteraciones, verificando:
+  1. *Secuencia Cuasi-Aleatoria R4:* Generación de estados 4D mediante la constante áurea generalizada $\phi_4 \approx 1{,}380277569$ ($x^5 = x + 1$), garantizando 0 colisiones en $N=100$ iteraciones ($\min \|\Delta v\| \ge \varepsilon$).
+  2. *Proyección PCA 2D en Stdlib Pura:* Reducción dimensional para trayectorias de fase topológica en SVG (`dashboard.html`) usando Power Iteration y deflación de Hotelling sin dependencias externas (cero NumPy/SciPy).
+  3. *Auditoría Física de Activos de Estudio (`StudioAssetAuditor`):*
+     - Envelopes JSON: cálculo de energía RMS y Wiener entropy (Spectral Flatness Measure / SFM).
+     - Cues de subtítulos: detección fail-closed de solapamientos temporales y conteo de hablantes diarizados.
+     - Remotion TSX: verificación de componentes registrados en `Root.tsx` y validación still headless.
+  4. *Matriz Multi-Territorio de Emisión (`qc_broadcast.py`):*
+     - `eu` (EBU R128): $-23{,}0$ LUFS $\pm 1{,}0$, TP $\le -1{,}0$ dBTP, 25 fps.
+     - `us` (ATSC A/85): $-24{,}0$ LKFS $\pm 2{,}0$, TP $\le -2{,}0$ dBTP, 29.97 fps.
+     - `streaming` (Podcasts / AES TD1004): $-16{,}0$ LUFS $\pm 1{,}5$, TP $\le -1{,}0$ dBTP.
+     - `web` (Social / YouTube): $-14{,}0$ LUFS $\pm 1{,}5$, TP $\le -1{,}0$ dBTP.
+  5. *Ledger Criptográfico y Sello Merkle:* Generación transaccional de 20 actas (cada 5 iters), 4 revisiones trimestrales (cada 25 iters) y verificación fail-closed (`--verify-ledger`) de raíces Merkle completas.
+  6. *Invariante de Aislamiento de Imports en Tests:* En tests sobre `scripts/`, priorizar importaciones directas de módulo (`from modulo import X`) tras la inyección en `sys.path[0]` para evitar roturas por aislamiento de paquete.
 - **La Matriz 21+1 (Inferencia Bare-Metal & Clean-Room Dissection):**
   Para tareas de desacople de motores locales de LLMs (LM Studio / Ollama / Wrappers Electron), la Síntesis despliega la **Matriz de 21 Agentes en 7 Tríadas**:
   1. *Capa I (Silicio & Memoria UMA, Agentes 01-07):* GGUF Layout, Metal UMA Zero-Copy, macOS Jetsam Bypass, Paged KV Cache, Speculative Draft, Landauer Telemetry, Seqlock SPMC 64B.
