@@ -50,17 +50,41 @@ Toda señal de audio, mezcla musical o masterización debe someterse a la cota t
 
 ---
 
-## 3. Protocolo de Ejecución en Silicio
+## 3. Protocolo de Ejecución en Silicio (`rubin_protocol.py` SOTA)
 
-Para auditar un archivo de audio en el entorno local:
+Para auditar un archivo de audio en el entorno local con salida humana o JSON estructurado:
 
 ```bash
-python3 ~/.gemini/config/skills/c5-rubin-acoustic-linter/scripts/audit_acoustic_exergy.py <ruta_audio.wav>
+# Auditoría estándar con informe en terminal y veredicto
+python3 scripts/rubin_protocol.py <ruta_audio.mp3|wav|flac>
+
+# Modo JSON estructurado para integración agéntica y CI/CD
+python3 scripts/rubin_protocol.py <ruta_audio> --json
+
+# Modo fail-closed estricto (código de salida 1 si se detecta nata)
+python3 scripts/rubin_protocol.py <ruta_audio> --fail-closed --territory streaming
 ```
 
-### Clasificación de Salida:
-- Si no hay banderas activas: `EXERGÍA PURA (EL HUESO)` (El sistema preserva la señal sin grasa disipativa).
-- Si hay una o más banderas: `NATA ACÚSTICA DETECTADA` (Reporte detallado de anomalías para aplicar sustracción de pistas o descompresión).
+### Contrato de Salida JSON y Escala de Exergía (21.000):
+```json
+{
+  "verdict": "EXERGÍA PURA (EL HUESO)" | "NATA ACÚSTICA DETECTADA",
+  "is_pure_bone": true | false,
+  "exergy_score_21k": 20648,
+  "metrics": {
+    "crest_factor_db": 16.9,
+    "spectral_flatness_mid": 0.0451,
+    "temporal_smearing_index": 0.644,
+    "low_end_phase_coherence": 1.0,
+    "true_peak_dbfs": -1.46
+  },
+  "anomalies": [],
+  "subtraction_recommendations": []
+}
+```
+
+### Integración en Motores de Estudio (`StudioAssetAuditor`):
+Los motores de validación de proyectos (como `itera_100.py`) integran el Protocolo Rubin mediante sondeo determinista de subproceso, asignando badges visuales (`[PURISMO ACÚSTICO]` vs. `[NATA LEVE]`) y bloqueando la entrega humana si el score exergético colapsa por debajo de $18.000 / 21.000$.
 
 ---
 
