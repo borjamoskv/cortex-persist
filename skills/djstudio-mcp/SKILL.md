@@ -1,8 +1,8 @@
 ---
 name: djstudio-mcp
 display_name: Controlador DSP & Playlist Mixer DJ.Studio MCP
-description: Protocolo de integración nativa MCP con DJ.Studio y DJ.Studio Next, análisis armónico Camelot (0-23 a 1A-12B), optimización combinatoria Harmonize (TSP / recocido simulado), inferencia en silicio (Demucs v4 TorchScript MPS + MDX-Net CoreML, 7-Fold beatgrid), ingeniería inversa de formatos binarios (audioView Float32, compressedAudioView struct 8-bytes), semántica de cue points (type 0 vs 5), protocolo de memoria compartida POSIX (/dev/shm), DSP de audio shaders, física psicoacústica de transición (Plomp-Levelt/Sethares, 24 bandas Bark Zwicker), motor DSP V2 de transiciones continuas (Crossover Linkwitz-Riley LR4 24 dB/oct, Zero-Overlap Bass Swap en beat 1.1, dip de medios -1.2 dB, Space Echo Dub Tail 3/16), taxonomía de las 8 transiciones de club y serialización dual Ableton Live (.als) y Pioneer Rekordbox XML (DJ_PLAYLISTS 1.0.0). Dispara con "dj studio", "djstudio", "dj studio mcp", "dj studio bin", "audioview dj studio", "ingenieria inversa dj studio", "shared memory dj studio",
-  "dj studio next", "harmonize dj studio", "stems dj studio", "dj studio ai", "transiciones dj", "crossover linkwitz riley", "zero overlap bass swap", "rekordbox xml", "dub echo transition", "setlist techno gemas".
+description: 'Protocolo MCP, automatización y DSP para DJ.Studio. Dispara con "dj studio", "djstudio", "dj studio mcp", "dj studio bin", "audioview dj studio", "ingenieria inversa dj studio", "shared memory dj studio", "dj studio next", "harmonize dj studio", "stems dj studio", "dj studio ai", "transiciones dj", "crossover linkwitz riley", "zero overlap bass swap", "rekordbox xml", "dub echo transition", "setlist techno gemas".'
+
 role: ejecutor
 allowed_roles:
 - ejecutor

@@ -1,8 +1,8 @@
 ---
 name: safari-browser-agent
 display_name: Agente Autónomo de Navegación Safari (MCP Dual-Engine v6.0 Sexagesimal Apex Sovereign)
-description: 'Orquestación y control soberano de Safari mediante MCP v6.0 Apex Sovereign y puente nativo JXA/WindowServer (sin WebDriver). Suite sexagesimal completa de 60 herramientas: OCR local en silicio vía Apple Vision Framework, grabación/reproducción determinista de macros JSON, auditoría Core Web Vitals (TTFB, FCP, LCP, DOM), mocking de geolocalización HTML5, síntesis de voz somática con enrutamiento de audio a ~/Music, inspección WebGL/Canvas con volcado de frames, extracción de grafo semántico epistémico (JSON-LD, microdatos, H1-H6), organización higiénica y deduplicación de pestañas, exportación a PDF vectorial nativo, recolección de activos (PDFs, datasets, audio), monitoreo de WebSockets/SSE (streaming en vivo), captura full-page cosida, diffing estructural del DOM, inyección de estilos CSS (modo oscuro, paywall unblur), rellenado semántico multi-campo (fill-form), modo lectura destilado, control multimedia HTML5 (SoundCloud, YouTube), bloqueo de red/mocking, detección anti-bot
-  (Turnstile, Cloudflare WAF, reCAPTCHA, DataDome), quiescencia dual, congelación/restauración de sesiones, Set-of-Marks neón, promesas CSP-safe, clics por coordenadas/Shadow DOM y exportación de cookies Netscape. Dispara con "safari agent", "navegar safari", "mcp safari", "controlar safari", "safari browser agent", "safari automation", "inspeccionar safari", "mac maestro", "automatizar safari jxa", "bypass webdriver", "mac maestro bridge", "control jxa macos", "windowserver automation".'
+description: 'Orquestación MCP de Safari (nativo, sin WebDriver). Dispara con "safari agent", "navegar safari", "mcp safari", "controlar safari", "safari browser agent", "safari automation", "inspeccionar safari", "mac maestro", "automatizar safari jxa", "bypass webdriver", "mac maestro bridge", "control jxa macos", "windowserver automation".'
+
 role: ejecutor
 allowed_roles:
 - ejecutor

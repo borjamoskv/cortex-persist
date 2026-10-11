@@ -1,7 +1,8 @@
 ---
 name: c5-socint-extraction-suite
 display_name: Suite Soberana de Inteligencia Social (SOCINT C5-REAL)
-description: 'Suite unificada de extracción de inteligencia social (SOCINT), telemetría de opinión y auditoría epistemológica de redes: X/Twitter (hilos/artículos), Substack (newsletters/notes) y Reddit (subreddits/discusiones). Dispara con "socint suite", "inteligencia social", "scraping redes", "reddit socint", "reddit osint", "scraping reddit", "inteligencia reddit", "socint reddit", "extraer subreddit", "substack socint", "substack osint", "scraping newsletter", "análisis substack", "socint substack", "extraer substack", "auditar tweet", "analizar hilo x", "extraer tweet", "auditar x twitter", "hilo twitter audit", "twitter article audit", "x.com audit".'
+description: 'Extracción SOCINT en Reddit, Substack y X. Dispara con "socint suite", "inteligencia social", "scraping redes", "reddit socint", "reddit osint", "scraping reddit", "inteligencia reddit", "socint reddit", "extraer subreddit", "substack socint", "substack osint", "scraping newsletter", "análisis substack", "socint substack", "extraer substack", "auditar tweet", "analizar hilo x", "extraer tweet", "auditar x twitter", "hilo twitter audit", "twitter article audit", "x.com audit".'
+
 role: ejecutor
 allowed_roles:
 - ejecutor

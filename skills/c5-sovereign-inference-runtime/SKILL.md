@@ -1,7 +1,8 @@
 ---
 name: c5-sovereign-inference-runtime
 display_name: Motor Soberano de Inferencia y Adaptador LM Studio C5-REAL
-description: Diseño, compilación, despliegue y auditoría de motores de inferencia local bare-metal en Rust (eridu-infer), ingeniería inversa del protocolo LM Studio (descubrimiento 41343, sockets lms_communication), servidor dual HTTP/WebSocket (OpenAI 1234), consola Web HUD embebida sin dependencias, daemons launchd en macOS, mapeo UMA sin swap de la Tríada Jurídica (61.2 GB) y atestación WORM conforme al EU AI Act (Arts. 9-15). Dispara con "eridu-infer", "inferencia soberana", "appliance ia", "lm studio protocolo", "motor inferencia local", "air-gapped infer", "servidor openai local rust", "sovereign inference runtime", "desplegar eridu-infer", "tríada jurídica".
+description: 'Despliegue y auditoría de motores de inferencia local bare-metal. Dispara con "eridu-infer", "inferencia soberana", "appliance ia", "lm studio protocolo", "motor inferencia local", "air-gapped infer", "servidor openai local rust", "sovereign inference runtime", "desplegar eridu-infer", "tríada jurídica".'
+
 role: ejecutor
 allowed_roles:
 - ejecutor

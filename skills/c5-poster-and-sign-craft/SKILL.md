@@ -1,7 +1,8 @@
 ---
 name: c5-poster-and-sign-craft
 display_name: Pipeline de Remasterización Gráfica, Rotulación en Perspectiva y Filtrado Analógico
-description: Protocolo de alta precisión para remasterización de cartelería e ilustración 4K, rotulación tipográfica en perspectiva (sign painting) con eliminación limpia de caracteres previos, preservación de jerarquía óptica (líquidos/vidrios en primer plano), maquetación y auditoría de carteles clubbing/underground (brutalist flyers), y filtrado de imprenta analógica / vintage cómic de bajo contraste. Dispara con "remasterizar cartel", "rotular letrero", "cambiar texto cartel", "sign craft", "filtro vintage comic", "bajar contraste imagen", "quitar contraste duro", "poster remaster", "maquetación cartel", "analizar cartel", "flyer underground", "auditoría tipográfica cartel".
+description: 'Remasterización y rotulación 4K de cartelería. Dispara con "remasterizar cartel", "rotular letrero", "cambiar texto cartel", "sign craft", "filtro vintage comic", "bajar contraste imagen", "quitar contraste duro", "poster remaster", "maquetación cartel", "analizar cartel", "flyer underground", "auditoría tipográfica cartel".'
+
 role: ejecutor
 allowed_roles:
 - ejecutor
