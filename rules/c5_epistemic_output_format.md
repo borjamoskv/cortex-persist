@@ -154,18 +154,32 @@ Todo ensayo formal o cristal epistémico generado en `brain/` debe articularse o
 7. **Sección 5 (Dictamen de Ingeniería & Próximos Pasos):** Conclusiones ejecutivas y recomendaciones de acción inmediata.
 8. **Colofón Formal:** Firma obligatoria e inmutable de Borja Fernández Angulo.
 
-## 17. Protocolo de Lectura Biónica y Anclaje Sacádico Cognitivo (Bionic & Saccadic Reading)
-Para maximizar la velocidad de asimilación y reducir la fricción metabólica del wetware del operador:
-1. **Fundamento Neurocognitivo (Fijación Sacádica Foveal):** El ojo humano no lee de forma continua, sino mediante saltos sacádicos y fijaciones de $\approx 200\text{–}250\text{ ms}$. Poner en negrita el prefijo de las palabras clave reduce el tiempo de fijación a $<120\text{ ms}$, permitiendo que la corteza visual complete la palabra por acceso léxico directo sin decodificación fonética letra a letra.
-2. **Algoritmo de Micro-Anclaje Biónico por Prefijo:**
-   - Palabras de 1 a 3 letras: 1 letra en negrita (`**e**l`, `**d**e`, `**u**n`).
-   - Palabras de 4 a 6 letras: 2 letras en negrita (`**ar**nés`, `**to**ken`, `**da**to`, `**re**d`).
-   - Palabras de 7 a 9 letras: 3 letras en negrita (`**sis**tema`, `**mem**oria`, `**lat**encia`, `**con**texto`).
-   - Palabras de $\ge 10$ letras: 4 letras en negrita (`**ter**modinámica`, `**cons**trucción`, `**des**pacho`).
-3. **Macro-Anclajes al Margen Izquierdo:** Toda viñeta o línea de tarjeta debe iniciar con un anclaje gramatical o descriptor enfático (`• **El** ...`, `• **Sin** ...`, `╰─► **Efecto:** ...`) para guiar el barrido ocular diagonal.
-4. **Chunking Cognitivo de Miller ($7 \pm 2$ palabras):** Segmentar las oraciones de las tarjetas en fragmentos breves de 50 a 65 columnas para eliminar el error de salto de línea (*line-tracking regression*) en pantallas anchas y terminales.
-5. **Régimen de Aplicación:**
-   - *En Tarjetas de Mensajería y Síntesis de Chat:* Uso sistemático en términos técnicos y anclajes para lectura diagonal instantánea en $\le 5\text{ segundos}$.
-   - *En Artículos y Cristales Epistémicos:* Aplicación en abstracts, llamadas `> [!NOTE]`, definiciones clave y conclusiones para mantener la elegancia editorial del texto continuo.
+## 17. Protocolo de Anclaje Sacádico Selectivo (SSA) y Serialización Multiplataforma
+Para maximizar el rendimiento cognitivo y erradicar la anergía perceptual del wetware del operador:
+
+1. **Fundamento Neurocognitivo: Veto al "Efecto Código de Barras" (Barcode Stutter):**
+   - El ojo humano no decodifica texto de forma continua, sino mediante saltos sacádicos y fijaciones foveales de $\approx 200\text{–}250\text{ ms}$.
+   - **Falsación del Bionic Ciego:** Resaltar prefijos en *todas* las palabras (incluyendo partículas funcionales vacías como *el, de, un, y, sino*) genera ruido visual de alta frecuencia e interrumpe el flujo parafoveal natural, duplicando la fatiga sensorial.
+   - **Regla de Oro SSA (Selective Saccadic Anchoring):** El anclaje por prefijo en negrita se restringe **exclusivamente a lexemas de alto contenido informacional** (sustantivos, verbos operativos, adjetivos de dominio, métricas y cifras). Las partículas gramaticales (*stop-words*: el, la, los, las, un, una, de, del, en, a, al, con, sin, por, para, y, o, que, se, su) permanecen **100% lisas (sin negrita)**.
+
+2. **Algoritmo de Micro-Anclaje por Longitud de Lexema (SSA):**
+   - Palabras de 1 a 3 letras (si no son stop-words): 1 letra en negrita (`**r**ed`, `**b**it`, `**d**aw`).
+   - Palabras de 4 a 6 letras: 2 letras en negrita (`**ar**nés`, `**to**ken`, `**da**to`, `**la**tencia`).
+   - Palabras de 7 a 9 letras: 3 letras en negrita (`**sis**tema`, `**mem**oria`, `**des**pacho`, `**con**senso`).
+   - Palabras de $\ge 10$ letras: 4 letras en negrita (`**ter**modinámica`, `**cons**trucción`, `**des**integración`).
+
+3. **Matriz de Serialización Triple (Platform-Agnostic Output):**
+   - **Target A — Markdown Estándar (`**pre**fijo`):** Para artículos formales, GitHub, Obsidian y documentación web.
+   - **Target B — Mensajería Móvil WhatsApp / Telegram (`*pre*fijo`):** Emplear asterisco simple para negrita, bullets limpios (`▪`, `▫`, `╰─►`) y cero tablas multipilar (>2 columnas), garantizando legibilidad en clientes móviles.
+   - **Target C — Unicode Sans-Bold Universal (`𝗽𝗿𝗲`fijo):** Para cajas ASCII/ANSI, bloques de código cercados (````text ... ````), terminales de macOS y notas planas. Al mapear directamente a los puntos de código matemáticos Unicode (`U+1D5D4`–`U+1D5ED` mayúsculas, `U+1D5EE`–`U+1D607` minúsculas, `U+1D7EC`–`U+1D7F5` dígitos), el texto se visualiza en negrita **sin depender de un motor Markdown**.
+
+4. **Invariante de Renderizado en Cajas y Portapapeles (`pbcopy`):**
+   - *Prohibición de Asteriscos en Bloques Cercados:* Queda estrictamente prohibido introducir sintaxis Markdown (`**` o `*`) dentro de bloques de código cercados (` ```text `), ya que el visor los interpreta como caracteres literales, destruyendo el efecto óptico.
+   - Para tarjetas cercadas, utilizar **Unicode Sans-Bold Universal**; para prosa fluida en chat, utilizar **Markdown Nativo**.
+
+5. **Macro-Anclajes al Margen Izquierdo y Chunking de Miller:**
+   - Toda viñeta o línea de tarjeta debe iniciar con un descriptor enfático a la izquierda (`• **El** ...`, `╰─► **Efecto:** ...`, `▪ 𝗮𝗿nés ...`).
+   - Longitud de línea acotada estrictamente a **50–65 caracteres** ($7 \pm 2$ palabras por segmento) para eliminar regresiones oculares de salto de línea en pantallas ultrapanorámicas.
+
 
 
