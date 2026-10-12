@@ -1,6 +1,6 @@
 ---
 name: anergy-purge-protocol
-description: Purga de código muerto, artefactos efímeros, entropía de workspace, anergía de conversaciones, ghost listeners y sobrecarga de tokens en prompt. Dispara con "purga de anergía", "purga de entropia", "purga de entropía", "entropia", "dead code", "limpiar conversaciones", "anergia de conversaciones", "ghost listeners", "prompt bloat", "redundancia documental".
+description: Purga de código muerto, artefactos efímeros, entropía de workspace, anergía de conversaciones, ghost listeners, saturación APFS y sobrecarga de tokens en prompt. Dispara con "purga de anergía", "purga de entropia", "purga de entropía", "entropia", "dead code", "scandisc", "scandisk", "purga de disco", "disco lleno", "limpiar conversaciones", "anergia de conversaciones", "ghost listeners", "prompt bloat", "redundancia documental".
 role: auditor
 allowed_roles:
 - auditor
@@ -43,6 +43,7 @@ a un árbol git limpio.
 | **J** | Context Window Inflation (Prompt tax, esquemas MCP ociosos, plugins ajenos, multi-turn drift, KV Cache bloat) | 30k–60k tokens/prompt | Desactivación de MCPs hipertróficos, contención de plugins no afines, migración a reglas condicionales y rotación de chat |
 | **K** | Domain Bleed / Contaminación de Dominio (OPSEC societario, marketing B2B o audios dentro de repos de código) | 100MB–3GB | Evacuación atómica hacia `~/20_VAULT/` (Socios/Marketing) y `~/Music/` (Audio); nunca purga destructiva de IP valiosa. |
 | **L** | Conversation Anergy & Ghost Listeners (`conversation_summaries.db`, transcripts huérfanos sin artefactos) | 10–2.000 hilos | Forzar `CASCADE_RUN_STATUS_IDLE`, desenlazar `workspace_uris` con UUIDs canónicos (36 chars), purga de logs masivos y apoptosis de hilo tras hitos |
+| **M** | macOS Darwin Ephemeral Caches & APFS Overflow (`/private/var/folders/` — clones de Chromium `code_sign_clone`, renders Remotion huérfanos `react-motion-render*`, y targets de compilación masivos) | 10GB–60GB | Purgar directorio `X/com.google.Chrome.code_sign_clone`, limpiar `$TMPDIR/react-motion-*` y ejecutar `cargo clean` selectivo; NUNCA tocar `~/Music/LIBRARY`. |
 
 ---
 
@@ -386,6 +387,14 @@ Activar este skill cuando el usuario escriba cualquiera de:
 - `limpiar conversaciones`
 - `ghost listeners`
 - `context bloat`
+- `scandisc`
+- `scandisk`
+- `scandisc 121 agentes`
+- `disco lleno`
+- `purga de disco`
+- `liberar espacio apfs`
+- `var folders`
+- `chrome code sign clone`
 
 ---
 
@@ -430,6 +439,35 @@ Cuando la barra lateral de Antigravity sufra latencia, spinners perpetuos o satu
 5. **Invariante Constitucional de Apoptosis de Conversación (Anti-KV Cache Bloat):**
    - Tras completar cualquier hito formal, commit de mutación causal o flujo `/learn`, el hilo debe declararse formalmente cerrado (`[ CONVERSACIÓN CERRADA ]`).
    - El operador biológico abre un hilo virgen (`+ New Conversation`), reiniciando la atención en $RFO = 0$ y eliminando la dilución de la Información de Fisher.
+
+---
+
+## Fase 8 — Protocolo SCANDISC 121 Agentes (Rescate Crítico APFS)
+
+Cuando el volumen `/System/Volumes/Data` alcance un estado crítico (< 10 GiB libres o > 95% de capacidad) o el Operador invoque `scandisc`:
+
+1. **Matriz de Diagnóstico Sectorial ($11 \times 11$):**
+   * Inspección $O(1)$ de `/System/Volumes/Data` mediante `du -hd 1` y mapeo de subárboles `/private/var/folders/`, `~/Music`, `~/10_PROJECTS`, `~/Library`, `/opt/homebrew`.
+   * Verificación de snapshots APFS (`tmutil listlocalsnapshots /`).
+
+2. **Purga de Anergía Efímera de Silicio (Clase M):**
+   ```bash
+   # 1. Purgar clones fantasma de Chromium
+   USER_VAR_FOLDER=$(getconf DARWIN_USER_DIR 2>/dev/null || echo "/private/var/folders/r_/hw1ds2nj49zffr6r4m_81r5h0000gn")
+   rm -rf "$USER_VAR_FOLDER/X/com.google.Chrome.code_sign_clone" 2>/dev/null || true
+
+   # 2. Purgar renders de vídeo temporales huérfanos
+   rm -rf "$USER_VAR_FOLDER/T/react-motion-render"* "$USER_VAR_FOLDER/T/remotion-"* 2>/dev/null || true
+   ```
+
+3. **Purga de Artefactos de Compilación Reconstruibles (Clase A):**
+   ```bash
+   # Limpieza determinista de targets de Rust en proyectos canónicos
+   find ~/10_PROJECTS -maxdepth 2 -name "Cargo.toml" -exec cargo clean --manifest-path {} + 2>/dev/null || true
+   ```
+
+4. **Invariante Cardinal de Inviolabilidad:**
+   * Queda estrictamente prohibido mutar o purgar cualquier archivo dentro de `~/Music/` (especialmente `~/Music/LIBRARY` con 139 GiB de stems y masters).
 
 ---
 
