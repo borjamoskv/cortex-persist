@@ -375,3 +375,83 @@ Toda sesión de alta exergía para club underground debe estructurarse siguiendo
    * *Función:* Electro de Detroit, sintetizadores de transistores puros, melodías alienígenas y arpegios euclidianos.
 5. **Acto V: El Horizonte de Sucesos y Disolución (130-140 BPM $\to$ Outro):**
    * *Función:* Braindance, drill & bass deconstruido, catarsis rítmica y retorno a la resonancia basal.
+
+---
+
+## 18. Invariante de Beat-Grid y Sincronía Métrica Anti-Cabalgada (Zero-Drift Beatmatching)
+
+> **Falsación del Antipatrón `master += audio`:** Solapar dos pistas percusivas a tempos diferentes ($BPM_A \ne BPM_B$) o con desfase de fase sin *time-stretching* de alta fidelidad (zplane Elastique v3 / Rubberband R3) genera un descarrilamiento rítmico intolerable (*flamming* / cabalgada caótica) que destruye el pulso somático del set.
+
+### 18.1. Ecuación de Sincronía de Fase en Cuadratura
+Toda mezcla cruzada entre pistas rítmicas en DJ.Studio exige cumplimiento estricto de:
+$$\Delta \phi = |\text{Downbeat}_A - \text{Downbeat}_B| < 1.0\text{ ms} \quad (\text{Beat 1.1 Lock})$$
+$$BPM_A(t) \equiv BPM_B(t) \quad \forall t \in [t_{\text{start}}, t_{\text{end}}] \quad (N \pmod 4 \equiv 0 \land N \pmod{16} \equiv 0)$$
+
+### 18.2. Regímenes Canónicos de Transición ante Deriva de Tempo ($\Delta BPM > 0$):
+1. **Rampa de Tempo Cuantizada (Tempo Ramp):** Modulación de velocidad a lo largo de 16, 32 o 64 compases cerrados con corrección tonal (*pitch lock* activado mediante zplane Elastique).
+2. **Parada de Máquina & Silencio Tenso (Tape-Stop):** Desaceleración analógica de la pista saliente hasta parada completa ($0\text{ Hz}$) $\to$ Silencio sepulcral de descompresión $\to$ Entrada en el tiempo 1.1 de la pista entrante a su tempo nativo sin cabalgada.
+3. **Puente Atmosférico (Ambient Bridge):** La pista entrante se introduce exclusivamente durante un pasaje sin percusión ni bombo (intro/outro ambiental).
+
+---
+
+## 19. Prevención de Discontinuidad DC en Bucles (Zero-Crossing Loop Guard)
+
+> **Falsación del Bucle Ciego (`np.vstack`):** Cortar un archivo en segundos arbitrarios o concatenar arrays de audio sin cuadratura genera un salto de voltaje instantáneo ($|y[n] - y[0]| > 0.01$) que revienta los altavoces con un petardazo digital (*DC click*) y trocea la frase métrica.
+
+### 19.1. Algoritmo de Bucle Cuantizado en Silicio:
+1. **Duración en Compás Cerrado:**
+   $$N_{\text{samples}} = \text{round}\left( \frac{60}{\text{BPM}} \times 4 \times N_{\text{bars}} \times f_s \right)$$
+2. **Búsqueda de Cruce por Cero en Fase Ascendente:**
+   $$n^* = \arg\min_{n \in [N - w, N + w]} |y[n]| \quad \text{tal que } y[n+1] \ge y[n] \land \text{sign}(y[n]) \ne \text{sign}(y[n+1])$$
+3. **Micro-Crossfade Suavizado:** Aplicar una rampa de cosenos de $2\text{ ms}$ (96 muestras a $48\text{ kHz}$) en la costura para garantizar continuidad de clase $C^1$ ($\frac{dy}{dt}$ continuo).
+
+---
+
+## 20. Arquitectura Psicoacústica de Silencios y Espacio Negativo (Negative Space Protocol)
+
+El silencio no es la ausencia descuidada de señal ni un error de umbral de puerta; es un **condensador dinámico de exergía acústica**. Al cortar los subgraves y transitorios, el músculo tensor del tímpano se relaja, acumulando tensión potencial que multiplica el impacto cinético del siguiente compás (+4 a +6 dB percibidos) sin sobrecargar el techo digital ($TP \le -1.0\text{ dBTP}$).
+
+### Las 5 Intervenciones Cardinales de Silencio:
+1. **El Tape-Stop Analógico ($1.0 - 2.5\text{ s}$):** Desaceleración cuadrática $v(t) = (1 - t/T)^2$ de bobina de cinta hasta $0\text{ Hz}$ + $1.1\text{ s}$ de silencio sepulcral antes de un cambio dramático de acto o un *spoken word* íntimo.
+2. **El Drop-Out Sincopado ($400 - 800\text{ ms}$):** Mute abrupto de bombo y bajo en el tiempo 4.4 + cola de Space Echo filtrada ($350\text{ Hz} - 3.2\text{ kHz}$) que decae en el vacío previo al siguiente compás.
+3. **El Pre-Drop Vacuum ($1.5 - 2.0\text{ s}$):** Barrido de filtro paso-altos agresivo ($40\text{ Hz} \to 1.5\text{ kHz}$) en la última frase, culminando en un corte total a $0$ absoluto durante $500-800\text{ ms}$ antes del drop masivo.
+4. **El Hiccup Gating 3/16 ($200 - 500\text{ ms}$):** Silenciamiento métrico de 1 tiempo que suspende el ritmo y genera una sacudida física de resincronización en la pista de baile.
+5. **El Gran Satori del Compás 12 ($3.0 - 4.5\text{ s}$):** Corte radical en el punto culminante de saturación industrial, dejando una cola de reverberación plate catedralicia ($T_{60} \ge 3.8\text{ s}$) disolviéndose en el espacio antes del renacimiento armónico.
+
+---
+
+## 21. Aislamiento de Stems & Invariante de Exclusión Vocal (Anti-Vocal Clashing Mutex)
+
+> **Regla Invariante de Mutex Vocal:** En ningún instante $t$ de la sesión pueden sonar dos voces humanas cantadas o habladas solapadas en la mezcla:
+> $$\sum_{i} \mathbb{I}(E_{v_i}(t) > \epsilon) \le 1 \quad \forall t$$
+
+### Cadena de Señal Vocal de Club (Dub FX Engine):
+1. **Aislamiento en Silicio:** Extracción de voces mediante Demucs (HTDemucs 48 kHz / MDX-Net) en FLAC sin pérdidas.
+2. **Filtro Paso-Altos Quirúrgico:** Corte de $180\text{ Hz} - 240\text{ Hz}$ para limpiar el fango y dejar libre el espacio del bombo y el bajo.
+3. **Noise Expander / Gate:** Eliminación del suelo de ruido y soplos entre palabras ($5\text{ ms}$ attack, $80\text{ ms}$ release).
+4. **Motor Dub Delay 3/16 Dotted-Eighth:**
+   $$T_{\text{delay}} = 0.75 \times \frac{60}{\text{BPM}}$$
+   - Filtro pasa-banda analógico en cada repetición ($350\text{ Hz} - 3.5\text{ kHz}$).
+   - Desplazamiento estéreo Haas (+20 ms en canal derecho) para espacialidad cinematográfica sin ensuciar el centro mono.
+5. **Sidechain Ducking:** Atenuación automática de $-3\text{ dB}$ en las colas de delay y la pista instrumental cuando la voz seca principal está activa.
+
+---
+
+## 22. Inyección Determinista de Proyectos en DJ.Studio Next (`projects-table`)
+
+Para abrir sets directamente en la interfaz de **DJ.Studio Next** (`/Applications/DJ.Studio Next.app`), el compilador serializa los proyectos en su base de datos local `~/Music/DJ.Studio/Database/`:
+
+* **`projects-meta-table/<UUID>`:** Descriptores JSON con metadatos del proyecto, duración calculada, recuento de pistas y marcas temporales.
+* **`projects-table/<UUID>`:** Grafo completo de mezcla (`mixList`), referencias a librerías de audio (`libraryKey`), curvas de automatización (`autoEffects`), y puntos de anclaje de transición (`HeaderEQ_SigmoidSwap`, `AE_Bass_Swap`, `AE_CrossFade`).
+* **Interoperabilidad:** Una vez escrito el JSON en disco, DJ.Studio Next lo carga al arrancar sin requerir escaneo manual.
+
+---
+
+## 23. Masterización de Club y Streaming EBU R128 (-14.0 a -15.0 LUFS / -1.0 dBTP)
+
+* **Medición ITU-R BS.1770-4 en RAM:** Utilizar `pyloudnorm` para computar sonoridad integrada sobre buffers float32 sin dependencias lentas de disco.
+* **Limitación True Peak (-1.0 dBTP):** Aplicación de techo de seguridad con atenuación de ganancia escalar:
+  $$g = \min\left(1.0, \frac{10^{-1.0/20}}{\max(|x|)}\right)$$
+  Garantiza cero saturación inter-sample en convertidores DAC de CDJ/Pioneer en salas de club y plataformas de streaming.
+* **Exportación Directa:** Salida continua en FLAC 24-bit / 48.0 kHz (`soundfile` con `subtype='PCM_24'`).
+
