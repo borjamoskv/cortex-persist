@@ -87,16 +87,26 @@ Cuando una composición supera los 5-10 minutos (ej. podcast o vídeo de 20 minu
    - Esto comprime el JSON de ~20 MB a ~2.8 MB, permitiendo que Webpack empaquete el bundle en < 1 segundo sin riesgo de OOM.
 
 2. **Particionado en Chunks Deterministas:**
-   - Dividir los fotogramas en bloques uniformes (ej. 12 chunks de 3.000 frames = 100s por chunk).
+   - Dividir los fotogramas en bloques atómicos uniformes (ej. 900 fotogramas = 30 segundos a 30 FPS).
    - Renderizar cada bloque a un archivo aislado en `/tmp/chunks/chunk_N.mp4`.
 
-3. **Orquestación Multi-Worker Concurrente en Python:**
-   - Utilizar `ProcessPoolExecutor(max_workers=3..4)` sobre Apple Silicon (M3 Pro / Max).
-   - Parámetros CLI de Remotion obligatorios por chunk:
-     `npx remotion render src/index.ts <CompositionId> /tmp/chunks/chunk_N.mp4 --frames=START-END --concurrency=4 --gl=angle`
-   - Comprobación idempotente: si el archivo de chunk ya existe y supera el umbral de tamaño (>10 MB), se salta automáticamente.
+3. **Orquestación de Enjambre Atómico (Atomic Swarm Pattern):**
+   - Renderizar de forma serial o con concurrencia estrictamente acotada (`--concurrency=1` o `2`, `--workers=1` por proceso CLI) lanzando una instancia independiente de Remotion por chunk.
+   - Esto asegura un proceso Chromium limpio por bloque, liberando por completo la memoria de V8 y Skia y erradicando fugas de memoria acumuladas.
+   - **Verificación Fail-Closed de Integridad (Anti-Corrupción):**
+     Queda prohibido validar por tamaño de archivo (`> 10MB`). Se DEBE verificar la paridad exacta de fotogramas leídos con `ffprobe`:
+     ```python
+     cmd = ['ffprobe', '-v', 'error', '-count_frames', '-select_streams', 'v:0',
+            '-show_entries', 'stream=nb_read_frames', '-of', 'json', str(chunk_path)]
+     actual_frames = int(json.loads(subprocess.check_output(cmd))['streams'][0]['nb_read_frames'])
+     assert actual_frames == expected_frames, f"Chunk corrupto: {actual_frames} != {expected_frames}"
+     ```
 
-4. **Concatenación Lossless y Muxing de Audio Master (Cero Desincronización ni Pops):**
+4. **Patrón de Bandera `--assemble-only`:**
+   - El script de renderizado debe incluir la opción `--assemble-only` para reutilizar chunks verificados preexistentes.
+   - Si el guion de audio, locución o metadatos cambia sin alterar los fotogramas, `--assemble-only` ejecuta la mezcla y remuxing en < 3 segundos sin re-renderizar vídeo.
+
+5. **Concatenación Lossless y Muxing de Audio Master (Cero Desincronización ni Pops):**
    - Ensamblar los chunks de vídeo mediante demuxer de texto en FFmpeg sin transcodificación:
      `ffmpeg -y -f concat -safe 0 -i chunks_list.txt -c:v copy -an /tmp/video_stream.mp4`
    - Muxear el flujo de vídeo resultante con el archivo máster de audio (.wav o .mp3 a 320k):

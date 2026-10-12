@@ -98,7 +98,7 @@ npx remotion render src/index.ts AudioReactiveMaster out/reactive_sota.mp4 \
   --gl=angle \
   --codec=h264 \
   --pixel-format=yuv420p \
-  --concurrency=10 \
+  --concurrency=2 \
   --crf=18 \
   --enforce-audio-track
 ```
@@ -107,3 +107,21 @@ npx remotion render src/index.ts AudioReactiveMaster out/reactive_sota.mp4 \
 - **`--gl=angle`**: Ejecuta las capas WebGL y shaders en la GPU Metal de Apple Silicon.
 - **`--pixel-format=yuv420p`**: Obligatorio para reproducción sin fallo en QuickTime, Safari y plataformas de distribución.
 - **`--enforce-audio-track`**: Previene desfases de sincronización A/V en vídeos de larga duración.
+- **Concurrencia Calibrada (1-2)**: En rigs complejos o avatares multicapa, fijar `--concurrency=1` o `2`. Concurrencias elevadas (>=8) saturan la memoria gráfica de Skia provocando SIGKILL (rc=-9 / 137).
+
+---
+
+## 🛡️ 6. Invariantes de Prevención de Chromium OOM & SIGKILL (-9 / 137)
+
+1. **Higiene de la Carpeta `public/` (Anti-Bloat del Bundler):**
+   - Queda estrictamente PROHIBIDO almacenar stems brutos multitrack o archivos WAV masivos en `public/`.
+   - El bundler de Remotion (Webpack/esbuild) indexa y copia activos de `public/` en memoria. Los stems de producción deben alojarse fuera (`work/audio_raw_stems/`).
+
+2. **Formato Ligero en `<Audio>`:**
+   - Para el audio de guía/reproducción en la línea de tiempo de Remotion, utilizar siempre un archivo `.mp3` o `.aac` comprimido (10-15 MB).
+   - NUNCA inyectar un máster WAV PCM de 70-150 MB directamente en `<Audio>`, ya que Chromium decodifica todo el buffer PCM sin comprimir en cada pestaña. El máster final se une posteriormente vía FFmpeg con `-c:v copy`.
+
+3. **Optimización de Sombras CSS (Anti-Offscreen Buffers):**
+   - Evitar filtros difusos pesados como `filter: drop-shadow(0 0 24px rgba(0,0,0,0.8))`. Forzan la asignación masiva de buffers fuera de pantalla en Skia.
+   - Emplear sombreado cel/comic de radio cero: `filter: drop-shadow(6px 6px 0px #000)`. Ofrece impacto estético inmediato con coste cero de rasterizado.
+
