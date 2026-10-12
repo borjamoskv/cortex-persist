@@ -48,11 +48,13 @@ Esta habilidad documenta las invariantes matemáticas, acústicas y de ingenier�
 - Para oraciones de hasta 25-30 segundos de duración generada, **evitar la fragmentación multichunk**.
 - Se debe asegurar que `max_chars` en `infer_process` sea suficientemente amplio o invocar directamente `infer_batch_process` pasando `gen_text_batches = [texto_completo]` para que el ODE solver integre una sola trayectoria armónica continua sin saltos de fase.
 
-### Regla 3: Calibración Cinética de Cadencia y Tensión ODE
-- **Prohibición de Aletargamiento:** Jamás usar `speed <= 1.05` en registros urbanos o notas de audio callejeras (genera arrastre vocálico gomoso y diluye el empuje conversacional).
-- **Valores Cinéticos Calibrados:**
-  - Réplica rápida / notas de WhatsApp (Bilbao/calle): `speed = 1.12 - 1.15`.
-  - Explicación didáctica pausada: `speed = 1.05 - 1.08`.
+### Regla 3: Cinética ODE Segura (`speed = 1.02 - 1.06`) y Velocidad Ground-Truth
+- **Prohibición de Aceleración Forzada en ODE:** Jamás superar `speed > 1.10` en el solver ODE creyendo acelerar artificialmente la voz. Acelerar el integrador comprime los fonemas oclusivos por debajo de 20ms provocando deglución de consonantes y balbuceo (*"apretado"* → *"periodado"*, *"copiar y pegar"* → *"escupí a pegar"*).
+- **Origen de la Velocidad Real:** La cadencia rápida (150-185 WPM) debe heredarse de la **referencia nativa de WhatsApp** (muestreada a velocidad natural del personaje), manteniendo el motor ODE en su zona de máxima fidelidad articulatoria:
+  - David Medina / Cadencia analítica reflexiva: `speed = 1.02` (111 WPM real).
+  - Alain / Cadencia temperamental vasca: `speed = 1.05` (175 WPM real).
+  - Mitxu / Cadencia eufórica consorcio/techno: `speed = 1.06` (150 WPM real).
+  - Landeta (Poio) / Cadencia Laidatxu ultratumba: `speed = 1.15` (140 WPM real, voz gutural estable).
 - **Tensión de Guiado (CFG) y Deformación Temporal ODE (Sway):**
   - Configurar `cfg_strength = 1.80` (erradica ataques consonánticos blandos y transiciones difusas de `cfg = 1.35`).
   - Activar deformación temporal `sway_sampling_coef = -0.8` para redistribuir la integración ODE hacia los límites articulatorios de alta curvatura.
@@ -84,6 +86,28 @@ Esta habilidad documenta las invariantes matemáticas, acústicas y de ingenier�
   utils_infer.convert_char_to_pinyin = lambda text_list, **kw: [[c for c in text] for text in text_list]
   ```
   Esto preserva los caracteres UTF-8 puros sin alteración de fronteras de palabra.
+
+### Regla 9: Supresión Obligatoria de Signos de Apertura Invertidos (`¡` / `¿`)
+- **Fallo Físico:** En los modelos F5-TTS entrenados en español, el token inicial de apertura (`¡`, `¿`) colisiona con el embedding fonético de la primera vocal/consonante, provocando artefactos de sustitución (ej. `¡Aupa` → `Fopa`).
+- **Protocolo:** Suprimir siempre `¡` y `¿` en `normalize_text` antes de pasarlo al tokenizador (`text = text.replace("¡", "").replace("¿", "")`), conservando la puntuación de cierre (`!`, `?`, `.`) para guiar la entonación.
+
+### Regla 10: Desacoplamiento de Prefijo de Prompt (Anti-Prefix Collision)
+- **Fallo Físico:** Si la frase a sintetizar comienza con las mismas palabras con las que inicia el texto de referencia (`ref_text`), el modelo Flow-Matching confunde la condición de contexto con la generación autorregresiva y salta tokens creyendo que ya fueron pronunciados.
+- **Protocolo:** Asegurar que el inicio de la frase generada no comparta una subsecuencia idéntica de más de 2 palabras con el inicio del `ref_text`.
+
+### Regla 11: Glosario Fonético de Jerga Electrónica y Clubbing
+- Aplicar normalización estricta por regex antes de la inferencia:
+  - `techno` / `tekno` → `tecno` (erradica la articulación errónea como che `/tʃ/`).
+  - `subgraves` → `sub graves` (evita confusión con *"sus graves"*).
+  - `bpm` / `bpms` → `be pe eme` / `be pe emes`.
+  - `ia` → `i a`.
+  - Asegurar terminación limpia de sentencia con punto final (`.`) para evitar truncamiento de las últimas sílabas en Vocos.
+
+### Regla 12: Compuerta de Calidad Fonética Ground-Truth (`compare_diction.py`)
+- Toda síntesis de producción en el estudio debe someterse a auditoría contra la referencia real:
+  1. Transcripción con Whisper y cálculo de confianza media de tokens ($\ge 0.75$).
+  2. Discrepancia de centroide espectral frente al audio real: $|\Delta\text{Cent}| \le 250\text{ Hz}$.
+  3. Si no pasa la compuerta, reintentar variando la semilla o reubicando micro-pausas sintácticas.
 
 ---
 
