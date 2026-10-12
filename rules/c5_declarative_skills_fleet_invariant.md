@@ -52,3 +52,9 @@ Para prevenir el colapso del presupuesto de contexto (Prompt Tax / Silent Drop) 
 - **Cero Prosa Burocrática:** La descripción debe limitarse a una (1) frase concisa seguida obligatoriamente de sus triggers exactos (`Dispara con "..."`).
 - Cualquier explicación extendida, tutorial o detalle arquitectónico debe residir exclusivamente en el cuerpo Markdown del archivo, NUNCA en el YAML frontmatter.
 - Todo commit en ecosistemas C5-REAL está protegido por un git hook en Silicio (Ring-0) que rechazará con `exit 1` cualquier violación de esta cota.
+
+## 6. Higiene Sintáctica YAML y Encomillado Obligatorio (Anti-ScannerError)
+Para prevenir errores de parseo en librerías YAML estrictas (`yaml.scanner.ScannerError: mapping values are not allowed here`):
+- Todo campo escalar en el frontmatter YAML (`description`, `display_name`) que contenga la secuencia `: ` (dos puntos seguidos de espacio, ej. nombres de CLI, subtítulos o listas inline) **DEBE ESTAR OBLIGATORIAMENTE ENCOMILLADO** mediante comillas simples (`'...'`).
+- Queda prohibido el uso indiscriminado del operador de bloque plegado (`>`) si el texto resultante desborda la cota de 350 caracteres tras la normalización de espacios.
+
