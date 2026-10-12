@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -16,12 +17,36 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Validate JSON configs
-        run: python3 -m json.tool mcp_config.json > /dev/null
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          paths = {Path("mcp_config.json"), Path("hooks.json")}
+          for name in ("mcp_config.json", "hooks.json"):
+              paths.update(Path("plugins").rglob(name))
+
+          errors = []
+          for path in sorted(paths):
+              try:
+                  with path.open(encoding="utf-8") as config:
+                      json.load(config)
+              except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+                  errors.append(f"Invalid JSON config: {path} ({exc})")
+
+          if errors:
+              raise SystemExit("\n".join(errors))
+          print(f"Validated {len(paths)} JSON configs")
+          PY
 
       - name: Required files present
         run: |
-          test -s README.md
-          test -s AGENTS.md
+          for path in README.md AGENTS.md; do
+            if [ ! -s "$path" ]; then
+              printf 'Required file missing or empty: %s\n' "$path" >&2
+              exit 1
+            fi
+          done
 
       - name: Skill and rule manifests non-empty
         run: |
@@ -35,7 +60,14 @@ jobs:
                   errors.append(f"Missing manifest directory: {root}")
                   continue
               for path in sorted(root.rglob("*.md")):
-                  if path.is_file() and path.stat().st_size == 0:
+                  if path.is_dir():
+                      continue
+                  try:
+                      content = path.read_text(encoding="utf-8")
+                  except (OSError, UnicodeError) as exc:
+                      errors.append(f"Unreadable manifest: {path} ({type(exc).__name__})")
+                      continue
+                  if not content.strip():
                       errors.append(f"Empty manifest: {path}")
 
           if errors:
