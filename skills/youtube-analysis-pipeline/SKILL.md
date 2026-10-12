@@ -30,6 +30,10 @@ Esta habilidad proporciona el flujo determinista y multi-fase para la extracció
 - **Trigger Implícito (Comentarios / SOCINT):** Pegar un volcado de texto copiado de la interfaz web de YouTube conteniendo comentarios (con handles `@username`, marcas de tiempo tipo `hace X horas/días`, `Responder`, `X comentarios`) activa inmediatamente la Fase 3b (Auditoría SOCINT) sobre el vídeo analizado previamente o adjunto.
 - **Anti-Trigger:** NO activar para creación de vídeos en Remotion (`youtube-remotion-sota`).
 
+### 🚫 Veto Preventivo a Herramientas Ciegas (Anti-Alucinación 404)
+1. **Prohibición Estricta de `read_url_content`:** YouTube sirve una SPA hidratada dinámicamente con Polymer/Wiz. `read_url_content` solo descarga el esqueleto JS de 1.5 MB con títulos inertes ("Live Content"), desperdiciando ancho de banda y tokens sin extraer información.
+2. **Prohibición de `search_web` como Comprobador de Existencia:** Queda terminantemente prohibido utilizar `search_web` para determinar si una URL de YouTube existe o ha sido eliminada. Los índices web confabulan con frecuencia falsos positivos de eliminación ("video unavailable or removed") ante identificadores alfanuméricos de Shorts o vídeos. La ÚNICA autoridad sobre la disponibilidad de un vídeo es `yt-dlp`.
+
 ---
 
 ## 🛠️ Protocolo de Ejecución
@@ -68,7 +72,23 @@ Antes de invocar cualquier comando de red o `yt-dlp`, el agente DEBE normalizar 
    *Tolerancia a 429 Parcial:* Si `yt-dlp` arroja `HTTP Error 429` únicamente para pistas secundarias (ej. `en`) pero descarga con éxito la pista en el idioma base (`es`/`es-orig`), NO abortar ni considerar error de fase; proceder directamente a la Fase 1.3 con el archivo descargado.
 
    *Nota de Bloqueo:* Si el entorno agéntico bloquea la ejecución de `yt-dlp` (ej. `Sandbox: Python deny(1) file-read-data`, error de shell `/bin/zsh` o certificados SSL), NO solicites permisos adicionales ni intentes depurarlo; aborta la Fase 1 y salta inmediatamente a la Fase 2.
-3. **Condensación VTT (Bypass de Fricción F=0):**
+3. **Extracción de Transcripción Zero-Disk / In-Memory (Bypass de Escritura en Disco):**
+   Para auditar o resumir vídeos sin generar archivos temporales en disco (respetando la Invariante Ring-0 de Workspace), extraer la transcripción directamente desde el volcado JSON parseando la pista de `automatic_captions`:
+   ```bash
+   python3 -c "
+   import urllib.request, json, subprocess, sys
+   res = subprocess.run(['yt-dlp', '--dump-json', sys.argv[1]], capture_output=True, text=True)
+   data = json.loads(res.stdout)
+   sub_url = (data.get('automatic_captions', {}).get('es-orig', [{}])[0].get('url') or 
+              data.get('automatic_captions', {}).get('es', [{}])[0].get('url') or
+              data.get('automatic_captions', {}).get('en', [{}])[0].get('url'))
+   if sub_url:
+       req = urllib.request.Request(sub_url, headers={'User-Agent': 'Mozilla/5.0'})
+       sub_data = json.loads(urllib.request.urlopen(req).read().decode('utf-8'))
+       print(' '.join(seg.get('utf8', '').strip() for ev in sub_data.get('events', []) for seg in ev.get('segs', []) if seg.get('utf8', '').strip()))
+   " "URL"
+   ```
+4. **Condensación VTT (Bypass de Fricción F=0):**
    NUNCA leer directamente un archivo `.vtt` masivo. Utilizar el script residente para limpiar y condensar el texto (asegurar el uso de `python3`):
    `python3 ~/.gemini/config/skills/youtube-analysis-pipeline/scripts/parse_vtt.py <archivo.vtt> > clean_transcript.txt`
    Posteriormente, leer el archivo `clean_transcript.txt`.
