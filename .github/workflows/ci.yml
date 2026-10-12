@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  sanity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Validate JSON configs
+        run: python3 -m json.tool mcp_config.json > /dev/null
+
+      - name: Required files present
+        run: |
+          test -s README.md
+          test -s AGENTS.md
+
+      - name: Skill and rule manifests non-empty
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          errors = []
+          for name in ("skills", "rules", "plugins"):
+              root = Path(name)
+              if not root.is_dir():
+                  errors.append(f"Missing manifest directory: {root}")
+                  continue
+              for path in sorted(root.rglob("*.md")):
+                  if path.is_file() and path.stat().st_size == 0:
+                      errors.append(f"Empty manifest: {path}")
+
+          if errors:
+              raise SystemExit("\n".join(errors))
+          PY
