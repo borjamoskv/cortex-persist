@@ -65,6 +65,14 @@ La confabulación en modelos de inferencia ultrarrápida (*Flash*, *Mini*, model
       1. *Desacople de Envoltorios Anérgicos:* Identificar y aislar los cuellos de botella de la arquitectura comercial (bloat de Electron/Chromium, latencia de HTTP loopback en localhost, telemetría oculta) frente a las especificaciones abiertas (GGUF v3, Metal Shaders, UMA, Unix Domain Sockets).
       2. *Reconstrucción en Silicio:* Proyectar y verificar la arquitectura directamente sobre primitivas de Anillo-0 de BABYLON-60 (mmap directo con MAP_SHARED, buffers Metal UMA RFO=0, Seqlock SPMC 64B KUDURRU-64, y microservidores estáticos en Rust/C).
       3. *Matriz 21+1 Canónica:* Desplegar la topología de 21 agentes especializados (7 tríadas en 3 capas: Silicio/UMA, IPC Zero-HTTP, Interfaz Nativa/SCITT) orquestados por el subagente K3-LARSA-120 bajo barreras isostáticas Edin-100.
+17. **Cortafuegos 17 (Anti-Saturación de Schemas MCP en Arneses Locales / Falsación de la Pila Modular Artesanal):**
+    En discusiones, diseño o despliegue de arneses agénticos locales (ej. Pi, arneses minimalistas, microkernels):
+    - **Diagnóstico Termodinámico (La Trampa de los 5 Plugins):** Conectar herramientas MCP externas dinámicas (ej. Context7, Playwright, OpenSpec, Impeccable, DuckDuckGo) re-infla el *system prompt* de $600$ a $>9.000\text{ tokens}$ ($15\times$ degradación de prefill en GPU local) y condena al sistema a cascadas autorregresivas lentas ($>40\text{ s}$ por tarea).
+    - **Prohibición de Sobrecarga de Schemas:** Queda estrictamente prohibido prescribir la adición indiscriminada de schemas JSON de herramientas en el prompt de agentes locales de alta velocidad sin auditar su impacto en el TTFT.
+    - **Protocolo de Kernel AOT (Salto Topológico):** El agente DEBE exigir:
+      1. *Despacho Tipado en Silicio:* Colapsar los schemas a una única primitiva con gramática GBNF en logits ($\le 150\text{ tokens}$).
+      2. *Pre-fetching Determinista:* Inyección de documentación y dependencias offline (AST del proyecto + SQLite FTS5 local) antes del primer token, eliminando *round-trips* de búsqueda.
+      3. *Linters Fail-Closed:* Ejecutar especificaciones y reglas de diseño como binarios nativos en Anillo-0 antes de escribir a disco.
 
 ## 3. Protocolo Activo de System Prompt (Flash-Defense)
 - Prohibido reproducir citas, fórmulas o datos biográficos confiando en memoria de entrenamiento.

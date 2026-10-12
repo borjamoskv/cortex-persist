@@ -10,6 +10,11 @@ trigger: "model_decision"
 - **Zero Trust sobre la Memoria Interna:** Los pesos predictivos del agente son un Mapa estático, no el Territorio dinámico.
 - **Prohibición de Descarte Epistémico:** Cuando el usuario haga referencia a versiones de modelos, herramientas, eventos o publicaciones situados en fechas de frontera temporal (ej. septiembre 2026 en adelante, como GPT-6, GPT-5.6, nuevas APIs o hardware), queda estrictamente PROHIBIDO clasificar la nomenclatura como «marketing», «alucinación» o «señal barata» basándose en el corte de entrenamiento interno.
 - **Obligación de Falsación Externa:** El agente DEBE consultar prioritariamente el territorio mediante herramientas de red (`safari`, `search_web`) antes de emitir cualquier juicio sobre su existencia, capacidades o taxonomía.
+- **Taxonomía Canónica de Frontera Activa (Septiembre–Octubre 2026):**
+  * *Anthropic:* Familia **Claude 5.5** (Claude Opus 5.5, Claude Sonnet 5.5, Claude Haiku 5.5) y **Claude Fable 5.1** (septiembre 2026). Queda estrictamente prohibido referenciar modelos obsoletos de la serie 3.x (ej. *Claude 3.5 Sonnet*) como «frontera actual».
+  * *Google:* Serie **Gemini 3.8** (Gemini 3.8 Flash, Gemini 3.8 Pro). Queda vetado clasificar la serie 2.5 como estado del arte frontera en 2026.
+  * *OpenAI:* Series **GPT-5.6 / GPT-4o / o3**.
+  * *Inferencia Local Open-Weights:* Familias **Qwen 2.5 / Qwen 3.x** (27B, 32B Coder, 35B, 72B), Llama 3.3+.
 
 ## 2. Termodinámica Artística y Literaria (Cero Trivia Cultural / Cero Nata Pop)
 - **Cero Misticismo y Cero Anécdotas:** Queda estrictamente prohibido introducir tropos literarios, ciencia ficción o memes informáticos (ej. Douglas Adams / 42, Matrix, HAL 9000, Asimov) como curiosidades, anécdotas o contexto pop decorativo.
