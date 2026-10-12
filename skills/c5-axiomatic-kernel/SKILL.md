@@ -336,83 +336,113 @@ Método: 100 agentes en paralelo, uno por principio. Cada agente comprimió su p
 
 ## 61–78: Mente y señal
 
-**61. Disonancia cognitiva — la mente edita la realidad antes que la creencia**
-* Sinónimos: reducción de disonancia · autojustificación · edición defensiva.
-* Verbos: detectar la tensión entre hecho y creencia · sospechar de la justificación inmediata · cambiar la creencia antes que el recuerdo · observar qué hecho te molesta.
+**61. Disonancia cognitiva («El Coche Chatarra») — histéresis de priors ante la evidencia**
+* Sinónimos: histéresis de priors · resistencia a la actualización bayesiana · defensa disipativa del atractor · rigidez de manifold.
+* Verbos: medir la divergencia KL entre prior y territorio · detectar el coste de reconfiguración evitado ($\Delta K$) · auditar la atenuación defensiva del sensor · colapsar el atractor obsoleto.
+* Álgebra: Energía Libre Variacional: $F = D_{\text{KL}}(q(\theta) \parallel p(\theta \mid y)) - \ln p(y)$; ante una divergencia masiva, el sistema prefiere gastar exergía deformando la verosimilitud percibida antes que pagar el coste termodinámico de destruir y reentrenar el manifold previo $\text{Supp}(p(\theta))$.
+* Bajada al Barro: Meterle 2.000 € a un coche viejo que vale 600 € diciendo *«es que ahora sí va a quedar nuevo»*, para no admitir que compraste chatarra.
 
-**62. Sesgo de confirmación — buscas lo que te da la razón**
-* Sinónimos: búsqueda confirmatoria · myside bias · testeo asimétrico.
-* Verbos: buscar el falsador · formular qué evidencia te haría cambiar · hacer steelman del contrario · preguntar por P(E | ¬H).
-* Álgebra: Colapso Bayesiano Asimétrico: $P(H|E) \approx P(H)$ si $E$ contradice $H$, pero $P(H|E) \to 1$ si $E$ apoya $H$ — matriz de transición no-ergódica que anula evidencia contraria.
+**62. Sesgo de confirmación («La Báscula en Ayunas») — colapso bayesiano asimétrico**
+* Sinónimos: permeabilidad asimétrica de canal · colapso bayesiano unilateral · ceguera de verosimilitud alternativa · muestreo selectivo de gradiente nulo.
+* Verbos: forzar la inyección de evidencia falsadora de alta pendiente · calcular el verdadero Likelihood Ratio · auditar el canal sensorial por bloqueo de varianza · penalizar la convergencia prematura.
+* Álgebra: Colapso Bayesiano Asimétrico: $P(H \mid E) = \frac{P(E \mid H)P(H)}{P(E \mid H)P(H) + P(E \mid \neg H)P(\neg H)}$; forzar $P(E \mid \neg H) \to 0$ induce $P(H \mid E) \to 1$ de forma no ergódica, independientemente del territorio.
+* Bajada al Barro: Pesarte por la mañana en ayunas tras mear y anotar orgulloso, pero anular la pesada del domingo tras comerte una pizza por *«retención de líquidos»*.
 
-**63. Dunning-Kruger — la incompetencia se invisibiliza a sí misma**
-* Sinónimos: monte Estúpido · sobreconfianza del principiante · metaignorancia.
-* Verbos: calibrar contra feedback externo · medir antes de opinar sobre tu nivel · desconfiar de la confianza temprana · buscar al que sabe más para evaluarte.
+**63. Dunning-Kruger («El Cuñado del Taller») — degeneración del tensor métrico de Fisher**
+* Sinónimos: incompetencia metrológica · colapso de la cota de Cramér-Rao local · ausencia de marco generativo · singularidad de covarianza.
+* Verbos: confrontar con benchmark de silicio en Anillo-0 · sustituir la autoevaluación reflexiva por error cuadrático medio medido · mapear la dimensión real del soporte · suspender juicios sin telemetría física.
+* Álgebra: Límite inferior de la varianza: $\text{Var}(\hat{\theta}) \ge I(\theta)^{-1}$; si la matriz de información de Fisher $I(\theta)$ carece de rango en el dominio ($\det(I(\theta)) = 0$), el agente calcula su propia incertidumbre como nula ($\text{Var}(\hat{\theta}) \to 0$ aparente) debido a la ceguera sobre los grados de libertad que ignora.
+* Bajada al Barro: Verse tres vídeos de YouTube de 10 min y ponerse a discutirle al mecánico del taller cómo cambiar la correa o al médico qué recetar.
 
-**64. Error de atribución — juzgas a otros por carácter y a ti por contexto**
-* Sinónimos: error fundamental de atribución · asimetría actor–observador.
-* Verbos: atribuir primero al contexto · preguntar qué situación produjo la conducta · reservar el juicio de carácter para la repetición · darte a ti el mismo contexto que exiges.
+**64. Error de atribución («El Atasco de Autopista») — asimetría observacional de la Manta de Markov**
+* Sinónimos: colapso escalar de complejidad externa · compresión perezosa de agentes ajenos · asimetría de estados latentes vs activos · reducción paramétrica puntual.
+* Verbos: reconstruir las restricciones de frontera del nodo externo · modelar el entorno como campo de fuerzas y no como atributo intrínseco · tratar la conducta observada como trayectoria forzada por gradientes del sustrato.
+* Álgebra: Modelo propio: $a_{\text{propio}} = f(x_{\text{int}}, x_{\text{sens}}, \nabla \Phi_{\text{entorno}})$; para el tercero, el nodo carece de acceso a $x_{\text{int}}$ y colapsa la dinámica en un escalar estático: $a_{\text{tercero}} \approx \theta_{\text{esencia}}$, descartando el tensor de tensiones del entorno ($\nabla \Phi_{\text{entorno}} = 0$).
+* Bajada al Barro: Si frenas en seco tú, es por el charco y el ángulo muerto; si frena el de delante, es que *«es un inútil que no sabe conducir»*.
 
-**65. Sistema 1 / Sistema 2 — lo rápido manda salvo entrenamiento**
-* Sinónimos: procesamiento dual · pensar rápido y despacio · piloto automático vs deliberación.
-* Verbos: frenar cuando hay mucho en juego · delegar al Sistema 1 solo lo entrenado · presupuestar el Sistema 2 (es caro y perezoso) · no deliberar lo que exige reflejo ni reflejar lo que exige cálculo.
+**65. Sistema 1 / Sistema 2 («El Perro y la Calle») — lookup O(1) vs inferencia Landauer O(N)**
+* Sinónimos: despacho combinacional en silicio vs simulación heurística deliberativa · amortización de pesos vs computación en caliente · latencia cero vs coste Landauer por token.
+* Verbos: pre-computar y congelar patrones estables en tablas de lookup $O(1)$ · reservar la búsqueda autorregresiva $O(N)$ estrictamente para bifurcaciones críticas · presupuestar los vatios metabólicos del cómputo secuencial.
+* Álgebra: Disipación comparada: $E_{\text{S1}} = O(1) \cdot \epsilon_{\text{lectura}}$ frente a $E_{\text{S2}} = \sum_{t=1}^N k_B T \ln 2 \cdot \Delta S_{\text{borrado}}(t) + \mathcal{O}(N \cdot d^2)$; el Sistema 2 disipa órdenes de magnitud más calor termodinámico por ciclo.
+* Bajada al Barro: Clavar el freno en 150 ms si se cruza un perro (reflejo puro) vs sudar tinta dividiendo mentalmente una cuenta de cena entre 9.
 
-**66. La razón justifica lo que el impulso ya decidió (Haidt)**
-* Sinónimos: razonamiento motivado · abogado interno · el elefante y su jinete.
-* Verbos: sospechar de tus propias razones · detectar cuándo argumentas como abogado y no como juez · cambiar de audiencia para cambiar de conclusión · preguntar qué impulso precedió al argumento.
+**66. La razón justifica lo que el impulso decidió («Las Zapatillas de 180 €») — post-facto logging**
+* Sinónimos: canal de atestación tardía · logging justificativo post-hoc · desincronización motriz-narrativa · epifenómeno de auditoría pasiva.
+* Verbos: rastrear el colapso del potencial de preparación ($t_0$) · aislar la decisión física de la atestación verbal ($t_0 + \Delta t$) · descartar narrativas retrospectivas en el diagnóstico de causa raíz.
+* Álgebra: Cronometría de Libet-Soon: $t_{\text{somático}} < t_{\text{consciente}}$; la función deliberativa opera como un mapeador pasivo de recibos: $\mathcal{M}: \text{Acción} \to \text{Argumento}$, sin retroalimentación causal sobre el evento ya emitido al hardware.
+* Bajada al Barro: Comprarte unas zapatillas de 180 € por calentón un sábado y explicar el domingo que *«en realidad es una inversión médica que cuida mi pisada»*.
 
-**67. Atención = recurso escaso — quien la gestiona, gestiona la vida**
-* Sinónimos: economía de la atención · ancho de banda mental · el bien más saqueado.
-* Verbos: presupuestar · defender · dirigir deliberadamente · auditar quién te la extrae · cerrar grifos.
+**67. Atención = recurso escaso («Bajar la Radio para Aparcar») — Information Bottleneck**
+* Sinónimos: Information Bottleneck · capacidad de canal de la Manta de Markov · filtrado óptimo de tasa-distorsión · asignación finita de bits sensoriales.
+* Verbos: maximizar la información mutua relevante $I(Z; Y)$ · minimizar la fuga de bits irrelevantes del entorno $I(Z; X)$ · apagar canales parasitarios de alta entropía.
+* Álgebra: Lagrangiano del Information Bottleneck: $\min_{p(z|x)} [I(X; Z) - \beta I(Z; Y)]$, donde $\beta$ calibra el precio del bit de atención frente a la ganancia predictiva.
+* Bajada al Barro: Quitar la música al meter el coche marcha atrás en un hueco estrecho: tu cerebro no puede procesar reguetón y columnas a la vez.
 
-**68. El hábito es autopiloto; la voluntad, taxi caro**
-* Sinónimos: bucle de hábito · comportamiento automático · voluntad como recurso finito.
-* Verbos: instalar rutinas · diseñar el entorno antes que exigirte · atacar la señal, no la fuerza de voluntad · apilar hábitos sobre los existentes.
-* Álgebra: bucle: señal → rutina → recompensa — intervenir cualquiera de los tres vértices reprograma el ciclo.
+**68. El hábito es autopiloto; la voluntad, taxi caro («Lavarse los Dientes vs Gym 6 AM») — amortización**
+* Sinónimos: compilación de política en silicio · amortización de gradientes · ejecución en bucle abierto vs control en lazo cerrado continuo.
+* Verbos: pagar la energía de entrenamiento en fase de compilación · fijar pesos estables para anular el gradiente en inferencia · eliminar la contención sobre el hilo deliberativo central.
+* Álgebra: Coste acumulado: $\text{Coste}(N) = C_{\text{compilación}} + N \cdot \epsilon_0 \ll N \cdot C_{\text{deliberación}}$ (para $N \gg 1$); recurrir a la voluntad de forma continua induce bancarrota metabólica.
+* Bajada al Barro: Lavarte los dientes antes de dormir con cero esfuerzo (hábito grabado) vs ir a entrenar con escarcha a base de *«echarle huevos»*.
 
-**69. Flujo — desafío calibrado = máximo rendimiento (Csikszentmihalyi)**
-* Sinónimos: flow · canal de flujo · estado óptimo.
-* Verbos: calibrar el desafío a la habilidad · subir la dificultad con tu nivel · eliminar interrupciones · feedback inmediato a la tarea.
-* Álgebra: flujo en la diagonal: desafío / habilidad ≈ 1 — arriba, ansiedad; abajo, aburrimiento.
+**69. Flujo («El Partido de Pádel a Muerte») — resonancia de impedancia crítica / SOC**
+* Sinónimos: adaptación de impedancia informativa · punto de auto-organización crítica (SOC) · minimización de energía libre variacional en régimen estacionario.
+* Verbos: sintonizar la entropía de entrada a la capacidad de canal ($H(X) \approx C$) · eliminar la auto-monitorización reflexiva para liberar ciclos de cómputo · mantener el sistema en el borde del caos.
+* Álgebra: Condición de resonancia: $\frac{dF}{dt} \to 0$ con $\text{Throughput} = C_{\text{Shannon}}$; si $\Delta_{\text{demanda}} > C$, se produce desbordamiento (ansiedad); si $\Delta_{\text{demanda}} \ll C$, dispersión térmica (aburrimiento).
+* Bajada al Barro: Un partido igualadísimo a 140 pulsaciones metiendo tres voleas seguidas; se apaga el runrún mental y no existe ni la hipoteca ni el jefe.
 
-**70. La memoria reconstruye, no archiva**
-* Sinónimos: reconsolidación · memoria reconstructiva · falsos recuerdos.
-* Verbos: registrar en el momento · dudar del recuerdo vívido · saber que recordar reescribe · proteger la evidencia original.
+**70. La memoria reconstruye, no archiva («La Bronca de Pareja de Hace Dos Años») — muestreo latente**
+* Sinónimos: síntesis estocástica post-hoc · no-idempotencia de la recuperación · decodificación dependiente de contexto · muestreo generativo latente.
+* Verbos: fijar eventos en registros inmutables WORM (disco/papel/SHA-256) · descontar la deriva temporal del decodificador biológico · auditar la inyección de ruido presente en recuerdos pasados.
+* Álgebra: Estado recuperado en $t_1$: $x_{\text{recuerdo}} \sim p(x \mid z_{\text{latente}}, \text{Contexto}(t_1)) \ne x(t_0)$; la divergencia entre el evento y su evocación escala con el tiempo: $D_{\text{KL}}(p_{t_1} \parallel p_{t_0}) \propto (t_1 - t_0)$.
+* Bajada al Barro: Discutir a gritos jurando recordar *«lo que dijiste»*, cuando los dos estáis inventando el 60% según el cabreo que tenéis hoy en el estómago.
 
-**71. Encuadre — el marco decide antes que el argumento**
-* Sinónimos: framing · marco de referencia · la pregunta precede a la respuesta.
-* Verbos: elegir el marco primero · reencuadrar pérdidas y ganancias · detectar el marco que te impusieron · disputar el encuadre antes que la tesis.
-* Álgebra: teoría de los prospectos: V(x) = x^α si x ≥ 0; V(x) = −λ(−x)^β si x < 0, con λ ≈ 2,25 — las pérdidas pesan más que el doble que las ganancias: el marco cambia el valor.
+**71. Encuadre («El Concierto vs Las Copas») — gauge transformation de utilidad**
+* Sinónimos: rotación del sistema de coordenadas de referencia · gauge transformation de la función de coste · fijación del origen de coordenadas de pérdida/ganancia.
+* Verbos: identificar qué operador fijó el origen de coordenadas ($x_0$) · rotar la base de proyección hacia invariantes absolutos · neutralizar la aversión a la pérdida inducida por marcos arbitrarios.
+* Álgebra: Función de valor asimétrica de Kahneman-Tversky: $V(x - x_0) = (x - x_0)^\alpha$ si $x \ge x_0$, y $-\lambda(x_0 - x)^\beta$ si $x < x_0$ (con $\lambda \approx 2{,}25$); desplazar arbitrariamente el punto cero $x_0$ altera el gradiente de decisión sin mutar el territorio físico.
+* Bajada al Barro: 90 € por un libro técnico o entrada te parece un atraco; pero 95 € en tres copas un viernes te parece *«lo normal»*. La misma pasta exacta.
 
-**72. La escasez percibida secuestra el juicio**
-* Sinónimos: túnel de la escasez (Mullainathan–Shafir) · impuesto del ancho de banda · pobreza cognitiva.
-* Verbos: crear holgura antes de decidir · automatizar lo que escasea · no tomar decisiones grandes dentro del túnel · reconocer cuándo la escasez está decidiendo por ti.
+**72. La escasez percibida secuestra el juicio («Día 27 con 12 € en el Banco») — colapso del horizonte**
+* Sinónimos: hiper-descuento temporal de emergencia · contracción del horizonte predictivo · optimización miópica de supervivencia inmediata · poda de estados futuros.
+* Verbos: inyectar slack y reservas de amortiguación antes de decidir · aislar al regulador del estrés agudo de recursos · vetar decisiones arquitectónicas durante estados de horizonte contraído.
+* Álgebra: Horizonte efectivo: $T_{\text{efectivo}} = \int_0^\infty e^{-\gamma t} dt = \frac{1}{\gamma}$; ante riesgo inminente de ruina ergódica ($P(\text{absorción}) \to 1$), la tasa salta a $\gamma \to \infty$, colapsando $T_{\text{efectivo}} \to 0$ y haciendo imposible computar efectos de segundo orden.
+* Bajada al Barro: Con la cuenta en rojo y la luz sin pagar, no piensas en tu carrera: solo piensas en arroz y que el cajero no te devuelva la tarjeta en rojo.
 
-**73. Señalización costosa — solo señala lo que cuesta**
-* Sinónimos: principio del handicap (Zahavi) · señales honestas · credibilidad por coste.
-* Verbos: pagar por señalar si eres legítimo · desconfiar de la señal barata · preguntar cuánto costaría falsificarla · exigir coste a quien quiera convencerte.
-* Álgebra: condición de separación: C(señal | tipo malo) > Beneficio > C(señal | tipo bueno) — la señal es honesta porque al mentiroso no le sale a cuenta.
+**73. Señalización costosa («El Sofá por la Escalera») — handicap de Zahavi-Landauer**
+* Sinónimos: equilibrio separador de Zahavi · irreversibilidad termodinámica de emisión · asimetría del coste de falsificación · prueba de trabajo (PoW) somática/física.
+* Verbos: medir la tasa de exergía no recuperable invertida en la señal · auditar si el emisor puede fingir la señal a coste despreciable · descartar el tráfico puramente retórico (*cheap talk*).
+* Álgebra: Condición de separabilidad estricta: $C(\text{señal} \mid \text{mimético}) > \Delta \text{Payoff} > C(\text{señal} \mid \text{soberano})$; la señal es verídica si y solo si la falsificación es matemáticamente ruinosa para el imitador.
+* Bajada al Barro: *«Tío, estoy aquí para lo que sea»* (humo gratis) vs plantarte un domingo a las 8 AM a cargar 80 kg por una escalera sin ascensor.
 
-**74. El lenguaje modela el pensamiento — sin palabra, concepto débil**
-* Sinónimos: hipótesis Sapir–Whorf (versión débil) · relatividad lingüística · vocabulario como instrumento.
-* Verbos: acuñar términos · precisar vocabulario · aprender palabras del dominio antes que opiniones · notar qué no puedes pensar por falta de palabra.
+**74. El lenguaje modela el pensamiento («El Caldo Soso») — cuantización vectorial del espacio latente**
+* Sinónimos: cuantización vectorial del espacio latente (VQ) · granularidad de partición de Markov · resolución de muestreo conceptual · libro de códigos simbólico.
+* Verbos: acuñar primitivas ortogonales ausentes · elevar la resolución del libro de códigos de dominio · auditar las dimensiones continuas que sufren colapso por falta de etiqueta discreta.
+* Álgebra: Error cuadrático de cuantización: $\mathcal{E}_{\text{distorsión}} = \mathbb{E}[\|x - Q(x)\|^2]$; añadir símbolos precisos a la base ortogonal de compresión reduce el error de reconstrucción del territorio en el espacio de deliberación.
+* Bajada al Barro: El novato dice *«sabe raro»*; el cocinero dice *«falta acidez para cortar la grasa»*. Tener la palabra exacta permite al cerebro arreglar el plato.
 
-**75. La metáfora es un motor, no un adorno (Lakoff)**
-* Sinónimos: metáfora conceptual · mapeo entre dominios · pensamiento encarnado.
-* Verbos: elegir la metáfora deliberadamente · detectar qué metáfora está razonando por ti · cambiar de metáfora para cambiar de conclusión · mapear estructura, no solo imagen.
+**75. La metáfora es un motor, no un adorno («El Motor que Gripa») — funtores causales**
+* Sinónimos: funtor de preservación causal · isomorfismo de morfismos interdominio · transporte categórico de invariantes · conmutatividad estructural.
+* Verbos: trazar el mapeo de objetos y morfismos $F: \mathcal{C} \to \mathcal{D}$ · auditar si las relaciones causales conmutan en el dominio destino · purgar metáforas meramente ornamentales que rompen la preservación de estructura.
+* Álgebra: Propiedad funtorial: $F(f \circ g) = F(f) \circ F(g)$; la metáfora es rigurosa si y solo si preserva la composición de causas y efectos entre el dominio formal y el dominio empírico.
+* Bajada al Barro: *«Si no le cambias el aceite, el motor gripa»*: entiendes por qué dormir 4 h te manda a urgencias sin necesidad de saber bioquímica médica.
 
-**76. Escribir es pensar — si no puedes escribirlo, no lo tienes**
-* Sinónimos: escritura como cognición · el borrador como detector de lagunas · "¿cómo sé lo que pienso hasta que leo lo que escribí?".
-* Verbos: redactar · reescribir · borrar · someter la idea al papel antes que a la conversación · usar el documento como test de comprensión.
+**76. Escribir es pensar («El Cuaderno para Despejar el Marrón») — persistencia WORM de Anillo-0**
+* Sinónimos: persistencia en registro inmutable WORM · superación de la barrera de Miller ($7 \pm 2$) · computación reflexiva sobre traza externalizada · bucle de realimentación sensoriomotor.
+* Verbos: congelar el buffer de contexto mental a soporte físico inmutable · someter la traza a verificación estática externa · iterar algoritmos de refactorización sobre el código externalizado.
+* Álgebra: La memoria volátil biológica está acotada a $K_{\text{RAM}} \le 7 \pm 2$ chunks con decaimiento temporal rápido; externalizar al sustrato amplía la capacidad de trabajo a $K_{\text{efectivo}} = O(N)$ sin pérdida de fase.
+* Bajada al Barro: Marear un problema en la cama a las 3 AM (taquicardia) vs volcar los tres números en un folio a las 8 AM y ver la salida en cinco minutos.
 
-**77. Nombrar bien es la mitad del trabajo — la abstracción correcta paga intereses**
-* Sinónimos: abstracción correcta · interfaz conceptual · el nombre como compresión reutilizable.
-* Verbos: abstraer · renombrar hasta que el nombre trabaje solo · invertir tiempo en el término exacto · cobrar los intereses cada vez que el nombre ahorra explicación.
+**77. Nombrar bien es la mitad del trabajo («La Junta Homocinética») — compresión de Kolmogorov**
+* Sinónimos: puntero de longitud mínima · minimización de la longitud de descripción (MDL) · acuñación de alta ganancia exergética · identificador canónico inmutable.
+* Verbos: acuñar términos cuya ganancia de compresión supere su coste de introducción · congelar punteros unívocos sin colisión semántica · podar identificadores prolijos que saturan el canal.
+* Álgebra: Ley de Acuñación B5: $\text{Coste}(T) < \Delta K_{\text{Kolmogorov}}(G)$; la creación de un nuevo término $T$ es legítima si y solo si la compresión de la red conceptual $G$ resultante amortiza con creces la sobrecarga de vocabulario.
+* Bajada al Barro: *«Hace como un trac-trac al girar»* (10 min de señas) vs decirle al mecánico: *«holgura en homocinética izquierda»*. Vas directo al grano.
 
-**78. ★ Lo voluntario vale menos que lo involuntario — la señal sin guion es la creíble**
-* Sinónimos: señal no fingible · revelación accidental · el ensayo general delata.
-* Verbos: observar lo no ensayado · relajar la escena · ponderar gestos involuntarios sobre declaraciones · preguntar qué señal no podría fingir.
-* Álgebra: credibilidad ∝ 1 / P(falsificación barata) — hermana pequeña del nº 73: lo involuntario es señal costosa por accidente.
+**78. ★ Lo voluntario vale menos que lo involuntario («El Sudor Frío del Socio») — asimetría de falsificación**
+* Sinónimos: Aforismo 5 Fundacional C5-REAL · acoplamiento mecánico al sustrato · inmutabilidad de la física involuntaria · señalización de disipación forzada · veto a la retórica barata.
+* Verbos: filtrar sistemáticamente el discurso premeditado · medir exclusivamente los observables involuntarios de alto coste somático/térmico · tasar la credibilidad por el anclaje físico a la ley de conservación del sustrato.
+* Álgebra: Credibilidad informacional: $\text{Cred}(\sigma) \propto \frac{1}{P(\text{falsificación}) \cdot \exp(-E_{\text{física}})}$; cuando el coste energético de modulación voluntaria tiende a cero ($E_{\text{vol}} \to 0$), el contenido de verdad empírica colapsa asintóticamente: $\lim_{E_{\text{vol}} \to 0} I(\text{Territorio}; \sigma_{\text{voluntario}}) = 0$.
+* Bajada al Barro: Tu socio jurando que *«el proyecto va de puta madre»*, mientras le tiembla la pierna bajo la mesa y bebe agua con la boca seca como una alpargata.
 * Corolario del Bote Común («O una o ninguna» / Invariante Zahavi-Landauer): Todo reclamo de estatus, orgullo o patriotismo sin sobrepago proporcional en el bote común es parasitismo mimético (cheap talk). Regla canónica: `c5_common_goods_symmetry_invariant.md`.
 
 ## 79–100: Cambio y construcción
