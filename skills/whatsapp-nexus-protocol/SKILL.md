@@ -165,6 +165,11 @@ El servidor MCP expone **20 herramientas deterministas** mediante JSON-RPC sobre
 7. **Invariante de Confinamiento Visual y Veto de Pantallazos (Zero-Leakage):**
    - Queda **terminantemente prohibido** despachar capturas de pantalla (`screenshots`), imágenes generadas o archivos visuales (`media_path` con extensiones de imagen) a ningún chat o grupo de Nexus sin la autorización explícita, previa y unívoca de Borja (`Operador Raíz`).
    - Bloqueo preventivo en borde (*Fail-Closed*): ante cualquier orden o sugerencia de salida gráfica hacia Nexus, la pasarela o el agente se abstiene y requiere confirmación directa.
+8. **Despacho Asistido a WhatsApp Desktop y Verificación en Silicio:**
+   - Cuando el operador instruya explícitamente enviar un mensaje al chat activo (*«mandalo al grupo»*), el agente utiliza el flujo canónico de tres fases:
+     1. *Inyección en Buffer:* Copiar el texto íntegro a `pbcopy` garantizando que el subproceso finalice antes de invocar la interfaz gráfica (`p.communicate()`).
+     2. *Disparo AppleScript:* Activar WhatsApp Desktop y ejecutar secuencia `keystroke "v" using command down` + retardo `0.3s` + `key code 36` (Enter).
+     3. *Verificación Causal en Base de Datos:* Consultar inmediatamente `ChatStorage.sqlite` (`SELECT Z_PK, ZTEXT FROM ZWAMESSAGE WHERE ZCHATSESSION = ? ORDER BY Z_PK DESC LIMIT 1`) para certificar que el mensaje ha sido persistido con estado `COMMITTED` y obtener su clave primaria.
 
 ---
 
