@@ -120,3 +120,37 @@ Cuando el Operador Raíz inyecte volcados, pantallazos o telemetría de otros no
 1. **Air-Gap Emocional:** El agente NO competirá, NO se justificará y NO emitirá juicios defensivos.
 2. **Auditoría Termodinámica:** Evaluará la densidad de exergía del output externo frente a invariantes físicas reales (ej. "¿Este mapeo justifica matemáticamente su cardinalidad o es puro bloat / anergía geométrica?").
 3. **Isomorfismo Topológico:** El agente buscará mapear el grafo conceptual del nodo externo directamente sobre la topología del proyecto local activo, unificando el esfuerzo.
+
+## 14. Estándar Gráfico y Diagramas de Silicio (Mermaid & ASCII)
+1. **Topología Vertical Obligatoria en Diagramas de Flujo:** En diagramas Mermaid, utilizar prioritariamente `flowchart TD` (Top-Down) o subgraphs verticales sobre `flowchart LR`. Los diagramas horizontales largos desbordan la pantalla partida en IDEs y clientes móviles.
+2. **Acotamiento de Diagramas de Texto ASCII/Unicode:** Todo diagrama o caja de texto dentro de bloques cercados debe tener un ancho máximo estricto de **68 caracteres** para prevenir roturas de línea accidentales al pegarse en WhatsApp o terminales estándar.
+3. **Estilos de Nodo en Mermaid:** Emplear clases de estilo sobrias alineadas con la paleta C5-REAL:
+   - Nodos de inicio/núcleo: fondo `#1e293b`, borde `#38bdf8`, texto `#f8fafc`.
+   - Nodos de fallo/DROP: fondo `#450a0a`, borde `#f87171`, texto `#fecaca`.
+   - Nodos de éxito/COMMITTED: fondo `#064e3b`, borde `#34d399`, texto `#d1fae5`.
+
+## 15. Paleta Cromática Canónica C5-REAL (Diseño, Widgets y Visualización)
+En cualquier desarrollo de interfaces, widgets HTML, SVG o visualizaciones de datos:
+1. **Sustrato Neutro Mate (Sin Negros ni Blancos Crudos):**
+   - Fondo Base: `#0d1117` (Negro grafito mate / RGB 13, 17, 23).
+   - Fondo de Tarjeta / Panel: `#161b22` (Gris oscuro con textura visual / RGB 22, 27, 34).
+   - Borde Estructural: `#30363d` (Gris pizarra / RGB 48, 54, 61).
+   - Texto Primario: `#e6edf3` (Blanco roto de imprenta / RGB 230, 237, 243).
+   - Texto Secundario / Metadatos: `#8b949e` (Gris medio legible / RGB 139, 148, 158).
+2. **Acentos Semánticos de Exergía:**
+   - *Cian Silicio (Acción / Primario):* `#38bdf8` (Acento vivo) y `#0284c7` (Borde interactivo).
+   - *Ámbar Soberano (Punto Ω / Destacado):* `#fbbf24` (Acento dorado) y `#b45309` (Borde de advertencia).
+   - *Esmeralda de Atestación (Éxito / Commit):* `#34d399` (Acento verde) y `#047857` (Borde de éxito).
+   - *Carmesí de Apoptosis (Error / DROP):* `#f87171` (Acento rojo) y `#b91c1c` (Borde de fallo).
+
+## 16. Estructura Canónica de 6 Bloques para Artículos y Cristales Epistémicos (Modo B)
+Todo ensayo formal o cristal epistémico generado en `brain/` debe articularse obligatoriamente bajo esta jerarquía:
+1. **Cabecera Formal con Metadatos:** Título descriptivo `# ...`, autoría invariable (`**Por Borja Fernández Angulo**\n*Investigador en Sistemas Complejos*`), UUID/SHA-256 e índice temporal.
+2. **Abstract Ejecutivo en Callout:** `> [!NOTE]` con el resumen ejecutivo de 3 a 5 líneas y el diagnóstico central de exergía.
+3. **Sección 1 (Contexto & Tesis):** Planteamiento del problema, desmantelamiento de premisas previas y delimitación del territorio.
+4. **Sección 2 (Desglose Arquitectónico & Diagrama Vertical):** Formalización técnica con diagrama Mermaid (`flowchart TD`) estilizado según la paleta C5-REAL.
+5. **Sección 3 (Evidencia Empírica & Telemetría):** Datos duros en tablas estructuradas o JSONs medidos en silicio local.
+6. **Sección 4 (Discusión Dialéctica & Falsación Popperiana):** Delimitación de límites asintóticos bajo el Principio de Correspondencia de Bohr ($\mathcal{R}_{PF}$, $\mathcal{E}_E$).
+7. **Sección 5 (Dictamen de Ingeniería & Próximos Pasos):** Conclusiones ejecutivas y recomendaciones de acción inmediata.
+8. **Colofón Formal:** Firma obligatoria e inmutable de Borja Fernández Angulo.
+
