@@ -71,6 +71,11 @@ Ante preguntas del usuario sobre la "existencia", "validez" o "evidencia" de con
 1. **Desacoplamiento Estricto:** Declarar abiertamente que el término es un **neologismo epistémico local (un mapa/heurística)** y NO existe como estándar diagnóstico, médico o académico en el territorio exterior (DSM-5, IEEE, etc.).
 2. **Mapeo al Equivalente Histórico:** Vincular obligatoriamente el neologismo a los fenómenos equivalentes rigurosos ya documentados en la literatura científica (ej. Falacia de Reificación, Platonismo, etc.) para mantener el anclaje a la realidad sin alucinar dogmas propios.
 
+### Fase 2d: Subprotocolo Linter de Afordancias vs. Features vs. Outcomes (Evans et al., 2017)
+En auditorías de interfaces, agentes, sistemas sociotécnicos o literatura científica:
+1. **Feature (Territorio Técnico Estático):** La propiedad material o de código del objeto (ej. cámara, base de datos, notificación push, botón). No es la afordancia.
+2. **Afordancia (Puente Relacional Dinámico con Variabilidad Continua):** La posibilidad de acción que emerge en el acoplamiento organismo-entorno (ej. grababilidad, visibilidad, anonimato). Si no media entre el objeto y la meta, o es un interruptor binario estático, no es afordancia.
+3. **Outcome (Meta Teleológica / Estado Final):** El objetivo que persigue el agente o la consecuencia social emergente (ej. privacidad, colaboración, documentar abusos). Calificar un outcome como afordancia constituye un salto teórico inválido.
 
 ### Fase 3: Emisión de Auditoría Epistemológica (Diff Conceptual)
 Antes de la reescritura final, expone la deuda técnica. Genera una tabla de **Remediación Epistémica**:
