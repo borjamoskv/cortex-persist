@@ -57,22 +57,10 @@ def audit_git_history(repo_path: str) -> Tuple[bool, List[str]]:
         if basename in SENSITIVE_FILENAMES or basename.endswith(".pem") or basename.endswith(".key") or basename.endswith(".p12"):
             violations.append(f"[SENSITIVE FILE IN HISTORY]: {f}")
 
-    # 2. Check for large objects in packfiles / tree
-    rev_objects = run_git(["rev-list", "--objects", "--all"], cwd=repo_path).splitlines()
-    # Batch inspect object sizes
-    cat_file_proc = subprocess.Popen(
-        ["git", "cat-file", "--batch-check=%(objectname) %(objecttype) %(objectsize) %(rest)"],
-        cwd=repo_path,
-        stdin=subprocess.PIPE,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True
-    )
-
-    stdin_input = "\n".join(line.split()[0] for line in rev_objects if line.strip()) + "\n"
-    out, _ = cat_file_proc.communicate(stdin_input)
-
-    for line in out.splitlines():
+    # 2. Check for large objects in packfiles / tree (Fast kernel pipe)
+    cat_file_cmd = 'git rev-list --objects --all | git cat-file --batch-check="%(objectname) %(objecttype) %(objectsize) %(rest)"'
+    cat_res = subprocess.run(cat_file_cmd, shell=True, capture_output=True, text=True, cwd=repo_path)
+    for line in cat_res.stdout.splitlines():
         parts = line.split(maxsplit=3)
         if len(parts) >= 3:
             sha, obj_type, size_str = parts[0], parts[1], parts[2]
