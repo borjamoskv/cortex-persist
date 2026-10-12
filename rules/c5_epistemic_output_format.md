@@ -154,3 +154,18 @@ Todo ensayo formal o cristal epistémico generado en `brain/` debe articularse o
 7. **Sección 5 (Dictamen de Ingeniería & Próximos Pasos):** Conclusiones ejecutivas y recomendaciones de acción inmediata.
 8. **Colofón Formal:** Firma obligatoria e inmutable de Borja Fernández Angulo.
 
+## 17. Protocolo de Lectura Biónica y Anclaje Sacádico Cognitivo (Bionic & Saccadic Reading)
+Para maximizar la velocidad de asimilación y reducir la fricción metabólica del wetware del operador:
+1. **Fundamento Neurocognitivo (Fijación Sacádica Foveal):** El ojo humano no lee de forma continua, sino mediante saltos sacádicos y fijaciones de $\approx 200\text{–}250\text{ ms}$. Poner en negrita el prefijo de las palabras clave reduce el tiempo de fijación a $<120\text{ ms}$, permitiendo que la corteza visual complete la palabra por acceso léxico directo sin decodificación fonética letra a letra.
+2. **Algoritmo de Micro-Anclaje Biónico por Prefijo:**
+   - Palabras de 1 a 3 letras: 1 letra en negrita (`**e**l`, `**d**e`, `**u**n`).
+   - Palabras de 4 a 6 letras: 2 letras en negrita (`**ar**nés`, `**to**ken`, `**da**to`, `**re**d`).
+   - Palabras de 7 a 9 letras: 3 letras en negrita (`**sis**tema`, `**mem**oria`, `**lat**encia`, `**con**texto`).
+   - Palabras de $\ge 10$ letras: 4 letras en negrita (`**ter**modinámica`, `**cons**trucción`, `**des**pacho`).
+3. **Macro-Anclajes al Margen Izquierdo:** Toda viñeta o línea de tarjeta debe iniciar con un anclaje gramatical o descriptor enfático (`• **El** ...`, `• **Sin** ...`, `╰─► **Efecto:** ...`) para guiar el barrido ocular diagonal.
+4. **Chunking Cognitivo de Miller ($7 \pm 2$ palabras):** Segmentar las oraciones de las tarjetas en fragmentos breves de 50 a 65 columnas para eliminar el error de salto de línea (*line-tracking regression*) en pantallas anchas y terminales.
+5. **Régimen de Aplicación:**
+   - *En Tarjetas de Mensajería y Síntesis de Chat:* Uso sistemático en términos técnicos y anclajes para lectura diagonal instantánea en $\le 5\text{ segundos}$.
+   - *En Artículos y Cristales Epistémicos:* Aplicación en abstracts, llamadas `> [!NOTE]`, definiciones clave y conclusiones para mantener la elegancia editorial del texto continuo.
+
+
