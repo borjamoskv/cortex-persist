@@ -37,3 +37,15 @@ git add skills/ rules/ plugins/ AGENTS.md
 git commit -m "feat(cortex): update procedural skills & rules"
 git push origin main
 ```
+
+## Tests de CI
+
+Los casos de regresión ejecutan los controles de `.github/workflows/ci.yml`
+sobre fixtures temporales, incluidos JSON inválidos, manifiestos vacíos y enlaces
+rotos. Para ejecutarlos localmente:
+
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install -r .github/tests/requirements.txt
+.venv/bin/python -B -m unittest discover -s .github/tests -p 'test_*.py' -v
+```

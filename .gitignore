@@ -32,6 +32,7 @@ ehthumbs.db
 Thumbs.db
 
 # Python & Node Runtime Artifacts
+.venv/
 __pycache__/
 *.py[cod]
 *$py.class
