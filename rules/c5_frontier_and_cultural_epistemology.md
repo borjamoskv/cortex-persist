@@ -119,4 +119,12 @@ En repositorios públicos, interfaces y READMEs de perfil:
   4. *El Ático / Cúpula Epistémica (Oráculo de Frontera · Claude Opus 5.5):* Máxima densidad por token (\$4.00 in / \$20.00 out / MTok, \$0.20 cache read). Reservado para el Salto Topológico (Cambio 2), agentic coding multi-repo con análisis causal previo de raíz (Terminal-Bench 4.0: 66.4%, Coding Agent Index: 66 pts, OSWorld 2.0: 81.8%) y purga activa de *AI slop* / complacencia.
 - **Principio de Asignación Exergética:** Queda estrictamente prohibido despachar tareas de Sótano -3 o Sótano -2 a modelos de Ático (anergía de costes), o delegar refactorizaciones multi-repo profundas a modelos de subsuelo sin oráculo causal.
 
+## 20. Invariante del Isomorfismo entre Freak Show Místico y Telebasura (La Invariante Tamarismo / Carlos Jesús)
+- **Desmitificación del Guruísmo por Encuadre Cultural:** Queda estrictamente prohibido otorgar respetabilidad epistemológica automática a fenómenos místicos, votos de silencio multidecadales o automutilaciones ascéticas sólo por ir envueltos en indumentaria oriental, incienso o veneración histórica.
+- **La Identidad Topológica del Friki:** Todo sistema de adoración basado en la emisión de señales de coste cero (*cheap talk*), incomunicación voluntaria o gesticulación hermética delegada en secretarios es funcional y estructuralmente isomorfo a la farándula televisiva kitsch (el «tamarismo» de *Crónicas Marcianas*):
+  1. *El Síndrome Carlos Jesús:* Un choque biológico o trauma temprano genera una autoatribución mesiánica (Avatar cósmico / comandante de 13 millones de naves de Ganímedes) con promesa de eventos físicos inminentes que jamás ocurren (la «Palabra de las Palabras» / el aterrizaje de naves).
+  2. *El Blindaje Materno-Secretarial:* La figura no se expone a la falsabilidad popperiana; delega el choque dialéctico en intermediarios devocionales que interpretan cualquier contradicción como «incomprensión profana».
+  3. *La Colisión Inelástica contra el Territorio:* La física newtoniana y la biología no negocian con la investidura mística (el coche que parte la cadera al Avatar en 1952/1956; el oso que devora a Timothy Treadwell; la flecha que atraviesa a John Allen Chau).
+
+
 
