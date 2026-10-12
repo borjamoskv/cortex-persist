@@ -1,10 +1,25 @@
 ---
 name: pika-generative-video-pipeline
-display_name: "Pipeline de Generación y Control Parámetrico en Pika Art (A/V)"
-description: "Generación de vídeo e integración de audio en Pika Art. Cheatsheet de cámara (-camera), control de física (-motion, -fps), Pikaffects y Pika Audio Models. Dispara con 'pika art', 'pika tutorial', 'pika camera', 'pikaffects', 'pika prompt'."
+display_name: Pipeline de Generación y Control Parámetrico en Pika Art (A/V)
+description: Generación de vídeo e integración de audio en Pika Art con control de física (-motion, -fps), Pikaffects y Pika Audio Models. Dispara con "pika art", "pika tutorial", "pika camera", "pikaffects", "pika prompt", "generación vídeo pika", "pikaffects sota".
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Pika Art Generative Video & Audio Pipeline
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Mutación de Árbol de Trabajo))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilación, ejecución de tests locales y generación de artefactos))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 Esta habilidad proporciona las directrices y el cheatsheet determinista para la generación cinematográfica en Pika Art (1.0, 1.5, 2.0+) y su suite de audio.
 
@@ -58,7 +73,8 @@ $$\text{Prompt} = \text{[Sujeto + Acción Dinámica]} + \text{[Entorno + Ilumina
 ---
 
 ## 💻 Integración con CLI Soberano Local
-Usar `pika_suno_sovereign_cli.py` para auditar la sintaxis de corchetes `[...]` y calcular la fricción de créditos antes de lanzar llamadas a `dev.pika.art`:
+Calcular directamente la fricción de créditos y validar la sintaxis de corchetes `[...]` mediante estimación analítica determinista:
 ```bash
-python3 scripts/pika_suno_sovereign_cli.py --calc-cost <duración_segundos> --iterations <n>
+# Cálculo inline de fricción de créditos Pika:
+python3 -c 'import sys; d=float(sys.argv[1]); n=int(sys.argv[2]); print(f"Créditos estimados: {d * 2.5 * n:.1f}")' <duración_segundos> <iterations>
 ```

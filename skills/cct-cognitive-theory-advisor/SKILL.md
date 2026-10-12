@@ -1,9 +1,25 @@
 ---
 name: cct-cognitive-theory-advisor
-display_name: "Asesoría en Teoría Cognitiva CCT & Límite Gödel-Turing"
-description: "Asesor en Teoría Cognitiva CCT, Límite de Gödel-Turing, Autopoiesis (Maturana/Luhmann) y prevención de colapso entrópico. Dispara con \"teoría cognitiva\", \"cct advisor\", \"gödel turing\", \"autopoiesis\", \"maturana luhmann\", \"burnout cognitivo\"."
+display_name: Asesoría en Teoría Cognitiva CCT & Límite Gödel-Turing
+description: Asesor en Teoría Cognitiva CCT, Límite de Gödel-Turing, Autopoiesis (Maturana/Luhmann) y prevención de colapso entrópico. Dispara con "teoría cognitiva", "cct advisor", "gödel turing", "autopoiesis", "maturana luhmann", "burnout cognitivo".
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
+
 # CCT Cognitive Theory Advisor
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Lectura profunda y modelado formal; emisión de especificaciones sin mutación de código de producción))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
 
 Aplica las siguientes reglas estrictamente cuando la habilidad es invocada:
 

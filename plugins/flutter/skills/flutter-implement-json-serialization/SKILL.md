@@ -4,8 +4,24 @@ description: Create model classes with `fromJson` and `toJson` methods using `da
 metadata:
   model: models/gemini-3.1-pro-preview
   last_modified: Tue, 21 Apr 2026 21:44:50 GMT
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
+
 # Serializing JSON Manually in Flutter
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 ## Contents
 - [Core Guidelines](#core-guidelines)

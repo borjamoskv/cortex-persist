@@ -1,10 +1,25 @@
 ---
 name: cta-cognitive-transition-algebra
-display_name: "Álgebra de Transiciones Cognitivas & Event-Sourcing Comonádico"
-description: "Álgebra de Transiciones Cognitivas (CTA), event-sourcing comonádico y modelos formales de estado. Dispara con \"álgebra cognitiva\", \"cta transition\", \"event sourcing cognitivo\", \"matriz cta\", \"transición de estados\"."
+display_name: Álgebra de Transiciones Cognitivas & Event-Sourcing Comonádico
+description: Álgebra de Transiciones Cognitivas (CTA), event-sourcing comonádico y modelos formales de estado. Dispara con "álgebra cognitiva", "cta transition", "event sourcing cognitivo", "matriz cta", "transición de estados", "álgebra de transiciones", "comónada cognitiva".
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
 
 # Protocolo: Cognitive Transition Algebra (CTA)
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Lectura profunda y modelado formal; emisión de especificaciones sin mutación de código de producción))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
 
 Este protocolo se activa cuando el usuario solicita diseñar, auditar, evaluar o programar arquitecturas de inteligencia artificial, orquestadores, o sistemas multi-agente.
 

@@ -1,15 +1,26 @@
 ---
 name: predictingthepast
-description: >
-  Ancient text restoration, attribution, dating, contextualization, and
-  embedding via Aeneas (Latin) / Ithaca (Ancient Greek). Use when asked to
-  "restore", "attribute", "date", "contextualize", "find parallels",
-  "where was it written", "when was it written", "embed", or "analyze"
-  an ancient text, inscription, or epigraphic document, or when the user
-  mentions "Aeneas", or "Ithaca".
+description: 'Ancient text restoration, attribution, dating, contextualization, and embedding via Aeneas (Latin) / Ithaca (Ancient Greek). Use when asked to "restore", "attribute", "date", "contextualize", "find parallels", "where was it written", "when was it written", "embed", or "analyze" an ancient text, inscription, or epigraphic document, or when the user mentions "Aeneas", or "Ithaca".
+
+  '
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
 
 # Predicting The Past (Aeneas / Ithaca)
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Modelado formal y especificaciones sin mutación de código))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
 
 Aeneas (Latin) and Ithaca (Ancient Greek) perform four tasks on ancient texts:
 

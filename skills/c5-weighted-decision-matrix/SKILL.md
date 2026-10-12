@@ -1,10 +1,25 @@
 ---
 name: c5-weighted-decision-matrix
-display_name: "Matriz de Decisión Ponderada y Estimación PERT"
-description: "Matrices de decisión multicriterio ponderadas para selección tecnológica y evaluación de proveedores, análisis de sensibilidad y estimación formal de esfuerzo PERT con intervalos de confianza. Dispara con \"weighted scorer\", \"matriz de decisión\", \"pert estimation\", \"estimación de proyectos\", \"evaluación tecnológica\"."
+display_name: Matriz de Decisión Ponderada y Estimación PERT
+description: Matrices de decisión multicriterio ponderadas para selección tecnológica, análisis de sensibilidad y estimación formal PERT. Dispara con "weighted scorer", "matriz de decisión", "pert estimation", "estimación de proyectos", "evaluación tecnológica", "matriz de pesos", "evaluación de proveedores".
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
 
 # Skill: C5 Weighted Decision Matrix & PERT Estimation
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Lectura profunda y modelado formal; emisión de especificaciones sin mutación de código de producción))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
 
 Este protocolo proporciona soporte cuantitativo para la toma de decisiones complejas, selección de arquitectura/proveedores y estimación probabilística de proyectos.
 

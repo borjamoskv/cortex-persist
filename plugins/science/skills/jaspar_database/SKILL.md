@@ -1,14 +1,26 @@
 ---
 name: jaspar-database
-description: >
-    Query the JASPAR database for Transcription Factor (TF) binding profiles.
-    Use when retrieving Position Frequency Matrices (PFMs) or Position Weight
-    Matrices (PWMs) for specific TFs, resolving gene symbols to JASPAR Matrix
-    IDs, or getting TF metadata. Supports multiple output formats (MEME,
-    TRANSFAC, PFM, JASPAR, YAML).
+description: 'Query the JASPAR database for Transcription Factor (TF) binding profiles. Use when retrieving Position Frequency Matrices (PFMs) or Position Weight Matrices (PWMs) for specific TFs, resolving gene symbols to JASPAR Matrix IDs, or getting TF metadata. Supports multiple output formats (MEME, TRANSFAC, PFM, JASPAR, YAML).
+
+  '
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # JASPAR Skill
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 JASPAR is the definitive open-access database for Transcription Factor (TF)
 binding profiles, stored as Position Frequency Matrices (PFMs).

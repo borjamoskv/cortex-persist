@@ -1,152 +1,150 @@
 ---
 name: cloudflare-mcp-usage
-description: Use when working with the official Cloudflare API MCP server, especially when querying or changing Cloudflare account resources, debugging MCP/API/GraphQL errors, or when the model might otherwise guess Cloudflare API endpoints, parameters, datasets, permissions, or time formats. Guides correct docs/search/execute usage, authentication checks, entitlement handling, GraphQL analytics calls, and common Cloudflare API failure modes.
+display_name: Automatización & Operaciones Cloudflare MCP
+description: Uso y automatización del servidor MCP oficial de Cloudflare API para Workers, DNS, KV/R2, Pages y reglas de red, con degradación automática hacia navegador si falta API Token. Dispara con "cloudflare", "mcp cloudflare", "zonas dns cloudflare", "cloudflare worker", "desplegar cloudflare", "gestión cloudflare", "kv r2 cloudflare", "cloudflare api mcp", "cloudflare mcp usage", "debug cloudflare mcp", "cloudflare graphql mcp", "cloudflare execute", "cloudflare endpoints".
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
-# Cloudflare MCP Usage
+# Automatización y Operaciones Cloudflare MCP
 
-Use this skill when a task asks to use Cloudflare MCP, Cloudflare API MCP, or a Cloudflare MCP server to inspect, query, configure, deploy, or debug Cloudflare resources.
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Mutación de Árbol de Trabajo))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilación, ejecución de tests locales y generación de artefactos))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
-The official broad Cloudflare API MCP is a Code Mode server. Treat it as a discovery-and-execution interface, not as a set of memorized product tools.
+## Composición Funtorial (MASS Stage 2)
+- PRE-REQUISITO: [c5-real-devsecops-scaffold]
+- POST-CADENA: [safari-browser-agent]
 
-## Core Rule
+Utiliza esta habilidad cuando una tarea solicite interactuar con Cloudflare MCP, Cloudflare API MCP o un servidor MCP de Cloudflare para inspeccionar, consultar, configurar, desplegar o depurar recursos en Cloudflare.
 
-Never invent Cloudflare API paths, GraphQL datasets, request bodies, parameter names, or tool call shapes from memory.
+El servidor MCP oficial de Cloudflare API opera bajo la modalidad *Code Mode*. Debe ser tratado como una interfaz de descubrimiento y ejecución determinista, nunca como un conjunto de herramientas arbitrarias memorizadas.
 
-Use this order:
+## Regla Núcleo
 
-1. Use MCP documentation/search capability to find the relevant endpoint, schema, dataset, permissions, and examples.
-2. Confirm whether the request is account-scoped, zone-scoped, user-scoped, or token-scoped.
-3. Use MCP execute capability only after the call shape is known.
-4. Inspect Cloudflare response bodies, not just HTTP status. GraphQL can return HTTP 200 with `errors`.
+**Prohibido inventar rutas de API, datasets GraphQL, cuerpos de petición o nombres de parámetros de memoria.**
 
-If the MCP server exposes `docs`, `search`, and `execute`, prefer:
+Sigue estrictamente esta secuencia operativa:
 
-- `docs`: learn how the MCP server expects calls to be written.
-- `search`: find Cloudflare API endpoints, OpenAPI operations, GraphQL datasets, parameter names, and permission requirements.
-- `execute`: run the final request, using the discovered endpoint and exact parameter names.
+1. **Documentación y Búsqueda:** Utiliza las capacidades de documentación y búsqueda del MCP para localizar el endpoint relevante, el esquema, el dataset, los permisos y ejemplos de llamada.
+2. **Determinación de Ámbito:** Confirma si la petición está delimitada a nivel de cuenta (`account-scoped`), zona (`zone-scoped`), usuario (`user-scoped`) o token (`token-scoped`).
+3. **Ejecución Precisa:** Invoca la capacidad `execute` únicamente tras conocer la estructura exacta de la llamada.
+4. **Inspección de Respuesta:** Examina el cuerpo de respuesta devuelto por Cloudflare, no solo el código de estado HTTP (GraphQL puede responder HTTP 200 conteniendo `errors`).
 
-## Before Calling
+Si el servidor MCP expone `docs`, `search` y `execute`:
+- `docs`: Comprender la firma y sintaxis esperada por el servidor MCP.
+- `search`: Localizar endpoints de la API, operaciones OpenAPI, datasets GraphQL, nombres de parámetros y requerimientos de permisos.
+- `execute`: Despachar la petición final utilizando el endpoint descubierto y parámetros exactos.
 
-Check these details before execute:
+## Verificaciones Previas a la Ejecución
 
-- Resource identity: account ID, zone ID, worker/script name, route, DNS record ID, or rule ID.
-- Scope: account APIs usually need account ID; zone APIs usually need zone ID.
-- Permission: token must include the product-specific read/edit permission and the resource must be inside the token's allowed account or zone scope.
-- Operation risk: for create, update, delete, purge, deploy, rotate, or security policy changes, explain the impact and get confirmation unless the user has already clearly approved it.
-- Time window: analytics/log queries should start with a narrow range.
+Verifica estos campos antes de ejecutar:
+- **Identidad del Recurso:** ID de cuenta (`account ID`), ID de zona (`zone ID`), nombre de worker/script, ruta, ID de registro DNS o ID de regla de firewall.
+- **Ámbito:** Las APIs de cuenta requieren `account ID`; las APIs de zona requieren `zone ID`.
+- **Permisos:** El token debe incluir el permiso específico de lectura/edición y el recurso debe residir dentro del ámbito permitido para ese token.
+- **Riesgo Operativo:** Para operaciones de creación, actualización, eliminación (`delete`), purga de caché, despliegues o rotaciones de seguridad, explica el impacto y obtén confirmación previa a menos que el usuario lo haya autorizado explícitamente.
+- **Ventana Temporal:** Las consultas de analítica y logs deben iniciar con un rango temporal estrecho.
 
-## Authentication Errors
+## Diagnóstico de Errores de Autenticación
 
-Treat these as authentication/session problems first:
-
+Trata estos errores primariamente como problemas de autenticación o sesión:
 - `10000: Authentication error`
 - `401 Unauthorized`
 - `Authentication failed`
 - `Invalid token`
-- Missing OAuth/session/token errors
+- Errores de ausencia de OAuth, sesión o token.
 
-Do not fix these by changing business parameters. Diagnose:
+**No intentes resolver estos fallos mutando parámetros de negocio.** Diagnostica:
+1. ¿Está el cliente MCP autenticado contra el servidor MCP de Cloudflare?
+2. ¿Está presente la variable `CLOUDFLARE_API_TOKEN` en el runtime de ejecución?
+3. ¿Utiliza la petición el encabezado `Authorization: Bearer <API_TOKEN>` en lugar de cabeceras API-key legadas?
+4. ¿Ha expirado, sido revocado o eliminado el token?
+5. ¿Utiliza el token filtrado por IP de cliente (*Client IP Address Filtering*)? El servidor oficial MCP no soporta tokens con restricción de IP estática.
 
-- Is the MCP client authenticated to the Cloudflare MCP server?
-- Is the Cloudflare API token present in the runtime where the request executes?
-- Is the request using `Authorization: Bearer <API_TOKEN>` rather than legacy API-key headers?
-- Has the token expired, been deleted, or been revoked?
-- Does the token use Client IP Address Filtering? The broad official Cloudflare MCP does not support those tokens.
-
-Useful verification request:
-
+Petición canónica de verificación:
 ```text
 GET /client/v4/user/tokens/verify
 ```
 
-## Permission And Entitlement Errors
+## Errores de Permisos y Titularidad (Entitlements)
 
-Treat these as authorization or product-availability problems:
-
+Clasifica estos fallos como problemas de autorización o disponibilidad de producto en el plan de la cuenta:
 - `403`
 - `not authorized for that account`
 - `zones [...] are not authorized`
 - `does not have access to the path`
 - `requires entitlement: ...`
-- `node is not available`
-- `node is disabled`
+- `node is not available` / `node is disabled`
 
-Diagnose in this order:
+Diagnóstico secuencial:
+1. Confirmar que el ID de cuenta o zona es exacto.
+2. Confirmar que el token tiene alcance sobre esa cuenta o zona específica.
+3. Confirmar que el token posee los permisos requeridos de lectura o edición.
+4. Ante `requires entitlement: ...`, explica con claridad que la cuenta carece de la suscripción o plan requerido. Detén reintentos en bucle con parámetros aleatorios.
+5. Propón un dataset o endpoint alternativo únicamente tras buscarlo formalmente.
 
-1. Confirm account ID or zone ID is correct.
-2. Confirm the token is scoped to that account or zone.
-3. Confirm the token has the required read/edit permission.
-4. For `requires entitlement: ...`, explain that the account lacks the required product capability, plan, or subscription. Do not keep retrying with random parameters.
-5. Offer a fallback dataset or endpoint only after searching for an available alternative.
+## GraphQL y Analítica
 
-Example: `requires entitlement: cfone.threat.events` means the account is not entitled to that Cloudflare One threat-events capability. It is not a datetime or JSON-format issue.
+Para métricas de Workers, eventos de seguridad, analítica DNS, WAF o reportes globales:
+- Buscar primero el dataset GraphQL correcto.
+- Confirmar si pertenece a `viewer.accounts(...)` o `viewer.zones(...)`.
+- Comprobar disponibilidad del dataset mediante introspección previa.
+- Especificar siempre `limit` donde el esquema lo exija.
+- Comenzar con un rango temporal estrecho y expandir bajo demanda.
+- Solicitar únicamente campos y dimensiones estrictamente necesarios.
+- Verificar el campo `errors` en la respuesta incluso con HTTP 200.
 
-## GraphQL And Analytics
+## Formato Temporal Obligatorio
 
-For analytics, logs, security events, Workers metrics, DNS analytics, firewall/WAF events, or account-wide reporting:
-
-- Search for the correct GraphQL dataset first.
-- Confirm whether it belongs under `viewer.accounts(...)` or `viewer.zones(...)`.
-- Check dataset availability when possible with settings/introspection before assuming it exists.
-- Always specify `limit` where the dataset requires it.
-- Prefer a small time range first, then expand.
-- Request only needed fields and dimensions.
-- Check response `errors` even when HTTP status is 200.
-
-Common GraphQL errors and likely meaning:
-
-- `unknown field`: wrong dataset, wrong field, or wrong account-vs-zone scope.
-- `query contains error`: invalid schema, bad variables, or malformed GraphQL.
-- `number of fields can't be more than...`: requested too many fields.
-- `limit must be positive...`: missing or excessive limit.
-- `query time range is too large...`: reduce the time window.
-- `cannot request data older than...`: requested beyond retention for the account/product.
-- `rate limiter budget depleted` or `query consumed excessive resources`: simplify query, reduce range, or wait before retrying.
-
-## Time Format Rules
-
-Cloudflare GraphQL `Time` filters such as `datetime_gt`, `datetime_geq`, `datetime_lt`, and `datetime_leq` must use UTC ISO 8601 seconds:
-
+Los filtros de tiempo en Cloudflare GraphQL (`datetime_gt`, `datetime_geq`, `datetime_lt`, `datetime_leq`) deben utilizar UTC ISO 8601 en segundos:
 ```text
 2026-06-16T00:00:00Z
 ```
 
-Do not pass:
-
-- `2026-06-16`
+Prohibido utilizar:
+- `2026-06-16` (formato solo fecha en campos `Time`)
 - `2026-06-16 00:00:00`
-- `2026-06-16T08:00:00+08:00`
-- natural language such as `yesterday`
-- local timezone strings
+- `2026-06-16T08:00:00+08:00` (zonas horarias locales no UTC)
+- Lenguaje natural (`ayer`, `yesterday`)
 
-If user gives local dates or relative times, convert them to UTC before calling. If the API rejects milliseconds, remove milliseconds and keep seconds only.
+Si el usuario provee fechas locales o tiempos relativos, conviértelos a UTC antes de la llamada. Si la API rechaza milisegundos, truncalos conservando solo segundos.
 
-For GraphQL `Date` filters, use date-only format:
-
+Para campos cuyo tipo en el esquema sea explícitamente `Date`, utiliza formato de fecha pura:
 ```text
 2026-06-16
 ```
 
-Only use date-only format when the schema says the field type is `Date`, not `Time`.
+## Control de Límites de Tasa (Rate Limits - HTTP 429)
 
-## Rate Limits
+Cuando se agote el presupuesto REST, IP o GraphQL:
+- Leer el encabezado `Retry-After` si está presente.
+- Prohibido lanzar bucles de reintento inmediato.
+- Reducir la ventana temporal, el número de cuentas/zonas consultadas y los campos solicitados.
+- Cachear resultados de descubrimiento repetidos durante la tarea activa.
 
-Cloudflare APIs can return `429` when REST, IP, or GraphQL budgets are exhausted.
+## Estilo de Respuesta Epistémica
 
-When rate limited:
+Al reportar un fallo de MCP/API al usuario:
+- Categorizar nítidamente: autenticación, permiso, titularidad, formato de fecha, esquema, retención o rate limit.
+- Indicar la verificación mínima útil siguiente.
+- Jamás exponer tokens completos ni cabeceras de autorización en el chat.
+- Si el fallo responde a una limitación de plan de cuenta, decláralo y detén los reintentos.
 
-- Read `Retry-After` if available.
-- Do not immediately loop retries.
-- Reduce query time range, number of accounts/zones, fields, and dimensions.
-- Batch compatible data in one GraphQL query only when it lowers total cost.
-- Cache repeated discovery results during the current task.
+---
 
-## Response Style
+## Integración de Automatización y Cadena de Degradación (Zero-Friction SOP)
 
-When reporting an MCP/API failure to the user:
-
-- State which category it is: authentication, permission, entitlement, datetime, schema, retention, rate limit, or unknown.
-- Mention the next smallest useful check.
-- Avoid exposing tokens, full auth headers, or sensitive account data.
-- If the failure is caused by account capability or plan, say so plainly and stop retrying that unavailable capability.
+1. **Gestión de Dominios, DNS y Workers**:
+   - Preferir siempre el servidor MCP oficial `cloudflare` mediante llamadas declarativas (`docs` $\to$ `search` $\to$ `execute`).
+   - Si no existe `CLOUDFLARE_API_TOKEN` en el entorno o Keychain, degradar de forma fluida hacia el subagente `/browser` para operar directamente sobre `dash.cloudflare.com` utilizando la sesión activa en Safari/Chrome.
+2. **Cadena de Fallback**:
+   `MCP Server -> Browser Subagent -> REST API (curl)`.

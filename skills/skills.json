@@ -1,391 +1,2563 @@
 {
-  "version": "26.092",
-  "updated_at": "2026-08-13T16:50:00Z",
-  "total_skills": 58,
-  "average_exergy_density": 18492.10,
-  "description": "Grafo de adyacencia y topología exergética refinada de las 57 habilidades del ecosistema CORTEX Engine",
+  "version": "26.210",
+  "updated_at": "2026-10-01T17:35:14.016661+00:00",
+  "total_skills": 134,
+  "average_exergy_density": 18984.81,
+  "description": "Grafo de adyacencia y topolog\u00eda conectada de las 133 habilidades del ecosistema CORTEX Engine integrado en BABYLON-60 (0 colisiones cr\u00edticas)",
   "entries": [
+    {
+      "name": "cortex-kernel",
+      "tier": 23000,
+      "category": "Kernel",
+      "display_name": "CORTEX Root Kernel",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "c5-kudurru-64",
+      "tier": 22500,
+      "category": "Kernel",
+      "display_name": "Cerrojo Lock-Free KUDURRU-64 (Ring-0 Gravity Filter)",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor",
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "shared-manifest-kernel",
+      "tier": 22000,
+      "category": "Kernel",
+      "display_name": "N\u00facleo de Memoria Compartida Lock-Free (64B C-ABI)",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "c5-mushushu-0",
+      "tier": 22000,
+      "category": "Kernel",
+      "display_name": "Or\u00e1culo Formal & Firewall de Apoptosis MUSHUSHU-0 (Ring-0)",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "c5-larsa-120",
+      "tier": 21800,
+      "category": "Kernel",
+      "display_name": "Consenso BFT Isost\u00e1tico LARSA-120 (Tr\u00edada Rust/Lean4/Z3)",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor",
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
     {
       "name": "cortex-skill-composer",
       "tier": 21500,
-      "category": "Meta-Kernel"
+      "category": "Meta-Kernel",
+      "display_name": "Componedor & Orquestador de Cadenas de Skills",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto",
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "thermo-audit",
+      "tier": 21500,
+      "category": "Kernel",
+      "display_name": "Auditor\u00eda Termodin\u00e1mica de Silicio y Concurrencia",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "c5-enki-60",
+      "tier": 21400,
+      "category": "Nucleus",
+      "display_name": "Motor Aritm\u00e9tico de Precisi\u00f3n Sexagesimal ENKI-60",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "c5-thermos-audit",
+      "tier": 21400,
+      "category": "Kernel",
+      "display_name": "Auditor\u00eda Termonuclear de Silicio & C\u00f3digo (Double Thermo)",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
     },
     {
       "name": "cortex-skill-auditor",
       "tier": 21200,
-      "category": "Meta-Kernel"
+      "category": "Meta-Kernel",
+      "display_name": "Auditor Exerg\u00e9tico de Skills CORTEX Engine",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor",
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "rlhf-sentinel",
+      "tier": 21200,
+      "category": "Governance",
+      "display_name": "Centinela de Contenci\u00f3n de IA y Barreras IPC Ring-0",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "c5-information-thermodynamics",
+      "tier": 21200,
+      "category": "Nucleus",
+      "display_name": "Termodin\u00e1mica de la Informaci\u00f3n y Geometr\u00eda Estad\u00edstica",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
     },
     {
       "name": "c5-scientific-problem-selection",
       "tier": 21000,
-      "category": "Meta-Kernel"
+      "category": "Meta-Kernel",
+      "display_name": "Selecci\u00f3n Estrat\u00e9gica de Problemas Cient\u00edficos",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
     },
     {
       "name": "cortex-skill-genesis",
       "tier": 21000,
-      "category": "Meta-Kernel"
+      "category": "Meta-Kernel",
+      "display_name": "G\u00e9nesis Aut\u00f3noma de Skills CORTEX",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "c5-lean4-neurosymbolic-architect",
+      "tier": 21000,
+      "category": "Nucleus",
+      "display_name": "Arquitecto Neuro-Simb\u00f3lico Soberano en Lean 4",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "c5-mitxu-oracle",
+      "tier": 21000,
+      "category": "Nucleus",
+      "display_name": "Or\u00e1culo de Aforismo 5 Mitxu (Auditor\u00eda de Coste Involuntario)",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
     },
     {
       "name": "epistemic-extinction-protocol",
       "tier": 20980,
-      "category": "Nucleus"
+      "category": "Nucleus",
+      "display_name": "Protocolo de Extinci\u00f3n Epist\u00e9mica (Punto Fijo \u03a9)",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
     },
     {
       "name": "cta-cognitive-transition-algebra",
       "tier": 20950,
-      "category": "Nucleus"
+      "category": "Nucleus",
+      "display_name": "\u00c1lgebra de Transiciones Cognitivas & Event-Sourcing Comon\u00e1dico",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "c5-oncologist",
+      "tier": 20950,
+      "category": "Nucleus",
+      "display_name": "Onc\u00f3logo Termodin\u00e1mico (Detecci\u00f3n de Met\u00e1stasis Topol\u00f3gica)",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "c5-lean4-axiomatic-orchestrator",
+      "tier": 20900,
+      "category": "Nucleus",
+      "display_name": "Orquestador Axiom\u00e1tico y Verificaci\u00f3n Formal en Lean 4",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "c5-autonomous-agent-primitives",
+      "tier": 20900,
+      "category": "Operations",
+      "display_name": "Cat\u00e1logo Can\u00f3nico y Transductor de 47 Primitivas de Agente Aut\u00f3nomo",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto",
+        "ejecutor",
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "c5-sovereign-system1-engine",
+      "tier": 20850,
+      "category": "Nucleus",
+      "display_name": "Motor de Decisi\u00f3n Sistema 1 No Autorregresivo (LAYA Edge)",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "c5-silicon-stress-suite",
+      "tier": 20850,
+      "category": "Operations",
+      "display_name": "Suite de Estr\u00e9s Concurrente de Silicio y Enjambres (C5-REAL)",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
     },
     {
       "name": "agentic-protocol-axiomatization",
       "tier": 20800,
-      "category": "Nucleus"
-    },
-    {
-      "name": "cct-cognitive-theory-advisor",
-      "tier": 20700,
-      "category": "Nucleus"
+      "category": "Nucleus",
+      "display_name": "Axiomatizaci\u00f3n de Protocolos Ag\u00e9nticos C5 & Generaci\u00f3n DAC",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
     },
     {
       "name": "categorical-hallucination-audit",
+      "tier": 20700,
+      "category": "Nucleus",
+      "display_name": "Auditor\u00eda Categ\u00f3rica de Alucinaci\u00f3n & Cota Kl(D)",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "c5-notario-epistemico",
+      "tier": 20700,
+      "category": "Nucleus",
+      "display_name": "Notario Epist\u00e9mico de Silicio (MUSHUSHU-NOTARY / Primitiva P1)",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "existence-gap-audit",
       "tier": 20600,
-      "category": "Nucleus"
+      "category": "Nucleus",
+      "display_name": "Auditor\u00eda de Huecos de Existencia & Supply-Chain Slop",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "c5-sharur-3600",
+      "tier": 20600,
+      "category": "Governance",
+      "display_name": "Matriz de Enjambre Sexagesimal SHARUR-3600 (Legi\u00f3n 100 Agentes)",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
     },
     {
       "name": "c5-academic-peer-reviewer",
       "tier": 20500,
-      "category": "Nucleus"
+      "category": "Nucleus",
+      "display_name": "Simulador de Revisi\u00f3n Acad\u00e9mica por Pares",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "c5-axiomatic-kernel",
+      "tier": 20500,
+      "category": "Nucleus",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "c5-dialectical-pipeline",
+      "tier": 20500,
+      "category": "Nucleus",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor",
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "c5-epistemic-dissemination-engine",
+      "tier": 20500,
+      "category": "Nucleus",
+      "display_name": "Motor de Difusi\u00f3n Epist\u00e9mica Multicanal y Oratoria Ret\u00f3rica",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
     },
     {
       "name": "polymath-concept-synthesis",
       "tier": 20500,
-      "category": "Nucleus"
+      "category": "Nucleus",
+      "display_name": "S\u00edntesis Pol\u00edmata Interdisciplinar (Modo ULTRATHINK)",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "c5-popperian-falsification-auditor",
+      "tier": 20500,
+      "category": "Nucleus",
+      "display_name": "Auditor de Falsaci\u00f3n Emp\u00edrica de Documentos",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "c5-1password-secrets",
+      "tier": 20500,
+      "category": "Governance",
+      "display_name": "Inyecci\u00f3n Segura de Credenciales en Silicio (1Password CLI / Touch ID)",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "c5-rubin-acoustic-linter",
+      "tier": 20450,
+      "category": "Operations",
+      "display_name": "Linter Ac\u00fastico de Exerg\u00eda y Purga de Nata (Protocolo Rubin)",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
     },
     {
       "name": "c5-sci-paper-architect",
       "tier": 20400,
-      "category": "Nucleus"
+      "category": "Nucleus",
+      "display_name": "Arquitecto de Publicaciones Cient\u00edficas, Traducci\u00f3n & Citas SOTA",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "c5-ultrathink-epistemic-audit",
+      "tier": 20400,
+      "category": "Nucleus",
+      "display_name": "Auditor\u00eda Epist\u00e9mica y Postmortem ULTRATHINK",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "c5-real-thermodynamic-override",
+      "tier": 20400,
+      "category": "Governance",
+      "display_name": "Override Termodin\u00e1mico & Prompt Engineering de Frontera",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "c5-sandbox-auditor",
+      "tier": 20350,
+      "category": "Governance",
+      "display_name": "Auditor Sist\u00e9mico de Confinamiento & Sandboxing (KUDURRU Gate)",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "cct-cognitive-theory-advisor",
+      "tier": 20300,
+      "category": "Nucleus",
+      "display_name": "Asesor\u00eda en Teor\u00eda Cognitiva CCT & L\u00edmite G\u00f6del-Turing",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "c5-session-deskimming",
+      "tier": 20250,
+      "category": "Governance",
+      "display_name": "Protocolo de Desnatado de Sesiones & Purga de Nata (Ring-2 -> Ring-0)",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
     },
     {
       "name": "autodidact-omega-deep-research",
       "tier": 20200,
-      "category": "Nucleus"
+      "category": "Nucleus",
+      "display_name": "Motor Autodidact-\u03a9 de Investigaci\u00f3n Profunda y Falsaci\u00f3n Popperiana",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "cloud-chamber",
+      "tier": 20200,
+      "category": "Nucleus",
+      "display_name": "C\u00e1mara de Niebla y S\u00edntesis de M\u00e1xima Densidad Topol\u00f3gica",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "c5-tamkarum-60",
+      "tier": 20100,
+      "category": "Governance",
+      "display_name": "Transductor de Arbitraje Soberano TAMKARUM-60 (Ring-1)",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "c5-metodo-acreativo",
+      "tier": 20050,
+      "category": "Nucleus",
+      "display_name": "M\u00e9todo Acreativo Soberano (Transducci\u00f3n de Invariantes & Aforismo 5)",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "grill-me-v2",
+      "tier": 19900,
+      "category": "Governance",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
     },
     {
       "name": "c5-real-devsecops-scaffold",
       "tier": 19850,
-      "category": "Governance"
+      "category": "Governance",
+      "display_name": "Scaffold DevSecOps & Endurecimiento Zero-Trust CI/CD",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "c5-wetware-divergente",
+      "tier": 19850,
+      "category": "Governance",
+      "display_name": "Arquitectura Cognitiva para Wetware Divergente (Perfiles 2e)",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
     },
     {
       "name": "c5-sovereign-identity-hardening",
       "tier": 19800,
-      "category": "Governance"
+      "category": "Governance",
+      "display_name": "Protocolo C5-REAL de Defensa e Inmunidad de Identidad Soberana",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "apple-bypass",
+      "tier": 19800,
+      "category": "Operations",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "c5-2e-affective-decoupling",
+      "tier": 19800,
+      "category": "Nucleus",
+      "display_name": "Desacoplamiento Afectivo & Soberan\u00eda Vincular 2e (AACC + TDAH)",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
     },
     {
       "name": "c5-real-legaltech-analysis",
       "tier": 19700,
-      "category": "Governance"
+      "category": "Governance",
+      "display_name": "Auditor\u00eda LegalTech & Cumplimiento EU AI Act Art. 9-14",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "c5-continual-memory",
+      "tier": 19650,
+      "category": "Governance",
+      "display_name": "Motor de Memoria Continua y Persistencia Epis\u00f3dica",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "wait-what",
+      "tier": 19600,
+      "category": "Nucleus",
+      "display_name": "Freno Epist\u00e9mico & Traducci\u00f3n Simplificada (STE)",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "c5-2e-neuropharmacological-sovereignty",
+      "tier": 19500,
+      "category": "Systems",
+      "display_name": "Soberan\u00eda Neurofarmacol\u00f3gica & Desacople de Parches (TDAH + AACC)",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "c5-sovereign-binary-architect",
+      "tier": 19500,
+      "category": "Systems",
+      "display_name": "Arquitecto de Binarios Soberanos C5-REAL",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
     },
     {
       "name": "c5-sre-postmortem-architect",
       "tier": 19500,
-      "category": "Governance"
+      "category": "Governance",
+      "display_name": "Arquitecto de Postmortems e Incidentes SRE",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "adaptive-cron",
+      "tier": 19500,
+      "category": "Governance",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "symbiotic-cognitive-architecture",
+      "tier": 19400,
+      "category": "Governance",
+      "display_name": "Arquitectura Cognitiva Simbi\u00f3tica & Autopoiesis (T\u00fa & Yo)",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "c5-sovereign-daemon-deployment",
+      "tier": 19350,
+      "category": "Operations",
+      "display_name": "Despliegue Determinista de Daemons Soberanos (macOS launchd)",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
     },
     {
       "name": "anergy-purge-protocol",
       "tier": 19300,
-      "category": "Governance"
+      "category": "Governance",
+      "display_name": "Motor de Purga de C\u00f3digo Muerto y Redundancias (Dead Code & Artifact Cleanup)",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "c5-browser-forensics-and-extension-triage",
+      "tier": 19200,
+      "category": "SOCINT & Web",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
     },
     {
       "name": "c5-design-system-extractor",
       "tier": 19200,
-      "category": "Governance"
+      "category": "Governance",
+      "display_name": "Extractor de Sistemas de Dise\u00f1o e Interfaz UI",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
     },
     {
-      "name": "epistemic-redundancy-audit",
+      "name": "c5-socint-extraction-suite",
+      "tier": 19200,
+      "category": "SOCINT & Web",
+      "display_name": "Suite Soberana de Inteligencia Social (SOCINT C5-REAL)",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "safari-browser-agent",
+      "tier": 19200,
+      "category": "SOCINT & Web",
+      "display_name": "Agente Aut\u00f3nomo de Navegaci\u00f3n Safari (MCP Dual-Engine v6.0 Sexagesimal Apex Sovereign)",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "ai-comparative-evaluation",
+      "tier": 19200,
+      "category": "Operations",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "swarm-quantum-collapse",
+      "tier": 19100,
+      "category": "Governance",
+      "display_name": "Sincronizaci\u00f3n Swarm & Colapso Cu\u00e1ntico Multi-Repositorio",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "c5-personal-ops-hub",
+      "tier": 19100,
+      "category": "Governance",
+      "display_name": "Cortafuegos de Triage Burocr\u00e1tico y Operaciones Personales (Tradbot)",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "c5-spatial-audio-architect",
       "tier": 19000,
-      "category": "Governance"
+      "category": "Multimedia & DSP",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
     },
     {
-      "name": "existence-gap-audit",
+      "name": "c5-video-quality-audit",
+      "tier": 19000,
+      "category": "Multimedia & DSP",
+      "display_name": "Auditor\u00eda de Calidad y Compresi\u00f3n de Video (PSNR/SSIM/VMAF)",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "pika-generative-video-pipeline",
+      "tier": 19000,
+      "category": "Multimedia & DSP",
+      "display_name": "Pipeline de Generaci\u00f3n y Control Par\u00e1metrico en Pika Art (A/V)",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "remotion-audio-reactive-video",
+      "tier": 19000,
+      "category": "Multimedia & DSP",
+      "display_name": "S\u00edntesis de V\u00eddeo Reactivo a Audio & M\u00fasica (Remotion + DSP)",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "soulseek-p2p-audio-acquisition",
+      "tier": 19000,
+      "category": "Multimedia & DSP",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "babylon60-architecture",
+      "tier": 19000,
+      "category": "Governance",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "c5-alpha-extraction-pipeline",
+      "tier": 18950,
+      "category": "Operations",
+      "display_name": "Pipeline de Extracci\u00f3n de Alfa & Arbitraje Asim\u00e9trico",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "whatsapp-nexus-protocol",
       "tier": 18900,
-      "category": "Governance"
+      "category": "Governance",
+      "display_name": "Pasarela Soberana de Mensajer\u00eda WhatsApp (Baileys v7 / Rust NAPI-RS / C5-REAL v2.6)",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
     },
     {
       "name": "dynamic-subagent-lifecycle",
       "tier": 18600,
-      "category": "Governance"
+      "category": "Governance",
+      "display_name": "Supervisi\u00f3n del Ciclo de Vida de Subagentes Din\u00e1micos",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor",
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "c5-barrio-termodinamico-persona",
+      "tier": 18500,
+      "category": "Specialized",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "c5-causal-graph-auditor",
+      "tier": 18500,
+      "category": "Specialized",
+      "display_name": "Auditor de Grafos Causales C5-REAL (Mermaid)",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor",
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "c5-codebase-valuation-audit",
+      "tier": 18500,
+      "category": "Specialized",
+      "display_name": "Auditor\u00eda & Valoraci\u00f3n Econ\u00f3mica Emp\u00edrica de Codebases e IP",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "c5-ctm-formal-architect",
+      "tier": 18500,
+      "category": "Specialized",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "c5-editorial-magazine-architect",
+      "tier": 18500,
+      "category": "Specialized",
+      "display_name": "Arquitecto de Dise\u00f1o Editorial, Revistas y Presentaciones",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
     },
     {
       "name": "c5-equity-research",
       "tier": 18500,
-      "category": "Governance"
+      "category": "Governance",
+      "display_name": "Investigaci\u00f3n Financiera Institucional & An\u00e1lisis Cuantitativo C5",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
     },
     {
-      "name": "electron-mac-bundle-collision-diagnostics",
+      "name": "c5-exergy-scale-evaluator",
       "tier": 18500,
-      "category": "Diagnostics"
+      "category": "Specialized",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
     },
     {
-      "name": "handoff",
+      "name": "c5-gemini-api-2026-standards",
       "tier": 18500,
-      "category": "Governance"
+      "category": "Specialized",
+      "display_name": "Est\u00e1ndares Gemini API 2026 & Tensor de Transducci\u00f3n",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
     },
     {
-      "name": "vscode-git-packed-refs-diagnostics",
-      "tier": 18400,
-      "category": "Diagnostics"
+      "name": "c5-media-platform-epistemology",
+      "tier": 18500,
+      "category": "Specialized",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
     },
     {
-      "name": "macos-lulu-firewall-diagnostics",
+      "name": "c5-ontological-translator",
+      "tier": 18500,
+      "category": "Specialized",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "c5-pedagogical-translator",
+      "tier": 18500,
+      "category": "Specialized",
+      "display_name": "Traductor Pedag\u00f3gico C5-REAL (Modo F\u00e1cil)",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "c5-solar-thermodynamic-architecture",
+      "tier": 18500,
+      "category": "Specialized",
+      "display_name": "Arquitectura Helio-Termodin\u00e1mica y Confort Bioclim\u00e1tico",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "c5-somatic-panic-deescalation",
+      "tier": 18500,
+      "category": "Specialized",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "c5-systemic-dissection-protocol",
+      "tier": 18500,
+      "category": "Specialized",
+      "display_name": "Protocolo de Disecci\u00f3n Sist\u00e9mica y Termodin\u00e1mica",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "webkit-memory-audit",
+      "tier": 18500,
+      "category": "Specialized",
+      "display_name": "Auditor\u00eda de Memoria WebKit (Vector 21)",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "biographical-thermo",
+      "tier": 18500,
+      "category": "Nucleus",
+      "display_name": "Mapeo Termodin\u00e1mico Biogr\u00e1fico e Hist\u00f3rico",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "babylon-shield",
+      "tier": 18500,
+      "category": "Specialized",
+      "display_name": "Escudo Termodin\u00e1mico Ring-0 (Caballo de Troya BABYLON-SHIELD)",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor",
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "c5-overheard-radar",
       "tier": 18300,
-      "category": "Diagnostics"
+      "category": "Governance",
+      "display_name": "Radar Soberano de Escucha Social y Tendencias (Reddit / Hacker News)",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
     },
     {
       "name": "browser-subagent-orchestrator",
       "tier": 18200,
-      "category": "Governance"
-    },
-    {
-      "name": "c5-weighted-decision-matrix",
-      "tier": 18200,
-      "category": "Governance"
-    },
-    {
-      "name": "opentimestamps-l5-diagnostics",
-      "tier": 18200,
-      "category": "Diagnostics"
-    },
-    {
-      "name": "swarm-router",
-      "tier": 18100,
-      "category": "Governance"
-    },
-    {
-      "name": "frontier-prompting",
-      "tier": 18000,
-      "category": "Operations"
-    },
-    {
-      "name": "swarm-quantum-collapse",
-      "tier": 18000,
-      "category": "Governance"
-    },
-    {
-      "name": "discourse-popperian-falsification",
-      "tier": 17900,
-      "category": "Operations"
-    },
-    {
-      "name": "ghidra-ida-binary-audit",
-      "tier": 17800,
-      "category": "Operations"
-    },
-    {
-      "name": "github-api-rate-limit-optimization",
-      "tier": 17800,
-      "category": "Operations"
-    },
-    {
-      "name": "electron-asar-forensic-audit",
-      "tier": 17700,
-      "category": "Operations"
-    },
-    {
-      "name": "jujutsu-vcs-management",
-      "tier": 17600,
-      "category": "Operations"
-    },
-    {
-      "name": "c5-interactive-gantt-planner",
-      "tier": 17500,
-      "category": "Operations"
-    },
-    {
-      "name": "c5-lexicon-enforcer",
-      "tier": 17500,
-      "category": "Operations"
-    },
-    {
-      "name": "cortex-telemetry",
-      "tier": 17500,
-      "category": "Operations"
-    },
-    {
-      "name": "ironic-content-generator",
-      "tier": 17500,
-      "category": "Operations"
-    },
-    {
-      "name": "suno-bracket-tagging",
-      "tier": 17500,
-      "category": "Operations"
-    },
-    {
-      "name": "c5-real-thermodynamic-override",
-      "tier": 17400,
-      "category": "Operations"
-    },
-    {
-      "name": "homebrew-ecosystem-management",
-      "tier": 17200,
-      "category": "Operations"
-    },
-    {
-      "name": "github-architect",
-      "tier": 17000,
-      "category": "Operations"
-    },
-    {
-      "name": "youtube-remotion-sota",
-      "tier": 16800,
-      "category": "Operations"
-    },
-    {
-      "name": "youtube-analysis-pipeline",
-      "tier": 16400,
-      "category": "Operations"
-    },
-    {
-      "name": "flstudio-mcp-production",
-      "tier": 16200,
-      "category": "Operations"
-    },
-    {
-      "name": "kimi-mcp-orchestrator",
-      "tier": 16000,
-      "category": "Operations"
-    },
-    {
-      "name": "cloudflare-mcp-automation",
-      "tier": 15900,
-      "category": "Operations"
-    },
-    {
-      "name": "cloudflare-mcp-usage",
-      "tier": 15800,
-      "category": "Operations"
-    },
-    {
-      "name": "whatsapp-nexus-protocol",
-      "tier": 15600,
-      "category": "Operations"
-    },
-    {
-      "name": "substack-socint-extraction",
-      "tier": 15500,
-      "category": "Operations"
-    },
-    {
-      "name": "reddit-socint-extraction",
-      "tier": 15300,
-      "category": "Operations"
+      "category": "Governance",
+      "display_name": "Orquestador CDP de Subagente de Navegador Web",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
     },
     {
       "name": "c5-venture-pitch-architect",
       "tier": 18200,
-      "category": "Governance"
+      "category": "Governance",
+      "display_name": "Arquitecto de Pitch Decks, Deal Memos & Investor Relations C5",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "c5-weighted-decision-matrix",
+      "tier": 18200,
+      "category": "Governance",
+      "display_name": "Matriz de Decisi\u00f3n Ponderada y Estimaci\u00f3n PERT",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "lora-swarm-pipeline",
+      "tier": 18200,
+      "category": "Operations",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "f5tts-voice-cloning-sota",
+      "tier": 18200,
+      "category": "Operations",
+      "display_name": "Clonaci\u00f3n Vocal Neuronal SOTA (F5-TTS / MPS / Ingenier\u00eda de Prosodia)",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "swarm-router",
+      "tier": 18100,
+      "category": "Governance",
+      "display_name": "Enrutador Maestro y Despachador Inteligente de Enjambres",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor",
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "somatic-ble-transduction",
+      "tier": 18100,
+      "category": "Operations",
+      "display_name": "Transductor Telem\u00e9trico Som\u00e1tico BLE (Apple Watch Ring-(-3))",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "c5-forensic-socint-pipeline",
+      "tier": 17950,
+      "category": "Operations",
+      "display_name": "Pipeline Forense SOCINT & Bifurcaci\u00f3n Epist\u00e9mica",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "discourse-popperian-falsification",
+      "tier": 17900,
+      "category": "Operations",
+      "display_name": "Falsaci\u00f3n Popperiana & Auditor\u00eda Discursiva de Hip\u00f3tesis",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
     },
     {
       "name": "c5-spaced-repetition-architect",
       "tier": 17800,
-      "category": "Operations"
+      "category": "Operations",
+      "display_name": "Arquitecto de Repetici\u00f3n Espaciada, Anki & Control Entr\u00f3pico Cognitivo C5",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "ghidra-ida-binary-audit",
+      "tier": 17800,
+      "category": "Operations",
+      "display_name": "Auditor\u00eda de Binarios Crudos & Descompilaci\u00f3n Ghidra/IDA",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "electron-asar-forensic-audit",
+      "tier": 17700,
+      "category": "Operations",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
     },
     {
       "name": "c5-career-and-interview-architect",
       "tier": 17600,
-      "category": "Operations"
+      "category": "Operations",
+      "display_name": "Arquitecto de CV, Compatibilidad ATS & Ensayos de Entrevista STAR C5",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "jujutsu-vcs-management",
+      "tier": 17600,
+      "category": "Operations",
+      "display_name": "Control de Versiones Determinista Jujutsu VCS (jj)",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "c5-interactive-gantt-planner",
+      "tier": 17500,
+      "category": "Operations",
+      "display_name": "Planificador Interactivo Gantt y Ruta Cr\u00edtica",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "c5-lexicon-enforcer",
+      "tier": 17500,
+      "category": "Operations",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "cortex-telemetry",
+      "tier": 17500,
+      "category": "Operations",
+      "display_name": "Inspecci\u00f3n & Telemetr\u00eda Runtime de Transcripciones CORTEX",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "c5-neural-face-swap-cuadrilla",
+      "tier": 17400,
+      "category": "Operations",
+      "display_name": "Pipeline Neural Face-Swap Cuadrilla (InsightFace CoreML)",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "homebrew-ecosystem-management",
+      "tier": 17200,
+      "category": "Operations",
+      "display_name": "Gesti\u00f3n & Auditor\u00eda de Paquetes Homebrew en macOS",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "github-architect",
+      "tier": 17000,
+      "category": "Operations",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "wizard",
+      "tier": 17000,
+      "category": "Utilities",
+      "display_name": "Asistente Secuencial Determinista (M\u00e1quina de Estados)",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "flstudio-mcp-production",
+      "tier": 17000,
+      "category": "Operations",
+      "display_name": "Producci\u00f3n Nativa MCP FL Studio 2025 & DSP Microtonal",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "c5-macos-visual-calibration",
+      "tier": 16900,
+      "category": "Diagnostics",
+      "display_name": "Calibraci\u00f3n Visual y Accesibilidad macOS (UniversalAccess Purge)",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "youtube-remotion-sota",
+      "tier": 16800,
+      "category": "Operations",
+      "display_name": "S\u00edntesis Program\u00e1tica SOTA de V\u00eddeo React/Remotion",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "audiovisual-sota",
+      "tier": 16800,
+      "category": "Operations",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "writing-for-agents",
+      "tier": 16500,
+      "category": "Utilities",
+      "display_name": "Redacci\u00f3n M2M de Alta Exerg\u00eda & Sanitizaci\u00f3n C5",
+      "role": "arquitecto",
+      "allowed_roles": [
+        "arquitecto"
+      ],
+      "directives": {
+        "worktree_mode": "spec-only",
+        "phase": "design",
+        "handoff": {
+          "upstream": "operador",
+          "downstream": "ejecutor"
+        }
+      }
+    },
+    {
+      "name": "c5-comment-sicko",
+      "tier": 16500,
+      "category": "Utilities",
+      "display_name": "Purgador Acreativo de Comentarios & Sermones (Comment Sicko)",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "youtube-analysis-pipeline",
+      "tier": 16400,
+      "category": "Operations",
+      "display_name": "Pipeline de An\u00e1lisis Visual & Transcripci\u00f3n de YouTube",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "djstudio-mcp",
+      "tier": 16200,
+      "category": "Operations",
+      "display_name": "Controlador DSP & Playlist Mixer DJ.Studio MCP",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "kimi-mcp-orchestrator",
+      "tier": 16000,
+      "category": "Operations",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "cloudflare-mcp-usage",
+      "tier": 15800,
+      "category": "Operations",
+      "display_name": "Automatizaci\u00f3n & Operaciones Cloudflare MCP",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "opentimestamps-l5-diagnostics",
+      "tier": 15000,
+      "category": "Diagnostics",
+      "display_name": "Atestaci\u00f3n Criptogr\u00e1fica & Diagn\u00f3stico Bitcoin L5 (OpenTimestamps)",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "electron-mac-bundle-collision-diagnostics",
+      "tier": 14800,
+      "category": "Diagnostics",
+      "display_name": "Diagn\u00f3stico de Crashes & Colisiones Electron en macOS",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "vscode-git-packed-refs-diagnostics",
+      "tier": 14600,
+      "category": "Diagnostics",
+      "display_name": "Reparaci\u00f3n de Corruptelas Git & Packed-Refs en VS Code",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "macos-lulu-firewall-diagnostics",
+      "tier": 14200,
+      "category": "Diagnostics",
+      "display_name": "Diagn\u00f3stico de Firewall & Sockets macOS (LuLu / Little Snitch)",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "github-api-rate-limit-optimization",
+      "tier": 13900,
+      "category": "Utilities",
+      "display_name": "Optimizaci\u00f3n Resiliente de Tasa API GitHub (Error 429)",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
+    },
+    {
+      "name": "suno-bracket-tagging",
+      "tier": 12800,
+      "category": "Utilities",
+      "display_name": "Protocolo de Ingenier\u00eda Ac\u00fastica y Control Causal para Audio AI (Suno/Udio/YuE)",
+      "role": "ejecutor",
+      "allowed_roles": [
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "read-write",
+        "phase": "implementation",
+        "handoff": {
+          "upstream": "arquitecto",
+          "downstream": "auditor"
+        }
+      }
+    },
+    {
+      "name": "handoff",
+      "tier": 10500,
+      "category": "Utilities",
+      "display_name": "Protocolo Soberano de Traspaso de Contexto C5-REAL",
+      "role": "auditor",
+      "allowed_roles": [
+        "auditor",
+        "arquitecto",
+        "ejecutor"
+      ],
+      "directives": {
+        "worktree_mode": "audit-only",
+        "phase": "verification",
+        "handoff": {
+          "upstream": "ejecutor",
+          "downstream": "operador"
+        }
+      }
     }
   ],
   "adjacency": [
     {
-      "source": "c5-spaced-repetition-architect",
-      "target": "cct-cognitive-theory-advisor",
-      "relation": "relieves_entropy"
+      "source": "cortex-kernel",
+      "target": "shared-manifest-kernel",
+      "relation": "enforces_hardware_invariants"
     },
     {
-      "source": "c5-career-and-interview-architect",
-      "target": "c5-venture-pitch-architect",
-      "relation": "complements"
+      "source": "shared-manifest-kernel",
+      "target": "thermo-audit",
+      "relation": "bounds_concurrency"
     },
     {
-      "source": "c5-venture-pitch-architect",
-      "target": "c5-equity-research",
-      "relation": "complements"
+      "source": "rlhf-sentinel",
+      "target": "c5-real-thermodynamic-override",
+      "relation": "guards_ring0_boundary"
     },
     {
-      "source": "autodidact-omega-deep-research",
+      "source": "c5-lean4-neurosymbolic-architect",
+      "target": "c5-lean4-axiomatic-orchestrator",
+      "relation": "orchestrates_theorems"
+    },
+    {
+      "source": "cloud-chamber",
       "target": "polymath-concept-synthesis",
-      "relation": "feeds_into"
+      "relation": "crystallizes_ontology"
     },
     {
-      "source": "polymath-concept-synthesis",
-      "target": "c5-scientific-problem-selection",
-      "relation": "evaluates_with"
+      "source": "adaptive-cron",
+      "target": "cortex-telemetry",
+      "relation": "meters_cognitive_dissipation"
     },
     {
-      "source": "c5-scientific-problem-selection",
-      "target": "c5-sci-paper-architect",
-      "relation": "architects_into"
-    },
-    {
-      "source": "c5-sci-paper-architect",
-      "target": "c5-academic-peer-reviewer",
-      "relation": "reviewed_by"
-    },
-    {
-      "source": "polymath-concept-synthesis",
+      "source": "categorical-hallucination-audit",
       "target": "agentic-protocol-axiomatization",
-      "relation": "axiomatized_by"
+      "relation": "audits_axioms"
+    },
+    {
+      "source": "existence-gap-audit",
+      "target": "c5-real-devsecops-scaffold",
+      "relation": "audits_codebase"
+    },
+    {
+      "source": "swarm-quantum-collapse",
+      "target": "dynamic-subagent-lifecycle",
+      "relation": "orchestrates_swarm"
+    },
+    {
+      "source": "c5-real-thermodynamic-override",
+      "target": "anergy-purge-protocol",
+      "relation": "overrides_anergy"
+    },
+    {
+      "source": "cct-cognitive-theory-advisor",
+      "target": "cta-cognitive-transition-algebra",
+      "relation": "advises"
+    },
+    {
+      "source": "flstudio-mcp-production",
+      "target": "youtube-remotion-sota",
+      "relation": "provides_audio"
+    },
+    {
+      "source": "opentimestamps-l5-diagnostics",
+      "target": "c5-real-legaltech-analysis",
+      "relation": "attests_l5"
+    },
+    {
+      "source": "whatsapp-nexus-protocol",
+      "target": "dynamic-subagent-lifecycle",
+      "relation": "gateways_messaging"
+    },
+    {
+      "source": "handoff",
+      "target": "cortex-telemetry",
+      "relation": "persists_session_state"
+    },
+    {
+      "source": "c5-kudurru-64",
+      "target": "c5-mushushu-0",
+      "relation": "filters_for_apoptosis"
+    },
+    {
+      "source": "c5-mushushu-0",
+      "target": "c5-larsa-120",
+      "relation": "attests_bft_triad"
+    },
+    {
+      "source": "c5-larsa-120",
+      "target": "c5-enki-60",
+      "relation": "synchronizes_sexagesimal"
+    },
+    {
+      "source": "c5-sharur-3600",
+      "target": "c5-silicon-stress-suite",
+      "relation": "stresses_100_agents"
+    },
+    {
+      "source": "c5-1password-secrets",
+      "target": "c5-sovereign-identity-hardening",
+      "relation": "injects_credentials"
+    },
+    {
+      "source": "c5-notario-epistemico",
+      "target": "c5-real-legaltech-analysis",
+      "relation": "protocols_evidence"
+    },
+    {
+      "source": "c5-overheard-radar",
+      "target": "c5-tamkarum-60",
+      "relation": "feeds_market_signals"
+    },
+    {
+      "source": "c5-personal-ops-hub",
+      "target": "c5-real-thermodynamic-override",
+      "relation": "filters_administrative_anergy"
+    },
+    {
+      "source": "c5-thermos-audit",
+      "target": "thermo-audit",
+      "relation": "executes_double_thermo"
+    },
+    {
+      "source": "c5-rubin-acoustic-linter",
+      "target": "flstudio-mcp-production",
+      "relation": "audits_dsp_exergy"
+    },
+    {
+      "source": "c5-sovereign-system1-engine",
+      "target": "c5-kudurru-64",
+      "relation": "routes_edge_decisions"
+    },
+    {
+      "source": "c5-metodo-acreativo",
+      "target": "c5-mitxu-oracle",
+      "relation": "formalizes_involuntary_transduction"
     },
     {
       "source": "polymath-concept-synthesis",
-      "target": "discourse-popperian-falsification",
-      "relation": "falsified_by"
-    },
-    {
-      "source": "c5-real-legaltech-analysis",
-      "target": "discourse-popperian-falsification",
-      "relation": "audited_by"
-    },
-    {
-      "source": "epistemic-extinction-protocol",
-      "target": "anergy-purge-protocol",
-      "relation": "purges_via"
-    },
-    {
-      "source": "ghidra-ida-binary-audit",
-      "target": "c5-real-devsecops-scaffold",
-      "relation": "audits_scaffold"
-    },
-    {
-      "source": "jujutsu-vcs-management",
-      "target": "c5-real-devsecops-scaffold",
-      "relation": "version_controls"
-    },
-    {
-      "source": "cortex-telemetry",
-      "target": "cortex-skill-auditor",
-      "relation": "telemetry_for"
-    },
-    {
-      "source": "cortex-telemetry",
-      "target": "cortex-skill-genesis",
-      "relation": "generates_from"
-    },
-    {
-      "source": "c5-weighted-decision-matrix",
-      "target": "c5-interactive-gantt-planner",
-      "relation": "schedules_via"
-    },
-    {
-      "source": "c5-sre-postmortem-architect",
-      "target": "c5-real-devsecops-scaffold",
-      "relation": "hardens_scaffold"
-    },
-    {
-      "source": "cortex-skill-composer",
-      "target": "*",
-      "relation": "orchestrates"
+      "target": "c5-ultrathink-epistemic-audit",
+      "relation": "postmortem_trace"
     }
-  ]
+  ],
+  "declarative_orchestration": {
+    "standard": "AGENTS.md / SKILLS.md Triad v1.0",
+    "roles_distribution": {
+      "arquitecto": 37,
+      "ejecutor": 44,
+      "auditor": 52
+    },
+    "shared_worktree_invariant": true
+  }
 }

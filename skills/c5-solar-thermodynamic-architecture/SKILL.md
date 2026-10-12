@@ -1,10 +1,25 @@
 ---
 name: c5-solar-thermodynamic-architecture
-display_name: "Arquitectura Helio-Termodinámica y Confort Bioclimático"
-description: "Generación de diagramas de trayectoria solar (Sun Path), análisis vectorial de sombras y cartas psicrométricas de confort térmico (Fanger PMV/PPD, ISO 7730/ASHRAE 55). Dispara con \"sun path\", \"análisis solar\", \"confort térmico\", \"estudio de sombras\", \"fanger pmv\", \"helio-arquitectura\", \"bioclimático\"."
+display_name: Arquitectura Helio-Termodinámica y Confort Bioclimático
+description: Generación de diagramas de trayectoria solar (Sun Path), análisis vectorial de sombras y cartas psicrométricas de confort térmico (Fanger PMV/PPD, ISO 7730/ASHRAE 55). Dispara con "sun path", "análisis solar", "confort térmico", "estudio de sombras", "fanger pmv", "helio-arquitectura", "bioclimático".
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
 
 # Skill: C5 Solar Thermodynamic Architecture & Bioclimatic Comfort (LEVEL 1300)
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Lectura profunda y modelado formal; emisión de especificaciones sin mutación de código de producción))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
 
 Este protocolo modela con rigor físico y geométrico la interacción radiativa solar con envolventes arquitectónicas, la proyección vectorial de sombras y las métricas termodinámicas de confort humano en espacios construidos.
 

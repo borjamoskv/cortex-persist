@@ -18,3 +18,4 @@ Cuando un usuario, transcripción de vídeo, podcast o documento mencione:
 - **OBLIGATORIO:** Antes de emitir cualquier dictamen o veredicto de auditoría, el agente DEBE ejecutar una consulta a `search_web` combinando:
   `"[Nombre de la Persona o Entidad]" + (died OR death OR falleció OR fallece) + [Año Actual / 2026]`
 - Si la búsqueda web confirma el deceso o evento en fechas recientes, el agente debe catalogarlo como hecho verificado y sincronizar de inmediato sus métricas de credibilidad.
+- **PROHIBICIÓN DE SIMULACIÓN PARAMÉTRICA:** Queda terminantemente prohibido alucinar comunicados de prensa, portavoces, causas de muerte o artículos periodísticos desde los pesos latentes del modelo. Si no se invoca físicamente la herramienta `search_web` o los resultados son negativos/nulos, el modelo DEBE declarar explícitamente la ausencia de evidencia empírica en lugar de dar por confirmada la defunción.

@@ -1,10 +1,25 @@
 ---
 name: c5-career-and-interview-architect
-display_name: "Arquitecto de CV, Compatibilidad ATS & Ensayos de Entrevista STAR C5"
-description: "Optimización de currículum (CV) con coincidencia de palabras clave JD, reescritura cuantificada STAR, análisis ATS y simulacros de entrevista conductual/técnica con diagnósticos. Dispara con \"cv tailor\", \"optimizar cv\", \"ats check\", \"mock interview\", \"simulacro entrevista\", \"star framework\", \"entrevista técnica\"."
+display_name: Arquitecto de CV, Compatibilidad ATS & Ensayos de Entrevista STAR C5
+description: Optimización de currículum (CV) con coincidencia de palabras clave JD, reescritura cuantificada STAR, análisis ATS y simulacros de entrevista conductual/técnica con diagnósticos. Dispara con "cv tailor", "optimizar cv", "ats check", "mock interview", "simulacro entrevista", "star framework", "entrevista técnica".
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
 
 # Skill: C5 Career Positioning & Interview Mastery Architect
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Lectura profunda y modelado formal; emisión de especificaciones sin mutación de código de producción))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
 
 Este protocolo optimiza el posicionamiento profesional mediante la adaptación determinista de currículums (CV) al filtrado de ATS (Applicant Tracking Systems) y ejecuta simulacros de entrevista de alta fidelidad con diagnósticos bajo la metodología STAR (Situation, Task, Action, Result).
 

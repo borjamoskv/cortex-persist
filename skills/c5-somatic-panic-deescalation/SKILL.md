@@ -1,9 +1,24 @@
 ---
 name: c5-somatic-panic-deescalation
 description: Protocolo cibernético y epistemológico C5-REAL para la desescalada de hiperfijación somática, bucles de monitoreo autonómico (Manual Override Trap) y ataques de ansiedad. Dispara con "ataque de ansiedad", "ataque de pánico", "hiperfijación somática", "no puedo dormir por la respiración", "bucle de pánico", "siento que me muero", "desescalar pánico".
+role: auditor
+allowed_roles:
+- auditor
+directives:
+  worktree_mode: audit-only
+  phase: verification
+  handoff:
+    upstream: ejecutor
+    downstream: operador
 ---
 
 # C5-REAL Somatic Panic De-escalation Protocol
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `auditor` (Auditor (Verificación Independiente, Linters de Silicio & Fail-Closed Gate))
+> - **Modo de Acceso a Worktree:** `audit-only` (audit-only (Lectura forense de diffs, linters, tests de estrés y cálculo de exergía; cero mutación de código))
+> - **Fase Causal:** `verification`
+> - **Contrato Handoff:** Recibe de `ejecutor` $\to$ Despacha a `operador`
 
 Este protocolo se activa automáticamente o a petición del usuario ante crisis de ansiedad, hiperfijación en procesos corporales involuntarios (respiración, ciclo nasal, ritmo cardíaco) o ataques de pánico.
 

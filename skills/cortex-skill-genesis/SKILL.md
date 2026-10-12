@@ -1,10 +1,25 @@
 ---
 name: cortex-skill-genesis
-display_name: "Génesis Autónoma de Skills CORTEX"
-description: "Síntesis y generación automática de nuevos SKILL.md desde telemetría de sesiones y patrones observados. Dispara con \"generar skill\", \"skill genesis\", \"crear habilidad\", \"cortex skill genesis\"."
+display_name: Génesis Autónoma de Skills CORTEX
+description: Síntesis y generación automática de nuevos SKILL.md desde telemetría de sesiones y patrones observados. Dispara con "generar skill", "skill genesis", "crear habilidad", "cortex skill genesis", "sintetizar skill", "auto skill creator".
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
 
 # Skill: Cortex Skill Genesis (Síntesis Predictiva de Skills)
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Lectura profunda y modelado formal; emisión de especificaciones sin mutación de código de producción))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
 
 Este protocolo analiza los patrones recurrentes de interacción en la telemetría de uso del sistema e identifica oportunas **transiciones de fase representacionales** para sintetizar de forma autónoma nuevos archivos `SKILL.md`.
 
@@ -29,17 +44,33 @@ Borrador SKILL.md  <---  Axiomatizar Triggers & Workflow  <---  Si Frecuencia >=
 
 ---
 
-## 2. Plantilla Canónica de Salida
+## 2. Plantilla Canónica de Salida (Estándar Declarativo 2026)
 
-Todo skill generado por `cortex-skill-genesis` sigue la plantilla estándar del sistema:
+Todo skill generado por `cortex-skill-genesis` DEBE seguir la plantilla declarativa estándar del sistema (`AGENTS.md` / `SKILLS.md` Triad):
 
 ```markdown
 ---
 name: [nombre-del-skill]
-description: [Descripción concisa]. ACTIVA esta habilidad ante peticiones de "[trigger_1]", "[trigger_2]" o [condición].
+display_name: [Título Legible]
+description: [Descripción concisa]. Dispara con "[trigger_1]", "[trigger_2]" o [condición].
+role: [arquitecto | ejecutor | auditor]
+allowed_roles:
+  - [rol_principal]
+directives:
+  worktree_mode: [spec-only | read-write | audit-only]
+  phase: [design | implementation | verification]
+  handoff:
+    upstream: [rol_previo]
+    downstream: [rol_siguiente]
 ---
 
 # Skill: [Título del Skill]
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `[role]` ([Descripción del Rol])
+> - **Modo de Acceso a Worktree:** `[worktree_mode]` ([Descripción de restricciones])
+> - **Fase Causal:** `[phase]`
+> - **Contrato Handoff:** Recibe de `[upstream]` $\to$ Despacha a `[downstream]`
 
 [Cuerpo explicativo con pasos deterministas y notación formal]
 ```

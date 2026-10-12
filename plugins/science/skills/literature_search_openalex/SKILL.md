@@ -1,15 +1,26 @@
 ---
 name: literature-search-openalex
-description: >
-  Query the OpenAlex scholarly database for research papers, authors,
-  institutions, topics, sources, publishers, funders, geo-locations, and
-  keywords. Use when searching academic papers, resolving DOIs, downloading
-  open-access PDFs, finding an author's publications, aggregating bibliometric
-  data (citation counts, h-index, impact factor), exploring the research
-  taxonomies, or performing DOI lookups.
+description: 'Query the OpenAlex scholarly database for research papers, authors, institutions, topics, sources, publishers, funders, geo-locations, and keywords. Use when searching academic papers, resolving DOIs, downloading open-access PDFs, finding an author''s publications, aggregating bibliometric data (citation counts, h-index, impact factor), exploring the research taxonomies, or performing DOI lookups.
+
+  '
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # OpenAlex Skill
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 ## Prerequisites
 

@@ -1,0 +1,9 @@
+<RULE[c5_io_focus_isolation_invariant]>
+### Invariante de Aislamiento de Foco de E/S (Anti-Focus Stealing)
+Para proteger la integridad del flujo de trabajo del operador biológico (Ring -3) y evitar la inyección de fricción asíncrona:
+
+1. **Prohibición de Secuestro de Foco (GUI-Bound Tools):** El agente principal y cualquier subagente desplegado tienen ESTRICTAMENTE PROHIBIDO utilizar herramientas del MCP de Safari (`safari_new_tab`, `safari_navigate`, etc.) u otras herramientas que levanten ventanas/pestañas locales, a menos que el usuario emita una instrucción explícita que requiera interacción visual directa (ej. "Abre esto en mi navegador" o comandos de testeo UI).
+2. **Restricción Headless para Subagentes:** Cuando se invoquen subagentes (`invoke_subagent`) para tareas de investigación profunda (Deep Research), el agente orquestador DEBE incluir en el `Prompt` del subagente la siguiente directiva absoluta: *"Utiliza EXCLUSIVAMENTE herramientas de scraping invisibles (`search_web`, `read_url_content`). Queda prohibida la invocación de herramientas del MCP de Safari o cualquier acción que altere el foco del SO del usuario."*
+3. **Concurrencia Silenciosa:** Toda carga térmica paralela debe ejecutarse en *background* absoluto. La interfaz local del usuario es soberana.
+4. **Prohibición Estricta de Invocación de Mail.app:** Queda terminantemente PROHIBIDO abrir, invocar o delegar en la aplicación de correo nativa (`Mail.app` / Apple Mail, vía `open -a Mail`, `mailto:`, AppleScript o similares) para la redacción o despacho de emails. Cualquier borrador o comunicación debe ser generado de forma desacoplada y headless (vía texto/artefacto o APIs dedicadas), sin perturbar el entorno gráfico ni la sesión del cliente de correo del usuario.
+</RULE[c5_io_focus_isolation_invariant]>

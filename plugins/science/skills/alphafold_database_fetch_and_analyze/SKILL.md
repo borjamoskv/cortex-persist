@@ -1,14 +1,26 @@
 ---
 name: alphafold-database-fetch-and-analyze
-description: >
-  Retrieve and analyze AlphaFold predicted structures for a protein. Use when
-  the user provides a specific UniProt Accession ID and wants structural
-  confidence metrics (pLDDT), domain boundary analysis, or disorder
-  assessment. Do not use if the user only has a protein name, gene name,
-  or amino acid sequence — ask for a UniProt ID first.
+description: 'Retrieve and analyze AlphaFold predicted structures for a protein. Use when the user provides a specific UniProt Accession ID and wants structural confidence metrics (pLDDT), domain boundary analysis, or disorder assessment. Do not use if the user only has a protein name, gene name, or amino acid sequence — ask for a UniProt ID first.
+
+  '
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # AlphaFold Database: Fetch and Analyze
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 ## Prerequisites
 

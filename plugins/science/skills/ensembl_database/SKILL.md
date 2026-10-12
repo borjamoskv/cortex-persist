@@ -1,14 +1,26 @@
 ---
 name: ensembl-database
-description: >
-  Query the Ensembl database to resolve gene, transcript, and protein IDs,
-  fetch genomic or protein sequences, retrieve gene structures (exons), and
-  get variant consequence and effect predictions (VEP). Use this skill as a
-  primary ID translator, genomic sequence database and variant effect prediction
-  tool.
+description: 'Query the Ensembl database to resolve gene, transcript, and protein IDs, fetch genomic or protein sequences, retrieve gene structures (exons), and get variant consequence and effect predictions (VEP). Use this skill as a primary ID translator, genomic sequence database and variant effect prediction tool.
+
+  '
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Ensembl Database: ID Mapping and Genomic Features
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 ## Prerequisites
 

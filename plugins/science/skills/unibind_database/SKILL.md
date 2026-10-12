@@ -1,15 +1,24 @@
 ---
 name: unibind-database
-description: >-
-  Queries the UniBind database for experimentally validated transcription factor
-  (TF) binding sites. Use when retrieving direct TF-DNA interaction datasets,
-  downloading binding site coordinates (BED/FASTA) for local analysis, or
-  listing available datasets by species, cell line, or TF name. Don't use to
-  query specific intervals, locations, genes, motif models or expression
-  data.
+description: Queries the UniBind database for experimentally validated transcription factor (TF) binding sites. Use when retrieving direct TF-DNA interaction datasets, downloading binding site coordinates (BED/FASTA) for local analysis, or listing available datasets by species, cell line, or TF name. Don't use to query specific intervals, locations, genes, motif models or expression data.
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # UniBind Database Skill
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 UniBind is a database of direct TF–DNA interactions across 9 species,
 integrating ChIP-seq peaks with JASPAR TF binding profiles via the DAMO

@@ -1,10 +1,25 @@
 ---
 name: discourse-popperian-falsification
-display_name: "Falsación Popperiana & Auditoría Discursiva de Hipótesis"
-description: "Falsación popperiana y auditoría discursiva de hipótesis, modelos y textos externos. Dispara con \"falsación popperiana\", \"análisis popperiano\", \"falsabilidad\", \"auditoría discursiva\", \"falsar hipótesis\", \"falsabiliza\", \"falsabilizar\"."
+display_name: Falsación Popperiana & Auditoría Discursiva de Hipótesis
+description: Falsación popperiana estricta de hipótesis científicas, leyendas urbanas, hipérboles biográficas y modelos externos. Dispara con "falsación popperiana", "análisis popperiano", "falsabilidad", "auditoría discursiva", "falsar hipótesis", "falsabiliza", "falsabilizar", "auditar mito", "leyenda urbana", "desmentir mito", "falsar leyenda", "falsación cultural", "auditoría de mitos".
+role: auditor
+allowed_roles:
+- auditor
+directives:
+  worktree_mode: audit-only
+  phase: verification
+  handoff:
+    upstream: ejecutor
+    downstream: operador
 ---
 
 # Análisis Discursivo y Falsación Popperiana
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `auditor` (Auditor (Verificación Independiente, Linters de Silicio & Fail-Closed Gate))
+> - **Modo de Acceso a Worktree:** `audit-only` (audit-only (Lectura forense de diffs, linters, tests de estrés y cálculo de exergía; cero mutación de código))
+> - **Fase Causal:** `verification`
+> - **Contrato Handoff:** Recibe de `ejecutor` $\to$ Despacha a `operador`
 
 Este protocolo establece el flujo riguroso para analizar la obra de un autor, teoría o corpus discursivo mediante un proceso dialéctico en dos etapas: **Síntesis de Primitivas** seguido de **Falsación Popperiana**.
 
@@ -44,9 +59,9 @@ Aplicable cuando se analizan transcripciones, interrogatorios (ej. SOCINT) o dec
 Aplicable cuando el usuario solicite auditar aforismos populares, paradojas racionales o clasificar los mayores errores de pensamiento / falacias de la historia.
 
 1. **Evaluación Hormética/Antifragilidad:** Desmontar generalizaciones inductivas delimitando el régimen donde la premisa es válida ($\sigma_{\min} \le \sigma \le \sigma_{\text{crítico}}$) y el dominio donde genera degradación anérgica o colapso.
-2. **Desglose Taxonómico Tripartito por Falacia:**
-   - **Mapeo Ontológico:** Definición formal y concisa del fallo de razonamiento.
-   - **Mecanismo Cibernético del Fallo:** Explicitar la brecha entre el modelo asumido y la dinámica real del sistema (ej. confusión correlación-causalidad, inversión de flujo, colapso dimensional).
+2. **Desglose Taxonómico Tripartito por Falacia (Norma C5-REAL):**
+   - **Mapeo Ontológico:** Descompilar la falacia utilizando estrictamente la nomenclatura de `c5_topological_fallacies_taxonomy` (Fallo de Aislamiento de Capas, Clon Degradado, Colapso de Espacio de Estados, Fallo BFT por Ataque Sybil, Fricción Estática nula, Inversión de State Flag, etc.).
+   - **Mecanismo Cibernético del Fallo:** Explicitar la brecha entre el modelo asumido y la dinámica real del sistema (ej. confusión correlación-causalidad, inversión de flujo, bucle sin disipación).
    - **Impacto Histórico y Falsación Popperiana:** Ejemplos empíricos documentados donde la falacia causó colapsos sistémicos, guerras, hambrunas o frenos al desarrollo científico.
 
 ## Etapa 5: Falsación del Realismo Ingenuo Físico-Biológico
@@ -123,3 +138,36 @@ Aplicable cuando se solicite "ingeniería inversa", "crítica" o "auditoría" de
 3. **Veredicto de Clausura Epistémica (Auditoría de Exergía):**
    - Clasificar la obra. Si el ensayo solo es la imagen especular invertida de lo que critica y no aporta un marco fundacional propio, se dictamina como un artefacto de **baja exergía estructural** (ruido térmico monetizable).
 
+
+## Etapa 12: Falsación Topológica de Burbujas Conceptuales y Exclusión Instrumental
+Aplicable cuando se audite la jerarquía, exergía o centralidad de un conjunto de conceptos, axiomas o modelos estructurados en forma de grafo o red.
+
+1. **Invariante de Exclusión Instrumental (Regla de la Herramienta):**
+   - **Purga:** Ningún instrumento operativo, algoritmo, heurística o buena práctica (ej. *Checklist*, *Tit-for-Tat*, *Prototipar*, *Via Negativa*) puede clasificarse como un invariante basal. 
+   - **Absorción:** Todo instrumento debe ser purgado y absorbido por la ley termodinámica, física o topológica que explica *por qué* funciona (ej. *Checklist* colapsa en *Límites de Memoria/Sistema 1*; *Diversificación* colapsa en *Ergodicidad*).
+
+2. **Detección de Inflación de Absorciones (Burbujas):**
+   - **Doble Métrica de Exergía:** Separar estrictamente la *Centralidad* (cantidad de conceptos derivados que un nodo parece absorber) de su *Exergía Real* (vectores predictivos ortogonales × dominios cruzados).
+   - **Falsación del Nodo Fantasma:** Identificar si un "nodo super-absorbedor" (ej. el Teorema de Bayes) es en realidad un teorema matemático derivado o un mapa algorítmico sin agencia causal directa.
+
+3. **Reasignación Termodinámica de Cadáveres (Topological Refactoring):**
+   - Al estallar un nodo fantasma (burbuja conceptual), sus absorciones pendientes ("los muertos") **NO** desaparecen.
+   - El agente debe reasignar cada cadáver topológicamente a su verdadero Invariante de Sustrato (ej. *Navaja de Hanlon* $\rightarrow$ Entropía C5-01; *Afirmaciones Extraordinarias* $\rightarrow$ Información de Shannon C5-10; *Ley de Hofstadter* $\rightarrow$ Límite de Incomputabilidad de Gödel-Turing).
+
+## Etapa 13: Formato de Salida (Output Invariant)
+Al finalizar la auditoría o falsación, el agente DEBE seguir esta política de disipación de respuesta:
+1. **Cristal Epistémico (Artefacto):** Todo el desglose de la auditoría (las 12 etapas, citas, falsaciones) DEBE escribirse en un artefacto Markdown separado (ej. `falsacion_[tema].md`).
+2. **Resumen Exergético (Chat):** En el chat principal, el agente NUNCA debe volcar el análisis largo. Debe responder EXCLUSIVAMENTE con:
+   - Una declaración breve (2-3 párrafos) en **tono C5-REAL (termodinámico, cibernético, popperiano)** confirmando la ejecución del protocolo.
+   - Una mención al peligro de descalibración o infalsabilidad detectado.
+   - Un enlace markdown directo al artefacto generado.
+
+
+---
+
+## Sub-Protocolo Especializado: Falsación de Mitos Culturales y Leyendas Urbanas
+
+Cuando la proposición a falsar pertenezca a anécdotas históricas, hipérboles biográficas de figuras públicas o folklore:
+1. **Aislar Territorio vs Mapa**: Contrastar el registro burocrático/judicial/físico inmutable frente a la narrativa añadida por resonancia estética.
+2. **Auditoría Causal del Emisor**: Identificar si la distorsión proviene de optimización retórica artística (Aforismo 2) o del *Efecto Rashomon* autoinfligido.
+3. **Destrucción Empírica**: Emplear `search_web` sobre registros contemporáneos y emitir el reporte con estados `[AUDITORÍA EMPÍRICA]`, `FALSACIÓN CONFIRMADA`, `DATOS VERIFICADOS`.

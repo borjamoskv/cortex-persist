@@ -1,11 +1,26 @@
 ---
 name: human-protein-atlas-database
-description: >
-  Use when you want to retrieve semi-quantitative protein expression and
-  spatial localisation data from the Human Protein Atlas (HPA).
+description: 'Use when you want to retrieve semi-quantitative protein expression and spatial localisation data from the Human Protein Atlas (HPA).
+
+  '
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Human Protein Atlas (HPA) Database Integration
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 This skill provides semi-quantitative protein expression and spatial
 localisation data from the Human Protein Atlas (HPA). While RNA-seq (e.g., GTEx)

@@ -1,12 +1,26 @@
 ---
 name: literature-search-europepmc
-description: >
-  Search Europe PMC for scientific literature and download open-access full
-  texts and PDFs. Retrieve full-text XML/plain text by PMCID, get citation
-  lists and bibliography.
+description: 'Search Europe PMC for scientific literature and download open-access full texts and PDFs. Retrieve full-text XML/plain text by PMCID, get citation lists and bibliography.
+
+  '
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Europe PMC Database
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 A skill for searching, downloading, and exploring open-access papers from
 [Europe PMC](https://europepmc.org/) — a comprehensive, free life-science

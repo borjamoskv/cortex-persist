@@ -1,14 +1,26 @@
 ---
 name: literature-search-biorxiv
-description: >
-  Browse, filter, and download life sciences, biology, and medical preprints
-  from bioRxiv and medRxiv. Supports fetching paper metadata by DOI,
-  and browsing by date range with category and keyword filters. Keyword
-  filtering is local, so date ranges MUST be narrow (1-4 weeks) with a
-  category to prevent timeouts.
+description: 'Browse, filter, and download life sciences, biology, and medical preprints from bioRxiv and medRxiv. Supports fetching paper metadata by DOI, and browsing by date range with category and keyword filters. Keyword filtering is local, so date ranges MUST be narrow (1-4 weeks) with a category to prevent timeouts.
+
+  '
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # bioRxiv and medRxiv Literature Search
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 ## Prerequisites
 

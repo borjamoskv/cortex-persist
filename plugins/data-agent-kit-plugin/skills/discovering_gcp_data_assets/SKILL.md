@@ -1,29 +1,28 @@
 ---
 name: discovering-gcp-data-assets
-description: |
-  Finds and inspects data assets within Google Cloud.
-  Relevant when any of the following conditions are true:
-    1. The user request involves finding, exploring, or inspecting data assets
-       in Google Cloud, such as:
-         - BigQuery datasets, tables, or views
-         - BigLake catalog or tables
-         - Spanner instances, databases or tables
-         - etc.
-    2. You need to retrieve the schema, metadata, or governance policies for a
-       GCP data asset.
-    3. You have a keyword or topic (e.g., "sales data") but lack the specific
-       table or resource ID.
-    4. You are attempting to find data using `bq ls`, as this skill offers a
-       superior approach.
-  Don't use when:
-    - Assets are outside Google Cloud
+description: "Finds and inspects data assets within Google Cloud.\nRelevant when any of the following conditions are true:\n  1. The user request involves finding, exploring, or inspecting data assets\n     in Google Cloud, such as:\n       - BigQuery datasets, tables, or views\n       - BigLake catalog or tables\n       - Spanner instances, databases or tables\n       - etc.\n  2. You need to retrieve the schema, metadata, or governance policies for a\n     GCP data asset.\n  3. You have a keyword or topic (e.g., \"sales data\") but lack the specific\n     table or resource ID.\n  4. You are attempting to find data using `bq ls`, as this skill offers a\n     superior approach.\nDon't use when:\n  - Assets are outside Google Cloud\n"
 license: Apache-2.0
 metadata:
   version: v4
   publisher: google
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Instructions
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 ## Step 1: Prioritize Assets from the Conversation
 

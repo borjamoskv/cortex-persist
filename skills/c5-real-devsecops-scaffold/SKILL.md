@@ -1,10 +1,25 @@
 ---
 name: c5-real-devsecops-scaffold
-display_name: "Scaffold DevSecOps & Endurecimiento Zero-Trust CI/CD"
-description: "Scaffold DevSecOps soberano, verificación de firmas GPG/SSH, endurecimiento CI/CD y políticas Zero-Trust. Dispara con \"devsecops\", \"inicializar repo\", \"seguridad ci/cd\", \"hardening repo\", \"gpg ci/cd\", \"devsecops scaffold\"."
+display_name: Scaffold DevSecOps & Endurecimiento Zero-Trust CI/CD
+description: Scaffold DevSecOps soberano, verificación de firmas GPG/SSH, endurecimiento CI/CD y políticas Zero-Trust. Dispara con "devsecops", "inicializar repo", "seguridad ci/cd", "hardening repo", "gpg ci/cd", "devsecops scaffold".
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Protocolo de Scaffolding C5-REAL (DevSecOps)
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Mutación de Árbol de Trabajo))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilación, ejecución de tests locales y generación de artefactos))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 Activa esta skill cuando el usuario pida inicializar un repositorio nuevo o aplicar el "andamiaje C5-REAL" (o DevSecOps) a un repositorio existente.
 

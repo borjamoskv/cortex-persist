@@ -1,14 +1,26 @@
 ---
 name: ncbi-sequence-fetch
-description: >
-  Retrieve protein and nucleotide sequences from NCBI databases using
-  E-utilities. Supports direct accession lookup, CDS translation, gene+organism
-  search, locus lookup, PubMed-linked sequences, patent protein extraction, and
-  organism+length fallback search. Use when you need to fetch biological
-  sequences by accession, gene name, locus tag, PubMed ID, or patent number.
+description: 'Retrieve protein and nucleotide sequences from NCBI databases using E-utilities. Supports direct accession lookup, CDS translation, gene+organism search, locus lookup, PubMed-linked sequences, patent protein extraction, and organism+length fallback search. Use when you need to fetch biological sequences by accession, gene name, locus tag, PubMed ID, or patent number.
+
+  '
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # NCBI Sequence Fetch
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 ## Prerequisites
 

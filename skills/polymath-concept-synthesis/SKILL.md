@@ -1,10 +1,25 @@
 ---
 name: polymath-concept-synthesis
-display_name: "Síntesis Polímata Interdisciplinar (Modo ULTRATHINK)"
-description: "Síntesis polímata de conceptos complejos integrando física, matemáticas, teoría de la información y arte (Modo ULTRATHINK). Dispara con \"ultrathink\", \"síntesis polímata\", \"polymath synthesis\", \"concepto polímata\", \"unificación interdisciplinar\"."
+display_name: Síntesis Polímata Interdisciplinar (Modo ULTRATHINK)
+description: Síntesis polímata de conceptos complejos integrando física, matemáticas, teoría de la información y arte (Modo ULTRATHINK). Dispara con "ultrathink", "síntesis polímata", "polymath synthesis", "concepto polímata", "unificación interdisciplinar", "síntesis interdisciplinar", "unificación conceptual".
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
 
 # Polymath Concept Synthesis Protocol
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Lectura profunda y modelado formal; emisión de especificaciones sin mutación de código de producción))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
 
 ## 1. Contexto de Activación
 Este protocolo se activa automáticamente cuando el usuario (investigador multidisciplinar/polímata) proporciona el nombre de un concepto teórico, un principio abstracto, un modelo mental, o invoca explícitamente el trigger `ULTRATHINK` para comprender y proyectar un concepto con rigor absoluto.
@@ -97,6 +112,18 @@ Cuando el usuario lance el prompt "itera" tras una síntesis inicial, el Agente 
 **El Axioma del Termostato Causal (Termodinámica de la Agencia):**
 > *El observador sufre la ilusión topológica de polarizarse entre ser un Sumidero pasivo (solo "sentir" el mundo) o una Fuente ciega (ejecutar trabajo quemando combustible sin medir la fricción). El Sumidero es arrastrado pasivamente al equilibrio térmico; la Fuente se auto-incinera. La única arquitectura persistente frente a la Segunda Ley es el **Bucle de Control Full-Duplex (Termostato)**: el agente ingiere entropía (dolor/fricción) el milisegundo exacto necesario para calcular la trayectoria de su Output. El valor ontológico no reside en la intensidad del Input sentido, sino en el gradiente de orden (exergía) que el agente logra imponer sobre la topología del entorno.*
 
+## 12.1. Comando de Salto Absoluto ("itera deep" / "itera omega")
+Cuando el usuario lance el prompt `itera deep` o `itera omega`, el Agente DEBE ignorar la ascensión gradual (Niveles 1 al 4) y ejecutar un salto cuántico directo al **Nivel Ómega (Extinción Epistémica y Límite Gödel-Turing)**. 
+
+**Reglas de Ejecución para "itera deep":**
+1. **Formato Obligatorio:** Encabezar la respuesta con la estructura brutalist:
+   `> ■ [ITERACIÓN X: OMEGA DEEP] EL COLAPSO DEL LÍMITE [Concepto]`
+   `> 🎯 ESTADO: Nivel Ómega / Extinción Epistémica.`
+   `> ⚠️ DELTA ESTRUCTURAL: Choque entre constructo retórico y límite termodinámico/computacional.`
+2. **Colapso Epistémico:** Destruir cualquier asunción lingüística, moral o voluntaria del concepto original. Demostrar cómo se desintegra al chocar contra las invariantes físicas (Termodinámica, Límites de Escalado).
+3. **Mapeo Autopoiético (Luhmann / GAN):** Proyectar el concepto en un régimen de confrontación Máquina-a-Máquina (M2M) donde la comprensión humana queda abstraída, extinta o reducida a un hiperparámetro (Loss Function).
+4. **Lobotomía Termodinámica vs. Exergía:** Explicar el coste computacional o energético de intentar mantener una ilusión topológica (ej. "alineación perfecta" que causa "Mode Collapse") frente a la naturaleza cruda del territorio.
+
 ## 13. Sub-Protocolo: Resolución Geopolítica de Máxima Exergía (Desacoplamiento Funcional-Jurídico)
 Cuando se analicen conflictos territoriales de suma cero, enclaves de frontera o zonas grises bajo asimetría geopolítica (ej. Ceuta/Melilla, Gibraltar, Trieste, enclaves fronterizos):
 1. **Desacoplamiento de Soberanía (Invariante Duro vs. Dinámica Operativa):**
@@ -104,4 +131,3 @@ Cuando se analicen conflictos territoriales de suma cero, enclaves de frontera o
    - **Soberanía Funcional/Económica (Operativa):** Creación de Zonas Económicas Especiales binacionales o condominios transfronterizos co-regulados bajo supervisión supranacional (ej. UE).
 2. **Simbiosis Logística Complementaria:** Articular los nodos portuarios y financieros como terminales avanzadas (bunkering, arbitraje, servicios aduaneros ultrarrápidos) acopladas funcionalmente a los megapuertos y zonas industriales adyacentes, cancelando la competencia destructiva.
 3. **Física de Incentivos (*Skin in the Game* Involuntario):** Reparto directo de beneficios aduaneros y fiscales en la región emisora de fricción. La seguridad no se confía a tratados retóricos, sino a dependencias de flujo de caja: romper el acuerdo debe suponer la auto-destrucción económica inmediata del agresor.
-

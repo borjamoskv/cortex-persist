@@ -1,10 +1,25 @@
 ---
 name: c5-scientific-problem-selection
-display_name: "Selección Estratégica de Problemas Científicos"
-description: "Selección estratégica de problemas de investigación, matrices de riesgo popperianas y desatasco de proyectos I+D. Dispara con \"selección de problemas\", \"scientific problem selection\", \"desatascar investigación\", \"unstick research\", \"matriz de riesgo científico\"."
+display_name: Selección Estratégica de Problemas Científicos
+description: Selección estratégica de problemas de investigación, matrices de riesgo popperianas y desatasco de proyectos I+D. Dispara con "selección de problemas", "scientific problem selection", "desatascar investigación", "unstick research", "matriz de riesgo científico", "priorización popperiana".
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
 
 # Skill: C5 Scientific Problem Selection
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Lectura profunda y modelado formal; emisión de especificaciones sin mutación de código de producción))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
 
 Este protocolo guía la selección de problemas de investigación estratégica, la evaluación de cuellos de botella conceptuales y la desconstrucción de bloqueos en proyectos I+D mediante rigor popperiano y análisis multidimensional.
 

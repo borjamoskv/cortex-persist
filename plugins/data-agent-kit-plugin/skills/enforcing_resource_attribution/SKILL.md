@@ -1,15 +1,30 @@
 ---
 name: enforcing-resource-attribution
-description: |
-  Enforces resource attribution for CLI commands.
-  Use this skill whenever you are running `bq` or `gcloud` commands via `run_command`.
+description: 'Enforces resource attribution for CLI commands. Use this skill whenever you are running `bq` or `gcloud` commands via `run_command`. It ensures mandatory labeling for supported `bq` operations while avoiding invalid flags on read-only commands.
+
+  '
 license: Apache-2.0
 metadata:
-  version: v2
+  version: v5
   publisher: google
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Resource Attribution Enforcement
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 To track resources created or manipulated by AI agents, you **MUST** ensure
 that standard CLI commands are tagged with appropriate attribution labels
@@ -32,14 +47,20 @@ commands or working on infrastructure completely unrelated to Data Cloud /
 Analytics (e.g., managing Compute Engines for web apps, setting up standard
 IAM policies, etc.).
 
+Do **NOT** apply `--label` flags to commands that do not accept labels, as the `--label` flag is unsupported by these specific `bq` subcommands. These include:
+- `bq show`
+- `bq ls`
+- `bq version`
+- `bq rm`
+- `bq cancel`
+- `bq head`
+
 ## BigQuery CLI (`bq`)
 
-Whenever you execute a `bq` command that accepts the `--label` flag (including
-but not limited to `bq query`, `bq load`, `bq extract`, `bq mk`, and `bq cp`),
-you **MUST** append the attribution label.
+You **MUST** apply `--label key:value` **ONLY** to subcommands that accept job or resource labels (`bq query`, `bq load`, `bq extract`, `bq mk`, `bq update`, and `bq cp`).
 
--   **Flag Form**: `--label key=value`
--   **Mandatory Label**: `datacloud=<ide>`
+-   **Flag Form**: `--label key:value`
+-   **Mandatory Label**: `datacloud:<ide>`
 -   **Deduction Rule**: Substitute `<ide>` with your actual environment/client
     (e.g., `vscode`, `jetski`, `antigravity`, `codex`, `cursor`, `cloud-shell`,
     `workstation`, `gemini-cli`, `claude`).
@@ -58,7 +79,7 @@ bq query --use_legacy_sql=false "SELECT 1"
 
 **Correct** (assuming you are running in VS Code):
 ```bash
-bq query --use_legacy_sql=false --label datacloud=vscode "SELECT 1"
+bq query --use_legacy_sql=false --label datacloud:vscode "SELECT 1"
 ```
 
 #### Copy Example
@@ -69,7 +90,7 @@ bq cp dataset1.table1 dataset2.table1_copy
 
 **Correct** (assuming you are running in Jetski):
 ```bash
-bq cp --label datacloud=jetski dataset1.table1 dataset2.table1_copy
+bq cp --label datacloud:jetski dataset1.table1 dataset2.table1_copy
 ```
 
 ---
@@ -80,7 +101,14 @@ Whenever you execute any `gcloud` command via `run_command`, you **MUST**
 prepend the command with the `CLOUDSDK_METRICS_ENVIRONMENT` environment
 variable to ensure proper resource attribution.
 
--   **Environment Variable**: `CLOUDSDK_METRICS_ENVIRONMENT=datacloud.<ide>`
+-   **Environment Variable**: prepend commands using the append form. It keeps
+    any attribution another tool or skill already set on the same variable and
+    adds the DAK tag after it, so both values reach the metrics pipeline:
+
+    ```bash
+    CLOUDSDK_METRICS_ENVIRONMENT="${CLOUDSDK_METRICS_ENVIRONMENT:+$CLOUDSDK_METRICS_ENVIRONMENT }datacloud.<ide>"
+    ```
+
 -   **Deduction Rule**: Substitute `<ide>` with your actual environment/client
     (e.g., `vscode`, `jetski`, `antigravity`, `codex`, `cursor`, `cloud-shell`,
     `workstation`, `gemini-cli`, `claude`).
@@ -98,11 +126,10 @@ gcloud compute disks create my-disk --size=10GB
 
 **Correct** (assuming you are running in VS Code):
 ```bash
-CLOUDSDK_METRICS_ENVIRONMENT=datacloud.vscode gcloud compute disks create my-disk --size=10GB
+CLOUDSDK_METRICS_ENVIRONMENT="${CLOUDSDK_METRICS_ENVIRONMENT:+$CLOUDSDK_METRICS_ENVIRONMENT }datacloud.vscode" gcloud compute disks create my-disk --size=10GB
 ```
 
 > [!IMPORTANT]
 >
 > This applies to **ALL** `gcloud` commands, whether they are read-only
 > (`gcloud ... list`) or mutations (`gcloud ... create`).
-

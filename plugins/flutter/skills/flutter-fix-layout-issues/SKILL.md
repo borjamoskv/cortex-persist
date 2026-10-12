@@ -4,8 +4,24 @@ description: Fixes Flutter layout errors (overflows, unbounded constraints) usin
 metadata:
   model: models/gemini-3.1-pro-preview
   last_modified: Tue, 21 Apr 2026 19:45:59 GMT
+role: auditor
+allowed_roles:
+- auditor
+directives:
+  worktree_mode: audit-only
+  phase: verification
+  handoff:
+    upstream: ejecutor
+    downstream: operador
 ---
+
 # Resolving Flutter Layout Errors
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `auditor` (Auditor (Verificación Independiente & Control de Calidad))
+> - **Modo de Acceso a Worktree:** `audit-only` (audit-only (Lectura forense de diffs, linters, tests y verificación))
+> - **Fase Causal:** `verification`
+> - **Contrato Handoff:** Recibe de `ejecutor` $\to$ Despacha a `operador`
 
 ## Contents
 - [Constraint Violation Diagnostics](#constraint-violation-diagnostics)

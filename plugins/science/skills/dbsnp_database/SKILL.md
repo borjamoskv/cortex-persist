@@ -1,14 +1,26 @@
 ---
 name: dbsnp-database
-description: >
-  Use when you want to look up, map, and search for short genetic variants
-  (SNPs, indels) in NCBI's dbSNP database. Resolves between rsIDs, genomic
-  coordinates in VCF format, and HGVS strings. For an rsID, returns variant
-  type, gene associations, clinical significance, allele frequencies, and
-  genomic coordinates (GRCh38).
+description: 'Use when you want to look up, map, and search for short genetic variants (SNPs, indels) in NCBI''s dbSNP database. Resolves between rsIDs, genomic coordinates in VCF format, and HGVS strings. For an rsID, returns variant type, gene associations, clinical significance, allele frequencies, and genomic coordinates (GRCh38).
+
+  '
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # dbSNP Database Integration
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 ## Prerequisites
 

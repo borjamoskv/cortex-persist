@@ -1,15 +1,24 @@
 ---
 name: pubmed-database
-description: >-
-  Search PubMed for scientific literature, including published clinical trials.
-  Fetch abstracts and full text. Link published research to biological databases
-  (gene, protein, nucleotide, PubChem) to discover associations between papers
-  and specific compounds or genes. Verify medical spelling, match raw citations,
-  and cache result sets for bulk processing. Interfaces NCBI E-utilities and PMC
-  BioC APIs.
+description: Search PubMed for scientific literature, including published clinical trials. Fetch abstracts and full text. Link published research to biological databases (gene, protein, nucleotide, PubChem) to discover associations between papers and specific compounds or genes. Verify medical spelling, match raw citations, and cache result sets for bulk processing. Interfaces NCBI E-utilities and PMC BioC APIs.
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # PubMed API
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 ## Prerequisites
 

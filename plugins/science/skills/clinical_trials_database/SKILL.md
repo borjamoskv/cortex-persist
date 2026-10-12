@@ -1,14 +1,26 @@
 ---
 name: clinical-trials-database
-description: >
-  Query ClinicalTrials.gov via APIv2. Use when you want to search for trials by
-  condition, drug, location, status, or phase; retrieve trial details by NCT ID;
-  check eligibility/inclusion criteria; count trials across conditions or time
-  periods; identify a sponsor's trial portfolio; find recruiting trials for
-  patient matching.
+description: 'Query ClinicalTrials.gov via APIv2. Use when you want to search for trials by condition, drug, location, status, or phase; retrieve trial details by NCT ID; check eligibility/inclusion criteria; count trials across conditions or time periods; identify a sponsor''s trial portfolio; find recruiting trials for patient matching.
+
+  '
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Clinical Trials Database
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 ## Prerequisites
 

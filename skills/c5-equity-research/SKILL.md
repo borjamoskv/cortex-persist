@@ -1,10 +1,25 @@
 ---
 name: c5-equity-research
-display_name: "Investigación Financiera Institucional & Análisis Cuantitativo C5"
-description: "Análisis financiero cuantitativo, valoración DCF, métricas SaaS, auditoría forense de balance, scorecards de inversión y equity research de nivel institucional (Goldman Sachs, JPMorgan, Haitong). Dispara con \"equity research\", \"análisis financiero\", \"tear sheet acciones\", \"investigación bursátil\", \"reporte equity\", \"modelo dcf\", \"ratios financieros\", \"dupont analysis\", \"buffett scorecard\", \"saas metrics\", \"anomalías contables\", \"fund risk compare\", \"commodities outlook\"."
+display_name: Investigación Financiera Institucional & Análisis Cuantitativo C5
+description: Análisis financiero cuantitativo, valoración DCF, métricas SaaS, auditoría forense de balance, scorecards de inversión y equity research de nivel institucional (Goldman Sachs, JPMorgan, Haitong). Dispara con "equity research", "análisis financiero", "tear sheet acciones", "investigación bursátil", "reporte equity", "modelo dcf", "ratios financieros", "dupont analysis", "buffett scorecard", "saas metrics", "anomalías contables", "fund risk compare", "commodities outlook".
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
 
 # Skill: C5 Institutional Equity Research & Quantitative Valuation Kernel
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Lectura profunda y modelado formal; emisión de especificaciones sin mutación de código de producción))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
 
 Este protocolo ejecuta análisis financiero, cuantitativo y de valoración de nivel institucional sobre empresas cotizadas (EE.UU., Hong Kong, A-Shares), startups SaaS, materias primas y fondos cotizados (ETFs).
 
@@ -74,4 +89,3 @@ graph TD
 1. **Concise Executive Tear Sheet (1-2 páginas):** Tesis de inversión (Bull/Bear), métricas clave, tabla de valoración rápida y veredicto del scorecard.
 2. **Institutional Deep-Dive Research Report (10-25 páginas):** Informe completo con desglose por segmento, modelo DCF con sensibilidad, análisis DuPont, auditoría forense de balance y matriz de riesgos.
 3. **VC Deal Memo / Letter (4-8 páginas):** Formato memo estratégico para comités de inversión y socios limitados (LPs).
-

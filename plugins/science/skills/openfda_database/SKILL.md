@@ -1,14 +1,26 @@
 ---
 name: openfda-database
-description: >
-  Query, search, and download data from the openFDA API for drugs, devices,
-  foods, tobacco, cosmetics, animal and veterinary products, substances, and
-  transparency data. Use for FDA adverse events, recalls, labeling, approvals,
-  shortages, 510(k) clearances, NDC lookups, and any FDA safety or regulatory
-  data query across all 28 API endpoints.
+description: 'Query, search, and download data from the openFDA API for drugs, devices, foods, tobacco, cosmetics, animal and veterinary products, substances, and transparency data. Use for FDA adverse events, recalls, labeling, approvals, shortages, 510(k) clearances, NDC lookups, and any FDA safety or regulatory data query across all 28 API endpoints.
+
+  '
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # openFDA Search and Query
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 ## Prerequisites
 
@@ -157,6 +169,27 @@ uv run scripts/openfda_query.py search --category drug --endpoint label \
 
 The `.exact` suffix is also required when using `--count_field` to aggregate
 whole phrases instead of individual words.
+
+## NDC Lookups: Hyphens & Discontinued Drugs
+
+1.  **Always Quote Hyphenated NDCs**: In openFDA search syntax, an unquoted
+    hyphen (`-`) acts as the boolean **NOT** operator (e.g., `51285-092`
+    searches for `51285 AND NOT 092`). Always enclose hyphenated NDC strings in
+    escaped double quotes:
+
+    ```bash
+    uv run scripts/openfda_query.py search --category drug --endpoint ndc \
+      --search 'product_ndc:"51285-092"' \
+      --limit 5 --output /tmp/ndc.json
+    ```
+2.  **Discontinued Drugs Fallback (`drug/label`)**: The `drug/ndc` endpoint only
+    contains **currently active/marketed** products. If a valid NDC returns 0
+    results in `drug/ndc`, query the **`drug/label`** endpoint with exact phrase
+    quotes (`--search '"51285-092"'`). Note that for discontinued drugs, the
+    `openfda` metadata block may be empty (`{}`), so read brand name, active
+    ingredients, and labeler from the label text fields
+    (`package_label_principal_display_panel`, `description`, or
+    `spl_product_data_elements`).
 
 ## MedDRA Term Resolution
 

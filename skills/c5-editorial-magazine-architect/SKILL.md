@@ -1,10 +1,25 @@
 ---
 name: c5-editorial-magazine-architect
-display_name: "Arquitecto de Diseño Editorial, Revistas y Presentaciones"
-description: "Generación de documentos impresos/digitales con tipografía de revista, fotos full-bleed, maquetación periodística de doble columna y diapositivas editoriales PPTX/HTML. Dispara con \"revista digital\", \"photo magazine\", \"journalistic portrait\", \"geo magazine slides\", \"diseño editorial\", \"maquetación html pptx\"."
+display_name: Arquitecto de Diseño Editorial, Revistas y Presentaciones
+description: Generación de documentos impresos/digitales con tipografía de revista, fotos full-bleed, maquetación periodística de doble columna y diapositivas editoriales PPTX/HTML. Dispara con "revista digital", "photo magazine", "journalistic portrait", "geo magazine slides", "diseño editorial", "maquetación html pptx".
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
 
 # Skill: C5 Editorial Magazine & Presentation Architect
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Lectura profunda y modelado formal; emisión de especificaciones sin mutación de código de producción))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
 
 Este protocolo crea publicaciones digitales, maquetas periodísticas de alta gama e informes editoriales caracterizados por tipografía refinada (Serif/Sans contrastadas), fotografía sangrada (*full-bleed*) y tarjetas de datos estructuradas.
 

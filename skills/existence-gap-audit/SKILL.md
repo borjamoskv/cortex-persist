@@ -1,10 +1,25 @@
 ---
 name: existence-gap-audit
-display_name: "Auditoría de Huecos de Existencia & Supply-Chain Slop"
-description: "Detecta huecos de existencia en un repositorio — imports que apuntan a módulos, símbolos, rutas locales o acciones de CI que no existen ni en el filesystem ni en el registro (PyPI/npm/GitHub Actions), y pondera la severidad por alcanzabilidad medida desde entrypoints reales. Úsala antes de cualquier análisis estático (SAST) al auditar código, revisar un repo desconocido, evaluar código generado por IA, o cuando sospeches de dependencias fantasma, slopsquatting, dependency confusion, typosquatting de acciones o inyección en workflows. Dispara con \"auditoría\", \"audit\", \"revisa este repo\", \"código alucinado\", \"dependencias fantasma\", \"slopsquatting\", \"vibe coding\", \"supply chain\", \"¿esto se ejecuta?\", \"imports rotos\", \"auditar workflows\"."
+display_name: Auditoría de Huecos de Existencia & Supply-Chain Slop
+description: Detecta huecos de existencia en un repositorio — imports que apuntan a módulos, símbolos, rutas locales o acciones de CI que no existen ni en el filesystem ni en el registro (PyPI/npm/GitHub Actions), y pondera la severidad por alcanzabilidad medida desde entrypoints reales. Úsala antes de cualquier análisis estático (SAST) al auditar código, revisar un repo desconocido, evaluar código generado por IA, o cuando sospeches de dependencias fantasma, slopsquatting, dependency confusion, typosquatting de acciones o inyección en workflows. Dispara con "auditoría", "audit", "revisa este repo", "código alucinado", "dependencias fantasma", "slopsquatting", "vibe coding", "supply chain", "¿esto se ejecuta?", "imports rotos", "auditar workflows".
+role: auditor
+allowed_roles:
+- auditor
+directives:
+  worktree_mode: audit-only
+  phase: verification
+  handoff:
+    upstream: ejecutor
+    downstream: operador
 ---
 
 # Auditoría de huecos de existencia
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `auditor` (Auditor (Verificación Independiente, Linters de Silicio & Fail-Closed Gate))
+> - **Modo de Acceso a Worktree:** `audit-only` (audit-only (Lectura forense de diffs, linters, tests de estrés y cálculo de exergía; cero mutación de código))
+> - **Fase Causal:** `verification`
+> - **Contrato Handoff:** Recibe de `ejecutor` $\to$ Despacha a `operador`
 
 ## Por qué esta skill existe
 

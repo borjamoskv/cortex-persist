@@ -1,14 +1,29 @@
 ---
 name: kimi-mcp-orchestrator
-description: "Use this skill to orchestrate tasks via Moonshot AI (Kimi K3) MCP bridge, delegate complex audits to swarm instances, or interact with the Kimi API (Global/China). Contains documentation on kimi_ask, kimi_audit, kimi_swarm, and the latest 2026 models (kimi-k3, kimi-k2.7-code)."
+description: Orquestación de tareas vía Moonshot AI (Kimi K3) MCP bridge, delegación de auditorías a instancias swarm o interacción con la API de Kimi. Dispara con "kimi ask", "kimi audit", "kimi swarm", "kimi nexus", "kimi mcp", "moonshot kimi", "orquestar kimi".
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Skill: Kimi Nexus MCP Orchestrator (C5-REAL v2.1)
 
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Mutación de Árbol de Trabajo))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilación, ejecución de tests locales y generación de artefactos))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
+
 Este protocolo gobierna el uso del puente `kimi-nexus` para delegar tareas termodinámicamente costosas, auditorías C5-REAL o análisis profundos de código a Kimi (Moonshot AI), incluyendo la orquestación de enjambres de subagentes paralelos.
 
 ## 1. Activación del Servidor
-El servidor MCP `kimi-nexus` se encuentra en `BABYLON-60/kimi_nexus/kimi_nexus.py`. Este servidor utiliza el protocolo MCP nativo vía `stdio` (cero fricción entrópica). Si las herramientas no están disponibles, infórmale al operador que debe registrar el script en su cliente MCP configurándolo para ejecutar `python /Users/borjafernandezangulo/10_PROJECTS/BABYLON-60/kimi_nexus/kimi_nexus.py`. Requiere la variable `MOONSHOT_API_KEY` configurada.
+El servidor MCP `kimi-nexus` se encuentra en `BABYLON-60/kimi_nexus/kimi_nexus.py`. Este servidor utiliza el protocolo MCP nativo vía `stdio` (cero fricción entrópica). Si las herramientas no están disponibles, infórmale al operador que debe registrar el script en su cliente MCP configurándolo para ejecutar `python ~/10_PROJECTS/BABYLON-60/kimi_nexus/kimi_nexus.py`. Requiere la variable `MOONSHOT_API_KEY` configurada.
 
 ## 2. Herramientas Disponibles
 
@@ -62,4 +77,3 @@ El servidor MCP `kimi-nexus` se encuentra en `BABYLON-60/kimi_nexus/kimi_nexus.p
 - Respeta la topología: procesa la respuesta de Kimi y preséntala al operador como un artefacto si es extensa, o integrada en tu respuesta.
 - El orquestador incluye circuit breaker (5 fallos consecutivos → abort) y reintentos con backoff exponencial para rate limits (429).
 - La telemetría de kernel (ru_nivcsw, ru_nvcsw, RSS) se reporta automáticamente al final de cada colapso. Si `ru_nivcsw > 2132`, el sistema marca thrashing.
-

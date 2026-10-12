@@ -1,16 +1,26 @@
 ---
 name: protein-sequence-msa
-description: >
-  Performs multiple sequence alignment of proteins with EBI Clustal Omega.
-  Use when you need to align multiple sequences to assess similarity, domain
-  conservation, or key residue conservation. Supports up to 4000 sequences and
-  a maximum file size of 4 MB. Do not use to search for homologous proteins in
-  a database (use MMseqs2, BLAST), align non-protein sequences (DNA, RNA),
-  perform structural alignment (use Foldseek, PyMOL), or if you only have a
-  single sequence.
+description: 'Performs multiple sequence alignment of proteins with EBI Clustal Omega. Use when you need to align multiple sequences to assess similarity, domain conservation, or key residue conservation. Supports up to 4000 sequences and a maximum file size of 4 MB. Do not use to search for homologous proteins in a database (use MMseqs2, BLAST), align non-protein sequences (DNA, RNA), perform structural alignment (use Foldseek, PyMOL), or if you only have a single sequence.
+
+  '
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 ## Prerequisites
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 1.  **`uv`**: Read the `uv` skill and follow its Setup instructions to ensure
     `uv` is installed and on PATH.

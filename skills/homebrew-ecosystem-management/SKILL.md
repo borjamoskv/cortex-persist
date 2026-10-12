@@ -1,10 +1,25 @@
 ---
 name: homebrew-ecosystem-management
-display_name: "Gestión & Auditoría de Paquetes Homebrew en macOS"
-description: "Gestión y auditoría del entorno de paquetes Homebrew en macOS. Dispara con \"homebrew\", \"brew audit\", \"dependencias macos\", \"paquetes homebrew\"."
+display_name: Gestión & Auditoría de Paquetes Homebrew en macOS
+description: Gestión y auditoría del entorno de paquetes Homebrew en macOS. Dispara con "homebrew", "brew audit", "dependencias macos", "paquetes homebrew", "gestión homebrew", "entorno brew".
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Homebrew Ecosystem Management Protocol
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Mutación de Árbol de Trabajo))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilación, ejecución de tests locales y generación de artefactos))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 Esta habilidad define el marco determinista para gestionar paquetes del sistema en macOS utilizando Homebrew, garantizando un acoplamiento estructural limpio y de Fricción Cero.
 

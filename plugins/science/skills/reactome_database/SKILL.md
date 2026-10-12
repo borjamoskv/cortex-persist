@@ -1,15 +1,26 @@
 ---
 name: reactome-database
-description: >
-  Query the Reactome database (Analysis and Content Services). Use when the user
-  asks about pathway analysis, gene list enrichment, retrieving results by
-  token, finding unmapped or not-found identifiers, mapping identifiers,
-  reaction participants (inputs, outputs), pathway hierarchy (including
-  top-level pathways), diagram export, cross-reference mapping, or searching the
-  knowledgebase.
+description: 'Query the Reactome database (Analysis and Content Services). Use when the user asks about pathway analysis, gene list enrichment, retrieving results by token, finding unmapped or not-found identifiers, mapping identifiers, reaction participants (inputs, outputs), pathway hierarchy (including top-level pathways), diagram export, cross-reference mapping, or searching the knowledgebase.
+
+  '
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Reactome Analysis & Content Service
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 ## Prerequisites
 

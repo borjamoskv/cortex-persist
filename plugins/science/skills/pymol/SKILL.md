@@ -1,15 +1,26 @@
 ---
 name: pymol
-description: >
-  Visualize, analyze, and render protein and molecular structures using PyMOL.
-  Use when the user wants to create images of protein structures, perform
-  structural alignments or superposition, measure distances or contacts,
-  highlight binding sites or active site residues, color by B-factor/pLDDT,
-  or analyze protein-ligand interactions. Do not use for docking,
-  molecular dynamics, or sequence-only analysis.
+description: 'Visualize, analyze, and render protein and molecular structures using PyMOL. Use when the user wants to create images of protein structures, perform structural alignments or superposition, measure distances or contacts, highlight binding sites or active site residues, color by B-factor/pLDDT, or analyze protein-ligand interactions. Do not use for docking, molecular dynamics, or sequence-only analysis.
+
+  '
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # PyMOL
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 ## Prerequisites
 

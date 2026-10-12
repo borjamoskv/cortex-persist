@@ -1,16 +1,28 @@
 ---
 name: data-autocleaning
-description: Automated data quality and transformation capabilities for Dataform/dbt/BigQuery
-  pipelines. Processes data sourced from BigQuery or Cloud Storage (GCS), applying
-  best practices for data ingestion, movement, schema mapping, and comprehensive data
-  cleaning.
+description: Automated data quality and transformation capabilities for Dataform/dbt/BigQuery pipelines. Processes data sourced from BigQuery or Cloud Storage (GCS), applying best practices for data ingestion, movement, schema mapping, and comprehensive data cleaning.
 license: Apache-2.0
 metadata:
   version: v1
   publisher: google
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Data Autocleaning Skill
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 Automated data profiling, quality assessment, and transformation for data
 sourced from **BigQuery** or **Google Cloud Storage (GCS)**.

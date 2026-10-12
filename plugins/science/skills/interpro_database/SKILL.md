@@ -1,15 +1,26 @@
 ---
 name: interpro-database
-description: >
-  Identify domains, families, and sites in proteins; find all proteins in a
-  family or sharing a domain; explore species distribution for a domain;
-  annotate genomes with protein families and GO terms. InterPro combines 14
-  databases (e.g., Pfam, CDD) into one searchable resource. InterPro-N
-  significantly expands annotation and sequence coverage with deep learning.
-  Includes domain architecture (IDA) search.
+description: 'Identify domains, families, and sites in proteins; find all proteins in a family or sharing a domain; explore species distribution for a domain; annotate genomes with protein families and GO terms. InterPro combines 14 databases (e.g., Pfam, CDD) into one searchable resource. InterPro-N significantly expands annotation and sequence coverage with deep learning. Includes domain architecture (IDA) search.
+
+  '
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # InterPro Database Access
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 ## Prerequisites
 

@@ -1,26 +1,29 @@
 ---
 name: building-data-apps
-description: |
-  Build modern data apps, dashboards, and interactive reports using either
-  React + Vite or Streamlit. Includes optional Gemini Data Analytics chat
-  integration for an AI powered "chat with your data" experience.
-
-  Relevant when any of the following conditions are true:
-    1. User explicitly requests to build a data dashboard, data application, or visualization UI, and the UI pulls data from a GCP database (defaulting to BigQuery unless otherwise specified).
-    2. You need to generate a frontend web application to interact with, query, and visualize data from GCP data sources.
-    3. User wants to build a "chat with your data" experience or integrate the Gemini Data Analytics chat API into a web interface.
-
-  Do NOT use when any of the following conditions are true:
-    1. The request is for building backend-only services.
-    2. The request is for simple CLI scripts or command-line applications.
-    3. The web application is not data-centric or does not involve visualizing/querying data from GCP sources.
+description: "Build modern data apps, dashboards, and interactive reports using either\nReact + Vite or Streamlit. Includes optional Gemini Data Analytics chat\nintegration for an AI powered \"chat with your data\" experience.\n\nRelevant when any of the following conditions are true:\n  1. User explicitly requests to build a data dashboard, data application, or visualization UI, and the UI pulls data from a GCP database (defaulting to BigQuery unless otherwise specified).\n  2. You need to generate a frontend web application to interact with, query, and visualize data from GCP data sources.\n  3. User wants to build a \"chat with your data\" experience or integrate the Gemini Data Analytics chat API into a web interface.\n\nDo NOT use when any of the following conditions are true:\n  1. The request is for building backend-only services.\n  2. The request is for simple CLI scripts or command-line applications.\n  3. The web application is not data-centric or does not involve visualizing/querying\
+  \ data from GCP sources.\n"
 license: Apache-2.0
 metadata:
   version: v1
   publisher: google
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Building Data Applications
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 Architect high-quality data dashboards and interactive reports. You MUST select
 the appropriate framework before implementation.

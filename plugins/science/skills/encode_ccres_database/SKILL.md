@@ -1,13 +1,26 @@
 ---
 name: encode-ccres-database
-description: >
-    Query the ENCODE Registry of cis-Regulatory Elements (cCREs) via the SCREEN
-    GraphQL API, or make custom queries to the ENCODE Portal REST API for
-    experiments and files (ChIP-seq peaks, etc.). Use when you want to query
-    regulatory annotations or raw experimental data across human cell types.
+description: 'Query the ENCODE Registry of cis-Regulatory Elements (cCREs) via the SCREEN GraphQL API, or make custom queries to the ENCODE Portal REST API for experiments and files (ChIP-seq peaks, etc.). Use when you want to query regulatory annotations or raw experimental data across human cell types.
+
+  '
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # ENCODE Database Skill
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 This skill allows you to query the ENCODE Registry of cCREs (candidate
 cis-Regulatory Elements) via the SCREEN GraphQL API. It helps identify

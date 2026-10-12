@@ -1,14 +1,26 @@
 ---
 name: quickgo-database
-description: >
-  Query the QuickGO and Evidence & Conclusion Ontology (ECO) REST API. Use this
-  when you need to map genes to biological processes, molecular functions, or
-  cellular components, find genes associated with a specific pathway/GO term, or
-  explore the Gene Ontology hierarchy. Do not use for querying drug targets (use
-  OpenTargets) or mechanistic signaling pathway diagrams (use KEGG).
+description: 'Query the QuickGO and Evidence & Conclusion Ontology (ECO) REST API. Use this when you need to map genes to biological processes, molecular functions, or cellular components, find genes associated with a specific pathway/GO term, or explore the Gene Ontology hierarchy. Do not use for querying drug targets (use OpenTargets) or mechanistic signaling pathway diagrams (use KEGG).
+
+  '
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # QuickGO Database Skill
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 GO (Gene Ontology) annotations are one of the main ways to label a gene's
 function. QuickGO is a fast, web-based browser for the GO and Evidence &

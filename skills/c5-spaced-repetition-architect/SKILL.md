@@ -1,10 +1,25 @@
 ---
 name: c5-spaced-repetition-architect
-display_name: "Arquitecto de Repetición Espaciada, Anki & Control Entrópico Cognitivo C5"
-description: "Generación de tarjetas Anki (CSV/TSV), Cloze Deletion, descomposición de micro-tareas bajo baja fricción termodinámica y gestión de carga cognitiva/ADHD. Dispara con \"anki maker\", \"tarjetas anki\", \"anki flashcards\", \"repetición espaciada\", \"adhd assistant\", \"descomposición de tareas\", \"micro-tasking\", \"spaced repetition\"."
+display_name: Arquitecto de Repetición Espaciada, Anki & Control Entrópico Cognitivo C5
+description: Generación de tarjetas Anki (CSV/TSV), Cloze Deletion, descomposición de micro-tareas bajo baja fricción termodinámica y gestión de carga cognitiva/ADHD. Dispara con "anki maker", "tarjetas anki", "anki flashcards", "repetición espaciada", "adhd assistant", "descomposición de tareas", "micro-tasking", "spaced repetition".
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Skill: C5 Spaced Repetition & Cognitive Friction Management
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Mutación de Árbol de Trabajo))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilación, ejecución de tests locales y generación de artefactos))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 Este protocolo automatiza la extracción de conocimientos atómicos desde documentos y notas de estudio para generar mazos de repetición espaciada (Anki / SM-2) y estructura planes de acción con descompresión de fricción cognitiva (ADHD-friendly task decomposition).
 

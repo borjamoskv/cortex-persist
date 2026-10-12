@@ -1,14 +1,26 @@
 ---
 name: ucsc-conservation-and-tfbs
-description: >
-  Fetch Evolutionary Conservation scores (phyloP, phastCons) and Transcription
-  Factor Binding Sites (TFBS) from the UCSC Genome Browser. Use when analyzing
-  whether genomic variants or regions are evolutionarily conserved, functionally
-  important, or bounded by TF regulators across major projects (ENCODE, JASPAR,
-  ReMap).
+description: 'Fetch Evolutionary Conservation scores (phyloP, phastCons) and Transcription Factor Binding Sites (TFBS) from the UCSC Genome Browser. Use when analyzing whether genomic variants or regions are evolutionarily conserved, functionally important, or bounded by TF regulators across major projects (ENCODE, JASPAR, ReMap).
+
+  '
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Conservation Scores & TFBS Lookup (UCSC)
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 This skill provides access to evolutionary constraint scores and conserved
 elements from the UCSC Genome Browser. It retrieves scores from the PHAST

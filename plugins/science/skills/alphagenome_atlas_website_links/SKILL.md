@@ -1,14 +1,24 @@
 ---
 name: alphagenome-atlas-website-links
-description: >-
-  Constructs deep-links and URLs for the AlphaGenome Atlas website. Supports generating single-variant exploration
-  links (1-based chr:pos:ref>alt), genomic locus views (1-based closed chr:start-end), candidate summary tables,
-  and AlphaGenome reference vs. alternate predictions. Use whenever visualizing, exploring, charting, or linking
-  genetic variants and genomic loci on the AlphaGenome Atlas, or when asked to inspect, view, or link predictions for a
-  genomic variant.
+description: Constructs deep-links and URLs for the AlphaGenome Atlas website. Supports generating single-variant exploration links (1-based chr:pos:ref>alt), genomic locus views (1-based closed chr:start-end), candidate summary tables, and AlphaGenome reference vs. alternate predictions. Use whenever visualizing, exploring, charting, or linking genetic variants and genomic loci on the AlphaGenome Atlas, or when asked to inspect, view, or link predictions for a genomic variant.
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # AlphaGenome Atlas Deep-Linking & URL Configuration
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 Construct and validate deep-links for the AlphaGenome Atlas web application
 (`https://deepmind.google.com/science/alphagenome/atlas`).

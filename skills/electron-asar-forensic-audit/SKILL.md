@@ -1,9 +1,24 @@
 ---
 name: electron-asar-forensic-audit
-description: Auditoría forense y extracción binaria in-memory de archivos Electron app.asar y binarios nativos auxiliares sin dependencias. Dispara con "auditar app electron", "extraer asar", "asar python", "descompilar electron", "forense electron app", "ingeniería inversa", "ingeniería inversa electron".
+description: Auditoría forense y extracción binaria in-memory de archivos Electron app.asar y binarios nativos auxiliares sin dependencias. Dispara con "auditar app electron", "extraer asar", "asar python", "descompilar electron", "forense electron app", "ingeniería inversa electron", "ingeniería inversa electron".
+role: auditor
+allowed_roles:
+- auditor
+directives:
+  worktree_mode: audit-only
+  phase: verification
+  handoff:
+    upstream: ejecutor
+    downstream: operador
 ---
 
 # Protocolo de Auditoría Forense Electron (In-Memory ASAR Parser)
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `auditor` (Auditor (Verificación Independiente, Linters de Silicio & Fail-Closed Gate))
+> - **Modo de Acceso a Worktree:** `audit-only` (audit-only (Lectura forense de diffs, linters, tests de estrés y cálculo de exergía; cero mutación de código))
+> - **Fase Causal:** `verification`
+> - **Contrato Handoff:** Recibe de `ejecutor` $\to$ Despacha a `operador`
 
 ## 1. Principio de Operación
 Cuando se audita un bundle de Electron (`.app/Contents/Resources/app.asar`), **NO utilices `npx @electron/asar`**. 

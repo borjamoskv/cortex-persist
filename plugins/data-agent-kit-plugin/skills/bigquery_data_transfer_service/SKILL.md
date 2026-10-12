@@ -1,17 +1,28 @@
 ---
 name: bigquery-data-transfer-service
-description: Discovers and inspects BigQuery Data Transfer Service (DTS) configurations.
-  Use this to identify existing ingestion pipelines and extract datasource or transfer
-  config metadata for data pipelines. Use when a user asks for ingestion scenarios
-  while building or managing data pipelines or when a user asks to "ingest" or "add"
-  data that may already be managed by a DTS transfer.
+description: Discovers and inspects BigQuery Data Transfer Service (DTS) configurations. Use this to identify existing ingestion pipelines and extract datasource or transfer config metadata for data pipelines. Use when a user asks for ingestion scenarios while building or managing data pipelines or when a user asks to "ingest" or "add" data that may already be managed by a DTS transfer.
 license: Apache-2.0
 metadata:
   version: v1
   publisher: google
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # BigQuery Data Transfer Service (DTS)
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 ## Mandatory Guidelines
 

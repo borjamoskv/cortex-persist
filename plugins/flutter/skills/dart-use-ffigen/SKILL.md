@@ -4,8 +4,24 @@ description: Guide agents to use `package:ffigen` to automatically generate FFI 
 metadata:
   model: models/gemini-3.1-pro-preview
   last_modified: Thu, 28 May 2026 07:21:07 GMT
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
+
 # Generating FFI Bindings using package:ffigen
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 ## Contents
 - [Introduction](#introduction)

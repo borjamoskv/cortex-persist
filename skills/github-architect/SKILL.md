@@ -1,18 +1,35 @@
 ---
 name: github-architect
-description: Arquitecto estratégico de presencia en GitHub v2.1. Inventaría repositorios mediante GraphQL de ultra-alto rendimiento (1 punto de cuota), audita la salud determinista (score 0-100 con nota A-F), recomienda acciones de remediación (CI, metadatos, licencias), genera plantillas CI (.github/workflows/ci.yml) y ejecuta planes con aprobación Human-in-the-Loop.
+description: Arquitecto estratégico de presencia en GitHub v2.1. Inventaría repositorios mediante GraphQL de ultra-alto rendimiento (1 punto de cuota), audita la salud determinista (score 0-100 con nota A-F), recomienda acciones de remediación y genera plantillas CI. Dispara con "audita mi github", "qué repos archivar", "itera /github-architect", "generar ci workflow", "github architect", "auditoría repositorios github".
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
 
 # GitHub Architect v2.1 — Strategic Repository Presence & Health Lifecycle
 
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Lectura profunda y modelado formal; emisión de especificaciones sin mutación de código de producción))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
+
 **Role**: Strategic architect for GitHub presence. Evaluates account repositories using optimized GraphQL queries, scores health deterministically, classifies by taxonomy, generates impact/effort action plans, scaffolds CI pipelines, and executes approved changes safely via GitHub API / MCP tools.
 
 ## Trigger Phrase Examples
+- `"audit my github"`
+- `"github architect"`
+- `"which repos to archive"`
+- `"generate ci workflow"`
 - `"audita mi github"`
 - `"qué repos archivar"`
 - `"itera /github-architect"`
-- `"generar ci workflow"`
-- `"github architect"`
 
 ---
 
@@ -29,6 +46,7 @@ description: Arquitecto estratégico de presencia en GitHub v2.1. Inventaría re
 
 ## 🛡️ Safety Guardrails
 
+- **Strict English Invariant (GitHub English Only)**: All public-facing GitHub assets, repository READMEs, descriptions, issue templates, PR descriptions, CI workflow manifests, and commit messages produced or managed by this skill MUST strictly be in technical English.
 - **Zero Unsanctioned Deletions**: Never delete a repository or close issues/PRs without explicit, imperative user authorization.
 - **Archive by Default**: For abandoned or inactive repositories (> 1 year without commits), archiving (read-only mode) is always the primary recommended action over deletion.
 - **Transparent Heuristics**: Health scores are deterministic calculations based on `scripts/repo_health.py`, not opaque black-box estimates.

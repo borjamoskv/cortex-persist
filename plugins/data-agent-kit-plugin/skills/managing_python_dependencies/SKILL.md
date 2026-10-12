@@ -1,29 +1,53 @@
 ---
 name: managing-python-dependencies
-description: |
-  Ensures proper Python dependency management, avoiding global `pip install` and
-  adhering to project-specific tooling.
-
-  Use this skill if any of the following are true:
-    1. Attempting to run `pip install {package_name}`.
-    2. Python packages or dependencies need to be added or modified.
-    3. Initiating a new Python project.
-    4. Creating a new notebook, even if just using BigQuery cells.
-    5. Generating Python code that includes `import` statements for third-party libraries.
-    6. Before executing Python scripts via the terminal to ensure the correct virtual environment is active.
+description: "Ensures proper Python dependency management, avoiding global `pip install` and\nadhering to project-specific tooling.\n\nUse this skill if any of the following are true:\n  1. Attempting to run `pip install {package_name}`.\n  2. Python packages or dependencies need to be added or modified.\n  3. Initiating a new Python project.\n  4. Creating a new notebook, even if just using BigQuery cells.\n  5. Generating Python code that includes `import` statements for third-party libraries.\n  6. Before executing Python scripts via the terminal to ensure the correct virtual environment is active.\n"
 license: Apache-2.0
 metadata:
-  version: v1
+  version: v2
   publisher: google
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Python Dependency Management Rule
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 > [!CAUTION]
 >
 > **BEFORE any `pip install`**: You MUST first detect the project's existing
 > dependency manager and use it correctly. Do NOT override the project's
 > established tooling.
+
+> [!NOTE]
+>
+> **Pre-Flight Environment Check Bundling**: You MUST NOT run multiple
+> sequential 1-line shell check commands (e.g. separate commands for python
+> version, pyspark version, auth check, pip list). Combine all pre-flight
+> environment and package availability probes into a single composite python
+> one-liner or shell check step.
+>
+> Example composite probe:
+>
+> ```bash
+> python3 -c "import sys, importlib.util; print(f'Python {sys.version.split()[0]}'); [(print(f'{pkg}: {__import__(pkg).__version__}') if importlib.util.find_spec(pkg) else print(f'{pkg}: not found')) for pkg in ['pyspark', 'google.cloud.bigquery']]"
+> ```
+>
+> This bundling also applies to dependency manager detection; use a single `ls`
+> or `find` command to check for all potential dependency manager configuration
+> and lock files at once (e.g. `ls uv.lock poetry.lock Pipfile.lock
+> requirements.txt pyproject.toml`).
 
 ## Dependency Manager Detection
 

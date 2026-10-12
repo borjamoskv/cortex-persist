@@ -1,10 +1,26 @@
 ---
 name: cortex-skill-composer
-display_name: "Componedor & Orquestador de Cadenas de Skills"
-description: "Composición y orquestación en cadena (Skill Chains) de múltiples habilidades CORTEX. Dispara con \"componer skills\", \"skill chain\", \"cadena de habilidades\", \"pipeline de skills\", \"cortex skill composer\"."
+display_name: Componedor & Orquestador de Cadenas de Skills
+description: Composición y orquestación en cadena (Skill Chains) de múltiples habilidades CORTEX. Dispara con "componer skills", "skill chain", "cadena de habilidades", "pipeline de skills", "cortex skill composer", "orquestación de habilidades", "skill pipeline".
+role: arquitecto
+allowed_roles:
+- arquitecto
+- ejecutor
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
 
 # Skill: Cortex Skill Composer (Composición Funtorial $F \circ G$)
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Lectura profunda y modelado formal; emisión de especificaciones sin mutación de código de producción))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
 
 Este protocolo permite componer múltiples habilidades en **cadenas de procesamiento funtorial**, garantizando que el output de cada fase se transforme sin pérdida de exergía hacia la siguiente.
 
@@ -29,6 +45,12 @@ graph LR
         EGA["existence-gap-audit"] --> LA["legion-audit"] --> APP["anergy-purge-protocol"]
         LSP["lora-swarm-pipeline"] --> KMO["kimi-mcp-orchestrator"] --> WFA["writing-for-agents"]
         SQC["swarm-quantum-collapse"] --> CDS["c5-real-devsecops-scaffold"]
+    end
+    subgraph Ω-Bounty-Ingest
+        BFT["bounty-feed-transducer"] --> EXF["exergy-filter"] --> BRD["bounty-ring-dispatcher"]
+        BRD --> DBS["defi-bytecode-scraper"]
+        BRD --> WMA["webkit-memory-audit"]
+        BRD --> S1M["saga1-ml-sentinel"]
     end
 ```
 
@@ -56,6 +78,10 @@ graph LR
 ### 1.5. Cadena Ω-Genesis (Telemetría + Síntesis Predictiva)
 - **Secuencia**: `cortex-telemetry` $\to$ `cortex-skill-genesis`
 - **Uso**: Analizar patrones de prompts no cubiertos y sintetizar automáticamente nuevos `SKILL.md`.
+
+### 1.6. Cadena Ω-Bounty-Ingest (Ingestión Funtorial de Bounties $\to$ Lock-Free Ring)
+- **Secuencia**: `bounty-feed-transducer` $\to$ `exergy-filter` $\to$ `bounty-ring-dispatcher` ($\to$ `defi-bytecode-scraper` $\lor$ `webkit-memory-audit` $\lor$ `saga1-ml-sentinel`)
+- **Uso**: Ingestión continua y triaje causal de superficies de ataque desde feeds públicos (Immunefi, Huntr, Code4rena, GitHub Advisories) acoplados al orquestador lock-free de BABYLON-60 bajo `INV_C5_SHM`.
 
 ---
 

@@ -2,11 +2,25 @@
 name: bigquery-graph
 metadata:
   version: v1
-description: >-
-  Provides guidelines and best practices for querying and defining property graphs and semantic graphs in BigQuery using GQL (Graph Query Language). Use when creating property graphs or querying graph topologies in BigQuery.
+description: Provides guidelines and best practices for querying and defining property graphs and semantic graphs in BigQuery using GQL (Graph Query Language). Use when creating property graphs or querying graph topologies in BigQuery.
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # BigQuery Graph Analytics
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 BigQuery supports Graph Analytics through property graph queries (using GQL) and semantic graphs. Property graphs allow you to query topology, node/edge connections, and graph relationships directly in BigQuery SQL.
 
@@ -18,4 +32,3 @@ BigQuery supports Graph Analytics through property graph queries (using GQL) and
 - **DDL Reference**: [ddl_reference.md](references/graph-schema/ddl_reference.md) - `CREATE PROPERTY GRAPH` DDL syntax.
 - **Feature Parity & Limitations**: [feature_parity.md](references/graph-schema/feature_parity.md) - GQL limitations and feature parity.
 - **Graph Schema Advisor**: [graph_schema_ddl_advisor.md](references/graph-schema/graph_schema_ddl_advisor.md) - Assistant guidelines for designing graph schemas.
-

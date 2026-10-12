@@ -1,25 +1,28 @@
 ---
 name: ml-best-practices
-description: |
-  CRITICAL RULE: You MUST use this skill whenever the task involves any machine learning tasks or data analysis.
-  Use this skill if the user's prompt or requirements mention any of the following:
-    * Clustering
-    * Classification
-    * Regression
-    * Time series forecasting
-    * Statistical testing
-    * Model comparison
-    * ML
-    * Data analysis
-
-  SQL/BigQuery ML HANDOFF: If the user requires a SQL solution, use this skill to dictate the ANALYSIS STEPS (e.g., markdown analysis cells, visualization logic), but defer to `bigquery` for all SQL syntax.
+description: "CRITICAL RULE: You MUST use this skill whenever the task involves any machine learning tasks or data analysis.\nUse this skill if the user's prompt or requirements mention any of the following:\n  * Clustering\n  * Classification\n  * Regression\n  * Time series forecasting\n  * Statistical testing\n  * Model comparison\n  * ML\n  * Data analysis\n\nSQL/BigQuery ML HANDOFF: If the user requires a SQL solution, use this skill to dictate the ANALYSIS STEPS (e.g., markdown analysis cells, visualization logic), but defer to `bigquery` for all SQL syntax.\n"
 license: Apache-2.0
 metadata:
   version: v1
   publisher: google
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # ML Best Practices
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 I want to read a story about the data, not just run code. Ensure every code cell
 is followed by a markdown cell analyzing the results. End the notebook with a

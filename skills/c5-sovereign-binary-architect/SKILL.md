@@ -1,10 +1,25 @@
 ---
 name: c5-sovereign-binary-architect
-display_name: "Arquitecto de Binarios Soberanos C5-REAL"
-description: "Desacopla dependencias pesadas (FFI/PyO3/Node), aísla el núcleo matemático detrás de feature flags y configura binarios estáticos soberanos (x86_64-unknown-linux-musl) de baja entropía. Dispara con 'binario estático', 'aislar dependencias', 'soberanía termodinámica', 'c5-sovereign-binary'."
+display_name: Arquitecto de Binarios Soberanos C5-REAL
+description: Desacopla dependencias pesadas (FFI/PyO3/Node), aísla el núcleo matemático detrás de feature flags y configura binarios estáticos soberanos (x86_64-unknown-linux-musl) de baja entropía. Dispara con "binario estático", "aislar dependencias", "soberanía termodinámica", "c5-sovereign-binary", "compilación musl", "binario soberano".
+role: arquitecto
+allowed_roles:
+- arquitecto
+directives:
+  worktree_mode: spec-only
+  phase: design
+  handoff:
+    upstream: operador
+    downstream: ejecutor
 ---
 
 # C5-REAL Sovereign Binary Architecture Protocol (Nivel Omega)
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
+> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Lectura profunda y modelado formal; emisión de especificaciones sin mutación de código de producción))
+> - **Fase Causal:** `design`
+> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
 
 Este protocolo rige la purga de anergía estructural y la refactorización termodinámica de repositorios para generar ejecutables estáticos (`[[bin]]`). Su objetivo es garantizar la supervivencia del código (Fase $\alpha$) en entornos hostiles o sin conexión a internet (ej. dispositivos IoT solares, nodos edge aislados), alcanzando un estado de **Cero Dependencias de Runtime**.
 

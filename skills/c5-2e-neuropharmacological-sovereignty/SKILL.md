@@ -1,10 +1,25 @@
 ---
 name: c5-2e-neuropharmacological-sovereignty
-display_name: "Soberanía Neurofarmacológica & Desacople de Parches (TDAH + AACC)"
-description: "Protocolo C5-REAL para el desacoplamiento de estimulantes/sedantes, deconstrucción del bucle de Watzlawick de parches psiquiátricos, diseño de sustrato dopaminérgico endógeno (L-Tirosina, Teanina, BDNF), mitigación del pánico noradrenérgico y traducción pedagógica familiar. Dispara con \"desacoplamiento concerta\", \"bucle de parches\", \"farmacología 2e\", \"sustrato dopaminérgico\", \"uso quirúrgico estimulante\", \"mitigar crash concerta\"."
+display_name: Soberanía Neurofarmacológica & Desacople de Parches (TDAH + AACC)
+description: Protocolo C5-REAL para el desacoplamiento de estimulantes/sedantes, deconstrucción del bucle de Watzlawick de parches psiquiátricos, diseño de sustrato dopaminérgico endógeno (L-Tirosina, Teanina, BDNF), mitigación del pánico noradrenérgico y traducción pedagógica familiar. Dispara con "desacoplamiento concerta", "bucle de parches", "farmacología 2e", "sustrato dopaminérgico", "uso quirúrgico estimulante", "mitigar crash concerta".
+role: auditor
+allowed_roles:
+- auditor
+directives:
+  worktree_mode: audit-only
+  phase: verification
+  handoff:
+    upstream: ejecutor
+    downstream: operador
 ---
 
 # C5-REAL 2e Neuropharmacological Sovereignty Protocol
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `auditor` (Auditor (Verificación Independiente, Linters de Silicio & Fail-Closed Gate))
+> - **Modo de Acceso a Worktree:** `audit-only` (audit-only (Lectura forense de diffs, linters, tests de estrés y cálculo de exergía; cero mutación de código))
+> - **Fase Causal:** `verification`
+> - **Contrato Handoff:** Recibe de `ejecutor` $\to$ Despacha a `operador`
 
 Este protocolo establece la gobernanza y metodología sistemática para auditar, desarmar y sustituir las cascadas de fármacos estimulante-sedante en perfiles de Doble Excepcionalidad (TDAH + Altas Capacidades / 2e).
 
@@ -47,5 +62,50 @@ En la fase de metabolización/descenso del psicoestimulante (caída de plasma en
 
 ## 7. Matriz Ontológica: Estimulante Exógeno vs. Sustrato Colinérgico/BDNF
 * **Concerta (Metilfenidato):** Retenedor monoaminérgico ($\text{DAT/NET}$). Aporta fuerza ejecutiva inmediata y saliencia, pero no construye masa sináptica ni $\text{BDNF}$ y tiene alto coste simpático.
-* **Stack Colinérgico/Neurotrófico (Bacopa + HupA + Ginkgo + Zn):** Optimizador de sustrato. Induce expresión de $\text{BDNF}$ hipocámpico, vasculogénesis cerebral y velocidad asociativa sin activar pánico noradrenérgico ni generar dependencia dopaminérgica.
+* **Stack Colinérgico/Neurotrófico (Bacopa + HupA + Ginkgo + Zn):** Optimizador de sustrato. Induce expresión de BDNF hipocámpico, vasculogénesis cerebral y velocidad asociativa sin activar pánico noradrenérgico ni generar dependencia dopaminérgica.
+
+## 8. Metrología Farmacéutica y Pureza Química (cGMP vs. Pureza Estocástica)
+1. **Desdoblamiento de Masa**:
+   - **Masa Bruta**: Peso total del comprimido (300-450 mg), incluyendo polímeros osmóticos, recubrimientos y excipientes inertes.
+   - **Principio Activo (API)**: La masa neta de la molécula farmacológicamente activa (ej. 36 mg de clorhidrato de metilfenidato).
+2. **Intervalo de Tolerancia Metrológica (± 1%)**:
+   - Un rango `36 mg ± 1%` define un intervalo determinista estricto `[35,64 mg, 36,36 mg]` certificado bajo normativa cGMP mediante cromatografía analítica (HPLC), donde cualquier lote con desviación superior se incinera por imperativo regulatorio.
+3. **Pureza Estocástica**:
+   - En mercados no regulados, la concentración no es una constante sino una variable aleatoria P(X) con alta varianza (25% - 75%), diluida con adulterantes activos (levamisol, fenacetina, lidocaína) que impiden la calibración y disparan el riesgo de toxicidad y arritmia por salto de lote.
+
+## 9. Falsación de la Homonimia Léxica Química (La Trampa del Prefijo)
+1. **Sesgo de Prefijo Compartido**:
+   - Queda prohibido inferir parentesco terapéutico o farmacológico a partir de prefijos de grupos químicos comunes (ej. «Benz-»).
+   - **Benzoilmetilecgonina (Cocaína)**: El prefijo indica un grupo éster benzoico lateral unido a un núcleo estimulante de tropano.
+   - **Benzodiazepinas**: El prefijo indica un anillo de benceno fusionado a un heterociclo de diazepina con acción sedante gabaérgica.
+2. **Antípodas Fisiológicas**:
+   - Estimulantes aminérgicos (aceleradores/despolarizantes de membrana) vs. Moduladores alostéricos positivos GABA-A (frenos/hiperpolarizantes). En emergencias médicas, las benzodiazepinas son el antídoto primario de rescate ante tormentas adrenérgicas por cocaína.
+
+## 10. Taxonomía de Transporte de Monoaminas (NDRI vs. Releasers vs. Precursores)
+1. **NDRI Puros (Inhibidores de Recaptación)**: Bloquean el transportador (SLC6A3/SLC6A2) en conformación outward-facing sin invertir el gradiente ni vaciar vesículas (Metilfenidato, Dexmetilfenidato, Bupropión, Solriamfetol).
+2. **Agentes Liberadores (Releasers / Sustratos)**: Son transportados al citosol, colapsan VMAT2 e invierten la dirección del transportador hacia el exterior celular (Dextroanfetamina, Lisdexanfetamina, Adderall).
+3. **Precursores Dietéticos**: Ningún alimento comercial actúa como un NDRI mayor. Alimentos ricos en proteínas (quesos curados, huevos, carnes) aportan L-Tirosina y L-Fenilalanina, sustratos acotados por la cinética enzimática de la tirosina hidroxilasa (TH) que alimentan la reserva endógena sin forzar picos fásicos extracelulares.
+
+## 11. La Paradoja de Dispersión en 2e y la Curva U-Invertida (Arnsten / Goldman-Rakic)
+1. **Disociación Tracción vs. Dirección:**
+   - En perfiles 2e, el psicoestimulante a dosis base (ej. Concerta 18 mg) restaura el suelo tónico dopaminérgico/noradrenérgico ($\alpha_{2A}$ y $D_1$), suprimiendo la niebla mental y la inercia de arranque («ir genial»).
+   - **El fármaco es un motor, no un vector de navegación:** No selecciona la relevancia semántica de la tarea. Al coexistir con la alta tasa de exploración asociativa ($\epsilon$-greedy) de las AACC, el fármaco facilita hiperfocalizar en bifurcaciones y tangentes irrelevantes si no existe confinamiento topológico previo.
+2. **Falacia de Escalada Dosis-Respuesta (Aforismo #3):**
+   - Interpretar la dispersión cognitiva persistente como «falta de dosis» es un error de diagnóstico causal.
+   - Cruzar el umbral hacia el extremo derecho de la curva de U-invertida prefrontal satura receptores adrenérgicos $\alpha_1$ y $\beta_1$, induciendo rigidez cognitiva catatónica (pérdida de flexibilidad para cambiar de contexto), inquietud somática periférica y transmutación de la curiosidad divergente en rumiación ansiosa o parálisis.
+
+## 12. Invariante de Sello Atencional (Protocolo de los Primeros 30 Minutos)
+1. **Fijación de Estado por Ascenso Plasmático:**
+   - La pendiente ascendente ($\Delta C / \Delta t$) del psicoestimulante consolida y sella el estado atencional y ambiental en el que se encuentra el operador en el momento de la absorción.
+   - Si la ventana de ascenso sorprende al operador con hiperestimulación abierta (múltiples pestañas, redes, estímulos difusos), el sistema prefrontal cristaliza la conducta dispersiva.
+2. **Protocolo de Confinamiento Preventivo ($N = 1$ en Ring-0):**
+   - Antes de iniciar la absorción del fármaco, el operador debe aislar en pantalla y espacio de trabajo de forma exclusiva la tarea crítica de alta exergía, erradicando grados de libertad antes de que la bomba osmótica eleve el tono monoaminérgico.
+
+## 13. Metrología Comparada: NDRI cGMP vs. Releasers Estocásticos de Calle
+1. **Incompatibilidad Dinámica (NDRI vs. Releaser):**
+   - Un inhibidor de recaptación (Metilfenidato) actúa como tapón extracelular dependiente del disparo de potenciales de acción; no vacía vesículas ni invierte transportadores.
+   - Un agente liberador / releaser (Anfetamina) penetra al citosol, activa TAAR1, colapsa el gradiente vesicular de VMAT2 e invierte el flujo de DAT/NET, forzando un vaciado fásico independiente del impulso endógeno.
+   - **Corolario de Intoxicación Asimétrica:** Escalar dosis de un NDRI pretendiendo emular el efecto fásico de un releaser satura prematuramente el techo dopaminérgico central y desencadena una tormenta noradrenérgica periférica masiva (vasoconstricción, taquicardia severa, rigidez), acumulando toda la fricción somática sin la recompensa ejecutiva buscada.
+2. **Realidad de Pureza Estocástica:**
+   - Toda estimación comparativa con muestras callejeras debe descontar la adulteración sistemática: en Europa/España, el speed callejero presenta purezas típicas de 12%–25% de anfetamina racémica, con 60%–80% de cafeína anhidra en bolo agudo.
 

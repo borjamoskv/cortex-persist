@@ -1,17 +1,28 @@
 ---
 name: dataform-bigquery
-description: Expertise in generating clean, correct, and efficient Dataform pipeline
-  code for BigQuery ELT. Use this when creating or modifying Dataform pipelines, actions,
-  or source declarations, when Dataform, SQLX, or BigQuery are mentioned in a transformation,
-  when data needs to be ingested from GCS into BigQuery via Dataform, or when setting
-  up a new Dataform project or configuring workflow_settings.yaml.
+description: Expertise in generating clean, correct, and efficient Dataform pipeline code for BigQuery ELT. Use this when creating or modifying Dataform pipelines, actions, or source declarations, when Dataform, SQLX, or BigQuery are mentioned in a transformation, when data needs to be ingested from GCS into BigQuery via Dataform, or when setting up a new Dataform project or configuring workflow_settings.yaml.
 license: Apache-2.0
 metadata:
-  version: v5
+  version: v6
   publisher: google
+role: ejecutor
+allowed_roles:
+- ejecutor
+directives:
+  worktree_mode: read-write
+  phase: implementation
+  handoff:
+    upstream: arquitecto
+    downstream: auditor
 ---
 
 # Dataform Expert Skill for BigQuery
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
+> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 Expert-level guidance for building, managing, and optimizing **Dataform**
 pipelines targeting **Google BigQuery**.
@@ -86,6 +97,9 @@ Follow these steps when fulfilling Dataform-related requests:
     GCS URIs.
     -   **List Datasets**: `bq ls --project_id=<PROJECT_ID>`
     -   **List Tables**: `bq ls <PROJECT_ID>:<DATASET_ID>`
+    -   **List Graphs**: ``bq query --use_legacy_sql=false "SELECT * FROM
+        `<PROJECT_ID>.<DATASET_ID>.INFORMATION_SCHEMA.PROPERTY_GRAPHS` LIMIT
+        100"``
     -   **Check Schema/Info**: `bq show --schema --format=prettyjson
         <PROJECT_ID>:<DATASET_ID>.<TABLE_ID>` or `bq show --format=prettyjson
         <PROJECT_ID>:<DATASET_ID>.<TABLE_ID>`

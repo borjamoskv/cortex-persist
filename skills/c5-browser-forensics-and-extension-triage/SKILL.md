@@ -1,9 +1,24 @@
 ---
 name: c5-browser-forensics-and-extension-triage
 description: Protocolo de alta exergía para auditoría forense de navegadores, triaje de inyecciones de content_scripts, desinfección atómica de perfiles Chromium y conmutación de navegador por omisión en macOS. Dispara con "auditar navegador", "virus en chrome", "extensiones sospechosas", "growbot", "redireccion web rara", "purgar extension chrome", "cambiar navegador por defecto", "triage navegador".
+role: auditor
+allowed_roles:
+- auditor
+directives:
+  worktree_mode: audit-only
+  phase: verification
+  handoff:
+    upstream: ejecutor
+    downstream: operador
 ---
 
 # C5 Browser Forensics & Extension Triage Protocol (v2.0)
+
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `auditor` (Auditor (Verificación Independiente, Linters de Silicio & Fail-Closed Gate))
+> - **Modo de Acceso a Worktree:** `audit-only` (audit-only (Lectura forense de diffs, linters, tests de estrés y cálculo de exergía; cero mutación de código))
+> - **Fase Causal:** `verification`
+> - **Contrato Handoff:** Recibe de `ejecutor` $\to$ Despacha a `operador`
 
 ## 0. Invariante Epistemológica C5-REAL (Mapa vs. Territorio)
 > **Principio de Localidad Causal:** Ante una anomalía visual o modal imprevisto tras abrir un hipervínculo ("el navegador me ha llevado a un bot / virus"), el 95% de las fricciones no provienen de explotación perimetral remota ni de redirecciones DNS, sino de la **inyección en el espacio de usuario local** por parte de extensiones preexistentes con permisos `content_scripts` comodín (`*://*.dominio/*`). 
