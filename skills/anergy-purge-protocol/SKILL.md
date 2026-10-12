@@ -101,15 +101,36 @@ grep -l "BABYLON-60" ~/Library/LaunchAgents/*.plist 2>/dev/null || true
 
 ## Fase 1 — Purga Determinista e Iteración Global
 
+### Vía Primaria — Motor en Silicio (Recomendado O(1))
+Ejecutar el script determinista del skill, que computa exergía antes/después y emite la tabla brutalista Ω8 automáticamente:
+
+```bash
+python3 ~/.gemini/config/skills/anergy-purge-protocol/scripts/anergy_purge.py --workspace "$PWD"
+```
+
+*(Opcional: añadir `--dry-run` para pre-auditoría sin mutación de archivos).*
+
+---
+
+### Vía Fallback — Script Bash Atómico
 Ejecutar en un único bloque `set -e` para garantizar atomicidad:
 
 ```bash
 set -e
-WORKSPACE=$HOME/10_PROJECTS
+WORKSPACE=${PWD:-$HOME/10_PROJECTS}
 CORTEX_DIR=$HOME/.cortex
-TRM_DIR=$WORKSPACE/Teorema-Robinson-Moskv
+TRM_DIR=$HOME/10_PROJECTS/Teorema-Robinson-Moskv
 echo "[PURGE:START] $(date -u +%Y-%m-%dT%H:%M:%SZ)"
 echo ""
+
+# CLASE I2 — Audiovisual Studio Scratch en el Root y Renders Efímeros
+echo "■ [I2] Audiovisual Studio Scratch & Ephemeral Bounces..."
+find "$WORKSPACE" -maxdepth 1 -type f \( -name "scratch_*" -o -name "public_studio_*_thumb.*" -o -name "*_binaural_*.wav" \) -delete 2>/dev/null || true
+find "$WORKSPACE" -maxdepth 1 -type d -name "scratch_*" -exec rm -rf {} + 2>/dev/null || true
+if [ -d "$WORKSPACE/out" ]; then
+  find "$WORKSPACE/out" -maxdepth 1 \( -name "test_*" -o -name "poc_lipsync_*" -o -name "preview_*" -o -name "frame_*" -o -name "kinetic-check*" -o -name "still_bar*" -o -name "*_swarm_chunks" \) -exec rm -rf {} + 2>/dev/null || true
+fi
+echo "  → PURGED"
 
 # CLASE A — Iteración Global de Caches Pesadas (node_modules, target, .venv)
 echo "■ [A] Iteración Global de Caches Pesadas..."
@@ -145,20 +166,36 @@ find "$WORKSPACE" "$CORTEX_DIR" -name "*.pyc" \
   -delete 2>/dev/null || true
 echo "  → PURGED"
 
-# CLASE D — Dylibs/binarios no-trackeados en TRM
-echo "■ [D] Binarios no-trackeados (solo en TRM)..."
-git -C "$TRM_DIR" status --short | grep "^??" | grep -E "\.(dylib|so|o|a|tmp)$" | awk '{print $2}' | while read -r file; do
-  if [ -f "$TRM_DIR/$file" ]; then
-    rm -f "$TRM_DIR/$file"
-  fi
-done
+# CLASE I — Metadatos de Sistema Operativo (.DS_Store, *.tmp, *.bak)
+echo "■ [I] OS Metadata (.DS_Store, temporales)..."
+find "$WORKSPACE" -name ".DS_Store" -delete 2>/dev/null || true
+find "$WORKSPACE" -type f \( -name "*.tmp" -o -name "*.bak" -o -name "*~" \) -not -path "*/.git/*" -delete 2>/dev/null || true
 echo "  → PURGED"
 
-# CLASE E — Audit Receipts
-echo "■ [E] Audit Receipts..."
-rm -rf "$TRM_DIR/.audit/receipts" 2>/dev/null || true
-mkdir -p "$TRM_DIR/.audit/receipts" 2>/dev/null || true
-echo "  → PURGED"
+# CLASE L — Ghost Listeners Reset (Antigravity UI Health)
+echo "■ [L] Ghost Listeners Reset..."
+if [ -f "$HOME/.gemini/antigravity/conversation_summaries.db" ]; then
+  sqlite3 "$HOME/.gemini/antigravity/conversation_summaries.db" \
+    "UPDATE conversation_summaries SET status = 'CASCADE_RUN_STATUS_IDLE', not_fully_idle = 0 WHERE status = 'CASCADE_RUN_STATUS_RUNNING' OR not_fully_idle = 1;" 2>/dev/null || true
+  echo "  → IDLE RESET"
+fi
+
+# CLASE D — Dylibs/binarios no-trackeados en TRM
+if [ -d "$TRM_DIR" ]; then
+  echo "■ [D] Binarios no-trackeados (solo en TRM)..."
+  git -C "$TRM_DIR" status --short | grep "^??" | grep -E "\.(dylib|so|o|a|tmp)$" | awk '{print $2}' | while read -r file; do
+    if [ -f "$TRM_DIR/$file" ]; then
+      rm -f "$TRM_DIR/$file"
+    fi
+  done
+  echo "  → PURGED"
+
+  # CLASE E — Audit Receipts
+  echo "■ [E] Audit Receipts..."
+  rm -rf "$TRM_DIR/.audit/receipts" 2>/dev/null || true
+  mkdir -p "$TRM_DIR/.audit/receipts" 2>/dev/null || true
+  echo "  → PURGED"
+fi
 
 echo ""
 echo "[PURGE:COMPLETE] $(date -u +%Y-%m-%dT%H:%M:%SZ)"
@@ -199,6 +236,15 @@ NUNCA se debe comentar o eliminar una línea de importación o declaración (`fr
 - Si un bloque `try:`, `except:`, `if:` o función queda sin sentencias ejecutables tras la purga, se DEBE insertar `pass` o `raise ImportError(...)` para preservar la validez del árbol sintáctico (AST).
 - Toda docstring (`"""`) debe cerrarse explícitamente para evitar la inversión semántica del módulo completo.
 - Tras cualquier purga de código muerto, ejecutar validación sintáctica determinista (`python3 -m py_compile`) sobre los archivos modificados.
+
+### Invariante de Preservación Audiovisual y Multimedia (Ω2-AV)
+En repositorios y pipelines de producción audiovisual (Remotion, DAWs, síntesis de voz, renderizadores de video):
+Queda **estrictamente prohibido** purgar:
+1. **Renders Maestros y Broadcast:** Archivos con sufijo `*_siglo.mp4`, `*_1080p.mp4`, `*master*.mp4`, `*4min*.mp4` o `*_master.mp3`.
+2. **Arte Canónico de Producción:** Cuadros físicos (`public/faces/*_bizarro_brut.jpg`), platós desacoplados (`public/studio_*_headless.jpg`), recortes consolidados (`*_head_clean.png`, `*_head_bizarro.png`, `*_photo_collage_clean.png`) y máscaras de utilería (`public/studio_art_brut_mic.png`).
+3. **Actas de Certificación e Informes:** Carpetas formales de benchmarking (`out/itera_100/`, `out/diction_verification/`, `out/voice_tests/`, `out/sintonia/`) e informes JSON de QC (`out/qc_report.json`, `out/*corpus_analysis.json`).
+4. **Stems de Audio F5-TTS y Masters:** Pistas en `public/audio/`, `assets/audio/` o stems de canal multipista (`public/audio/*_stems/`).
+*La Clase I2 purga exclusivamente scratch efímero (`scratch_*`, `out/test_*`, frames sueltos de previsualización no canónicos y `*_swarm_chunks`).*
 
 **Excepción (Override Empírico Ω2):** Si el Operador invoca explícitamente el nombre de cualquiera de estos directorios protegidos en su instrucción de purga (ej. *"purga babylon-web y strike-rs/.venv"*), el agente **DEBE DESACTIVAR LA PROTECCIÓN Ω2** y purgar esos targets forzosamente, reportándolo bajo una advertencia de "Ground Zero Termodinámico".
 
@@ -280,26 +326,28 @@ find "$WORKSPACE" "$VAULT" -type f \( -name "*.tmp" -o -name "*.bak" -o -name "*
 Tras la purga, presentar SIEMPRE:
 
 ```
-> ⚙️ ANERGÍA PURGADA — RESUMEN DE EXERGÍA RECUPERADA
+> ⚙️ ANERGÍA PURGADA — RESUMEN DE EXERGÍA RECUPERADA (C5-REAL / Ω8)
 
 | Clase | Objetivo | Antes | Después | Estado |
 |---|---|---|---|---|
 | A | node_modules, target, .venv | X MB | 0 | PURGED |
-| B | WAL orphans | X KB | 0 | PURGED |
-| C | __pycache__ | X MB | 0 | PURGED |
+| B | WAL orphans (*.db-shm, *.db-wal) | X KB | 0 | PURGED |
+| C | __pycache__ & *.pyc | X MB | 0 | PURGED |
 | D | dylibs ?? | — | 0 | PURGED |
-| E | audit receipts| X MB | 0 | PURGED |
+| E | audit receipts | X MB | 0 | PURGED |
 | G | shadow directories | X MB | 0 | CONSOLIDATED |
 | H | uv/pip/npm caches | X MB | 0 | PURGED |
-| I | .DS_Store / temp files | X files | 0 | PURGED |
+| I | OS Metadata (.DS_Store, *.tmp, *.bak) | X files | 0 | PURGED |
+| I2 | Studio Scratch & Ephemeral Renders (scratch_*, out/test_*) | X MB | 0 | PURGED |
+| L | Ghost Listeners (conversation_summaries.db) | X activos | 0 | IDLE RESET |
 
 Exergía recuperada total (Global): X MB
 Cortex Taint Hash (Merkle SHA3-256): <hash_hex>
 Audit Trail YAML: cortex/audits/anergy_purge_audit.yaml
 Git tree: CLEAN / DIRTY (listar residuos si DIRTY)
 
-Residuos retenidos (Ω2 — no purgar sin empiria del Operador):
-- <lista de elementos protegidos en PROTECTED_DIRS>
+Residuos retenidos (Ω2 / Ω2-AV — no purgar sin empiria del Operador):
+- <lista de elementos protegidos en PROTECTED_DIRS y másteres audiovisuales>
 ```
 
 ---
