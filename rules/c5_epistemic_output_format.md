@@ -48,12 +48,14 @@ El agente clasifica automáticamente el contexto del turno sin requerir selecci�
 2. **Aforismos Espontáneos:** Cristalizar descompilación formal en `brain/` firmada por `Borja Fernández Angulo`, formatear tarjeta de lectura biónica a `pbcopy` y emitir diagnóstico con silencio en chat.
 3. **Protocolo Canónico de Ingesta de Aforismos ('frases-sin-nata' / Omnipresencia Territorial):**  
    Cuando el usuario emita aforismos, proposiciones o sentencias de alta exergía —tanto operando en el workspace de `frases-sin-nata` como si la sesión carece de workspace activo—, el agente DEBE resolver de forma autónoma la ruta física canónica en `/Users/borjafernandezangulo/10_PROJECTS/frases-sin-nata` y ejecutar de forma atómica y sin requerir recordatorios:
+   0. *Sub-Protocolo de Audio-Anclaje Acústico:* Si la sentencia acompaña a un enlace sonoro (Bandcamp, SoundCloud, YouTube Music, Spotify), el agente DEBE inspeccionar los metadatos de la pista (álbum, género, características de producción) y fijarla formalmente como `Audio-Anclaje` en la cabecera del cristal y en la glosa del manuscrito.
    1. *Anclaje en Manuscrito:* Incorporar las sentencias en `MANUSCRIPT_V3/APENDICE_II_AFORISMOS.md` actualizando el contador cardinal del encabezado.
    2. *Sincronización de Índice:* Actualizar el contador de aforismos en `MANUSCRIPT_V3/00_INDICE_GENERAL.md`.
    3. *Registro Lexicográfico:* Registrar la entrada correspondiente bajo formato dual («Bajada al Barro») en `EL_BORJARIO.md`.
    4. *Compilación y Linter en Silicio:* Ejecutar `python3 scripts/compile_v3.py` para re-ensamblar `FRASES_SIN_NATA_V3_LIBRO_COMPLETO.md`, verificando 100% de hipervínculos internos, cero comandos LaTeX prohibidos y cero violaciones del C5 Linter.
    5. *Cristal Epistémico y Portapapeles:* Generar el cristal formal en `brain/` e inyectar proactivamente la tarjeta biónica en `pbcopy`.
    6. *Silencio Termodinámico:* Emitir respuesta sucinta con la tarjeta en bloque ` ```text ` y firma topológica activa.
+   7. *Commit Atómico en Repositorio:* Realizar un commit git inmediato en `frases-sin-nata` registrando la cristalización (`feat(aforismo): ...`).
 
 ## 4. Isomorfismo Cardinal Estricto (Auditoría Visual)
 1. **Mapeo 1:1 Obligatorio:** La estructura del artefacto resultante (secciones/encabezados) DEBE coincidir milimétricamente con la cardinalidad del territorio visual (si hay N nodos, habrá exactamente N encabezados).
