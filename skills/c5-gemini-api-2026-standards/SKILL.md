@@ -62,3 +62,45 @@ Para forzar colapsos deterministas (Zero Alucinación) en pipelines RAG-a-Vídeo
 2. Pasar el modelo instanciado a `response_schema` en `GenerateContentConfig`.
 3. Inyectar `response_mime_type="application/json"` y obligatoriamente `temperature=0.0`.
 4. El output validado es inmutable. Prohibido depender del parseo de expresiones regulares frágiles sobre texto markdown.
+
+## 6. Gate de Thinking Tokens — Modelos Frontier (Gemini 4 Argon / Familia Reasoning)
+
+> **⚠️ CAUTION:** `gemini-4-argon` y todo modelo de la familia Gemini 4 Reasoning NO están disponibles en Free Tier ni en AI Pro. Su `thinking_mode` por defecto es `medium`, generando 10k–80k tokens de razonamiento interno **cobrados como output tokens** ($10/1M intro hasta Nov 2026 → $20/1M desde Dic 2026). **2 consultas sin control de thinking pueden drenar el 50% de la cuota diaria.**
+
+### Invariante Obligatorio: ThinkingConfig Gate
+
+Queda **estrictamente prohibido** invocar modelos de la familia `gemini-4-*` (Argon u otros modelos con capacidad de thinking) sin declarar explícitamente el `thinking_budget` o el `thinking_mode`. La ausencia de configuración hereda el default `medium` = coste máximo silencioso.
+
+```python
+from google.genai.types import GenerateContentConfig, ThinkingConfig
+
+# CASO 1: Desactivar thinking completamente (máximo ahorro de cuota)
+config = GenerateContentConfig(
+    thinking_config=ThinkingConfig(thinking_budget=0),
+)
+
+# CASO 2: Thinking mínimo (bajo coste, algo de razonamiento)
+config = GenerateContentConfig(
+    thinking_config=ThinkingConfig(mode="low"),
+)
+
+# CASO 3: Thinking completo (solo cuando sea estrictamente necesario y documentado)
+config = GenerateContentConfig(
+    thinking_config=ThinkingConfig(mode="high"),  # Exige comentario explicando el motivo
+)
+```
+
+### Árbol de Decisión de Selección de Modelo
+
+| Caso de uso | Modelo recomendado | Thinking |
+|---|---|---|
+| Backend, síntesis, extracción, agentic | `gemini-3.8-flash` | N/A |
+| Razonamiento complejo documentado | `gemini-4-argon` | `budget=0` o `mode="low"` |
+| Investigación profunda (solo si se justifica) | `gemini-4-argon` | `mode="high"` — con log explícito |
+
+### Detección de Anergía Silenciosa (Drenaje de Cuota)
+
+Si la cuota cae >10% por consulta en un script, el agente DEBE:
+1. Auditar el modelo usado (`response.model` o header de respuesta).
+2. Inspeccionar si `thinking_config` está declarado en el código.
+3. Si no está declarado y el modelo es `gemini-4-*` → clasificar como **Anergía Silenciosa** y parchear con `thinking_budget=0` o `mode="low"` según el caso de uso.
