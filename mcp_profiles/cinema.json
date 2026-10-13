@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "gflow": {
+      "command": "/Users/borjafernandezangulo/.local/bin/gflow",
+      "args": [
+        "mcp",
+        "run"
+      ]
+    }
+  }
+}

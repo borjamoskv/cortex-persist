@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "flstudio": {
+      "command": "/opt/homebrew/bin/python3",
+      "args": [
+        "/Users/borjafernandezangulo/10_PROJECTS/flstudio-mcp/mcp_server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "/Users/borjafernandezangulo/10_PROJECTS/flstudio-mcp"
+      }
+    }
+  }
+}
