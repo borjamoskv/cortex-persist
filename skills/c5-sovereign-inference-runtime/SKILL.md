@@ -66,3 +66,39 @@ Para garantizar latencias sub-segundo sin desbordamiento a disco SSD:
 - **Hash WORM:** Deriva SHA-256 del contenido del prompt, modelo y timestamp.
 - **Recibo SCITT:** Emite un identificador de atestación determinista (`B60-...`) grabado en SQLite WAL local.
 - **Certificación Legal:** Demuestra formalmente ante AEPD/AESIA la ausencia de transmisión externa y la inmutabilidad del procesamiento local.
+
+---
+
+## 5. Canal IPC Zero-HTTP & Seqlock SPMC KUDURRU-64
+Para eliminar la latencia de loopback TCP/IP (`localhost`) y la sobrecarga de serialización JSON en streaming:
+- **Unix Domain Socket:** Listener en `/tmp/eridu-infer.sock` para comunicación inter-agente de latencia sub-milisegundo.
+- **Seqlock SPMC Cache-Aligned:** Estructura `KudurruSeqlock<T>` alineada a 64 bytes (`#[repr(align(64))]`):
+  - **Escritor único:** Incremento a secuencia impar durante la mutación, publicación con `Ordering::Release` a secuencia par.
+  - **Múltiples lectores concurrentes:** Lectura optimista lock-free validando $s_{\text{pre}} == s_{\text{post}} \land s_{\text{pre}} \equiv 0 \pmod 2$.
+  - **Prueba en Silicio:** Certificada formalmente libre de *torn reads* mediante reflexión en Lean 4 (`by decide`).
+
+---
+
+## 6. Ingestión GGUF v3 Zero-Copy y Asignación UMA a 16 KB
+El motor ingesta modelos sin copiarlos a la memoria dinámica del heap:
+- **Mmap Directo:** Mapeo de archivos GGUF v3 vía `memmap2::Mmap` con validación de magic `0x46554747` ("GGUF" en LE).
+- **Offsets Alineados:** Indexación en $O(1)$ de metadatos KV y cálculo de offsets alineados al bloque `general.alignment` (32 bytes por omisión).
+- **Alineación Darwin ARM64:** Todo buffer UMA (`UmaAlignedBuffer`) se pagina estrictamente a múltiplos de 16.384 bytes (`DARWIN_PAGE_SIZE = 16384`) y líneas de 128 bytes (`M_SERIES_CACHE_LINE = 128`), permitiendo paso directo a `MTLBuffer` (`MTLStorageModeShared`) con factor $RFO = 0$.
+
+---
+
+## 7. Repositorio Canónico y Comandos de Silicio
+- **Ruta del Repositorio:** `~/10_PROJECTS/eridu-infer/`
+- **Verificación Determinista:**
+  ```bash
+  cd ~/10_PROJECTS/eridu-infer
+  cargo check
+  cargo test
+  cargo run --release
+  ```
+- **Gestión del Demonio macOS:**
+  ```bash
+  eridu-infer --install-daemon   # Carga plist en ~/Library/LaunchAgents/com.babylon60.eridu-infer.plist
+  eridu-infer --status           # Comprueba salud en puertos 41343 y 1234
+  eridu-infer --uninstall-daemon # Descarga y elimina plist
+  ```
