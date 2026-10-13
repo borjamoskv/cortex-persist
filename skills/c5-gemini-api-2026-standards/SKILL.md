@@ -67,9 +67,11 @@ Para forzar colapsos deterministas (Zero Alucinación) en pipelines RAG-a-Vídeo
 
 > **⚠️ CAUTION:** `gemini-4-argon` y todo modelo de la familia Gemini 4 Reasoning NO están disponibles en Free Tier ni en AI Pro. Su `thinking_mode` por defecto es `medium`, generando 10k–80k tokens de razonamiento interno **cobrados como output tokens** ($10/1M intro hasta Nov 2026 → $20/1M desde Dic 2026). **2 consultas sin control de thinking pueden drenar el 50% de la cuota diaria.**
 
-### Invariante Obligatorio: ThinkingConfig Gate
+### Invariante Obligatorio: Pre-Flight Context Audit y ThinkingConfig Gate
 
-Queda **estrictamente prohibido** invocar modelos de la familia `gemini-4-*` (Argon u otros modelos con capacidad de thinking) sin declarar explícitamente el `thinking_budget` o el `thinking_mode`. La ausencia de configuración hereda el default `medium` = coste máximo silencioso.
+Queda **estrictamente prohibido** invocar modelos de la familia `gemini-4-*` (Argon u otros modelos con capacidad de thinking) sin:
+1. **Auditar el contexto previo:** Si la ventana o el prompt arrastran contexto acumulado extenso, se DEBE podar o compactar antes de invocar Argon para evitar la multiplicación exponencial de tokens.
+2. **Declarar explícitamente el `thinking_budget` o `thinking_mode`:** La ausencia de configuración hereda el default `medium` = coste máximo silencioso.
 
 ```python
 from google.genai.types import GenerateContentConfig, ThinkingConfig
