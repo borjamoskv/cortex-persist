@@ -80,10 +80,13 @@ Para eludir listas negras de artistas protegidos, descomponer su identidad en **
 
 ## 6. Canal DAW de Rescate Espectral (Des-plasticar el Audio)
 
+> **Invariante Causal:** La síntesis neural end-to-end decodifica la mezcla completa en un tensor latente compartido, induciendo **intermodulación cruzada espuria** entre pistas. El rescate espectral no es una mera ecualización correctiva; es la disolución de ese acoplamiento artificial.
+
 1. **Mono-Bass Inmediato:** Side-cut lineal en EQ por debajo de $120 \text{ Hz}$ a mono estricto.
 2. **Supresión de Resonancias del Vocoder:** Atenuar $2-4 \text{ dB}$ en las frecuencias estacionarias de convolución (**$3.150 \text{ Hz}$, $4.800 \text{ Hz}$ y $8.200 \text{ Hz}$**) mediante Soothe2 o DSEQ3.
-3. **Transient Shaping:** Incrementar ataque (+2 a +3 dB) y reducir sustain (-1.5 dB) para restaurar transitorios aplastados por el RVQ.
-4. **Resíntesis Armónica:** Saturación analógica de cinta/válvulas para rellenar vacíos espectrales.
+3. **Ruptura de Intermodulación en Medios (1–4 kHz):** Desacoplar la interacción dinámica entre voz y base mediante expansión espectral descendente o dynamic unmasking, eliminando el bombeo parasitario que la voz induce sobre los medios de los instrumentos.
+4. **Transient Shaping:** Incrementar ataque (+2 a +3 dB) y reducir sustain (-1.5 dB) para restaurar transitorios aplastados por el RVQ.
+5. **Resíntesis Armónica:** Saturación analógica de cinta/válvulas para rellenar vacíos espectrales.
 
 ---
 

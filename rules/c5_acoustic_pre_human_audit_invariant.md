@@ -54,6 +54,11 @@ Para que ningún activo acústico suene a máquina o autómata estéril, la prod
 ### 3.2 Demarcación de Honestidad Mapa vs. Territorio (Aforismo 2 y 5)
 Cuando el Operador comparta una composición como guía de producción sin monitorización física directa disponible, el agente tiene terminantemente prohibido afirmar que ha realizado una «escucha humana», «revisión de grabación» o «auditoría de máster final» (*cheap talk*), debiendo tratar el activo estrictamente como *Mapa Canónico de Producción* y partitura simbólica.
 
+### 3.3 Invariante de Detección Forense: La Falacia de la Zonificación Espectral y la Intermodulación en Tensor Único
+Queda terminantemente prohibido que el agente evalúe la autenticidad o calidad de un activo de audio apoyándose en la falacia de que «la IA domina los tonos medios y solo falla en los extremos»:
+1. **El Epicentro del Uncanny Valley:** El agente debe reconocer que los tonos medios (1 kHz – 4 kHz) son el punto de máximo escrutinio biológico. La presencia de *micro-comb filtering*, resonancias nasales estacionarias o *phase smearing* en los formantes vocales delata la naturaleza sintética de forma más contundente que un artefacto de alta frecuencia.
+2. **Causa Causal (Intermodulación en Tensor Compartido):** La firma de la síntesis neural no reside en el balance tonal estático, sino en la **intermodulación cruzada espuria** provocada por decodificar múltiples fuentes desde una misma variedad latente compartida ($Z = \mathcal{W} \ast [S_{\text{voz}} \oplus S_{\text{bajo}} \oplus S_{\text{batería}}]$). Si los transitorios de la percusión modulan la envolvente espectral de las cuerdas o voces, el activo se clasifica como `CONTAMINADO_POR_ACOPLAMIENTO_LATENTE`.
+
 ---
 
 ## 4. Matriz de Decisión y Salida Fail-Closed
