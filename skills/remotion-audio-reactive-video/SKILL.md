@@ -1,7 +1,7 @@
 ---
 name: remotion-audio-reactive-video
 display_name: Síntesis de Vídeo Reactivo a Audio & Música (Remotion + DSP)
-description: Diseño, arquitectura y renderizado de vídeos reactivos a música y audio utilizando Remotion, @remotion/media-utils (useAudioData, visualizeAudio), análisis FFT espectral (sub-bass, mids, highs), sincronización de grids BPM y shaders WebGL/Canvas. Dispara con "video reactivo a la musica", "audio reactivo", "remotion audio reactive", "visualizador de musica", "audio visualizer", "video musical reactivo", "reactivo al ritmo".
+description: Diseño y renderizado de vídeos reactivos al audio con Remotion, análisis FFT espectral y shaders WebGL/Canvas. Dispara con "video reactivo a la musica", "audio reactivo", "remotion audio reactive", "visualizador de musica", "audio visualizer", "video musical reactivo".
 role: ejecutor
 allowed_roles:
 - ejecutor

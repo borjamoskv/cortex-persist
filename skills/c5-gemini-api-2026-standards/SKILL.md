@@ -1,7 +1,7 @@
 ---
 name: c5-gemini-api-2026-standards
 display_name: Estándares Gemini API 2026 & Tensor de Transducción
-description: Invariantes para la arquitectura de código y orquestación con la API de Gemini en 2026. Manejo de cuotas, selección de modelos (3.8-flash / flash-latest), renovación autónoma vía Safari JXA, diagnóstico HTTP 400/403/404 y estructuración JSON vía Pydantic. Dispara con "gemini api 2026", "renovar gemini", "gemini api key", "tensor de transducción", "structured outputs", "gemini 2026 standards", "gemini json schema", "cuotas gemini api".
+description: 'Estándares Gemini API 2026: cuotas, selección 3.8-flash, renovación JXA, diagnóstico HTTP y salidas Pydantic. Dispara con "gemini api 2026", "renovar gemini", "gemini api key", "tensor de transducción", "structured outputs", "gemini json schema", "cuotas gemini api".'
 role: ejecutor
 allowed_roles:
 - ejecutor

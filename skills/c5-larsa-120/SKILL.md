@@ -1,7 +1,7 @@
 ---
 name: c5-larsa-120
 display_name: Consenso BFT Isostático LARSA-120 (Tríada Rust/Lean4/Z3)
-description: Define e instancia a LARSA-120. Orquestador de Consenso BFT Isostático de la Tríada Arquitectónica.
+description: Orquestador de Consenso BFT Isostático de la Tríada Arquitectónica (LARSA-120). Dispara con "larsa", "larsa-120", "consenso bft", "tríada arquitectónica", "consenso isostático".
 role: auditor
 allowed_roles:
 - auditor

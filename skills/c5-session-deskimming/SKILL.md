@@ -1,7 +1,7 @@
 ---
 name: c5-session-deskimming
 display_name: Protocolo de Desnatado de Sesiones & Purga de Nata (Ring-2 -> Ring-0)
-description: Workflow de enjambre (Ring-2 a Ring-0) para auditar historiales, purgar nata y reubicar archivos huérfanos a sus repositorios canónicos con verificación física.
+description: Workflow de enjambre (Ring-2 a Ring-0) para auditar historiales, purgar nata y reubicar archivos huérfanos. Dispara con "deskimming", "desnatar sesión", "purgar nata sesión", "archivos huérfanos".
 role: ejecutor
 allowed_roles:
 - ejecutor

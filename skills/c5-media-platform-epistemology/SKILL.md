@@ -1,6 +1,7 @@
 ---
 name: c5-media-platform-epistemology
-description: Heurísticas termodinámicas y epistémicas para procesamiento de audio largo, evasión de falsos positivos SPA (HTTP 200), adquisición directa de audio nativo Opus (YouTube Music itag 251) sin transcodificación a MP3 y metadatos de plataformas. Dispara con "procesar audio largo", "descripción soundcloud", "scraping spa", "falsos positivos http 200", "media platform epistemology", "soundcloud metadata", "adquisicion opus nativo", "rip opus youtube", "evitar mp3 youtube", "youtube audio sin perdida", "itag 251".
+display_name: Epistemología de Plataformas Media y Adquisición Nativa Opus
+description: Heurísticas para audio largo, evasión de falsos positivos SPA y adquisición directa Opus (itag 251) sin MP3. Dispara con "procesar audio largo", "scraping spa", "falsos positivos http 200", "adquisicion opus nativo", "rip opus youtube", "itag 251".
 role: ejecutor
 allowed_roles:
 - ejecutor

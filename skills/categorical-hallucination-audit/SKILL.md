@@ -1,7 +1,7 @@
 ---
 name: categorical-hallucination-audit
 display_name: Auditoría Categórica de Alucinación & Cota Kl(D)
-description: Protocolo de formalización categórica de arquitecturas cognitivas, Categorías de Markov, desintegración bayesiana y medición cuantitativa de alucinación en Kl(D). Dispara con "alucinación categórica", "cota de confabulación", "desintegración bayesiana", "Kl(D) audit", "Myhill-Nerode estocástico", "geometría de alucinación", "cota de lipschitz", "mean shift 1d".
+description: Formalización en Categorías de Markov, desintegración bayesiana y cota cuantitativa de alucinación en Kl(D). Dispara con "alucinación categórica", "cota de confabulación", "desintegración bayesiana", "Kl(D) audit", "Myhill-Nerode estocástico", "cota de lipschitz", "mean shift 1d".
 role: auditor
 allowed_roles:
 - auditor

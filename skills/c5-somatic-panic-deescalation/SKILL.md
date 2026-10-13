@@ -1,5 +1,6 @@
 ---
 name: c5-somatic-panic-deescalation
+display_name: Desescalada Neurofisiológica y Cibernética de Pánico Somático
 description: Desescalada neurofisiológica y cibernética de hiperfijación somática, bucles autonómicos (Manual Override Trap) y pánico. Dispara con "ataque de ansiedad", "ataque de pánico", "hiperfijación somática", "no puedo dormir por la respiración", "bucle de pánico", "siento que me muero", "desescalar pánico".
 role: auditor
 allowed_roles:

@@ -1,8 +1,7 @@
 ---
 name: djstudio-mcp
 display_name: Controlador DSP & Playlist Mixer DJ.Studio MCP
-description: 'Protocolo MCP, automatización y DSP para DJ.Studio. Dispara con "dj studio", "djstudio", "dj studio mcp", "dj studio bin", "audioview dj studio", "ingenieria inversa dj studio", "shared memory dj studio", "dj studio next", "harmonize dj studio", "stems dj studio", "dj studio ai", "transiciones dj", "crossover linkwitz riley", "zero overlap bass swap", "rekordbox xml", "dub echo transition", "setlist techno gemas".'
-
+description: Protocolo MCP, automatización de mezclas, stems y DSP Linkwitz-Riley para DJ.Studio y Rekordbox XML. Dispara con "dj studio", "djstudio", "dj studio mcp", "harmonize dj studio", "stems dj studio", "transiciones dj", "crossover linkwitz riley", "rekordbox xml".
 role: ejecutor
 allowed_roles:
 - ejecutor

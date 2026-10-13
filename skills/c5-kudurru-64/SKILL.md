@@ -1,7 +1,7 @@
 ---
 name: c5-kudurru-64
 display_name: Cerrojo Lock-Free KUDURRU-64 (Ring-0 Gravity Filter)
-description: Define e instancia a KUDURRU-64. Filtro de gravedad Lock-Free en la frontera para prevención de DDoS Cognitivo.
+description: Filtro de gravedad Lock-Free Seqlock 64B en frontera Ring-0 contra DDoS cognitivo (KUDURRU-64). Dispara con "kudurru", "kudurru-64", "filtro de gravedad", "seqlock 64b", "ddos cognitivo".
 role: auditor
 allowed_roles:
 - auditor

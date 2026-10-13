@@ -1,5 +1,6 @@
 ---
 name: cortex-telemetry
+display_name: Telemetría Runtime CORTEX, Exergía de Prompts y Drenaje de Sesiones
 description: Inspección de telemetría runtime, logs transcript.jsonl, exergía de prompts (Chentsov-Markov) y consolidación de sesiones efímeras del brain. Dispara con "telemetría", "cortex telemetry", "transcript logs", "historial de prompts", "analizar transcripciones", "sin consolidar", "consolidar conversaciones", "drenar brain".
 role: auditor
 allowed_roles:

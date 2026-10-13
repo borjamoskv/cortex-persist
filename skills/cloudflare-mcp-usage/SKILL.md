@@ -1,7 +1,7 @@
 ---
 name: cloudflare-mcp-usage
 display_name: Automatización & Operaciones Cloudflare MCP
-description: Uso y automatización del servidor MCP oficial de Cloudflare API para Workers, DNS, KV/R2, Pages y reglas de red, con degradación automática hacia navegador si falta API Token. Dispara con "cloudflare", "mcp cloudflare", "zonas dns cloudflare", "cloudflare worker", "desplegar cloudflare", "gestión cloudflare", "kv r2 cloudflare", "cloudflare api mcp", "cloudflare mcp usage", "debug cloudflare mcp", "cloudflare graphql mcp", "cloudflare execute", "cloudflare endpoints".
+description: Automatización del servidor MCP de Cloudflare (Workers, DNS, KV/R2, Pages) con fallback automático a navegador. Dispara con "cloudflare", "mcp cloudflare", "zonas dns cloudflare", "cloudflare worker", "desplegar cloudflare", "kv r2 cloudflare", "cloudflare api mcp".
 role: ejecutor
 allowed_roles:
 - ejecutor

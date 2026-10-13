@@ -1,6 +1,7 @@
 ---
 name: github-architect
-description: Arquitecto estratégico de presencia en GitHub v2.1. Inventaría repositorios mediante GraphQL de ultra-alto rendimiento (1 punto de cuota), audita la salud determinista (score 0-100 con nota A-F), recomienda acciones de remediación y genera plantillas CI. Dispara con "audita mi github", "qué repos archivar", "itera /github-architect", "generar ci workflow", "github architect", "auditoría repositorios github".
+display_name: Arquitecto Estratégico de Presencia y Salud en GitHub (GraphQL v2.1)
+description: Arquitecto estratégico de GitHub v2.1 vía GraphQL (auditoría 0-100, remediación de repositorios y plantillas CI). Dispara con "audita mi github", "qué repos archivar", "itera /github-architect", "generar ci workflow", "github architect", "auditoría repositorios github".
 role: arquitecto
 allowed_roles:
 - arquitecto

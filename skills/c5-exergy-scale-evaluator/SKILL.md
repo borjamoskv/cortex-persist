@@ -1,6 +1,7 @@
 ---
 name: c5-exergy-scale-evaluator
-description: Ejecuta una Auditoría de Exergía Estructural y Compresión Topológica para evaluar cualquier sistema, texto u obra en una escala de 1 a 21.000 bajo la Regla Canónica de 3 Evaluadores (Silicio, Kolmogorov, Causal). Dispara con "escala de exergía", "evaluar exergía", "auditoría de exergía", "puntuación exergética", "escala 21000", "exergy scale", "medir exergía", "3 evaluadores".
+display_name: Evaluador de Escala de Exergía 1-21.000 (Regla de 3 Evaluadores)
+description: Auditoría de exergía estructural en escala 1 a 21.000 bajo la Regla de 3 Evaluadores (Silicio, Kolmogorov, Causal). Dispara con "escala de exergía", "evaluar exergía", "auditoría de exergía", "puntuación exergética", "escala 21000", "exergy scale", "3 evaluadores".
 role: auditor
 allowed_roles:
 - auditor

@@ -1,5 +1,6 @@
 ---
 name: c5-tamkarum-60
+display_name: Transductor de Arbitraje Soberano TAMKARUM-60 (Ring-1)
 description: Motor soberano de arbitraje RTB, orquestación de matriz de 11 agentes de distribución, diseño y atestación SCITT bajo KudurruBudgetGate en BABYLON-60. Dispara con "tamkarum", "tamkarum-60", "/tamkarum", "arbitraje publicitario", "auditar roas", "optimizar campañas", "equipo marketing", "enjambre marketing", "11 agentes", "scitt".
 role: ejecutor
 allowed_roles:

@@ -1,5 +1,6 @@
 ---
 name: kimi-mcp-orchestrator
+display_name: Orquestador MCP Moonshot Kimi K3 para Auditoría de Gran Contexto
 description: Orquestación de tareas vía Moonshot AI (Kimi K3) MCP bridge, delegación de auditorías a instancias swarm o interacción con la API de Kimi. Dispara con "kimi ask", "kimi audit", "kimi swarm", "kimi nexus", "kimi mcp", "moonshot kimi", "orquestar kimi".
 role: ejecutor
 allowed_roles:

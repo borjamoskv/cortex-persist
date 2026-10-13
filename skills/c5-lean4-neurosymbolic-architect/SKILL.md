@@ -1,7 +1,7 @@
 ---
 name: c5-lean4-neurosymbolic-architect
 display_name: Arquitecto Neuro-Simbólico Soberano en Lean 4
-description: Arquitectura estricta para la construcción de Agentes Neuro-Simbólicos y Binarios Soberanos en Lean 4. Exige C-FFI, Autopoiesis Coinductiva (ITrees), Lógica Lineal (Swarms) y Efectos Algebraicos.
+description: Arquitectura de agentes neuro-simbólicos y binarios soberanos en Lean 4 (C-FFI, ITrees, lógica lineal). Dispara con "lean 4 ffi", "agente neuro-simbólico", "autopoiesis coinductiva", "itrees lean".
 role: arquitecto
 allowed_roles:
 - arquitecto

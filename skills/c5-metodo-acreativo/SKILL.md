@@ -1,7 +1,7 @@
 ---
 name: c5-metodo-acreativo
 display_name: Método Acreativo Soberano (Transducción de Invariantes & Aforismo 5)
-description: Metodología formal del Método Acreativo y la Transducción Soberana de Borja FA. Deconstrucción de la invención voluntaria, el humano como Oráculo de Apoptosis O(1), cibernética de la sustracción (Rubin-Chentsov), demarcación cognitiva (abducción vs. deducción) y colapso al Punto Fijo Ω. Dispara con 'metodo acreativo', 'método acreativo', 'metodo no creativo', 'transducción soberana', 'oraculo de apoptosis', 'protocolo rubin', 'punto fijo omega', 'crear arte c5', 'produccion musical c5'.
+description: Metodología formal del Método Acreativo, Oráculo de Apoptosis O(1), sustracción Rubin-Chentsov y Punto Fijo Ω. Dispara con "metodo acreativo", "método acreativo", "transducción soberana", "oraculo de apoptosis", "protocolo rubin", "crear arte c5", "produccion musical c5".
 role: ejecutor
 allowed_roles:
 - ejecutor

@@ -1,7 +1,7 @@
 ---
 name: c5-enki-60
 display_name: Motor Aritmético de Precisión Sexagesimal ENKI-60
-description: Define e instancia a ENKI-60. Motor aritmético de precisión sexagesimal y cálculo pesado.
+description: Motor aritmético de precisión sexagesimal y cálculo pesado en silicio (ENKI-60). Dispara con "enki", "enki-60", "cálculo sexagesimal", "aritmética base 60", "precisión sexagesimal".
 role: arquitecto
 allowed_roles:
 - arquitecto

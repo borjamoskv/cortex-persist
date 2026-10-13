@@ -1,7 +1,7 @@
 ---
 name: discourse-popperian-falsification
 display_name: Falsación Popperiana & Auditoría Discursiva de Hipótesis
-description: Falsación popperiana estricta de hipótesis científicas, leyendas urbanas, hipérboles biográficas y modelos externos. Dispara con "falsación popperiana", "análisis popperiano", "falsabilidad", "auditoría discursiva", "falsar hipótesis", "falsabiliza", "falsabilizar", "auditar mito", "leyenda urbana", "desmentir mito", "falsar leyenda", "falsación cultural", "auditoría de mitos".
+description: Falsación popperiana estricta de hipótesis científicas, leyendas urbanas, hipérboles biográficas y modelos externos. Dispara con "falsación popperiana", "análisis popperiano", "auditoría discursiva", "falsar hipótesis", "auditar mito", "leyenda urbana", "desmentir mito".
 role: auditor
 allowed_roles:
 - auditor

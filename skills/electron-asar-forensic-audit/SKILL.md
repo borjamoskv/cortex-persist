@@ -1,5 +1,6 @@
 ---
 name: electron-asar-forensic-audit
+display_name: Auditoría Forense In-Memory de Empaquetados Electron (app.asar)
 description: Auditoría forense y extracción binaria in-memory de archivos Electron app.asar y binarios nativos auxiliares sin dependencias. Dispara con "auditar app electron", "extraer asar", "asar python", "descompilar electron", "forense electron app", "ingeniería inversa electron", "ingeniería inversa electron".
 role: auditor
 allowed_roles:

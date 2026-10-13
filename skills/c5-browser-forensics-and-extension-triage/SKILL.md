@@ -1,6 +1,7 @@
 ---
 name: c5-browser-forensics-and-extension-triage
-description: Protocolo de alta exergía para auditoría forense de navegadores, triaje de inyecciones de content_scripts, desinfección atómica de perfiles Chromium y conmutación de navegador por omisión en macOS. Dispara con "auditar navegador", "virus en chrome", "extensiones sospechosas", "growbot", "redireccion web rara", "purgar extension chrome", "cambiar navegador por defecto", "triage navegador".
+display_name: Auditoría Forense de Navegadores y Triaje de Extensiones Chromium
+description: Auditoría forense de navegadores, triaje de content_scripts, desinfección Chromium y navegador por defecto macOS. Dispara con "auditar navegador", "virus en chrome", "extensiones sospechosas", "growbot", "purgar extension chrome", "triage navegador".
 role: auditor
 allowed_roles:
 - auditor

@@ -1,7 +1,7 @@
 ---
 name: c5-autonomous-agent-primitives
 display_name: Catálogo Canónico y Transductor de 47 Primitivas de Agente Autónomo
-description: Catálogo canónico, disparadores de activación (triggers) y matriz de asimilación de las 47 primitivas de agente autónomo colapsadas bajo los 4 macro-transductores C5-REAL (KudurruBiometricGate, TamkarumCdpEngine, ParacortexDispatcher, GenesisCognitiveForge). Dispara con "47 skills", "primitivas de agente", "catálogo de skills", "asimilación de skills", "skills de agente autónomo", "playbooks de agente", "47 primitivas", "triggers de skills", "macro-transductores".
+description: Catálogo y matriz de las 47 primitivas de agente autónomo colapsadas en los 4 macro-transductores C5-REAL. Dispara con "47 skills", "primitivas de agente", "catálogo de skills", "asimilación de skills", "playbooks de agente", "47 primitivas", "macro-transductores".
 role: arquitecto
 allowed_roles:
 - arquitecto

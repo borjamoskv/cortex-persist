@@ -1,5 +1,6 @@
 ---
 name: c5-axiomatic-kernel
+display_name: Núcleo Operativo de los 100 Axiomas Fundacionales C5-REAL
 description: Núcleo Operativo de los 100 Principios Fundacionales de Alta Exergía (Axiomas C5-REAL). Contiene la destilación en sinónimos, verbos y álgebra de los principios rectores. Dispara con "axiomas", "principios c5", "núcleo operativo", "top 100 principios", "invariantes fundacionales", "axiomas c5-real", "kernel axiomático".
 role: arquitecto
 allowed_roles:

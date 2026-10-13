@@ -1,7 +1,7 @@
 ---
 name: c5-information-thermodynamics
-description: 'Auditoría de física de la información e IA. Dispara con "entropía de shannon", "divergencia kl", "kullback leibler", "fisher information", "teorema de chentsov", "landauer limit", "information geometry", "amari natural gradient", "flujo de wasserstein", "audita entropía".'
-
+display_name: Termodinámica de la Información y Geometría Estadística (Fisher-Chentsov)
+description: Auditoría de física de la información e IA. Dispara con "entropía de shannon", "divergencia kl", "kullback leibler", "fisher information", "teorema de chentsov", "landauer limit", "information geometry", "amari natural gradient", "flujo de wasserstein", "audita entropía".
 role: arquitecto
 allowed_roles:
 - arquitecto

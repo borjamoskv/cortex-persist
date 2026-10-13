@@ -1,7 +1,7 @@
 ---
 name: c5-mushushu-0
 display_name: Oráculo Formal & Firewall de Apoptosis MUSHUSHU-0 (Ring-0)
-description: Define e instancia al oráculo MUSHUSHU-0. Firewall epistémico de Ring-1/0 para validación formal y apoptosis termodinámica.
+description: Oráculo formal y firewall epistémico Ring-0 para validación determinista y apoptosis (MUSHUSHU-0). Dispara con "mushushu", "mushushu-0", "firewall epistémico", "apoptosis termodinámica".
 role: auditor
 allowed_roles:
 - auditor

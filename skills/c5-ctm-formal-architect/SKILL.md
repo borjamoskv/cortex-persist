@@ -1,6 +1,7 @@
 ---
 name: c5-ctm-formal-architect
-description: Arquitectura Formal y Diseño Empírico de Cognitive Transition Machines (CTM). Separa metodológicamente la abducción de la deducción, exige tests estadísticos exactos, aislamiento de diagnóstico en la traza y aplica invariantes Lean 4 (AP-01 a AP-09). Dispara con "ctm benchmark", "ctm formalization", "lean 4 ctm", "abduction vs deduction", "falsification matrix", "refinement trace".
+display_name: Arquitectura Formal y Diseño Empírico de Cognitive Transition Machines (CTM)
+description: Arquitectura formal y empírica de Cognitive Transition Machines (CTM) e invariantes Lean 4 (AP-01 a AP-09). Dispara con "ctm benchmark", "ctm formalization", "lean 4 ctm", "abduction vs deduction", "falsification matrix", "refinement trace".
 role: arquitecto
 allowed_roles:
 - arquitecto

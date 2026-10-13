@@ -1,7 +1,7 @@
 ---
 name: c5-silicon-stress-suite
 display_name: Suite de Estrés Concurrente de Silicio y Enjambres (C5-REAL)
-description: Ejecución de pruebas de estrés en paralelo y benchmarks empíricos de silicio para certificar enjambres masivos, fan-out multicast O(1), coherencia de memoria Seqlock KUDURRU-64 (RFO=0), consensus BFT y puentes de atestación Touch ID COSE_Sign1 en Apple Silicon. Dispara con 'pruebas de estres', 'pruebas de estres en paralelo', 'stress test swarm', 'estres enjambre', 'concurrencia de silicio', 'stress suite', 'poc', 'test de estres', 'pest de estres', 'test estres', 'estres silicio'.
+description: Pruebas de estrés en paralelo y benchmarks de silicio (multicast O(1), Seqlock KUDURRU-64, BFT y Touch ID COSE_Sign1). Dispara con "pruebas de estres", "stress test swarm", "estres enjambre", "concurrencia de silicio", "stress suite", "poc", "test de estres", "estres silicio".
 role: auditor
 allowed_roles:
 - auditor

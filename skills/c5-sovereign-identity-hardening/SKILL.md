@@ -1,7 +1,7 @@
 ---
 name: c5-sovereign-identity-hardening
 display_name: Protocolo C5-REAL de Defensa e Inmunidad de Identidad Soberana
-description: Protocolo de aislamiento de Manta de Markov para identidad digital, auditoría de brechas mediante k-anonimato CLI (Pwned Passwords API), topología de alias desvinculados (Zero-Cross-Coupling), migración FIDO2/Passkey y mitigación de fugas de credenciales. Dispara con "identidad soberana", "data breach", "filtración de correo", "have i been pwned", "k-anonimato", "hardened identity", "proteger correo", "alias email".
+description: Aislamiento de identidad digital, auditoría de brechas vía k-anonimato, alias desvinculados y migración FIDO2/Passkey. Dispara con "identidad soberana", "data breach", "filtración de correo", "have i been pwned", "k-anonimato", "hardened identity", "alias email".
 role: auditor
 allowed_roles:
 - auditor

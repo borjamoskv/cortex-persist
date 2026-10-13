@@ -1,6 +1,7 @@
 ---
 name: anergy-purge-protocol
-description: Purga de código muerto, artefactos efímeros, entropía de workspace, anergía de conversaciones, ghost listeners, saturación APFS y sobrecarga de tokens en prompt. Dispara con "purga de anergía", "purga de entropia", "purga de entropía", "entropia", "dead code", "scandisc", "scandisk", "purga de disco", "disco lleno", "limpiar conversaciones", "anergia de conversaciones", "ghost listeners", "prompt bloat", "redundancia documental".
+display_name: Motor de Purga de Anergía, Código Muerto y Entropía APFS
+description: Purga de código muerto, artefactos efímeros, ghost listeners, saturación APFS y prompt bloat. Dispara con "purga de anergía", "purga de entropía", "dead code", "scandisk", "disco lleno", "limpiar conversaciones", "ghost listeners", "prompt bloat".
 role: auditor
 allowed_roles:
 - auditor

@@ -17,6 +17,12 @@ directives:
 
 # Pipeline de Remasterización Gráfica, Rotulación en Perspectiva y Filtrado Analógico
 
+> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
+> - **Rol Asignado:** `ejecutor`
+> - **Modo de Acceso a Worktree:** `read-write`
+> - **Fase Causal:** `implementation`
+> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
+
 Este skill formaliza el procedimiento determinista en silicio local (OpenCV, PIL, AppKit) para la restauración y modificación de carteles, portadas e ilustraciones de alta resolución.
 
 ---

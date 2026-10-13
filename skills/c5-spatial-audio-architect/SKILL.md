@@ -1,5 +1,6 @@
 ---
 name: c5-spatial-audio-architect
+display_name: Arquitecto de Audio Espacial, Ambisonics (HOA) y Auditoría DSP
 description: Auditoría epistemológica y refactorización termodinámica de pipelines DSP de audio. Falsación de técnicas estéreo planar y diseño de arquitecturas Ambisonics (HOA) / Binaural. Dispara con "auditoría dsp", "audio espacial", "criticar estéreo", "hoa", "binaural", "ambisonics", "spatial audio".
 role: arquitecto
 allowed_roles:

@@ -1,7 +1,7 @@
 ---
 name: c5-lean4-axiomatic-orchestrator
 display_name: Orquestador Axiomático y Verificación Formal en Lean 4
-description: Orquestación neuro-simbólica y formalización en Lean 4 bajo invariantes C5-REAL. Aplica la función de activación termodinámica (ΔΦ > 0), el protocolo de delegación a enjambres sin alucinaciones, antipatrones AP-01 a AP-09 y verificación de builds en Lake. Dispara con "lean 4", "formalizar en lean", "oráculo axiomático", "lake build", "verificación formal", "axiomas lean", "probar teorema", "neuro-simbólico".
+description: Orquestación neuro-simbólica y verificación formal en Lean 4 (ΔΦ > 0, antipatrones AP-01..09 y Lake build). Dispara con "lean 4", "formalizar en lean", "oráculo axiomático", "lake build", "verificación formal", "axiomas lean", "probar teorema", "neuro-simbólico".
 role: arquitecto
 allowed_roles:
 - arquitecto

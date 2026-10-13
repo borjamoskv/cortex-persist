@@ -1,7 +1,7 @@
 ---
 name: f5tts-voice-cloning-sota
 display_name: Clonación Vocal Neuronal SOTA (F5-TTS / MPS / Ingeniería de Prosodia)
-description: 'Pipeline completo para clonación y síntesis de voz ultra-realista con F5-TTS sobre Apple Silicon MPS: bypass de fragmentación por regex, ingeniería de prosodia para vacilaciones orales, calibración de cadencia (1.10x-1.15x), y masterización broadcast Opus VOIP. Dispara con "clonar voz", "sintetizar voz", "f5-tts", "f5tts", "voice clone", "prosodia tts", "nota de voz ia".'
+description: Clonación y síntesis de voz con F5-TTS en Apple Silicon MPS, prosodia orgánica y masterización Opus VOIP. Dispara con "clonar voz", "sintetizar voz", "f5-tts", "f5tts", "voice clone", "prosodia tts", "nota de voz ia".
 role: ejecutor
 allowed_roles:
 - ejecutor

@@ -1,7 +1,7 @@
 ---
 name: c5-rubin-acoustic-linter
 display_name: Linter Acústico de Exergía y Purga de Nata (Protocolo Rubin)
-description: Auditoría determinista de exergía acústica, purga de nata sónica (Protocolo Rubin), colapso de duplicados vía APFS clonefile(2) y poda jerárquica de fenotipos (WAV/FLAC/MP3). Computa WCF, SFM, TSI, LPC. Dispara con "linter acústico", "auditoría de mezcla", "purga de nata en audio", "rubin audit", "fenotipos distintos", "dedup apfs audio", "poda de fenotipos", "crest factor audio", "medir compresión".
+description: Auditoría determinista de exergía acústica (WCF, SFM, TSI, LPC), purga de nata sónica y dedup APFS clonefile. Dispara con "linter acústico", "auditoría de mezcla", "purga de nata en audio", "rubin audit", "dedup apfs audio", "crest factor audio", "medir compresión".
 role: auditor
 allowed_roles:
 - auditor

@@ -1,7 +1,7 @@
 ---
 name: whatsapp-nexus-protocol
 display_name: Pasarela Soberana de Mensajería WhatsApp (Baileys v7 / Rust NAPI-RS / C5-REAL v2.6)
-description: Orquestación SOTA de la pasarela soberana de WhatsApp (Baileys v7 / Rust NAPI cdylib / CoreData SQLite / 20 MCP Tools) para mensajería interactiva, transcripción Whisper en memoria, resolución determinista de @lid y tolerancia a fallos multi-LLM (Groq, Gemini 2.5 Flash). Dispara con "whatsapp nexus", "bot whatsapp", "baileys rust", "pasarela whatsapp", "whatsapp gateway", "enviar whatsapp", "mensajes whatsapp", "responder whatsapp", "wa-nexus".
+description: Pasarela soberana de WhatsApp (Baileys v7 / Rust NAPI / SQLite / 20 MCP Tools) con Whisper y multi-LLM. Dispara con "whatsapp nexus", "bot whatsapp", "baileys rust", "pasarela whatsapp", "whatsapp gateway", "enviar whatsapp", "mensajes whatsapp", "wa-nexus".
 role: ejecutor
 allowed_roles:
 - ejecutor

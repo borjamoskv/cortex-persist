@@ -1,7 +1,7 @@
 ---
 name: c5-codebase-valuation-audit
 display_name: Auditoría & Valoración Económica Empírica de Codebases e IP
-description: Auditoría forense de repositorios de software e IP técnica para valoración económica (R&D Cost, IP Value, Acqui-hire). Contrasta claims teóricos contra evidencia real del filesystem (LOC, tests, Lean 4, CI/CD workflows, Bus factor). Dispara con "valorar software", "valoración económica", "audit codebase valuation", "software ip valuation", "acqui-hire valuation", "due diligence técnica".
+description: Auditoría forense de repositorios e IP técnica para valoración económica (R&D Cost, IP Value, Acqui-hire). Dispara con "valorar software", "valoración económica", "audit codebase valuation", "software ip valuation", "acqui-hire valuation", "due diligence técnica".
 role: auditor
 allowed_roles:
 - auditor

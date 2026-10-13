@@ -1,7 +1,7 @@
 ---
 name: c5-debloat-agent-kernel
 display_name: Arquitecto de Micro-Kernels Agénticos Bare-Metal (Anti-LangChain)
-description: Diseña, audita y migra pipelines de agentes hacia micro-kernels deterministas en un solo archivo con cero dependencias externas (stdlib pura) y persistencia transaccional SQLite WAL, erradicando la sobrecarga y los costes SaaS de LangChain/LangSmith. Dispara con "debloat llm", "microkernel agentes", "reemplazar langchain", "bare-metal agent", "autopsia langchain", "langchain autopsy", "agente zero dependency", "eliminar dependencias langchain".
+description: Diseño y migración a micro-kernels de agentes en un archivo con stdlib pura y SQLite WAL sin LangChain. Dispara con "debloat llm", "microkernel agentes", "reemplazar langchain", "bare-metal agent", "autopsia langchain", "agente zero dependency".
 role: arquitecto
 allowed_roles:
 - arquitecto

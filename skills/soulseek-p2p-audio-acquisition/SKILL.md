@@ -1,6 +1,7 @@
 ---
 name: soulseek-p2p-audio-acquisition
-description: Protocolo autónomo de adquisición de audio de alta exergía, orquestación P2P en Soulseek (evasión de conflictos de puertos Errno 48, gestión de rate-limits y aislamiento de sockets) y auditoría espectral STFT/FFT para detección forense de fake FLACs upscales. Dispara con "descargar musica", "descargar cancion", "soulseek download", "adquisicion audio p2p", "auditoria espectral flac", "bajar flac soulseek", "fake flac".
+display_name: Adquisición P2P de Audio en Soulseek y Auditoría Espectral Anti-Fake FLAC
+description: Adquisición P2P de audio en Soulseek y auditoría espectral STFT/FFT para detección forense de fake FLACs. Dispara con "descargar musica", "descargar cancion", "soulseek download", "adquisicion audio p2p", "auditoria espectral flac", "bajar flac soulseek", "fake flac".
 role: ejecutor
 allowed_roles:
 - ejecutor

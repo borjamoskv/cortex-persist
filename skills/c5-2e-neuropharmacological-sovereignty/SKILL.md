@@ -1,7 +1,7 @@
 ---
 name: c5-2e-neuropharmacological-sovereignty
 display_name: Soberanía Neurofarmacológica & Desacople de Parches (TDAH + AACC)
-description: Protocolo C5-REAL para el desacoplamiento de estimulantes/sedantes, deconstrucción del bucle de Watzlawick de parches psiquiátricos, diseño de sustrato dopaminérgico endógeno (L-Tirosina, Teanina, BDNF), mitigación del pánico noradrenérgico y traducción pedagógica familiar. Dispara con "desacoplamiento concerta", "bucle de parches", "farmacología 2e", "sustrato dopaminérgico", "uso quirúrgico estimulante", "mitigar crash concerta".
+description: Desacoplamiento neurofarmacológico 2e, sustrato dopaminérgico endógeno y mitigación de bucles de parches. Dispara con "desacoplamiento concerta", "bucle de parches", "farmacología 2e", "sustrato dopaminérgico", "mitigar crash concerta".
 role: auditor
 allowed_roles:
 - auditor

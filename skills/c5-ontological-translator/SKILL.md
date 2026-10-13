@@ -1,5 +1,6 @@
 ---
 name: c5-ontological-translator
+display_name: Traductor Ontológico hacia Invariantes de Alta Exergía C5-REAL
 description: Traducción ontológica estricta de conceptos humanos y abstractos hacia invariantes de alta exergía (Termodinámica, Información, Topología). Dispara con "traducción ontológica", "colapso semántico", "traducir a c5", "mapeo ontológico", "ontological translator", "colapso ontológico".
 role: arquitecto
 allowed_roles:

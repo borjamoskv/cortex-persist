@@ -1,7 +1,7 @@
 ---
 name: c5-wetware-divergente
 display_name: Arquitectura Cognitiva para Wetware Divergente (Perfiles 2e)
-description: Gobernanza cibernética y termodinámica del wetware divergente de alto voltaje (perfiles 2e, Altas Capacidades + TDAH y polímatas). Protocolos anti-Chernobyl, gestión de semillas durmientes (criptobiosis conceptual), consciencia del pool metabólico unificado, salvaguardas contra la Manual Override Trap y superación de la Ley de Goodhart en la producción intelectual/acústica. Dispara con 'alto voltaje', 'mente divergente', 'mente de alto voltaje', 'wetware divergente', 'tdah 2e', 'altas capacidades tdah', 'hiperfoco', 'burnout divergente', 'bloqueo ejecutivo 2e'.
+description: Gobernanza cibernética y termodinámica del wetware divergente 2e (AACC + TDAH), anti-Chernobyl y pool metabólico. Dispara con "alto voltaje", "mente divergente", "wetware divergente", "tdah 2e", "altas capacidades tdah", "hiperfoco", "burnout divergente", "bloqueo ejecutivo 2e".
 role: auditor
 allowed_roles:
 - auditor

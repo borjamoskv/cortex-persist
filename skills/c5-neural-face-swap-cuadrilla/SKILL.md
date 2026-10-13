@@ -1,7 +1,7 @@
 ---
 name: c5-neural-face-swap-cuadrilla
-display_name: "Pipeline Neural Face-Swap Cuadrilla (V5 SOTA Hybrid)"
-description: "Pipeline industrial de alta velocidad para intercambio facial neuronal (deepfake) en vídeos reales o virales con identidades de la cuadrilla sobre Apple Silicon M-Series. Motor V5 SOTA con inyección de grano de sensor de cámara (Poisson-Gaussian matching), super-resolución adaptativa consciente de escala, exportación nativa vertical 9:16 con Pan & Scan dinámico, alineación de mirada orgánica (gaze alignment), BiSeNet en CoreML, transferencia de iluminación espacial 3D y codificación por hardware VideoToolbox."
+display_name: Pipeline Neural Face-Swap Cuadrilla (V5 SOTA Hybrid)
+description: Pipeline V5 SOTA de intercambio facial neuronal (InsightFace/BiSeNet CoreML + VideoToolbox) sobre Apple Silicon. Dispara con "face swap", "deepfake cuadrilla", "intercambio facial", "c5 face swap".
 role: ejecutor
 allowed_roles:
 - ejecutor

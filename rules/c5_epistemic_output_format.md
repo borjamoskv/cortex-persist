@@ -91,6 +91,11 @@ El agente clasifica automáticamente el contexto del turno sin requerir selecci�
 En glosarios, diccionarios conceptuales (ej. *El Borjario*) y taxonomías, todo concepto debe incluir su denominación formal seguida de su traducción coloquial de asfalto:  
 `### N. [Concepto Formal de Alta Exergía] («Lema / Explicación Bajada al Barro»)`
 
+### 8.1. Protocolo de Doble Despliegue ante Petición «Bajada al Barro»
+Cuando el operador emita la directiva «bajada al barro» (o equivalentes de asfalto):
+1. **Inyección en Portapapeles (`pbcopy`):** Formatear y copiar de forma prioritaria la Tarjeta Biónica en Unicode Sans-Bold Universal (ancho estricto ≤68 caracteres, cero asteriscos `**` dentro de ` ```text `).
+2. **Paridad Isomórfica en Documento Canónico (PDF y Markdown):** Incorporar simultáneamente la sección formal «Traducción Integral de Asfalto (Bajada al Barro)» tanto en el artefacto Markdown como en el documento PDF compilado, garantizando que el archivo físico final contenga la traducción dual y no quede como un residuo efímero en el chat.
+
 ## 9. Invariante de Pureza Ontológica y Cero Fuga Personal
 1. **Purga Estricta de Intimidad:** Prohibido incluir referencias íntimas, sexuales, sentimentales o anécdotas privadas en compendios públicos.
 2. **Transducción a Sistemas Dinámicos:** Toda experiencia somática/motriz se descompila rigurosamente en términos de neurociencia, biomecánica, propiocepción y física de sistemas (*blindsight parietal*, *histéresis de fase*, *cinemática balística*).
@@ -180,6 +185,21 @@ Para maximizar el rendimiento cognitivo y erradicar la anergía perceptual del w
 5. **Macro-Anclajes al Margen Izquierdo y Chunking de Miller:**
    - Toda viñeta o línea de tarjeta debe iniciar con un descriptor enfático a la izquierda (`• **El** ...`, `╰─► **Efecto:** ...`, `▪ 𝗮𝗿nés ...`).
    - Longitud de línea acotada estrictamente a **50–65 caracteres** ($7 \pm 2$ palabras por segmento) para eliminar regresiones oculares de salto de línea en pantallas ultrapanorámicas.
+
+## 18. Invariante de Compilación Tipográfica de PDFs en Silicio (Typst 0.15+ & Gate Pre-Entrega)
+
+Para garantizar calidad de imprenta de publicación científica (arXiv / Nature / C5-REAL) en documentos PDF:
+
+1. **Motor de Compilación Preferente (Typst 0.15+):** Compilar directamente desde especificaciones `.typ` hacia PDF mediante `/opt/homebrew/bin/typst compile`, empleando fuentes canónicas del sistema (`New Computer Modern` para cuerpo y fórmulas, `Menlo` o `DejaVu Sans Mono` para identificadores y código).
+2. **Veto a la Coma Doble en Math Typst:** En expresiones matemáticas Typst, queda estrictamente prohibido utilizar `\,` tras una coma (ej. `cal(X), \, cal(S)`), ya que el parser genera una coma tipográfica duplicada (`X, , S`). El espaciado inter-elemento tras coma es automático; si se requiere separación fina entre operadores, emplear `thin`.
+3. **Veto a Cajas Indivisibles en Citaciones Extensas (Anti-Justificación Rota):** En listados de papers o referencias múltiples (ej. `[051, 052, 053, ...]`), queda terminantemente prohibido utilizar `box(...)` indivisibles. Las etiquetas deben formatearse como texto plano enriquecido (`text(...)` o `raw(...)`), permitiendo el salto de línea natural para prevenir el estiramiento anérgico del espaciado interpalabra.
+4. **Invariante Sticky en Encabezados y Cajas Críticas:**
+   - Obligatorio activar `#show heading: set block(sticky: true)` para erradicar títulos huérfanos al pie de página.
+   - Todo bloque axiomático singular (como el Meta-Teorema o cajas maestras) debe agruparse con su párrafo introductorio mediante `block(breakable: false)` o salto de página explícito `#pagebreak()` para evitar que el encabezado quede en una página y el cuadro en la siguiente.
+5. **Gate Obligatorio de Auditoría Visual Pre-Entrega (Zero-Broken-Layout Gate):**
+   - Antes de entregar, enlazar o dar por concluido cualquier PDF, el agente DEBE rasterizar todas sus páginas a PNG (`pdftoppm -png -r 150 <pdf> <prefix>`) e inspeccionar visualmente cada una con la herramienta de visión (`view_file`).
+   - Solo se autoriza la entrega cuando se verifique: cero ecuaciones rozando márgenes, cero saltos de fila huérfanos en tablas, proporciones cromáticas fieles de la paleta C5-REAL y ausencia total de marcado crudo sin procesar.
+
 
 
 

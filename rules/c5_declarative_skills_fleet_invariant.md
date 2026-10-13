@@ -21,30 +21,19 @@ La descripción de toda habilidad DEBE finalizar con la sintaxis determinista:
 
 Las colisiones de disparo entre dos habilidades deben satisfacer {i,j} \le 0{,}20$.
 
-## 4. Linter de Silicio Fail-Closed
-Todo commit que altere o agregue habilidades debe validar exit-code zsh$ en:
-=== C5-REAL SKILL ECOSYSTEM AUDITOR ===
-Total habilidades detectadas en silicio: 136
+## 4. Linter de Silicio Fail-Closed (`ON WIRE`)
+Todo commit que altere o agregue habilidades debe validar exit-code `0` en `audit_declarative_skills.py`:
+```text
+=== CORTEX SKILL AUDITOR V2 (DECLARATIVE TRIAD & KOLMOGOROV GATE) ===
+Total habilidades soberanas auditadas en silicio: 114 (Plugins externos satélite: 162)
 
---- DISTRIBUCIÓN DE ROLES ---
-  • ARQUITECTO  : 37 habilidades
-  • EJECUTOR    : 46 habilidades
-  • AUDITOR     : 53 habilidades
+--- DISTRIBUCIÓN DE LA TRÍADA CANÓNICA ---
+  • ARQUITECTO  : 30 habilidades
+  • EJECUTOR    : 40 habilidades
+  • AUDITOR     : 44 habilidades
 
-AVISOS (13):
-  [WARN] ~/.gemini/config/skills/c5-enki-60/SKILL.md: Sin frase estricta 'Dispara con "..."'
-  [WARN] ~/.gemini/config/skills/c5-forensic-socint-pipeline/SKILL.md: Sin frase estricta 'Dispara con "..."'
-  [WARN] ~/.gemini/config/skills/c5-kudurru-64/SKILL.md: Sin frase estricta 'Dispara con "..."'
-  [WARN] ~/.gemini/config/skills/c5-larsa-120/SKILL.md: Sin frase estricta 'Dispara con "..."'
-  [WARN] ~/.gemini/config/skills/c5-lean4-neurosymbolic-architect/SKILL.md: Sin frase estricta 'Dispara con "..."'
-  [WARN] ~/.gemini/config/skills/c5-macos-visual-calibration/SKILL.md: Sin frase estricta 'Dispara con "..."'
-  [WARN] ~/.gemini/config/skills/c5-mitxu-oracle/SKILL.md: Sin frase estricta 'Dispara con "..."'
-  [WARN] ~/.gemini/config/skills/c5-mushushu-0/SKILL.md: Sin frase estricta 'Dispara con "..."'
-  [WARN] ~/.gemini/config/skills/c5-neural-face-swap-cuadrilla/SKILL.md: Sin frase estricta 'Dispara con "..."'
-  [WARN] ~/.gemini/config/skills/c5-oncologist/SKILL.md: Sin frase estricta 'Dispara con "..."'
-  ... y 3 más.
-
-[PASS] 100% de las 136 habilidades son plenamente conformes con la Tríada Declarativa CORTEX.
+[PASS] 100% de las 114 habilidades soberanas cumplen Tríada, Triggers O(1) y Cota de Kolmogorov <= 350 chars (FPR = 0.0000%).
+```
 
 ## 5. Invariante de Presupuesto de Prompt (Límite de Kolmogorov · INV_C5_SKILL_BUDGET)
 Para prevenir el colapso del presupuesto de contexto (Prompt Tax / Silent Drop) en el Language Server de Antigravity:

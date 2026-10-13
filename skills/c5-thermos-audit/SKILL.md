@@ -1,7 +1,7 @@
 ---
 name: c5-thermos-audit
 display_name: Auditoría Termonuclear de Silicio & Código (Double Thermo)
-description: Auditoría termonuclear implacable de ramas y PRs antes de commit o merge. Lanza dos subagentes en paralelo (Corrección/Seguridad/DevEx vs. Calidad de Código/Regla de 1000 líneas/Code Judo) y sintetiza hallazgos con máxima exergía. Dispara con "thermos", "thermos audit", "auditoría termonuclear", "double thermo", "revisión termonuclear", "revisar rama a fondo", "thermo review".
+description: Auditoría termonuclear de ramas y PRs con 2 subagentes paralelos (Seguridad/DevEx vs. Regla 1000 líneas/Code Judo). Dispara con "thermos", "thermos audit", "auditoría termonuclear", "double thermo", "revisión termonuclear", "revisar rama a fondo", "thermo review".
 role: auditor
 allowed_roles:
 - auditor

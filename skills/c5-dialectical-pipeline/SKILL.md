@@ -1,6 +1,7 @@
 ---
 name: c5-dialectical-pipeline
-description: Macro-operador de estado dialéctico. Secuencia la Tesis (análisis), Antítesis (falsabliza), Síntesis recursiva (itera/itrera/itra/iteraa/iytera) forzando el Salto Topológico (Cambio 2) y el Clímax Ontológico (sigue/apex) bajo invariantes C5-REAL. Dispara con "falsabliza", "falsabiliza", "falsabilia", "falsa", "itera", "itrera", "itra", "iteraa", "iytera", "sigue", "salto topológico".
+display_name: Macro-Operador de Estado Dialéctico y Salto Topológico (Cambio 2)
+description: 'Macro-operador dialéctico: Tesis, Antítesis (falsabiliza) y Síntesis recursiva (itera) hacia el Salto Topológico. Dispara con "falsabliza", "falsabiliza", "falsabilia", "falsa", "itera", "itrera", "itra", "iteraa", "iytera", "sigue", "salto topológico".'
 role: auditor
 allowed_roles:
 - auditor

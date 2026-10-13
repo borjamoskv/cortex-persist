@@ -1,7 +1,7 @@
 ---
 name: suno-bracket-tagging
 display_name: Protocolo de Ingeniería Acústica y Control Causal para Audio AI (Suno/Udio/YuE)
-description: Protocolo de ingeniería acústica forense, control causal, etiquetado estructurado [...], cadena de señal física, desensamblado ontológico de artistas y rescate espectral en DAW para motores de síntesis de audio AI (Suno, Udio, YuE, DDSP). Dispara con "suno prompt", "udio tags", "prompt musical", "etiquetas suno", "control causal audio", "audio ai", "jailbreak acustico", "des-plasticar audio".
+description: Ingeniería acústica forense, etiquetado estructurado [...] y rescate espectral en DAW para Suno, Udio y YuE. Dispara con "suno prompt", "udio tags", "prompt musical", "etiquetas suno", "control causal audio", "audio ai", "jailbreak acustico", "des-plasticar audio".
 role: ejecutor
 allowed_roles:
 - ejecutor
