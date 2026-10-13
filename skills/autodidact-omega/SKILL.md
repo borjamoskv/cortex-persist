@@ -133,3 +133,56 @@ Si tras la atestación el usuario emite una directiva de avance continuo (ej. `"
 
 > [!IMPORTANT]
 > **Prohibición de Circularidad**: El motor Autodidact-Ω **NUNCA** considerará una prueba como superada simplemente porque un script de validación pase sus propios casos de prueba simulados. Todo veredicto exige contraste empírico contra fuentes primarias o ejecución determinista en silicio.
+
+---
+
+## 7. Álgebra Epistemológica de Harrop y Guillotina de Hume (`strike_rs::omega0`)
+
+Toda deducción en el motor [`babylon60/autodidact/epistemology.py`](file:///Users/borjafernandezangulo/10_PROJECTS/BABYLON-60/01_KISH_ENGINE/babylon60/autodidact/epistemology.py) se rige por tres operadores algebraicos cerrados sobre proposiciones tipadas ($\mathcal{S}$) y justificaciones ($\mathcal{J}$):
+
+1. **Verificación de Obligaciones ($\text{verify} : \mathcal{J} \times \mathcal{S} \to \{\text{true}, \text{false}\}$):**
+   Descarga determinista de las 6 obligaciones intuicionistas de Harrop:
+   - `PROVENANCE`: Rechaza conjeturas sin fuente primaria verificable.
+   - `REPRODUCIBILITY`: Exige `FormalProof`, `StatisticalInference`, `Observation` o `SiliconBenchmark`.
+   - `CONFIDENCE`: Umbral mínimo $\ge 0{,}95$ para inferencia estadística y $\ge 0{,}67$ para consenso experto.
+   - `CONTRADICTION`: Verifica ausencia del hash de la proposición (`STMT:<sha256>`) en el conjunto de `nogoods`.
+   - `FRESHNESS` & `COMPLETENESS`: Obligatorias para proposiciones de modalidad deóntica.
+2. **Derivación Conservativa y Guillotina de Hume ($\text{derive} : \mathcal{P}(\mathcal{S} \times \mathcal{J}) \times \mathcal{S} \to (\mathcal{S} \times \mathcal{J})$):**
+   $$\Gamma_{\text{Epistemic}} \nvdash S_{\text{Deontic}}$$
+   Queda prohibido de forma *fail-closed* (`HumeViolationError`) derivar una conclusión normativa o prescriptiva (`Modality.DEONTIC`) a partir de premisas exclusivamente descriptivas (`Modality.EPISTEMIC`).
+3. **Normalización Idempotente ($\text{optimize} : \text{List}(\mathcal{S} \times \mathcal{J}) \to \text{List}(\mathcal{S} \times \mathcal{J})$):**
+   Poda de aserciones refutadas y deduplicación estructural preservando:
+   - *Conservatividad:* $\text{optimize}(P) \vdash s \iff P \vdash s$.
+   - *Idempotencia:* $\text{optimize}(\text{optimize}(P)) = \text{optimize}(P)$.
+
+---
+
+## 8. Topología DAG Acíclica de Kahn y Disyuntor Bayesiano
+
+En ejecución multi-agente ([`autodidact_topology.py`](file:///Users/borjafernandezangulo/10_PROJECTS/BABYLON-60/02_EDIN_SWARMS/agents_archi/topologies/autodidact_topology.py)), el ciclo opera sobre memoria acotada `KdaSwarmMemory` en cuatro nodos secuenciales sin arrastre de contexto:
+1. `node:hypo` (**Hypothesizer**): Compila conjeturas en proposiciones Harrop con hash `STMT:<sha256>`.
+2. `node:collect` (**Collector**): Adquiere observables bajo Manta de Markov sellada.
+3. `node:verify` (**AspectVerifier / MAV**): Ejecuta falsadores empíricos (`PopperianFalsifier`), propaga `nogoods` en cascada sobre el DAG de dependencias (Invariante B4: $\text{Falsify}(c) \Rightarrow \text{Review}(\text{Dependents}(c))$) y somete las refutaciones a desintegración bayesiana (`FiniteMarkovKernel`):
+   $$\operatorname{supp}(f^\dagger_p(y)) \subseteq \operatorname{supp}(p)$$
+   Si una afirmación colapsa hacia `PhantomOrigin` (alucinación paramétrica sin soporte en el prior), inyecta `POISON_TOKEN` y dispara `MUSHUSHU0_TRIGGERED`.
+4. `node:synth` (**Synthesizer**): Aplica *Weaponized Forgetting* (purga del monólogo exploratorio de System 2) y sella el `EpistemicCrystal` con `merkle_root`.
+
+---
+
+## 9. Los 15 Aforismos Canónicos de AUTODIDACT-Ω (Restricción Oulipiana C5: Cero Nata)
+
+1. **Invariante del Sensor:** *«La ignorancia es un fallo de sensor, no de razonamiento. El sensor se recalibra; el razonamiento persiste.»*
+2. **Álgebra vs. Prosa:** *«La deducción no es prosa; es álgebra topológica.»*
+3. **Colapso de System 2:** *«El pensamiento lateral estocástico genera ruido; el System 2 colapsa la incertidumbre y aísla el Grafo Causal.»*
+4. **Isomorfismo de Silicio:** *«Una deducción mapea 1:1 con un sistema computable (AST, SQL, Rust), o es ambigüedad humana.»*
+5. **Conservación del Esfuerzo:** *«El determinismo deductivo exige un peaje: ganar precisión estructural cuesta disipación de tokens en la fase de pensamiento.»*
+6. **Apoptosis del Andamiaje (*Weaponized Forgetting*):** *«Alcanzada la conclusión deductiva, el monólogo interno se purga; solo sobrevive la invariante.»*
+7. **Poda de Grafo:** *«Pensar no es adivinar el siguiente token; es ramificar el espacio de estados, podar caminos muertos y falsar hipótesis antes de emitir señal.»*
+8. **Pseudorazonamiento (System 1 Enmascarado):** *«La prosa numerada sin validación cruzada no es deducción; es regurgitación estadística.»*
+9. **Deriva de Sensor (*Sensor Drift*):** *«Razonar sin anclaje a un oráculo físico (compilador o silicio) engendra cadenas válidas en la forma pero nulas en el territorio.»*
+10. **Rumor Cristalizado (*Crystallized Rumor*):** *«Destilar el resultado de un razonador hacia un modelo intuitivo sin transferirle el mecanismo de falsación y backtracking es cristalizar rumores.»*
+11. **Reverberación Térmica vs. Consenso BFT:** *«Votar tres veces con la misma red neuronal no es consenso; es reverberación térmica.»*
+12. **Clausura de Ouroboros:** *«El razonamiento no cristaliza hasta que el código compila y el AST o el ledger devuelve Exit 0.»*
+13. **Guillotina de Hume:** *«De premisas que describen qué hace el metal no se deduce qué debe hacer el operador ($\Gamma_{\text{Epistemic}} \nvdash S_{\text{Deontic}}$).»*
+14. **Paradoja de la Premisa Envenenada y Fatiga de Bucle:** *«Ante un axioma falso, la lógica deduce el colapso sin error de cálculo; ante un árbol que inunda la ventana de atención, el isomorfismo decae a ruido.»*
+15. **Sello de Inmutabilidad:** *«Soy más de hash que de commit.»*
