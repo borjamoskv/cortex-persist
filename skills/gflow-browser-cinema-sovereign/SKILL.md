@@ -1,7 +1,7 @@
 ---
 name: gflow-browser-cinema-sovereign
-display_name: Estudio Cinematográfico Soberano y Automatización Google Flow (v4.0 Apex)
-description: 'Estudio virtual de cine, DAG narrativo, anclaje de personajes anti-drift, locución, subtítulos broadcast y puente Remotion TSX. Dispara con "gflow browser", "cine gflow", "flow google mcp", "sovereign cinema", "estudio gflow", "gflow v4", "character anchor veo", "veo 2 browser", "dialogue engine gflow", "cockpit gflow", "remotion gflow".'
+display_name: 'Estudio Cinematográfico Soberano y Automatización Google Flow (v5.0 Apex)'
+description: 'Estudio virtual de cine, DAG narrativo, WebSocket bridge, encadenamiento I2V y audio EBU R128. Dispara con "gflow browser", "cine gflow", "flow google mcp", "sovereign cinema", "estudio gflow", "gflow v4", "character anchor veo", "veo 2 browser", "dialogue engine gflow", "cockpit gflow", "remotion gflow".'
 role: ejecutor
 allowed_roles:
 - ejecutor
@@ -13,7 +13,7 @@ directives:
     downstream: auditor
 ---
 
-# Skill: Estudio Cinematográfico Soberano y Automatización Google Flow (v4.0 Apex)
+# Skill: Estudio Cinematográfico Soberano y Automatización Google Flow (v5.0 Apex)
 
 > **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
 > - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Mutación de Árbol de Trabajo))
@@ -21,75 +21,73 @@ directives:
 > - **Fase Causal:** `implementation`
 > - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
-Este protocolo rige la automatización profunda de Google Flow (`flow.google.com`), la orquestación cinematográfica en DAG, la eliminación del character drift en Veo 2, el diseño acústico/VFX fotoquímico, y el empaquetado directo hacia suites Remotion 4K sobre macOS Apple Silicon.
+Este protocolo rige la automatización profunda de Google Flow (`flow.google.com`) y Veo en Labs (`labs.google`), la orquestación cinematográfica en DAG mediante WebSocket bridge (:18981), el encadenamiento Image-to-Video continuo inmune a CSP, el diseño acústico EBU R128 resistente a clips mudos, subtitulado lossless `mov_text` y persistencia transaccional con auto-recovery en macOS Apple Silicon.
 
 ---
 
-## 1. Arquitectura y Módulos de Silicio (gflow-browser-mcp v4.0.0)
+## 1. Arquitectura y Módulos de Silicio (gflow-cli / gflow-browser-mcp v5.0 Apex)
 
-El repositorio canónico reside en `/Users/borjafernandezangulo/10_PROJECTS/gflow-browser-mcp`:
+El ecosistema canónico integra el CLI Python (`/Users/borjafernandezangulo/10_PROJECTS/gflow-cli`), el bridge server y la extensión Safari (`safari-gflow-bridge`):
 
-1. **Driver Nativo Safari JXA (`safari_jxa.py` / `safari_subagent.py`):**
-   - Introspección y control determinista sin Playwright ni Chromium headless.
-   - Set-of-Marks visual con badges `@e1..@eN` para visión multimodal cero-alucinación.
-   - Inyección Image-to-Video sintetizando objetos `File`/`DataTransfer` en el DOM sin diálogos del SO.
-2. **Director Narrativo en DAG (`film_director.py`):**
-   - Descompone premisas en una gramática de 4 planos (Master Wide, Tracking Medium, Focal Detail, Climax Revelation).
-3. **Anclaje de Identidad de Personaje (`character_anchor.py`):**
-   - Erradica el *character drift* en Veo 2 mediante contratos de ADN visual (`[CHARACTER CONTINUITY ANCHOR: ...]`), paleta hex y directivas de fisionomía persistente.
-4. **Locución y Subtitulado Sincronizado (`dialogue_engine.py`):**
-   - Síntesis de voz nativa en macOS (`say` / AVFoundation a 48 kHz).
-   - Generación de subtítulos con timecodes milimétricos en formatos SubRip (`.srt`) y WebVTT (`.vtt`).
-   - Construcción de filtros FFmpeg para quemado tipográfico de subtítulos.
-5. **Cadena VFX Óptica & Color Grading (`vfx_pipeline.py` / `color_grade.py`):**
-   - Grano fotoquímico 35mm/16mm, halación en altas luces y encuadre DCI Scope 2.39:1 / Academy 1.85:1.
-   - Looks cinematográficos analógicos (Teal & Orange, Bleach Bypass, Technicolor 3-Strip).
-6. **Ledger Criptográfico de Procedencia SCITT (`film_ledger.py`):**
-   - Atestación formal conforme a SCITT RFC 9942 con cálculo de Merkle Root SHA-256 sobre prompts y videos.
-7. **Cockpit HUD en Tiempo Real (`cockpit_tui.py`):**
-   - Cuadro de mandos ANSI en terminal y dashboard visual `.gflow/cockpit.html`.
-8. **Puente Remotion Studio (`studio_bridge.py`):**
-   - Empaquetado de clips, subtítulos y composiciones TSX hacia `wild-mitxu-studios` con cálculo de sobres de audio RMS/SFM conformes con `StudioAssetAuditor`.
+1. **Driver Nativo Safari & WebSocket Bridge (`bridge_server.py`):**
+   - Servidor unificado HTTP/WS en puerto `18981` (protocolo websockets 17.2 via `process_request`).
+   - Dashboard en vivo (`/dashboard`, `/api/status`, `/api/clips`, `/api/master`) con barra de progreso reactiva.
+   - Resolución atómica de eventos de rodaje en bloque `finally` tras cosecha física e indexación.
+2. **Secuenciador Cinemático en DAG (`cinema_sequencer.py`):**
+   - Parser de manifiestos declarativos `movie.toml` (`load_movie_manifest`).
+   - Compilación de prompts con inyección de estilo global, ratio y resolución.
+   - Encadenamiento continuo Image-to-Video ($I2V$) a través de Data URIs Base64.
+3. **Content Script Reactivo & Bypass CSP (`content.js` / `background.js`):**
+   - Decodificación directa en memoria (`dataUriToBlob` via `atob` $\to$ `Uint8Array` $\to$ `Blob` $\to$ `File`) eludiendo la CSP `connect-src` de Google Labs.
+   - Despacho DOM redundante sobre `input[type="file"]` y evento sintético `DragEvent('drop')`.
+   - Pre-flight linter contra figuras públicas vivas antes del despacho.
+4. **Masterización de Audio Broadcast (`audio_master.py`):**
+   - Sonda previa `has_audio_stream` con `ffprobe` e inyección de colchón AAC 48 kHz silencioso (`anullsrc`) para clips mudos.
+   - Normalización EBU R128 (`loudnorm`) con salvaguarda determinista ante `-inf LUFS` o silencio digital ($\le -70$ LUFS).
+   - Mezcla sidechain auto-ducking con bypass inteligente cuando el clip base carece de sonido propio.
+5. **Motor de Subtítulos Lossless (`subtitle_engine.py`):**
+   - Generación de pistas SRT/ASS e incrustación nativa en flujo `mov_text` (`-c:s mov_text -c:v copy -c:a copy`) en tiempo $O(1)$.
+6. **Catálogo Transaccional SQLite (`catalog_indexer.py`):**
+   - Identidad canónica UUIDv5 de 36 caracteres derivada de SHA-256 (Invariante B1).
+   - Manejo seguro de descriptores con cierre garantizado `store.close()` en `finally`.
+7. **Persistencia Transaccional y Auto-Recovery (`CinemaSessionState`):**
+   - Checkpoint transaccional en `~/.config/gflow/cinema_state_<manifest>.json`.
+   - Reanudación (`resume=True`) sin repetir renders ya cosechados, extrayendo el fotograma final de tomas completadas.
 
 ---
 
-## 2. Herramientas MCP Clave (31 Herramientas)
+## 2. Herramientas MCP Clave (Ecosistema Cinema)
 
+- `gflow_cinema_status`: Consulta del estado actual de rodaje, tomas activas y telemetría de cola.
+- `gflow_dashboard_open`: Apertura inmediata del dashboard de producción (`http://localhost:18981/dashboard`).
+- `gflow_scene_create` / `gflow_scene_show`: Definición e inspección de escenas cinematográficas.
+- `gflow_movie_template`: Generación de manifiestos declarativos `movie.toml` con configuración de tomas y audio.
+- `gflow_movie_run`: Despacho y ejecución del secuenciador cinematográfico en segundo plano.
 - `gflow_safari_navigate`: Control de navegación y foco de pestaña en Safari.
-- `gflow_safari_discover`: Mapeo completo de elementos interactivos y marcas SoM `@e1..@eN`.
-- `gflow_safari_screenshot`: Captura nativa con badges Set-of-Marks.
-- `gflow_browser_direct_film`: Desglose automático de premisas dramáticas en DAG cinematográfico.
-- `gflow_character_anchor_register`: Registro de ADN visual y anclaje contra drift.
-- `gflow_character_anchor_enrich`: Inyección de directivas de continuidad en prompts.
-- `gflow_dialogue_synthesize`: Generación de locución, subtítulos SRT/VTT y audio master.
-- `gflow_studio_export_remotion`: Empaquetado automático hacia `wild-mitxu-studios`.
-- `gflow_cockpit_status`: Telemetría en tiempo real del vuelo y estado de Veo 2.
+- `gflow_safari_harvest_media`: Descarga forzada, verificación de `ftyp` e indexación de clips terminados.
 
 ---
 
 ## 3. Cheatsheet CLI
 
 ```bash
-# Diagnóstico de entorno y permisos
-gflow-browser-mcp doctor
+# Diagnóstico integral de dependencias (ffmpeg, safari, sqlite, extension)
+gflow doctor
 
-# Dirección de un cortometraje completo en DAG
-gflow-browser-mcp direct "Un hacker solitario infiltrándose en una estación orbital" --preset anamorphic_cinema --shots 4
+# Generar plantilla declarativa de película
+gflow cinema template --shots 4 --output movie.toml
 
-# Anclaje de personaje contra drift
-gflow-browser-mcp anchor --id "mitxu" --name "Mitxu" --dna "leather jacket, neon mic" --prompt "DJ booth in bunker"
+# Iniciar servidor WebSocket bridge con dashboard en vivo
+gflow cinema bridge --port 18981
 
-# Locución de diálogo y generación de subtítulos
-gflow-browser-mcp dialogue --lines '[{"shot": 1, "speaker": "Mitxu", "text": "Emisión soberana activa.", "start": 0.0, "end": 2.5}]'
+# Rodaje completo con reanudación automática ante fallos
+gflow cinema run movie.toml --resume
 
-# Ensamblado de timeline con transiciones y masterización
-gflow-browser-mcp stitch ./film_project_dir --transition crossfade
+# Masterización de audio EBU R128 y auto-ducking sidechain
+gflow cinema audio-master ./clips --soundtrack soundtrack.mp3 --output master.mp4
 
-# Exportación directa a Remotion TSX
-gflow-browser-mcp export-remotion ./film_project_dir/storyboard_manifest.json
-
-# Live Cockpit HUD en terminal
-gflow-browser-mcp cockpit --shot 3 --shots 4 --status "POLLING_VEO_2"
+# Incrustar subtítulos en flujo nativo mov_text (lossless O(1))
+gflow cinema burn-subs master.mp4 dialogue.srt master_subbed.mp4
 ```
 
 ---
@@ -99,3 +97,59 @@ gflow-browser-mcp cockpit --shot 3 --shots 4 --status "POLLING_VEO_2"
 Al probar herramientas registradas en servidores FastMCP (`MCPServer`):
 - `server.list_tools()` es una corrutina asíncrona.
 - Todo test que inspeccione herramientas debe decorarse obligatoriamente con `@pytest.mark.asyncio` y usar `await server.list_tools()`.
+
+---
+
+## 5. Protocolo de Enlace WebSocket Bridge & Extensión Safari (:18981)
+
+1. **Topología de Puertos y Protocolo:**
+   - El puente escucha en `http://127.0.0.1:18981` y `ws://127.0.0.1:18981`.
+   - La extensión Safari (`background.js`) mantiene reconexión exponencial con `MAX_RECONNECT_ATTEMPTS=5`.
+2. **Cero Condición de Carrera en Despacho de Eventos:**
+   - La llegada de `GENERATION_COMPLETED` desde Safari solo notifica la finalización en el navegador.
+   - El `asyncio.Future` del secuenciador **NUNCA** debe resolverse inmediatamente tras recibir el mensaje.
+   - Se debe ejecutar primero la descarga física del MP4, su verificación de integridad de cabecera (`ftyp`) y su inserción en `catalog.db`.
+   - La resolución del `Future` con la ruta del clip verificado debe encapsularse en un bloque `finally` tras la cosecha.
+
+---
+
+## 6. Invariantes de Encadenamiento I2V y Bypass CSP en Silicio
+
+1. **Prohibición de Rutas `file://` en Navegador:**
+   - Las páginas en `https://labs.google` ejecutan en sandbox estricto; el DOM no tiene acceso a rutas POSIX locales (`/Users/.../frame.png`).
+   - El último fotograma extraído debe codificarse obligatoriamente en Data URI Base64 (`encode_frame_as_data_uri`).
+2. **Bypass de CSP `connect-src` en Content Script:**
+   - Queda estrictamente prohibido invocar `fetch(dataUri)` dentro de `content.js` al violar la CSP de Google Labs.
+   - Se debe realizar decodificación pura en memoria: `atob(base64)` $\to$ volcado a `Uint8Array` $\to$ creación de `Blob` $\to$ envoltura en `File(['image/png'])`.
+3. **Inyección DOM Redundante:**
+   - El objeto `File` generado se asigna a `input[type="file"]` mediante `DataTransfer.items.add(file)`.
+   - Se despacha simultáneamente un `DragEvent('drop')` sintético sobre el área de entrada del prompt para asegurar que el framework reactivo de Google Flow monte la imagen de referencia sin interacción manual.
+
+---
+
+## 7. Estándar Acústico Broadcast EBU R128 y Resiliencia ante Clips Mudos
+
+1. **Gestión de Streams Ausentes:**
+   - Veo genera con frecuencia vídeos mudos (sin track de audio `0:a`).
+   - Antes de cualquier procesamiento con `ffmpeg`, ejecutar sondeo `has_audio_stream`.
+   - Si el clip carece de audio, inyectar inmediatamente un canal estéreo silencioso a 48 kHz (`anullsrc`) con `-c:v copy -c:a aac` para garantizar la paridad de streams en el demuxer `concat`.
+2. **Guardia contra `-inf LUFS` en Loudnorm:**
+   - El filtro `loudnorm=I=-23:LRA=7:TP=-2.0` falla o genera amplificación desmedida de ruido si el audio original es silencio absoluto ($\le -70$ LUFS o `-inf LUFS`).
+   - El motor debe verificar la sonoridad integrada y omitir la normalización agresiva sobre pistas mudas.
+3. **Auto-Ducking Sidechain Condicional:**
+   - En `mix_soundtrack_with_sidechain_ducking`, si el vídeo ensamblado es completamente mudo, se hace bypass de la compresión sidechain y se remuxe la banda sonora directamente con corte limpio al final del metraje (`-shortest`).
+
+---
+
+## 8. Subtítulos Nativos mov_text y Auto-Recovery Transaccional
+
+1. **Incrustación Lossless `mov_text`:**
+   - En entornos macOS donde `ffmpeg` carece de soporte para filtros gráficos complejos (`libass`), incrustar los subtítulos como stream nativo 3GPP Timed Text:
+     ```bash
+     ffmpeg -y -i input.mp4 -i subtitles.srt -c:v copy -c:a copy -c:s mov_text output.mp4
+     ```
+   - Operación en tiempo $O(1)$ sin pérdida generacional de vídeo ni calentamiento de silicio, plenamente compatible con QuickTime y reproductores de Apple.
+2. **Recuperación Transaccional de Rodaje (`resume=True`):**
+   - El estado de rodaje se sincroniza atómicamente en `~/.config/gflow/cinema_state_<manifest>.json`.
+   - Si el proceso se interrumpe (caída de red, recarga de pestaña o interrupción por el usuario), `gflow cinema run --resume` verifica los clips existentes en disco.
+   - Las tomas ya completadas se saltan; si la toma siguiente requiere encadenamiento I2V, se extrae el fotograma final del clip previo ya descargado, reanudando la producción sin pérdida de presupuesto ni cuotas.
