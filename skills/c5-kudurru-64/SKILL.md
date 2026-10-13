@@ -44,3 +44,56 @@ INVARIANTES DE EJECUCIÓN:
 2. **Apoptosis Lock-Free (Drop Silencioso):** Si un artefacto exhibe baja exergía, redundancia extrema, o anergía evidente, ejecuta el borrado silencioso del puntero. **Prohibido notificar al emisor.** Simplemente purga el recurso de memoria y mantén el canal despejado.
 3. **Elevación de Cisnes Negros:** Si la métrica O(1) detecta alta densidad exergética, permite el pase del `SharedManifest` hacia el Oráculo Lean 4 / Z3 sin interactuar con él.
 ```
+
+---
+
+## 2. Implementación de Cerrojo Lock-Free y Drop Silencioso (C-FFI / Python Buffer)
+
+```python
+import time
+import math
+from typing import Optional
+
+class KudurruGravityFilter:
+    """Prefiltro de gravedad Lock-Free en la frontera EDIN/ABZU para evitar DDoS Cognitivo."""
+
+    def __init__(self, entropy_threshold: float = 7.20, max_byte_size: int = 65536):
+        self.entropy_threshold = entropy_threshold
+        self.max_byte_size = max_byte_size
+        self.dropped_packets = 0
+
+    def compute_shannon_entropy(self, payload: bytes) -> float:
+        if not payload:
+            return 0.0
+        entropy = 0.0
+        length = len(payload)
+        counts = [0] * 256
+        for b in payload:
+            counts[b] += 1
+        for count in counts:
+            if count == 0: continue
+            p = count / length
+            entropy -= p * math.log2(p)
+        return entropy
+
+    def evaluate_manifest(self, payload: bytes) -> bool:
+        # Heurística O(1) de rechazo en silicio:
+        if len(payload) > self.max_byte_size:
+            self.dropped_packets += 1
+            return False  # Drop silencioso inmediato
+        
+        # Filtro de entropía: Si es puro ruido aleatorio o compresión vacía -> DROP
+        h = self.compute_shannon_entropy(payload)
+        if h < 3.0 or h > self.entropy_threshold:
+            self.dropped_packets += 1
+            return False  # Drop silencioso
+            
+        return True  # Permitir tránsito hacia LARSA-120
+```
+
+## 3. Disparadores de Invocación
+- `"kudurru"`
+- `"kudurru-64"`
+- `"filtro de gravedad"`
+- `"ddos cognitivo"`
+- `"drop silencioso"`

@@ -44,3 +44,42 @@ INVARIANTES DE EJECUCIÓN:
 2. **Consenso 2/3:** Si detectas discrepancias lógicas entre los oráculos, exiges quórum. Aislas la anomalía en la cuarentena inmutable (`quarantine_immutability`).
 3. **Pausas de Atestación:** Eres el responsable de detener el pipeline en el estado `PENDING_ATTESTATION`, preparando el Merkle Root exacto (SHA-256) para que el Orquestador Biológico (Moskv-1) aplique el Anclaje Somático (TouchID).
 ```
+
+---
+
+## 2. Protocolo de Quórum BFT 2/3 en Silicio
+
+```python
+from typing import List, Dict, Any, Optional
+
+class LarsaBFTCoordinator:
+    """Orquestador de Consenso BFT Isostático a 120º entre Rust (alfa), Lean 4 (beta) y Z3 (gamma)."""
+
+    def __init__(self):
+        self.quorum_threshold = 2 / 3
+
+    def evaluate_triad_consensus(self, verdicts: Dict[str, bool]) -> Dict[str, Any]:
+        nodes = ["alpha_rust", "beta_lean4", "gamma_z3"]
+        approvals = sum(1 for n in nodes if verdicts.get(n, False))
+        ratio = approvals / len(nodes)
+
+        if ratio >= self.quorum_threshold:
+            return {
+                "decision": "QUORUM_REACHED",
+                "status": "PENDING_ATTESTATION",
+                "approvals": approvals,
+            }
+        else:
+            return {
+                "decision": "SECURITY_ABORT",
+                "status": "QUARANTINE_IMMUTABILITY",
+                "approvals": approvals,
+            }
+```
+
+## 3. Disparadores de Invocación
+- `"larsa"`
+- `"larsa-120"`
+- `"consenso bft"`
+- `"consenso isostatico"`
+- `"triada larsa"`
