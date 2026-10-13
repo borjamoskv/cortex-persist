@@ -1,7 +1,7 @@
 ---
 name: flstudio-mcp-production
 display_name: Producción Nativa MCP FL Studio 2025 & DSP Microtonal
-description: Protocolo de integración nativa MCP con FL Studio 2025, automatización MIDI/CoreMIDI bidireccional, compilación binaria headless de proyectos .flp, orquestación de 10 subagentes especialistas, falso drop determinista en compás 12, microtonalidad xenarmónica (26 perfiles Scala .scl/.kbm), carving psicoacústico de 24 bandas Bark y masterización EBU R128. Dispara con "FL Studio", "flstudio-mcp", "compilar flp", "10 agentes musica", "falso drop compas 12", "piano roll script", "microtonal house", "satin jackets loop", "falso drop", "maceo plex kick", "psychoacoustic carver", "bark scale fl studio".
+description: Integración MCP con FL Studio 2025, compilación .flp headless, orquestador BALAG-OMEGA a 48 kHz, 10 agentes, microtonalidad Scala y carving Bark. Dispara con "FL Studio", "flstudio-mcp", "balag-omega", "generador de musica", "motor de musica", "compilar flp", "10 agentes musica", "falso drop compas 12", "piano roll script", "microtonal house", "psychoacoustic carver".
 role: ejecutor
 allowed_roles:
 - ejecutor
@@ -220,3 +220,27 @@ Herramienta: `~/10_PROJECTS/flstudio-mcp/scripts/psychoacoustic_masking_carver.p
 * **Entregables Obligatorios en `~/Music/`:**
   1. Master PCM de alta resolución: `48 kHz / 24-bit WAV`.
   2. Master de distribución móvil / promo: `320 kbps CBR MP3`.
+
+---
+
+## 🎛️ 12. Motor Musical Soberano Unificado (BALAG-OMEGA 48 kHz / 24-bit)
+
+Unifica los 4 generadores del ecosistema (`BALAG-60`, `KISH-ENGINE`, `flstudio-mcp` y `suno-bracket-tagging`) en un pipeline determinista cerrado y auditado.
+
+### Invocación FastMCP:
+Herramienta `@mcp.tool() def fl_balag_omega_produce(...)` en `~/10_PROJECTS/flstudio-mcp/mcp_server.py`:
+* Parámetros: `title`, `bpm`, `key`, `bars`, `scale_scl`, `studio_preset`, `use_analog_stems`, `use_kish_neural_timbre`, `use_balag_dsp`, `compile_flp`, `compile_midi`.
+* Retorno: `AcousticReceipt` firmado con hash SHA-256 del master `.wav`, rutas a los archivos `.flp` y `.mid`, y veredicto Rubin (`EXERGÍA PURA (EL HUESO)`).
+
+### Invocación CLI Directa:
+```bash
+python3 /Users/borjafernandezangulo/10_PROJECTS/BALAG-60/balag_omega_engine.py \
+  --title "Mi_Obra" --bpm 116 --bars 16 --scale "babylon60_just_intonation_12.scl"
+```
+
+### Invariantes de Pipeline Obligatorias:
+1. **Reloj Maestro Unificado:** Frecuencia fija a **48.000 Hz / 24-bit PCM** (`PCM_24`). Todo stem a 44.1 kHz se remuestrea mediante filtro polifásico exacto $160/147$ (`scipy.signal.resample_poly`), erradicando colisiones de fase y *aliasing*.
+2. **Groove Causal & Anti-Máquina:** Bajo eléctrico con retardo $+6\text{ ms}$ *behind-the-beat*, transitorios con alternancia *round-robin* $\ge 5$ y corte suave por encima de 14 kHz.
+3. **Manta de Sala Compartida:** Convolución de sala de madera con pre-delay de 18 ms para cohesionar todos los timbres en un único volumen acústico físico.
+4. **Gate Acústico Fail-Closed (`INV_C5_ACOUSTIC_GATE`):** Bloqueo y aborto inmediato (`SECURITY_ABORT`) si $WCF < 8.5\text{ dB}$, $SFM > 0.15$ o $LPC < 0.85$.
+
