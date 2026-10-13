@@ -184,3 +184,34 @@ Al introducir nuevas herramientas en el servidor FastMCP (`gflow_cli.mcp.tools` 
 2. **Purga de Procesos:** Terminar el proceso `gflow mcp run` previo (`kill <PID>`) para liberar el entorno de ejecución en memoria.
 3. **Reconexión de Canal:** En Antigravity, pulsar **... > MCP Servers > gflow > Reload / Reconnect** o recargar la ventana (`Cmd+Shift+P` > *Developer: Reload Window*).
 
+---
+
+## 12. Protocolo de Transporte Wire Directo (Anillo-0 / Batchexecute)
+
+Para ejecución masiva, pipelines desasistidos y sondeos de ultra-baja latencia sin sobrecarga de Chromium/Playwright:
+
+1. **Extracción Pasiva de Sesión Safari (JXA / Apple Events):**
+   - Extracción de cookies en tiempo real mediante `osascript` sobre la pestaña activa de `flow.google.com` en $<15\text{ ms}$.
+   - Bypass del cifrado `v10` de macOS Keychain que bloquea la lectura directa de bases de datos SQLite en disco de Chromium.
+   - Cálculo de token de cabecera First-Party:
+     $$\text{SAPISIDHASH} = \text{timestamp} + \text{"\_"} + \text{SHA1}(\text{timestamp} + \text{" "} + \text{SAPISID} + \text{" "} + \text{origin})$$
+
+2. **Matriz de RPCs Canónicos (`POST /data/batchexecute?rpcids=...`):**
+   - `YhhmEf`: Despacho de vídeo Text-to-Video (T2V) e Image-to-Video (I2V).
+   - `jwpduf`: Sondeo adaptativo de estado de generación (polling cada 5 s con jitter $\pm 15\%$).
+   - `as29s`: Evento terminal de resolución; entrega URLs firmadas de CDN de Google para MP4 y poster.
+   - `ogiZ0b`: Generación síncrona de imágenes (Imagen 3).
+
+3. **Envelope Anti-XSSI y Registro Canónico CAE:**
+   - La respuesta del servidor suprime el prefijo `)]}'` antes de la deserialización de bloques `["wrb.fr", "<rpcid>", "<json_string>"]`.
+   - Localización estructural del registro de 8 tuplas:
+     $$\mathcal{R}_{\text{CAE}} = \langle \text{workflow\_id}, \text{project\_id}, \text{media\_id}, \text{"CAE"}, \text{null}, \text{DETAILS}, \text{null}, \text{MEDIA\_INFO} \rangle$$
+   - `DETAILS[8][0]`: Estado numérico ($6 = \text{Submitted}$, $2 = \text{Running}$, $3 = \text{Done}$).
+   - `DETAILS[10]`: URL firmada del poster JPEG.
+   - `DETAILS[13]`: Tamaño en bytes del vídeo.
+   - `MEDIA_INFO[0][8]`: URL de descarga directa del MP4.
+
+4. **Gobernanza de Cuota y Débito Atómico:**
+   - En el tier **ULTRA** (`borjamoskv@gmail.com`), la base de cómputo parte de 10.000 puntos con ciclo de recarga periódica.
+   - El cobro formal (~10-20 pts en Veo Fast) es estrictamente atómico y condicionado a la llegada exitosa a estado $3$ (`Done`). Renders cancelados, filtrados o con error de backend no descuentan puntos ($0$ coste de fallo).
+
