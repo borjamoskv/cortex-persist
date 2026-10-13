@@ -153,3 +153,34 @@ Al probar herramientas registradas en servidores FastMCP (`MCPServer`):
    - El estado de rodaje se sincroniza atómicamente en `~/.config/gflow/cinema_state_<manifest>.json`.
    - Si el proceso se interrumpe (caída de red, recarga de pestaña o interrupción por el usuario), `gflow cinema run --resume` verifica los clips existentes en disco.
    - Las tomas ya completadas se saltan; si la toma siguiente requiere encadenamiento I2V, se extrae el fotograma final del clip previo ya descargado, reanudando la producción sin pérdida de presupuesto ni cuotas.
+
+---
+
+## 9. Invariante de Ejecución en la Sombra (Background Execution & Dock Invariant)
+
+El subagente Safari (`gflow_safari_*`) opera mediante AppleScript nativo (`do JavaScript in targetTab`):
+
+1. **Cero robo de foco:** Puede generar vídeos, interactuar con modales y cosechar medios en segundo plano mientras el operador trabaja en su IDE o terminal.
+2. **Topología de ventanas:** Safari puede residir oculto detrás de ventanas de desarrollo o confinado en un **Espacio virtual secundario (Space)** de Mission Control.
+3. **Veto a la Minimización en Dock (`Cmd+M`):** En macOS, miniaturizar la ventana al Dock provoca que WebKit suspenda los temporizadores de la SPA y colapse las coordenadas geométricas del DOM (`getBoundingClientRect()` a `0x0`), rompiendo la detección de elementos y Set-of-Marks. La ventana debe permanecer restaurada, aunque esté tapada o fuera del viewport activo.
+4. **Restricción de Capturas:** `gflow_safari_screenshot` utiliza `screencapture -R` en coordenadas de pantalla. Si Safari está cubierto, capturará las capas superiores. La inspección lógica y el rodaje no dependen de capturas y operan con normalidad en la sombra.
+
+---
+
+## 10. Falsación Empírica del Modo API Directa en macOS (Chrome Keychain / Playwright)
+
+En macOS, invocar los endpoints directos de `gflow-cli` (`gflow video t2v`, `gflow_generate_video`) incurre en dos cuellos de botella:
+1. **Cifrado Keychain de Chrome:** La base de datos SQLite de cookies de Google Chrome está cifrada mediante claves del Llavero del sistema. Si la extracción en frío falla, el cliente realiza un fallback degradante levantando Google Chrome vía Playwright, consumiendo cientos de megabytes de RAM.
+2. **Desacoplamiento de Sesión Labs/Flow:** Google migró la autenticación a `flow.google.com`, dejando sin token los endpoints heredados de `labs.google` (`AisandboxAuthError`).
+
+**Directiva de Alta Exergía:** Priorizar siempre el motor **Safari JXA**, el cual reutiliza la sesión autenticada viva en el sustrato nativo de Apple Silicon a coste termodinámico casi nulo.
+
+---
+
+## 11. Protocolo de Despliegue y Sincronización en Caliente de FastMCP
+
+Al introducir nuevas herramientas en el servidor FastMCP (`gflow_cli.mcp.tools` / `server.list_tools()`):
+1. **Sincronización de Schemas:** Volcar los esquemas JSON de las herramientas a `~/.gemini/antigravity/mcp/gflow/<toolName>.json`.
+2. **Purga de Procesos:** Terminar el proceso `gflow mcp run` previo (`kill <PID>`) para liberar el entorno de ejecución en memoria.
+3. **Reconexión de Canal:** En Antigravity, pulsar **... > MCP Servers > gflow > Reload / Reconnect** o recargar la ventana (`Cmd+Shift+P` > *Developer: Reload Window*).
+
