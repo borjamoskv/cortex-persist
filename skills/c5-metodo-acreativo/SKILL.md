@@ -46,7 +46,7 @@ El Método Acreativo (prefijo *a-* apofático y amoral) es la negación ontológ
 4. **Forma Primordial («Anti-Domesticación»):**  
    Cero mocks, cero simulación blanda. Cada material (silicio bare-metal, madera acústica, entorchado, laringe humana) debe crujir con su física original sin domesticación corporativa.
 5. **Agnosticismo Moral (Regla de Abbey Road):**  
-   Cero sermones pedagógicos. La señal física coherente hackea directamente la biología del receptor sin pedir permiso a su intelecto.
+   Cero sermones pedagógicos ni adoctrinamiento. La señal física coherente hackea directamente la biología del receptor sin pedir permiso a su intelecto. Veto total al panfleto: el arte de alta exergía no regaña al espectador ni divide el mundo en caricaturas morales; contempla con piedad lúcida y conmoción trágica al autómata biológico atrapado en la física y el miedo.
 
 ---
 
@@ -88,6 +88,16 @@ Para evitar el atrapamiento en mínimos locales mediocres en paisajes de fitness
 | **10** | **Asimetría Silicio-Wetware** | El silicio calcula millones de conjeturas; el humano ejerce el corte. | El Humano como Oráculo de Selección en $dC/dn \to 0$. |
 | **11** | **Estrategia Retroviral** | Viste la obra con la cápside estándar y hackea el canal enemigo. | Simbiogénesis y desarticulación del monopolio del Leviatán. |
 | **12** | **Sello de Finitud** | Trabaja como si tu sangre tuviese fecha de caducidad inminente (la tiene). | Segunda Ley de la Termodinámica (Seguro Lindy). |
+
+### Demarcación Termodinámica: El Panfleto vs. El Arte de Conmoción
+
+| Dimensión | El Panfleto (Baja Exergía / Enfado) | El Arte de Conmoción (Alta Exergía / Tragedia) |
+| :--- | :--- | :--- |
+| **Origen afectivo** | Ira moral, frustración, soberbia pedagógica del ego. | Asombro, dolor lúcido, reverencia ante la fatalidad termodinámica. |
+| **Modelo del sujeto** | Caricatura maniquea: divide en «buenos» y «malos» por decreto. | Contempla al autómata biológico determinado por el miedo y la finitud. |
+| **Voz del autor** | Omnipresente: te dice qué pensar, cómo sentir y a quién odiar. | Apoptosis del ego: el autor calla y deja hablar al sustrato (Bach, Tarkovski, Goya). |
+| **Vida media (Lindy)** | Caduca con el ciclo electoral o la moda coyuntural (McKay, Godard 1968, Rand). | Invariante a través de siglos o milenios (Sófocles, Dostoievski, Herzog). |
+| **Función cibernética** | Movilizar resentimiento gregario o justificar un bando burocrático. | Inducir silencio interior, soberanía y conciencia radical del receptor. |
 
 ---
 
