@@ -132,3 +132,23 @@ Al auditar repositorios de IA y sistemas agénticos soberanos, clasificar los ac
 8. **Remotion Headless DSP:** Inferencia visual y renderizado reactivo programático con auditoría SSIM/VMAF.
 9. **Manta de Markov Hardened:** Aislamiento probabilístico anti-inyección e identidad desvinculada.
 10. **Oráculo Myhill-Nerode en $Kl(D)$:** Cota superior y erradicación de alucinaciones en modelos generativos.
+
+
+---
+
+## Invariante de Aterrizaje Económico 2026 (Anti-Ilusión COCOMO II & Peritaje NIC 38)
+
+> [!CAUTION]
+> **Veto a la Valoración de Papel (Aforismo 2):** Queda estrictamente prohibido presentar el cálculo bruto de COCOMO II clásico (que asume productividad manual del año 2000) como valor real de mercado. En 2026, un repositorio con $>100\text{k SLOC}$, `Bus Factor = 1` y $0\text{ € MRR}$ sufre un descuento del $85\%–95\%$ por deflación agéntica y pasivo de mantenimiento (*Maintenance Liability*).
+
+Toda auditoría de valoración DEBE desglosar obligatoriamente estas **3 métricas con los pies en la tierra**:
+
+1. **Valor de Liquidación en Frío Hoy (`As-Is`):**
+   - Penaliza el acoplamiento a rutas locales (`/Users/...`), credenciales o jerga interna y la ausencia de ingresos recurrentes ($0\text{ € MRR}$).
+2. **Coste de Reproducción Ajustado a IA (Valor Bancable NIC 38 / Art. 67 LSC):**
+   - Separa el **Músculo Irreductible** ($\approx 15\%–25\%$ del SLOC total que compila limpio y resuelve problemas no triviales) de la grasa experimental.
+   - Calcula las **horas reales de ingeniería senior con herramientas de IA de 2026** multiplicadas por tarifa pericial estándar ($85\text{ €/h}$) para obtener una cifra defendible ante auditor ROAC (ampliación de capital no dineraria), ENISA, CDTI y Hacienda (Art. 35 LIS).
+3. **Traducción Institucional Obligatoria (Cero Jerga Interna):**
+   - Todo informe pericial debe presentar una tabla de correspondencia que traduzca los nombres internos del ecosistema (`BABYLON`, `MUSHUSHU`, `KUDURRU`, `CORTEX`) a nomenclatura contable e industrial estándar (*Middleware de Control Determinista*, *Motor de Verificación Formal Estática*, *Cola Circular Lock-Free SPMC*, *Registro Criptográfico RFC 9942*).
+4. **Arquitectura de Extracción de Spinoffs (<20 MB, 0 PII):**
+   - Identificar los binarios o paquetes independientes extraíbles del monolito que puedan empaquetarse con `0 PII`, pasar `pytest`/`cargo test` al 100% y venderse de forma aislada.
