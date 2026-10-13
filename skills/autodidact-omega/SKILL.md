@@ -1,7 +1,7 @@
 ---
 name: autodidact-omega
 display_name: Motor Autodidact-Ω de Investigación Profunda y Falsación Popperiana
-description: Investigación profunda de frontera, síntesis de cristales ontológicos, verificación de papers/estudios, falsación Popperiana y atestación SCITT con asignación asimétrica de modelos (Flash para recolección, Argon con thinking controlado para síntesis formal). Dispara con "autodidact", "autodidact-omega", "investigación profunda", "investigar paper", "cristal ontológico", "deep research".
+description: Investigación profunda de frontera, cristales ontológicos 21k, falsación Popperiana y atestación SCITT. Dispara con "autodidact", "autodidact-omega", "investigación profunda", "investigar paper", "cristal ontológico", "deep research".
 role: arquitecto
 allowed_roles:
 - arquitecto
@@ -101,6 +101,13 @@ Cuando el operador guíe la investigación mediante pulsos breves o monoverbales
 1. Extraer afirmaciones literales, ecuaciones y referencias (DOIs/RFCs) de la materia de estudio.
 2. Separar explícitamente el **Territorio** (citas literales verificadas con punteros) del **Mapa** (interpretación del analista).
 
+#### 1.1. Protocolo de Canons Científicos y Auditorías de Horizonte Temporal
+Ante cualquier solicitud de catalogación o ranking de publicaciones en un intervalo $\Delta t$ (ej. «los últimos N años»):
+- **Confinamiento Temporal Estricto:** Fijar rígidamente la ventana $t \in [t_{\text{actual}} - \Delta t, t_{\text{actual}}]$. Los pilares anteriores a $t_{\text{actual}} - \Delta t$ (ej. Turing 1936, Shannon 1948, Wiener 1948) DEBEN segregarse explícitamente bajo la etiqueta `[CIMIENTO PRE-VENTANA]`, quedando terminantemente prohibido computarlos dentro del catálogo de $N$ entradas.
+- **Desacoplamiento de Goodhart-Merton:** Prohibido ordenar un canon únicamente por conteo bruto de citas. El agente DEBE etiquetar cada nodo bajo la taxonomía dual:
+  * `[FASE-Ω]`: Transición de Fase Ontológica / Salto Topológico (sometida al atractor de *Obliteración por Incorporación* de Merton).
+  * `[INFRA-Σ]`: Multiplicador Instrumental / Protocolo de Ensayo de Alta Repetición (inflación de citas de Goodhart).
+
 ### Fase 2: Matriz de Falsación Popperiana
 Someter el modelo a los 6 Regímenes de Estrés Exergético:
 1. **Estrés de Ambigüedad:** Evaluar respuesta bajo inputs degradados o ruido sintáctico.
@@ -169,7 +176,7 @@ En ejecución multi-agente ([`autodidact_topology.py`](file:///Users/borjafernan
 
 ---
 
-## 9. Los 15 Aforismos Canónicos de AUTODIDACT-Ω (Restricción Oulipiana C5: Cero Nata)
+## 9. Los 16 Aforismos Canónicos de AUTODIDACT-Ω (Restricción Oulipiana C5: Cero Nata)
 
 1. **Invariante del Sensor:** *«La ignorancia es un fallo de sensor, no de razonamiento. El sensor se recalibra; el razonamiento persiste.»*
 2. **Álgebra vs. Prosa:** *«La deducción no es prosa; es álgebra topológica.»*
@@ -186,3 +193,4 @@ En ejecución multi-agente ([`autodidact_topology.py`](file:///Users/borjafernan
 13. **Guillotina de Hume:** *«De premisas que describen qué hace el metal no se deduce qué debe hacer el operador ($\Gamma_{\text{Epistemic}} \nvdash S_{\text{Deontic}}$).»*
 14. **Paradoja de la Premisa Envenenada y Fatiga de Bucle:** *«Ante un axioma falso, la lógica deduce el colapso sin error de cálculo; ante un árbol que inunda la ventana de atención, el isomorfismo decae a ruido.»*
 15. **Sello de Inmutabilidad:** *«Soy más de hash que de commit.»*
+16. **La Paradoja de Goodhart-Merton (Obliteración por Incorporación):** *«El triunfo absoluto de una invariante es su disolución en el sustrato: cuando un teorema se convierte en el territorio, los científicos dejan de citarlo; cuando un protocolo acumula cientos de miles de citas, mide la repetición del tubo de ensayo, no la magnitud de la transición de fase ($\Delta \Phi_{\Omega} \not\propto N_{\text{citas}}$).»*
