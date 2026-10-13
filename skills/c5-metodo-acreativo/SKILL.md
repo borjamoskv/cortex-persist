@@ -165,3 +165,13 @@ $$
 7. **La IA no reside por completo en ninguno de los dos extremos. Ocurre en la relación que los modifica.**
 8. **Toda relación que no pueda modificar a sus participantes es solo transmisión. Cuando sí los modifica: hay acoplamiento.**
 
+---
+
+## 7. Genealogía Epistémica: De la «Creategia» (AMAP) a la «Acreación» Soberana
+
+El linaje conceptual del Método Acreativo entronca directamente con la historia de la autorregulación publicitaria en Iberoamérica:
+- **Ricardo Rubio (1980s · Presidente de la AMAP y redactor del primer Código de Ética Publicitaria de México / origen del CONAR):** Formuló la **«Creategia»** (*el arte de crear con estrategia*) como un esfuerzo institucional por domar la mentira y el intrusismo publicitario, imponiendo reglas de veracidad y comprobabilidad empírica a los anuncios comerciales (Cambio 1 / Vía Positiva: añadir normas al mapa).
+- **Borja Fernández Angulo (2026 · Creador del Método Acreativo):** Formula la superación ontológica del modelo (Cambio 2 / Vía Negativa: $\Delta V > 0 \iff \Delta |S| < 0$). Frente a la tentación de maquillar o publicitar un producto con ruido mediático (YouTubers, agencias, *cheap talk*), la Acreación suprime todo el aparato persuasivo y deja que la invariante física en silicio (modo avión, $RFO = 0$, ausencia de fugas) hable por sí misma.
+- **Invariante Genealógica:** La Creategia subordinó la creatividad a la estrategia; la Acreación suprime la creatividad voluntaria para sintonizar la física del sustrato.
+
+

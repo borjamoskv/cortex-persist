@@ -102,3 +102,38 @@ El motor ingesta modelos sin copiarlos a la memoria dinámica del heap:
   eridu-infer --status           # Comprueba salud en puertos 41343 y 1234
   eridu-infer --uninstall-daemon # Descarga y elimina plist
   ```
+
+---
+
+## 8. Arquitectura Comercial de Appliance On-Premise & M&A Exit
+
+### 8.1. Unit Economics y Tiers de Silicio
+El motor `eridu-infer` se empaqueta y monetiza como un appliance físico llave en mano (*Turnkey Appliance*):
+- **Tier 1: BABYLON-MINI (Mac Mini M4 Pro 64 GB / 1 TB SSD / 10GbE):**
+  - COGS (Hardware Apple + Cat6A blindado + USB Restore): ~2.680 €.
+  - PVP B2B: 14.500 € (o 15.000 $).
+  - Margen Bruto: 11.820 € (81,5%).
+  - Comisión Comercial (15% del margen): ~1.770 €.
+  - Coste Legal Unitario: 0 € (plantilla amortizada en venta #1).
+  - **Margen Neto Limpio (Borja): ~10.050 € por caja**.
+- **Tier 2: BABYLON-STUDIO (Mac Studio 128 GB UMA / 2 TB SSD):**
+  - COGS: ~5.120 € | PVP: 24.500 € | Margen Neto Borja: ~16.480 €.
+- **Ingresos Recurrentes (SLA Mantenimiento Año 2+):** 2.400 € a 3.600 € / año (>95% margen).
+
+### 8.2. Dinámica de Tesorería de Riesgo Cero (Política 50/50)
+- Prohibición absoluta de comprar hardware sin contrato firmado.
+- El cliente transfiere el 50% de anticipo al firmar (7.250 € / 12.250 €), cubriendo el 100% de la compra física en Apple Store. La tesorería permanece en positivo desde $t=0$. El 50% restante se cobra tras la entrega y conexión al conmutador LAN.
+
+### 8.3. Aprovisionamiento Zero-Touch en Silicio (`setup_appliance.sh`)
+- Automatizado en `10_PROJECTS/eridu-infer/scripts/setup_appliance.sh`:
+  - `pmset -a sleep 0 womp 1 autorestart 1` y `systemsetup -setrestartfreeze on` para auto-arranque inmutable tras caídas de corriente.
+  - Resolución mDNS en `babylon.local:1234`.
+  - Demonio permanente en `/Library/LaunchDaemons/com.babylon60.eridu-infer.plist`.
+
+### 8.4. Protocolo Caballo de Troya (Shadow AI Pilot)
+- Entrada mediante piloto sin coste de 7 días para auditar y frenar la fuga de datos confidenciales por uso de ChatGPT en empleados.
+- Neutralización del veto del informático interno entregándole la ficha técnica de `SPEC.md` (cero puertos WAN, kernel en Rust, recibos criptográficos SCITT para el RGPD). Conversión histórica a compra >90%.
+
+### 8.5. Ecuación de Salida M&A (3,5M € – 4,5M €)
+- Con 35 a 50 unidades instaladas: ~500.000 € limpios acumulados en caja + 100.000 € a 120.000 € de ARR recurrente (churn = 0%).
+- Teaser de venta para consultoras IT / integradores (Indra, Seidor, Telefónica Tech): adquisición por 3,5M € – 4,5M € (70% cash al cierre).
