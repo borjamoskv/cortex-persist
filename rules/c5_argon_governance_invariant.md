@@ -84,3 +84,17 @@ Si se conecta Argon programáticamente vía SDK (`google.antigravity` o `google.
 ## 6. Telemetría y Alerta Temprana de Quema de Tokens
 Si el operador solicita o el sistema conmuta a Argon en una sesión con historial acumulado, el agente debe advertir de inmediato:
 > *"Aviso Termodinámico: La ventana actual arrastra contexto acumulado. Ejecutar Argon sin compactar multiplicará el consumo de tokens de prefill y output ($5\times$). Se recomienda `/compact` o abrir un hilo limpio."*
+
+---
+
+## 7. Estándar Normativo de AGENTS.md (Anti-Exploración)
+Todo repositorio de desarrollo asistido debe contener un `AGENTS.md` en su raíz con tres bloques declarativos obligatorios para neutralizar la re-exploración de dependencias:
+1. **Comandos de Validación Binaria:** Tests unitarios rápidos, linter determinista y chequeo de tipos estáticos (criterio de paso binario en consola).
+2. **Invariantes del Repositorio:** Rutas críticas protegidas, política fail-closed de errores y convenciones de persistencia.
+3. **Restricciones de Exploración:** Confinamiento estricto a las rutas objetivo declaradas, prohibiendo árboles de búsqueda globales si el target ya fue especificado.
+
+---
+
+## 8. Protocolo de Pre-Flight Check (Modo Plan)
+Ante tareas complejas en modo Plan o previas a Build, el agente DEBE ejecutar o exigir:
+> *"Antes de modificar o generar código, ejecuta un Pre-Flight Check en texto plano: (1) Identifica el Blast Radius exacto; (2) Formula preguntas sobre casos borde, dependencias no obvias o contratos de tipos; (3) Define el comando binario específico (test o linter) como criterio de aceptación. Cero mutaciones de archivo hasta aprobación."*

@@ -48,6 +48,34 @@ async with Agent(config=config) as agent:
     pass
 ```
 
+### Gemini 4 Argon Configuration (Reasoning Control)
+
+To use `gemini-4-argon` without accidental quota drain from dynamic thinking tokens:
+
+```python
+from google.antigravity import Agent, LocalAgentConfig
+from google.antigravity.types import (
+    GeminiConfig, GenerationConfig, ModelConfig, ModelEntry, ThinkingLevel
+)
+
+gemini_cfg = GeminiConfig(
+    models=ModelConfig(
+        default=ModelEntry(
+            name="gemini-4-argon",
+            generation=GenerationConfig(
+                thinking_level=ThinkingLevel.LOW,  # LOW for direct execution; MEDIUM for complex logic
+                max_output_tokens=32768,           # Safe floor: prevents truncation while capping runaway
+            ),
+        )
+    )
+)
+
+config = LocalAgentConfig(
+    gemini=gemini_cfg,
+    system_instructions="Resolve the task directly. Do not re-explore files outside the specified scope."
+)
+```
+
 ### Agent Execution Behavior (`agent_behavior`)
 
 The SDK supports two operational execution behaviors via `types.AgentBehavior`:
