@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 /Users/borjafernandezangulo/10_PROJECTS/60_SCRIPTS/workspace_hook_validator.py",
+            "command": "python3 -B \"${CORTEX_CONFIG_ROOT:-$HOME/.gemini/config}/hooks/workspace_confinement.py\" --allow-root \"${CORTEX_PROJECTS_ROOT:-$HOME/10_PROJECTS}\" --allow-root \"${CORTEX_CONFIG_ROOT:-$HOME/.gemini/config}\"",
             "timeout": 5
           }
         ]

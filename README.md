@@ -38,11 +38,40 @@ git commit -m "feat(cortex): update procedural skills & rules"
 git push origin main
 ```
 
+## Hook de Confinamiento
+
+`hooks.json` ejecuta el validador versionado en
+`hooks/workspace_confinement.py` para `write_to_file` y
+`replace_file_content`. Autoriza archivos bajo `~/10_PROJECTS` y
+`~/.gemini/config`; las demás rutas se rechazan, incluido `scratch`,
+sin excepciones por nombres como `temp` o `tmp`.
+
+El proceso recibe por stdin un objeto JSON UTF-8 con
+`toolCall.name` y `toolCall.args.TargetFile`. Devuelve una única respuesta JSON
+con `decision: "allow"` o `decision: "deny"` y, en el segundo caso, `reason`.
+La decisión se comunica por JSON con salida 0, también al rechazar una entrada.
+JSON vacío, inválido o ambiguo, rutas relativas, raíces inexistentes y enlaces
+simbólicos que escapan de las raíces autorizadas producen `deny`.
+
+Para otra instalación, configura `CORTEX_CONFIG_ROOT` con la ruta absoluta
+del checkout y `CORTEX_PROJECTS_ROOT` con la raíz absoluta de proyectos en el
+entorno del ejecutor de hooks. Ambas carpetas deben existir. No se aceptan
+raíces suministradas por el evento de la herramienta. El script externo anterior
+y el hook de telemetría no se modifican.
+
+Este control limita esos dos tipos de escritura a las raíces autorizadas, no a
+un único proyecto activo. No intercepta comandos de shell ni reemplaza un
+sandbox: un cambio de enlaces entre la validación y la escritura puede alterar
+el destino. La aplicación de `deny` por Antigravity debe comprobarse tras
+desplegar la configuración; las pruebas de CI verifican el proceso y el comando
+configurado, no ese ejecutor.
+
 ## Tests de CI
 
 Los casos de regresión ejecutan los controles de `.github/workflows/ci.yml`
 sobre fixtures temporales, incluidos JSON inválidos, manifiestos vacíos y enlaces
-rotos. Para ejecutarlos localmente:
+rotos. También prueban el hook de confinamiento con destinos autorizados,
+entradas malformadas y escapes de ruta. Para ejecutarlos localmente:
 
 ```bash
 python3 -m venv .venv
