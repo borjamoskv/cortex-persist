@@ -101,3 +101,8 @@ Al ejecutar tareas de formalización en el sistema del usuario:
    lake build
    ```
    Si el código de salida no es `0`, el agente debe capturar la traza del error en el Infoview/terminal, ajustar las hipótesis o la táctica, y reintentar sin trasladar la fricción al usuario.
+
+### Invariante de Táctica Presburger en Lean 4 Core (INV_C5_LEAN4_OMEGA_UNFOLD)
+Al formular y verificar teoremas algebraicos de punto fijo en Lean 4 Core (`omega`):
+- Si el objetivo involucra funciones de paso, paridad o escalado definidas en el módulo (ej. `seqlock_write_begin`, `de_bruijn_step`), es OBLIGATORIO emitir `unfold <def>` inmediatamente antes de la táctica `omega`.
+- Omitir el despliegue de definiciones genera falsos contraejemplos estocásticos de división entera en el resolvedor de Presburger.

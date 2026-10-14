@@ -66,3 +66,10 @@ En la implementación de algoritmos de ordenamiento topológico (Kahn), geodési
   1. Ejecutar un escaneo del histórico completo de commits (`git log --all --full-history`) en busca de rutas sensibles (`PACK_SOCIOS`, contratos societarios, NDAs, DNI, claves privadas `*.pem`, `.env`, credenciales de API).
   2. Verificar que los archivos confidenciales no solo hayan sido eliminados del disco, sino que su rastro histórico haya sido destilado o purgado antes de abrir el repositorio a la red global.
   3. Si existen commits históricos con activos de equity o marketing privado, abortar la conmutación inmediata y exigir la destilación de una rama limpia o la migración de dichos activos a la bóveda aislada `~/20_VAULT/`.
+
+## 11. Invariante de Aniquilación Afín de Vistas C-ABI sobre mmap (INV_C5_MMAP_AFFINE_ANNIHILATION)
+- **Invariante:** En todo canal de memoria compartida o actor SPMC/SPSC que vincule estructuras C-ABI sobre descriptores `mmap` (`ctypes.Structure.from_buffer(mm)`), queda TERMINANTEMENTE PROHIBIDO invocar `mm.close()` o permitir el cierre del descriptor sin desenlazar explícitamente la vista exportada.
+- **Riesgo en Silicio:** En Python 3.14+, intentar cerrar un `mmap` con punteros de estructura vivos dispara fatalmente un `BufferError: cannot close exported pointers exist`, corrompiendo la recuperación de memoria en bucles de prueba o reinicios del proceso.
+- **Patrón Mandatorio:**
+  1. Implementar método `.close()` explícito que reasigne o anule la estructura C-ABI (`self.manifest = NullStructure()`) inmediatamente antes de invocar `mm.close()`.
+  2. Implementar soporte de gestor de contexto (`__enter__` / `__exit__`) para garantizar liberación determinista en excepciones.
