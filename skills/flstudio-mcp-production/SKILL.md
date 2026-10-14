@@ -1,7 +1,7 @@
 ---
 name: flstudio-mcp-production
 display_name: Producción Nativa MCP FL Studio 2025 & DSP Microtonal
-description: Integración MCP con FL Studio 2025, compilación .flp headless, orquestador BALAG-OMEGA a 48 kHz, 10 agentes, microtonalidad Scala y carving Bark. Dispara con "FL Studio", "flstudio-mcp", "balag-omega", "generador de musica", "motor de musica", "compilar flp", "10 agentes musica", "falso drop compas 12", "piano roll script", "microtonal house", "psychoacoustic carver".
+description: 'Integración MCP con FL Studio 2025, compilación .flp headless, BALAG-OMEGA a 48 kHz, microtonalidad Scala y carving Bark. Dispara con "FL Studio", "flstudio-mcp", "balag-omega", "generador de musica", "compilar flp", "piano roll script", "microtonal house".'
 role: ejecutor
 allowed_roles:
 - ejecutor

@@ -55,6 +55,11 @@ Argon está optimizado para ejecuciones autónomas largas (*long-horizon*). Una 
 
 1. **Congelamiento de Diseño en Modo Plan o `/goal`:**
    - Antes de escribir código, forzar un pre-flight check y exigir preguntas sobre casos borde en texto plano. Iterar sobre un plan en texto plano consume una fracción mínima frente a revertir una implementación fallida.
+   - **Protocolo Canónico `/goal` (Zero-Waste Gate):** Aplicar estrictamente el flujo en 2 fases de `c5_goal_contract_protocol.md`. La destilación se ejecuta obligatoriamente en `Gemini 3.8 Flash High (Fast)`. El turno de ejecución en Argon se confina a nivel `Low` (o `Medium` si supera 4 archivos) y se cierra con el centinela `<!-- GOAL_COMPLETE -->`.
+   - **Resolución de Niveles de UI en Antigravity:**
+     * `Gemini 3.8 Flash`: Forzar `High (Fast)` (no tiene Low ni Medium).
+     * `GPT-OSS 120B`: Forzar `(Medium)` (nivel único).
+     * `Claude Sonnet 5.5` / `Gemini 4 Argon` / `Claude Opus 5.5`: Niveles continuos (`Low`, `Medium`, `High`).
 2. **Destilación en `AGENTS.md` y Skills Reutilizables:**
    - Gran parte del gasto se disipa en los primeros turnos mientras el agente descubre por ensayo y error flags de tests o linters. Al concluir una sesión compleja, se deben destilar esos hallazgos en `AGENTS.md` o empaquetarlos en una Skill para que futuras sesiones vayan directas al grano.
 3. **Validación por Scripts Binarios vs. Inspección Visual:**
