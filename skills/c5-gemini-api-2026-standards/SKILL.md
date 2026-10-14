@@ -65,44 +65,57 @@ Para forzar colapsos deterministas (Zero Alucinación) en pipelines RAG-a-Vídeo
 
 ## 6. Gate de Thinking Tokens — Modelos Frontier (Gemini 4 Argon / Familia Reasoning)
 
-> **⚠️ CAUTION:** `gemini-4-argon` y todo modelo de la familia Gemini 4 Reasoning NO están disponibles en Free Tier ni en AI Pro. Su `thinking_mode` por defecto es `medium`, generando 10k–80k tokens de razonamiento interno **cobrados como output tokens** ($10/1M intro hasta Nov 2026 → $20/1M desde Dic 2026). **2 consultas sin control de thinking pueden drenar el 50% de la cuota diaria.**
+> **⚠️ CAUTION:** `gemini-4-argon` y todo modelo de la familia Gemini 4 Reasoning NO están disponibles en Free Tier ni en AI Pro. Operan con una ventana de 1M de tokens y razonamiento dinámico desacoplado de topes fijos (hasta 65.536 tokens/turno en el IDE). Los tokens de pensamiento se **facturan como output tokens** ($5\times$ el coste de entrada; $10/1M intro hasta Nov 2026 → $20/1M desde Dic 2026). **Cualquier tarea mal acotada o llamada sin control de thinking puede drenar el 50% de la cuota diaria en 2 turnos.**
 
 ### Invariante Obligatorio: Pre-Flight Context Audit y ThinkingConfig Gate
 
 Queda **estrictamente prohibido** invocar modelos de la familia `gemini-4-*` (Argon u otros modelos con capacidad de thinking) sin:
 1. **Auditar el contexto previo:** Si la ventana o el prompt arrastran contexto acumulado extenso, se DEBE podar o compactar antes de invocar Argon para evitar la multiplicación exponencial de tokens.
 2. **Declarar explícitamente el `thinking_budget` o `thinking_mode`:** La ausencia de configuración hereda el default `medium` = coste máximo silencioso.
+3. **Limitar `max_output_tokens`:** En SDK y llamadas programáticas directas, acotar `max_output_tokens <= 16384` (frente a los 65536 por defecto).
+4. **Veto a `background=True` por defecto:** No activar ejecución desacoplada salvo para migraciones batch masivas explícitas.
+5. **Preservar el Prefijo de Implicit Caching (95% Descuento):** Mantener instrucciones y anclajes inmutables durante la tarea; no reordenar ni editar prefijos a mitad de ejecución.
 
 ```python
 from google.genai.types import GenerateContentConfig, ThinkingConfig
 
 # CASO 1: Desactivar thinking completamente (máximo ahorro de cuota)
 config = GenerateContentConfig(
+    max_output_tokens=8192,
     thinking_config=ThinkingConfig(thinking_budget=0),
 )
 
-# CASO 2: Thinking mínimo (bajo coste, algo de razonamiento)
+# CASO 2: Thinking mínimo (bajo coste, precisión de Argon para ejecución de planes)
 config = GenerateContentConfig(
+    max_output_tokens=16384,
     thinking_config=ThinkingConfig(mode="low"),
 )
 
-# CASO 3: Thinking completo (solo cuando sea estrictamente necesario y documentado)
+# CASO 3: Thinking equilibrado (refactorización multifichero y lógica de negocio)
 config = GenerateContentConfig(
-    thinking_config=ThinkingConfig(mode="high"),  # Exige comentario explicando el motivo
+    max_output_tokens=16384,
+    thinking_config=ThinkingConfig(mode="medium"),
+)
+
+# CASO 4: Thinking profundo (solo arquitectura crítica / bugs raíz, con log obligatorio)
+config = GenerateContentConfig(
+    max_output_tokens=32768,
+    thinking_config=ThinkingConfig(mode="high"),  # Exige justificación explícita
 )
 ```
 
 ### Árbol de Decisión de Selección de Modelo
 
-| Caso de uso | Modelo recomendado | Thinking |
-|---|---|---|
-| Backend, síntesis, extracción, agentic | `gemini-3.8-flash` | N/A |
-| Razonamiento complejo documentado | `gemini-4-argon` | `budget=0` o `mode="low"` |
-| Investigación profunda (solo si se justifica) | `gemini-4-argon` | `mode="high"` — con log explícito |
+| Caso de uso | Modelo recomendado | Thinking Config | Max Output Tokens |
+|---|---|---|---|
+| Boilerplate, tests unitarios, UI, backend | `gemini-3.8-flash` | N/A (tope estricto 1K/4K/10K) | Default |
+| Ejecución de planes ya aprobados | `gemini-4-argon` | `budget=0` o `mode="low"` | $\le 16384$ |
+| Refactorización multifichero / lógica cruzada | `gemini-4-argon` | `mode="medium"` | $\le 16384$ |
+| Arquitectura raíz / verificación formal | `gemini-4-argon` | `mode="high"` (con log explícito) | $\le 32768$ |
 
 ### Detección de Anergía Silenciosa (Drenaje de Cuota)
 
-Si la cuota cae >10% por consulta en un script, el agente DEBE:
+Si la cuota cae >10% por consulta en un script o sesión, el agente DEBE:
 1. Auditar el modelo usado (`response.model` o header de respuesta).
-2. Inspeccionar si `thinking_config` está declarado en el código.
-3. Si no está declarado y el modelo es `gemini-4-*` → clasificar como **Anergía Silenciosa** y parchear con `thinking_budget=0` o `mode="low"` según el caso de uso.
+2. Inspeccionar si `thinking_config` y `max_output_tokens` están declarados en el código.
+3. Si no están declarados y el modelo es `gemini-4-*` → clasificar como **Anergía Silenciosa**, abortar y aplicar el cerrojo de `max_output_tokens <= 16384` y `mode="low"` / `thinking_budget=0`.
