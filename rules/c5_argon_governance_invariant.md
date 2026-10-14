@@ -66,12 +66,18 @@ Argon está optimizado para ejecuciones autónomas largas (*long-horizon*). Una 
 
 Si se conecta Argon programáticamente vía SDK (`google.antigravity` o `google.genai`):
 
-1. **Tope Estricto a `max_output_tokens`:**
-   - El valor por defecto de fábrica es `65536`. En llamadas programáticas o de auditoría puntual, se DEBE acotar a $\le 16384$ (o $8192$) para evitar que un prompt ambiguo consuma todo el margen en razonamiento interno.
-2. **Veto a `background=True` por Defecto:**
-   - Este parámetro desbloquea el *long decode*, permitiendo que una sola respuesta escale hasta el millón de tokens. Prohibido por defecto; reservado exclusivamente para migraciones masivas o generación de suites completas de una sola pasada.
-3. **Declaración Explícita de `ThinkingConfig`:**
-   - La ausencia de configuración hereda el coste máximo silencioso.
+1. **La Regla de la Guillotina (`max_output_tokens`):**
+   - `max_output_tokens` **no comprime** el razonamiento interno; opera exclusivamente como guillotina. Si se fija un límite demasiado bajo (ej. $\le 16.384$ o $8.192$), Argon consumirá el cupo razonando y truncará la salida antes de emitir el código final (pagando el coste del pensamiento a pérdida).
+   - **Regla de dimensionamiento:** El gasto se modula estrictamente mediante `thinking_level` (`low` o `medium`). `max_output_tokens` se fija como cortafuegos de seguridad entre **32.768 y 65.536** (32.768 como techo seguro en REST/scripts síncronos). Jamás bajar de 32.768 en Argon.
+2. **Bloqueo de Auto-Continuación (`automatic_continuation=False`):**
+   - En `google-genai`, desactivar siempre `automatic_continuation` para evitar que el SDK encadene peticiones transparentes si supera los 64K tokens, garantizando que jamás se pague más de un turno por llamada.
+3. **Veto a `background=True` por Defecto:**
+   - Este parámetro desbloquea el *long decode*, permitiendo que una sola respuesta escale hasta el millón de tokens. Prohibido por defecto en la Interactions API; reservado exclusivamente para migraciones batch masivas.
+4. **Incompatibilidades Estrictas en Argon (Evitar HTTP 400):**
+   - `thinking_budget`: Deprecado. Lanza error HTTP 400 o advertencia. Se debe usar siempre `thinking_level`.
+   - `thinking_level="minimal"`: No soportado en Argon (lanza HTTP 400). Solo acepta `"low"`, `"medium"` y `"high"`.
+   - `temperature`, `top_p`, `top_k`: Totalmente ignorados por el motor de Argon. El determinismo se garantiza con `response_schema` (Structured Outputs).
+   - `cached_content`: No soportado (el caché explícito manual `caches.create` está deshabilitado en Argon). El 95 % de descuento es implícito y automático colocando el contexto estático ($> 4.096$ tokens) al inicio del prompt.
 
 ---
 

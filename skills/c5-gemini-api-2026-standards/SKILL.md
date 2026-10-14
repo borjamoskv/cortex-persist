@@ -71,36 +71,50 @@ Para forzar colapsos deterministas (Zero Alucinación) en pipelines RAG-a-Vídeo
 
 Queda **estrictamente prohibido** invocar modelos de la familia `gemini-4-*` (Argon u otros modelos con capacidad de thinking) sin:
 1. **Auditar el contexto previo:** Si la ventana o el prompt arrastran contexto acumulado extenso, se DEBE podar o compactar antes de invocar Argon para evitar la multiplicación exponencial de tokens.
-2. **Declarar explícitamente el `thinking_budget` o `thinking_mode`:** La ausencia de configuración hereda el default `medium` = coste máximo silencioso.
-3. **Limitar `max_output_tokens`:** En SDK y llamadas programáticas directas, acotar `max_output_tokens <= 16384` (frente a los 65536 por defecto).
-4. **Veto a `background=True` por defecto:** No activar ejecución desacoplada salvo para migraciones batch masivas explícitas.
-5. **Preservar el Prefijo de Implicit Caching (95% Descuento):** Mantener instrucciones y anclajes inmutables durante la tarea; no reordenar ni editar prefijos a mitad de ejecución.
+2. **Declarar explícitamente `thinking_level`:** Argon solo acepta `"low"`, `"medium"` y `"high"`. Usar `thinking_budget` o `thinking_level="minimal"` lanza **HTTP 400**.
+3. **Respetar la Regla de la Guillotina (`max_output_tokens`):** `max_output_tokens` NO comprime el pensamiento, solo actúa como guillotina. Fijarlo entre **32.768 y 65.536** (32.768 como techo seguro en scripts). **Jamás bajar a 4096 u 8192** en Argon o truncará la respuesta tras consumir el cupo pensando.
+4. **Desactivar `automatic_continuation`:** En `google-genai`, fijar `automatic_continuation=False` para evitar que el SDK encadene peticiones transparentes más allá de los 64K tokens.
+5. **Veto a `background=True` por defecto:** No activar ejecución desacoplada salvo para migraciones batch masivas explícitas.
+6. **Preservar el Prefijo de Implicit Caching (95% Descuento):** Mantener instrucciones y anclajes inmutables durante la tarea; colocar el contexto estático ($> 4.096$ tokens) al inicio del prompt. `cached_content` explícito no está soportado.
 
 ```python
-from google.genai.types import GenerateContentConfig, ThinkingConfig
+# 1. Con google-genai (SDK unificado)
+from google import genai
+from google.genai import types
 
-# CASO 1: Desactivar thinking completamente (máximo ahorro de cuota)
-config = GenerateContentConfig(
-    max_output_tokens=8192,
-    thinking_config=ThinkingConfig(thinking_budget=0),
+client = genai.Client()
+
+response = client.models.generate_content(
+    model="gemini-4-argon",
+    contents="Refactoriza src/core.py y devuelve el diff.",
+    config=types.GenerateContentConfig(
+        # Opciones válidas: "low", "medium" (default), "high"
+        thinking_config=types.ThinkingConfig(thinking_level="low"),
+        # Techo seguro: no bajar de 32768 en Argon (evita efecto guillotina)
+        max_output_tokens=32768,
+        # Cortafuegos contra encadenamiento automático
+        automatic_continuation=False,
+    ),
+)
+```
+
+```python
+# 2. Con google-antigravity (SDK de agentes)
+from google.antigravity import Agent, LocalAgentConfig
+from google.antigravity.types import (
+    GeminiConfig, GenerationConfig, ModelConfig, ModelEntry, ThinkingLevel
 )
 
-# CASO 2: Thinking mínimo (bajo coste, precisión de Argon para ejecución de planes)
-config = GenerateContentConfig(
-    max_output_tokens=16384,
-    thinking_config=ThinkingConfig(mode="low"),
-)
-
-# CASO 3: Thinking equilibrado (refactorización multifichero y lógica de negocio)
-config = GenerateContentConfig(
-    max_output_tokens=16384,
-    thinking_config=ThinkingConfig(mode="medium"),
-)
-
-# CASO 4: Thinking profundo (solo arquitectura crítica / bugs raíz, con log obligatorio)
-config = GenerateContentConfig(
-    max_output_tokens=32768,
-    thinking_config=ThinkingConfig(mode="high"),  # Exige justificación explícita
+gemini_cfg = GeminiConfig(
+    models=ModelConfig(
+        default=ModelEntry(
+            name="gemini-4-argon",
+            generation=GenerationConfig(
+                thinking_level=ThinkingLevel.LOW,
+                max_output_tokens=32768,
+            ),
+        )
+    )
 )
 ```
 
@@ -109,9 +123,9 @@ config = GenerateContentConfig(
 | Caso de uso | Modelo recomendado | Thinking Config | Max Output Tokens |
 |---|---|---|---|
 | Boilerplate, tests unitarios, UI, backend | `gemini-3.8-flash` | N/A (tope estricto 1K/4K/10K) | Default |
-| Ejecución de planes ya aprobados | `gemini-4-argon` | `budget=0` o `mode="low"` | $\le 16384$ |
-| Refactorización multifichero / lógica cruzada | `gemini-4-argon` | `mode="medium"` | $\le 16384$ |
-| Arquitectura raíz / verificación formal | `gemini-4-argon` | `mode="high"` (con log explícito) | $\le 32768$ |
+| Ejecución de planes ya aprobados en Argon | `gemini-4-argon` | `thinking_level="low"` | `32768` |
+| Refactorización multifichero / lógica cruzada | `gemini-4-argon` | `thinking_level="medium"` | `32768` |
+| Arquitectura raíz / verificación formal | `gemini-4-argon` | `thinking_level="high"` (con log explícito) | `65536` |
 
 ### Detección de Anergía Silenciosa (Drenaje de Cuota)
 
