@@ -1,0 +1,300 @@
+{
+  "scope": "global",
+  "modules": [
+    {
+      "name": "existence-gap-audit",
+      "aliases": [
+        "existence-gap-audit",
+        "/existence-gap-audit",
+        "auditoría",
+        "audit",
+        "revisa este repo",
+        "código alucinado",
+        "dependencias fantasma",
+        "slopsquatting",
+        "vibe coding",
+        "supply chain",
+        "¿esto se ejecuta?",
+        "imports rotos",
+        "auditar workflows"
+      ],
+      "module": "references/modules/existence-gap-audit/MODULE.md"
+    },
+    {
+      "name": "c5-html-report-injection-audit",
+      "aliases": [
+        "c5-html-report-injection-audit",
+        "/c5-html-report-injection-audit",
+        "inyección html",
+        "xss reporte",
+        "autoescape jinja",
+        "auditar exportador",
+        "escape de ledger"
+      ],
+      "module": "references/modules/c5-html-report-injection-audit/MODULE.md"
+    },
+    {
+      "name": "c5-browser-forensics-and-extension-triage",
+      "aliases": [
+        "c5-browser-forensics-and-extension-triage",
+        "/c5-browser-forensics-and-extension-triage",
+        "auditar navegador",
+        "virus en chrome",
+        "extensiones sospechosas",
+        "growbot",
+        "purgar extension chrome",
+        "triage navegador"
+      ],
+      "module": "references/modules/c5-browser-forensics-and-extension-triage/MODULE.md"
+    },
+    {
+      "name": "electron-asar-forensic-audit",
+      "aliases": [
+        "electron-asar-forensic-audit",
+        "/electron-asar-forensic-audit",
+        "auditar app electron",
+        "extraer asar",
+        "asar python",
+        "descompilar electron",
+        "forense electron app",
+        "ingeniería inversa electron"
+      ],
+      "module": "references/modules/electron-asar-forensic-audit/MODULE.md"
+    },
+    {
+      "name": "electron-mac-bundle-collision-diagnostics",
+      "aliases": [
+        "electron-mac-bundle-collision-diagnostics",
+        "/electron-mac-bundle-collision-diagnostics",
+        "electron crash mac",
+        "crash ips macos",
+        "bundle collision electron",
+        "diagnóstico electron mac",
+        "leveldb lock purge",
+        "cierre inesperado electron"
+      ],
+      "module": "references/modules/electron-mac-bundle-collision-diagnostics/MODULE.md"
+    },
+    {
+      "name": "ghidra-ida-binary-audit",
+      "aliases": [
+        "ghidra-ida-binary-audit",
+        "/ghidra-ida-binary-audit",
+        "auditar binario",
+        "ghidra",
+        "ida pro",
+        "descompilar binario",
+        "buffer overflow audit",
+        "ingeniería inversa"
+      ],
+      "module": "references/modules/ghidra-ida-binary-audit/MODULE.md"
+    },
+    {
+      "name": "webkit-memory-audit",
+      "aliases": [
+        "webkit-memory-audit",
+        "/webkit-memory-audit",
+        "webkit audit",
+        "vector 21",
+        "gigacage",
+        "auditoría memoria c++",
+        "webkit memory",
+        "bmalloc audit"
+      ],
+      "module": "references/modules/webkit-memory-audit/MODULE.md"
+    },
+    {
+      "name": "macos-lulu-firewall-diagnostics",
+      "aliases": [
+        "macos-lulu-firewall-diagnostics",
+        "/macos-lulu-firewall-diagnostics",
+        "lulu firewall",
+        "little snitch",
+        "redes macos",
+        "diagnóstico firewall",
+        "reglas de red macos",
+        "bloqueo sockets mac"
+      ],
+      "module": "references/modules/macos-lulu-firewall-diagnostics/MODULE.md"
+    },
+    {
+      "name": "c5-sovereign-identity-hardening",
+      "aliases": [
+        "c5-sovereign-identity-hardening",
+        "/c5-sovereign-identity-hardening",
+        "identidad soberana",
+        "data breach",
+        "filtración de correo",
+        "have i been pwned",
+        "k-anonimato",
+        "hardened identity",
+        "alias email"
+      ],
+      "module": "references/modules/c5-sovereign-identity-hardening/MODULE.md"
+    },
+    {
+      "name": "github-architect",
+      "aliases": [
+        "github-architect",
+        "/github-architect",
+        "audita mi github",
+        "qué repos archivar",
+        "itera /github-architect",
+        "generar ci workflow",
+        "github architect",
+        "auditoría repositorios github"
+      ],
+      "module": "references/modules/github-architect/MODULE.md"
+    },
+    {
+      "name": "github-api-rate-limit-optimization",
+      "aliases": [
+        "github-api-rate-limit-optimization",
+        "/github-api-rate-limit-optimization",
+        "github rate limit",
+        "error 429 github",
+        "optimizar github api",
+        "secondary rate limit",
+        "evitar 429 github",
+        "resiliencia api github"
+      ],
+      "module": "references/modules/github-api-rate-limit-optimization/MODULE.md"
+    },
+    {
+      "name": "jujutsu-vcs-management",
+      "aliases": [
+        "jujutsu-vcs-management",
+        "/jujutsu-vcs-management",
+        "jujutsu vcs",
+        "jj repo",
+        "jujutsu git",
+        "control de versiones jj",
+        "jj vcs",
+        "jujutsu management"
+      ],
+      "module": "references/modules/jujutsu-vcs-management/MODULE.md"
+    },
+    {
+      "name": "vscode-git-packed-refs-diagnostics",
+      "aliases": [
+        "vscode-git-packed-refs-diagnostics",
+        "/vscode-git-packed-refs-diagnostics",
+        "vscode git enoent",
+        "packed-refs",
+        "corrupción git",
+        "reparar git vscode"
+      ],
+      "module": "references/modules/vscode-git-packed-refs-diagnostics/MODULE.md"
+    },
+    {
+      "name": "homebrew-ecosystem-management",
+      "aliases": [
+        "homebrew-ecosystem-management",
+        "/homebrew-ecosystem-management",
+        "homebrew",
+        "brew audit",
+        "dependencias macos",
+        "paquetes homebrew",
+        "gestión homebrew",
+        "entorno brew"
+      ],
+      "module": "references/modules/homebrew-ecosystem-management/MODULE.md"
+    },
+    {
+      "name": "cloudflare-mcp-usage",
+      "aliases": [
+        "cloudflare-mcp-usage",
+        "/cloudflare-mcp-usage",
+        "cloudflare",
+        "mcp cloudflare",
+        "zonas dns cloudflare",
+        "cloudflare worker",
+        "desplegar cloudflare",
+        "kv r2 cloudflare",
+        "cloudflare api mcp"
+      ],
+      "module": "references/modules/cloudflare-mcp-usage/MODULE.md"
+    },
+    {
+      "name": "safari-browser-agent",
+      "aliases": [
+        "safari-browser-agent",
+        "/safari-browser-agent",
+        "safari agent",
+        "navegar safari",
+        "mcp safari",
+        "controlar safari",
+        "safari browser agent",
+        "safari automation",
+        "inspeccionar safari",
+        "mac maestro",
+        "automatizar safari jxa",
+        "bypass webdriver",
+        "mac maestro bridge",
+        "control jxa macos",
+        "windowserver automation"
+      ],
+      "module": "references/modules/safari-browser-agent/MODULE.md"
+    },
+    {
+      "name": "whatsapp-nexus-protocol",
+      "aliases": [
+        "whatsapp-nexus-protocol",
+        "/whatsapp-nexus-protocol",
+        "whatsapp nexus",
+        "bot whatsapp",
+        "baileys rust",
+        "pasarela whatsapp",
+        "whatsapp gateway",
+        "enviar whatsapp",
+        "mensajes whatsapp",
+        "wa-nexus"
+      ],
+      "module": "references/modules/whatsapp-nexus-protocol/MODULE.md"
+    },
+    {
+      "name": "c5-socint-extraction-suite",
+      "aliases": [
+        "c5-socint-extraction-suite",
+        "/c5-socint-extraction-suite",
+        "socint suite",
+        "inteligencia social",
+        "scraping redes",
+        "reddit socint",
+        "substack socint",
+        "auditar tweet",
+        "analizar hilo x"
+      ],
+      "module": "references/modules/c5-socint-extraction-suite/MODULE.md"
+    },
+    {
+      "name": "youtube-analysis-pipeline",
+      "aliases": [
+        "youtube-analysis-pipeline",
+        "/youtube-analysis-pipeline",
+        "youtube analysis",
+        "youtube transcript",
+        "auditoría youtube",
+        "analizar video youtube",
+        "falsabilizar video youtube",
+        "falsabilizar video"
+      ],
+      "module": "references/modules/youtube-analysis-pipeline/MODULE.md"
+    },
+    {
+      "name": "c5-sre-postmortem-architect",
+      "aliases": [
+        "c5-sre-postmortem-architect",
+        "/c5-sre-postmortem-architect",
+        "incident review",
+        "postmortem sre",
+        "análisis de incidentes",
+        "5 whys",
+        "postmortem report",
+        "análisis 5 whys",
+        "blameless postmortem"
+      ],
+      "module": "references/modules/c5-sre-postmortem-architect/MODULE.md"
+    }
+  ]
+}

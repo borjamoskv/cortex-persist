@@ -1,7 +1,8 @@
 ---
 name: c5-sovereign-identity-hardening
 display_name: Protocolo C5-REAL de Defensa e Inmunidad de Identidad Soberana
-description: Aislamiento de identidad digital, auditoría de brechas vía k-anonimato, alias desvinculados y migración FIDO2/Passkey. Dispara con "identidad soberana", "data breach", "filtración de correo", "have i been pwned", "k-anonimato", "hardened identity", "alias email".
+description: Módulo SecOps. Dispara con "identidad soberana", "data breach", "filtración
+  de correo", "have i been pwned", "k-anonimato", "hardened identity", "alias email".
 role: auditor
 allowed_roles:
 - auditor
@@ -13,48 +14,26 @@ directives:
     downstream: operador
 ---
 
-# Protocolo C5-REAL de Defensa e Inmunidad de Identidad Soberana
+# c5-sovereign-identity-hardening
 
-> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
-> - **Rol Asignado:** `auditor` (Auditor (Verificación Independiente, Linters de Silicio & Fail-Closed Gate))
-> - **Modo de Acceso a Worktree:** `audit-only` (audit-only (Lectura forense de diffs, linters, tests de estrés y cálculo de exergía; cero mutación de código))
-> - **Fase Causal:** `verification`
-> - **Contrato Handoff:** Recibe de `ejecutor` $\to$ Despacha a `operador`
+> **Directiva Declarativa:** Alias compatible del hub SecOps; conserva el contrato del módulo original.
 
-Activa esta habilidad cuando el usuario comparta reportes de filtración de datos (ej. Have I Been Pwned), compromisos de correo electrónico, o solicite el endurecimiento y aislamiento de su identidad digital bajo los principios C5-REAL.
+## Cargar el módulo
 
-## 1. Principios de la Topología de Identidad Soberana
+Lee [las instrucciones originales](../c5-secops-infra-devtools/references/modules/c5-sovereign-identity-hardening/MODULE.md) antes de aplicar esta habilidad.
+Conserva sus triggers, rol, restricciones, procedimiento y alcance.
+Carga únicamente los recursos pertinentes a la petición.
 
-1. **Aislamiento de la Manta de Markov:** El correo electrónico principal (`identidad_core`) actúa únicamente como nodo receptor de Capa 0 y jamás como usuario público en servicios de terceros.
-2. **Topología de Aliases Cero-Acoplamiento (Zero-Cross-Coupling):** Cada servicio debe poseer una dirección única e independiente (`servicio.hash@dominio.tld`). La falla de un nodo no expone el resto del grafo.
-3. **Autenticación Hardware Involuntaria (Passkeys / FIDO2):** Reemplazar factores de baja entropía (SMS/Email OTP) por firmas criptográficas asimétricas en enclave seguro (WebAuthn / YubiKey).
+## Recursos y rutas
 
-## 2. Auditoría CLI de Contraseñas por $k$-Anonimato
+Los recursos originales permanecen junto a este alias y se conservan completos dentro del hub.
+Resuelve las referencias relativas desde el archivo del módulo que hayas leído.
+Mantén el directorio de trabajo del proyecto elegido por el usuario.
+Las rutas absolutas del paquete original continúan disponibles.
 
-Proporcionar o ejecutar scripts deterministas que consulten la API de Pwned Passwords enviando únicamente los primeros 5 caracteres del hash SHA-1 de la contraseña (preservando el anonimato total del cliente).
+## Invocación
 
-```bash
-#!/usr/bin/env bash
-# Script k-Anonimato C5-REAL para verificación de contraseñas expuestas
-PASSWORD="$1"
-SHA1_HASH=$(echo -n "$PASSWORD" | openssl sha1 | awk '{print toupper($2)}')
-PREFIX="${SHA1_HASH:0:5}"
-SUFFIX="${SHA1_HASH:5}"
-
-RESPONSE=$(curl -s "https://api.pwnedpasswords.com/range/$PREFIX")
-MATCH=$(echo "$RESPONSE" | grep -i "^$SUFFIX")
-
-if [ -n "$MATCH" ]; then
-    COUNT=$(echo "$MATCH" | cut -d':' -f2 | tr -d '\r')
-    echo "[!] ALERTA: Contraseña expuesta $COUNT veces en brechas de datos."
-else
-    echo "[✓] OK: No se registraron coincidencias para el hash."
-fi
-```
-
-## 3. Matriz Ejecutiva de Remediación
-
-1. **Auditoría de Origen:** Identificar el servicio y vectores expuestos.
-2. **Revocación Causal:** Cerrar sesiones activas en Google/plataformas clave y revocar tokens OAuth obsoletos.
-3. **Sustitución por Aliases:** Migrar cuentas de alta fricción a aliases aislados (Cloudflare Email Routing / SimpleLogin).
-4. **Anclaje Físico:** Configurar Passkeys / FIDO2 como factor único secundario.
+El comando `/c5-sovereign-identity-hardening` sigue disponible con el nombre original.
+El hub se consulta con `/c5-secops-infra-devtools`.
+La carga del alias no ejecuta auditorías, scripts, búsquedas ni comunicaciones por sí misma.
+El procedimiento del módulo se aplica únicamente dentro del trabajo solicitado.
