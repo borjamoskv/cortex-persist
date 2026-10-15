@@ -169,3 +169,23 @@ Y reporta siempre lo que **no** miraste: ficheros que no parsean, namespaces sin
 ## Lectura del resultado agregado
 
 La proporción entre clases diagnostica el origen del código. Muchos NO_DECLARADO con cero fantasmas es un proyecto real con higiene de packaging floja. Fantasmas agrupados en un subsistema coherente, con nombres consistentes entre sí y docstrings elaborados, es un subsistema alucinado en bloque: se generó como una pieza y nunca se ejecutó. Ese patrón —nombres mutuamente consistentes que no existen— es la firma más limpia del modo de fallo generativo.
+
+## Matriz de 4 Cohortes para Auditoría Integral de Dependencias y Mapa On-Wire (`itera swarm`)
+
+Cuando se audite un monorepo híbrido (Rust + Python + CI), despliega 4 cohortes ortogonales etiquetando cada hallazgo estrictamente como **`OBS`** (salida verificada de comando) o **`INF`** (inferido de lectura de código):
+
+1. **Cohorte 1 — Grafo Rust y MSRV Real:**
+   - Calcular el MSRV real del grafo (`cargo metadata --format-version 1 | jq '[.packages[].rust_version] | max'`) frente al declarado en `Cargo.toml`.
+   - Detectar crates duplicados para la misma primitiva (ej. `ring` vs `dalek`, múltiples hashes `blake3`/`sha2`/`sha3`, primitiva `Seqlock` duplicada).
+   - Detectar manifiestos huérfanos fuera del `[workspace]` y `Cargo.lock` anidados.
+2. **Cohorte 2 — Grafo Python, Suelos Vulnerables y Side-Effects de Importación:**
+   - Auditar side-effects peligrosos en tiempo de importación dentro de paquetes distribuibles (ej. monkey-patching de `torch.load(..., weights_only=False)` o descargas de red al importar).
+   - Auditar vulnerabilidades en las **versiones mínimas declaradas** (suelos `>=`), no solo en el lockfile resuelto.
+   - Cruzar `ignore_missing_imports = true` con imports rotos o dependencias fantasma.
+3. **Cohorte 3 — Mapa On-Wire y Fronteras de Autoridad:**
+   - Inventariar cada frontera IPC/Red (`AF_UNIX`, shared memory, loopback HTTP/gRPC, gates biométricos): formato de framing, endianness, byte de versión, validación criptográfica (`COSE_Sign1` vs JSON sin firma), comprobación de credenciales de par (`getpeereid`) y uso de reloj del emisor vs reloj del verificador (`O13`).
+   - Verificar que los tipos ontológicos (`ReceiptStage`, `Decision`, `Inference`) tengan productores y consumidores reales en runtime y no solo en tests.
+4. **Cohorte 4 — Higiene de Supply Chain, Licencias y CI:**
+   - Verificar colisiones entre el archivo `LICENSE` raíz y los metadatos `license` de cada `Cargo.toml` / `pyproject.toml`, bloqueando workflows de publicación (`crates-publish.yml`) si exponen código propietario bajo licencias permisivas (`Apache-2.0 OR MIT`).
+   - Verificar aplicación de `--locked` en CI, ausencia de `--allow-dirty`, presencia de `.dockerignore` (evitando inyectar `.git` multimillonario en el contexto Docker) y fijación de digests/checksums en `Dockerfile` e `install.sh`.
+
