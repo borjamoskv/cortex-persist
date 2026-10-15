@@ -41,3 +41,12 @@ En arquitecturas de soberanía de silicio donde el anillo central de autoridad d
 1. **Doble Ruta de Despacho:** La función constructora (`AttestationEnvelope.create()`) DEBE mantener siempre una ruta secundaria activada mediante parámetro explícito (`signing_key: Optional[str]`).
 2. **Confinamiento de Pruebas y CI:** Las suites de test, harnesses de estrés y procesos desatendidos deben suministrar claves deterministas de prueba para ejecutar firmas Ed25519 en memoria, permitiendo que la verificación criptográfica (`env.verify()`) se certifique de forma autónoma.
 3. El gate biométrico físico se reserva para mutaciones reales del operador biológico en el canal de producción, erradicando fallos de cuelgue o bloqueos síncronos en pipelines automatizados.
+
+---
+
+## 5. Invariante de Aislamiento en Mutación de Dependencias y Gates Limpios (Clean Worktree Gate)
+Cuando se ejecute una actualización de dependencias, regeneración de lockfiles (`uv.lock`, `Cargo.lock`, `pnpm-lock.yaml`) o resolución de PRs en un repositorio cuyo working tree contenga modificaciones o supresiones no relacionadas (`git status --porcelain` no vacío):
+1. **Veto a la Mutación en Árbol Sucio:** Queda terminantemente prohibido editar manifiestos o ejecutar comandos de actualización (`uv lock`, `cargo update`, `pnpm install`) directamente sobre el árbol de trabajo contaminado, al absorber involuntariamente estados intermedios, módulos fantasma o configuraciones locales no commiteadas.
+2. **Confinamiento en Worktree Limpio:** La operación DEBE ejecutarse en un worktree efímero e ignorado (`git worktree add target/wt-... <ref>`).
+3. **Auditoría Estricta de Diff Relativo al Padre:** Antes de stagear, contrastar con `git diff <parent> -- <manifest>` para certificar que el cambio contiene **estrictamente** los pisos/versiones solicitados y cero arrastre de modificaciones preexistentes.
+4. **Verificación de Gate en Silicio Limpio:** La condición de parada (`uv lock --check`, `cargo check --locked`, test suites) DEBE evaluarse dentro del worktree limpio contra el commit exacto previo al push a ramas troncales (`main`).

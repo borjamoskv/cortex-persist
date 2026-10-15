@@ -1,26 +1,19 @@
 ---
 name: chrome-extensions
-description: 'Build and publish Chrome Extensions using Manifest V3 best practices. Use this skill whenever the user asks to create, modify, debug, or understand Chrome browser extensions, add-ons, or anything involving the Chrome Extensions API. Trigger on mentions of: ''Chrome extension'', ''browser extension'', ''manifest.json'', ''content script'', ''service worker'' (in browser context), ''popup'' (in browser extension context), ''side panel'', ''chrome.* API'', ''declarativeNetRequest'', ''omnibox'', ''context menu'' (in extension context), ''userScripts'', ''user script'', ''script manager'', or any request to build functionality that integrates with the Chrome browser UI. Also trigger for publishing to the Chrome Web Store: ''publish extension'', preparing an extension for publishing, responding to a review rejection, writing permission justifications, or drafting a privacy policy.
-
-  '
-role: ejecutor
-allowed_roles:
-- ejecutor
-directives:
-  worktree_mode: read-write
-  phase: implementation
-  handoff:
-    upstream: arquitecto
-    downstream: auditor
+description: >
+  Build and publish Chrome Extensions using Manifest V3 best practices. Use this skill
+  whenever the user asks to create, modify, debug, or understand Chrome browser extensions,
+  add-ons, or anything involving the Chrome Extensions API. Trigger on mentions of: 'Chrome
+  extension', 'browser extension', 'manifest.json', 'content script', 'service worker' (in
+  browser context), 'popup' (in browser extension context), 'side panel', 'chrome.* API',
+  'declarativeNetRequest', 'omnibox', 'context menu' (in extension context), 'userScripts',
+  'user script', 'script manager', or any request to build functionality that integrates with
+  the Chrome browser UI. Also trigger for publishing to the Chrome Web Store: 'publish
+  extension', preparing an extension for publishing, responding to a review rejection, writing
+  permission justifications, or drafting a privacy policy.
 ---
 
 # Chrome Extensions
-
-> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
-> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
-> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
-> - **Fase Causal:** `implementation`
-> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 Build production-quality Chrome extensions using Manifest V3 and publish them to the Chrome Web Store.
 
