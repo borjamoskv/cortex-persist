@@ -353,7 +353,7 @@ Cuando se auditen herramientas de gobernanza, observabilidad o guardrails de IA 
 
 ### 1. Auditoría de Deslinde de Responsabilidad (Deployer Liability Audit)
 * **Verificación de Cláusula de Idoneidad Regulatoria:** Contrastar si el proveedor comercial garantiza contractualmente la conformidad con los requisitos de Alto Riesgo (Anexo III, Arts. 9–15) o si traslada todo el riesgo al Desplegador mediante fórmulas tipo *"Customer assumes sole responsibility for compliance with all applicable AI laws"*.
-* **Evaluación del Cap de Indemnización:** Mapear el tope indemnizatorio contractual frente al régimen del Art. 71 EU AI Act (hasta 35M€ / 7% facturación). Todo cap acotado a *fees paid in the past 12 months* o *100 USD* debe calificarse como **Riesgo Crítico (L₄ - Compliance Retórico / Falso Isomorfismo)**.
+* **Evaluación del Cap de Indemnización:** Mapear el tope indemnizatorio contractual frente al régimen sancionador del Art. 99 EU AI Act (Art. 99.3: hasta 35M€ / 7% facturación; Art. 99.4: hasta 15M€ / 3% facturación; deslindar del Art. 71 que regula la base de datos de la UE). Todo cap acotado a *fees paid in the past 12 months* o *100 USD* debe calificarse como **Riesgo Crítico (L₄ - Compliance Retórico / Falso Isomorfismo)**.
 
 ### 2. Test Matemático de Validez de Guardrail (Falsación de Diligencia Debida)
 Calcular la cota de fallo ineludible en función del volumen transaccional de la entidad:
