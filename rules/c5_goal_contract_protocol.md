@@ -54,3 +54,4 @@ En la interfaz de Antigravity existen dos comportamientos que la regla de triaje
 
 ### Fase 2: Ejecución Asignada (Turno 2)
 Una vez que el operador ajusta el desplegable visual al modelo/nivel prescrito y envía la orden de proceder, el modelo asignado ejecuta el contrato estrictamente acotado a los archivos permitidos y se detiene en cuanto el **Gate de Salida** devuelve código 0.
+Si el working tree presenta modificaciones locales no relacionadas (`git status --porcelain`), la fase de ejecución y la verificación del Gate de Salida DEBEN ejecutarse en un worktree limpio aislado (`target/wt-...`) para prevenir falsos positivos por contaminación cruzada.
