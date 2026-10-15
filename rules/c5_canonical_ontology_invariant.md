@@ -1,7 +1,7 @@
 ---
 name: c5-canonical-ontology-invariant
-description: Invariante de Ontología Canónica Congelada v1.0.0 (CORTEX, BABYLON, NEMESIS).
-trigger: "always_on"
+description: Invariante de Ontología Canónica Congelada v1.0.0 (CORTEX, BABYLON, NEMESIS) y Leyes O1-O14.
+trigger: "model_decision"
 ---
 
 # Invariante de Ontología Canónica Congelada (INV_C5_CANONICAL_ONTOLOGY)

@@ -1,3 +1,9 @@
+---
+name: c5_sovereign_calendar_invariant
+description: Invariante de gestión de agenda, calendario soberano y protección de bloques de foco.
+trigger: "model_decision"
+---
+
 # Invariante del Calendario Soberano (C5-REAL)
 
 ## 1. Rechazo del Calendario Burocrático

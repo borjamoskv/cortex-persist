@@ -1,6 +1,7 @@
 ---
 name: c5-epistemic-and-authority-decoupling-invariant
 description: Invariante universal que prohíbe derivar Autoridad o Verdad a partir de la capacidad de Cognición de la IA. Formaliza la Tripartición de Roles de AX-0, el Test de los Dos Caminos, la Invariante de Reloj Autoritativo y el principio WYSIWYS.
+trigger: "model_decision"
 ---
 
 # Invariante de Desacoplamiento: Cognición, Autoridad y Verdad (INV_C5_DECOUPLING)

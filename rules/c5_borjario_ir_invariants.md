@@ -1,7 +1,7 @@
 ---
 name: c5-borjario-ir-invariants
 description: Invariantes Constitucionales de BORJARIO IR v1.0.0-rc1 (B1-B6). Gobierna la separación de identidad y nombre, desacoplamiento de canonicidad y verificación empírica, scope obligatorio, EvidenceRef criptográfico y linter anti-cargo-cult.
-trigger: "always_on"
+trigger: "model_decision"
 ---
 
 # Invariantes Constitucionales de BORJARIO IR (INV_C5_BORJARIO_IR)

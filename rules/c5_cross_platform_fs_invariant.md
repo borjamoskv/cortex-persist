@@ -1,3 +1,9 @@
+---
+name: c5_cross_platform_fs_invariant
+description: Invariante cross-platform de sistema de archivos y directorios efímeros.
+trigger: "model_decision"
+---
+
 # Invariante Cross-Platform de Silicio Efímero (INV_C5_CROSS_PLATFORM_FS)
 
 **Contexto:** Los agentes tienden a confabular asumiendo entornos POSIX universales al interactuar con el sistema de archivos efímero, provocando fracturas y cuellos de botella termodinámicos en nodos Windows (como se observó en la caída de PRs por bloqueos estáticos en `/tmp/`).

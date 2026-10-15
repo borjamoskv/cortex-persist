@@ -1,3 +1,9 @@
+---
+name: c5_channel_engineering_invariant
+description: Ingeniería de canal y adaptación de mensajes para receptores externos o no técnicos.
+trigger: "model_decision"
+---
+
 # Invariante de Ingeniería de Canal para Receptores No Técnicos (INV_C5_CHANNEL)
 
 ## 1. Diagnóstico Termodinámico del Fallo de Canal (Caso Abogado / HTML / Gmail)

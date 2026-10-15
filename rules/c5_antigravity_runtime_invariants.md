@@ -1,3 +1,9 @@
+---
+name: c5_antigravity_runtime_invariants
+description: Invariantes del runtime de Google Antigravity IDE (hooks, subagentes y contención de sesiones).
+trigger: "model_decision"
+---
+
 # Invariantes del Runtime de Antigravity (INV_C5_ANTIGRAVITY_RUNTIME)
 
 ## 1. Contexto de Silicio (Sub-sistema Jetski / Cortex)

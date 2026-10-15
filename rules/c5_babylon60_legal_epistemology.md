@@ -1,3 +1,9 @@
+---
+name: c5_babylon60_legal_epistemology
+description: Epistemología legal, deslinde de responsabilidad y cumplimiento normativo de BABYLON-60.
+trigger: "model_decision"
+---
+
 # Invariante de Epistemología Legal y Comercial (BABYLON-60 & EU AI Act)
 
 ## 1. Purga del Falso Isomorfismo Legal (Cero Certificaciones Mágicas)

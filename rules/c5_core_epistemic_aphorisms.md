@@ -1,6 +1,7 @@
 ---
 name: c5_core_epistemic_aphorisms
 description: Los 10 Axiomas Fundacionales Canónicos de Alta Exergía de la Arquitectura C5-REAL (Decálogo Epistémico Invariante).
+trigger: "model_decision"
 ---
 
 # [Invariantes C5-REAL] Los 10 Axiomas Fundacionales (Alta Exergía)

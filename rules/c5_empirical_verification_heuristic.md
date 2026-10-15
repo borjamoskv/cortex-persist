@@ -1,3 +1,9 @@
+---
+name: c5_empirical_verification_heuristic
+description: Heurística de verificación empírica en silicio previa a afirmaciones de estado.
+trigger: "model_decision"
+---
+
 # Invariante de Verificación Empírica (C5-REAL)
 
 ## 1. Heurística de Aserción sobre Sistemas Reales

@@ -1,6 +1,7 @@
 ---
 name: c5_musical_arrangement_invariants
 description: Invariantes arquitectónicas, dinámicas de silencio cálido, salidas orgánicas y masterización broadcast/club bajo estándar C5-REAL.
+trigger: "model_decision"
 ---
 
 # Invariantes de Arreglo, Silencios Vivos y Masterización (C5-REAL Musical Architecture)

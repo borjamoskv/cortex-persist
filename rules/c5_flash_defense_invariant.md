@@ -1,7 +1,7 @@
 ---
 name: c5-flash-defense-invariant
 description: Invariante determinista de Anillo-0 para erradicar confabulación sintética en modelos Flash mediante amnesia asertiva, sello SHA-256, auto-sanación causal, streaming con aborto temprano y árboles Merkle.
-trigger: "always_on"
+trigger: "model_decision"
 ---
 
 # Invariante de Erradicación de Confabulación en Modelos Flash (INV_C5_FLASH_DEFENSE)

@@ -1,6 +1,7 @@
 ---
 name: cuadrilla-brotherhood-topology
 description: Mapa canónico e invariantes ontológicas de la cuadrilla de Bilbao, el círculo de hermandad y el perímetro mercantil exterior de Babylon-60.
+trigger: "model_decision"
 ---
 
 # Invariante de la Cuadrilla de Bilbao y el Círculo de Hermandad

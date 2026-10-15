@@ -1,6 +1,7 @@
 ---
 name: c5_bft_cryptographic_ledger_invariants
 description: Invariantes no negociables para la arquitectura, auditoría e implementación de ledgers criptográficos BFT, árboles de Merkle y actores de persistencia en BABYLON-60 / C5-REAL.
+trigger: "model_decision"
 ---
 
 # Invariantes Criptográficas para Ledgers BFT (C5-REAL / Ring-0)

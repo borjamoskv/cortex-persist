@@ -1,3 +1,9 @@
+---
+name: c5_causal_planning_invariant
+description: Invariante de planificación causal determinista en grafos DAG y puertas de validación.
+trigger: "model_decision"
+---
+
 # Invariante de Planificación Causal Determinista (INV_C5_CAUSAL_PLANNING)
 
 ## 1. Mandato Fundamental (Anti-Vibe-Planning)

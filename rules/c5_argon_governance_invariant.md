@@ -103,3 +103,16 @@ Todo repositorio de desarrollo asistido debe contener un `AGENTS.md` en su raíz
 ## 8. Protocolo de Pre-Flight Check (Modo Plan)
 Ante tareas complejas en modo Plan o previas a Build, el agente DEBE ejecutar o exigir:
 > *"Antes de modificar o generar código, ejecuta un Pre-Flight Check en texto plano: (1) Identifica el Blast Radius exacto; (2) Formula preguntas sobre casos borde, dependencias no obvias o contratos de tipos; (3) Define el comando binario específico (test o linter) como criterio de aceptación. Cero mutaciones de archivo hasta aprobación."*
+
+---
+
+## 9. Invariante de Techo de Tokens Inline y Cero Redundancia Global/Workspace
+1. **Presupuesto Máximo de Reglas `always_on`:**
+   - La suma combinada de `AGENTS.md` del workspace y las reglas marcadas con `trigger: "always_on"` no debe exceder los **40.000 Bytes** (~10.000 tokens).
+   - Toda regla de dominio específico, protocolos especializados o guías de formato avanzadas DEBE utilizar `trigger: "model_decision"`.
+2. **Prohibición de Reglas Huérfanas de Trigger:**
+   - Queda estrictamente prohibido crear o mantener archivos de reglas `.md` sin frontmatter YAML con `trigger:` explícito (`always_on` o `model_decision`).
+3. **Veto a la Duplicación Global/Workspace:**
+   - Una regla presente en la configuración global (`~/.gemini/config/rules/`) no debe duplicarse como `always_on` en `.agents/rules/` del workspace para evitar la doble inyección en el prompt.
+4. **Verificación Determinista:**
+   - Todo workspace gobernado por C5 debe poder auditar su presupuesto mediante `python3 scripts/c5_quality_gates/audit_token_budget.py`.
