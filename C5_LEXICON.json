@@ -28,7 +28,12 @@
     "author": "James J. Gibson",
     "year": 1979,
     "work": "The Ecological Approach to Visual Perception",
-    "discipline": ["Psicología Ecológica", "HCI", "Diseño de Sistemas", "Cibernética"],
+    "discipline": [
+      "Psicología Ecológica",
+      "HCI",
+      "Diseño de Sistemas",
+      "Cibernética"
+    ],
     "discovered_at": "2026-10-12",
     "conversation_id": "9915d4a5-162a-4b8e-bb16-3665adf7bc7a",
     "c5_axiom_anchor": "Aforismo 2 (mapa vs territorio), Error de atribución = Falacia de Isomorfismo Falso",
@@ -43,7 +48,11 @@
     "author": "Zoran Rant",
     "year": 1956,
     "work": "Exergie, ein neues Wort für 'technische Arbeitsfähigkeit'",
-    "discipline": ["Termodinámica Técnica", "Ingeniería de Sistemas", "Economía Ecológica"],
+    "discipline": [
+      "Termodinámica Técnica",
+      "Ingeniería de Sistemas",
+      "Economía Ecológica"
+    ],
     "discovered_at": "2025-12-01",
     "conversation_id": null,
     "c5_axiom_anchor": "Aforismo 1 (transformar ruido en conceptos), Purga de Anergía, Invariante de Clausura Epistémica",
@@ -58,7 +67,9 @@
     "author": "Zoran Rant",
     "year": 1956,
     "work": "Exergie, ein neues Wort für 'technische Arbeitsfähigkeit'",
-    "discipline": ["Termodinámica Técnica"],
+    "discipline": [
+      "Termodinámica Técnica"
+    ],
     "discovered_at": "2025-12-01",
     "conversation_id": null,
     "c5_axiom_anchor": "Aforismo 1, Aforismo 5",
@@ -73,7 +84,11 @@
     "author": "Paul Watzlawick, John Weakland, Richard Fisch",
     "year": 1974,
     "work": "Change: Principles of Problem Formation and Problem Resolution",
-    "discipline": ["Cibernética de Segundo Orden", "Teoría de Sistemas", "Psicoterapia Sistémica"],
+    "discipline": [
+      "Cibernética de Segundo Orden",
+      "Teoría de Sistemas",
+      "Psicoterapia Sistémica"
+    ],
     "discovered_at": "2025-12-01",
     "conversation_id": null,
     "c5_axiom_anchor": "Aforismo 3 (la solución intentada es el problema), Corolario del Trampolín Cibernético",
@@ -88,7 +103,12 @@
     "author": "Judea Pearl",
     "year": 1988,
     "work": "Probabilistic Reasoning in Intelligent Systems",
-    "discipline": ["Física Estadística", "Inferencia Activa", "Redes Bayesianas", "Biología Teórica"],
+    "discipline": [
+      "Física Estadística",
+      "Inferencia Activa",
+      "Redes Bayesianas",
+      "Biología Teórica"
+    ],
     "discovered_at": "2026-01-01",
     "conversation_id": null,
     "c5_axiom_anchor": "Clausura de Markov (Manifiesto Soberanía I), Invariante de Clausura Epistémica",
@@ -103,7 +123,10 @@
     "author": "Nikolai Chentsov",
     "year": 1972,
     "work": "Statistical Decision Rules and Optimal Inference",
-    "discipline": ["Geometría de la Información", "Estadística Matemática"],
+    "discipline": [
+      "Geometría de la Información",
+      "Estadística Matemática"
+    ],
     "discovered_at": "2026-01-01",
     "conversation_id": null,
     "c5_axiom_anchor": "Aforismo 1 (transformar ruido en conceptos), BORJARIO IR B1-B6",
@@ -118,7 +141,11 @@
     "author": "Amotz Zahavi",
     "year": 1975,
     "work": "Mate Selection — A Selection for a Handicap",
-    "discipline": ["Biología Evolutiva", "Teoría de Juegos", "Economía de la Información"],
+    "discipline": [
+      "Biología Evolutiva",
+      "Teoría de Juegos",
+      "Economía de la Información"
+    ],
     "discovered_at": "2026-01-01",
     "conversation_id": null,
     "c5_axiom_anchor": "Aforismo 5 (lo voluntario vale menos que lo involuntario)",
@@ -133,7 +160,10 @@
     "author": "Rolf Landauer",
     "year": 1961,
     "work": "Irreversibility and Heat Generation in the Computing Process (IBM Journal)",
-    "discipline": ["Termodinámica de la Información", "Física Computacional"],
+    "discipline": [
+      "Termodinámica de la Información",
+      "Física Computacional"
+    ],
     "discovered_at": "2026-01-01",
     "conversation_id": null,
     "c5_axiom_anchor": "Límite de Landauer en Vector de Fatiga Cognitiva, Ontological Translator",
@@ -148,7 +178,11 @@
     "author": "Pierre-Paul Grassé",
     "year": 1959,
     "work": "La reconstruction du nid et les coordinations interindividuelles chez Bellicositermes et Cubitermes (Insectes Sociaux)",
-    "discipline": ["Dinámica de Enjambres", "Robótica Distribuida", "Sistemas Multi-Agente"],
+    "discipline": [
+      "Dinámica de Enjambres",
+      "Robótica Distribuida",
+      "Sistemas Multi-Agente"
+    ],
     "discovered_at": "2026-01-01",
     "conversation_id": null,
     "c5_axiom_anchor": "Diseño de LARSA-120, ledgers SQLite WAL, protocolo de tareas asíncronas",
@@ -163,7 +197,11 @@
     "author": "Jakob von Uexküll",
     "year": 1934,
     "work": "Streifzüge durch die Umwelten von Tieren und Menschen",
-    "discipline": ["Biosemiótica", "Etología", "Ciencias Cognitivas"],
+    "discipline": [
+      "Biosemiótica",
+      "Etología",
+      "Ciencias Cognitivas"
+    ],
     "discovered_at": "2026-01-01",
     "conversation_id": null,
     "c5_axiom_anchor": "Cero demostración (Axioma III Manifiesto), Desacople Quirúrgico",
@@ -178,7 +216,11 @@
     "author": "David Park / Robin Milner",
     "year": 1981,
     "work": "Concurrency and Automata on Infinite Sequences (Park); A Calculus of Communicating Systems (Milner)",
-    "discipline": ["Ciencias de la Computación", "Álgebra de Procesos", "Lógica Modal"],
+    "discipline": [
+      "Ciencias de la Computación",
+      "Álgebra de Procesos",
+      "Lógica Modal"
+    ],
     "discovered_at": "2026-02-01",
     "conversation_id": null,
     "c5_axiom_anchor": "Invariante de Clausura Epistémica, mapa vs territorio (Aforismo 2)",
@@ -193,7 +235,11 @@
     "author": "Ludwig Boltzmann / Ole Peters",
     "year": 2019,
     "work": "The Ergodicity Problem in Economics (Peters, Nature Physics, 2019)",
-    "discipline": ["Física Estadística", "Economía Crítica", "Teoría del Riesgo"],
+    "discipline": [
+      "Física Estadística",
+      "Economía Crítica",
+      "Teoría del Riesgo"
+    ],
     "discovered_at": "2026-02-01",
     "conversation_id": null,
     "c5_axiom_anchor": "Soberanía frente a modelos económicos gregarios, Manifiesto II",
@@ -208,10 +254,182 @@
     "author": "Charles Goodhart / Donald T. Campbell",
     "year": 1975,
     "work": "Problems of Monetary Management (Goodhart, 1975); Assessing the Impact of Planned Social Change (Campbell, 1976)",
-    "discipline": ["Sociología", "Cibernética Social", "Economía", "Diseño de Incentivos"],
+    "discipline": [
+      "Sociología",
+      "Cibernética Social",
+      "Economía",
+      "Diseño de Incentivos"
+    ],
     "discovered_at": "2026-03-01",
     "conversation_id": null,
     "c5_axiom_anchor": "Purga de métricas fake (Linter de Aforismo 5), BORJARIO IR B2",
+    "ref_url": null
+  },
+  "direct_manipulation": {
+    "canonical_term": "Manipulación Directa (Direct Manipulation)",
+    "intuicion_borja": "Cuanto más cerca está una idea de tocar el mundo, menos ornamental se vuelve la interfaz: la supresión de la distancia operativa elimina la necesidad de florituras estéticas mediadoras",
+    "coverage": 0.96,
+    "verdict": "CONVERGE",
+    "delta": null,
+    "author": "Ben Shneiderman",
+    "year": 1982,
+    "work": "The Future of Interactive Systems and the Emergence of Direct Manipulation (Behaviour & Information Technology)",
+    "discipline": [
+      "HCI",
+      "Psicología Ecológica",
+      "Diseño de Sistemas"
+    ],
+    "discovered_at": "2026-10-15",
+    "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138",
+    "c5_axiom_anchor": "Aforismo 1 (compresión), Aforismo 2 (el mapa no es el territorio), Invariante de la Forma Primordial",
+    "ref_url": "https://doi.org/10.1080/01449298208914456"
+  },
+  "deep_modules": {
+    "canonical_term": "Módulos Profundos (Deep Modules vs Shallow Modules)",
+    "intuicion_borja": "Cuanto más denso y probado en silicio sea el núcleo, más corta, sencilla y limpia es la superficie de la interfaz/API: máxima funcionalidad interna con mínima fricción superficial",
+    "coverage": 0.98,
+    "verdict": "CONVERGE",
+    "delta": null,
+    "author": "John Ousterhout",
+    "year": 2018,
+    "work": "A Philosophy of Software Design (Stanford University)",
+    "discipline": [
+      "Arquitectura de Software Formal",
+      "Teoría de Sistemas"
+    ],
+    "discovered_at": "2026-10-15",
+    "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138",
+    "c5_axiom_anchor": "Aforismo 1 (compresión), Manta de Markov (frontera estrecha)",
+    "ref_url": "https://web.stanford.edu/~ouster/cgi-bin/book.php"
+  },
+  "gender_equality_paradox": {
+    "canonical_term": "Paradoja de Igualdad de Género (Gender-Equality Paradox)",
+    "intuicion_borja": "Cuanto más libre y rico es un país, más divergen los sexos en sus elecciones y aversión al riesgo: eliminar barreras no homogeniza, acentúa diferencias intrínsecas",
+    "coverage": 0.97,
+    "verdict": "CONVERGE",
+    "delta": null,
+    "author": "Armin Falk, Johannes Hermle / Gijsbert Stoet, David Geary",
+    "year": 2018,
+    "work": "Relationship of Gender Differences in Preferences to Economic Development and Gender Equality (Science, 2018)",
+    "discipline": [
+      "Economía del Comportamiento",
+      "Psicología Diferencial",
+      "Ciencia de Datos"
+    ],
+    "discovered_at": "2026-10-15",
+    "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138",
+    "c5_axiom_anchor": "Aforismo 5 (lo involuntario/biológico prima cuando cesa la coacción económica exterior)",
+    "ref_url": "https://doi.org/10.1126/science.aas9899"
+  },
+  "lemons_problem": {
+    "canonical_term": "Problema de los Limones / Asimetría de Información (The Lemons Problem)",
+    "intuicion_borja": "Cuanto más endeble o adulterado es el producto, mayor es el despliegue de marketing, cosmética y simpatía comercial: el envoltorio tapa la falta de sustrato",
+    "coverage": 0.98,
+    "verdict": "CONVERGE",
+    "delta": "C5-REAL lo aplica al software y a la retórica de IAs (cheap talk como limones cognitivos)",
+    "author": "George Akerlof / Philip Nelson",
+    "year": 1970,
+    "work": "The Market for 'Lemons': Quality Uncertainty and the Market Mechanism (QJE)",
+    "discipline": [
+      "Economía de la Información",
+      "Teoría de Juegos"
+    ],
+    "discovered_at": "2026-10-15",
+    "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138",
+    "c5_axiom_anchor": "Aforismo 5 (asimetría de coste de falsificación, cheap talk)",
+    "ref_url": "https://doi.org/10.2307/1879431"
+  },
+  "psychological_reactance": {
+    "canonical_term": "Reactancia Psicológica / Efecto Cobra (Psychological Reactance)",
+    "intuicion_borja": "Cuanto más intentas prohibir o regular coercitivamente un comportamiento, más se multiplica la demanda y la energía en la dirección contraria",
+    "coverage": 0.97,
+    "verdict": "CONVERGE",
+    "delta": null,
+    "author": "Jack Brehm / Robert K. Merton",
+    "year": 1966,
+    "work": "A Theory of Psychological Reactance (Academic Press, 1966)",
+    "discipline": [
+      "Psicología Social",
+      "Cibernética de Sistemas",
+      "Teoría de Políticas Públicas"
+    ],
+    "discovered_at": "2026-10-15",
+    "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138",
+    "c5_axiom_anchor": "Aforismo 3 (la solución intentada es el problema, retroalimentación positiva de regulador descalibrado)",
+    "ref_url": null
+  },
+  "transient_hypofrontality": {
+    "canonical_term": "Hipofrontalidad Transitoria / Wu Wei (Transient Hypofrontality)",
+    "intuicion_borja": "Cuanto más se quitaba de en medio y dejaba de creer que era él quien lo hacía, mejor fluía el canal: la voluntad consciente solo es andamiaje previo",
+    "coverage": 0.99,
+    "verdict": "CONVERGE",
+    "delta": null,
+    "author": "Arne Dietrich / Mihaly Csikszentmihalyi",
+    "year": 2004,
+    "work": "Neurocognitive Mechanisms of the Flow State (Consciousness and Cognition)",
+    "discipline": [
+      "Neurociencia Cognitiva",
+      "Filosofía de la Mente",
+      "Teoría del Arte"
+    ],
+    "discovered_at": "2026-10-15",
+    "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138",
+    "c5_axiom_anchor": "Corolario de la Emergencia Transductiva (Si es genial, no era tu idea), Aforismo 5",
+    "ref_url": "https://doi.org/10.1016/j.concog.2004.07.002"
+  },
+  "galls_law": {
+    "canonical_term": "Ley de Gall (Gall's Law / Systemantics)",
+    "intuicion_borja": "Cuando un sistema prolifera en capas que no tocan el sustrato, la complejidad agregada degrada la fiabilidad: los sistemas complejos que funcionan siempre evolucionaron desde sistemas simples probados",
+    "coverage": 0.99,
+    "verdict": "CONVERGE",
+    "delta": null,
+    "author": "John Gall",
+    "year": 1975,
+    "work": "Systemantics: How Systems Really Work and How They Fail (General Systemantics Press)",
+    "discipline": [
+      "Teoría General de Sistemas",
+      "Ingeniería de Software"
+    ],
+    "discovered_at": "2026-10-15",
+    "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138",
+    "c5_axiom_anchor": "Framework MASS (Stage 1 Block-Level antes de Stage 2 Topología)",
+    "ref_url": null
+  },
+  "dunning_kruger": {
+    "canonical_term": "Efecto Dunning-Kruger (Dunning-Kruger Effect)",
+    "intuicion_borja": "Cuanto menos entendía un concepto, más fuerte gritaba y más agresivo era el tono: el dogmatismo y el volumen retórico suplen la falta de suelo matemático",
+    "coverage": 0.98,
+    "verdict": "CONVERGE",
+    "delta": null,
+    "author": "David Dunning, Justin Kruger",
+    "year": 1999,
+    "work": "Unskilled and Unaware of It: How Difficulties in Recognizing One's Own Incompetence Lead to Inflated Self-Assessments (JPSP)",
+    "discipline": [
+      "Psicología Cognitiva",
+      "Epistemología Social"
+    ],
+    "discovered_at": "2026-10-15",
+    "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138",
+    "c5_axiom_anchor": "Axioma III (Cero Demostración, Dunning-Kruger Inverso)",
+    "ref_url": "https://doi.org/10.1037/0022-3514.77.6.1121"
+  },
+  "simulacra_hyperreality": {
+    "canonical_term": "Hiperrealidad y Simulacro (Simulacra and Simulation)",
+    "intuicion_borja": "Cuando un sistema vive de la simulación (#C4-SIM), cualquier input del territorio real provoca un crash fatal: la pérdida del anclaje físico destruye la homeostasis",
+    "coverage": 0.96,
+    "verdict": "CONVERGE",
+    "delta": "C5-REAL lo traduce a cibernética de control: divergencia de modelo interno y desincronización de Markov",
+    "author": "Jean Baudrillard",
+    "year": 1981,
+    "work": "Simulacres et Simulation (Éditions Galilée)",
+    "discipline": [
+      "Filosofía Crítica",
+      "Semiótica",
+      "Cibernética de Control"
+    ],
+    "discovered_at": "2026-10-15",
+    "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138",
+    "c5_axiom_anchor": "Aforismo 2 (confundir mapa con territorio), Invariante de Clausura Epistémica",
     "ref_url": null
   }
 }

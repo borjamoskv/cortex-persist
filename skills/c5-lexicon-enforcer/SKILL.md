@@ -107,70 +107,33 @@ Cierra la intervención emitiendo un **Certificado Epistemológico** formal:
 > *"Anergía semántica aniquilada. Entropía estructural colapsada a cero. El documento/sistema ha sido anclado irreversiblemente a la Constitución Epistemológica C5-REAL."*
 
 ### Fase 2f: Gate de Anagnórisis Pasiva (Cross-Referencia con C5_LEXICON.json)
+Cuando el operador use una descripción funcional en sesión, comparar en tiempo real contra `~/.gemini/config/C5_LEXICON.json`. Si la frase supera 0.80 de similitud con una entrada registrada, sugerir el término canónico de forma inmediata y no intrusiva:
 
-Esta fase opera de forma **pasiva y no intrusiva** en TODA sesión. Cuando el operador use
-una descripción funcional de ≥7 palabras que capture un mecanismo sistémico, dinámico o
-físico sin usar un término técnico de raíz, el agente DEBE:
+> 💡 **Detección pasiva de anagnórisis:** Lo que describes como «X» corresponde al término canónico **[TÉRMINO]** ([Autor], [año]). Definición: [definición breve]. ¿Usar este término en adelante?
 
-1. Calcular similitud Jaccard contra las entradas de `~/.gemini/config/C5_LEXICON.json`.
-2. Si `coverage ≥ 0.80` con alguna entrada: proponer el término canónico de inmediato.
-3. Si `0.50 ≤ coverage < 0.80`: encolar como candidato para la siguiente ejecución del
-   skill `c5-terminological-archaeology`.
-4. Si `coverage < 0.50`: ignorar silenciosamente (no interrumpir el flujo del operador).
+#### Léxico Activo (generado automáticamente — no editar a mano)
 
-**Formato de sugerencia pasiva (una sola línea, no intrusiva):**
-> 💡 *Anagnórisis:* Lo que describes corresponde a **[TÉRMINO]** ([Autor], [Año]) — [definición en ≤15 palabras].
-
-**Lectura del lexicón activo:**
-```python
-# Carga inline para uso en sesión (stdlib pura)
-import json, re
-from pathlib import Path
-
-def _jac(a: set, b: set) -> float:
-    return len(a & b) / len(a | b) if a | b else 0.0
-
-def _tok(t: str) -> set:
-    sw = {"el","la","de","que","un","y","en","es","por","con","sin","no","a","lo"}
-    return {w for w in re.findall(r"[a-záéíóúüñ\w]{3,}", t.lower())} - sw
-
-def passive_gate(phrase: str) -> str | None:
-    lex_path = Path.home() / ".gemini/config/C5_LEXICON.json"
-    if not lex_path.exists():
-        return None
-    lex = json.loads(lex_path.read_text(encoding="utf-8"))
-    q = _tok(phrase)
-    best_score, best_entry = 0.0, None
-    for key, entry in lex.items():
-        if key.startswith("_"):
-            continue
-        d = _tok(entry.get("intuicion_borja", "") + " " + entry.get("canonical_term", ""))
-        s = _jac(q, d)
-        if s > best_score:
-            best_score, best_entry = s, entry
-    if best_score >= 0.80 and best_entry:
-        return (f"💡 *Anagnórisis:* **{best_entry['canonical_term']}** "
-                f"({best_entry.get('author','?')}, {best_entry.get('year','?')})")
-    return None
-```
-
-#### Léxico Activo — Tabla Generada Automáticamente por `c5_lexicon_notary.py`
-
-> [!NOTE]
-> Esta tabla se regenera automáticamente. No editar a mano. Editar `C5_LEXICON.json` directamente.
-
-| Clave | Término Canónico | Autor | Año | Coverage | Veredicto |
+| Clave | Término Canónico | Autor | Año | Cobertura | Veredicto |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| `affordance` | Affordance (Afordancia) | James J. Gibson | 1979 | 0.97 | CONVERGE |
-| `exergia` | Exergía (Exergy) | Zoran Rant | 1956 | 0.98 | CONVERGE |
-| `anergia` | Anergía (Anergy) | Zoran Rant | 1956 | 0.96 | CONVERGE |
-| `cambio_2` | Cambio 2 (Second-Order Change) | Watzlawick, Weakland, Fisch | 1974 | 0.99 | CONVERGE |
-| `manta_de_markov` | Manta de Markov (Markov Blanket) | Judea Pearl | 1988 | 0.96 | CONVERGE |
-| `chentsov` | Teorema de Chentsov | Nikolai Chentsov | 1972 | 0.95 | CONVERGE |
-| `senalizacion_costosa` | Señalización Costosa / Hándicap | Amotz Zahavi | 1975 | 0.99 | CONVERGE |
-| `limite_de_landauer` | Límite de Landauer | Rolf Landauer | 1961 | 0.97 | CONVERGE |
-| `stigmergia` | Stigmergia (Stigmergy) | Pierre-Paul Grassé | 1959 | 0.98 | CONVERGE |
-| `umwelt` | Umwelt | Jakob von Uexküll | 1934 | 0.97 | CONVERGE |
-| `bisimulacion` | Bisimulación | David Park / Robin Milner | 1981 | 0.96 | CONVERGE |
-| `ergodicidad` | Ergodicidad / No-Ergodicidad | Ludwig Boltzmann / Ole Peters | 2019 | 0.98 | CONVERGE |
-| `goodhart` | Ley de Goodhart / Campbell | Goodhart / Campbell | 1975 | 0.99 | CONVERGE |
+| `affordance_afordancia` | Affordance (Afordancia) | James J. Gibson | 1979 | 0.97 | CONVERGE |
+| `exergía_exergy` | Exergía (Exergy) | Zoran Rant | 1956 | 0.98 | CONVERGE |
+| `anergía_anergy_anenergy` | Anergía (Anergy / Anenergy) | Zoran Rant | 1956 | 0.96 | CONVERGE |
+| `cambio_2_second_order_change` | Cambio 2 (Second-Order Change) | Paul Watzlawick, John Weakland, Richard Fisch | 1974 | 0.99 | CONVERGE |
+| `manta_de_markov_markov_blanket` | Manta de Markov (Markov Blanket) | Judea Pearl | 1988 | 0.96 | CONVERGE |
+| `teorema_de_chentsov_fisher_rao` | Teorema de Chentsov (Fisher-Rao Metric Uniqueness) | Nikolai Chentsov | 1972 | 0.95 | CONVERGE |
+| `señalización_costosa_principio` | Señalización Costosa / Principio del Hándicap (Costly Signaling / Handicap Principle) | Amotz Zahavi | 1975 | 0.99 | CONVERGE |
+| `principio_límite_de_landauer_l` | Principio / Límite de Landauer (Landauer's Principle) | Rolf Landauer | 1961 | 0.97 | CONVERGE |
+| `stigmergia_stigmergy` | Stigmergia (Stigmergy) | Pierre-Paul Grassé | 1959 | 0.98 | CONVERGE |
+| `umwelt_mundo_perceptual_subjet` | Umwelt (Mundo Perceptual Subjetivo) | Jakob von Uexküll | 1934 | 0.97 | CONVERGE |
+| `bisimulación_bisimulation` | Bisimulación (Bisimulation) | David Park / Robin Milner | 1981 | 0.96 | CONVERGE |
+| `ergodicidad_no_ergodicidad_erg` | Ergodicidad / No-Ergodicidad (Ergodicity) | Ludwig Boltzmann / Ole Peters | 2019 | 0.98 | CONVERGE |
+| `ley_de_goodhart_ley_de_campbel` | Ley de Goodhart / Ley de Campbell | Charles Goodhart / Donald T. Campbell | 1975 | 0.99 | CONVERGE |
+| `manipulación_directa_direct_ma` | Manipulación Directa (Direct Manipulation) | Ben Shneiderman | 1982 | 0.96 | CONVERGE |
+| `módulos_profundos_deep_modules` | Módulos Profundos (Deep Modules vs Shallow Modules) | John Ousterhout | 2018 | 0.98 | CONVERGE |
+| `paradoja_de_igualdad_de_género` | Paradoja de Igualdad de Género (Gender-Equality Paradox) | Armin Falk, Johannes Hermle / Gijsbert Stoet, David Geary | 2018 | 0.97 | CONVERGE |
+| `problema_de_los_limones_asimet` | Problema de los Limones / Asimetría de Información (The Lemons Problem) | George Akerlof / Philip Nelson | 1970 | 0.98 | CONVERGE |
+| `reactancia_psicológica_efecto_` | Reactancia Psicológica / Efecto Cobra (Psychological Reactance) | Jack Brehm / Robert K. Merton | 1966 | 0.97 | CONVERGE |
+| `hipofrontalidad_transitoria_wu` | Hipofrontalidad Transitoria / Wu Wei (Transient Hypofrontality) | Arne Dietrich / Mihaly Csikszentmihalyi | 2004 | 0.99 | CONVERGE |
+| `ley_de_gall_gall_s_law_systema` | Ley de Gall (Gall's Law / Systemantics) | John Gall | 1975 | 0.99 | CONVERGE |
+| `efecto_dunning_kruger_dunning_` | Efecto Dunning-Kruger (Dunning-Kruger Effect) | David Dunning, Justin Kruger | 1999 | 0.98 | CONVERGE |
+| `hiperrealidad_y_simulacro_simu` | Hiperrealidad y Simulacro (Simulacra and Simulation) | Jean Baudrillard | 1981 | 0.96 | CONVERGE |
