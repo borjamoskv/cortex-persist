@@ -1,18 +1,9 @@
 ---
 name: c5-terminological-archaeology
 display_name: Arqueología Terminológica (Anagnórisis Conceptual C5-REAL)
-description: >
-  Detecta perífrasis huérfanas en sesiones y transcripts, las cruza contra
-  literatura primaria (corpus local C5, Wikipedia, Semantic Scholar) y registra
-  atómicamente el término canónico preexistente en el léxico C5-REAL.
-  El fenómeno capturado se denomina "Anagnórisis Terminológica": el colapso
-  epistémico en que una intuición de alta exergía descubre su correspondencia
-  en la literatura científica previa. Dispara con: "arqueología terminológica",
-  "busca mis perífrasis", "anagnórisis", "ya existe ese término", "tiene nombre
-  esto", "cómo se llama esto en ciencia", "cómo se llama cuando".
-role: arqueólogo
+description: "Cruza perífrasis con literatura primaria y registra términos canónicos en el léxico C5. Dispara con \"arqueología terminológica\", \"busca mis perífrasis\", \"anagnórisis\", \"ya existe ese término\", \"tiene nombre esto\", \"cómo se llama esto en ciencia\", \"cómo se llama cuando\"."
+role: auditor
 allowed_roles:
-  - arqueólogo
   - auditor
   - arquitecto
 directives:
@@ -26,7 +17,7 @@ directives:
 # C5 Terminological Archaeology — Anagnórisis Conceptual
 
 > **Directiva Declarativa:**
-> - **Rol Asignado:** `arqueólogo` (Auditoría de sesiones + cruce bibliográfico + registro léxico)
+> - **Rol Asignado:** `auditor` (Auditoría de sesiones + cruce bibliográfico + registro léxico)
 > - **Modo de Acceso a Worktree:** `audit-only` (solo lectura de transcripts y skills; escritura
 >   exclusivamente en `~/.gemini/config/C5_LEXICON.json` y `c5-lexicon-enforcer/SKILL.md`)
 > - **Fase Causal:** `verification`

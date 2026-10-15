@@ -1,0 +1,205 @@
+{
+  "scope": "global",
+  "modules": [
+    {
+      "name": "babylon-shield",
+      "aliases": [
+        "babylon-shield",
+        "/babylon-shield",
+        "babylon shield",
+        "escudo termodinámico",
+        "ring-0 shield",
+        "prevenir anergía",
+        "atestación babylon",
+        "invariantes ring-0",
+        "protección ring-0"
+      ],
+      "module": "references/modules/babylon-shield/MODULE.md"
+    },
+    {
+      "name": "c5-mushushu-0",
+      "aliases": [
+        "c5-mushushu-0",
+        "/c5-mushushu-0",
+        "mushushu",
+        "mushushu-0",
+        "firewall epistémico",
+        "apoptosis termodinámica"
+      ],
+      "module": "references/modules/c5-mushushu-0/MODULE.md"
+    },
+    {
+      "name": "c5-kudurru-64",
+      "aliases": [
+        "c5-kudurru-64",
+        "/c5-kudurru-64",
+        "kudurru",
+        "kudurru-64",
+        "filtro de gravedad",
+        "seqlock 64b",
+        "ddos cognitivo"
+      ],
+      "module": "references/modules/c5-kudurru-64/MODULE.md"
+    },
+    {
+      "name": "c5-larsa-120",
+      "aliases": [
+        "c5-larsa-120",
+        "/c5-larsa-120",
+        "larsa",
+        "larsa-120",
+        "consenso bft",
+        "tríada arquitectónica",
+        "consenso isostático"
+      ],
+      "module": "references/modules/c5-larsa-120/MODULE.md"
+    },
+    {
+      "name": "c5-enki-60",
+      "aliases": [
+        "c5-enki-60",
+        "/c5-enki-60",
+        "enki",
+        "enki-60",
+        "cálculo sexagesimal",
+        "aritmética base 60",
+        "precisión sexagesimal"
+      ],
+      "module": "references/modules/c5-enki-60/MODULE.md"
+    },
+    {
+      "name": "c5-lean4-axiomatic-orchestrator",
+      "aliases": [
+        "c5-lean4-axiomatic-orchestrator",
+        "/c5-lean4-axiomatic-orchestrator",
+        "lean 4",
+        "formalizar en lean",
+        "oráculo axiomático",
+        "lake build",
+        "verificación formal",
+        "axiomas lean",
+        "probar teorema",
+        "neuro-simbólico"
+      ],
+      "module": "references/modules/c5-lean4-axiomatic-orchestrator/MODULE.md"
+    },
+    {
+      "name": "c5-lean4-neurosymbolic-architect",
+      "aliases": [
+        "c5-lean4-neurosymbolic-architect",
+        "/c5-lean4-neurosymbolic-architect",
+        "lean 4 ffi",
+        "agente neuro-simbólico",
+        "autopoiesis coinductiva",
+        "itrees lean"
+      ],
+      "module": "references/modules/c5-lean4-neurosymbolic-architect/MODULE.md"
+    },
+    {
+      "name": "c5-ctm-formal-architect",
+      "aliases": [
+        "c5-ctm-formal-architect",
+        "/c5-ctm-formal-architect",
+        "ctm benchmark",
+        "ctm formalization",
+        "lean 4 ctm",
+        "abduction vs deduction",
+        "falsification matrix",
+        "refinement trace"
+      ],
+      "module": "references/modules/c5-ctm-formal-architect/MODULE.md"
+    },
+    {
+      "name": "c5-silicon-stress-suite",
+      "aliases": [
+        "c5-silicon-stress-suite",
+        "/c5-silicon-stress-suite",
+        "pruebas de estres",
+        "stress test swarm",
+        "estres enjambre",
+        "concurrencia de silicio",
+        "stress suite",
+        "poc",
+        "test de estres",
+        "estres silicio"
+      ],
+      "module": "references/modules/c5-silicon-stress-suite/MODULE.md"
+    },
+    {
+      "name": "c5-sovereign-binary-architect",
+      "aliases": [
+        "c5-sovereign-binary-architect",
+        "/c5-sovereign-binary-architect",
+        "binario estático",
+        "aislar dependencias",
+        "soberanía termodinámica",
+        "c5-sovereign-binary",
+        "compilación musl",
+        "binario soberano"
+      ],
+      "module": "references/modules/c5-sovereign-binary-architect/MODULE.md"
+    },
+    {
+      "name": "c5-sovereign-inference-runtime",
+      "aliases": [
+        "c5-sovereign-inference-runtime",
+        "/c5-sovereign-inference-runtime",
+        "eridu-infer",
+        "inferencia soberana",
+        "appliance ia",
+        "lm studio protocolo",
+        "motor inferencia local",
+        "air-gapped infer",
+        "servidor openai local rust",
+        "sovereign inference runtime",
+        "desplegar eridu-infer",
+        "tríada jurídica"
+      ],
+      "module": "references/modules/c5-sovereign-inference-runtime/MODULE.md"
+    },
+    {
+      "name": "c5-sovereign-system1-engine",
+      "aliases": [
+        "c5-sovereign-system1-engine",
+        "/c5-sovereign-system1-engine",
+        "laya",
+        "sistema 1 edge",
+        "jev local",
+        "triage desacoplado",
+        "kudurru 64 socket",
+        "decision engine local"
+      ],
+      "module": "references/modules/c5-sovereign-system1-engine/MODULE.md"
+    },
+    {
+      "name": "c5-thermos-audit",
+      "aliases": [
+        "c5-thermos-audit",
+        "/c5-thermos-audit",
+        "thermos",
+        "thermos audit",
+        "auditoría termonuclear",
+        "double thermo",
+        "revisión termonuclear",
+        "revisar rama a fondo",
+        "thermo review"
+      ],
+      "module": "references/modules/c5-thermos-audit/MODULE.md"
+    },
+    {
+      "name": "opentimestamps-l5-diagnostics",
+      "aliases": [
+        "opentimestamps-l5-diagnostics",
+        "/opentimestamps-l5-diagnostics",
+        "opentimestamps",
+        "ots verify",
+        "atestación l5",
+        "bitcoin timestamp",
+        "l5 diagnostics",
+        "ots bitcoin",
+        "sellado temporal l5"
+      ],
+      "module": "references/modules/opentimestamps-l5-diagnostics/MODULE.md"
+    }
+  ]
+}
