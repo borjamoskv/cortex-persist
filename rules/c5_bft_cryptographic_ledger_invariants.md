@@ -74,3 +74,31 @@ En la implementación de algoritmos de ordenamiento topológico (Kahn), geodési
 - **Patrón Mandatorio:**
   1. Implementar método `.close()` explícito que reasigne o anule la estructura C-ABI (`self.manifest = NullStructure()`) inmediatamente antes de invocar `mm.close()`.
   2. Implementar soporte de gestor de contexto (`__enter__` / `__exit__`) para garantizar liberación determinista en excepciones.
+
+## 12. Invariante de Canon On-Wire, Unificación Criptográfica y Fronteras IPC (INV_C5_ONWIRE_CANON)
+
+Toda frontera de comunicación entre procesos (IPC), protocolos de atestación, ledgers criptográficos y serialización inter-agente DEBE regirse por los siguientes preceptos deterministas:
+
+1. **Unificación Canónica de Funciones Hash:**
+   - **`BLAKE3`:** Digest canónico exclusivo para árboles de Merkle de alta velocidad, integridad de mensajes IPC (`B60IPC` con MAC con clave), digests de nonces, caché de capacidades y deduplicación.
+   - **`SHA-256` (`sha2`):** Circunscrito estrictamente a interfaces de atestación criptográfica formal, firmas de hardware NIST P-256 (Apple Secure Enclave / Touch ID) y atestaciones SCITT (RFC 9942).
+   - **Veto a `ring` y `sha3`:** Queda prohibida la introducción de `ring` (sustituido por primitivas zero-copy/RustCrypto puras y `blake3::Hasher::new_keyed`) y `sha3` en las rutas de consenso e IPC.
+
+2. **Transporte Canónico y Envelopes Tipados:**
+   - El formato canónico de transporte inter-proceso para envelopes del executor, Receipts de 5 fases e inferencias es **`CBOR + COSE_Sign1 + CDDL`**.
+   - Queda prohibido el uso de envelopes exteriores en JSON no versionados sobre sockets `AF_UNIX` de autoridad.
+   - Todo mensaje estructurado de baja latencia (`KUDURRU-64`) debe incluir un byte explícito de versión de protocolo en cabecera y mantener endianness unificado.
+
+3. **Ingesta Fail-Closed y Blindaje de Atestación:**
+   - Queda estrictamente prohibido desplegar daemons de atestación HTTP sin autenticación en red local (`127.0.0.1:6060`).
+   - Toda ingesta hacia el ledger WORM inmutable debe confinarse a sockets de dominio Unix (`AF_UNIX`) con verificación obligatoria de credenciales del peer llamante (`getpeereid` / `LOCAL_PEERCRED`).
+   - Cualquier payload que no valide el esquema o resulte no parseable debe rechazarse de forma inmediata (*fail-closed* con error `400 Bad Request`); queda terminantemente prohibido almacenar fallos como literales crudos (`{"raw": body}`) en la cadena WORM.
+
+4. **Protección Anti-Replay con Reloj Autoritativo de Host (Ley O13):**
+   - La verificación de sobres de atestación inter-agente exige un `NonceStore` autoritativo en memoria del host.
+   - No es admisible validar únicamente la ventana temporal del emisor; cada nonce debe ser de uso único estricto dentro de la ventana de frescura ($T \le 300\text{ s}$). Nonces duplicados o expirados deben ser rechazados sin invocar verificación de firma.
+
+5. **Morfismo de Estado y Cero Grados de Libertad Parásitos:**
+   - Toda ontología formal (`ReceiptStage`) debe vincularse mediante morfismos exhaustivos en compilación (`From` / `TryFrom`) al estado de ejecución real del runtime (`ReservationState`), impidiendo la coexistencia de máquinas de estados fantasma.
+   - Queda prohibido reimplementar estructuras de sincronización lock-free (`SharedManifest`, Seqlock) fuera del crate canónico de Ring-0.
+
