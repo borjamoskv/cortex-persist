@@ -38,7 +38,7 @@ a un árbol git limpio.
 | **E** | Recibos de auditoría de agentes (`.audit/receipts/*.json`) | MB | `rm -rf` contenido completo |
 | **F** | Version Drift (Vercel Preview Deployments, GitHub ramas huérfanas) | N/A | `vercel rm --safe`, `git remote prune` |
 | **G** | Redundancia Epistémica (Shadow Directories, Path Entropy) | KB-MB | Consolidar directorios canónicos, eliminar phantom DBs, corregir hardcoded paths en CWD |
-| **H** | Global Package Manager Caches (`~/.cache/uv`, `pip`, `npm`) | 1GB–10GB | `uv cache clean`, purga de caches de host |
+| **H** | Global Package Manager & Host Drag Caches (`~/.cache/uv`, `pip`, `npm`, `~/Library/Caches/com.apple.SwiftUI.Drag*`) | 1GB–10GB | `uv cache clean`, purga de caches de host y SwiftUI drag temporals |
 | **I** | OS Metadata & Artifacts (`.DS_Store`, `*.tmp`, `*.bak`) | KB–MB | `find -name ".DS_Store" -delete` transversal |
 | **I2** | Audiovisual Studio Scratch (`scratch_*`, `*_OLD_*.mp3`, `out/test_*`, `*_swarm_chunks`) | 50MB–500MB | Purga determinista preservando actas formales (`out/itera_100/`), renders maestros (`*_siglo.mp4`) y stems F5-TTS (`*.wav`) |
 | **J** | Context Window Inflation (Prompt tax, esquemas MCP ociosos, plugins ajenos, multi-turn drift, KV Cache bloat) | 30k–60k tokens/prompt | Desactivación de MCPs hipertróficos, contención de plugins no afines, migración a reglas condicionales y rotación de chat |
@@ -270,7 +270,7 @@ while IFS= read -r dir; do
   echo "Purgando: $dir (${SIZE:-0} MB)"
   rm -rf "$dir" 2>/dev/null || true
   TOTAL_RECOVERED=$((TOTAL_RECOVERED + ${SIZE:-0}))
-done < <(find "$WORKSPACE" "$CORTEX_DIR" -type d \( -name ".next" -o -name "dist" -o -name "build" -o -name ".cache" -o -name ".lake" \) -prune 2>/dev/null)
+done < <(find "$WORKSPACE" "$CORTEX_DIR" -type d \( -name ".git" -o -name "node_modules" -o -name ".venv" \) -prune -o -type d \( -name ".next" -o -name "dist" -o -name "build" -o -name ".cache" -o -name ".lake" \) -print 2>/dev/null)
 
 echo "--- TOTAL EXTRA RECUPERADO: $TOTAL_RECOVERED MB ---"
 ```
@@ -312,7 +312,7 @@ echo "💀 [FASE 5] ESCAVACIÓN DE CACHÉS GLOBALES Y BASURA DEL OS ---"
 if command -v uv >/dev/null 2>&1; then
   uv cache clean 2>&1
 fi
-rm -rf "$HOME/.cache/pip" "$HOME/Library/Caches/pip" "$HOME/.npm/_cacache" 2>/dev/null || true
+rm -rf "$HOME/.cache/pip" "$HOME/Library/Caches/pip" "$HOME/.npm/_cacache" "$HOME/Library/Caches/com.apple.SwiftUI.Drag"* 2>/dev/null || true
 
 # 2. Aniquilación de archivos .DS_Store en todo el ecosistema
 find "$WORKSPACE" "$VAULT" -name ".DS_Store" -delete 2>/dev/null || true

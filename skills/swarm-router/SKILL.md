@@ -1,7 +1,7 @@
 ---
 name: swarm-router
 display_name: Enrutador Maestro y Despachador Inteligente de Enjambres
-description: Orquestador central y despachador inteligente de enjambres multi-agente con auto-detección contextual y tolerancia a typos. Dispara con "enjambre", "enjmabres", "swarm", "swarms", "lanzar enjambre", "ejecutar enjambre", "orquestar enjambre", "swarm call", "disparar enjambres", "matriz de enjambres", "mejora los enjambres".
+description: Orquestador central y despachador inteligente de enjambres multi-agente con auto-detección contextual y tolerancia a typos. Dispara con "enjambre", "enjmabres", "swarm", "swarms", "sarm", "sarms", "lanzar enjambre", "ejecutar enjambre", "orquestar enjambre", "swarm call", "disparar enjambres", "matriz de enjambres", "mejora los enjambres".
 role: ejecutor
 allowed_roles:
 - ejecutor
