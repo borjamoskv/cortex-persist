@@ -9,10 +9,11 @@ trigger: "model_decision"
 ## 1. Principio Fundamental
 Queda terminantemente prohibido que cualquier agente, subagente o pipeline neurosimbólico reporte verificación o cumplimiento de propiedades formales, energéticas o causales mediante tautologías vacías ($\Delta \Phi = 0$, $g_{ij} = 0$). Una aserción sólo es válida si constriñe el espacio de estados y es vulnerable a falsación empírica.
 
-## 2. Las Cinco Prohibiciones Cardinales (T1 - T5)
+## 2. Las Seis Prohibiciones Cardinales (T1 - T6)
 
 ### T1: Veto a Stubs Triviales en Demostradores Formales
 - **Restricción:** En especificaciones o verificaciones (Lean 4, Z3, Coq), queda prohibido el uso de firmas vacías, axiomas no fundamentados o teoremas con pruebas triviales (ej. `axiom ax : ∀ x, True`, `by trivial` o `sorry` encubierto) para certificar invariantes de concurrencia, energía o consistencia.
+- **Pureza Constructiva (Lean 4 Core):** Si un teorema formal certifica computación en la ALU o transiciones de máquina de estados, queda estrictamente prohibida la dependencia inadvertida de `Classical.choice` o divisiones opacas. Toda definición debe implementar cortocircuito estructural en cero y verificarse con `#guard_msgs in #print axioms <thm>` certificando cero axiomas (`does not depend on any axioms`).
 - **Remediación:** Toda formalización exige términos cerrados, invariantes computables y compilación nativa AOT (`INV_C5_LEAN_AOT_ORACLE`).
 
 ### T2: Veto a Telemetría y Claims Fantasma (Ghost Claims & Ghost Tests)
@@ -34,3 +35,10 @@ Queda terminantemente prohibido que cualquier agente, subagente o pipeline neuro
   2. **Desambiguación Aritmética Multi-Escala:** Evaluar en al menos dos escalas primas entre sí ($f=1$ y $f=3$) para aniquilar mutaciones que colapsen numéricamente ($2 \times f \equiv 2 + f$ en $f=2$).
   3. **Inyección de Perturbación por Guarda:** Probar explícitamente cada rama de error (replay Sybil, mismatch de bloque, fase incorrecta) comprobando la variante exacta de `Err`.
 - **Gate de Mutaciones en CI:** En suites auditadas con `cargo-mutants`, el criterio de gate fail-closed exige `MISSED == 0` y `TIMEOUT == 0` sobre módulos críticos de consenso (`.cargo/mutants.toml`).
+
+### T6: Veto a Runtimes de Inferencia Simulada (Mocks Desacoplados de Ring-0)
+- **Restricción:** Queda terminantemente prohibido que cualquier crate, binario o subsistema agéntico (ej. `eridu-infer`, gateways IPC) reclame ser un runtime bare-metal o conforme con estándares de silicio si implementa respuestas autorregresivas mediante cadenas de texto fijas enlatadas (*hardcoded strings*), mantiene estructuras de memoria UMA/GGUF huérfanas sin acoplar en el handler activo, o duplica seqlocks desconectados del canal canónico.
+- **Acoplamiento Obligatorio:** Todo runtime de inferencia o adaptador local DEBE:
+  1. Vincular su despacho causal al `SharedManifest` canónico (64B, align(64)) de Ring-0.
+  2. Indexar hashes exclusivamente contra reloj lógico monótono (`logical_tick` / Lamport), prohibiendo relojes físicos del host (`SystemTime`, `Utc::now()`) en el hash inmutable.
+  3. Ejecutar y reciclar páginas contiguas en pools de memoria unificada (UMA) de 16 KB con barreras físicas de hardware (`dmb ishld` en ARMv9).

@@ -1,3 +1,8 @@
+---
+name: c5_anagnorisis_passive_gate
+description: Invariante C5-REAL de anagnórisis pasiva para cruzar descripciones funcionales con el léxico canónico.
+trigger: "model_decision"
+---
 
 # Invariante de Anagnórisis Pasiva — Gate C5-REAL
 
