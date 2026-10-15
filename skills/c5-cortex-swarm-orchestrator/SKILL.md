@@ -31,6 +31,10 @@ directives:
 5. La carga del hub no inicia enjambres, scripts, llamadas a proveedores ni purgas.
 6. Cada procedimiento se ejecuta únicamente cuando lo requiere la petición del usuario.
 
+## Desempate de triggers compartidos
+
+`tensor de transducción` también activa `symbiotic-cognitive-architecture` en el ámbito del proyecto. Usa este hub para Gemini API, claves, cuotas o esquemas JSON; usa la habilidad del proyecto para arquitectura cognitiva y colaboración agente-persona. Si solo aparece el trigger y el tema no aclara el destino, pregunta antes de cargar procedimientos.
+
 ## Resolver aliases
 
 Ejecuta `python3 scripts/route.py --query "frase o nombre original"` desde esta carpeta.

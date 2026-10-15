@@ -15,7 +15,22 @@ def select(query, records):
     exact = [r for r in records if query in [normalize(a) for a in r['aliases']]]
     if exact:
         return exact
-    return [r for r in records if any(re.search(r'(?<!\w)' + re.escape(normalize(a)) + r'(?!\w)', query) for a in r['aliases'])]
+    occurrences = []
+    for record in records:
+        for alias in record['aliases']:
+            phrase = normalize(alias)
+            pattern = re.compile(r'(?<!\w)' + re.escape(phrase) + r'(?!\w)')
+            occurrences.extend((record, phrase, match.start(), match.end()) for match in pattern.finditer(query))
+
+    selected = []
+    for record in records:
+        record_matches = [item for item in occurrences if item[0] is record]
+        if any(not any(
+            other[1] != phrase and other[2] <= start and end <= other[3]
+            for other in occurrences
+        ) for _, phrase, start, end in record_matches):
+            selected.append(record)
+    return selected
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)

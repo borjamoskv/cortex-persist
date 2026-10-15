@@ -30,6 +30,10 @@ directives:
 5. No interpretes la carga del hub como autorización para ejecutar todas sus instrucciones.
 6. Los nombres originales permanecen como aliases compatibles y comandos independientes.
 
+## Desempate de triggers compartidos
+
+`seqlock 64b` también activa `shared-manifest-kernel` en el ámbito del proyecto. Usa `c5-kudurru-64` para el formato o los envelopes KUDURRU-64; usa `shared-manifest-kernel` para SharedManifest, memoria compartida o IPC de BABYLON-60. Si solo aparece el trigger y el tema no aclara el destino, pregunta antes de cargar procedimientos.
+
 ## Resolver aliases sin ejecutar módulos
 
 Ejecuta `python3 scripts/route.py --query "frase o nombre original"` desde esta carpeta.
