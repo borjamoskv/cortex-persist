@@ -1,7 +1,8 @@
 ---
 name: c5-academic-peer-reviewer
 display_name: Simulador de Revisión Académica por Pares
-description: Simulación de revisión por pares académica para papers científicos. Genera dictámenes estructurados (Accept / Major Revision / Minor Revision / Reject) en 4 dimensiones. Dispara con "peer review", "academic reviewer", "revisar paper", "auditoría de paper", "dictamen académico".
+description: Módulo epistémico. Dispara con "peer review", "academic reviewer", "revisar
+  paper", "auditoría de paper", "dictamen académico".
 role: auditor
 allowed_roles:
 - auditor
@@ -13,36 +14,26 @@ directives:
     downstream: operador
 ---
 
-# Skill: C5 Academic Peer Reviewer
+# c5-academic-peer-reviewer
 
-> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
-> - **Rol Asignado:** `auditor` (Auditor (Verificación Independiente, Linters de Silicio & Fail-Closed Gate))
-> - **Modo de Acceso a Worktree:** `audit-only` (audit-only (Lectura forense de diffs, linters, tests de estrés y cálculo de exergía; cero mutación de código))
-> - **Fase Causal:** `verification`
-> - **Contrato Handoff:** Recibe de `ejecutor` $\to$ Despacha a `operador`
+> **Directiva Declarativa:** Alias compatible del hub epistémico; conserva el contrato del módulo original.
 
-Este protocolo simula la evaluación crítica desapiadada de un revisor senior (Area Chair) de conferencias de primer nivel para identificar debilidades antes del envío formal.
+## Cargar el módulo
 
----
+Lee [las instrucciones originales](../c5-epistemic-thermodynamics/references/modules/c5-academic-peer-reviewer/MODULE.md) antes de aplicar esta habilidad.
+Conserva sus triggers, rol, restricciones, procedimiento y alcance.
+Carga únicamente los recursos pertinentes a la petición.
 
-## 1. Dimensiones de Evaluación
+## Recursos y rutas
 
-1. **Originalidad y Novedad Técnica:**
-   - ¿La contribución propone una mejora sustancial o es un ajuste incremental sin novedad matemática/algorítmica?
-2. **Corrección Técnica y Rigor:**
-   - Auditoría de demostraciones matemáticas, asunciones simplificadoras ocultas y posibles fallas en las deducciones.
-3. **Claridad y Estructura:**
-   - Evaluación de la narrativa, calidad visual de figuras, explicaciones intuitivas y notación consistente.
-4. **Reproducibilidad y Validez Empírica:**
-   - Verificación de baselines comparativos, semillas aleatorias, tamaño de muestra y disponibilidad de código/datos.
+Los recursos originales permanecen junto a este alias y se conservan completos dentro del hub.
+Resuelve las referencias relativas desde el archivo del módulo que hayas leído.
+Mantén el directorio de trabajo del proyecto elegido por el usuario.
+Las rutas absolutas del paquete original continúan disponibles.
 
----
+## Invocación
 
-## 2. Estructura del Dictamen de Revisión
-
-- **Summary of the Paper:** Breve resumen del artículo sin sesgo.
-- **Strengths (Puntos Fuertes):** 3-5 viñetas sobre los aportes reales.
-- **Weaknesses & Actionable Concerns (Debilidades Principales):**
-  - *Major Revisions:* Puntos críticos que invalidan el resultado si no se solucionan.
-  - *Minor Revisions:* Correcciones tipográficas, adición de referencias o aclaraciones de formato.
-- **Final Rating & Confidence:** Accept (8-10), Weak Accept (6-7), Borderline (5), Reject (1-4).
+El comando `/c5-academic-peer-reviewer` sigue disponible con el nombre original.
+El hub se consulta con `/c5-epistemic-thermodynamics`.
+La carga del alias no ejecuta auditorías, scripts, búsquedas ni comunicaciones por sí misma.
+El procedimiento del módulo se aplica únicamente dentro del trabajo solicitado.

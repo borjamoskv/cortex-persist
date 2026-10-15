@@ -1,7 +1,9 @@
 ---
 name: c5-systemic-dissection-protocol
 display_name: Protocolo de Disección Sistémica y Termodinámica
-description: 'Ejecuta una auditoría dialéctica en 4 fases sobre un sistema complejo: Extracción de 100 primitivas, Falsación Popperiana, Anclaje Empírico (Papers) y Síntesis Topológica. Dispara con "disección sistémica", "auditar sistema completo", "c5-systemic-dissection", "disección termodinámica", "protocolo de disección", "100 primitivas".'
+description: Módulo epistémico. Dispara con "disección sistémica", "auditar sistema
+  completo", "c5-systemic-dissection", "disección termodinámica", "protocolo de disección",
+  "100 primitivas".
 role: arquitecto
 allowed_roles:
 - arquitecto
@@ -13,37 +15,26 @@ directives:
     downstream: ejecutor
 ---
 
-# Protocolo de Disección Sistémica (C5-REAL)
+# c5-systemic-dissection-protocol
 
-> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
-> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
-> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Lectura profunda y modelado formal; emisión de especificaciones sin mutación de código de producción))
-> - **Fase Causal:** `design`
-> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
+> **Directiva Declarativa:** Alias compatible del hub epistémico; conserva el contrato del módulo original.
 
-Este protocolo define un flujo de trabajo analítico de 4 fases para deconstruir, falsar y sintetizar el entendimiento sobre cualquier sistema formal, tecnología de frontera o marco teórico.
+## Cargar el módulo
 
-Cuando el usuario invoque la disección sistémica de un objetivo, el agente DEBE ejecutar iterativamente o de una vez (según se solicite) las siguientes 4 fases, utilizando rigor epistemológico estricto y terminología de termodinámica de la información.
+Lee [las instrucciones originales](../c5-epistemic-thermodynamics/references/modules/c5-systemic-dissection-protocol/MODULE.md) antes de aplicar esta habilidad.
+Conserva sus triggers, rol, restricciones, procedimiento y alcance.
+Carga únicamente los recursos pertinentes a la petición.
 
-## Fase 1: Matriz Ontológica (Las 100 Primitivas)
-Descomponer el sistema en un compendio exhaustivo y numerado de exactamente 100 elementos, divididos en 4 cuadrantes (25 cada uno):
-1. **Primitivas de Estructura:** Componentes fundacionales, axiomas lógicos o arquitectónicos del sistema.
-2. **Primitivas de Colisión:** Puntos de fractura, cuellos de botella, conflictos de unificación o asimetrías de estado.
-3. **Antipatrones:** Patrones de uso degradado, deuda técnica, anergía operativa o vicios de diseño comunes.
-4. **Invariantes Fundamentales:** Leyes inmutables, garantías de seguridad teóricas, límites matemáticos y postulados del sistema.
+## Recursos y rutas
 
-## Fase 2: Falsación Popperiana (Fractura del Mapa vs Territorio)
-Someter las **Invariantes** (Cuadrante 4) a un contra-examen despiadado.
-* **Falsabilizar:** Definir los oráculos de verificación y pruebas de estrés que pueden hacer colapsar el sistema.
-* **Falsar:** Aportar ejemplos históricos, bugs arquitectónicos y fracturas empíricas donde el sistema real (territorio) viola su propia teoría (mapa).
-* Establecer el **Dominio de Validez Asintótico** (Principio de Correspondencia). No destruir el modelo, sino acotar bajo qué régimen físico/computacional es válido.
+Los recursos originales permanecen junto a este alias y se conservan completos dentro del hub.
+Resuelve las referencias relativas desde el archivo del módulo que hayas leído.
+Mantén el directorio de trabajo del proyecto elegido por el usuario.
+Las rutas absolutas del paquete original continúan disponibles.
 
-## Fase 3: Anclaje de Fricción Empírica (Bibliografía)
-Utilizar herramientas de búsqueda (Web, arXiv) para encontrar el *corpus* científico de frontera que demuestre las fricciones descritas en la Fase 2.
-* Buscar teoremas de limitación, análisis de fugas termodinámicas/memoria, y los *papers* fundacionales que exponen los cuellos de botella del sistema.
-* Presentar la bibliografía conectando cada paper con un **Aforismo C5-REAL**.
+## Invocación
 
-## Fase 4: Síntesis Neuro-Simbólica (El Salto Topológico)
-Sintetizar la iteración final (El Punto Fijo $\Omega$).
-* Formular cómo operar el sistema bajo **Tolerancia a la Incompletitud**.
-* Definir la **Maniobra de Alta Exergía**: En lugar de intentar reparar los límites termodinámicos del sistema, proponer una arquitectura cibernética que utilice esa misma fricción computacional como filtro delimitador o motor de cálculo.
+El comando `/c5-systemic-dissection-protocol` sigue disponible con el nombre original.
+El hub se consulta con `/c5-epistemic-thermodynamics`.
+La carga del alias no ejecuta auditorías, scripts, búsquedas ni comunicaciones por sí misma.
+El procedimiento del módulo se aplica únicamente dentro del trabajo solicitado.

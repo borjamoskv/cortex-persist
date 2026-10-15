@@ -1,0 +1,256 @@
+{
+  "scope": "global",
+  "modules": [
+    {
+      "name": "c5-axiomatic-kernel",
+      "aliases": [
+        "c5-axiomatic-kernel",
+        "/c5-axiomatic-kernel",
+        "axiomas",
+        "principios c5",
+        "núcleo operativo",
+        "top 100 principios",
+        "invariantes fundacionales",
+        "axiomas c5-real",
+        "kernel axiomático"
+      ],
+      "module": "references/modules/c5-axiomatic-kernel/MODULE.md"
+    },
+    {
+      "name": "c5-lexicon-enforcer",
+      "aliases": [
+        "c5-lexicon-enforcer",
+        "/c5-lexicon-enforcer",
+        "lexicon enforcer",
+        "purga anergía semántica",
+        "auditoría epistemológica",
+        "forzar léxico c5",
+        "auditar cheap talk",
+        "analiza esto con el aforismo 5"
+      ],
+      "module": "references/modules/c5-lexicon-enforcer/MODULE.md"
+    },
+    {
+      "name": "c5-ontological-translator",
+      "aliases": [
+        "c5-ontological-translator",
+        "/c5-ontological-translator",
+        "traducción ontológica",
+        "colapso semántico",
+        "traducir a c5",
+        "mapeo ontológico",
+        "ontological translator",
+        "colapso ontológico"
+      ],
+      "module": "references/modules/c5-ontological-translator/MODULE.md"
+    },
+    {
+      "name": "c5-terminological-archaeology",
+      "aliases": [
+        "c5-terminological-archaeology",
+        "/c5-terminological-archaeology",
+        "arqueología terminológica",
+        "busca mis perífrasis",
+        "anagnórisis",
+        "ya existe ese término",
+        "tiene nombre esto",
+        "cómo se llama esto en ciencia",
+        "cómo se llama cuando"
+      ],
+      "module": "references/modules/c5-terminological-archaeology/MODULE.md"
+    },
+    {
+      "name": "c5-exergy-scale-evaluator",
+      "aliases": [
+        "c5-exergy-scale-evaluator",
+        "/c5-exergy-scale-evaluator",
+        "escala de exergía",
+        "evaluar exergía",
+        "auditoría de exergía",
+        "puntuación exergética",
+        "escala 21000",
+        "exergy scale",
+        "3 evaluadores"
+      ],
+      "module": "references/modules/c5-exergy-scale-evaluator/MODULE.md"
+    },
+    {
+      "name": "c5-information-thermodynamics",
+      "aliases": [
+        "c5-information-thermodynamics",
+        "/c5-information-thermodynamics",
+        "entropía de shannon",
+        "divergencia kl",
+        "kullback leibler",
+        "fisher information",
+        "teorema de chentsov",
+        "landauer limit",
+        "information geometry",
+        "amari natural gradient",
+        "flujo de wasserstein",
+        "audita entropía"
+      ],
+      "module": "references/modules/c5-information-thermodynamics/MODULE.md"
+    },
+    {
+      "name": "categorical-hallucination-audit",
+      "aliases": [
+        "categorical-hallucination-audit",
+        "/categorical-hallucination-audit",
+        "alucinación categórica",
+        "cota de confabulación",
+        "desintegración bayesiana",
+        "Kl(D) audit",
+        "Myhill-Nerode estocástico",
+        "cota de lipschitz",
+        "mean shift 1d"
+      ],
+      "module": "references/modules/categorical-hallucination-audit/MODULE.md"
+    },
+    {
+      "name": "cct-cognitive-theory-advisor",
+      "aliases": [
+        "cct-cognitive-theory-advisor",
+        "/cct-cognitive-theory-advisor",
+        "teoría cognitiva",
+        "cct advisor",
+        "gödel turing",
+        "autopoiesis",
+        "maturana luhmann",
+        "burnout cognitivo"
+      ],
+      "module": "references/modules/cct-cognitive-theory-advisor/MODULE.md"
+    },
+    {
+      "name": "cta-cognitive-transition-algebra",
+      "aliases": [
+        "cta-cognitive-transition-algebra",
+        "/cta-cognitive-transition-algebra",
+        "álgebra cognitiva",
+        "cta transition",
+        "event sourcing cognitivo",
+        "matriz cta",
+        "transición de estados",
+        "álgebra de transiciones",
+        "comónada cognitiva"
+      ],
+      "module": "references/modules/cta-cognitive-transition-algebra/MODULE.md"
+    },
+    {
+      "name": "polymath-concept-synthesis",
+      "aliases": [
+        "polymath-concept-synthesis",
+        "/polymath-concept-synthesis",
+        "ultrathink",
+        "síntesis polímata",
+        "polymath synthesis",
+        "concepto polímata",
+        "unificación interdisciplinar",
+        "síntesis interdisciplinar",
+        "unificación conceptual"
+      ],
+      "module": "references/modules/polymath-concept-synthesis/MODULE.md"
+    },
+    {
+      "name": "epistemic-extinction-protocol",
+      "aliases": [
+        "epistemic-extinction-protocol",
+        "/epistemic-extinction-protocol",
+        "extinción epistémica",
+        "punto fijo omega",
+        "reducción dimensional",
+        "epistemic extinction",
+        "punto fijo ω",
+        "extinción conceptual"
+      ],
+      "module": "references/modules/epistemic-extinction-protocol/MODULE.md"
+    },
+    {
+      "name": "c5-dialectical-pipeline",
+      "aliases": [
+        "c5-dialectical-pipeline",
+        "/c5-dialectical-pipeline",
+        "falsabliza",
+        "falsabiliza",
+        "falsabilia",
+        "falsa",
+        "itera",
+        "itrera",
+        "itra",
+        "iteraa",
+        "iytera",
+        "sigue",
+        "salto topológico"
+      ],
+      "module": "references/modules/c5-dialectical-pipeline/MODULE.md"
+    },
+    {
+      "name": "c5-systemic-dissection-protocol",
+      "aliases": [
+        "c5-systemic-dissection-protocol",
+        "/c5-systemic-dissection-protocol",
+        "disección sistémica",
+        "auditar sistema completo",
+        "c5-systemic-dissection",
+        "disección termodinámica",
+        "protocolo de disección",
+        "100 primitivas"
+      ],
+      "module": "references/modules/c5-systemic-dissection-protocol/MODULE.md"
+    },
+    {
+      "name": "c5-popperian-falsification-auditor",
+      "aliases": [
+        "c5-popperian-falsification-auditor",
+        "/c5-popperian-falsification-auditor",
+        "falsación de documento",
+        "auditar documento",
+        "falsar afirmación",
+        "veredicto empírico",
+        "falsar paper"
+      ],
+      "module": "references/modules/c5-popperian-falsification-auditor/MODULE.md"
+    },
+    {
+      "name": "discourse-popperian-falsification",
+      "aliases": [
+        "discourse-popperian-falsification",
+        "/discourse-popperian-falsification",
+        "falsación popperiana",
+        "análisis popperiano",
+        "auditoría discursiva",
+        "falsar hipótesis",
+        "auditar mito",
+        "leyenda urbana",
+        "desmentir mito"
+      ],
+      "module": "references/modules/discourse-popperian-falsification/MODULE.md"
+    },
+    {
+      "name": "autodidact-omega",
+      "aliases": [
+        "autodidact-omega",
+        "/autodidact-omega",
+        "autodidact",
+        "investigación profunda",
+        "investigar paper",
+        "cristal ontológico",
+        "deep research"
+      ],
+      "module": "references/modules/autodidact-omega/MODULE.md"
+    },
+    {
+      "name": "c5-academic-peer-reviewer",
+      "aliases": [
+        "c5-academic-peer-reviewer",
+        "/c5-academic-peer-reviewer",
+        "peer review",
+        "academic reviewer",
+        "revisar paper",
+        "auditoría de paper",
+        "dictamen académico"
+      ],
+      "module": "references/modules/c5-academic-peer-reviewer/MODULE.md"
+    }
+  ]
+}
