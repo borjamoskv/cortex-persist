@@ -37,7 +37,7 @@ MAX_BLOB_SIZE_BYTES = 25 * 1024 * 1024 # 25 MB
 
 def run_git(cmd: List[str], cwd: str) -> str:
     try:
-        res = subprocess.run(["git"] + cmd, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True)
+        res = subprocess.run(["git"] + cmd, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, errors="replace", check=True)
         return res.stdout
     except subprocess.CalledProcessError as e:
         return ""
@@ -74,9 +74,23 @@ def audit_git_history(repo_path: str) -> Tuple[bool, List[str]]:
                 pass
 
     # 3. Check recent commit diffs for secret regex patterns (fast scan last 100 commits)
+    # Enforces Cortafuegos 11: Discriminate detector rules (re.compile, linters, threat models) from real secrets
     diffs = run_git(["log", "-n", "100", "-p", "--full-diff"], cwd=repo_path)
+    detector_line_markers = (
+        "re.compile", "re.sub", "re.search", "re.match", "SECRET_PATTERNS",
+        "secret_swarm_auditor", "security_threat_model", "git_history_sanitizer",
+        "EXAMPLE", "DUMMY", "FAKE", "MOCK", "placeholder", "test_"
+    )
+    filtered_diff_lines = [
+        line for line in diffs.splitlines()
+        if (line.startswith("+") or line.startswith("-"))
+        and not line.startswith("+++")
+        and not line.startswith("---")
+        and not any(m in line for m in detector_line_markers)
+    ]
+    filtered_diffs = "\n".join(filtered_diff_lines)
     for pattern, label in SECRET_PATTERNS:
-        matches = pattern.findall(diffs)
+        matches = pattern.findall(filtered_diffs)
         if matches:
             violations.append(f"[SECRET DETECTED IN DIFF]: Pattern '{label}' found {len(matches)} time(s)")
 

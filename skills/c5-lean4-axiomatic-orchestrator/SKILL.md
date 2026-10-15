@@ -80,7 +80,15 @@ Queda terminantemente prohibido exigir al usuario que actúe como picapedrero de
 6. **AP-06 (Auto-Certificación):** El LLM no puede certificar su propio código; solo el binario de `lake build` emite el dictamen de verdad.
 7. **AP-07 (Igualdad Débil vs Fuerte):** Distinguir rigurosamente entre equivalencia sintáctica/semántica y la igualdad formal de tipos `Eq`.
 8. **AP-08 (Monolitos Inmanejables):** Modularizar las teorías: `Types → Invariants → Operations → Proofs`.
-9. **AP-09 (Auditoría de Axiomas):** En teoremas del núcleo crítico, ejecutar siempre `#print axioms <nombre_teorema>` para asegurar que solo depende de los axiomas estándar de Lean (propext, Classical.choice, Quot.sound).
+9. **AP-09 (Auditoría de Axiomas):** En teoremas del núcleo crítico, ejecutar siempre `#print axioms <nombre_teorema>` para asegurar que solo depende de los axiomas estándar de Lean (propext, Classical.choice, Quot.sound) o cero axiomas si se busca prueba puramente constructiva en el kernel.
+10. **AP-10 (Vacuidad Tautológica y Falta de Testigo):** Prohibido certificar invariantes condicionales (`Reachable s → Trigger s → Safe s`) sin demostrar simultáneamente la habitabilidad del disparador mediante el patrón `VerifiedInvariant`:
+   ```lean
+   structure VerifiedInvariant (State : Type) (Reach : State → Prop)
+       (Trigger : State → Prop) (Safe : State → Prop) : Prop where
+     safety      : ∀ s, Reach s → Trigger s → Safe s
+     non_vacuous : ∃ s, Reach s ∧ Trigger s
+   ```
+   En sistemas de consenso/BFT y máquinas de estados distribuidas, cada fase o variante crítica (`Phase.Committed`, etc.) debe contar con un teorema de alcanzabilidad constructiva que garantice que la guarda no sea vacua por contradicción interna.
 
 ---
 
@@ -102,7 +110,18 @@ Al ejecutar tareas de formalización en el sistema del usuario:
    ```
    Si el código de salida no es `0`, el agente debe capturar la traza del error en el Infoview/terminal, ajustar las hipótesis o la táctica, y reintentar sin trasladar la fricción al usuario.
 
-### Invariante de Táctica Presburger en Lean 4 Core (INV_C5_LEAN4_OMEGA_UNFOLD)
-Al formular y verificar teoremas algebraicos de punto fijo en Lean 4 Core (`omega`):
-- Si el objetivo involucra funciones de paso, paridad o escalado definidas en el módulo (ej. `seqlock_write_begin`, `de_bruijn_step`), es OBLIGATORIO emitir `unfold <def>` inmediatamente antes de la táctica `omega`.
-- Omitir el despliegue de definiciones genera falsos contraejemplos estocásticos de división entera en el resolvedor de Presburger.
+### Invariantes de Tácticas y Reducción Sintáctica en Lean 4 Core
+- **Invariante Presburger (`INV_C5_LEAN4_OMEGA_UNFOLD`):** Al formular y verificar teoremas algebraicos de punto fijo (`omega`), si el objetivo involucra funciones de paso, paridad o escalado definidas en el módulo (ej. `seqlock_write_begin`, `de_bruijn_step`), es OBLIGATORIO emitir `unfold <def>` inmediatamente antes de la táctica `omega` para prevenir falsos contraejemplos estocásticos de división entera.
+- **`dsimp` Previo en Proyecciones de Registros:** Ante actualizaciones de registros `{ s with ... }`, invocar `dsimp` antes de `decide` (para evitar el error `Expected type must not contain free variables`) y antes de `omega` (para evitar que la proyección modificada sea tratada como un átomo opaco desconectado).
+- **Alineación de Sangría Táctica:** Respetar la indentación exacta de 4 espacios dentro de bloques de casos inductivos (`| nil => ...`) para prevenir desajustes sintácticos en el parser de Lean 4.
+
+---
+
+## 5. Protocolo Anti-Vacuidad y Puentes Ejecutables (Soundness & Reflection)
+
+Para validar alcanzabilidad sin fricción manual:
+1. **Paso Funcional Ejecutable (`stepFn`):** Modelar las transiciones mediante funciones computables (`s : State → a : Action → Option State`) usando lógica proposicional decidible (`=`, `∧`).
+2. **Teorema de Corrección (`stepFn_sound`):** Demostrar `stepFn s a = some s' → StepFixed s s'` usando `dsimp`, `split`, `injection` y resolviendo ramas imposibles con `contradiction`.
+3. **Inducción sobre Trazas (`runTrace_reachable`):** Demostrar `runTrace s trace = some s' → ReachableFixed s'` mediante inducción en la lista de acciones.
+4. **Verificación de Habitabilidad en Tiempo de Compilación:** Probar la existencia del estado objetivo instanciando `runTrace_reachable ReachableFixed.init (trace := witnessTrace)` y cerrando con `decide` o `rfl`.
+5. **Cero Dependencia Axiomática:** Al auditar con `#print axioms`, evitar tácticas complejas (`simp`, `omega`) si se requiere certificar el núcleo libre de `propext` y `Quot.sound`.
