@@ -1,7 +1,9 @@
 ---
 name: c5-weighted-decision-matrix
 display_name: Matriz de Decisión Ponderada y Estimación PERT
-description: Matrices de decisión multicriterio ponderadas para selección tecnológica, análisis de sensibilidad y estimación formal PERT. Dispara con "weighted scorer", "matriz de decisión", "pert estimation", "estimación de proyectos", "evaluación tecnológica", "matriz de pesos", "evaluación de proveedores".
+description: Módulo Wetware/Venture. Dispara con "weighted scorer", "matriz de decisión",
+  "pert estimation", "estimación de proyectos", "evaluación tecnológica", "matriz
+  de pesos", "evaluación de proveedores".
 role: arquitecto
 allowed_roles:
 - arquitecto
@@ -13,35 +15,26 @@ directives:
     downstream: ejecutor
 ---
 
-# Skill: C5 Weighted Decision Matrix & PERT Estimation
+# c5-weighted-decision-matrix
 
-> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
-> - **Rol Asignado:** `arquitecto` (Arquitecto (Diseño Sistémico & Contratos de Invariantes))
-> - **Modo de Acceso a Worktree:** `spec-only` (spec-only (Lectura profunda y modelado formal; emisión de especificaciones sin mutación de código de producción))
-> - **Fase Causal:** `design`
-> - **Contrato Handoff:** Recibe de `operador` $\to$ Despacha a `ejecutor`
+> **Directiva Declarativa:** Alias compatible del hub Wetware/Venture; conserva el contrato del módulo original.
 
-Este protocolo proporciona soporte cuantitativo para la toma de decisiones complejas, selección de arquitectura/proveedores y estimación probabilística de proyectos.
+## Cargar el módulo
 
----
+Lee [las instrucciones originales](../c5-wetware-and-venture-ops/references/modules/c5-weighted-decision-matrix/MODULE.md) antes de aplicar esta habilidad.
+Conserva sus triggers, rol, restricciones, procedimiento y alcance.
+Carga únicamente los recursos pertinentes a la petición.
 
-## 1. Módulos de Cálculo
+## Recursos y rutas
 
-1. **Matriz Multicriterio Ponderada (Weighted Scoring):**
-   - Definición de criterios $C_1, C_2, \dots, C_k$ con pesos $w_i \in [0, 1]$ tales que $\sum w_i = 1$.
-   - Puntuación $s_{i,j} \in [1, 10]$ por alternativa y cálculo del score ponderado $S_j = \sum w_i \cdot s_{i,j}$.
-   - **Análisis de Sensibilidad:** Prueba de variación de pesos para verificar la estabilidad de la opción ganadora.
+Los recursos originales permanecen junto a este alias y se conservan completos dentro del hub.
+Resuelve las referencias relativas desde el archivo del módulo que hayas leído.
+Mantén el directorio de trabajo del proyecto elegido por el usuario.
+Las rutas absolutas del paquete original continúan disponibles.
 
-2. **Estimación PERT (Program Evaluation and Review Technique):**
-   - Para cada paquete de trabajo, definir:
-     - $O$: Valor optimista.
-     - $M$: Valor más probable (Most Likely).
-     - $P$: Valor pesimista.
-   - **Tiempo Esperado:** $E = \frac{O + 4M + P}{6}$.
-   - **Varianza:** $\sigma^2 = \left(\frac{P - O}{6}\right)^2$.
+## Invocación
 
----
-
-## 2. Salida Estructurada
-
-Tabla resumen con matriz de decisión, gráfico de sensibilidad en texto/SVG e intervalo de confianza de estimación PERT al 95%.
+El comando `/c5-weighted-decision-matrix` sigue disponible con el nombre original.
+El hub se consulta con `/c5-wetware-and-venture-ops`.
+La carga del alias no ejecuta procedimientos, scripts, búsquedas ni comunicaciones por sí misma.
+El procedimiento del módulo se aplica únicamente dentro del trabajo solicitado.
