@@ -1,0 +1,281 @@
+{
+  "scope": "global",
+  "modules": [
+    {
+      "name": "swarm-router",
+      "aliases": [
+        "swarm-router",
+        "/swarm-router",
+        "enjambre",
+        "enjmabres",
+        "swarm",
+        "swarms",
+        "sarm",
+        "sarms",
+        "lanzar enjambre",
+        "ejecutar enjambre",
+        "orquestar enjambre",
+        "swarm call",
+        "disparar enjambres",
+        "matriz de enjambres",
+        "mejora los enjambres"
+      ],
+      "module": "references/modules/swarm-router/MODULE.md"
+    },
+    {
+      "name": "c5-sharur-3600",
+      "aliases": [
+        "c5-sharur-3600",
+        "/c5-sharur-3600",
+        "sharur",
+        "sharur-3600",
+        "100 agentes",
+        "mas 100 agentes",
+        "legion 100",
+        "legión de 100 agentes",
+        "enjambre 100"
+      ],
+      "module": "references/modules/c5-sharur-3600/MODULE.md"
+    },
+    {
+      "name": "c5-tri-provider-swarm",
+      "aliases": [
+        "c5-tri-provider-swarm",
+        "/c5-tri-provider-swarm",
+        "enjambre híbrido",
+        "tri provider swarm",
+        "kimi qwen openai",
+        "orquestador tres modelos",
+        "tri-provider swarm"
+      ],
+      "module": "references/modules/c5-tri-provider-swarm/MODULE.md"
+    },
+    {
+      "name": "swarm-quantum-collapse",
+      "aliases": [
+        "swarm-quantum-collapse",
+        "/swarm-quantum-collapse",
+        "swarm quantum collapse",
+        "colapso cuántico",
+        "sincronizar enjambre",
+        "orquestar repos",
+        "swarm sync",
+        "colapso multirrepo",
+        "sincronización cuántica"
+      ],
+      "module": "references/modules/swarm-quantum-collapse/MODULE.md"
+    },
+    {
+      "name": "dynamic-subagent-lifecycle",
+      "aliases": [
+        "dynamic-subagent-lifecycle",
+        "/dynamic-subagent-lifecycle",
+        "subagente dinámico",
+        "ciclo de vida subagente",
+        "dynamic subagent",
+        "invoke_subagent",
+        "supervisar subagente",
+        "mitigar deadlocks",
+        "orquestar agentes dinámicos"
+      ],
+      "module": "references/modules/dynamic-subagent-lifecycle/MODULE.md"
+    },
+    {
+      "name": "c5-debloat-agent-kernel",
+      "aliases": [
+        "c5-debloat-agent-kernel",
+        "/c5-debloat-agent-kernel",
+        "debloat llm",
+        "microkernel agentes",
+        "reemplazar langchain",
+        "bare-metal agent",
+        "autopsia langchain",
+        "agente zero dependency"
+      ],
+      "module": "references/modules/c5-debloat-agent-kernel/MODULE.md"
+    },
+    {
+      "name": "c5-autonomous-agent-primitives",
+      "aliases": [
+        "c5-autonomous-agent-primitives",
+        "/c5-autonomous-agent-primitives",
+        "47 skills",
+        "primitivas de agente",
+        "catálogo de skills",
+        "asimilación de skills",
+        "playbooks de agente",
+        "47 primitivas",
+        "macro-transductores"
+      ],
+      "module": "references/modules/c5-autonomous-agent-primitives/MODULE.md"
+    },
+    {
+      "name": "c5-adaptive-annealing-engine",
+      "aliases": [
+        "c5-adaptive-annealing-engine",
+        "/c5-adaptive-annealing-engine",
+        "adaptive annealing",
+        "motor de recocido",
+        "optimizacion sin colisiones",
+        "recocido adaptativo",
+        "busqueda del apex",
+        "evitar colapso voraz"
+      ],
+      "module": "references/modules/c5-adaptive-annealing-engine/MODULE.md"
+    },
+    {
+      "name": "kimi-mcp-orchestrator",
+      "aliases": [
+        "kimi-mcp-orchestrator",
+        "/kimi-mcp-orchestrator",
+        "kimi ask",
+        "kimi audit",
+        "kimi swarm",
+        "kimi nexus",
+        "kimi mcp",
+        "moonshot kimi",
+        "orquestar kimi"
+      ],
+      "module": "references/modules/kimi-mcp-orchestrator/MODULE.md"
+    },
+    {
+      "name": "c5-gemini-api-2026-standards",
+      "aliases": [
+        "c5-gemini-api-2026-standards",
+        "/c5-gemini-api-2026-standards",
+        "gemini api 2026",
+        "renovar gemini",
+        "gemini api key",
+        "tensor de transducción",
+        "structured outputs",
+        "gemini json schema",
+        "cuotas gemini api"
+      ],
+      "module": "references/modules/c5-gemini-api-2026-standards/MODULE.md"
+    },
+    {
+      "name": "cortex-skill-auditor",
+      "aliases": [
+        "cortex-skill-auditor",
+        "/cortex-skill-auditor",
+        "auditar skills",
+        "auditoría de habilidades",
+        "exergía skills",
+        "solapamiento de triggers",
+        "cortex skill auditor",
+        "matriz de colisión",
+        "salud de skills"
+      ],
+      "module": "references/modules/cortex-skill-auditor/MODULE.md"
+    },
+    {
+      "name": "cortex-skill-composer",
+      "aliases": [
+        "cortex-skill-composer",
+        "/cortex-skill-composer",
+        "componer skills",
+        "skill chain",
+        "cadena de habilidades",
+        "pipeline de skills",
+        "cortex skill composer",
+        "orquestación de habilidades",
+        "skill pipeline"
+      ],
+      "module": "references/modules/cortex-skill-composer/MODULE.md"
+    },
+    {
+      "name": "cortex-skill-genesis",
+      "aliases": [
+        "cortex-skill-genesis",
+        "/cortex-skill-genesis",
+        "generar skill",
+        "skill genesis",
+        "crear habilidad",
+        "cortex skill genesis",
+        "sintetizar skill",
+        "auto skill creator"
+      ],
+      "module": "references/modules/cortex-skill-genesis/MODULE.md"
+    },
+    {
+      "name": "cortex-telemetry",
+      "aliases": [
+        "cortex-telemetry",
+        "/cortex-telemetry",
+        "telemetría",
+        "cortex telemetry",
+        "transcript logs",
+        "historial de prompts",
+        "analizar transcripciones",
+        "sin consolidar",
+        "consolidar conversaciones",
+        "drenar brain"
+      ],
+      "module": "references/modules/cortex-telemetry/MODULE.md"
+    },
+    {
+      "name": "c5-session-deskimming",
+      "aliases": [
+        "c5-session-deskimming",
+        "/c5-session-deskimming",
+        "deskimming",
+        "desnatar sesión",
+        "purgar nata sesión",
+        "archivos huérfanos"
+      ],
+      "module": "references/modules/c5-session-deskimming/MODULE.md"
+    },
+    {
+      "name": "anergy-purge-protocol",
+      "aliases": [
+        "anergy-purge-protocol",
+        "/anergy-purge-protocol",
+        "purga de anergía",
+        "purga de entropía",
+        "dead code",
+        "scandisk",
+        "disco lleno",
+        "limpiar conversaciones",
+        "ghost listeners",
+        "prompt bloat"
+      ],
+      "module": "references/modules/anergy-purge-protocol/MODULE.md"
+    },
+    {
+      "name": "goal",
+      "aliases": [
+        "goal",
+        "/goal",
+        "contrato goal"
+      ],
+      "module": "references/modules/goal/MODULE.md"
+    },
+    {
+      "name": "handoff",
+      "aliases": [
+        "handoff",
+        "/handoff",
+        "traspaso de contexto",
+        "traspaso de sesión",
+        "generar handoff",
+        "traspaso formal",
+        "context handover"
+      ],
+      "module": "references/modules/handoff/MODULE.md"
+    },
+    {
+      "name": "c5-plan-omega",
+      "aliases": [
+        "c5-plan-omega",
+        "/c5-plan-omega",
+        "plan omega",
+        "c5 plan",
+        "plan causal",
+        "protocolo plan omega",
+        "mejorar plan",
+        "/plan-omega"
+      ],
+      "module": "references/modules/c5-plan-omega/MODULE.md"
+    }
+  ]
+}
