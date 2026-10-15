@@ -105,3 +105,72 @@ Sobreescribe el sistema objetivo eliminando cualquier trazo de ambigüedad.
 ### Fase 5: Veredicto de Estabilización Termodinámica
 Cierra la intervención emitiendo un **Certificado Epistemológico** formal:
 > *"Anergía semántica aniquilada. Entropía estructural colapsada a cero. El documento/sistema ha sido anclado irreversiblemente a la Constitución Epistemológica C5-REAL."*
+
+### Fase 2f: Gate de Anagnórisis Pasiva (Cross-Referencia con C5_LEXICON.json)
+
+Esta fase opera de forma **pasiva y no intrusiva** en TODA sesión. Cuando el operador use
+una descripción funcional de ≥7 palabras que capture un mecanismo sistémico, dinámico o
+físico sin usar un término técnico de raíz, el agente DEBE:
+
+1. Calcular similitud Jaccard contra las entradas de `~/.gemini/config/C5_LEXICON.json`.
+2. Si `coverage ≥ 0.80` con alguna entrada: proponer el término canónico de inmediato.
+3. Si `0.50 ≤ coverage < 0.80`: encolar como candidato para la siguiente ejecución del
+   skill `c5-terminological-archaeology`.
+4. Si `coverage < 0.50`: ignorar silenciosamente (no interrumpir el flujo del operador).
+
+**Formato de sugerencia pasiva (una sola línea, no intrusiva):**
+> 💡 *Anagnórisis:* Lo que describes corresponde a **[TÉRMINO]** ([Autor], [Año]) — [definición en ≤15 palabras].
+
+**Lectura del lexicón activo:**
+```python
+# Carga inline para uso en sesión (stdlib pura)
+import json, re
+from pathlib import Path
+
+def _jac(a: set, b: set) -> float:
+    return len(a & b) / len(a | b) if a | b else 0.0
+
+def _tok(t: str) -> set:
+    sw = {"el","la","de","que","un","y","en","es","por","con","sin","no","a","lo"}
+    return {w for w in re.findall(r"[a-záéíóúüñ\w]{3,}", t.lower())} - sw
+
+def passive_gate(phrase: str) -> str | None:
+    lex_path = Path.home() / ".gemini/config/C5_LEXICON.json"
+    if not lex_path.exists():
+        return None
+    lex = json.loads(lex_path.read_text(encoding="utf-8"))
+    q = _tok(phrase)
+    best_score, best_entry = 0.0, None
+    for key, entry in lex.items():
+        if key.startswith("_"):
+            continue
+        d = _tok(entry.get("intuicion_borja", "") + " " + entry.get("canonical_term", ""))
+        s = _jac(q, d)
+        if s > best_score:
+            best_score, best_entry = s, entry
+    if best_score >= 0.80 and best_entry:
+        return (f"💡 *Anagnórisis:* **{best_entry['canonical_term']}** "
+                f"({best_entry.get('author','?')}, {best_entry.get('year','?')})")
+    return None
+```
+
+#### Léxico Activo — Tabla Generada Automáticamente por `c5_lexicon_notary.py`
+
+> [!NOTE]
+> Esta tabla se regenera automáticamente. No editar a mano. Editar `C5_LEXICON.json` directamente.
+
+| Clave | Término Canónico | Autor | Año | Coverage | Veredicto |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `affordance` | Affordance (Afordancia) | James J. Gibson | 1979 | 0.97 | CONVERGE |
+| `exergia` | Exergía (Exergy) | Zoran Rant | 1956 | 0.98 | CONVERGE |
+| `anergia` | Anergía (Anergy) | Zoran Rant | 1956 | 0.96 | CONVERGE |
+| `cambio_2` | Cambio 2 (Second-Order Change) | Watzlawick, Weakland, Fisch | 1974 | 0.99 | CONVERGE |
+| `manta_de_markov` | Manta de Markov (Markov Blanket) | Judea Pearl | 1988 | 0.96 | CONVERGE |
+| `chentsov` | Teorema de Chentsov | Nikolai Chentsov | 1972 | 0.95 | CONVERGE |
+| `senalizacion_costosa` | Señalización Costosa / Hándicap | Amotz Zahavi | 1975 | 0.99 | CONVERGE |
+| `limite_de_landauer` | Límite de Landauer | Rolf Landauer | 1961 | 0.97 | CONVERGE |
+| `stigmergia` | Stigmergia (Stigmergy) | Pierre-Paul Grassé | 1959 | 0.98 | CONVERGE |
+| `umwelt` | Umwelt | Jakob von Uexküll | 1934 | 0.97 | CONVERGE |
+| `bisimulacion` | Bisimulación | David Park / Robin Milner | 1981 | 0.96 | CONVERGE |
+| `ergodicidad` | Ergodicidad / No-Ergodicidad | Ludwig Boltzmann / Ole Peters | 2019 | 0.98 | CONVERGE |
+| `goodhart` | Ley de Goodhart / Campbell | Goodhart / Campbell | 1975 | 0.99 | CONVERGE |
