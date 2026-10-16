@@ -50,3 +50,15 @@ Cuando se ejecute una actualización de dependencias, regeneración de lockfiles
 2. **Confinamiento en Worktree Limpio:** La operación DEBE ejecutarse en un worktree efímero e ignorado (`git worktree add target/wt-... <ref>`).
 3. **Auditoría Estricta de Diff Relativo al Padre:** Antes de stagear, contrastar con `git diff <parent> -- <manifest>` para certificar que el cambio contiene **estrictamente** los pisos/versiones solicitados y cero arrastre de modificaciones preexistentes.
 4. **Verificación de Gate en Silicio Limpio:** La condición de parada (`uv lock --check`, `cargo check --locked`, test suites) DEBE evaluarse dentro del worktree limpio contra el commit exacto previo al push a ramas troncales (`main`).
+
+## 6. Invariante de Reconocimiento Forense Autónomo de Código (INV_C5_AUTONOMOUS_FORENSIC_RECOVERY)
+Ante cualquier búsqueda o verificación sobre la existencia, estado o autoría de un módulo, aplicación, herramienta o trabajo previo referenciado por el usuario:
+1. **Prohibición de Dictamen Superficial:** Queda terminantemente prohibido concluir la inexistencia de código basándose únicamente en `HEAD`, `git status` o `git ls-files`.
+2. **Protocolo Forense Obligatorio de 6 Estratos:** El agente DEBE ejecutar y agotar autónomamente antes de emitir cualquier diagnóstico:
+   - **Estrato 1 (Gitignore y Staging):** `git status --ignored` y comprobación de patrones en `.gitignore` para descartar rutas deliberadamente excluidas (`tools/`, `target/`, `.cursor/`).
+   - **Estrato 2 (Reflogs Profundos):** `git reflog --all --date=iso` buscando commits huérfanos, checkpoints de asistentes o conmutaciones recientes.
+   - **Estrato 3 (Árbol de Ramas y Worktrees):** `git branch -a` y `git worktree list` contrastando ramas locales y remotas no integradas.
+   - **Estrato 4 (Archivos Untracked y Stashes):** `git status --short --untracked-files=all` y `git stash list`.
+   - **Estrato 5 (Topología de Organización Remota):** Búsqueda de repositorios hermanos y ramas activas vía `gh repo list` o `gh api "repos/<org>/<repo>/branches"`.
+   - **Estrato 6 (Artefactos y Transcripciones de Sesión):** Inspección de `brain/` e historiales de sesiones recientes (`transcript.jsonl`).
+3. **Veto a la Consulta Prematura:** Queda estrictamente prohibido solicitar al operador humano confirmación de rutas o nombres sin haber agotado los 6 estratos en silicio.
