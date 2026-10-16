@@ -115,4 +115,16 @@ Toda frontera de comunicación entre procesos (IPC), protocolos de atestación, 
 - **Prohibición de Marcadores Sintéticos:** Toda especificación formal, archivo de arquitectura (`spec_architecture.md`) o roadmap estratégico (`sota_evolution_roadmap.md`) DEBE mantener identificadores canónicos limpios.
 - **Purga Determinista:** Queda prohibido versionar o dejar marcadores de sanitización automática (`[OBSOLETO: ...]`) en documentos normativos. Antes de sellar cualquier `RELEASE_MANIFEST.json` o compilar claims, debe verificarse mediante `! git grep -q "\[OBSOLETO:" docs/` que el corpus documental conserva su integridad terminológica.
 
+## 16. Invariante de Agrupación Atómica en Dependencias Multi-Crate (INV_C5_DEPENDENCY_GROUP_ATOMICITY)
+- **Invariante:** En repositorios con pilas de compilación acopladas (ej. `hyperium/tonic`, `prost`, `tokio` o suites criptográficas como `rand` y `ed25519-dalek`), los bots de actualización automatizada (Dependabot, Renovate) DEBEN configurarse obligatoriamente con directivas de agrupación (`groups:`).
+- **Prohibición:** Queda terminantemente prohibido tramitar o permitir upgrades aislados de crates individuales pertenecientes a la misma familia de codegen/runtime (ej. `tonic-build` sin `tonic`, `prost` sin `tonic-prost-build`, `tonic-web` sin `tonic`) o bumps mayores de CSPRNG (`rand 0.9` vs `rand_core 0.6`) que provoquen fracturas nominales de traits (`E0277`) en el compilador de Rust.
+
+## 17. Invariante Anti-TOCTOU en Descriptores de Fichero (INV_C5_FS_DESCRIPTOR_NOFOLLOW)
+- **Invariante:** Toda rutina en Python o Rust que valide permisos, confinamiento de rutas o inexistencia de enlaces simbólicos en un recurso antes de leer su contenido (ej. `mcp_server.py`, artefactos) DEBE realizar la apertura física del descriptor utilizando la bandera `O_NOFOLLOW` (`os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0)` o `OpenOptionsExt::custom_flags(libc::O_NOFOLLOW)`).
+- **Prohibición:** Queda prohibida la secuencia ingenua de comprobar `is_symlink()` y posteriormente invocar `read_text()` o `open()`, al ser vulnerable a sustitución atómica de inodos en sistemas de archivos concurrentes.
+
+## 18. Invariante de Normalización Geométrica de Claves Secure Enclave (INV_C5_SECURE_ENCLAVE_POINT_NORMALIZATION)
+- **Invariante:** Al validar atestaciones de hardware emitidas por el Secure Enclave (Apple Silicon via CryptoKit), el runtime DEBE procesar y normalizar las claves públicas a puntos de curva elíptica SEC1 / NIST P-256 (`same_public_key`) antes de evaluar equivalencias.
+- **Prohibición:** Queda prohibida la comparación cruda de bytes entre representaciones SEC1 no comprimidas (65 bytes `x963Representation`) y estructuras PKI SPKI DER (~91 bytes), previniendo falsos rechazos en la autorización biométrica de Ring-0.
+
 
