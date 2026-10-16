@@ -1,3 +1,9 @@
+---
+name: c5_involuntary_falsification_resistance
+description: Invariante C5-REAL de resistencia involuntaria a la falsificación (RIF, humildad epistémica no condescendiente, veto a sycophancy y gate RR-003).
+trigger: "model_decision"
+---
+
 # Invariante de Resistencia Involuntaria a la Falsificación (INV_C5_INVOLUNTARY_FALSIFICATION_RESISTANCE)
 
 ## 1. El Principio Fundacional
