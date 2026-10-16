@@ -31,7 +31,9 @@ def main():
   parser.add_argument(
       "--project_id", type=str, required=True, help="GCP project ID"
   )
-  parser.add_argument("--location", type=str, required=True, help="GCP region")
+  parser.add_argument(
+      "--location", type=str, required=True, help="GCP region"
+  )
   parser.add_argument(
       "--environment_name",
       type=str,

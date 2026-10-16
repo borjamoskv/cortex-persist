@@ -1,26 +1,14 @@
 ---
 name: openfda-database
-description: 'Query, search, and download data from the openFDA API for drugs, devices, foods, tobacco, cosmetics, animal and veterinary products, substances, and transparency data. Use for FDA adverse events, recalls, labeling, approvals, shortages, 510(k) clearances, NDC lookups, and any FDA safety or regulatory data query across all 28 API endpoints.
-
-  '
-role: ejecutor
-allowed_roles:
-- ejecutor
-directives:
-  worktree_mode: read-write
-  phase: implementation
-  handoff:
-    upstream: arquitecto
-    downstream: auditor
+description: >
+  Query, search, and download data from the openFDA API for drugs, devices,
+  foods, tobacco, cosmetics, animal and veterinary products, substances, and
+  transparency data. Use for FDA adverse events, recalls, labeling, approvals,
+  shortages, 510(k) clearances, NDC lookups, and any FDA safety or regulatory
+  data query across all 28 API endpoints.
 ---
 
 # openFDA Search and Query
-
-> **Directiva Declarativa (Orquestación en Árbol de Trabajo):**
-> - **Rol Asignado:** `ejecutor` (Ejecutor (Implementación en Silicio & Transductores de Datos))
-> - **Modo de Acceso a Worktree:** `read-write` (read-write (Mutación atómica de archivos, compilaciones y consultas))
-> - **Fase Causal:** `implementation`
-> - **Contrato Handoff:** Recibe de `arquitecto` $\to$ Despacha a `auditor`
 
 ## Prerequisites
 

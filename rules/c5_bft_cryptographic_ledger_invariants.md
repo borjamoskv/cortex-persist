@@ -102,3 +102,14 @@ Toda frontera de comunicación entre procesos (IPC), protocolos de atestación, 
    - Toda ontología formal (`ReceiptStage`) debe vincularse mediante morfismos exhaustivos en compilación (`From` / `TryFrom`) al estado de ejecución real del runtime (`ReservationState`), impidiendo la coexistencia de máquinas de estados fantasma.
    - Queda prohibido reimplementar estructuras de sincronización lock-free (`SharedManifest`, Seqlock) fuera del crate canónico de Ring-0.
 
+## 13. Convergencia Dual-Schema y Fachada Síncrona de Ledgers (R-8)
+- **Núcleo Primario:** `BFTLedgerActor` constituye el motor asíncrono canónico de escritura única. Todo componente del sistema debe converger sobre su interfaz para mutaciones de alta concurrencia.
+- **Fachadas y Mappers Canónicos:** Para superficies síncronas (CLI, scripts), se debe emplear `CortexPersistFacade` o mapear `CortexEvent` a `LedgerEvent` mediante `cortex_event_to_ledger_event` preservando invariantes de causalidad (`cortex_taint`, `lamport_t`, UUID v5).
+- **Durabilidad Invariable:** Toda conexión de persistencia a tablas de ledger (`cortex_ledger`, `ledger_entries`) DEBE forzar `PRAGMA synchronous = FULL` bajo WAL mode, previniendo amnesia post-crash y falsas garantías de ordenamiento.
+
+## 14. Anclaje Externo de Ledger-Heads en Transparency Logs (Rekor / Art. 12 EU AI Act)
+- **Mitigación de Evidencia Auto-Emitida:** Para que una atestación de estado del ledger posea peso probatorio frente a reguladores o terceros (Art. 12 EU AI Act), el ledger-head (`merkle_root` + `max_lamport` + `total_entries` + `attested_at`) debe anclarse externamente en un log de transparencia público o federado (Sigstore Rekor).
+- **Esquema de Anclaje:** El digest SHA-256 del JSON canónico del ledger-head debe firmarse criptográficamente (Ed25519) y enviarse mediante `RekorClient.anchor_payload(...)`.
+- **Inspección de Evidencia Agnóstica:** Todo exportador de cumplimiento (`compliance_exporter`) DEBE inspeccionar dinámicamente `sqlite_master` para aceptar indiferentemente esquemas `ledger_entries` o `cortex_ledger`, integrando la prueba de inclusión de Rekor (`rekor_anchor`) en el bloque `evidence_verification`.
+
+
