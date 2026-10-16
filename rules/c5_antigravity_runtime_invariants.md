@@ -31,3 +31,8 @@ En el runtime nativo de Antigravity (`language_server`), los comandos `/goal` y 
    - `implementation_plan.md`: Especificación técnica, sondeo empírico y plan de verificación.
    - `task.md`: Checklist viva de progreso durante la fase de ejecución (`[ ]`, `[/]`, `[x]`).
    - `walkthrough.md`: Evidencia empírica de verificación final una vez completada la tarea.
+
+---
+
+## 4. Invariante de Confinamiento de Prefill (Anti-Duplicación GEMINI.md)
+Cuando el workspace contiene `AGENTS.md`, queda terminantemente prohibido generar `GEMINI.md` en la raíz. El runtime de Antigravity ingiere automáticamente ambos archivos en el prefill `always_on`, provocando saturación del presupuesto de tokens (> 40.000 B). La directiva para Gemini CLI reside exclusivamente en `.gemini/settings.json`.
