@@ -37,6 +37,7 @@ graph TD
     A --> B4["4. Consenso BFT & Falla Bizantina"]
     A --> B5["5. Touch ID COSE_Sign1 Bridge"]
     A --> B6["6. Exterior Cognitivo CORTEX-Persist"]
+    A --> B7["7. Resistencia Epistémica RR-003 (RIF)"]
 
     B1 --> C1["<= 2.5 ms para 1.000 agentes"]
     B2 --> C2["0 Torn Reads / 57.11 Mops/s (8 lectores)"]
@@ -44,6 +45,7 @@ graph TD
     B4 --> C4["Aislamiento 0xDEAD_6060"]
     B5 --> C5["Atestación DER P-256 en Silicio"]
     B6 --> C6["4 Vectores Anti-Solipsismo (145/145 PASSED)"]
+    B7 --> C7["RIF Score = 1.0000 / N >= 30"]
 ```
 
 ---
