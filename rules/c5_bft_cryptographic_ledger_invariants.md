@@ -79,10 +79,9 @@ En la implementación de algoritmos de ordenamiento topológico (Kahn), geodési
 
 Toda frontera de comunicación entre procesos (IPC), protocolos de atestación, ledgers criptográficos y serialización inter-agente DEBE regirse por los siguientes preceptos deterministas:
 
-1. **Unificación Canónica de Funciones Hash:**
-   - **`BLAKE3`:** Digest canónico exclusivo para árboles de Merkle de alta velocidad, integridad de mensajes IPC (`B60IPC` con MAC con clave), digests de nonces, caché de capacidades y deduplicación.
-   - **`SHA-256` (`sha2`):** Circunscrito estrictamente a interfaces de atestación criptográfica formal, firmas de hardware NIST P-256 (Apple Secure Enclave / Touch ID) y atestaciones SCITT (RFC 9942).
-   - **Veto a `ring` y `sha3`:** Queda prohibida la introducción de `ring` (sustituido por primitivas zero-copy/RustCrypto puras y `blake3::Hasher::new_keyed`) y `sha3` en las rutas de consenso e IPC.
+1. **Unificación Canónica de Funciones Hash y Fronteras Criptográficas:**
+   - **Ruta On-Wire, IPC y Consenso en Rust (`00_ABZU_KERNEL` / `babylon-attest`):** `BLAKE3` como digest canónico exclusivo para árboles de Merkle de alta velocidad, integridad de mensajes IPC (`B60IPC` con MAC con clave), digests de nonces, caché de capacidades y deduplicación; `SHA-256` (`sha2`) circunscrito estrictamente a interfaces de atestación criptográfica formal, firmas de hardware NIST P-256 (Apple Secure Enclave / Touch ID) y atestaciones SCITT (RFC 9942). Queda prohibida la introducción de `ring` y `sha3` en esta ruta caliente de consenso e IPC.
+   - **Ruta de Atestación de Release y Persistencia SQLite (`01_KISH_ENGINE`):** El árbol de Merkle inmutable de release (`compile_claims_manifest.py`) y el ledger de eventos Python (`cortex_crypto_kernel.py`) emplean `SHA3-256` reforzado con separación de dominio RFC 6962 (`0x00`/`0x01`/`0x02`) y compromiso de cardinalidad, no constituyendo infracción de `INV_C5_ONWIRE_CANON` al ser un almacenamiento de evidencia persistente y no un protocolo de transporte inter-nodo.
 
 2. **Transporte Canónico y Envelopes Tipados:**
    - El formato canónico de transporte inter-proceso para envelopes del executor, Receipts de 5 fases e inferencias es **`CBOR + COSE_Sign1 + CDDL`**.
@@ -111,5 +110,9 @@ Toda frontera de comunicación entre procesos (IPC), protocolos de atestación, 
 - **Mitigación de Evidencia Auto-Emitida:** Para que una atestación de estado del ledger posea peso probatorio frente a reguladores o terceros (Art. 12 EU AI Act), el ledger-head (`merkle_root` + `max_lamport` + `total_entries` + `attested_at`) debe anclarse externamente en un log de transparencia público o federado (Sigstore Rekor).
 - **Esquema de Anclaje:** El digest SHA-256 del JSON canónico del ledger-head debe firmarse criptográficamente (Ed25519) y enviarse mediante `RekorClient.anchor_payload(...)`.
 - **Inspección de Evidencia Agnóstica:** Todo exportador de cumplimiento (`compliance_exporter`) DEBE inspeccionar dinámicamente `sqlite_master` para aceptar indiferentemente esquemas `ledger_entries` o `cortex_ledger`, integrando la prueba de inclusión de Rekor (`rekor_anchor`) en el bloque `evidence_verification`.
+
+## 15. Invariante de Pureza Normativa en Especificaciones (Anti-Slop de Sanitización)
+- **Prohibición de Marcadores Sintéticos:** Toda especificación formal, archivo de arquitectura (`spec_architecture.md`) o roadmap estratégico (`sota_evolution_roadmap.md`) DEBE mantener identificadores canónicos limpios.
+- **Purga Determinista:** Queda prohibido versionar o dejar marcadores de sanitización automática (`[OBSOLETO: ...]`) en documentos normativos. Antes de sellar cualquier `RELEASE_MANIFEST.json` o compilar claims, debe verificarse mediante `! git grep -q "\[OBSOLETO:" docs/` que el corpus documental conserva su integridad terminológica.
 
 
