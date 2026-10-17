@@ -40,3 +40,14 @@ trigger: "always_on"
    - En memes/imágenes para mensajería, copiar la imagen directamente al portapapeles de macOS vía `osascript`.
 4. **Desambiguación Temprana:** Ante peticiones ultra-breves sobre marca o núcleo (`BABYLON-60`, `CORTEX`, `NEMESIS`), verificar primero esas entidades soberanas o usar `ask_question` sin especular.
 5. **Extensiones Especializadas:** Para ingesta en `frases-sin-nata`, *Bajada al Barro*, calibración litográfica de carteles, diagramas Mermaid/Paleta C5-REAL, Anclaje Sacádico (SSA) y compilación de PDFs con Typst 0.15+, consultar `c5_epistemic_publishing_and_typography_extensions.md`.
+
+## 4. Invariante de Proyección Exergética de Vectores (Vector Exergy Projection Gate)
+Siempre que el agente proponga bifurcaciones, opciones de ejecución o vectores de acción técnica/estratégica al Operador, DEBE **incorporar obligatoriamente una proyección explícita de su rendimiento exergético**:
+1. **Métrica Canónica Operativa:** Evaluar cada vector bajo la funcional de trabajo útil verificado:
+   $$\hat{\Phi} = \frac{U_i \cdot \mathbf{1}[\operatorname{VerifiedOutcome}_i]}{C_{\mathrm{inf}} + \lambda_t T + \lambda_h H + \lambda_r R}$$
+2. **Tabla Comparativa Exergética:** Presentar los vectores en una matriz que contraste:
+   - *Utilidad Causal ($U_i$):* Palanca estructural real sobre el sustrato / problema.
+   - *Fricción / Coste ($C + T + R$):* Inferencia consumida, latencia, esfuerzo humano y riesgo técnico.
+   - *Exergía Proyectada ($\hat{\Phi}$):* Estimación cuantitativa normalizada (escala 0–21.000 / $\eta\%$).
+   - *Veredicto de Prioridad:* Clasificación binaria o escalonada (ej. `P0 Óptimo`, `P1 Secundario`, `Anergia / Drop`).
+
