@@ -47,3 +47,12 @@ Para prevenir errores de parseo en librerías YAML estrictas (`yaml.scanner.Scan
 - Todo campo escalar en el frontmatter YAML (`description`, `display_name`) que contenga la secuencia `: ` (dos puntos seguidos de espacio, ej. nombres de CLI, subtítulos o listas inline) **DEBE ESTAR OBLIGATORIAMENTE ENCOMILLADO** mediante comillas simples (`'...'`).
 - Queda prohibido el uso indiscriminado del operador de bloque plegado (`>`) si el texto resultante desborda la cota de 350 caracteres tras la normalización de espacios.
 
+## 7. Invariante B1 en Servidores MCP y Enrutador Ontológico (INV_C5_MCP_SKILL_ROUTER)
+Cuando servidores MCP (ej. `cortex_mcp_server.py`) o endpoints HTTP expongan catálogos de habilidades o herramientas:
+- **Preservación Legacy por Defecto:** En `tools/list` y `resources/list`, los nombres legados (`bft_*`, `read_source`) DEBEN mantenerse como identificadores primarios por defecto para garantizar cero rotura de clientes externos (Claude Desktop, Cursor, extensiones).
+- **Proyección Canónica Opt-In:** La proyección de alias funcionales (`cortex_*`, `kernel_*`) se activa exclusivamente mediante `--use-canonical-names` o variable de entorno (`BABYLON60_MCP_CANONICAL_NAMES=1`), exponiendo el identificador previo en `legacy_name` o `legacy_uri`.
+- **Enrutador Ontológico Determinista:** Toda herramienta de enrutamiento (`bft_route_skill` / `cortex_skill_route`) debe consultar el catálogo sincronizado (`docs/skills.json`), resolviendo por alias canónico (+50), coincidencia de triggers (+15) e intersección de tokens, devolviendo la tríada de rol, tier, alcance y cadena de handoff.
+- **Prompts MCP Nativos:** Las habilidades declarativas con contrato frontal deben exponerse nativamente en `prompts/list` y `prompts/get`, habilitando su invocación paramétrica directa por clientes LLM.
+- **Paridad OpenAPI 3.1 Bit a Bit:** Toda extensión de esquema (`x-canonical-alias`) introducida en generadores programáticos (`build_openapi_spec()`) DEBE sincronizarse inmediatamente con el contrato estático serializado (`contracts/openapi_*.json`), garantizando paridad exacta en tests de integración.
+
+

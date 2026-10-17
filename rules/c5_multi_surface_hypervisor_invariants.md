@@ -46,3 +46,9 @@ Cuando se requiera disponibilidad 24/7 del kernel MOSKV-1 para orquestación o c
 - La ejecución se confina a un demonio local administrado por `launchd` de macOS (`~/Library/LaunchAgents/com.c5real.moskv1.kernel.plist`).
 - El tráfico se confina a loopback (`127.0.0.1:6061`) con autenticación Bearer por token de entorno.
 - Queda prohibida la orquestación en contenedores de terceros o proveedores cloud externos.
+
+## 6. Higiene de Subcomandos CLI con Argumentos Remainder (INV_C5_CLI_REMAINDER_HYGIENE)
+Al implementar dispatchers centrales en Python (`main_dispatcher.py`) que deleguen subcomandos a CLIs o scripts secundarios mediante `nargs=argparse.REMAINDER`:
+- **Declaración Explícita de Flags de Inspección:** Si el script hijo soporta banderas de inspección temprana o fail-safe (`--check`, `--status`, `--dry-run`, `--help`), el subparser del dispatcher central DEBE declarar explícitamente esos argumentos.
+- **Reconstrucción Limpia de `sys.argv`:** El manejador del subcomando debe reconstruir `sys.argv` inyectando los flags capturados antes de invocar el `main()` del módulo hijo, evitando que `argparse` aborte con `unrecognized arguments` antes del despacho.
+
