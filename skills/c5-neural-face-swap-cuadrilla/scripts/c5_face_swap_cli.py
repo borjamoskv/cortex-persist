@@ -217,7 +217,7 @@ def render_worker_chunk(
 ):
     """Procesa una franja contigua de fotogramas [start_frame, end_frame) en un subproceso aislado."""
     coreml_opts = {'MLComputeUnits': 'CPUAndGPU'}
-    coreml_providers = [('CoreMLExecutionProvider', coreml_opts), 'CPUExecutionProvider'] if 'CoreMLExecutionProvider' in ort.get_available_providers() else ['CPUExecutionProvider']
+    coreml_providers = [('CoreMLExecutionProvider', coreml_opts), 'CPUExecutionProvider'] if ('CoreMLExecutionProvider' in ort.get_available_providers() and not os.environ.get('C5_FORCE_CPU')) else ['CPUExecutionProvider']
     app_det = FaceAnalysis(name='buffalo_l', allowed_modules=['detection'], providers=coreml_providers)
     app_det.prepare(ctx_id=0, det_size=(640, 640))
     swapper = get_model(INSWAPPER_PATH, providers=coreml_providers)
@@ -461,7 +461,7 @@ def generate_vertical_916_video(master_video, out_916_path, bg_mode='crop', targ
 
     # Detector facial para centrar el encuadre
     coreml_opts = {'MLComputeUnits': 'CPUAndGPU'}
-    coreml_providers = [('CoreMLExecutionProvider', coreml_opts), 'CPUExecutionProvider'] if 'CoreMLExecutionProvider' in ort.get_available_providers() else ['CPUExecutionProvider']
+    coreml_providers = [('CoreMLExecutionProvider', coreml_opts), 'CPUExecutionProvider'] if ('CoreMLExecutionProvider' in ort.get_available_providers() and not os.environ.get('C5_FORCE_CPU')) else ['CPUExecutionProvider']
     app_det = FaceAnalysis(name='buffalo_l', allowed_modules=['detection'], providers=coreml_providers)
     app_det.prepare(ctx_id=0, det_size=(320, 320))
 

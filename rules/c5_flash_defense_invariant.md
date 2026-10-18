@@ -72,7 +72,11 @@ La confabulación en modelos de inferencia ultrarrápida (*Flash*, *Mini*, model
     - **Protocolo de Kernel AOT (Salto Topológico):** El agente DEBE exigir:
       1. *Despacho Tipado en Silicio:* Colapsar los schemas a una única primitiva con gramática GBNF en logits ($\le 150\text{ tokens}$).
       2. *Pre-fetching Determinista:* Inyección de documentación y dependencias offline (AST del proyecto + SQLite FTS5 local) antes del primer token, eliminando *round-trips* de búsqueda.
-      3. *Linters Fail-Closed:* Ejecutar especificaciones y reglas de diseño como binarios nativos en Anillo-0 antes de escribir a disco.
+18. **Cortafuegos 18 (Veto Sub-Umbral y Anti-Degradación Silenciosa en Enrutadores / Anti-Fallbacks en Dominios Críticos):**
+    En enrutadores agénticos, pasarelas y clientes LLM (OpenRouter, Swarm, arneses multi-modelo):
+    - **Veto a `allow_fallbacks: True` en Dominios de Alta Responsabilidad:** Queda estrictamente prohibido habilitar `allow_fallbacks: True` o confiar en listas de modelos de rescate que alberguen variantes sub-umbral (`mini`, `flash`, `small`, `xs`, `nano`, `lite`, `lightning`, `haiku`, `1.7b`, `3b`, `7b`, `8b`, `:free`, `openrouter/auto`) en dominios de responsabilidad jurídica (LegalTech, EU AI Act, cumplimiento normativo, dictámenes legales) o arquitectura crítica de Ring-0.
+    - **Saneamiento Pre-Vuelo:** El cliente DEBE imponer `"allow_fallbacks": False` y `"data_collection": "deny"`, purgando modelos de juguete antes del despacho y bloqueando el failover local hacia modelos ultraligeros (`qwen3:1.7b`).
+    - **Auditoría Post-Vuelo Obligatoria:** El cliente DEBE auditar el campo `model` devuelto en el JSON HTTP por el servidor antes de entregar el texto. Si el gateway sirvió en silencio un modelo sub-umbral por conmutación interna del clúster, el cliente DEBE abortar en `Fail-Closed` (`SubThresholdModelVetoError`, `veto_triggered: True`).
 
 ## 3. Protocolo Activo de System Prompt (Flash-Defense)
 - Prohibido reproducir citas, fórmulas o datos biográficos confiando en memoria de entrenamiento.
