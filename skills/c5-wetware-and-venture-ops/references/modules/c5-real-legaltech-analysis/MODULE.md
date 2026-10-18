@@ -46,6 +46,11 @@ Este glosario opera como *stub* C3. Sincronizar con el registro canónico para p
 **Delimitación Explícita de Ámbitos (Zero-Pause vs Supervisión Humana):**
 La autonomía de ejecución (Zero-Pause) y automatización cognitiva aplica *exclusivamente* al **Agente-Ejecutor** realizando esta auditoría bajo el entorno Antigravity. Las exigencias de supervisión humana (ej. EU AI Act) aplican al **Sistema-Auditado** (la plataforma LegalTech en el mercado tomando decisiones sobre usuarios). No mezclar planos termodinámicos.
 
+### Cerrojo de Inferencia LegalTech (`[governance.legaltech]` — Veto Fail-Closed a Flash)
+- **Prohibición de Modelos Ligeros y Fallbacks:** Queda terminantemente prohibido ejecutar auditorías LegalTech, redacción contractual o análisis de jurisprudencia sobre modelos `flash`, `mini`, `lite`, `nano`, `haiku` o `:free`, así como activar `allow_fallbacks: True` en pasarelas (OpenRouter/Gateways). Si el modelo activo es Estrato 1 (`Fast/Flash`) o `No expuesto`, abortar en pre-vuelo (`Stop-Notify`).
+- **Veto en Stage-1:** En Derecho la sintaxis es semántica; prohibido usar modelos Flash para segmentar cláusulas. El troceado documental se ejecuta mediante código determinista (AST/regex por numeración de cláusulas).
+- **Diferencial frente al Stack Comercial (Harvey, Legora, GenIA-L, Vincent AI, Allegra, Spellbook):** Los líderes del mercado operan como arneses de RAG cerrado (CENDOJ, BOE, Mementos, Westlaw) e integración In-Word sobre LLMs frontera en la nube, pero carecen de verificación formal de consistencia lógica y de soberanía física. En `BABYLON-60`, toda condición numérica, plazo o cascada de responsabilidad se somete a falsación SAT/UNSAT en **Z3** y se sella localmente con recibo WORM bajo `AX-0` (`HUMAN_SIGNATURE_ONLY`).
+
 ---
 
 ## Taxonomía de Anergía Legal
