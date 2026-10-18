@@ -88,4 +88,17 @@ Cuando el agente sintetice, compile o programe un tema musical directamente en s
 3. **Indexación Inmediata en `~/Music/`:**
    Todo activo generado debe ser enlazado automáticamente mediante symlink canónico (`ln -s`) en `~/Music/<Nombre_del_Track>` conforme a `music_assets_centralization_invariant.md`.
 
+## 12. Invariante de Topología Dub Techno / Basic Channel (No-Conmutatividad Pre-Filter y Lazo de Cinta Recursivo)
+Al diseñar, auditar o sintetizar cadenas de acordes de *dub techno* (estética *Basic Channel* / Moritz von Oswald & Mark Ernestus, 1993–1995):
+1. **No-Conmutatividad Estricta entre Filtro y Delay ($\mathcal{D}(\mathcal{F}_t(x)) \neq \mathcal{F}_t(\mathcal{D}(x))$):**
+   - Queda prohibido situar el filtro de barrido principal **después** del *delay* en una cadena de inserción serial (`Synth -> Delay -> Auto-Filter`), ya que ello modula simultáneamente el ataque seco y los ecos pasados como un bloque plano antinatural.
+   - El filtrado variante en el tiempo ($\mathcal{F}_{\theta(t)}$: HPF/BPF/LPF resonante) debe aplicarse **antes** del envío al *delay* y dentro de su **lazo de realimentación recursivo** (*feedback loop*):
+     $$u(t) = \mathcal{F}_{\theta(t)}(x(t)), \qquad y_{\text{dub}}(t) = \mathcal{S}_{\text{console}}\!\left( u(t) + \alpha \, \mathcal{H}_{\text{tape}}\!\left( \mathcal{S}_{\text{tape}}(y_{\text{dub}}(t - \tau)) \right) \right)$$
+     garantizando que cada repetición conserve la huella espectral del instante exacto en que fue disparada y se degrade progresivamente en cada vuelta.
+2. **Veto al Formante de Amplificador de Guitarra Post-Synth:**
+   - Reemplazar la saturación de cinta/consola por un amplificador de guitarra en serie duplica artificialmente la densidad energética en medios ($300\text{–}3.000\text{ Hz}$ sube del $\sim 18{,}5\%$ al $\sim 37{,}6\%$, con centroide espectral en $\sim 1.626\text{ Hz}$), destruyendo la estética subacuática.
+   - El grano canónico exige saturación de previos de consola analógica + cinta magnética (*Roland RE-201 Space Echo* con *wow & flutter*) acoplada a tanque de muelles (*Spring Reverb*), manteniendo el centroide espectral en la ventana oscura ($\sim 750\text{–}950\text{ Hz}$) y el Factor Cresta del bus de acordes comprimido ($\sim 4{,}5\text{–}5{,}5\text{ dB}$).
+3. **Invariante de Acordado Paralelo (*Parallel Chord Planing*):**
+   - No programar progresiones funcionales diatónicas escolares; emplear una única estructura interválica menor con séptima o novena ($\text{m7}/\text{m9}$, herencia del *sampling* de un único *stab* de Juno-106 / Prophet-5 en Akai S950) transpuesta paralelamente sobre el teclado.
+
 
