@@ -252,4 +252,16 @@ Al implementar clientes de transporte asíncrono o gestores de cola para Google 
    - **Throughput Parser Anti-XSSI & CAE:** $166.765\text{ reg/s}$ ($6.00\text{ µs/registro}$).
    - **Latencia de Extracción Pasiva JXA:** $185.23\text{ ms}$ ($100\%$ determinismo en 5 muestras).
 
+---
+
+## 14. Invariante de Transiciones Fluidas y Enmascaramiento de Costuras I2V (`INV_C5_FLUID_TRANSITIONS`)
+
+Incluso al encadenar tomas mediante I2V, el corte directo (`-f concat -c:v copy`) produce un *stutter* visual y un salto de fase acústico porque Veo desacelera el movimiento en los últimos `0.15–0.35 s` y arranca la siguiente toma desde velocidad latente cero ($v_0 \approx 0$). Para garantizar transiciones fluidas en silicio (`audio_master.py` y `cinema_sequencer.py`):
+
+1. **Extracción en Pico Cinético (`-sseof -0.35`):** Extraer siempre el fotograma de anclaje I2V a `-0.35 s` antes del final (`extract_last_frame(..., seek_before_end_s=0.35)`) para capturar el sujeto en movimiento activo antes del congelamiento de cola.
+2. **Recorte de Inercia en Montaje ("Cut on Action"):** Recortar por defecto la cola congelada del clip saliente (`trim_tail_s = 0.15`) y el arranque estático del clip entrante (`trim_head_s = 0.05`) mediante `trim_clip_inertia`.
+3. **Filtro `xfade` + `acrossfade` de Igual Potencia (`qsin`) + CFR:** Ensamblar mediante `assemble_fluid_movie` (o declarando `transition = "dissolve"`, `transition_duration_s = 0.35` en `movie.toml`), normalizando cada entrada a framerate constante (`fps=24,settb=AVTB`), encadenando `xfade=transition=dissolve:duration=0.35:offset=...` con offsets acumulados exactos ($\text{offset}_k = \sum_{i=0}^{k} D'_i - k\cdot d_{\text{trans}}$) y aplicando fundido cruzado de audio en cuarto de seno (`acrossfade=d=0.35:c1=qsin:c2=qsin`) previo a la normalización EBU R128 (`-14.0 LUFS`).
+4. **Puente Generativo First+Last Frame (`end_frame`):** Para transiciones entre encuadres distantes en `omni-flash`, extraer el último fotograma de la Escena $A$ (`extract_last_frame`) y el primero de la Escena $B$ (`extract_first_frame`), inyectando ambos (`initial_frame` + `end_frame` en Data URI) para generar un clip puente interpolado.
+
+
 
