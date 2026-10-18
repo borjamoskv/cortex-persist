@@ -2,9 +2,9 @@
 
 > **Estándar:** Orquestación Declarativa mediante Directivas (`AGENTS.md` & `SKILLS.md`)  
 > **Versión:** 26.210 · SOTA 2026  
-> **Última Modificación:** 2026-10-13T20:15:04Z  
+> **Última Modificación:** 2026-10-18T18:29:58Z  
 > **Ecosistema:** BABYLON-60 / CORTEX Engine / Apple Silicon M3 Pro Sovereign Node  
-> **Total Habilidades Registradas:** 115 Core Sovereign (100% acopladas a la Tríada de Roles y Cota de Kolmogorov <= 350 chars)
+> **Total Habilidades Registradas:** 131 Core Sovereign (100% acopladas a la Tríada de Roles y Cota de Kolmogorov <= 350 chars)
 
 ---
 
@@ -49,7 +49,7 @@ flowchart LR
 
 ## 2. Catálogo Declarativo de Habilidades por Rol
 
-### 2.1. Cohorte de Arquitectura (`role: arquitecto` · 31 Skills)
+### 2.1. Cohorte de Arquitectura (`role: arquitecto` · 43 Skills)
 *Habilidades de diseño conceptual, formulación de contratos, selección estratégica de problemas y modelado formal.*
 
 | Skill | Tier | Categoría | Worktree | Allowed Roles | Descripción / Propósito |
@@ -57,6 +57,8 @@ flowchart LR
 | [`cortex-kernel`](skills/cortex-kernel/SKILL.md) | 23000 | Kernel | `spec-only` | `arquitecto` | CORTEX Root Kernel |
 | [`shared-manifest-kernel`](skills/shared-manifest-kernel/SKILL.md) | 22000 | Kernel | `spec-only` | `arquitecto` | Kernel de Manifiesto Compartido (64B Seqlock SPMC) |
 | [`cortex-skill-composer`](skills/cortex-skill-composer/SKILL.md) | 21500 | Meta-Kernel | `spec-only` | `arquitecto, ejecutor` | Componedor & Orquestador de Cadenas de Skills |
+| [`c5-ring0-babylon-kernel-project`](skills/c5-ring0-babylon-kernel-project/SKILL.md) | 21500 | Kernel | `spec-only` | `arquitecto, ejecutor, auditor` | Kernel Hub · Ring-0 BABYLON (Proyecto) |
+| [`c5-ring0-babylon-kernel`](skills/c5-ring0-babylon-kernel/SKILL.md) | 21500 | Kernel | `spec-only` | `arquitecto, ejecutor, auditor` | Ring-0 BABYLON Kernel |
 | [`c5-enki-60`](skills/c5-enki-60/SKILL.md) | 21400 | Nucleus | `spec-only` | `arquitecto` | Motor Aritmético de Precisión Sexagesimal ENKI-60 |
 | [`c5-information-thermodynamics`](skills/c5-information-thermodynamics/SKILL.md) | 21200 | Nucleus | `spec-only` | `arquitecto` | Termodinámica de la Información y Geometría Estadística (Fisher-Chentsov) |
 | [`c5-autonomous-agent-primitives`](skills/c5-autonomous-agent-primitives/SKILL.md) | 21200 | Meta-Kernel | `read-write` | `arquitecto, ejecutor, auditor` | Catálogo Canónico y Transductor de 47 Primitivas de Agente Autónomo |
@@ -69,14 +71,24 @@ flowchart LR
 | [`c5-lean4-axiomatic-orchestrator`](skills/c5-lean4-axiomatic-orchestrator/SKILL.md) | 20900 | Nucleus | `spec-only` | `arquitecto` | Orquestador Axiomático y Verificación Formal en Lean 4 |
 | [`c5-debloat-agent-kernel`](skills/c5-debloat-agent-kernel/SKILL.md) | 20800 | Nucleus | `spec-only` | `arquitecto` | Arquitecto de Micro-Kernels Agénticos Bare-Metal (Anti-LangChain) |
 | [`c5-adaptive-annealing-engine`](skills/c5-adaptive-annealing-engine/SKILL.md) | 20650 | Nucleus | `spec-only` | `arquitecto, ejecutor, auditor` | Motor de Recocido Adaptativo y Convergencia Exergética (Q1-Q4) |
+| [`c5-epistemic-thermodynamics-project`](skills/c5-epistemic-thermodynamics-project/SKILL.md) | 20600 | Nucleus | `spec-only` | `arquitecto, ejecutor, auditor` | Epistemic Hub · Termodinámica Epistémica (Proyecto) |
+| [`c5-epistemic-thermodynamics`](skills/c5-epistemic-thermodynamics/SKILL.md) | 20600 | Nucleus | `spec-only` | `arquitecto, ejecutor, auditor` | Epistemic Thermodynamics |
 | [`polymath-concept-synthesis`](skills/polymath-concept-synthesis/SKILL.md) | 20500 | Nucleus | `spec-only` | `arquitecto` | Síntesis Polímata Interdisciplinar (Modo ULTRATHINK) |
+| [`goal`](skills/goal/SKILL.md) | 20500 | Governance | `spec-only` | `arquitecto` | Protocolo de Ejecución por Contrato /goal (Zero-Waste Gate) |
 | [`c5-axiomatic-kernel`](skills/c5-axiomatic-kernel/SKILL.md) | 20500 | Nucleus | `spec-only` | `arquitecto` | Núcleo Operativo de los 100 Axiomas Fundacionales C5-REAL |
+| [`c5-cortex-swarm-orchestrator-project`](skills/c5-cortex-swarm-orchestrator-project/SKILL.md) | 20400 | Governance | `spec-only` | `arquitecto, ejecutor, auditor` | Swarm Hub · Orquestador CORTEX (Proyecto) |
+| [`c5-cortex-swarm-orchestrator`](skills/c5-cortex-swarm-orchestrator/SKILL.md) | 20400 | Governance | `spec-only` | `arquitecto, ejecutor, auditor` | CORTEX Swarm Orchestrator |
 | [`cct-cognitive-theory-advisor`](skills/cct-cognitive-theory-advisor/SKILL.md) | 20300 | Nucleus | `spec-only` | `arquitecto` | Asesoría en Teoría Cognitiva CCT & Límite Gödel-Turing |
 | [`cloud-chamber`](skills/cloud-chamber/SKILL.md) | 20200 | Nucleus | `spec-only` | `arquitecto` | Metodología de Cámara de Niebla (Síntesis MDL) |
+| [`c5-secops-infra-devtools`](skills/c5-secops-infra-devtools/SKILL.md) | 19800 | Governance | `spec-only` | `arquitecto, ejecutor, auditor` | SecOps Infra DevTools |
 | [`c5-sovereign-binary-architect`](skills/c5-sovereign-binary-architect/SKILL.md) | 19500 | Systems | `spec-only` | `arquitecto` | Arquitecto de Binarios Soberanos C5-REAL |
 | [`adaptive-cron`](skills/adaptive-cron/SKILL.md) | 19500 | Governance | `spec-only` | `arquitecto` | Cálculo de Límite de Disipación Crítica (Adaptive Cron) |
 | [`symbiotic-cognitive-architecture`](skills/symbiotic-cognitive-architecture/SKILL.md) | 19400 | Governance | `spec-only` | `arquitecto` | Arquitectura Cognitiva Simbiótica Díada Operador-Agente |
+| [`c5-wetware-and-venture-ops-project`](skills/c5-wetware-and-venture-ops-project/SKILL.md) | 19200 | Governance | `spec-only` | `arquitecto, ejecutor, auditor` | Wetware Hub · Operaciones y Carga Cognitiva |
+| [`c5-wetware-and-venture-ops`](skills/c5-wetware-and-venture-ops/SKILL.md) | 19200 | Governance | `spec-only` | `arquitecto, ejecutor, auditor` | Wetware and Venture Ops |
 | [`c5-spatial-audio-architect`](skills/c5-spatial-audio-architect/SKILL.md) | 19000 | Multimedia & DSP | `spec-only` | `arquitecto` | Arquitecto de Audio Espacial, Ambisonics (HOA) y Auditoría DSP |
+| [`c5-audiovisual-acreativo-sota-project`](skills/c5-audiovisual-acreativo-sota-project/SKILL.md) | 19000 | Multimedia & DSP | `spec-only` | `arquitecto, ejecutor, auditor` | Media Hub · Audiovisual Acreativo (Proyecto) |
+| [`c5-audiovisual-acreativo-sota`](skills/c5-audiovisual-acreativo-sota/SKILL.md) | 19000 | Multimedia & DSP | `spec-only` | `arquitecto, ejecutor, auditor` | Audiovisual Acreativo SOTA |
 | [`babylon60-architecture`](skills/babylon60-architecture/SKILL.md) | 19000 | Governance | `spec-only` | `arquitecto` | Arquitectura y Patrones BABYLON-60 IDE |
 | [`c5-systemic-dissection-protocol`](skills/c5-systemic-dissection-protocol/SKILL.md) | 18500 | Specialized | `spec-only` | `arquitecto` | Protocolo de Disección Sistémica y Termodinámica |
 | [`c5-solar-thermodynamic-architecture`](skills/c5-solar-thermodynamic-architecture/SKILL.md) | 18500 | Specialized | `spec-only` | `arquitecto` | Arquitectura Helio-Termodinámica y Confort Bioclimático |
@@ -108,7 +120,7 @@ flowchart LR
 | [`soulseek-p2p-audio-acquisition`](skills/soulseek-p2p-audio-acquisition/SKILL.md) | 19000 | Multimedia & DSP | `read-write` | `ejecutor` | Adquisición P2P de Audio en Soulseek y Auditoría Espectral Anti-Fake FLAC |
 | [`remotion-audio-reactive-video`](skills/remotion-audio-reactive-video/SKILL.md) | 19000 | Multimedia & DSP | `read-write` | `ejecutor` | Síntesis de Vídeo Reactivo a Audio & Música (Remotion + DSP) |
 | [`pika-generative-video-pipeline`](skills/pika-generative-video-pipeline/SKILL.md) | 19000 | Multimedia & DSP | `read-write` | `ejecutor` | Pipeline de Generación y Control Parámetrico en Pika Art (A/V) |
-| [`c5-alpha-extraction-pipeline`](skills/c5-alpha-extraction-pipeline/SKILL.md) | 18950 | Operations | `read-write` | `ejecutor` | Pipeline de Extracción de Alfa Algorítmico C5 |
+| [`c5-alpha-extraction-pipeline`](skills/c5-alpha-extraction-pipeline/SKILL.md) | 18950 | Operations | `read-write` | `ejecutor` | Alpha Extractor · Extracción de Alfa Algorítmico |
 | [`whatsapp-nexus-protocol`](skills/whatsapp-nexus-protocol/SKILL.md) | 18900 | Governance | `read-write` | `ejecutor` | Pasarela Soberana de Mensajería WhatsApp (Baileys v7 / Rust NAPI-RS / C5-REAL v2.6) |
 | [`dynamic-subagent-lifecycle`](skills/dynamic-subagent-lifecycle/SKILL.md) | 18600 | Governance | `read-write` | `ejecutor, arquitecto` | Supervisión del Ciclo de Vida de Subagentes Dinámicos |
 | [`c5-poster-and-sign-craft`](skills/c5-poster-and-sign-craft/SKILL.md) | 18500 | Multimedia & DSP | `read-write` | `ejecutor, arquitecto` | Pipeline de Remasterización Gráfica, Rotulación en Perspectiva y Filtrado Analógico |
@@ -125,14 +137,14 @@ flowchart LR
 | [`wizard`](skills/wizard/SKILL.md) | 17000 | Utilities | `read-write` | `ejecutor` | Asistente de Instalación Determinista (Wizard) |
 | [`flstudio-mcp-production`](skills/flstudio-mcp-production/SKILL.md) | 17000 | Operations | `read-write` | `ejecutor` | Producción Nativa MCP FL Studio 2025 & DSP Microtonal |
 | [`youtube-remotion-sota`](skills/youtube-remotion-sota/SKILL.md) | 16800 | Operations | `read-write` | `ejecutor` | Síntesis Programática SOTA de Vídeo React/Remotion |
-| [`audiovisual-sota`](skills/audiovisual-sota/SKILL.md) | 16800 | Operations | `read-write` | `ejecutor` | Invariantes SOTA de Renderizado Audiovisual |
+| [`audiovisual-sota`](skills/audiovisual-sota/SKILL.md) | 16800 | Operations | `read-write` | `ejecutor` | Media Pipeline · Renderizado Audiovisual Determinista |
 | [`writing-for-agents`](skills/writing-for-agents/SKILL.md) | 16500 | Utilities | `read-write` | `ejecutor` | Redacción M2M de Alta Exergía & Sanitización C5 |
 | [`djstudio-mcp`](skills/djstudio-mcp/SKILL.md) | 16200 | Operations | `read-write` | `ejecutor` | Controlador DSP & Playlist Mixer DJ.Studio MCP |
 | [`kimi-mcp-orchestrator`](skills/kimi-mcp-orchestrator/SKILL.md) | 16000 | Operations | `read-write` | `ejecutor` | Orquestador MCP Moonshot Kimi K3 para Auditoría de Gran Contexto |
 | [`cloudflare-mcp-usage`](skills/cloudflare-mcp-usage/SKILL.md) | 15800 | Operations | `read-write` | `ejecutor` | Automatización & Operaciones Cloudflare MCP |
 | [`suno-bracket-tagging`](skills/suno-bracket-tagging/SKILL.md) | 12800 | Utilities | `read-write` | `ejecutor` | Protocolo de Ingeniería Acústica y Control Causal para Audio AI (Suno/Udio/YuE) |
 
-### 2.3. Cohorte de Auditoría (`role: auditor` · 44 Skills)
+### 2.3. Cohorte de Auditoría (`role: auditor` · 48 Skills)
 *Habilidades de verificación fail-closed, linters acústicos/estáticos, oráculos SMT Z3, postmortems y cálculo de exergía.*
 
 | Skill | Tier | Categoría | Worktree | Allowed Roles | Descripción / Propósito |
@@ -140,8 +152,10 @@ flowchart LR
 | [`c5-kudurru-64`](skills/c5-kudurru-64/SKILL.md) | 22500 | Kernel | `audit-only` | `auditor, arquitecto` | Cerrojo Lock-Free KUDURRU-64 (Ring-0 Gravity Filter) |
 | [`c5-mushushu-0`](skills/c5-mushushu-0/SKILL.md) | 22000 | Kernel | `audit-only` | `auditor` | Oráculo Formal & Firewall de Apoptosis MUSHUSHU-0 (Ring-0) |
 | [`c5-larsa-120`](skills/c5-larsa-120/SKILL.md) | 21800 | Kernel | `audit-only` | `auditor, arquitecto` | Consenso BFT Isostático LARSA-120 (Tríada Rust/Lean4/Z3) |
+| [`babylon60-kernel-invariants`](skills/babylon60-kernel-invariants/SKILL.md) | 21600 | Kernel | `audit-only` | `auditor` | Auditoría de Invariantes del Kernel BABYLON-60 |
 | [`thermo-audit`](skills/thermo-audit/SKILL.md) | 21500 | Kernel | `audit-only` | `auditor` | Auditoría Termodinámica de Silicio y Concurrencia |
 | [`c5-thermos-audit`](skills/c5-thermos-audit/SKILL.md) | 21400 | Kernel | `audit-only` | `auditor` | Auditoría Termonuclear de Silicio & Código (Double Thermo) |
+| [`c5-rea-clean-room`](skills/c5-rea-clean-room/SKILL.md) | 21300 | Kernel | `audit-only` | `arquitecto, ejecutor, auditor` | Suite C5-REA de Ingeniería Inversa en Sala Limpia y Firewall Existence-Gap |
 | [`rlhf-sentinel`](skills/rlhf-sentinel/SKILL.md) | 21200 | Governance | `audit-only` | `auditor` | Centinela de Contención Ring-0 (RLHF Sentinel) |
 | [`cortex-skill-auditor`](skills/cortex-skill-auditor/SKILL.md) | 21200 | Meta-Kernel | `audit-only` | `auditor, arquitecto` | Auditor Exergético de Skills CORTEX Engine |
 | [`c5-lexicon-enforcer`](skills/c5-lexicon-enforcer/SKILL.md) | 21000 | Nucleus | `audit-only` | `auditor` | Oráculo de Verificación Epistemológica & Auditoría de Coste Involuntario (Aforismo 5) |
@@ -152,14 +166,16 @@ flowchart LR
 | [`c5-dialectical-pipeline`](skills/c5-dialectical-pipeline/SKILL.md) | 20500 | Nucleus | `audit-only` | `auditor, arquitecto` | Macro-Operador de Estado Dialéctico y Salto Topológico (Cambio 2) |
 | [`c5-academic-peer-reviewer`](skills/c5-academic-peer-reviewer/SKILL.md) | 20500 | Nucleus | `audit-only` | `auditor` | Simulador de Revisión Académica por Pares |
 | [`c5-rubin-acoustic-linter`](skills/c5-rubin-acoustic-linter/SKILL.md) | 20450 | Operations | `audit-only` | `auditor` | Linter Acústico de Exergía y Purga de Nata (Protocolo Rubin) |
-| [`c5-ultrathink-epistemic-audit`](skills/c5-ultrathink-epistemic-audit/SKILL.md) | 20400 | Nucleus | `audit-only` | `auditor` | Auditoría Epistémica Profunda (Ultrathink C5-REAL) |
-| [`grill-me-v2`](skills/grill-me-v2/SKILL.md) | 19900 | Governance | `audit-only` | `auditor` | Interrogatorio Socrático Adversarial (Grill Me v2) |
+| [`c5-ultrathink-epistemic-audit`](skills/c5-ultrathink-epistemic-audit/SKILL.md) | 20400 | Nucleus | `audit-only` | `auditor` | Epistemic Audit · Auditoría Epistémica Profunda |
+| [`grill-me-v2`](skills/grill-me-v2/SKILL.md) | 19900 | Governance | `audit-only` | `auditor` | Socratic Interrogator · Interrogatorio Socrático Adversarial |
 | [`c5-wetware-divergente`](skills/c5-wetware-divergente/SKILL.md) | 19850 | Governance | `audit-only` | `auditor` | Arquitectura Cognitiva para Wetware Divergente (Perfiles 2e) |
 | [`c5-sovereign-identity-hardening`](skills/c5-sovereign-identity-hardening/SKILL.md) | 19800 | Governance | `audit-only` | `auditor` | Protocolo C5-REAL de Defensa e Inmunidad de Identidad Soberana |
 | [`c5-real-legaltech-analysis`](skills/c5-real-legaltech-analysis/SKILL.md) | 19700 | Governance | `audit-only` | `auditor` | Auditoría LegalTech & Cumplimiento EU AI Act Art. 9-14 |
 | [`wait-what`](skills/wait-what/SKILL.md) | 19600 | Nucleus | `audit-only` | `auditor` | Freno Epistémico & Traducción Simplificada (STE) |
+| [`c5-html-report-injection-audit`](skills/c5-html-report-injection-audit/SKILL.md) | 19600 | Governance | `audit-only` | `auditor` | Auditoría de Inyección HTML en Generadores de Reportes |
 | [`c5-sre-postmortem-architect`](skills/c5-sre-postmortem-architect/SKILL.md) | 19500 | Governance | `audit-only` | `auditor` | Arquitecto de Postmortems e Incidentes SRE |
 | [`c5-2e-neuropharmacological-sovereignty`](skills/c5-2e-neuropharmacological-sovereignty/SKILL.md) | 19500 | Systems | `audit-only` | `auditor` | Soberanía Neurofarmacológica & Desacople de Parches (TDAH + AACC) |
+| [`c5-terminological-archaeology`](skills/c5-terminological-archaeology/SKILL.md) | 19400 | Nucleus | `audit-only` | `auditor, arquitecto` | Arqueología Terminológica (Anagnórisis Conceptual C5-REAL) |
 | [`anergy-purge-protocol`](skills/anergy-purge-protocol/SKILL.md) | 19300 | Governance | `audit-only` | `auditor` | Motor de Purga de Anergía, Código Muerto y Entropía APFS |
 | [`c5-browser-forensics-and-extension-triage`](skills/c5-browser-forensics-and-extension-triage/SKILL.md) | 19200 | SOCINT & Web | `audit-only` | `auditor` | Auditoría Forense de Navegadores y Triaje de Extensiones Chromium |
 | [`c5-video-quality-audit`](skills/c5-video-quality-audit/SKILL.md) | 19000 | Multimedia & DSP | `audit-only` | `auditor` | Auditoría de Calidad y Compresión de Video (PSNR/SSIM/VMAF) |
