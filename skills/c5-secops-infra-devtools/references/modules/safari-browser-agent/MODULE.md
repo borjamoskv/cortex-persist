@@ -132,3 +132,11 @@ safari-cli organize-tabs deduplicate --apply
 safari-cli geolocation 43.2630 -2.9350 10.0
 safari-cli geolocation --clear
 ```
+
+---
+
+## 4. Invariante de Ejecución Silenciosa (`INV_C5_ZERO_FOCUS_STEAL`)
+
+- **Prohibición de `.activate()` y `frontmost`:** Ninguna operación sobre Safari o `WindowServer` debe invocar `Application("Safari").activate()`, `tell application "Safari" to activate` ni `set frontmost to true` salvo solicitud explícita del Operador.
+- **Uso Obligatorio de `open -g`:** Si es necesario lanzar Safari o abrir una URL vía shell, usar siempre `open -g` (`--background`) para no robar el foco de teclado/ratón ni cambiar de Space.
+- **Ejecución DOM en Segundo Plano:** Toda lectura o mutación (`do JavaScript ... in tab X of window 1`) se ejecuta directamente contra el motor WebKit en background sin alterar la ventana activa del Operador.

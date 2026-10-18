@@ -1,6 +1,6 @@
 ---
 name: c5_antigravity_runtime_invariants
-description: Invariantes del runtime de Google Antigravity IDE (hooks, subagentes y contención de sesiones).
+description: Invariantes del runtime de Google Antigravity IDE (hooks, subagentes, contención de sesiones y prohibición de robo de foco en WindowServer/navegador).
 trigger: "model_decision"
 ---
 
@@ -36,3 +36,11 @@ En el runtime nativo de Antigravity (`language_server`), los comandos `/goal` y 
 
 ## 4. Invariante de Confinamiento de Prefill (Anti-Duplicación GEMINI.md)
 Cuando el workspace contiene `AGENTS.md`, queda terminantemente prohibido generar `GEMINI.md` en la raíz. El runtime de Antigravity ingiere automáticamente ambos archivos en el prefill `always_on`, provocando saturación del presupuesto de tokens (> 40.000 B). La directiva para Gemini CLI reside exclusivamente en `.gemini/settings.json`.
+
+---
+
+## 5. Invariante de Cero Robo de Foco en macOS (`INV_C5_ZERO_FOCUS_STEAL`)
+Queda **estrictamente prohibido** que cualquier agente, subagente, script o herramienta MCP altere la ventana activa (`frontmost`) o robe el foco de teclado/ratón en `WindowServer` de macOS sin aviso y permiso explícito previo del Operador:
+1. **Prohibición de `open` en Primer Plano:** Todo comando `open` en shell DEBE incluir obligatoriamente el flag `-g` (`--background`, ej. `open -g "https://..."` o `open -g -a Safari`) para impedir que macOS conmute de aplicación o de Space.
+2. **Veto a `.activate()` en AppleScript / JXA:** Queda prohibido invocar `tell application "..." to activate`, `Application("...").activate()`, o `set frontmost to true` en `osascript`. La interacción con Safari (`do JavaScript ... in current tab of window 1`) y otras apps debe ejecutarse estrictamente en segundo plano.
+3. **Navegación y Automatización Headless por Defecto:** Para pruebas web, scraping o verificación de UI con Chrome/Playwright/Puppeteer, se debe forzar siempre `--headless=new` o emplear `read_url_content` / `curl`. Queda prohibido levantar ventanas visibles del navegador (incluyendo llamadas sorpresivas al navegador headful o `Page.bringToFront` / `Target.activateTarget`) salvo que el Operador solicite explícitamente una sesión visual interactiva.
