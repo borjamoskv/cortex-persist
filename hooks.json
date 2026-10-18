@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 -B \"${CORTEX_CONFIG_ROOT:-$HOME/.gemini/config}/hooks/workspace_confinement.py\" --allow-root \"${CORTEX_PROJECTS_ROOT:-$HOME/10_PROJECTS}\" --allow-root \"${CORTEX_CONFIG_ROOT:-$HOME/.gemini/config}\"",
+            "command": "python3 -B \"${CORTEX_CONFIG_ROOT:-$HOME/.gemini/config}/hooks/workspace_confinement.py\" --allow-root \"${CORTEX_PROJECTS_ROOT:-$HOME/10_PROJECTS}\" --allow-root \"${CORTEX_CONFIG_ROOT:-$HOME/.gemini/config}\" --allow-root \"${CORTEX_BRAIN_ROOT:-$HOME/.gemini/antigravity/brain}\"",
             "timeout": 5
           }
         ]

@@ -124,6 +124,23 @@ Si el contenido auditado afirma «sustituir o matar un SaaS comercial caro» (sc
 3. **Aplicación de la Ley de Conservación de la Complejidad (Tesler):**
    - Delimitar el **Dominio de Validez Asintótico** (Principio de Correspondencia de Bohr): explicitar que la desintermediación por *vibe coding* es válida en el régimen de baja escala ($N < 5.000$ págs/mes sin SLA crítico), pero colapsa en el régimen industrial ($N > 100.000$ págs/mes) donde la absorción de entropía de red del SaaS gestionado es económicamente insustituible.
 
+### Fase 2d: Falsación de Tendencias de Ingeniería IA (Rust FFI, Jueces Estocásticos E2E y Clemencia Cloud)
+Si el contenido analiza reescrituras masivas a lenguajes de sistemas asistidas por IA (ej. Rust), reemplazo de tests deterministas por agentes (`agent.act` / purga de unit tests) o despliegues cloud automatizados:
+
+1. **Paradoja de la Frontera FFI en Reescrituras a Rust ($\eta_{\text{FFI}}$):**
+   - Desmontar la premisa de que cambiar a Rust otorga rendimiento automático. Distinguir entre migraciones nativas *Zero-Copy* dentro de un mismo espacio de direcciones (ej. Bun 1.4 pasando de Zig a Rust para erradicar *use-after-free* usando el *Borrow Checker* como jaula de compilación contra alucinaciones del LLM) frente a arquitecturas híbridas con puente de serialización IPC/UTF-8 (ej. Prisma TypeScript $\leftrightarrow$ Rust).
+   - Computar obligatoriamente el ratio de penalización por frontera:
+     $$\eta_{\text{FFI}} = \frac{T_{\text{Rust}} + T_{\text{Serde/IPC}}}{T_{\text{Host}}}$$
+     demostrando que cuando $T_{\text{Serde/IPC}} > T_{\text{Host}} - T_{\text{Rust}}$, la arquitectura híbrida resulta más lenta que el lenguaje host puro.
+
+2. **Desacoplamiento Cognición vs. Autoridad (`AX-0`) en Testing (`agent.act` y Purga de Tests Unitarios):**
+   - Falsar la sustitución de aserciones deterministas ($\mathcal{O}(1)$, coste marginal $0\text{ €}$) por jueces estocásticos LLM en pipelines CI/CD (`agent.act`), señalando tres vectores de fallo: (a) varianza y *flakiness* estocástico, (b) renta perpetua de tokens en cada commit, y (c) vulnerabilidad a *Prompt Injection* desde el DOM auditado. Delimitar su validez exclusivamente como generador en tiempo de diseño de scripts Playwright deterministas.
+   - Ante postulados de abolicionismo de tests unitarios (ej. borrar cientos de miles de LOC de tests para ahorrar tokens o tiempo de CI), calcular el coste esperado de regresión ($\mathbb{E}[C_{\text{outage}}] = P_{\text{reg}} \cdot \text{MTTR} \cdot R_{\text{hora}}$) y oponer la solución C5-REAL: comprimir la inflación de *mocks* tautológicos mediante *Property-Based Testing* (`proptest`) e invariantes de tipos ($100:1$).
+
+3. **Extinción de la Condonación Cloud por Riesgo Moral Sintético:**
+   - Explicitar que la proliferación de despliegues generados por IA sin supervisión ha extinguido la antigua práctica de los proveedores cloud de perdonar facturas accidentales por bucles infinitos (ej. \$10.000 USD en Cloudflare Workers por recursión mutua).
+   - Exigir como invariante arquitectónica la combinación de techo financiero duro (*Spend Limit*), presupuesto de recursión en cabeceras (`X-Recursion-Depth` / `MUSHUSHU-0`) y atestación física (`c5_biometric_gate`).
+
 ### Fase 3: Auditoría Epistemológica y Formateo
 1. **Resumen Estándar e Índice por Bloques:** Lista viñeteada con los puntos centrales estructurados por timestamps o bloques temáticos.
    *Invariante de Pureza Léxica del Territorio (Cortafuegos 13):* En el resumen descriptivo y en las tarjetas biónicas de síntesis, está terminantemente prohibido inyectar metalenguaje o categorías formales del analista (ej. *álgebra, Kolmogorov, operadores formales, morfismos*) en las viñetas que describen el pensamiento o declaraciones del emisor. El resumen debe preservar fielmente las metáforas y el léxico original del emisor (ej. *alfabeto/letras*).
