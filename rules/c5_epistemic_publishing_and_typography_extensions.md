@@ -1,6 +1,6 @@
 ---
 name: c5_epistemic_publishing_and_typography_extensions
-description: Protocolos especializados de publicación y tipografía C5-REAL: Ingesta de aforismos en frases-sin-nata, Bajada al Barro, Calibración Litográfica de carteles, Paleta Cromática HTML/Mermaid, Estructura de 6 Bloques para ensayos, Anclaje Sacádico Selectivo (SSA) y Compilación de PDFs con Typst 0.15+.
+description: "Protocolos especializados de publicación y tipografía C5-REAL: Ingesta de aforismos en frases-sin-nata, Bajada al Barro, Calibración Litográfica de carteles, Paleta Cromática HTML/Mermaid, Estructura de 6 Bloques para ensayos, Anclaje Sacádico Selectivo (SSA) y Compilación de PDFs con Typst 0.15+."
 trigger: "model_decision"
 ---
 
