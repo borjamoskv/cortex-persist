@@ -12,6 +12,10 @@ trigger: "model_decision"
   - Si una variable se consume con cantidad $q$ en ambas ramas ($u_t = u_e = q$), el consumo resultante es $q$.
   - Si existe asimetría ($u_t \neq u_e$), el consumo escala inmediatamente a $\omega$. Si la variable fue declarada como recurso lineal estricto ($\mathcal{Q}=1$), el elaborador debe emitir un error fail-closed (`LinearVariableMismatch`), impidiendo fugas o consumo parcial.
 
+### 1.1 Implementación en Compiladores y Borrow Checkers (Q1.1)
+- En el análisis de borrow checking de compiladores de bajo nivel (Rust/IR), ante sentencias de bifurcación condicional (`Stmt::If`), el contexto de recursos debe bifurcarse en dos instancias aisladas (`then_ctx`, `else_ctx`).
+- Si cualquier variable con semántica afín/lineal (`is_affine()`) cambia a un estado dispar entre ramas (`state_then != state_else`), el analizador debe emitir un error fatal `LinearVariableMismatch` inmediatamente, impidiendo la fuga de recursos o consumos asimétricos no demostrados.
+
 ## 2. Aislamiento de Frames de Pila en Síntesis Recursiva (Q2)
 - **Principio:** Los elaboradores y evaluadores de tipos dependientes deben ser invulnerables al desbordamiento de pila (*stack overflow*) en perfiles `dev` sin optimizaciones de inlining.
 - **Regla:** Ninguna función recursiva central de síntesis/chequeo (`synth_term`) puede albergar bloques inline de síntesis inductiva (`Expr::Ind`), eliminación de identidad (`Expr::J`) o unificación compleja. Toda rama estructuralmente pesada debe residir en helpers desvinculados (`synth_ind`, `synth_j`) para restringir el tamaño del frame a $O(1)$ bytes fijos.
