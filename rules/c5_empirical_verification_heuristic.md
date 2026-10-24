@@ -76,3 +76,11 @@ Al auditar, optimizar o endurecer scripts de compilación, verificación o tests
 Ante solicitudes conceptuales, análisis dialécticos o demostraciones formales de código:
 1. **Primacía del Núcleo y Silicio Local:** El agente DEBE resolver la consulta en el sustrato matemático, en el código local (`src/`, `tests/`) o en artefactos analíticos de `brain/`.
 2. **Veto a la Desviación hacia Workflows Externos:** Queda terminantemente prohibido desviar la tarea hacia la modificación o refactorización de flujos de integración continua (`.github/workflows/*.yml`) salvo mandato expreso e imperativo del Operador (*"olvida github action"* como directiva por defecto ante dialéctica teórica).
+
+---
+
+## 9. Invariante de Grounding en Colecciones Artísticas y Anti-Confabulación Iconográfica
+Ante consultas para identificar, buscar o atribuir obras de arte basadas en imágenes, similitudes temáticas o referencias a la cultura popular (ej. portadas de discos, iconos musicales o cinematográficos):
+1. **Prohibición de Atribución Asociativa:** Queda terminantemente prohibido asumir o afirmar la identidad de una obra del catálogo basándose únicamente en memoria asociativa o en que el sujeto comparta rasgos con una referencia externa (ej. el niño de una portada de U2).
+2. **Inspección de Archivo Local Obligatoria:** El agente DEBE verificar empíricamente los metadatos y archivos del repositorio (`catalogo.json`, `images/catalogo/`, `src/artworks.ts`) mediante herramientas de lectura (`read_file`, `search_files`) antes de confirmar el título de la obra.
+3. Si la pieza no se encuentra en el archivo verificado del proyecto, el agente debe declarar explícitamente la no correspondencia, evitando validar coincidencias falsas.
