@@ -11,8 +11,8 @@ La frontera de indexación y recuperación ya no es optimizar palabras clave en 
 
 ## 2. Invariante de Gobierno Diferencial de Rastreadores (`robots.txt`)
 En toda arquitectura web soberana, el archivo `robots.txt` DEBE discriminar formalmente entre motores de recuperación/búsqueda en tiempo real y extractores de entrenamiento masivo:
-1. **Acceso Concedido (Discovery / RAG):** `OAI-SearchBot`, `PerplexityBot`, `Googlebot`, `Bingbot`.
-2. **Acceso Denegado (Bulk Scraping / Entrenamiento sin Atribución):** `GPTBot`, `CCBot` (Common Crawl).
+1. **Acceso Concedido (Discovery / RAG):** `OAI-SearchBot`, `PerplexityBot`, `Googlebot`, `Bingbot`, `ClaudeBot`, `Applebot-Extended`.
+2. **Acceso Denegado (Bulk Scraping / Entrenamiento sin Atribución):** `GPTBot`, `CCBot` (Common Crawl), `Google-Extended`.
 3. **Fail-Closed en Entornos Experimentales:** Carpetas de backup, rutas efímeras y paneles internos deben estar explícitamente vedados (`Disallow: /test/`, `Disallow: /assets/backup_*/`).
 
 ## 3. Invariante de Pre-renderizado Factual en DOM SSR (Zero-JS Evidence Gate)
@@ -25,9 +25,20 @@ Para permitir que agentes autónomos completen tareas transaccionales sin ambig�
 1. **Atributos Semánticos y Accesibilidad:** Todo campo interactivo debe contar con `<label>` explícito, estados ARIA normalizados (`aria-pressed`, `aria-expanded`, `aria-live`) y botones nativos (`<button>`, `<a>`).
 2. **Deep Links Transaccionales en $O(1)$:** Las vías de acción (adquisición, consulta, reserva) deben proveer enlaces directos con parámetros contextuales codificados (ej. WhatsApp API o correo con asunto de la entidad activa), evitando barreras de registro innecesarias.
 
-## 5. Veto a la Nata y Superstición GEO (Anti-Cargo-Cult)
+## 5. Invariante de Integridad Ontológica de la Entidad (Veto al Sesgo de Recencia)
+En el modelado de grafos de conocimiento (`Person`, `VisualArtist`, `Organization`), fichas técnicas, `OfferCatalog`, selectores interactivos y archivos `llms.txt`:
+1. **Prohibición de Reduccionismo por Novedad Temporal:** Queda terminantemente prohibido etiquetar una serie, soporte o material explorado recientemente (ej. pizarra y mica) como la «especialidad» definitoria del creador ni anteponerlo al núcleo histórico de su práctica.
+2. **Jerarquía Disciplinar Real:** Los descriptores primarios (`description`, `knowsAbout`, orden de ejemplos y opciones por defecto en configuradores) DEBEN liderar siempre con el cuerpo central de la disciplina (ej. dibujo, pintura al óleo/acrílico, collage textil sobre madera, objetos intervenidos), situando los materiales recientes como exploraciones específicas sin sesgar los vectores semánticos en RAG.
+3. **Veto a Fallbacks Contaminantes:** Prohibido usar materiales de una serie específica como valor por defecto (`default`) al serializar catálogos completos.
+
+## 6. Invariante de Notificación Push (`IndexNow`) y Licenciamiento Visual (Lens)
+1. **IndexNow Determinista:** Todo pipeline de generación estática debe emitir `{key}.txt` e `indexnow.json` con la totalidad de rutas canónicas y disparar notificación POST a `api.indexnow.org/indexnow` en despliegue.
+2. **Atribución Multimodal:** Inyección obligatoria de `<meta name="robots" content="index, follow, max-image-preview:large">` y `acquireLicensePage` en cada `ImageObject` apuntando a la ruta transaccional de encargo/adquisición.
+
+## 7. Veto a la Nata y Superstición GEO (Anti-Cargo-Cult)
 Queda estrictamente prohibido:
 1. Generar archivos `llms.txt` vacíos o redundantes con el HTML semántico sin directiva operativa.
 2. Fragmentar páginas en micro-URLs cosméticas sin contenido de valor diferenciado.
 3. Crear esquemas propietarios inventados ajenos al estándar formal de `Schema.org`.
 4. Perseguir menciones sintéticas o granjas de enlaces que carezcan de evidencia primaria verificable.
+5. Inyectar el esquema `FAQPage` (depreciado por Google en mayo de 2026); las preguntas frecuentes de abanico (Query Fan-Out) deben servirse en marcado semántico nativo (`<details>`/`<summary>`) sin contaminar el bloque JSON-LD.

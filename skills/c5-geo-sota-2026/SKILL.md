@@ -42,15 +42,16 @@ En lugar de tratar las páginas como artículos genéricos, cada activo se estru
 
 ---
 
-## 3. Las 7 Estrategias Avanzadas SOTA
+## 3. Las 8 Estrategias Avanzadas SOTA
 
-1. **Query Fan-Out Mapping:** Mapear el grafo multidimensional de subconsultas que un LLM formula al investigar una intención raíz (precios, técnicas, plazos, comparativas, ejemplos reales).
+1. **Query Fan-Out Mapping:** Mapear el grafo multidimensional de subconsultas que un LLM formula al investigar una intención raíz (precios, técnicas, plazos, comparativas, ejemplos reales) mediante nodos `<details>` nativos en el DOM, evitando el schema `FAQPage` depreciado.
 2. **Evidence-First Publishing:** Publicar datos duros, imágenes originales con metadatos técnicos y metodologías antes de redactar prosa narrativa.
-3. **Entity Consistency:** Unificar perfiles de creador/empresa (`sameAs`), direcciones canónicas, autoría y referencias cruzadas.
+3. **Entity Consistency & Anti-Recency Bias:** Unificar perfiles de creador/empresa (`sameAs`), direcciones canónicas y autoría preservando la amplitud multidisciplinar completa de la entidad, sin reducirla ni sesgarla hacia su última serie o material explorado.
 4. **Citation Gap Analysis:** Auditar consultas temáticas en Bing Topics Portfolio y rastreos donde los competidores son citados y nuestro dominio no.
 5. **Cross-Engine Testing:** Evaluar disparidad de citación comparando Google AI Overviews, ChatGPT Search y Perplexity.
-6. **Agent-Ready UX:** Diseñar para agentes de navegación: DOM semántico, `<label>` explícitos, compatibilidad con árbol de accesibilidad y endpoints WebMCP.
+6. **Agent-Ready UX:** Diseñar para agentes de navegación: DOM semántico, `<label>` explícitos, configuradores interactivos con deep-linking directo (`wa.me`) y endpoints WebMCP (`.well-known/mcp.json`).
 7. **First-Party Conversion Data:** Medir la atribución real entre citación generativa, tráfico asistido, leads cualificados y ventas cerradas.
+8. **Push Indexation & Syndication (IndexNow + `feed.xml` + `manifest.webmanifest`):** Garantizar descubrimiento instantáneo post-deploy e ingesta estructurada por lectores RAG y motores multimodales (`acquireLicensePage`).
 
 ---
 
