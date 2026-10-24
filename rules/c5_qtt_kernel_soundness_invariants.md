@@ -26,3 +26,14 @@ trigger: "model_decision"
 ## 4. Hardware Cache-Line Confinement en Primitivas Ring-0 (Q4)
 - **Principio:** La telemetría lock-free y los buffers compartidos concurrentes de alta frecuencia (`KUDURRU-64`) deben aislarse físicamente a nivel de silicio.
 - **Regla:** Toda celda Seqlock o buffer de estado mutable compartido entre múltiples cores debe llevar `#[repr(align(64))]` para erradicar *false sharing* en las líneas de caché L1 de Apple Silicon y x86_64.
+
+## 5. Cota Mínima de Toolchain y Mitigación de Vulnerabilidades de Kernel (Q5)
+- **Principio:** Los kernels deductivos no deben exponerse a exploits de unsoundness en el elaborador o el núcleo nativo de Lean 4.
+- **Regla:** En todo repositorio o sub-paquete que compile código formal Lean 4, el archivo `lean-toolchain` DEBE fijar una versión $\ge 4.32.2$ para neutralizar el vector de derivación de `False` vía `environment::add_opaque` (CVE-2026-72711) y proyecciones inductivas anidadas (#14576). Queda prohibida la importación de `Lean.Elab` sin auditoría estática previa.
+
+## 6. Pre-Flight Gate Termodinámico de Moloch-Landauer (Q6)
+- **Principio:** La contabilidad de disipación entrópica ($\Delta Q \ge k_B T \ln 2 \cdot \Delta I$) y la neutralización de dinámicas extractivas (Moloch) deben aplicarse como barrera física previa a la computación irreversible.
+- **Regla:**
+  1. La validación presupuestaria y de intencionalidad extractiva (`canExecute`) debe operar en tiempo $O(1)$ *pre-flight* antes de despachar jobs de GPU o inferencia.
+  2. Si la acción viola el presupuesto o carece de justificación termodinámica, el estado transiciona a sí mismo (*fail-closed*), anulando el payoff extractivo a 0.
+  3. Toda transición exitosa emite un recibo inmutable encadenado (`landauer://receipt/...`). Queda estrictamente prohibida la contabilidad diferida o ex-post que permita ataques *burn-and-run*.
