@@ -55,4 +55,16 @@ Cuando servidores MCP (ej. `cortex_mcp_server.py`) o endpoints HTTP expongan cat
 - **Prompts MCP Nativos:** Las habilidades declarativas con contrato frontal deben exponerse nativamente en `prompts/list` y `prompts/get`, habilitando su invocación paramétrica directa por clientes LLM.
 - **Paridad OpenAPI 3.1 Bit a Bit:** Toda extensión de esquema (`x-canonical-alias`) introducida en generadores programáticos (`build_openapi_spec()`) DEBE sincronizarse inmediatamente con el contrato estático serializado (`contracts/openapi_*.json`), garantizando paridad exacta en tests de integración.
 
+## 8. Deslinde de Catálogo y Veto a la Contaminación de Plugins (INV_C5_SKILLS_CATALOG_PARTITION)
+En todo inventario, generación de snapshots o exposición de catálogos de habilidades de BABYLON-60 / CORTEX:
+- **Catálogo Soberano Canónico:** El catálogo primario reside única y estrictamente en `~/.gemini/config/skills` (las ~105 habilidades de autoría propia y Ring-0/Ring-1/Ring-2).
+- **Aislamiento de Plugins Satélite:** Las habilidades instaladas por extensiones o plugins externos (`~/.gemini/config/plugins/*/skills`, ej. science, flutter, firebase, data-agent-kit) y las herramientas builtin de la plataforma (`antigravity/builtin/skills`) NUNCA deben agregarse silenciosamente al inventario soberano.
+- **Namespacing Obligatorio en Multi-Catálogo:** Toda agregación federada o snapshot extendido requiere bandera explícita opt-in (`--include-plugins`) y prefijado inequívoco de namespace (`plugin:<nombre_plugin>:<skill>`), garantizando que el catálogo soberano base permanezca siempre desacoplado e inmutable.
+
+## 9. Invariante de Runtime Zero-Disk para Servidores MCP de Skills (SEP-2640 · INV_C5_MCP_SKILLS_ZERO_DISK)
+Cuando se implemente o despliegue un servidor MCP que exponga catálogos de habilidades bajo la especificación SEP-2640 (`babylon-skills-mcp`):
+- **Cero I/O en Tiempo de Consulta (Zero-Disk Runtime):** El servidor MCP debe servir `skills/list`, `skills/get` y `resources/read` íntegramente desde memoria RAM a partir de un snapshot verificado y firmado (`manifest.snapshot.json` / blob sellado). Queda estrictamente prohibido realizar llamadas `open()`, `read()` o `fstat()` sobre el árbol de archivos en runtime.
+- **Confinamiento de `O_NOFOLLOW` al GUARD:** La resolución estricta de inodos `(st_dev, st_ino)` y banderas `O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC` se confina exclusivamente a la fase previa de empaquetado del snapshot y al sandbox de ejecución física (`GUARD / ScopedHandle`). La capa de catálogo MCP es puramente epistémica y no interactúa con el filesystem dinámico.
+
+
 
