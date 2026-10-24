@@ -145,7 +145,7 @@ Si tras la atestación el usuario emite una directiva de avance continuo (ej. `"
 
 ## 7. Álgebra Epistemológica de Harrop y Guillotina de Hume (`strike_rs::omega0`)
 
-Toda deducción en el motor [`babylon60/autodidact/epistemology.py`](file:///Users/borjafernandezangulo/10_PROJECTS/BABYLON-60/01_KISH_ENGINE/babylon60/autodidact/epistemology.py) se rige por tres operadores algebraicos cerrados sobre proposiciones tipadas ($\mathcal{S}$) y justificaciones ($\mathcal{J}$):
+La integración con BABYLON-60 requiere un checkout elegido por el usuario; sus rutas se resuelven desde la raíz del checkout y no son recursos incluidos en este skill. Verificar su presencia antes de usarlo. Toda deducción en `01_KISH_ENGINE/babylon60/autodidact/epistemology.py` se rige por tres operadores algebraicos cerrados sobre proposiciones tipadas ($\mathcal{S}$) y justificaciones ($\mathcal{J}$):
 
 1. **Verificación de Obligaciones ($\text{verify} : \mathcal{J} \times \mathcal{S} \to \{\text{true}, \text{false}\}$):**
    Descarga determinista de las 6 obligaciones intuicionistas de Harrop:
@@ -166,7 +166,7 @@ Toda deducción en el motor [`babylon60/autodidact/epistemology.py`](file:///Use
 
 ## 8. Topología DAG Acíclica de Kahn y Disyuntor Bayesiano
 
-En ejecución multi-agente ([`autodidact_topology.py`](file:///Users/borjafernandezangulo/10_PROJECTS/BABYLON-60/02_EDIN_SWARMS/agents_archi/topologies/autodidact_topology.py)), el ciclo opera sobre memoria acotada `KdaSwarmMemory` en cuatro nodos secuenciales sin arrastre de contexto:
+En ejecución multi-agente (`02_EDIN_SWARMS/agents_archi/topologies/autodidact_topology.py`, en el mismo checkout), el ciclo opera sobre memoria acotada `KdaSwarmMemory` en cuatro nodos secuenciales sin arrastre de contexto:
 1. `node:hypo` (**Hypothesizer**): Compila conjeturas en proposiciones Harrop con hash `STMT:<sha256>`.
 2. `node:collect` (**Collector**): Adquiere observables bajo Manta de Markov sellada.
 3. `node:verify` (**AspectVerifier / MAV**): Ejecuta falsadores empíricos (`PopperianFalsifier`), propaga `nogoods` en cascada sobre el DAG de dependencias (Invariante B4: $\text{Falsify}(c) \Rightarrow \text{Review}(\text{Dependents}(c))$) y somete las refutaciones a desintegración bayesiana (`FiniteMarkovKernel`):

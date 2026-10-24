@@ -1,8 +1,9 @@
 ---
 name: c5-plan-omega
 display_name: Protocolo PLAN-Ω de Planificación Causal Determinista
-description: Módulo CORTEX. Dispara con "plan omega", "c5 plan", "plan causal", "protocolo
-  plan omega", "mejorar plan", "/plan-omega".
+description: Motor de planificación determinista en DAG (Protocolo PLAN-Ω). Sustituye
+  checklists planas por matrices topológicas de 4 niveles, sondeo pre-flight en 60s,
+  puertas Two-Way/One-Way con rollback y micro-gates Fail-Stop.
 role: arquitecto
 allowed_roles:
 - arquitecto
@@ -16,24 +17,6 @@ directives:
 
 # c5-plan-omega
 
-> **Directiva Declarativa:** Alias compatible del hub CORTEX; conserva el contrato del módulo original.
+> **Directiva Declarativa:** Alias generado; conserva rol y alcance del módulo.
 
-## Cargar el módulo
-
-Lee [las instrucciones originales](../c5-cortex-swarm-orchestrator/references/modules/c5-plan-omega/MODULE.md) antes de aplicar esta habilidad.
-Conserva sus triggers, rol, restricciones, procedimiento y alcance.
-Carga únicamente los recursos pertinentes a la petición.
-
-## Recursos y rutas
-
-Los recursos originales permanecen junto a este alias y se conservan completos dentro del hub.
-Resuelve las referencias relativas desde el archivo del módulo que hayas leído.
-Mantén el directorio de trabajo del proyecto elegido por el usuario.
-Las rutas absolutas del paquete original continúan disponibles.
-
-## Invocación
-
-El comando `/c5-plan-omega` sigue disponible con el nombre original.
-El hub se consulta con `/c5-cortex-swarm-orchestrator`.
-La carga del alias no ejecuta agentes, scripts, purgas ni comunicaciones por sí misma.
-El procedimiento del módulo se aplica únicamente dentro del trabajo solicitado.
+Lee [el procedimiento especializado](../c5-cortex-swarm-orchestrator/references/modules/c5-plan-omega/MODULE.md) solo cuando la petición requiera este dominio. Una coincidencia genérica como «itera», «sigue» o «auditoría» no activa el módulo. La carga no autoriza efectos externos.

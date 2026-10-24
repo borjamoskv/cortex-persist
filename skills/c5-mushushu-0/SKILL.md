@@ -1,8 +1,8 @@
 ---
 name: c5-mushushu-0
 display_name: Oráculo Formal & Firewall de Apoptosis MUSHUSHU-0 (Ring-0)
-description: Módulo Ring-0. Dispara con "mushushu", "mushushu-0", "firewall epistémico",
-  "apoptosis termodinámica".
+description: Oráculo formal y firewall epistémico Ring-0 para validación determinista
+  y apoptosis (MUSHUSHU-0).
 role: auditor
 allowed_roles:
 - auditor
@@ -16,24 +16,6 @@ directives:
 
 # c5-mushushu-0
 
-> **Directiva Declarativa:** Alias compatible; conserva el contrato del módulo original.
+> **Directiva Declarativa:** Alias generado; conserva rol y alcance del módulo.
 
-## Cargar el módulo
-
-Lee [las instrucciones originales](../c5-ring0-babylon-kernel/references/modules/c5-mushushu-0/MODULE.md) antes de aplicar esta habilidad.
-El módulo conserva íntegros el frontmatter, los triggers, las instrucciones y los recursos.
-Aplica su rol, restricciones y procedimiento únicamente a la tarea solicitada.
-
-## Recursos y rutas
-
-Los recursos originales permanecen en esta carpeta y también se conservan dentro del hub.
-Resuelve las referencias relativas desde el archivo del módulo que hayas leído.
-Mantén el directorio de trabajo del proyecto elegido por el usuario.
-Las rutas absolutas originales continúan siendo válidas.
-
-## Selección
-
-Este alias conserva el nombre original y sus frases de activación.
-Para selección explícita usa `/c5-mushushu-0`.
-Para consultar el hub usa `/c5-ring0-babylon-kernel`.
-No cargues otros módulos sin relación con la petición.
+Lee [el procedimiento especializado](../c5-ring0-babylon-kernel/references/modules/c5-mushushu-0/MODULE.md) solo cuando la petición requiera este dominio. Una coincidencia genérica como «itera», «sigue» o «auditoría» no activa el módulo. La carga no autoriza efectos externos.

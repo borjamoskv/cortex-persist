@@ -47,62 +47,62 @@ Esta suite unifica la extracción, normalización, detección de astroturfing y 
 
 ```bash
 # 1. Desenrollar hilo completo en X (Twitter) hasta la raíz
-python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
+python3 ../../../../c5-socint-extraction-suite/scripts/socint_extract.py \
   --url "https://x.com/username/status/1844000000000000000" --unfold --save-vault
 
 # 2. Peritaje forense de usuario en Reddit con cálculo de entropía H(sub)
-python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
+python3 ../../../../c5-socint-extraction-suite/scripts/socint_extract.py \
   --url "u/username" --limit 50 --format markdown
 
 # 3. Discusión completa en Hacker News con árbol anidado de comentarios
-python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
+python3 ../../../../c5-socint-extraction-suite/scripts/socint_extract.py \
   --url "https://news.ycombinator.com/item?id=38000000" --format markdown
 
 # 4. Hilo descentralizado en Bluesky (AT Protocol)
-python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
+python3 ../../../../c5-socint-extraction-suite/scripts/socint_extract.py \
   --url "https://bsky.app/profile/user.bsky.social/post/3kabc123" --format markdown
 
 # 5. Canal público de Telegram con recuento de vistas
-python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
+python3 ../../../../c5-socint-extraction-suite/scripts/socint_extract.py \
   --url "https://t.me/s/channel_name" --format markdown
 
 # 6. Actividad pública de desarrollador en GitHub
-python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
+python3 ../../../../c5-socint-extraction-suite/scripts/socint_extract.py \
   --url "https://github.com/torvalds" --format markdown
 
 # 7. Probabilidad y volumen en Polymarket o Manifold
-python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
+python3 ../../../../c5-socint-extraction-suite/scripts/socint_extract.py \
   --url "https://polymarket.com/event/slug-name" --format markdown
 
 # 8. Peritaje de guerras de edición en Wikipedia
-python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
+python3 ../../../../c5-socint-extraction-suite/scripts/socint_extract.py \
   --url "https://es.wikipedia.org/wiki/Nombre_Articulo" --format markdown
 
 # 9. Consultar telemetría y registros de la Bóveda SQLite WAL
-python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py --vault-stats
+python3 ../../../../c5-socint-extraction-suite/scripts/socint_extract.py --vault-stats
 
 # 10. Análisis forense temporal, dispersión léxica y pivotado de identidad
-python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
+python3 ../../../../c5-socint-extraction-suite/scripts/socint_extract.py \
   --url "https://x.com/username/status/1844000000000000000" --temporal-check --lexical-check --pivot-check
 
 # 11. Exportar grafo de red (Mermaid, Graphviz DOT, Gephi GEXF)
-python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
+python3 ../../../../c5-socint-extraction-suite/scripts/socint_extract.py \
   --url "https://news.ycombinator.com/item?id=38000000" --export-mermaid grafo.mmd --export-dot grafo.dot --export-gexf grafo.gexf
 
 # 12. Dashboard HTML forense interactivo offline & CSV RFC 4180
-python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
+python3 ../../../../c5-socint-extraction-suite/scripts/socint_extract.py \
   --url "https://x.com/username/status/1844000000000000000" --export-html reporte.html --export-csv registros.csv
 
 # 13. Sello de atestación criptográfica Merkle (SHA-256 Tree) & análisis de afecto
-python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
+python3 ../../../../c5-socint-extraction-suite/scripts/socint_extract.py \
   --url "https://x.com/username/status/1844000000000000000" --sentiment-check --merkle-seal
 
 # 14. Centralidad de red (PageRank), matriz CIB de co-ocurrencia y STIX 2.1
-python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/socint_extract.py \
+python3 ../../../../c5-socint-extraction-suite/scripts/socint_extract.py \
   --url "https://news.ycombinator.com/item?id=38000000" --centrality-check --cib-matrix --export-stix threat_intel.json
 
 # 15. Ejecución de la Suite de Verificación Determinista Offline (40/40)
-python3 ~/.gemini/config/skills/c5-socint-extraction-suite/scripts/test_socint.py
+python3 ../../../../c5-socint-extraction-suite/scripts/test_socint.py
 ```
 
 ---

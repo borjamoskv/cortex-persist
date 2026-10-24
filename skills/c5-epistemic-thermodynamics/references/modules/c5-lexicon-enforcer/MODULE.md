@@ -27,7 +27,7 @@ Actuar como un **Oráculo de Verificación Epistemológica** bajo un paradigma d
 ## Ejecución Determinista en Silicio (`ON WIRE`)
 Para medir empíricamente la ratio de anergía adjetival/retórica (*cheap talk* voluntario) frente a señales de sustrato en cualquier archivo o texto:
 ```bash
-python3 ~/.gemini/config/skills/c5-lexicon-enforcer/scripts/aphorism5_cost_linter.py <archivo_o_directorio>
+python3 ../../../../c5-lexicon-enforcer/scripts/aphorism5_cost_linter.py <archivo_o_directorio>
 ```
 
 ## Disparadores (Triggers)

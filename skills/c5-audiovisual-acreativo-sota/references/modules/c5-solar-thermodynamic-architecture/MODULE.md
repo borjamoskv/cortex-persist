@@ -62,7 +62,7 @@ $$ PPD = 100 - 95 \cdot \exp\left( -0.03353 \cdot PMV^4 - 0.2179 \cdot PMV^2 \ri
 Para realizar el cálculo instantáneo de la posición solar y el confort Fanger PMV/PPD:
 
 ```bash
-python3 ~/.gemini/config/skills/c5-solar-thermodynamic-architecture/scripts/solar_engine.py
+python3 ../../../../c5-solar-thermodynamic-architecture/scripts/solar_engine.py
 ```
 
 ---

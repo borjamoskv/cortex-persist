@@ -1,17 +1,20 @@
 #!/Library/Frameworks/Python.framework/Versions/3.14/bin/python3
 r"""
-c5_face_swap_cli.py — CLI de Producción para Neural Video Face Swapping en Apple Silicon.
-Desplegado para el skill c5-neural-face-swap-cuadrilla (V2 SOTA Architecture).
+c5_face_swap_cli.py — CLI de Producción para Neural Video & Image Face Swapping en Apple Silicon.
+Desplegado para el skill c5-neural-face-swap-cuadrilla (V6 SOTA Architecture).
 
-Mejoras de Síntesis Dialéctica (Iteración Recursiva V2):
-- Restauración Facial Neuronal 512x512 (GPEN / CodeFormer / GFPGAN): Erradicación del cuello de botella de 128px.
-- Segmentación Semántica y Desoclusión (BiSeNet ResNet-34): Preservación de manos, gafas, pelo y micrófonos.
-- Transporte Óptimo Lineal (MKL): Coincidencia de covarianza cromática completa en espacio BGR canónico.
-- FaceTracker Zero-Drop: Extrapolación inercial ante desenfoque cinético y 1-Euro Filter independiente por track.
-- Aceleración en Silicio FP16 (Inswapper 128 FP16 en Apple Neural Engine ANE/CoreML).
-- Worker Chunking Paralelo (--workers N): Inferencia multi-proceso desacoplada en Apple Silicon.
-- Embeddings Serializados: Extracción previa O(1) de identidades, eliminando contención de recognition.
-- Modo Watcher Daemon (--watch <inbox>): Ingesta reactiva autónoma de vídeos y URLs en segundo plano.
+Mejoras de la Arquitectura V6 SOTA:
+- Roster Dinámico Universal (VaultRosterResolver): Carga automática desde roster.json y faces/real/
+  con soporte de las 46 identidades, alias, variantes HD y nuevos miembros (Bertín Osborne, Unai Portu).
+- Emparejamiento Biométrico por Reconocimiento Facial (--target-match y --map): Asignación quirúrgica
+  por distancia coseno ArcFace (tau >= 0.40), erradicando permutaciones accidentales de rostro en cortes.
+- Soporte Nativo de Imagen Fija: Detección automática de fotos (.png, .jpg, .jpeg, .webp) con ejecución
+  directa en 512p sin pérdida por compresión de vídeo ni artefactos YUV420p.
+- Muxing de Audio con Cero Desincronización (-af aresample=async=1) para estabilidad labial absoluta.
+- Super-Resolución Adaptativa Consciente de Escala (GPEN 512 / CodeFormer HD / CAS Sharpening).
+- Grano de Sensor Poisson-Gaussian y Transferencia Espacial de Iluminación 3D.
+- Segmentación Semántica BiSeNet ResNet-34 en CoreML / Apple Neural Engine (ANE).
+- Mezcla Espectral de Dos Bandas con Refinamiento Bilateral de Bordes.
 - Codificación acelerada por hardware Apple Silicon VideoToolbox (H.264 / HEVC).
 """
 
@@ -22,6 +25,8 @@ import argparse
 import subprocess
 import glob
 import shutil
+import json
+from pathlib import Path
 import cv2
 import numpy as np
 import onnxruntime as ort
@@ -37,6 +42,7 @@ try:
         FaceTracker,
         TemporalPatchStabilizer,
         VerticalFramingTracker,
+        compute_face_similarity,
         reinhard_color_transfer,
         monge_kantorovich_color_transfer,
         spatial_illumination_transfer,
@@ -58,6 +64,7 @@ except ImportError:
     FaceTracker = None
     TemporalPatchStabilizer = None
     VerticalFramingTracker = None
+    compute_face_similarity = None
     reinhard_color_transfer = None
     monge_kantorovich_color_transfer = None
     spatial_illumination_transfer = None
@@ -79,9 +86,9 @@ from insightface.app import FaceAnalysis
 from insightface.model_zoo import get_model
 from insightface.utils import face_align
 
-FACES_DIR = "/Users/borjafernandezangulo/10_PROJECTS/cuadrilla-neural-vault/faces/real"
-if not os.path.isdir(FACES_DIR):
-    FACES_DIR = "/Users/borjafernandezangulo/Downloads/VIDEO BODA HUGO/faces"
+IMAGE_EXTENSIONS = {'.png', '.jpg', '.jpeg', '.webp', '.bmp', '.tiff'}
+VIDEO_EXTENSIONS = {'.mp4', '.mov', '.mkv', '.webm', '.avi'}
+
 MOVIES_DIR = "/Users/borjafernandezangulo/Movies/VIDEOS_MITICOS"
 MODELS_DIR = os.path.expanduser("~/.insightface/models")
 
@@ -95,43 +102,147 @@ BISENET_PATH = os.path.join(MODELS_DIR, "bisenet_resnet_34.onnx")
 FAN_PATH = os.path.join(MODELS_DIR, "fan_68_5.onnx")
 TEMP_EMBEDDINGS_PATH = "/tmp/c5_source_embeddings.npz"
 
-ROSTER = {
-    "alain": "alain_real.png",
-    "alain elektronische": "alain_real.png",
-    "eder": "eder_real.png",
-    "eder dual sound": "eder_real.png",
-    "luengo": "luengo_real.png",
-    "tigre maquina": "luengo_real.png",
-    "xabi": "xabi_real.png",
-    "cabeza gigante": "xabi_real.png",
-    "borja": "borja_real.png",
-    "moskv": "borja_real.png",
-    "hugo": "hugo_real.png",
-    "hugo pink": "hugo_real.png",
-    "mitxu": "mitxu_gafas_tecnicas.jpg",
-    "mitxu gafas": "mitxu_gafas_tecnicas.jpg",
-    "mitxu_gafas": "mitxu_gafas_tecnicas.jpg",
-    "mitxu real": "mitxu_real.png",
-    "el mitxus": "mitxu_gafas_tecnicas.jpg",
-    "pedrerol": "pedrerol_real.png",
-    "tosso": "tosso_real.png",
-    "lander": "lander_real.png",
-    "medina": "medina_real.png",
-    "patxi": "patxi_real.png",
-    "david landeta": "david_landeta_real.png",
-    "landeta": "david_landeta_real.png",
-    "aloisio": "aloisio_real.png",
-    "jorge malatesta": "jorge_malatesta_real.png",
-    "malatesta": "jorge_malatesta_real.png",
-    "txinorris": "txinorris_real.png",
-    "the brother": "the_brother_real.png",
-    "diana": "diana_real.png",
-    "chiquito": "chiquito_real.png",
-    "chiquito de la calzada": "chiquito_real.png",
-    "unaitxu": "unaitxu_real.png",
-    "trump": "trump_real.jpg",
-    "donald trump": "trump_real.jpg"
-}
+
+class VaultRosterResolver:
+    """
+    Motor de Resolución Dinámica de Identidades (V6 SOTA).
+    Acopla c5-face-swap a cuadrilla-neural-vault (roster.json y faces/real/).
+    Resuelve IDs canónicos, nombres, alias, nombres de archivo directos y variantes.
+    """
+    def __init__(self, vault_dir=None):
+        candidate_dirs = [
+            vault_dir,
+            os.environ.get("CUADRILLA_VAULT_DIR"),
+            "/Users/borjafernandezangulo/10_PROJECTS/cuadrilla-neural-vault",
+            os.path.join(os.getcwd()),
+            "/Users/borjafernandezangulo/Downloads/VIDEO BODA HUGO"
+        ]
+        self.vault_dir = None
+        for cd in candidate_dirs:
+            if cd and os.path.isdir(cd) and (os.path.isfile(os.path.join(cd, "roster.json")) or os.path.isdir(os.path.join(cd, "faces", "real"))):
+                self.vault_dir = cd
+                break
+        if not self.vault_dir:
+            self.vault_dir = "/Users/borjafernandezangulo/10_PROJECTS/cuadrilla-neural-vault"
+
+        self.faces_dir = os.path.join(self.vault_dir, "faces", "real")
+        if not os.path.isdir(self.faces_dir):
+            self.faces_dir = os.path.join(self.vault_dir, "faces")
+
+        self.roster_path = os.path.join(self.vault_dir, "roster.json")
+        self._index = {}
+        self._load()
+
+    def _load(self):
+        # 1. Escaneo de archivos en faces_dir
+        if os.path.isdir(self.faces_dir):
+            for fname in sorted(os.listdir(self.faces_dir)):
+                ext = os.path.splitext(fname)[1].lower()
+                if ext in IMAGE_EXTENSIONS:
+                    full_p = os.path.join(self.faces_dir, fname)
+                    stem = os.path.splitext(fname)[0].lower()
+                    self._index[stem] = full_p
+                    self._index[fname.lower()] = full_p
+                    # Versión limpia sin sufijos
+                    clean = stem.replace("_real", "").replace("_hd", "").replace("_selfie", "").replace("_clean", "")
+                    self._index.setdefault(clean, full_p)
+                    # Variantes separadas por guión bajo (e.g. unaitxu_portu_terrace -> unaitxu:terrace, portu)
+                    parts = stem.split("_")
+                    if len(parts) >= 2:
+                        first = parts[0]
+                        last = parts[-1]
+                        self._index.setdefault(f"{first}:{last}", full_p)
+                        self._index.setdefault(last, full_p)
+
+        # 2. Cargar roster.json si existe
+        if os.path.isfile(self.roster_path):
+            try:
+                with open(self.roster_path, 'r', encoding='utf-8') as fp:
+                    rdata = json.load(fp)
+                for m in rdata.get("members", []):
+                    mid = m.get("id", "").lower()
+                    fr = m.get("face_real")
+                    fa = m.get("face_alt")
+                    target_file = None
+                    if fr:
+                        abs_fr = os.path.join(self.vault_dir, fr)
+                        if os.path.isfile(abs_fr):
+                            target_file = abs_fr
+                    if target_file:
+                        self._index[mid] = target_file
+                        dname = m.get("display_name", "").lower()
+                        self._index.setdefault(dname, target_file)
+                        for a in m.get("aliases", []):
+                            clean_a = a.lower().strip()
+                            self._index.setdefault(clean_a, target_file)
+                    if fa:
+                        abs_fa = os.path.join(self.vault_dir, fa)
+                        if os.path.isfile(abs_fa):
+                            self._index.setdefault(f"{mid}:alt", abs_fa)
+                            self._index.setdefault(f"{mid}:terrace", abs_fa)
+                            self._index.setdefault("portu", abs_fa)
+            except Exception as e:
+                print(f"[!] Error cargando roster.json: {e}", flush=True)
+
+    def resolve(self, spec: str) -> str:
+        """Resuelve un string de identidad a una ruta de archivo existente."""
+        if os.path.isfile(spec):
+            return spec
+
+        clean = spec.lower().strip()
+        # Coincidencia directa en índice
+        if clean in self._index and os.path.isfile(self._index[clean]):
+            return self._index[clean]
+
+        # Manejo de variantes tipo "unai:terrace", "mitxu:hd"
+        if ":" in clean:
+            c_base, c_var = clean.split(":", 1)
+            for k, p in self._index.items():
+                if c_base in k and c_var in k and os.path.isfile(p):
+                    return p
+
+        # Búsqueda difusa / substring
+        for k, p in self._index.items():
+            if (clean in k or k in clean) and os.path.isfile(p):
+                return p
+
+        # Búsqueda directa en faces_dir
+        if os.path.isdir(self.faces_dir):
+            for ext in ['.png', '.jpg', '.jpeg', '.webp']:
+                cand = os.path.join(self.faces_dir, f"{clean}{ext}")
+                if os.path.isfile(cand):
+                    return cand
+                cand_real = os.path.join(self.faces_dir, f"{clean}_real{ext}")
+                if os.path.isfile(cand_real):
+                    return cand_real
+
+        raise ValueError(f"Identidad '{spec}' no encontrada en el Vault Roster ({self.faces_dir}).")
+
+    def resolve_group(self, group_spec: str):
+        """Resuelve una especificación (archivo, directorio o lista separada por '+')."""
+        if os.path.isdir(group_spec):
+            valid_exts = {'.png', '.jpg', '.jpeg', '.webp'}
+            imgs = [os.path.join(group_spec, f) for f in sorted(os.listdir(group_spec))
+                    if os.path.splitext(f)[1].lower() in valid_exts]
+            if not imgs:
+                raise ValueError(f"Directorio de identidades vacío: {group_spec}")
+            return imgs
+        parts = [p.strip() for p in group_spec.split('+') if p.strip()]
+        return [self.resolve(p) for p in parts]
+
+
+ROSTER_RESOLVER = VaultRosterResolver()
+FACES_DIR = ROSTER_RESOLVER.faces_dir
+
+# Funciones de compatibilidad hacia atrás
+def resolve_single_identity(name_or_path):
+    return ROSTER_RESOLVER.resolve(name_or_path)
+
+def resolve_identity_paths(identity_spec):
+    return ROSTER_RESOLVER.resolve_group(identity_spec)
+
+resolve_identity_image = resolve_single_identity
+
 
 class MinimalSourceFace:
     """Contenedor ligero de embedding para desacoplar workers del modelo de reconocimiento."""
@@ -155,45 +266,6 @@ class MinimalSourceFace:
             return fused, fused
         return best[0], best[1]
 
-def resolve_single_identity(name_or_path):
-    if os.path.isfile(name_or_path):
-        return name_or_path
-    clean_name = name_or_path.lower().strip()
-    if clean_name in ROSTER:
-        full_p = os.path.join(FACES_DIR, ROSTER[clean_name])
-        if os.path.isfile(full_p):
-            return full_p
-    for k, fname in ROSTER.items():
-        if clean_name in k or k in clean_name:
-            full_p = os.path.join(FACES_DIR, fname)
-            if os.path.isfile(full_p):
-                return full_p
-    raise ValueError(f"Identidad '{name_or_path}' no encontrada en el Roster ({FACES_DIR}).")
-
-def resolve_identity_paths(identity_spec):
-    """
-    Resuelve una especificación de identidad hacia una lista de rutas de imágenes.
-    Soporta:
-    - Nombre del roster o ruta de archivo única: e.g. 'alain'
-    - Identidades compuestas con '+': e.g. 'mitxu_gafas+mitxu_real'
-    - Directorio con imágenes: e.g. '/path/to/mitxu_angles/'
-    """
-    if os.path.isdir(identity_spec):
-        valid_exts = {'.png', '.jpg', '.jpeg', '.webp'}
-        imgs = [os.path.join(identity_spec, f) for f in sorted(os.listdir(identity_spec))
-                if os.path.splitext(f)[1].lower() in valid_exts]
-        if not imgs:
-            raise ValueError(f"Directorio de identidades vacío: {identity_spec}")
-        return imgs
-
-    parts = [p.strip() for p in identity_spec.split('+') if p.strip()]
-    resolved = []
-    for part in parts:
-        resolved.append(resolve_single_identity(part))
-    return resolved
-
-# Alias para compatibilidad hacia atrás
-resolve_identity_image = resolve_single_identity
 
 def purge_temp_onnx_artifacts():
     """Purga determinista de artefactos .mlmodel/.mlmodelc huérfanos para preservar el disco."""
@@ -206,6 +278,7 @@ def purge_temp_onnx_artifacts():
         except Exception:
             pass
 
+
 def render_worker_chunk(
     video_path, source_faces, start_frame, end_frame, out_part_path,
     fps, width, height, bitrate, use_smooth=True,
@@ -213,14 +286,27 @@ def render_worker_chunk(
     lighting='spatial', grain_strength=0.5, preserve_mouth='auto', preserve_eyes='auto',
     blend_mode='two-band', stabilize_patch=True,
     target_face_index=0, swap_all=False,
+    target_embeddings=None, target_threshold=0.40,
     worker_id=0
 ):
     """Procesa una franja contigua de fotogramas [start_frame, end_frame) en un subproceso aislado."""
     coreml_opts = {'MLComputeUnits': 'CPUAndGPU'}
     coreml_providers = [('CoreMLExecutionProvider', coreml_opts), 'CPUExecutionProvider'] if ('CoreMLExecutionProvider' in ort.get_available_providers() and not os.environ.get('C5_FORCE_CPU')) else ['CPUExecutionProvider']
-    app_det = FaceAnalysis(name='buffalo_l', allowed_modules=['detection'], providers=coreml_providers)
-    app_det.prepare(ctx_id=0, det_size=(640, 640))
-    swapper = get_model(INSWAPPER_PATH, providers=coreml_providers)
+
+    # Detector en CPU con módulo de reconocimiento si hay target matching
+    allowed_mods = ['detection', 'recognition'] if target_embeddings else ['detection']
+    try:
+        app_det = FaceAnalysis(name='buffalo_l', allowed_modules=allowed_mods, providers=['CPUExecutionProvider'])
+        app_det.prepare(ctx_id=0, det_size=(640, 640))
+    except Exception:
+        app_det = FaceAnalysis(name='buffalo_l', allowed_modules=allowed_mods, providers=['CPUExecutionProvider'])
+        app_det.prepare(ctx_id=-1, det_size=(640, 640))
+
+    # Swapper con fallback defensivo
+    try:
+        swapper = get_model(INSWAPPER_PATH, providers=coreml_providers)
+    except Exception:
+        swapper = get_model(INSWAPPER_PATH, providers=['CPUExecutionProvider'])
 
     # Sesiones ONNX para Restaurador, Segmentación y Landmarker 3D
     sess_opts = ort.SessionOptions()
@@ -228,7 +314,6 @@ def render_worker_chunk(
 
     enhancer_sess = None
     if enhancer in ['gpen', 'adaptive'] and os.path.isfile(GPEN_PATH):
-        # CPUExecutionProvider con 2 hilos por worker: cero colisión de particiones y máxima estabilidad
         enhancer_sess = ort.InferenceSession(GPEN_PATH, sess_options=sess_opts, providers=['CPUExecutionProvider'])
     elif enhancer == 'codeformer' and os.path.isfile(CODEFORMER_PATH):
         enhancer_sess = ort.InferenceSession(CODEFORMER_PATH, sess_options=sess_opts, providers=['CPUExecutionProvider'])
@@ -237,7 +322,10 @@ def render_worker_chunk(
 
     bisenet_sess = None
     if mask_mode == 'bisenet' and os.path.isfile(BISENET_PATH):
-        bisenet_sess = ort.InferenceSession(BISENET_PATH, sess_options=sess_opts, providers=coreml_providers)
+        try:
+            bisenet_sess = ort.InferenceSession(BISENET_PATH, sess_options=sess_opts, providers=coreml_providers)
+        except Exception:
+            bisenet_sess = ort.InferenceSession(BISENET_PATH, sess_options=sess_opts, providers=['CPUExecutionProvider'])
 
     fan_sess = None
     if os.path.isfile(FAN_PATH):
@@ -277,9 +365,25 @@ def render_worker_chunk(
         faces = app_det.get(frame)
         if tracker:
             tgt_idx = None if swap_all else target_face_index
-            assignments = tracker.update(faces, len(source_faces), dt=dt, swap_all=swap_all, target_index=tgt_idx)
+            assignments = tracker.update(
+                faces, len(source_faces), dt=dt, swap_all=swap_all,
+                target_index=tgt_idx, target_embeddings=target_embeddings, target_threshold=target_threshold
+            )
         else:
-            if faces:
+            if target_embeddings and faces:
+                assignments = []
+                for f in faces:
+                    if hasattr(f, 'embedding') and f.embedding is not None:
+                        best_sim = -1.0
+                        best_id = -1
+                        for tgt_id, tgt_emb in target_embeddings:
+                            sim = compute_face_similarity(f.embedding, tgt_emb) if compute_face_similarity else 0.0
+                            if sim > best_sim:
+                                best_sim = sim
+                                best_id = tgt_id
+                        if best_sim >= target_threshold and best_id < len(source_faces):
+                            assignments.append((f, best_id, 0))
+            elif faces:
                 faces_sorted = sorted(faces, key=lambda f: (f.bbox[2]-f.bbox[0]) * (f.bbox[3]-f.bbox[1]), reverse=True)
                 if not swap_all and target_face_index is not None:
                     assignments = [(faces_sorted[target_face_index], 0, 0)] if target_face_index < len(faces_sorted) else []
@@ -331,7 +435,7 @@ def render_worker_chunk(
                 eyes_active = True
             elif preserve_eyes == 'false':
                 eyes_active = False
-            else:  # auto (parpadeo u ojos cerrados)
+            else:  # auto
                 eyes_active = (ear < 0.18)
 
             # Inyección adaptativa de ángulo 3D si hay multi-referencia
@@ -341,89 +445,86 @@ def render_worker_chunk(
             else:
                 swap_src = src_f
 
-            bgr_fake, M = swapper.get(res, tf, swap_src, paste_back=False)
+            try:
+                bgr_fake, M = swapper.get(res, tf, swap_src, paste_back=False)
 
-            if enhancer != 'none' and (enhancer_sess is not None or enhancer in ['adaptive', 'unsharp']):
-                # =======================================================
-                # PIPELINE V5 SOTA: 512p + Adaptive/GPEN CoreML + MKL + Spatial Lighting + Stabilizer + Sensor Grain + BiSeNet + Two-Band
-                # =======================================================
-                crop_512 = cv2.resize(bgr_fake, (512, 512), interpolation=cv2.INTER_CUBIC)
+                if enhancer != 'none' and (enhancer_sess is not None or enhancer in ['adaptive', 'unsharp']):
+                    crop_512 = cv2.resize(bgr_fake, (512, 512), interpolation=cv2.INTER_CUBIC)
 
-                # Super-resolución adaptativa según la escala del rostro
-                face_h = tf.bbox[3] - tf.bbox[1]
-                if enhancer == 'unsharp' or (enhancer == 'adaptive' and face_h < 140):
-                    restored_512 = sharpen_face_patch(crop_512, amount=1.2) if sharpen_face_patch else crop_512
-                else:
-                    eff_enhancer = 'gpen' if enhancer == 'adaptive' else enhancer
-                    restored_512 = restore_face_patch(crop_512, eff_enhancer, enhancer_sess, weight=enhance_weight)
-
-                aimg_512, M_512 = face_align.norm_crop2(res, tf.kps, 512)
-
-                # 1. Transferencia cromática global
-                if color_transfer == 'mkl' and monge_kantorovich_color_transfer:
-                    ready_512 = monge_kantorovich_color_transfer(restored_512, aimg_512)
-                elif color_transfer == 'reinhard' and reinhard_color_transfer:
-                    ready_512 = reinhard_color_transfer(restored_512, aimg_512)
-                else:
-                    ready_512 = restored_512
-
-                # 2. Transferencia de iluminación espacial 3D y sombras
-                if lighting == 'spatial' and spatial_illumination_transfer:
-                    ready_512 = spatial_illumination_transfer(ready_512, aimg_512)
-
-                # 3. Inyección de grano de sensor y textura analógica (anti-plasticidad GAN)
-                if grain_strength > 0.0 and match_sensor_grain:
-                    ready_512 = match_sensor_grain(ready_512, aimg_512, strength=grain_strength)
-
-                # 4. Estabilización temporal inter-frame de parches (erradicación de GAN shimmer)
-                if stabilize_patch:
-                    if tracker:
-                        motion = tracker.compute_motion(tid, tf.kps)
-                        stab = tracker.get_stabilizer(tid)
-                        if stab:
-                            ready_512 = stab.stabilize(ready_512, motion)
-                    elif local_stabilizer:
-                        ready_512 = local_stabilizer.stabilize(ready_512, 0.0)
-
-                IM_512 = cv2.invertAffineTransform(M_512)
-
-                if bisenet_sess is not None and get_bisenet_semantic_mask:
-                    lm68_512 = cv2.transform(lm68.reshape(1, -1, 2), M_512).reshape(-1, 2) if lm68 is not None else None
-                    mask_512 = get_bisenet_semantic_mask(
-                        aimg_512, bisenet_sess, feather=25,
-                        preserve_mouth=mouth_active,
-                        preserve_eyes=eyes_active,
-                        eye_landmarks_512=lm68_512
-                    )
-
-                    if blend_mode == 'two-band' and two_band_blend_patch:
-                        blended_512 = two_band_blend_patch(aimg_512, ready_512, mask_512, blur_ksize=21)
-                        warped_mask = cv2.warpAffine(mask_512, IM_512, (width, height), borderValue=0.0)[:, :, None]
-                        warped_blended = cv2.warpAffine(blended_512, IM_512, (width, height), borderValue=0.0)
-                        res = np.clip(warped_mask * warped_blended + (1.0 - warped_mask) * res.astype(np.float32), 0, 255).astype(np.uint8)
+                    # Super-resolución adaptativa según la escala del rostro
+                    face_h = tf.bbox[3] - tf.bbox[1]
+                    if enhancer == 'unsharp' or (enhancer == 'adaptive' and face_h < 140):
+                        restored_512 = sharpen_face_patch(crop_512, amount=1.2) if sharpen_face_patch else crop_512
                     else:
-                        mask_512 = np.expand_dims(mask_512, axis=2)
-                        warped_mask = cv2.warpAffine(mask_512, IM_512, (width, height), borderValue=0.0)
+                        eff_enhancer = 'gpen' if enhancer == 'adaptive' else enhancer
+                        restored_512 = restore_face_patch(crop_512, eff_enhancer, enhancer_sess, weight=enhance_weight)
+
+                    aimg_512, M_512 = face_align.norm_crop2(res, tf.kps, 512)
+
+                    # 1. Transferencia cromática global
+                    if color_transfer == 'mkl' and monge_kantorovich_color_transfer:
+                        ready_512 = monge_kantorovich_color_transfer(restored_512, aimg_512)
+                    elif color_transfer == 'reinhard' and reinhard_color_transfer:
+                        ready_512 = reinhard_color_transfer(restored_512, aimg_512)
+                    else:
+                        ready_512 = restored_512
+
+                    # 2. Transferencia de iluminación espacial 3D y sombras
+                    if lighting == 'spatial' and spatial_illumination_transfer:
+                        ready_512 = spatial_illumination_transfer(ready_512, aimg_512)
+
+                    # 3. Inyección de grano de sensor y textura analógica
+                    if grain_strength > 0.0 and match_sensor_grain:
+                        ready_512 = match_sensor_grain(ready_512, aimg_512, strength=grain_strength)
+
+                    # 4. Estabilización temporal inter-frame de parches
+                    if stabilize_patch:
+                        if tracker:
+                            motion = tracker.compute_motion(tid, tf.kps)
+                            stab = tracker.get_stabilizer(tid)
+                            if stab:
+                                ready_512 = stab.stabilize(ready_512, motion)
+                        elif local_stabilizer:
+                            ready_512 = local_stabilizer.stabilize(ready_512, 0.0)
+
+                    IM_512 = cv2.invertAffineTransform(M_512)
+
+                    if bisenet_sess is not None and get_bisenet_semantic_mask:
+                        lm68_512 = cv2.transform(lm68.reshape(1, -1, 2), M_512).reshape(-1, 2) if lm68 is not None else None
+                        mask_512 = get_bisenet_semantic_mask(
+                            aimg_512, bisenet_sess, feather=25,
+                            preserve_mouth=mouth_active,
+                            preserve_eyes=eyes_active,
+                            eye_landmarks_512=lm68_512
+                        )
+
+                        if blend_mode == 'two-band' and two_band_blend_patch:
+                            blended_512 = two_band_blend_patch(aimg_512, ready_512, mask_512, blur_ksize=21)
+                            warped_mask = cv2.warpAffine(mask_512, IM_512, (width, height), borderValue=0.0)[:, :, None]
+                            warped_blended = cv2.warpAffine(blended_512, IM_512, (width, height), borderValue=0.0)
+                            res = np.clip(warped_mask * warped_blended + (1.0 - warped_mask) * res.astype(np.float32), 0, 255).astype(np.uint8)
+                        else:
+                            mask_512 = np.expand_dims(mask_512, axis=2)
+                            warped_mask = cv2.warpAffine(mask_512, IM_512, (width, height), borderValue=0.0)
+                            warped_mask = np.expand_dims(warped_mask, axis=2)
+                            warped_fake = cv2.warpAffine(ready_512, IM_512, (width, height), borderValue=0.0)
+                            res = np.clip(warped_mask * warped_fake + (1.0 - warped_mask) * res.astype(np.float32), 0, 255).astype(np.uint8)
+                    else:
+                        mask_local = np.zeros((512, 512), dtype=np.float32)
+                        cv2.ellipse(mask_local, (256, int(512 * 0.52)), (int(512 * 0.42), int(512 * 0.46)), 0, 0, 360, 1.0, -1)
+                        mask_local = cv2.GaussianBlur(mask_local, (31, 31), 0)
+                        warped_mask = cv2.warpAffine(mask_local, IM_512, (width, height), borderValue=0.0)
                         warped_mask = np.expand_dims(warped_mask, axis=2)
                         warped_fake = cv2.warpAffine(ready_512, IM_512, (width, height), borderValue=0.0)
                         res = np.clip(warped_mask * warped_fake + (1.0 - warped_mask) * res.astype(np.float32), 0, 255).astype(np.uint8)
-                else:
-                    mask_local = np.zeros((512, 512), dtype=np.float32)
-                    cv2.ellipse(mask_local, (256, int(512 * 0.52)), (int(512 * 0.42), int(512 * 0.46)), 0, 0, 360, 1.0, -1)
-                    mask_local = cv2.GaussianBlur(mask_local, (31, 31), 0)
-                    warped_mask = cv2.warpAffine(mask_local, IM_512, (width, height), borderValue=0.0)
-                    warped_mask = np.expand_dims(warped_mask, axis=2)
-                    warped_fake = cv2.warpAffine(ready_512, IM_512, (width, height), borderValue=0.0)
-                    res = np.clip(warped_mask * warped_fake + (1.0 - warped_mask) * res.astype(np.float32), 0, 255).astype(np.uint8)
 
-            else:
-                # =======================================================
-                # PIPELINE V1 BASELINE: 128px + Soft Elliptical Blend
-                # =======================================================
-                if soft_elliptical_blend:
-                    res = soft_elliptical_blend(res, bgr_fake, M)
                 else:
-                    res = swapper.get(res, tf, swap_src, paste_back=True)
+                    if soft_elliptical_blend:
+                        res = soft_elliptical_blend(res, bgr_fake, M)
+                    else:
+                        res = swapper.get(res, tf, swap_src, paste_back=True)
+            except Exception:
+                continue
 
         try:
             ffmpeg_proc.stdin.write(res.tobytes())
@@ -440,6 +541,7 @@ def render_worker_chunk(
     cap.release()
     ffmpeg_proc.stdin.close()
     ffmpeg_proc.wait()
+
 
 def generate_vertical_916_video(master_video, out_916_path, bg_mode='crop', target_w=1080, target_h=1920):
     """
@@ -459,13 +561,12 @@ def generate_vertical_916_video(master_video, out_916_path, bg_mode='crop', targ
 
     tracker = VerticalFramingTracker(w_src, h_src, target_w=target_w, target_h=target_h)
 
-    # Detector facial para centrar el encuadre
     coreml_opts = {'MLComputeUnits': 'CPUAndGPU'}
     coreml_providers = [('CoreMLExecutionProvider', coreml_opts), 'CPUExecutionProvider'] if ('CoreMLExecutionProvider' in ort.get_available_providers() and not os.environ.get('C5_FORCE_CPU')) else ['CPUExecutionProvider']
     app_det = FaceAnalysis(name='buffalo_l', allowed_modules=['detection'], providers=coreml_providers)
     app_det.prepare(ctx_id=0, det_size=(320, 320))
 
-    temp_raw_916 = "/tmp/c5_vertical_nosound.mp4"
+    temp_raw_916 = f"/tmp/c5_vertical_nosound_{os.getpid()}.mp4"
     ffmpeg_cmd = [
         'ffmpeg', '-y',
         '-f', 'rawvideo',
@@ -509,6 +610,7 @@ def generate_vertical_916_video(master_video, out_916_path, bg_mode='crop', targ
         '-i', master_video,
         '-c:v', 'copy',
         '-c:a', 'aac', '-b:a', '192k',
+        '-af', 'aresample=async=1',
         '-map', '0:v:0',
         '-map', '1:a:0?',
         '-shortest',
@@ -521,56 +623,46 @@ def generate_vertical_916_video(master_video, out_916_path, bg_mode='crop', targ
     print(f"  [✓] Vídeo Vertical 9:16 listo: {out_916_path}", flush=True)
     return out_916_path
 
-def process_video_pipeline(video_input, args):
-    """Ejecuta el pipeline completo de Face Swap sobre un archivo de vídeo o URL."""
-    if video_input.startswith("http://") or video_input.startswith("https://"):
-        print(f"[*] Ingesta directa desde URL: {video_input}", flush=True)
-        tmp_raw = "/tmp/c5_input_raw.mp4"
-        dl_cmd = ['yt-dlp', '-f', 'bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]/best', '-o', tmp_raw, video_input]
-        subprocess.run(dl_cmd, check=True)
-        video_input = "/tmp/c5_input_h264.mp4"
-        subprocess.run(['ffmpeg', '-y', '-i', tmp_raw, '-c:v', 'h264_videotoolbox', '-b:v', '8M', '-c:a', 'copy', video_input], check=True, stderr=subprocess.DEVNULL)
 
-    if not os.path.isfile(video_input):
-        raise FileNotFoundError(f"Vídeo de entrada no existe: {video_input}")
+def parse_mapping_spec(map_str):
+    """
+    Parsea una especificación de mapeo tipo 'pedrerol:alain,soria:mitxu'.
+    Retorna lista de tuplas (target_spec, source_spec).
+    """
+    pairs = []
+    for item in map_str.split(","):
+        item = item.strip()
+        if not item:
+            continue
+        if ":" not in item:
+            raise ValueError(f"Formato de mapeo inválido '{item}'. Debe ser 'Objetivo:Fuente'.")
+        tgt, src = item.split(":", 1)
+        pairs.append((tgt.strip(), src.strip()))
+    return pairs
 
-    id_list = [s.strip() for s in args.identity.split(",") if s.strip()]
-    resolved_id_groups = [resolve_identity_paths(x) for x in id_list]
+
+def prepare_source_and_target_identities(identity_str, map_str, target_match_str, app_rec, fan_sess):
+    """
+    Compila los objetos MinimalSourceFace y la lista de target_embeddings correspondientes.
+    """
+    id_list = []
+    resolved_id_groups = []
+    target_match_paths = []
+
+    if map_str:
+        pairs = parse_mapping_spec(map_str)
+        for tgt, src in pairs:
+            id_list.append(src)
+            resolved_id_groups.append(ROSTER_RESOLVER.resolve_group(src))
+            target_match_paths.append(ROSTER_RESOLVER.resolve(tgt))
+    else:
+        id_list = [s.strip() for s in identity_str.split(",") if s.strip()]
+        resolved_id_groups = [ROSTER_RESOLVER.resolve_group(x) for x in id_list]
+        if target_match_str:
+            target_match_paths.append(ROSTER_RESOLVER.resolve(target_match_str))
+
     num_total_refs = sum(len(g) for g in resolved_id_groups)
     print(f"[*] Roster de Escena fijado ({len(resolved_id_groups)} identidades, {num_total_refs} fotos fuente): {', '.join(id_list)}", flush=True)
-    print(f"[*] Configuración V4 SOTA: Enhancer={args.enhancer} (w={args.enhance_weight}) | Mask={args.mask} | Blend={args.blend} | Lighting={args.lighting} | PreserveMouth={args.preserve_mouth} | PreserveEyes={args.preserve_eyes} | Stabilize={not args.no_stabilize_patch}", flush=True)
-
-    output_path = args.output
-    if not output_path:
-        base_name = os.path.splitext(os.path.basename(video_input))[0]
-        first_ref_name = os.path.splitext(os.path.basename(resolved_id_groups[0][0]))[0].replace("_real", "")
-        output_path = os.path.join(os.getcwd(), f"{base_name}_{first_ref_name}_c5swap.mp4")
-
-    session_id = f"{int(time.time())}_{os.getpid()}"
-    audio_tmp = f"/tmp/c5_audio_{session_id}.m4a"
-    has_audio = False
-    try:
-        subprocess.run(['ffmpeg', '-y', '-i', video_input, '-vn', '-c:a', 'copy', audio_tmp], check=True, stderr=subprocess.DEVNULL)
-        has_audio = os.path.exists(audio_tmp) and os.path.getsize(audio_tmp) > 0
-    except Exception:
-        has_audio = False
-
-    cap = cv2.VideoCapture(video_input)
-    total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-    fps = cap.get(cv2.CAP_PROP_FPS) or 30.0
-    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-    cap.release()
-
-    workers = max(1, min(args.workers, 4))
-    print(f"[*] Vídeo: {width}x{height} @ {fps:.2f} FPS | Total: {total_frames} frames | Workers: {workers}", flush=True)
-
-    print(f"[*] Compilando vectores latentes ArcFace y orientaciones 3D de las identidades fuente...", flush=True)
-    app_rec = FaceAnalysis(name='buffalo_l', allowed_modules=['detection', 'recognition'], providers=['CPUExecutionProvider'])
-    app_rec.prepare(ctx_id=0, det_size=(640, 640))
-    fan_sess_prep = None
-    if os.path.isfile(FAN_PATH) and estimate_dense_68_landmarks and estimate_head_pose_3d:
-        fan_sess_prep = ort.InferenceSession(FAN_PATH, providers=['CPUExecutionProvider'])
 
     src_faces = []
     emb_dict = {}
@@ -600,8 +692,8 @@ def process_video_pipeline(video_input, args):
             embs.append(emb)
 
             yaw_ref = 0.0
-            if fan_sess_prep is not None:
-                lm68_ref = estimate_dense_68_landmarks(f[0].kps, fan_sess_prep)
+            if fan_sess is not None and estimate_dense_68_landmarks and estimate_head_pose_3d:
+                lm68_ref = estimate_dense_68_landmarks(f[0].kps, fan_sess)
                 if lm68_ref is not None:
                     _, yaw_ref, _ = estimate_head_pose_3d(lm68_ref, im.shape if im is not None else (512, 512, 3))
             angles.append((emb, norm, float(yaw_ref)))
@@ -624,19 +716,270 @@ def process_video_pipeline(video_input, args):
             emb_dict[f'angles_embs_{i}'] = np.array([a[0] for a in src_f.angles], dtype=np.float32)
             emb_dict[f'angles_yaws_{i}'] = np.array([a[2] for a in src_f.angles], dtype=np.float32)
 
+    # Compilar target embeddings si aplica
+    target_embeddings = []
+    for j, tp in enumerate(target_match_paths):
+        tim = cv2.imread(tp)
+        tf_list = app_rec.get(tim) if tim is not None else None
+        if tf_list:
+            t_emb = tf_list[0].embedding
+            t_norm = t_emb / np.maximum(np.linalg.norm(t_emb), 1e-7)
+            target_embeddings.append((j, t_norm))
+            emb_dict[f'tgt_id_{j}'] = np.int32(j)
+            emb_dict[f'tgt_norm_{j}'] = t_norm
+            print(f"  [+] Target Matcher activo para identidad {j}: '{os.path.basename(tp)}'", flush=True)
+
+    emb_dict['has_targets'] = np.bool_(len(target_embeddings) > 0)
+    emb_dict['num_targets'] = np.int32(len(target_embeddings))
+
     np.savez_compressed(TEMP_EMBEDDINGS_PATH, **emb_dict)
+    return id_list, resolved_id_groups, src_faces, target_embeddings
+
+
+def process_image_pipeline(image_input, args):
+    """
+    Pipeline V6 SOTA nativo para intercambio facial en imágenes fijas.
+    Aplica super-resolución GPEN/CodeFormer, BiSeNet, Two-Band Blend, MKL y grano de sensor
+    directamente sobre el lienzo original sin compresión de vídeo ni artefactos YUV420p.
+    """
+    print(f"[*] Ingesta de imagen fija detectada: {image_input}", flush=True)
+    if not os.path.isfile(image_input):
+        raise FileNotFoundError(f"Imagen de entrada no existe: {image_input}")
+
+    app_rec = FaceAnalysis(name='buffalo_l', allowed_modules=['detection', 'recognition'], providers=['CPUExecutionProvider'])
+    app_rec.prepare(ctx_id=0, det_size=(640, 640))
+
+    fan_sess_prep = None
+    if os.path.isfile(FAN_PATH):
+        fan_sess_prep = ort.InferenceSession(FAN_PATH, providers=['CPUExecutionProvider'])
+
+    id_list, resolved_groups, src_faces, target_embeddings = prepare_source_and_target_identities(
+        args.identity, args.map, args.target_match, app_rec, fan_sess_prep
+    )
+
+    tgt_img = cv2.imread(image_input)
+    if tgt_img is None:
+        raise ValueError(f"No se pudo cargar la imagen: {image_input}")
+    h, w = tgt_img.shape[:2]
+    faces = app_rec.get(tgt_img)
+    print(f"[*] Imagen: {w}x{h} | Rostros detectados: {len(faces)}", flush=True)
+
+    if not faces:
+        print("[!] No se detectaron rostros en la imagen objetivo.", flush=True)
+        return image_input
+
+    coreml_opts = {'MLComputeUnits': 'CPUAndGPU'}
+    coreml_providers = [('CoreMLExecutionProvider', coreml_opts), 'CPUExecutionProvider'] if ('CoreMLExecutionProvider' in ort.get_available_providers() and not os.environ.get('C5_FORCE_CPU')) else ['CPUExecutionProvider']
+    try:
+        swapper = get_model(INSWAPPER_PATH, providers=coreml_providers)
+    except Exception:
+        swapper = get_model(INSWAPPER_PATH, providers=['CPUExecutionProvider'])
+
+    sess_opts = ort.SessionOptions()
+    sess_opts.intra_op_num_threads = 4
+
+    enhancer_sess = None
+    if args.enhancer in ['gpen', 'adaptive'] and os.path.isfile(GPEN_PATH):
+        enhancer_sess = ort.InferenceSession(GPEN_PATH, sess_options=sess_opts, providers=['CPUExecutionProvider'])
+    elif args.enhancer == 'codeformer' and os.path.isfile(CODEFORMER_PATH):
+        enhancer_sess = ort.InferenceSession(CODEFORMER_PATH, sess_options=sess_opts, providers=['CPUExecutionProvider'])
+    elif args.enhancer == 'gfpgan' and os.path.isfile(GFPGAN_PATH):
+        enhancer_sess = ort.InferenceSession(GFPGAN_PATH, sess_options=sess_opts, providers=['CPUExecutionProvider'])
+
+    bisenet_sess = None
+    if args.mask == 'bisenet' and os.path.isfile(BISENET_PATH):
+        try:
+            bisenet_sess = ort.InferenceSession(BISENET_PATH, sess_options=sess_opts, providers=coreml_providers)
+        except Exception:
+            bisenet_sess = ort.InferenceSession(BISENET_PATH, sess_options=sess_opts, providers=['CPUExecutionProvider'])
+
+    # Asignaciones
+    assignments = []
+    if target_embeddings:
+        for f in faces:
+            best_sim = -1.0
+            best_id = -1
+            for tgt_id, tgt_emb in target_embeddings:
+                sim = compute_face_similarity(f.embedding, tgt_emb) if compute_face_similarity else 0.0
+                if sim > best_sim:
+                    best_sim = sim
+                    best_id = tgt_id
+            if best_sim >= args.target_threshold and best_id < len(src_faces):
+                assignments.append((f, best_id))
+                print(f"  -> Rostro emparejado con target {best_id} (similitud: {best_sim:.3f} >= {args.target_threshold})")
+    elif args.swap_all:
+        for i, f in enumerate(faces):
+            assignments.append((f, i % len(src_faces)))
+    else:
+        faces_sorted = sorted(faces, key=lambda f: (f.bbox[2]-f.bbox[0]) * (f.bbox[3]-f.bbox[1]), reverse=True)
+        t_idx = args.target_face_index
+        if t_idx < len(faces_sorted):
+            assignments.append((faces_sorted[t_idx], 0))
+
+    res = tgt_img.copy()
+    for tf, face_idx in assignments:
+        src_f = src_faces[face_idx]
+        face_h = tf.bbox[3] - tf.bbox[1]
+        face_w = tf.bbox[2] - tf.bbox[0]
+        if face_h < 25 or face_w < 25:
+            continue
+
+        mar, ear = 0.0, 0.30
+        lm68 = None
+        if fan_sess_prep and estimate_dense_68_landmarks:
+            lm68 = estimate_dense_68_landmarks(tf.kps, fan_sess_prep)
+            if lm68 is not None:
+                if compute_mouth_aspect_ratio: mar = compute_mouth_aspect_ratio(lm68)
+                if compute_eye_aspect_ratio: ear = compute_eye_aspect_ratio(lm68)
+
+        mouth_active = True if args.preserve_mouth == 'true' else (False if args.preserve_mouth == 'false' else (mar > 0.14))
+        eyes_active = 'gaze' if args.preserve_eyes == 'gaze' else (True if args.preserve_eyes == 'true' else (False if args.preserve_eyes == 'false' else (ear < 0.18)))
+
+        bgr_fake, M = swapper.get(res, tf, src_f, paste_back=False)
+
+        if args.enhancer != 'none':
+            crop_512 = cv2.resize(bgr_fake, (512, 512), interpolation=cv2.INTER_CUBIC)
+            if args.enhancer == 'unsharp' or (args.enhancer == 'adaptive' and face_h < 140):
+                restored_512 = sharpen_face_patch(crop_512, amount=1.2) if sharpen_face_patch else crop_512
+            else:
+                eff_enh = 'gpen' if args.enhancer == 'adaptive' else args.enhancer
+                restored_512 = restore_face_patch(crop_512, eff_enh, enhancer_sess, weight=args.enhance_weight)
+
+            aimg_512, M_512 = face_align.norm_crop2(res, tf.kps, 512)
+
+            if args.color_transfer == 'mkl' and monge_kantorovich_color_transfer:
+                ready_512 = monge_kantorovich_color_transfer(restored_512, aimg_512)
+            elif args.color_transfer == 'reinhard' and reinhard_color_transfer:
+                ready_512 = reinhard_color_transfer(restored_512, aimg_512)
+            else:
+                ready_512 = restored_512
+
+            if args.lighting == 'spatial' and spatial_illumination_transfer:
+                ready_512 = spatial_illumination_transfer(ready_512, aimg_512)
+
+            if args.grain > 0.0 and match_sensor_grain:
+                ready_512 = match_sensor_grain(ready_512, aimg_512, strength=args.grain)
+
+            IM_512 = cv2.invertAffineTransform(M_512)
+            if bisenet_sess is not None and get_bisenet_semantic_mask:
+                lm68_512 = cv2.transform(lm68.reshape(1, -1, 2), M_512).reshape(-1, 2) if lm68 is not None else None
+                mask_512 = get_bisenet_semantic_mask(
+                    aimg_512, bisenet_sess, feather=25,
+                    preserve_mouth=mouth_active,
+                    preserve_eyes=eyes_active,
+                    eye_landmarks_512=lm68_512
+                )
+                if args.blend == 'two-band' and two_band_blend_patch:
+                    blended_512 = two_band_blend_patch(aimg_512, ready_512, mask_512, blur_ksize=21)
+                    warped_mask = cv2.warpAffine(mask_512, IM_512, (w, h), borderValue=0.0)[:, :, None]
+                    warped_blended = cv2.warpAffine(blended_512, IM_512, (w, h), borderValue=0.0)
+                    res = np.clip(warped_mask * warped_blended + (1.0 - warped_mask) * res.astype(np.float32), 0, 255).astype(np.uint8)
+                else:
+                    mask_512 = np.expand_dims(mask_512, axis=2)
+                    warped_mask = cv2.warpAffine(mask_512, IM_512, (w, h), borderValue=0.0)
+                    warped_mask = np.expand_dims(warped_mask, axis=2)
+                    warped_fake = cv2.warpAffine(ready_512, IM_512, (w, h), borderValue=0.0)
+                    res = np.clip(warped_mask * warped_fake + (1.0 - warped_mask) * res.astype(np.float32), 0, 255).astype(np.uint8)
+        else:
+            if soft_elliptical_blend:
+                res = soft_elliptical_blend(res, bgr_fake, M)
+            else:
+                res = swapper.get(res, tf, src_f, paste_back=True)
+
+    out_p = args.output
+    if not out_p:
+        base, ext = os.path.splitext(image_input)
+        first_ref_name = os.path.splitext(os.path.basename(resolved_groups[0][0]))[0].replace("_real", "")
+        out_ext = ext if ext.lower() in IMAGE_EXTENSIONS else '.png'
+        out_p = os.path.join(os.getcwd(), f"{base}_{first_ref_name}_c5swap{out_ext}")
+
+    ext_lower = os.path.splitext(out_p)[1].lower()
+    if ext_lower in ['.jpg', '.jpeg']:
+        cv2.imwrite(out_p, res, [cv2.IMWRITE_JPEG_QUALITY, 98])
+    elif ext_lower == '.png':
+        cv2.imwrite(out_p, res, [cv2.IMWRITE_PNG_COMPRESSION, 3])
+    elif ext_lower == '.webp':
+        cv2.imwrite(out_p, res, [cv2.IMWRITE_WEBP_QUALITY, 98])
+    else:
+        cv2.imwrite(out_p, res)
+
+    print(f"\n[DONE] Swap de imagen fija completado: {out_p}", flush=True)
+    if os.path.isdir(MOVIES_DIR):
+        canon_p = os.path.join(MOVIES_DIR, os.path.basename(out_p))
+        if os.path.abspath(out_p) != os.path.abspath(canon_p):
+            subprocess.run(['cp', '-f', out_p, canon_p], check=True)
+            print(f"  -> Replicado en biblioteca canónica: {canon_p}", flush=True)
+
+    purge_temp_onnx_artifacts()
+    return out_p
+
+
+def process_video_pipeline(video_input, args):
+    """Ejecuta el pipeline completo de Face Swap sobre un archivo de vídeo o URL."""
+    if video_input.startswith("http://") or video_input.startswith("https://"):
+        print(f"[*] Ingesta directa desde URL: {video_input}", flush=True)
+        tmp_raw = "/tmp/c5_input_raw.mp4"
+        dl_cmd = ['yt-dlp', '-f', 'bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4]/best', '-o', tmp_raw, video_input]
+        subprocess.run(dl_cmd, check=True)
+        video_input = "/tmp/c5_input_h264.mp4"
+        subprocess.run(['ffmpeg', '-y', '-i', tmp_raw, '-c:v', 'h264_videotoolbox', '-b:v', '8M', '-c:a', 'copy', video_input], check=True, stderr=subprocess.DEVNULL)
+
+    if not os.path.isfile(video_input):
+        raise FileNotFoundError(f"Vídeo de entrada no existe: {video_input}")
+
+    app_rec = FaceAnalysis(name='buffalo_l', allowed_modules=['detection', 'recognition'], providers=['CPUExecutionProvider'])
+    app_rec.prepare(ctx_id=0, det_size=(640, 640))
+    fan_sess_prep = None
+    if os.path.isfile(FAN_PATH) and estimate_dense_68_landmarks and estimate_head_pose_3d:
+        fan_sess_prep = ort.InferenceSession(FAN_PATH, providers=['CPUExecutionProvider'])
+
+    id_list, resolved_id_groups, src_faces, target_embeddings = prepare_source_and_target_identities(
+        args.identity, args.map, args.target_match, app_rec, fan_sess_prep
+    )
+
+    output_path = args.output
+    if not output_path:
+        base_name = os.path.splitext(os.path.basename(video_input))[0]
+        first_ref_name = os.path.splitext(os.path.basename(resolved_id_groups[0][0]))[0].replace("_real", "")
+        output_path = os.path.join(os.getcwd(), f"{base_name}_{first_ref_name}_c5swap.mp4")
+
+    session_id = f"{int(time.time())}_{os.getpid()}"
+    audio_tmp = f"/tmp/c5_audio_{session_id}.m4a"
+    has_audio = False
+    try:
+        subprocess.run(['ffmpeg', '-y', '-i', video_input, '-vn', '-c:a', 'copy', audio_tmp], check=True, stderr=subprocess.DEVNULL)
+        has_audio = os.path.exists(audio_tmp) and os.path.getsize(audio_tmp) > 0
+    except Exception:
+        has_audio = False
+
+    cap = cv2.VideoCapture(video_input)
+    total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    fps = cap.get(cv2.CAP_PROP_FPS) or 30.0
+    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    cap.release()
+
+    workers = max(1, min(args.workers, 4))
+    print(f"[*] Vídeo: {width}x{height} @ {fps:.2f} FPS | Total: {total_frames} frames | Workers: {workers}", flush=True)
+
     del app_rec
     if fan_sess_prep:
         del fan_sess_prep
 
+    range_start = max(0, args.start_frame) if getattr(args, 'start_frame', 0) > 0 else 0
+    range_end = min(total_frames, args.end_frame) if (getattr(args, 'end_frame', 0) > 0 and args.end_frame > range_start) else total_frames
+    frames_to_process = range_end - range_start
+
+    print(f"[*] Rango de render: frames {range_start} a {range_end} ({frames_to_process} frames a procesar)", flush=True)
+
     t0_all = time.time()
 
-    if workers == 1:
+    if workers == 1 or frames_to_process < (workers * 10):
         render_worker_chunk(
             video_path=video_input,
             source_faces=src_faces,
-            start_frame=0,
-            end_frame=total_frames,
+            start_frame=range_start,
+            end_frame=range_end,
             out_part_path=f"/tmp/c5_video_nosound_{session_id}.mp4",
             fps=fps,
             width=width,
@@ -655,26 +998,27 @@ def process_video_pipeline(video_input, args):
             stabilize_patch=not args.no_stabilize_patch,
             target_face_index=args.target_face_index,
             swap_all=args.swap_all,
+            target_embeddings=target_embeddings,
+            target_threshold=args.target_threshold,
             worker_id=0
         )
         concat_video = f"/tmp/c5_video_nosound_{session_id}.mp4"
     else:
-        chunk_size = total_frames // workers
+        chunk_size = frames_to_process // workers
         subprocs = []
         part_files = []
 
-        print(f"[*] Lanzando {workers} workers en paralelo en Apple Silicon...", flush=True)
+        print(f"[*] Lanzando {workers} workers en paralelo en Apple Silicon ({chunk_size} frames/worker)...", flush=True)
 
         for w_idx in range(workers):
-            sf = w_idx * chunk_size
-            ef = total_frames if (w_idx == workers - 1) else (w_idx + 1) * chunk_size
+            sf = range_start + w_idx * chunk_size
+            ef = range_end if (w_idx == workers - 1) else (range_start + (w_idx + 1) * chunk_size)
             part_p = f"/tmp/c5_part_{session_id}_{w_idx}.mp4"
             part_files.append(part_p)
 
             cmd = [
                 PYTHON_BIN, SCRIPT_PATH,
                 "--video", video_input,
-                "--identity", args.identity,
                 "--worker-mode",
                 "--start-frame", str(sf),
                 "--end-frame", str(ef),
@@ -690,8 +1034,12 @@ def process_video_pipeline(video_input, args):
                 "--lighting", args.lighting,
                 "--preserve-mouth", args.preserve_mouth,
                 "--preserve-eyes", args.preserve_eyes,
-                "--target-face-index", str(args.target_face_index)
+                "--target-face-index", str(args.target_face_index),
+                "--target-threshold", str(args.target_threshold)
             ]
+            if args.identity: cmd.extend(["--identity", args.identity])
+            if args.map: cmd.extend(["--map", args.map])
+            if args.target_match: cmd.extend(["--target-match", args.target_match])
             if args.no_smooth: cmd.append("--no-smooth")
             if args.no_stabilize_patch: cmd.append("--no-stabilize-patch")
             if args.swap_all: cmd.append("--swap-all")
@@ -699,7 +1047,7 @@ def process_video_pipeline(video_input, args):
             p = subprocess.Popen(cmd)
             subprocs.append(p)
             if w_idx < workers - 1:
-                time.sleep(2)
+                time.sleep(1)
 
         for idx, p in enumerate(subprocs):
             ret = p.wait()
@@ -722,15 +1070,30 @@ def process_video_pipeline(video_input, args):
             '-i', audio_tmp,
             '-c:v', 'copy',
             '-c:a', 'aac', '-b:a', '192k',
+            '-af', 'aresample=async=1',
             '-shortest',
             output_path
         ], check=True, stderr=subprocess.DEVNULL)
     else:
         shutil.move(concat_video, output_path)
 
+    if workers > 1:
+        for pf in part_files:
+            try:
+                if os.path.exists(pf): os.remove(pf)
+            except Exception: pass
+        try:
+            if os.path.exists(concat_list): os.remove(concat_list)
+        except Exception: pass
+    try:
+        if os.path.exists(concat_video): os.remove(concat_video)
+    except Exception: pass
+    try:
+        if os.path.exists(audio_tmp): os.remove(audio_tmp)
+    except Exception: pass
+
     purge_temp_onnx_artifacts()
 
-    # Generación opcional de formato vertical 9:16 para Reels / TikTok / WhatsApp Status
     if getattr(args, 'format', 'original') in ['9:16', 'both']:
         base_no_ext, ext = os.path.splitext(output_path)
         out_916_path = f"{base_no_ext}_vertical_916{ext}"
@@ -757,17 +1120,21 @@ def process_video_pipeline(video_input, args):
 
     return output_path
 
+
 def main():
-    parser = argparse.ArgumentParser(description="C5-REAL Sovereign Face Swap Engine V5 SOTA (Apple Silicon)")
-    parser.add_argument("--video", "-v", default=None, help="Ruta al vídeo local o URL de Instagram/TikTok/YouTube")
-    parser.add_argument("--identity", "-i", required=True, help="Lista de identidades separadas por comas (e.g. 'Alain,Luengo,Xabi' o compuestas 'mitxu_gafas+mitxu_real')")
-    parser.add_argument("--output", "-o", default=None, help="Ruta de guardado para el vídeo final")
+    parser = argparse.ArgumentParser(description="C5-REAL Sovereign Face Swap Engine V6 SOTA (Apple Silicon)")
+    parser.add_argument("--video", "-v", default=None, help="Ruta al vídeo/imagen local o URL de Instagram/TikTok/YouTube")
+    parser.add_argument("--identity", "-i", default=None, help="Lista de identidades separadas por comas (e.g. 'Alain,Luengo,Xabi' o compuestas 'mitxu_gafas+mitxu_real')")
+    parser.add_argument("--target-match", default=None, help="Identidad o foto del rostro objetivo a sustituir selectivamente")
+    parser.add_argument("--map", default=None, help="Mapeo explícito de parejas 'Objetivo:Fuente' (e.g. 'pedrerol:alain,soria:mitxu')")
+    parser.add_argument("--target-threshold", type=float, default=0.40, help="Umbral de similitud coseno ArcFace para target matching (default 0.40)")
+    parser.add_argument("--output", "-o", default=None, help="Ruta de guardado para el vídeo o imagen final")
     parser.add_argument("--bitrate", "-b", default="8500k", help="Bitrate de codificación hardware VideoToolbox")
     parser.add_argument("--workers", "-w", type=int, default=2, help="Número de workers en paralelo (default 2)")
     parser.add_argument("--watch", default=None, help="Directorio inbox para modo Watcher Daemon reactivo")
     parser.add_argument("--no-smooth", action="store_true", help="Desactivar filtro temporal")
 
-    # Flags V5 SOTA
+    # Flags V6 SOTA
     parser.add_argument("--enhancer", choices=['adaptive', 'unsharp', 'gpen', 'codeformer', 'gfpgan', 'none'], default='adaptive',
                         help="Motor de Super-Resolución / Restauración facial (default: adaptive - escala inteligente)")
     parser.add_argument("--enhance-weight", type=float, default=0.7,
@@ -825,6 +1192,15 @@ def main():
                     angles.append((e, n, float(a_yaws[j])))
             src_faces.append(MinimalSourceFace(emb, norm, angles=angles))
 
+        target_embeddings = None
+        if 'has_targets' in npz and bool(npz['has_targets']):
+            num_targets = int(npz['num_targets'])
+            target_embeddings = []
+            for j in range(num_targets):
+                tid = int(npz[f'tgt_id_{j}'])
+                tnorm = npz[f'tgt_norm_{j}']
+                target_embeddings.append((tid, tnorm))
+
         cap = cv2.VideoCapture(args.video)
         fps = cap.get(cv2.CAP_PROP_FPS) or 30.0
         width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -854,9 +1230,15 @@ def main():
             stabilize_patch=not args.no_stabilize_patch,
             target_face_index=args.target_face_index,
             swap_all=args.swap_all,
+            target_embeddings=target_embeddings,
+            target_threshold=args.target_threshold,
             worker_id=args.worker_id
         )
         return
+
+    # Validación de identidad o mapa
+    if not args.identity and not args.map:
+        parser.error("Se requiere --identity <nombre> o --map <objetivo:fuente>.")
 
     # MODO WATCHER DAEMON
     if args.watch:
@@ -865,14 +1247,14 @@ def main():
         processed_dir = os.path.join(inbox_dir, "processed")
         os.makedirs(processed_dir, exist_ok=True)
         print(f"[*] Modo Watcher Daemon Activo. Monitorizando: {inbox_dir}", flush=True)
-        print(f"[*] Identidad(es) objetivo: {args.identity}", flush=True)
+        print(f"[*] Identidad(es) objetivo: {args.identity or args.map}", flush=True)
         try:
             while True:
                 files = [os.path.join(inbox_dir, f) for f in os.listdir(inbox_dir)
                          if os.path.isfile(os.path.join(inbox_dir, f)) and not f.startswith('.')]
                 for fpath in files:
                     ext = os.path.splitext(fpath)[1].lower()
-                    if ext in ['.mp4', '.mov', '.mkv', '.webm', '.avi']:
+                    if ext in VIDEO_EXTENSIONS:
                         s0 = os.path.getsize(fpath)
                         time.sleep(1)
                         if os.path.getsize(fpath) != s0:
@@ -882,6 +1264,12 @@ def main():
                         process_video_pipeline(fpath, args)
                         shutil.move(fpath, dest_processed)
                         print(f"[✓] Archivo origen archivado en: {dest_processed}", flush=True)
+                    elif ext in IMAGE_EXTENSIONS:
+                        print(f"\n[+] Nueva imagen detectada en inbox: {fpath}", flush=True)
+                        dest_processed = os.path.join(processed_dir, os.path.basename(fpath))
+                        process_image_pipeline(fpath, args)
+                        shutil.move(fpath, dest_processed)
+                        print(f"[✓] Imagen archivada en: {dest_processed}", flush=True)
                     elif ext in ['.txt', '.url']:
                         with open(fpath, 'r') as fp:
                             url = fp.read().strip()
@@ -894,10 +1282,17 @@ def main():
             print("\n[*] Watcher Daemon detenido por el usuario.")
             return
 
-    # MODO MONO-VÍDEO DIRECTO
+    # MODO MONO-ARCHIVO DIRECTO
     if not args.video:
         parser.error("Se requiere --video <ruta/url> o --watch <directorio>.")
-    process_video_pipeline(args.video, args)
+
+    # Detección de imagen fija vs vídeo
+    ext = os.path.splitext(args.video)[1].lower()
+    if ext in IMAGE_EXTENSIONS:
+        process_image_pipeline(args.video, args)
+    else:
+        process_video_pipeline(args.video, args)
+
 
 if __name__ == '__main__':
     main()

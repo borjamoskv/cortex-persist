@@ -88,6 +88,6 @@ graph LR
 ## 2. Protocolo de Ejecución Funtorial
 
 1. **Analizar la Demanda**: Determinar la lista ordenada de habilidades $[S_1, S_2, \dots, S_n]$.
-2. **Heredar Invariantes de KERNEL**: Garantizar que la salida de $S_i$ cumple con los axiomas en [KERNEL.md](file:///Users/borjafernandezangulo/.gemini/config/skills/KERNEL.md).
+2. **Heredar Invariantes de KERNEL**: Garantizar que la salida de $S_i$ cumple con los axiomas en [KERNEL.md](../../../../KERNEL.md).
 3. **Mapeo de Salida-Entrada**: El artefacto o respuesta resultante de $S_i$ actúa como objeto de la categoría origen para $S_{i+1}$.
 4. **Verificación de Cierre**: Emitir una síntesis final notificando los eslabones ejecutados y el delta de exergía logrado.

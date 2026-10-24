@@ -1,8 +1,8 @@
 ---
 name: webkit-memory-audit
 display_name: Auditoría de Memoria WebKit (Vector 21)
-description: Módulo SecOps. Dispara con "webkit audit", "vector 21", "gigacage", "auditoría
-  memoria c++", "webkit memory", "bmalloc audit".
+description: Ingeniería inversa de C++, análisis de memoria (Bmalloc, IsoMalloc) y
+  Gigacage en WebKit macOS.
 role: auditor
 allowed_roles:
 - auditor
@@ -16,24 +16,6 @@ directives:
 
 # webkit-memory-audit
 
-> **Directiva Declarativa:** Alias compatible del hub SecOps; conserva el contrato del módulo original.
+> **Directiva Declarativa:** Alias generado; conserva rol y alcance del módulo.
 
-## Cargar el módulo
-
-Lee [las instrucciones originales](../c5-secops-infra-devtools/references/modules/webkit-memory-audit/MODULE.md) antes de aplicar esta habilidad.
-Conserva sus triggers, rol, restricciones, procedimiento y alcance.
-Carga únicamente los recursos pertinentes a la petición.
-
-## Recursos y rutas
-
-Los recursos originales permanecen junto a este alias y se conservan completos dentro del hub.
-Resuelve las referencias relativas desde el archivo del módulo que hayas leído.
-Mantén el directorio de trabajo del proyecto elegido por el usuario.
-Las rutas absolutas del paquete original continúan disponibles.
-
-## Invocación
-
-El comando `/webkit-memory-audit` sigue disponible con el nombre original.
-El hub se consulta con `/c5-secops-infra-devtools`.
-La carga del alias no ejecuta auditorías, scripts, búsquedas ni comunicaciones por sí misma.
-El procedimiento del módulo se aplica únicamente dentro del trabajo solicitado.
+Lee [el procedimiento especializado](../c5-secops-infra-devtools/references/modules/webkit-memory-audit/MODULE.md) solo cuando la petición requiera este dominio. Una coincidencia genérica como «itera», «sigue» o «auditoría» no activa el módulo. La carga no autoriza efectos externos.

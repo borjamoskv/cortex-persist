@@ -91,9 +91,9 @@ Este protocolo formaliza el despacho de enjambres multi-agente masivos ($P \time
 ## 3. Código del Arnés de Ejecución
 
 El despachador ejecutable reside en:
-`~/.gemini/config/skills/c5-tri-provider-swarm/scripts/tri_swarm_dispatcher.py`
+`../../../../c5-tri-provider-swarm/scripts/tri_swarm_dispatcher.py`
 
 Puede invocarse directamente desde Python o mediante scripts CLI:
 ```bash
-python3 ~/.gemini/config/skills/c5-tri-provider-swarm/scripts/tri_swarm_dispatcher.py --tasks tasks.json
+python3 ../../../../c5-tri-provider-swarm/scripts/tri_swarm_dispatcher.py --tasks tasks.json
 ```

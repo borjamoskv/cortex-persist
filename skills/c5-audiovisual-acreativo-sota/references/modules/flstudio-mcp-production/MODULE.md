@@ -31,16 +31,16 @@ Toda la suite de herramientas puede ejecutarse y auditarse desde una única inte
 
 ```bash
 # Diagnóstico completo del entorno (FL Studio, carpetas, librerías, tunings):
-python3 ~/.gemini/config/skills/flstudio-mcp-production/scripts/flstudio_mcp_cli.py doctor
+python3 ../../../../flstudio-mcp-production/scripts/flstudio_mcp_cli.py doctor
 
 # Validación de sintaxis AST y puntos de entrada de los 24 scripts:
-python3 ~/.gemini/config/skills/flstudio-mcp-production/scripts/flstudio_mcp_cli.py validate
+python3 ../../../../flstudio-mcp-production/scripts/flstudio_mcp_cli.py validate
 
 # Despliegue atómico de todos los scripts, hardware y afinaciones a FL Studio:
-python3 ~/.gemini/config/skills/flstudio-mcp-production/scripts/flstudio_mcp_cli.py deploy
+python3 ../../../../flstudio-mcp-production/scripts/flstudio_mcp_cli.py deploy
 
 # Sincronización del directorio de activos musicales centralizado ~/Music/:
-python3 ~/.gemini/config/skills/flstudio-mcp-production/scripts/flstudio_mcp_cli.py sync-music
+python3 ../../../../flstudio-mcp-production/scripts/flstudio_mcp_cli.py sync-music
 ```
 
 ---
@@ -103,37 +103,37 @@ def apply(form):
 Todos los scripts cuentan con GUI interactiva nativa (`createDialog`) y modo fallback (`createScore`):
 
 ### A. Algorítmicos & Autómatas
-1. **[`Euclidean_Polyrhythm_Generator.py`](file:///Users/borjafernandezangulo/.gemini/config/skills/flstudio-mcp-production/examples/Euclidean_Polyrhythm_Generator.py):** Algoritmo de Bjorklund $E(k, n)$ para polirritmias y polímetros.
-2. **[`Cellular_Automata_Music.py`](file:///Users/borjafernandezangulo/.gemini/config/skills/flstudio-mcp-production/examples/Cellular_Automata_Music.py):** Autómatas celulares 1D de Stephen Wolfram (Reglas 30, 90, 110, 150).
-3. **[`Markov_Chain_Melody.py`](file:///Users/borjafernandezangulo/.gemini/config/skills/flstudio-mcp-production/examples/Markov_Chain_Melody.py):** Matrices de transición de Markov para melodías estocásticas con leyes de la Gestalt.
-4. **[`Brownian_Motion_Walk.py`](file:///Users/borjafernandezangulo/.gemini/config/skills/flstudio-mcp-production/examples/Brownian_Motion_Walk.py):** Caminatas gaussianas fractales con atracción gravitatoria hacia la tónica.
-5. **[`Harmonic_Series_Spectral_Cloud.py`](file:///Users/borjafernandezangulo/.gemini/config/skills/flstudio-mcp-production/examples/Harmonic_Series_Spectral_Cloud.py):** Parciales de la serie armónica (1 a 16) con microtonalidad pura y disipación natural.
+1. **[`Euclidean_Polyrhythm_Generator.py`](../../../../flstudio-mcp-production/examples/Euclidean_Polyrhythm_Generator.py):** Algoritmo de Bjorklund $E(k, n)$ para polirritmias y polímetros.
+2. **[`Cellular_Automata_Music.py`](../../../../flstudio-mcp-production/examples/Cellular_Automata_Music.py):** Autómatas celulares 1D de Stephen Wolfram (Reglas 30, 90, 110, 150).
+3. **[`Markov_Chain_Melody.py`](../../../../flstudio-mcp-production/examples/Markov_Chain_Melody.py):** Matrices de transición de Markov para melodías estocásticas con leyes de la Gestalt.
+4. **[`Brownian_Motion_Walk.py`](../../../../flstudio-mcp-production/examples/Brownian_Motion_Walk.py):** Caminatas gaussianas fractales con atracción gravitatoria hacia la tónica.
+5. **[`Harmonic_Series_Spectral_Cloud.py`](../../../../flstudio-mcp-production/examples/Harmonic_Series_Spectral_Cloud.py):** Parciales de la serie armónica (1 a 16) con microtonalidad pura y disipación natural.
 
 ### B. Geometría Armónica & Jazz
-6. **[`Neo_Riemannian_Tonnetz.py`](file:///Users/borjafernandezangulo/.gemini/config/skills/flstudio-mcp-production/examples/Neo_Riemannian_Tonnetz.py):** Caminatas cinematográficas en el Tonnetz ($P$, $L$, $R$).
-7. **[`Bill_Evans_Rootless_Voicings.py`](file:///Users/borjafernandezangulo/.gemini/config/skills/flstudio-mcp-production/examples/Bill_Evans_Rootless_Voicings.py):** Voicings Type A y Type B sin fundamental para ii-V-I.
-8. **[`Satin_Jackets_Penrose.py`](file:///Users/borjafernandezangulo/.gemini/config/skills/flstudio-mcp-production/examples/Satin_Jackets_Penrose.py):** Bucle infinito Penrose ($Ab\text{maj7} \to Bb9 \to Cm9 \to Fm9$) y Falso Drop con Tercera de Picardía.
+6. **[`Neo_Riemannian_Tonnetz.py`](../../../../flstudio-mcp-production/examples/Neo_Riemannian_Tonnetz.py):** Caminatas cinematográficas en el Tonnetz ($P$, $L$, $R$).
+7. **[`Bill_Evans_Rootless_Voicings.py`](../../../../flstudio-mcp-production/examples/Bill_Evans_Rootless_Voicings.py):** Voicings Type A y Type B sin fundamental para ii-V-I.
+8. **[`Satin_Jackets_Penrose.py`](../../../../flstudio-mcp-production/examples/Satin_Jackets_Penrose.py):** Bucle infinito Penrose ($Ab\text{maj7} \to Bb9 \to Cm9 \to Fm9$) y Falso Drop con Tercera de Picardía.
 
 ### C. Rítmica, Micro-Groove & Humanización
-9. **[`Dilla_Behind_The_Beat_Physics.py`](file:///Users/borjafernandezangulo/.gemini/config/skills/flstudio-mcp-production/examples/Dilla_Behind_The_Beat_Physics.py):** Desfase físico de J Dilla (cajas rezagadas, bombos rushing, hats elásticos).
-10. **[`Bernard_Purdie_Shuffle.py`](file:///Users/borjafernandezangulo/.gemini/config/skills/flstudio-mcp-production/examples/Bernard_Purdie_Shuffle.py):** Medio tiempo shuffle con tresillos continuos y ghost notes dinámicas.
-11. **[`Kerri_Chandler_MPC60.py`](file:///Users/borjafernandezangulo/.gemini/config/skills/flstudio-mcp-production/examples/Kerri_Chandler_MPC60.py):** Matriz de swing Roger Linn MPC-60 (50%-75%) con capas de ghost notes.
+9. **[`Dilla_Behind_The_Beat_Physics.py`](../../../../flstudio-mcp-production/examples/Dilla_Behind_The_Beat_Physics.py):** Desfase físico de J Dilla (cajas rezagadas, bombos rushing, hats elásticos).
+10. **[`Bernard_Purdie_Shuffle.py`](../../../../flstudio-mcp-production/examples/Bernard_Purdie_Shuffle.py):** Medio tiempo shuffle con tresillos continuos y ghost notes dinámicas.
+11. **[`Kerri_Chandler_MPC60.py`](../../../../flstudio-mcp-production/examples/Kerri_Chandler_MPC60.py):** Matriz de swing Roger Linn MPC-60 (50%-75%) con capas de ghost notes.
 
 ### D. Expresión, Slides & Producción Moderna
-12. **[`TB303_Acid_Pattern_Generator.py`](file:///Users/borjafernandezangulo/.gemini/config/skills/flstudio-mcp-production/examples/TB303_Acid_Pattern_Generator.py):** Líneas Acid 303 con notas *slide* nativas, acentos y saltos de octava.
-13. **[`Trap_808_Glide_Architect.py`](file:///Users/borjafernandezangulo/.gemini/config/skills/flstudio-mcp-production/examples/Trap_808_Glide_Architect.py):** Sub-graves 808 con glissandos multi-octava y preservación de transitorios.
-14. **[`Maceo_Plex_Kick.py`](file:///Users/borjafernandezangulo/.gemini/config/skills/flstudio-mcp-production/examples/Maceo_Plex_Kick.py):** Bombo analógico $F_2$ ($43.65\,\text{Hz}$) y sub-rumble en semicorcheas sin colisión de fase.
-15. **[`Stephan_Bodzin_Moog_Arp.py`](file:///Users/borjafernandezangulo/.gemini/config/skills/flstudio-mcp-production/examples/Stephan_Bodzin_Moog_Arp.py):** Arpegiador Melodic Techno con barrido de envolvente de filtro y acentos Moog.
-16. **[`Four_Tet_Organic_Microcollage.py`](file:///Users/borjafernandezangulo/.gemini/config/skills/flstudio-mcp-production/examples/Four_Tet_Organic_Microcollage.py):** Puntillismo acústico, micro-timing analógico y paneo dinámico.
-17. **[`AIR_Moon_Safari_Rhodes.py`](file:///Users/borjafernandezangulo/.gemini/config/skills/flstudio-mcp-production/examples/AIR_Moon_Safari_Rhodes.py):** Voicings Space-Pop ($Am9 \to D9 \to F\text{maj7} \to E7\sharp 9$) con micro-timing en Rhodes.
-18. **[`Xenharmonic_24TET_Bayati.py`](file:///Users/borjafernandezangulo/.gemini/config/skills/flstudio-mcp-production/examples/Xenharmonic_24TET_Bayati.py):** Makam Bayati en cuartos de tono con notas slide y afinación Sikah (-50 cents).
-19. **[`C5_Full_Track_Arranger.py`](file:///Users/borjafernandezangulo/.gemini/config/skills/flstudio-mcp-production/examples/C5_Full_Track_Arranger.py):** Estructura completa de 56 compases con marcadores nativos (`flp.Marker`).
+12. **[`TB303_Acid_Pattern_Generator.py`](../../../../flstudio-mcp-production/examples/TB303_Acid_Pattern_Generator.py):** Líneas Acid 303 con notas *slide* nativas, acentos y saltos de octava.
+13. **[`Trap_808_Glide_Architect.py`](../../../../flstudio-mcp-production/examples/Trap_808_Glide_Architect.py):** Sub-graves 808 con glissandos multi-octava y preservación de transitorios.
+14. **[`Maceo_Plex_Kick.py`](../../../../flstudio-mcp-production/examples/Maceo_Plex_Kick.py):** Bombo analógico $F_2$ ($43.65\,\text{Hz}$) y sub-rumble en semicorcheas sin colisión de fase.
+15. **[`Stephan_Bodzin_Moog_Arp.py`](../../../../flstudio-mcp-production/examples/Stephan_Bodzin_Moog_Arp.py):** Arpegiador Melodic Techno con barrido de envolvente de filtro y acentos Moog.
+16. **[`Four_Tet_Organic_Microcollage.py`](../../../../flstudio-mcp-production/examples/Four_Tet_Organic_Microcollage.py):** Puntillismo acústico, micro-timing analógico y paneo dinámico.
+17. **[`AIR_Moon_Safari_Rhodes.py`](../../../../flstudio-mcp-production/examples/AIR_Moon_Safari_Rhodes.py):** Voicings Space-Pop ($Am9 \to D9 \to F\text{maj7} \to E7\sharp 9$) con micro-timing en Rhodes.
+18. **[`Xenharmonic_24TET_Bayati.py`](../../../../flstudio-mcp-production/examples/Xenharmonic_24TET_Bayati.py):** Makam Bayati en cuartos de tono con notas slide y afinación Sikah (-50 cents).
+19. **[`C5_Full_Track_Arranger.py`](../../../../flstudio-mcp-production/examples/C5_Full_Track_Arranger.py):** Estructura completa de 56 compases con marcadores nativos (`flp.Marker`).
 
 ---
 
 ## 📐 5. Afinación Xenarmónica & Psicoacústica SOTA (26 Perfiles)
 
-Herramienta: [`scripts/scala_generator.py`](file:///Users/borjafernandezangulo/.gemini/config/skills/flstudio-mcp-production/scripts/scala_generator.py)
+Herramienta: [`scripts/scala_generator.py`](../../../../flstudio-mcp-production/scripts/scala_generator.py)
 Directorio nativo en FL Studio: `~/Documents/Image-Line/FL Studio/Settings/Tuning/`
 
 * **Temperamentos Iguales:** 12-TET, 19-TET, 24-TET, 31-TET, 41-TET, 53-TET (quintas puras), 72-TET (bizantino/turco).
@@ -150,7 +150,7 @@ Directorio nativo en FL Studio: `~/Documents/Image-Line/FL Studio/Settings/Tunin
 ## 🧮 6. Ecuaciones DSP & Arquitecturas de Mezcla
 
 Consulte el manual técnico completo en:
-👉 [`dsp/formulas_and_mixer_architectures.md`](file:///Users/borjafernandezangulo/.gemini/config/skills/flstudio-mcp-production/dsp/formulas_and_mixer_architectures.md)
+👉 [`dsp/formulas_and_mixer_architectures.md`](../../../../flstudio-mcp-production/dsp/formulas_and_mixer_architectures.md)
 * Fórmulas para **Fruity Formula Controller** (LFOs áureos aperiódicos, saturación $\tanh$, mapa logístico caótico).
 * Desacoplamiento de fase bombo/rumble.
 * Procesamiento Mid-Side sin comb-filtering.

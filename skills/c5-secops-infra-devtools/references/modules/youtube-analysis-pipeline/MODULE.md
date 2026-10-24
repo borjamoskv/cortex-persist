@@ -90,7 +90,7 @@ Antes de invocar cualquier comando de red o `yt-dlp`, el agente DEBE normalizar 
    ```
 4. **Condensación VTT (Bypass de Fricción F=0):**
    NUNCA leer directamente un archivo `.vtt` masivo. Utilizar el script residente para limpiar y condensar el texto (asegurar el uso de `python3`):
-   `python3 ~/.gemini/config/skills/youtube-analysis-pipeline/scripts/parse_vtt.py <archivo.vtt> > clean_transcript.txt`
+   `python3 ../../../../youtube-analysis-pipeline/scripts/parse_vtt.py <archivo.vtt> > clean_transcript.txt`
    Posteriormente, leer el archivo `clean_transcript.txt`.
 
 ### Fase 2: Estrategia de Fallback Térmico (Bypass HTTP 429 / Bot Check / Rate Limit)

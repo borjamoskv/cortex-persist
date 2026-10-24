@@ -2,9 +2,8 @@
 name: c5-lexicon-enforcer
 display_name: Oráculo de Verificación Epistemológica & Auditoría de Coste Involuntario
   (Aforismo 5)
-description: Módulo epistémico. Dispara con "lexicon enforcer", "purga anergía semántica",
-  "auditoría epistemológica", "forzar léxico c5", "auditar cheap talk", "analiza esto
-  con el aforismo 5".
+description: Oráculo epistemológico C5-REAL y Linter del Aforismo 5 (purga de cheap
+  talk voluntario hacia señales involuntarias).
 role: auditor
 allowed_roles:
 - auditor
@@ -18,24 +17,6 @@ directives:
 
 # c5-lexicon-enforcer
 
-> **Directiva Declarativa:** Alias compatible del hub epistémico; conserva el contrato del módulo original.
+> **Directiva Declarativa:** Alias generado; conserva rol y alcance del módulo.
 
-## Cargar el módulo
-
-Lee [las instrucciones originales](../c5-epistemic-thermodynamics/references/modules/c5-lexicon-enforcer/MODULE.md) antes de aplicar esta habilidad.
-Conserva sus triggers, rol, restricciones, procedimiento y alcance.
-Carga únicamente los recursos pertinentes a la petición.
-
-## Recursos y rutas
-
-Los recursos originales permanecen junto a este alias y se conservan completos dentro del hub.
-Resuelve las referencias relativas desde el archivo del módulo que hayas leído.
-Mantén el directorio de trabajo del proyecto elegido por el usuario.
-Las rutas absolutas del paquete original continúan disponibles.
-
-## Invocación
-
-El comando `/c5-lexicon-enforcer` sigue disponible con el nombre original.
-El hub se consulta con `/c5-epistemic-thermodynamics`.
-La carga del alias no ejecuta auditorías, scripts, búsquedas ni comunicaciones por sí misma.
-El procedimiento del módulo se aplica únicamente dentro del trabajo solicitado.
+Lee [el procedimiento especializado](../c5-epistemic-thermodynamics/references/modules/c5-lexicon-enforcer/MODULE.md) solo cuando la petición requiera este dominio. Una coincidencia genérica como «itera», «sigue» o «auditoría» no activa el módulo. La carga no autoriza efectos externos.

@@ -31,14 +31,14 @@ Esta habilidad proporciona el protocolo determinista para instanciar, compilar y
 ## 🛠️ Arquitectura de Silicio y C-ABI
 
 ### 1. Protocolo Inmutable KUDURRU-64
-Todo intercambio IPC local debe estructurarse mediante tramas fijas de 64 bytes alineadas con la línea de caché L1 (`__attribute__((aligned(64)))`), garantizando $RFO = 0$ y cero contención:
+Todo intercambio IPC local debe estructurarse mediante tramas fijas de 64 bytes alineadas con la línea de caché L1 (`__attribute__((aligned(64)))`), con layout y protocolo explícitos; medir RFO y contención antes de declarar resultados:
 - **Magic:** `0x4C415941` ('LAYA').
 - **Primitivas:** `0x01` (Choice), `0x02` (Score), `0x03` (Noul).
 - **Endianness en ARM64:** En Python utilizar siempre `<IIBBHfI44s` (Little-Endian nativo); evitar `!` (network/big-endian) para prevenir discrepancias en la cabecera mágica.
 
 ### 2. Servidor Nativo Darwin (`kqueue` / `mlock`)
 - **Reactor kqueue:** Multiplexación en Ring-0 sobre sockets `AF_UNIX` no bloqueantes.
-- **Inmunidad Paging/Swap:** Darwin kernel no implementa `mlockall()` (retorna `ENOSYS`). Utilizar `mlock(addr, len)` sobre buffers estáticos o degradación controlada.
+- **Gestión de residencia de memoria:** Darwin kernel no implementa `mlockall()` (retorna `ENOSYS`). Utilizar `mlock(addr, len)` sobre buffers estáticos o degradación controlada.
 - **Latencia Objetivo:** Transporte IPC medido en Darwin: $0.037\text{–}0.287\text{ ms}$ ($37\text{–}287\,\mu\text{s}$).
 
 ### 3. Auto-Calibración On-Device (Apple MLX)

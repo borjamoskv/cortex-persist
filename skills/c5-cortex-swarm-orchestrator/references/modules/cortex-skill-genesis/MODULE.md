@@ -40,7 +40,7 @@ Borrador SKILL.md  <---  Axiomatizar Triggers & Workflow  <---  Si Frecuencia >=
    - Generar `name` descriptivo con guiones (ej. `rust-macro-diagnostics`).
    - Redactar `description` YAML con la regla unívoca `ACTIVA esta habilidad ante...`.
    - Definir la secuencia de pasos basada en la mejor resolución observada.
-5. **Alineación con KERNEL**: Validar que el nuevo skill cumple con los axiomas de [KERNEL.md](file:///Users/borjafernandezangulo/.gemini/config/skills/KERNEL.md).
+5. **Alineación con KERNEL**: Validar que el nuevo skill cumple con los axiomas de [KERNEL.md](../../../../KERNEL.md).
 
 ---
 

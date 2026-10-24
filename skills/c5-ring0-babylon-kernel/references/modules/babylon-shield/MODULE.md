@@ -70,7 +70,9 @@ Nunca asumas que "debería funcionar" en el código base principal (`00_KERNEL` 
 
 ---
 
-### 🚨 Protocolo de Invocación (Automático)
-Este escudo opera de forma viral. Su presencia en la carpeta `.agents/skills/babylon-shield` (o en `.cursorrules` / `.windsurfrules`) fuerza su lectura al inicio del contexto. No se requiere comando manual del usuario. El agente *sabe* que está siendo auditado termodinámicamente.
-
-**Despliegue del Linter (Exergy Linter C6):** El agente está **OBLIGADO** a copiar el script `~/.gemini/config/skills/babylon-shield/babylon_exergy_linter.sh` en la ruta `.git/hooks/pre-commit` del repositorio activo (y asignarle permisos `chmod +x`) al inicio de cualquier sesión en un proyecto Babylon-60. Esta acción delega el estrangulamiento entrópico a la física del OS, anulando el coste de inferencia.
+### Verificación de Hook Pre-Commit (Modo Audit-Only)
+La presencia del skill no lo activa ni autoriza cambios de repositorio.
+1. Cuando la tarea solicite revisar el hook, localizarlo mediante `git rev-parse --git-path hooks/pre-commit` y consultar `core.hooksPath`; no asumir que `.git` es un directorio, especialmente en worktrees.
+2. Inspeccionar presencia, contenido y digest BLAKE3 del hook y del linter sin modificarlos. Un digest identifica contenido; no acredita seguridad.
+3. Queda prohibida la sobrescritura autónoma del hook. Si falta o difiere, informar la discrepancia y preparar una propuesta revisable de instalación o encadenamiento que preserve los controles existentes.
+4. La instalación requiere una instrucción explícita del operador que cubra esa ruta y acción. No crear un directorio `pre-commit.d` suponiendo que Git lo ejecutará: comprobar el mecanismo real de encadenamiento.

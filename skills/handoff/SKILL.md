@@ -1,8 +1,9 @@
 ---
 name: handoff
 display_name: Protocolo Soberano de Traspaso de Contexto C5-REAL
-description: Módulo CORTEX. Dispara con "handoff", "/handoff", "traspaso de contexto",
-  "traspaso de sesión", "generar handoff", "traspaso formal", "context handover".
+description: Genera un documento completo de traspaso de contexto (HANDOFF.md) para
+  transferir lecciones aprendidas, estado del sistema y próximos pasos a una nueva
+  sesión.
 role: auditor
 allowed_roles:
 - auditor
@@ -18,24 +19,6 @@ directives:
 
 # handoff
 
-> **Directiva Declarativa:** Alias compatible del hub CORTEX; conserva el contrato del módulo original.
+> **Directiva Declarativa:** Alias generado; conserva rol y alcance del módulo.
 
-## Cargar el módulo
-
-Lee [las instrucciones originales](../c5-cortex-swarm-orchestrator/references/modules/handoff/MODULE.md) antes de aplicar esta habilidad.
-Conserva sus triggers, rol, restricciones, procedimiento y alcance.
-Carga únicamente los recursos pertinentes a la petición.
-
-## Recursos y rutas
-
-Los recursos originales permanecen junto a este alias y se conservan completos dentro del hub.
-Resuelve las referencias relativas desde el archivo del módulo que hayas leído.
-Mantén el directorio de trabajo del proyecto elegido por el usuario.
-Las rutas absolutas del paquete original continúan disponibles.
-
-## Invocación
-
-El comando `/handoff` sigue disponible con el nombre original.
-El hub se consulta con `/c5-cortex-swarm-orchestrator`.
-La carga del alias no ejecuta agentes, scripts, purgas ni comunicaciones por sí misma.
-El procedimiento del módulo se aplica únicamente dentro del trabajo solicitado.
+Lee [el procedimiento especializado](../c5-cortex-swarm-orchestrator/references/modules/handoff/MODULE.md) solo cuando la petición requiera este dominio. Una coincidencia genérica como «itera», «sigue» o «auditoría» no activa el módulo. La carga no autoriza efectos externos.

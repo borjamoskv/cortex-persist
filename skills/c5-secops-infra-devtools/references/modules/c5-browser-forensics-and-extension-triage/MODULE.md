@@ -33,16 +33,16 @@ La habilidad incluye el motor determinista `scripts/browser_forensics.py`:
 
 ```bash
 # 1. Escanear todos los perfiles en busca de extensiones que intercepten un dominio (ej. instagram.com)
-python3 ~/.gemini/config/skills/c5-browser-forensics-and-extension-triage/scripts/browser_forensics.py scan --domain instagram.com
+python3 ../../../../c5-browser-forensics-and-extension-triage/scripts/browser_forensics.py scan --domain instagram.com
 
 # 2. Listar todas las extensiones instaladas en todos los perfiles con fecha de instalación real
-python3 ~/.gemini/config/skills/c5-browser-forensics-and-extension-triage/scripts/browser_forensics.py list
+python3 ../../../../c5-browser-forensics-and-extension-triage/scripts/browser_forensics.py list
 
 # 3. Purgar atómicamente una extensión (archivos, Secure Preferences, install_signature y carpetas Sync/Local)
-python3 ~/.gemini/config/skills/c5-browser-forensics-and-extension-triage/scripts/browser_forensics.py purge --id <extension_id>
+python3 ../../../../c5-browser-forensics-and-extension-triage/scripts/browser_forensics.py purge --id <extension_id>
 
 # 4. Verificar integridad de DNS y sockets de red
-python3 ~/.gemini/config/skills/c5-browser-forensics-and-extension-triage/scripts/browser_forensics.py verify-network
+python3 ../../../../c5-browser-forensics-and-extension-triage/scripts/browser_forensics.py verify-network
 ```
 
 ---

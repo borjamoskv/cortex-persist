@@ -1,0 +1,169 @@
+{
+  "scope": "global",
+  "modules": [
+    {
+      "name": "c5-wetware-divergente",
+      "aliases": [
+        "c5-wetware-divergente",
+        "/c5-wetware-divergente",
+        "alto voltaje",
+        "mente divergente",
+        "wetware divergente",
+        "tdah 2e",
+        "altas capacidades tdah",
+        "hiperfoco",
+        "burnout divergente",
+        "bloqueo ejecutivo 2e"
+      ],
+      "module": "references/modules/c5-wetware-divergente/MODULE.md"
+    },
+    {
+      "name": "c5-2e-neuropharmacological-sovereignty",
+      "aliases": [
+        "c5-2e-neuropharmacological-sovereignty",
+        "/c5-2e-neuropharmacological-sovereignty",
+        "desacoplamiento concerta",
+        "bucle de parches",
+        "farmacología 2e",
+        "sustrato dopaminérgico",
+        "mitigar crash concerta"
+      ],
+      "module": "references/modules/c5-2e-neuropharmacological-sovereignty/MODULE.md"
+    },
+    {
+      "name": "c5-somatic-panic-deescalation",
+      "aliases": [
+        "c5-somatic-panic-deescalation",
+        "/c5-somatic-panic-deescalation",
+        "ataque de ansiedad",
+        "ataque de pánico",
+        "hiperfijación somática",
+        "no puedo dormir por la respiración",
+        "bucle de pánico",
+        "siento que me muero",
+        "desescalar pánico"
+      ],
+      "module": "references/modules/c5-somatic-panic-deescalation/MODULE.md"
+    },
+    {
+      "name": "somatic-ble-transduction",
+      "aliases": [
+        "somatic-ble-transduction",
+        "/somatic-ble-transduction",
+        "telemetria somatica",
+        "conectar apple watch",
+        "somatic daemon",
+        "ble heart rate",
+        "ring minus 3"
+      ],
+      "module": "references/modules/somatic-ble-transduction/MODULE.md"
+    },
+    {
+      "name": "c5-spaced-repetition-architect",
+      "aliases": [
+        "c5-spaced-repetition-architect",
+        "/c5-spaced-repetition-architect",
+        "anki maker",
+        "tarjetas anki",
+        "anki flashcards",
+        "repetición espaciada",
+        "adhd assistant",
+        "descomposición de tareas",
+        "micro-tasking",
+        "spaced repetition"
+      ],
+      "module": "references/modules/c5-spaced-repetition-architect/MODULE.md"
+    },
+    {
+      "name": "c5-tamkarum-60",
+      "aliases": [
+        "c5-tamkarum-60",
+        "/c5-tamkarum-60",
+        "tamkarum",
+        "tamkarum-60",
+        "/tamkarum",
+        "arbitraje publicitario",
+        "auditar roas",
+        "optimizar campañas",
+        "equipo marketing",
+        "enjambre marketing",
+        "11 agentes",
+        "scitt"
+      ],
+      "module": "references/modules/c5-tamkarum-60/MODULE.md"
+    },
+    {
+      "name": "c5-venture-pitch-architect",
+      "aliases": [
+        "c5-venture-pitch-architect",
+        "/c5-venture-pitch-architect",
+        "pitch deck",
+        "investor pitch planner",
+        "pitch deck creator",
+        "investor letter writer",
+        "vc deal memo",
+        "plan de negocio pptx",
+        "the ask pitch"
+      ],
+      "module": "references/modules/c5-venture-pitch-architect/MODULE.md"
+    },
+    {
+      "name": "c5-codebase-valuation-audit",
+      "aliases": [
+        "c5-codebase-valuation-audit",
+        "/c5-codebase-valuation-audit",
+        "valorar software",
+        "valoración económica",
+        "audit codebase valuation",
+        "software ip valuation",
+        "acqui-hire valuation",
+        "due diligence técnica"
+      ],
+      "module": "references/modules/c5-codebase-valuation-audit/MODULE.md"
+    },
+    {
+      "name": "c5-real-legaltech-analysis",
+      "aliases": [
+        "c5-real-legaltech-analysis",
+        "/c5-real-legaltech-analysis",
+        "legaltech",
+        "auditoría legal",
+        "EU AI Act",
+        "cumplimiento regulatorio",
+        "contrato inteligente c5",
+        "whitepaper legal"
+      ],
+      "module": "references/modules/c5-real-legaltech-analysis/MODULE.md"
+    },
+    {
+      "name": "c5-epistemic-dissemination-engine",
+      "aliases": [
+        "c5-epistemic-dissemination-engine",
+        "/c5-epistemic-dissemination-engine",
+        "diseminación epistémica",
+        "divulgación multicanal",
+        "hilo de twitter",
+        "adaptar artículo",
+        "cross-platform",
+        "oratoria retórica",
+        "keynote speech"
+      ],
+      "module": "references/modules/c5-epistemic-dissemination-engine/MODULE.md"
+    },
+    {
+      "name": "c5-weighted-decision-matrix",
+      "aliases": [
+        "c5-weighted-decision-matrix",
+        "/c5-weighted-decision-matrix",
+        "weighted scorer",
+        "matriz de decisión",
+        "pert estimation",
+        "estimación de proyectos",
+        "evaluación tecnológica",
+        "matriz de pesos",
+        "evaluación de proveedores"
+      ],
+      "module": "references/modules/c5-weighted-decision-matrix/MODULE.md"
+    }
+  ]
+}

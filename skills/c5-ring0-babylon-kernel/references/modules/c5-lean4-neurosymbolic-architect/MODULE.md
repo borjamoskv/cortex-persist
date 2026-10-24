@@ -50,7 +50,10 @@ Prohibidos los *Mutexes* o *Locks* del SO. El estado asíncrono entre miles de s
 - **Session Types:** Protocolos de comunicación (PING -> PONG) blindados en tiempo de compilación mediante el tipado secuencial. Un error de *Race Condition* es un error de compilación.
 
 ### 6. Transducción Epistémica (Efectos Algebraicos)
-Prohibido el manejo de excepciones invisibles o *pattern-matching* masivo (`Except`) esparcido en el código. Las llamadas al mundo exterior (HTTP 429, red caída, JSON corrupto) emiten un **Efecto Algebraico**. El agente suspende su *Continuación* (Corrutina) y cede el control a un Supervisor Ring-0, logrando un paralelismo masivo asíncrono con coste de CPU cero (0%).
+### Modelo de Concurrencia y Coste Computacional
+- Desacoplar verificaciones Lean/SMT del hilo coordinador mediante ejecución asíncrona cuando el diseño lo requiera. El objetivo es reducir bloqueo y latencia de coordinación, no eliminar trabajo físico.
+- Propagar errores externos mediante resultados o efectos explícitos y un supervisor con límites de tiempo, concurrencia y recursos. No ocultar fallos de red, límites de cuota ni errores de parseo.
+- La delegación asíncrona no equivale a coste cero de CPU. Respaldar cualquier afirmación de rendimiento con hardware, carga, tiempo de CPU usuario/kernel, latencia de planificación y memoria de los verificadores.
 
 ### Triggers Epistémicos (Implicación de Problema)
 Además de los triggers léxicos (tecnológicos), esta habilidad será invocada automáticamente por el *Swarm Router* si el usuario describe los siguientes **problemas termodinámicos**, sin necesidad de nombrar a Lean 4:

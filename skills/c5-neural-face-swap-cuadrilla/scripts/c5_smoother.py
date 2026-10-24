@@ -93,10 +93,27 @@ class TemporalPatchStabilizer:
         self.prev_patch = None
 
 
+def compute_face_similarity(emb1, emb2):
+    """
+    Calcula similitud coseno entre dos vectores latentes ArcFace de 512 dimensiones.
+    Retorna un valor en [-1.0, 1.0].
+    """
+    if emb1 is None or emb2 is None:
+        return 0.0
+    v1 = np.asarray(emb1, dtype=np.float32).flatten()
+    v2 = np.asarray(emb2, dtype=np.float32).flatten()
+    n1 = np.linalg.norm(v1)
+    n2 = np.linalg.norm(v2)
+    if n1 < 1e-6 or n2 < 1e-6:
+        return 0.0
+    return float(np.dot(v1, v2) / (n1 * n2))
+
+
 class FaceTracker:
     """
     Rastreador temporal determinista de identidades con Extrapolación Zero-Drop,
-    Filtros 1-Euro independientes por trayectoria y Estabilizador de Parches Temporales.
+    Filtros 1-Euro independientes por trayectoria, Estabilizador de Parches Temporales
+    y Reconocimiento Biométrico de Objetivo (Target Matching ArcFace).
     """
     def __init__(self, max_lost=20, max_extrapolate=2, iou_thresh=0.25):
         self.tracks = {}  # track_id: {'bbox': bbox, 'lost': 0, 'identity_idx': int, 'last_face': face, 'smoother': OneEuroFilter, 'stabilizer': TemporalPatchStabilizer, 'last_kps': ndarray}
@@ -130,12 +147,17 @@ class FaceTracker:
             return motion
         return 0.0
 
-    def update(self, detected_faces, num_identities, dt=1.0/30.0, swap_all=False, target_index=None):
+    def update(self, detected_faces, num_identities, dt=1.0/30.0, swap_all=False, target_index=None, target_embeddings=None, target_threshold=0.40):
         """
         Asigna a cada rostro detectado un identity_idx estable temporalmente.
         Aplica suavizado 1-Euro por track y extrapola en frames sin detección (Zero-Drop).
-        Si target_index is not None, sólo asigna el rostro de ese rango/índice.
-        Si swap_all es False, nunca asigna identidades a caras secundarias no deseadas.
+        
+        Soporta:
+        - target_embeddings: Lista de tuplas (identity_idx, target_normed_emb).
+          Si se suministra, la asignación se realiza por máxima similitud coseno en ArcFace (>= target_threshold).
+        - target_index: Si no hay target_embeddings y target_index is not None, asigna sólo la cara en ese índice de área.
+        - swap_all: Si es True, asigna caras restantes por orden cíclico.
+        
         Retorna lista de tuplas (face, identity_idx, track_id).
         """
         if not detected_faces:
@@ -143,7 +165,6 @@ class FaceTracker:
             for tid in list(self.tracks.keys()):
                 self.tracks[tid]['lost'] += 1
                 if self.tracks[tid]['lost'] <= self.max_extrapolate and self.tracks[tid]['last_face'] is not None:
-                    # Extrapolación inercial: reutilizar último rostro si tiene swap activo
                     if self.tracks[tid]['identity_idx'] >= 0:
                         extrapolated.append((self.tracks[tid]['last_face'], self.tracks[tid]['identity_idx'], tid))
                 elif self.tracks[tid]['lost'] > self.max_lost:
@@ -178,6 +199,21 @@ class FaceTracker:
                 self.tracks[tid]['bbox'] = det_face.bbox
                 self.tracks[tid]['lost'] = 0
                 self.tracks[tid]['last_face'] = det_face
+
+                # Si hay target_embeddings y la cara tiene embedding, refrescar validación
+                if target_embeddings and hasattr(det_face, 'embedding') and det_face.embedding is not None:
+                    best_sim = -1.0
+                    best_tgt_id = -1
+                    for tgt_id, tgt_emb in target_embeddings:
+                        sim = compute_face_similarity(det_face.embedding, tgt_emb)
+                        if sim > best_sim:
+                            best_sim = sim
+                            best_tgt_id = tgt_id
+                    if best_sim >= target_threshold:
+                        self.tracks[tid]['identity_idx'] = best_tgt_id
+                    else:
+                        self.tracks[tid]['identity_idx'] = -1
+
                 if self.tracks[tid]['identity_idx'] >= 0:
                     assignments.append((det_face, self.tracks[tid]['identity_idx'], tid))
 
@@ -191,7 +227,24 @@ class FaceTracker:
         for d_idx, dbox in unmatched:
             new_id = self.next_id
             self.next_id += 1
-            if target_index is not None:
+            det_face = detected_faces[d_idx]
+
+            chosen_idx = -1
+            if target_embeddings and hasattr(det_face, 'embedding') and det_face.embedding is not None:
+                # Asignación por similitud biométrica
+                best_sim = -1.0
+                best_tgt_id = -1
+                for tgt_id, tgt_emb in target_embeddings:
+                    sim = compute_face_similarity(det_face.embedding, tgt_emb)
+                    if sim > best_sim:
+                        best_sim = sim
+                        best_tgt_id = tgt_id
+                if best_sim >= target_threshold and best_tgt_id in available_indices:
+                    chosen_idx = best_tgt_id
+                    available_indices.remove(chosen_idx)
+                elif best_sim >= target_threshold and swap_all:
+                    chosen_idx = best_tgt_id
+            elif target_index is not None:
                 chosen_idx = 0 if (d_idx == target_index and 0 in available_indices) else -1
             elif available_indices:
                 chosen_idx = available_indices.pop(0)
@@ -200,7 +253,6 @@ class FaceTracker:
             else:
                 chosen_idx = -1
 
-            det_face = detected_faces[d_idx]
             smoother = OneEuroFilter()
             det_face.kps = smoother.filter(det_face.kps, dt=dt)
             self.tracks[new_id] = {
@@ -434,7 +486,7 @@ def sharpen_face_patch(crop_512, amount=1.0):
     return np.clip(sharp, 0, 255).astype(np.uint8)
 
 
-def two_band_blend_patch(target_patch, fake_patch, mask_patch, blur_ksize=15):
+def two_band_blend_patch(target_patch, fake_patch, mask_patch, blur_ksize=15, edge_refine=True):
     """
     Mezcla espectral de dos bandas (frecuencia baja y alta) en espacio canónico 512x512.
     Erradica costuras, saltos tonales y artefactos en el contorno sin desenfocar texturas.
@@ -445,6 +497,13 @@ def two_band_blend_patch(target_patch, fake_patch, mask_patch, blur_ksize=15):
     mask_f = mask_patch.astype(np.float32)
     if mask_f.ndim == 2:
         mask_f = mask_f[:, :, None]
+
+    if edge_refine:
+        mask_2d = mask_f.squeeze()
+        if mask_2d.ndim == 2:
+            mask_u8 = (np.clip(mask_2d, 0.0, 1.0) * 255.0).astype(np.uint8)
+            mask_refined = cv2.bilateralFilter(mask_u8, d=7, sigmaColor=50, sigmaSpace=50).astype(np.float32) / 255.0
+            mask_f = mask_refined[:, :, None]
 
     k = (blur_ksize, blur_ksize)
     tgt_low = cv2.GaussianBlur(tgt_f, k, 0)

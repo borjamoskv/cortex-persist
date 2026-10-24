@@ -89,6 +89,7 @@ Queda terminantemente prohibido exigir al usuario que actúe como picapedrero de
      non_vacuous : ∃ s, Reach s ∧ Trigger s
    ```
    En sistemas de consenso/BFT y máquinas de estados distribuidas, cada fase o variante crítica (`Phase.Committed`, etc.) debe contar con un teorema de alcanzabilidad constructiva que garantice que la guarda no sea vacua por contradicción interna.
+11. **AP-11 (Infección por Substring en Linters de CI):** Las suites de auditoría de solidez (ej. `test_absence_of_literal_sorry`) y los escáneres estáticos de CI buscan subcadenas crudas (`assert "sorry" not in content`). Queda ESTRICTAMENTE PROHIBIDO utilizar nombres literales de tácticas o axiomas prohibidos (`sorry`, `admit`, `axiom` espurio) incluso dentro de comentarios explicativos, cabeceras o negaciones gramaticales (ej. evitar `-- Cero 'sorry'` o `-- Sin admit`). Describir la garantía mediante perífrasis asépticas (ej. `-- Demostración completa y constructiva`).
 
 ---
 
@@ -113,6 +114,8 @@ Al ejecutar tareas de formalización en el sistema del usuario:
 ### Invariantes de Tácticas y Reducción Sintáctica en Lean 4 Core
 - **Invariante Presburger (`INV_C5_LEAN4_OMEGA_UNFOLD`):** Al formular y verificar teoremas algebraicos de punto fijo (`omega`), si el objetivo involucra funciones de paso, paridad o escalado definidas en el módulo (ej. `seqlock_write_begin`, `de_bruijn_step`), es OBLIGATORIO emitir `unfold <def>` inmediatamente antes de la táctica `omega` para prevenir falsos contraejemplos estocásticos de división entera.
 - **`dsimp` Previo en Proyecciones de Registros:** Ante actualizaciones de registros `{ s with ... }`, invocar `dsimp` antes de `decide` (para evitar el error `Expected type must not contain free variables`) y antes de `omega` (para evitar que la proyección modificada sea tratada como un átomo opaco desconectado).
+- **Veto a `rfl` en Relaciones de Orden (`LE.le`):** En Lean 4 Core, la relación `≤` no posee atributo de reflexividad registrado para la táctica `rfl`. Ante metas reflexivas de desigualdad (`⊢ a ≤ a`), utilizar siempre `exact Nat.le_refl _` o la táctica aritmética `omega` para evitar el error `No [refl] lemma registered for relation LE.le`.
+- **Patrón Formal de Neutralización de Moloch (Landauer Balance):** Al formalizar juegos no cooperativos o dilemas de coordinación extractiva, definir la condición de extracción como una asimetría termodinámica computable ($\Delta S_{\text{ext}} > \Delta S_{\text{int}} \land U_{\text{claim}} > 0$). Implementar el balance de Landauer internalizando la externalidad más el beneficio reclamado, demostrando constructivamente que el payoff extractivo neto colapsa a 0 y la cooperación domina en sentido de Pareto sin recurrir a agencias centrales ni a correlaciones acausales.
 - **Alineación de Sangría Táctica:** Respetar la indentación exacta de 4 espacios dentro de bloques de casos inductivos (`| nil => ...`) para prevenir desajustes sintácticos en el parser de Lean 4.
 
 ---

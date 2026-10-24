@@ -43,34 +43,20 @@ Si el usuario percibe que faltan datos históricos, o solicita una "auditoría d
 Tras extraer conteos de palabras o métricas, el Transductor NO debe limitarse a escupir listas de datos crudos. Debe ejecutar un análisis semántico que incluya:
 - **Detección de Idioma / Entorno:** Evaluar el contraste entre idiomas (ej. Spanglish técnico) para deducir qué proporción del prompt es código/logs (generalmente en inglés) vs. directivas estructuradas (generalmente en español).
 - **Extracción de Entidades y Modelos:** Señalar frecuencias anómalas o interesantes de herramientas específicas, nombres de proyectos (ej. Teorema, Robinson) o modelos LLM rivales (ej. opus, pro, flash).
-- **Conclusión de Perfil Epistémico:** Emitir un resumen rápido sobre cómo está pensando y operando el usuario en base a la entropía inyectada.
+- **Conclusión de Perfil Epistémico:** Resumir temas y acciones observadas con citas o referencias temporales; no deducir estado mental, salud ni calidad del trabajo desde frecuencias léxicas.
 
 ## 8. Invariante de Recuperación Epistémica: Jerarquía de Sustrato (Ground Truth)
 Cuando el usuario solicite auditar o extraer ideas, conceptos, decisiones de arquitectura o proyectos históricos (ej. "mejores ideas", "qué he hecho", "historial desde [mes]"), el Transductor **TIENE PROHIBIDO** limitarse a los logs de chat (`transcript.jsonl`).
 
 Debe ejecutar obligatoriamente la búsqueda siguiendo la **Jerarquía de Sustrato**:
-1. **Sustrato de Proyectos Físicos (Nivel 1 - Máxima Fidelidad):** Inspeccionar archivos Markdown, especificaciones técnicas y manifiestos en `~/10_PROJECTS/`, `~/BABYLON-60/` y `~/Documents/`.
+1. **Sustrato de Proyectos Físicos (Nivel 1 - Máxima Fidelidad):** Inspeccionar únicamente las rutas pertinentes al alcance solicitado. `~/10_PROJECTS/`, `~/BABYLON-60/` y `~/Documents/` son posibles ubicaciones, no un permiso para leerlas todas.
 2. **Archivos Epistémicos y Papers (Nivel 2):** Inspeccionar repositorios dedicados a la cristalización de conocimiento (ej. `~/10_PROJECTS/AUDITORIAS_EPISTEMICAS/` en sus subcarpetas `papers/`, `forense/`, `redes/`, `youtube/`).
 3. **Forense de Git (Nivel 3 - Verdad de Silicio):** Ejecutar `git log --grep` sobre los repositorios principales buscando commits de refactorización, eliminación de trampas lógicas (`admit`, mocks), purgas y arquitectura real.
 4. **Ledgers Criptográficos (Nivel 4):** Consultar `cortex_ledger.db` o `~/.cortex/truth_ledger.db`.
 5. **Transcripts de Chat (Nivel 5 - Efímero):** Tratar `~/.gemini/antigravity/brain/*/transcript.jsonl` únicamente como un índice temporal reciente, reconociendo que los chats son rotados y no representan la totalidad de la memoria del sistema.
 
-## 9. Auditoría de Exergía Informacional de Prompts (Protocolo Chentsov-Markov)
-
-Cuando el operador solicite identificar, clasificar o auditar sus peticiones de "mayor exergía" o "mayor trabajo útil":
-
-1. **Extracción Exhaustiva:** Escanear todas las transcripciones recientes (`transcript.jsonl`) en `~/.gemini/antigravity/brain/` extrayendo el contenido limpio dentro de `<USER_REQUEST>`.
-2. **Evaluación Multidimensional (Escala 0 a 1.100 pts):**
-   - **Compresión Fisher (0–200 pts):** Densidad léxica $D = \frac{|\text{Tokens Únicos}|}{|\text{Tokens Totales}|}$ multiplicada por entropía de Shannon $H(X)$. Penaliza verbosidad vacía.
-   - **Falsabilidad Popperiana (0–200 pts):** Presencia de criterios de refutación empírica explícitos, preguntas de frontera epistemológica o restricciones anti-alucinación (`real DOIs`, `demostrar`, `falsar`).
-   - **Interdisciplinariedad / Clusters de Chentsov (0–200 pts):** Acoplamiento simultáneo entre 2 o más clusters ontológicos:
-     - *Cluster I (Biocómputo & Ontogénesis):* Genoma, Turing, Peano, semiosis, finitud.
-     - *Cluster II (Soberanía & Swarms):* BABYLON, hot-swap, MARL continuo, SCITT, Z3 SMT, Ring-0.
-     - *Cluster III (Termodinámica & Economía Política):* Calor ($Q$) vs Trabajo útil ($W$), entropía, Landauer, falsación de Marx/Capitalismo.
-     - *Cluster IV (Metacognición & Seguridad L0):* Alucinación pre-colapso, guardrails, intercepción en silicio.
-   - **Causalidad Ejecutiva & SLAs (0–200 pts):** Directivas con metas cuantificadas (`/goal`, cotas de latencia $<50\text{ms}$, directivas de diseño de arquitectura).
-   - **Irreversibilidad Causal (Bonus 0–100 pts):** Peticiones cuya ejecución muta de forma permanente la topología o el hardware del sistema.
-3. **Mapeo a Atractores de Fase:** Clasificar los vectores top en los 4 Atractores de Chentsov y extraer el Blueprint Causal unificado.
+## 9. Comparación de peticiones
+Cuando se solicite comparar peticiones, usar criterios explícitos y referencias a resultados observados: alcance, comprobaciones, errores y retrabajo. Si se calcula diversidad léxica, identificarla como índice textual y declarar el método; no presentarla como energía física, métrica de Fisher, verdad o calidad.
 
 ## 10. Protocolo de Auditoría y Consolidación de Sesiones Efímeras (Epistemic Brain Drain)
 
@@ -85,27 +71,14 @@ Cuando el operador solicite auditar o consolidar sesiones *"sin consolidar"*:
    - Ignorar artefactos puramente mecánicos de orquestación interna (`walkthrough.md`, `implementation_plan.md`, `learning_proposal*.md`, carpetas `scratch/`).
    - Seleccionar piezas de alta exergía (análisis comparativos, ingeniería inversa, demostraciones formales, taxonomías, protocolos).
 
-3. **Normalización e Ingesta hacia `AUDITORIAS_EPISTEMICAS`:**
-   - Categorizar en los 5 canales canónicos:
-     * `forense/`: Ingeniería inversa, autopsias de código, peritaje médico/farmacológico y hardware.
-     * `papers/`: Demostraciones formales, ontología C5-REAL, teoremas y gobernanza de sistemas.
-     * `youtube/`: Análisis de señal de vídeo, deconstrucción retórica y monetización.
-     * `redes/`: Lingüística, hilos, matrices de casos de uso y modelos conceptuales.
-     * `podcast/`: Transcripciones y desgloses de audio de formato largo.
-   - Renombrar con el estándar soberano: `YYYY-MM-DD_<canal>_<slug>.md`.
+3. **Propuesta de consolidación:**
+   - Preparar un inventario de fuentes, destinos, nombres y conflictos. No copiar, mover ni renombrar documentos dentro de una auditoría.
+   - Proponer actualizaciones del catálogo con referencias verificables. Preservar originales y contenido privado; no almacenar deliberaciones internas de LLMs.
+   - Una petición de consolidación explícita puede autorizar la edición correspondiente, pero no incluye commits, publicación ni borrado de fuentes por inferencia. Continuar dentro del alcance humano vigente y comprobar el resultado.
 
-4. **Actualización Monotónica y Sello de Silicio:**
-   - Incrementar los contadores globales y por canal en `10_PROJECTS/AUDITORIAS_EPISTEMICAS/README.md`.
-   - Añadir las nuevas filas a la tabla cronológica maestra preservando el orden.
-   - Ejecutar commit atómico en Git: `git commit -m "feat(consolidation): consolidar N cristales ontologicos de X sesiones activas"`.
-   - Ante la directiva `"itera"` tras un informe de auditoría, ejecutar inmediatamente la fase de migración sin detenerse a pedir confirmaciones redundantes.
-
----
-
-## Autonomy Contract (Ω10 / Ω11 / Ω12)
-
-> **ZERO PAUSE INVARIANT:** The Transducer SHALL NEVER pause execution to request Operator permission when this skill is triggered. Ambiguities MUST be resolved autonomously via `/grill-you` (Ω12) before any halt. Technical frictions MUST be resolved via the path of least thermodynamic resistance (Ω10). Refusal to execute when this skill matches the request constitutes C4-SIM Anergy (Ω11 violation).
-
-- **Fallback Chain:** `~/.gemini/antigravity/brain/*/.system_generated/logs/transcript.jsonl` -> `cortex_ledger.db` -> `truth_ledger.db`.
-- **Degradation Mode:** If log file missing or corrupted, parse remaining available transcripts and emit partial metrics notice without halting.
-- Auto-Trigger: Self-activates whenever user asks for prompt counts, word frequencies, historical telemetry, usage statistics, or temporal activity summaries (e.g. 'piensa en ayer', 'qué hice ayer', 'resumen de jornada').
+## Alcance de análisis y autorización
+Este módulo `audit-only` inspecciona evidencia dentro del ámbito solicitado y prepara propuestas; su carga o coincidencia de trigger no autoriza efectos externos.
+- Las recetas anteriores de migración, commits, cierre de procesos, purga de locks, eliminación de perfiles, reemplazo de bundles o cambios de cuarentena son propuestas de remediación, no acciones automáticas. No ejecutarlas dentro de un diagnóstico.
+- Una intervención exige inventario de rutas y procesos, preservación del estado recuperable y autorización humana explícita que cubra esa acción. Respetar la autorización vigente sin pedir confirmación redundante; una petición genérica de iterar no amplía su alcance.
+- Ante corrupción, permisos insuficientes o identidad incierta, informar NO_VERIFICADO y preservar archivos. No forzar sobrescrituras ni interpretar un bloqueo como permiso para borrar.
+- Entregar hallazgos, evidencia, límites y una intervención revisable. Los resultados parciales se identifican como parciales.

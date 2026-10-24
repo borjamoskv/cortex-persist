@@ -23,7 +23,7 @@ directives:
 
 ## Selección
 
-1. Identifica la petición y busca el alias en la tabla o en `references/aliases.json`.
+1. Identifica la petición y identifica la acción y el dominio, o una invocación explícita, en `references/aliases.json`.
 2. Lee solo el módulo pertinente antes de seguir su procedimiento.
 3. Conserva sus roles, restricciones y referencias a recursos.
 4. Los nombres originales siguen disponibles mediante aliases y comandos independientes.
@@ -34,28 +34,28 @@ directives:
 
 Ejecuta `python3 scripts/route.py --query "frase o nombre original"` desde esta carpeta.
 El resolver devuelve candidatos y rutas; no ejecuta los módulos.
-Normaliza mayúsculas y acentos, prioriza coincidencias exactas y respeta límites de palabra.
+El resolver exige acción y dominio para peticiones contextuales, respeta negaciones y conserva invocaciones explícitas. Para una continuación, añade `--context "objetivo anterior del usuario"`; no infiere permiso para ejecutar procedimientos.
 Si devuelve varios módulos, lee solo los pertinentes sin sustituir sus contratos por similitud temática.
 Los recursos de cada módulo se resuelven desde su carpeta preservada.
 
-## Módulos de ámbito global
+## Módulos disponibles
 
-| Módulo completo | Nombres y triggers conservados |
+| Procedimiento | Intención contextual |
 | --- | --- |
-| [c5-rubin-acoustic-linter](references/modules/c5-rubin-acoustic-linter/MODULE.md) | `c5-rubin-acoustic-linter`, `/c5-rubin-acoustic-linter`, `linter acústico`, `auditoría de mezcla`, `purga de nata en audio`, `rubin audit`, `dedup apfs audio`, `crest factor audio`, `medir compresión` |
-| [c5-metodo-acreativo](references/modules/c5-metodo-acreativo/MODULE.md) | `c5-metodo-acreativo`, `/c5-metodo-acreativo`, `metodo acreativo`, `método acreativo`, `transducción soberana`, `oraculo de apoptosis`, `protocolo rubin`, `crear arte c5`, `produccion musical c5` |
-| [c5-spatial-audio-architect](references/modules/c5-spatial-audio-architect/MODULE.md) | `c5-spatial-audio-architect`, `/c5-spatial-audio-architect`, `auditoría dsp`, `audio espacial`, `criticar estéreo`, `hoa`, `binaural`, `ambisonics`, `spatial audio` |
-| [flstudio-mcp-production](references/modules/flstudio-mcp-production/MODULE.md) | `flstudio-mcp-production`, `/flstudio-mcp-production`, `FL Studio`, `flstudio-mcp`, `balag-omega`, `generador de musica`, `compilar flp`, `piano roll script`, `microtonal house` |
-| [djstudio-mcp](references/modules/djstudio-mcp/MODULE.md) | `djstudio-mcp`, `/djstudio-mcp`, `dj studio`, `djstudio`, `dj studio mcp`, `harmonize dj studio`, `stems dj studio`, `transiciones dj`, `crossover linkwitz riley`, `rekordbox xml` |
-| [suno-bracket-tagging](references/modules/suno-bracket-tagging/MODULE.md) | `suno-bracket-tagging`, `/suno-bracket-tagging`, `suno prompt`, `udio tags`, `prompt musical`, `etiquetas suno`, `control causal audio`, `audio ai`, `jailbreak acustico`, `des-plasticar audio` |
-| [soulseek-p2p-audio-acquisition](references/modules/soulseek-p2p-audio-acquisition/MODULE.md) | `soulseek-p2p-audio-acquisition`, `/soulseek-p2p-audio-acquisition`, `descargar musica`, `descargar cancion`, `soulseek download`, `adquisicion audio p2p`, `auditoria espectral flac`, `bajar flac soulseek`, `fake flac` |
-| [c5-media-platform-epistemology](references/modules/c5-media-platform-epistemology/MODULE.md) | `c5-media-platform-epistemology`, `/c5-media-platform-epistemology`, `procesar audio largo`, `scraping spa`, `falsos positivos http 200`, `adquisicion opus nativo`, `rip opus youtube`, `itag 251` |
-| [f5tts-voice-cloning-sota](references/modules/f5tts-voice-cloning-sota/MODULE.md) | `f5tts-voice-cloning-sota`, `/f5tts-voice-cloning-sota`, `clonar voz`, `sintetizar voz`, `f5-tts`, `f5tts`, `voice clone`, `prosodia tts`, `nota de voz ia` |
-| [gflow-browser-cinema-sovereign](references/modules/gflow-browser-cinema-sovereign/MODULE.md) | `gflow-browser-cinema-sovereign`, `/gflow-browser-cinema-sovereign`, `gflow browser`, `cine gflow`, `flow google mcp`, `sovereign cinema`, `estudio gflow`, `gflow v4`, `character anchor veo`, `veo 2 browser`, `dialogue engine gflow`, `cockpit gflow`, `remotion gflow` |
-| [pika-generative-video-pipeline](references/modules/pika-generative-video-pipeline/MODULE.md) | `pika-generative-video-pipeline`, `/pika-generative-video-pipeline`, `pika art`, `pika tutorial`, `pika camera`, `pikaffects`, `pika prompt`, `generación vídeo pika`, `pikaffects sota` |
-| [remotion-audio-reactive-video](references/modules/remotion-audio-reactive-video/MODULE.md) | `remotion-audio-reactive-video`, `/remotion-audio-reactive-video`, `video reactivo a la musica`, `audio reactivo`, `remotion audio reactive`, `visualizador de musica`, `audio visualizer`, `video musical reactivo` |
-| [youtube-remotion-sota](references/modules/youtube-remotion-sota/MODULE.md) | `youtube-remotion-sota`, `/youtube-remotion-sota`, `youtube remotion`, `remotion render`, `react video synthesis`, `renderizar vídeo remotion` |
-| [c5-video-quality-audit](references/modules/c5-video-quality-audit/MODULE.md) | `c5-video-quality-audit`, `/c5-video-quality-audit`, `calidad de video`, `psnr ssim`, `diferencia de compresion`, `video quality diff`, `auditoría de compresion`, `medir vmaf`, `auditoría ffmpeg video` |
-| [c5-neural-face-swap-cuadrilla](references/modules/c5-neural-face-swap-cuadrilla/MODULE.md) | `c5-neural-face-swap-cuadrilla`, `/c5-neural-face-swap-cuadrilla`, `face swap`, `deepfake cuadrilla`, `intercambio facial`, `c5 face swap` |
-| [c5-poster-and-sign-craft](references/modules/c5-poster-and-sign-craft/MODULE.md) | `c5-poster-and-sign-craft`, `/c5-poster-and-sign-craft`, `remasterizar cartel`, `rotular letrero`, `cambiar texto cartel`, `sign craft`, `filtro vintage comic`, `bajar contraste imagen`, `quitar contraste duro`, `poster remaster`, `maquetación cartel`, `analizar cartel`, `flyer underground`, `auditoría tipográfica cartel` |
-| [c5-solar-thermodynamic-architecture](references/modules/c5-solar-thermodynamic-architecture/MODULE.md) | `c5-solar-thermodynamic-architecture`, `/c5-solar-thermodynamic-architecture`, `sun path`, `análisis solar`, `confort térmico`, `estudio de sombras`, `fanger pmv`, `helio-arquitectura`, `bioclimático` |
+| [c5-media-platform-epistemology](references/modules/c5-media-platform-epistemology/MODULE.md) | Heurísticas para audio largo, evasión de falsos positivos SPA y adquisición directa Opus (itag 251) sin MP3. |
+| [c5-metodo-acreativo](references/modules/c5-metodo-acreativo/MODULE.md) | Metodología formal del Método Acreativo, Oráculo de Apoptosis O(1), sustracción Rubin-Chentsov y Punto Fijo Ω. |
+| [c5-neural-face-swap-cuadrilla](references/modules/c5-neural-face-swap-cuadrilla/MODULE.md) | Pipeline V5 SOTA de intercambio facial neuronal (InsightFace/BiSeNet CoreML + VideoToolbox) sobre Apple Silicon. |
+| [c5-poster-and-sign-craft](references/modules/c5-poster-and-sign-craft/MODULE.md) | Remasterización y rotulación 4K de cartelería. |
+| [c5-rubin-acoustic-linter](references/modules/c5-rubin-acoustic-linter/MODULE.md) | Auditoría determinista de exergía acústica (WCF, SFM, TSI, LPC), purga de nata sónica y dedup APFS clonefile. |
+| [c5-solar-thermodynamic-architecture](references/modules/c5-solar-thermodynamic-architecture/MODULE.md) | Generación de diagramas de trayectoria solar (Sun Path), análisis vectorial de sombras y cartas psicrométricas de confort térmico (Fanger PMV/PPD, ISO 7730/ASHRAE 55). |
+| [c5-spatial-audio-architect](references/modules/c5-spatial-audio-architect/MODULE.md) | Auditoría epistemológica y refactorización termodinámica de pipelines DSP de audio. Falsación de técnicas estéreo planar y diseño de arquitecturas Ambisonics (HOA) / Binaural. |
+| [c5-video-quality-audit](references/modules/c5-video-quality-audit/MODULE.md) | Auditoría cuantitativa de compresión y fidelidad de video comparando secuencias cuadro a cuadro mediante PSNR, SSIM y VMAF. |
+| [djstudio-mcp](references/modules/djstudio-mcp/MODULE.md) | Protocolo MCP, automatización de mezclas, stems y DSP Linkwitz-Riley para DJ.Studio y Rekordbox XML. |
+| [f5tts-voice-cloning-sota](references/modules/f5tts-voice-cloning-sota/MODULE.md) | Clonación y síntesis de voz con F5-TTS en Apple Silicon MPS, prosodia orgánica y masterización Opus VOIP. |
+| [flstudio-mcp-production](references/modules/flstudio-mcp-production/MODULE.md) | Integración MCP con FL Studio 2025, compilación .flp headless, BALAG-OMEGA a 48 kHz, microtonalidad Scala y carving Bark. |
+| [gflow-browser-cinema-sovereign](references/modules/gflow-browser-cinema-sovereign/MODULE.md) | Estudio virtual de cine, DAG narrativo, WebSocket bridge, encadenamiento I2V y audio EBU R128. |
+| [pika-generative-video-pipeline](references/modules/pika-generative-video-pipeline/MODULE.md) | Generación de vídeo e integración de audio en Pika Art con control de física (-motion, -fps), Pikaffects y Pika Audio Models. |
+| [remotion-audio-reactive-video](references/modules/remotion-audio-reactive-video/MODULE.md) | Diseño y renderizado de vídeos reactivos al audio con Remotion, análisis FFT espectral y shaders WebGL/Canvas. |
+| [soulseek-p2p-audio-acquisition](references/modules/soulseek-p2p-audio-acquisition/MODULE.md) | Adquisición P2P de audio en Soulseek y auditoría espectral STFT/FFT para detección forense de fake FLACs. |
+| [suno-bracket-tagging](references/modules/suno-bracket-tagging/MODULE.md) | Ingeniería acústica forense, etiquetado estructurado [...] y rescate espectral en DAW para Suno, Udio y YuE. |
+| [youtube-remotion-sota](references/modules/youtube-remotion-sota/MODULE.md) | Renderizado programático de vídeo SOTA utilizando React y Remotion engine. |

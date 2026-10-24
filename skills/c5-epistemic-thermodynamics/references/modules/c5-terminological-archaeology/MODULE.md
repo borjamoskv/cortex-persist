@@ -82,7 +82,7 @@ busca el término para
 Cuando el operador usa el trigger, ejecutar el pipeline completo sobre la sesión actual:
 
 ```bash
-SKILL_DIR=~/.gemini/config/skills/c5-terminological-archaeology/scripts
+SKILL_DIR=../../../../c5-terminological-archaeology/scripts
 BRAIN_DIR=~/.gemini/antigravity/brain
 SINCE=$(date -v-30d +%Y-%m-%d)  # Últimos 30 días
 
