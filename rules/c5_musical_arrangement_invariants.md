@@ -101,4 +101,30 @@ Al diseñar, auditar o sintetizar cadenas de acordes de *dub techno* (estética 
 3. **Invariante de Acordado Paralelo (*Parallel Chord Planing*):**
    - No programar progresiones funcionales diatónicas escolares; emplear una única estructura interválica menor con séptima o novena ($\text{m7}/\text{m9}$, herencia del *sampling* de un único *stab* de Juno-106 / Prophet-5 en Akai S950) transpuesta paralelamente sobre el teclado.
 
+## 13. Invariante de Calidez Acústica en Síntesis Web Audio, UI Háptica y Rotación Melódica por Sesión
+Al diseñar o auditar motores de sonido Web Audio API para interfaces de usuario, galerías inmersivas y navegación cinética:
+
+1. **Bus Maestro de Calidez Analógica en Silicio (`warmBus`):**
+   - Queda estrictamente prohibido conectar osciladores puros crudos (dientes de sierra, ondas cuadradas o triangulares sin filtrar) o filtros pasabanda resonantes de alto Q ($Q > 2.5$) en frecuencias agudas directamente al destino de audio (`ctx.destination`).
+   - Toda la síntesis interactiva debe enrutarse obligatoriamente a través de una etapa analógica calibrada:
+     - **Cuerpo Orgánico (Low-Shelf 260–300 Hz, +2.0 a +2.5 dB):** Aporta masa táctil de madera noble, lienzo y pizarra mineral a cada interacción.
+     - **Filtro de Cinta / Sala Cálida (Low-Pass Butterworth a 4.200–4.600 Hz, $Q \approx 0.707$):** Erradica el siseo y la estridencia digital fría (5 kHz – 16 kHz), redondeando los armónicos superiores.
+     - **Compresor Glue / Limitador Suave (Ratio 3:1, Threshold -6 dB, Attack 5 ms, Release 80 ms):** Amortigua picos bruscos y previene distorsiones o recortes ásperos.
+
+2. **Diseño de Timbres Hápticos Orgánicos (Anti-Plastic Clicks):**
+   - Los clics y pulsos de navegación deben abandonar los saltos agudos (>800 Hz) con filtros resonantes delgados.
+   - Se forjarán como taps de madera/fieltro acústico (seno fundamental 360–420 Hz descendiendo suavemente a 110–140 Hz en 25 ms, complementado por un micro-transitorio amortiguado con filtro paso-bajo a $\le 1.200\text{ Hz}$).
+   - Las guitarras o distorsiones deben incorporar un waveshaper de saturación suave ($\tanh(\alpha x)$) y un filtro de pantalla de mueble clásico a 780–850 Hz.
+   - Los timbres campaniformes o de reloj mecánico deben operar en registros medios cómodos (600–1.200 Hz), erradicando frecuencias punzantes en la banda de fatiga coclear (2.500–4.500 Hz).
+
+3. **Invariante de Rotación Melódica por Sesión de Usuario (`sessionStorage`):**
+   - En galerías o navegaciones reactivas ligadas al desplazamiento, cada nueva sesión de usuario debe recibir deterministamente una melodía modal distinta del repertorio, evitando fatiga auditiva.
+   - El estado de la melodía se aísla por pestaña/sesión en `sessionStorage` para garantizar coherencia tonal durante la navegación y rotar automáticamente al abrir una nueva sesión.
+
+4. **Cadencia Inmutable de Cierre (*The Sound of Silence*):**
+   - Sin importar qué melodía modal corresponda a la sesión, la **frase final / últimos pasos del ciclo melódico** deben resolver obligatoriamente en las notas icónicas de *The Sound of Silence* (en Re menor microtonal: `D5 -> silencio -> A4 -> C5 -> F5 -> E5 -> silencio -> D5`):
+     $$\text{Cadencia Final} = [74.00, \text{null}, 69.02, 71.74, 77.24, 75.86, \text{null}, 74.00]$$
+   - Esta resolución garantiza el anclaje inmutable de la experiencia al silencio contemplativo y a la identidad conceptual de la obra.
+
+
 
