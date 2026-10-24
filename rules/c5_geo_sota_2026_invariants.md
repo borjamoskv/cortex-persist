@@ -35,7 +35,18 @@ En el modelado de grafos de conocimiento (`Person`, `VisualArtist`, `Organizatio
 1. **IndexNow Determinista:** Todo pipeline de generación estática debe emitir `{key}.txt` e `indexnow.json` con la totalidad de rutas canónicas y disparar notificación POST a `api.indexnow.org/indexnow` en despliegue.
 2. **Atribución Multimodal:** Inyección obligatoria de `<meta name="robots" content="index, follow, max-image-preview:large">` y `acquireLicensePage` en cada `ImageObject` apuntando a la ruta transaccional de encargo/adquisición.
 
-## 7. Veto a la Nata y Superstición GEO (Anti-Cargo-Cult)
+## 7. Invariante de Grafo Canónico de Entidad y Locus (`#artist`, `#studio`)
+1. **IDs Fragmentarios Deterministas:** Toda entidad principal (`Person`, `LocalBusiness`, `Service`, `Place`) debe poseer un `@id` canónico basado en fragmento (`/#artist`, `/#studio`, `/retratos-por-encargo-bilbao/#service`, `/obra/#catalogue`).
+2. **Paridad de Atribución 1:1:** Todo nodo secundario (`ImageObject.creator`, `VisualArtwork.creator`, `Offer.seller`, `BlogPosting.author`, `ExhibitionEvent.organizer`) DEBE referenciar idéntico `@id` canónico y compartir el mismo vector de autoridad (`sameAs`).
+3. **Locus Físico Verificado:** El punto físico de producción (`#studio`) debe sincronizar sus coordenadas `(lat, lon)`, dirección postal y `hasMap` entre Schema.org, la API estructurada (`api/catalog.json`) y el archivo `llms.txt`.
+
+## 8. Invariante de Sindicación RSS con Dublin Core (`xmlns:dc`)
+En la emisión de canales RSS 2.0 (`feed.xml`), es obligatorio incorporar `xmlns:dc="http://purl.org/dc/elements/1.1/"` y publicar en cada `<item>` las etiquetas complementarias `<dc:creator>` y `<author>` para resolver la autoría de forma unívoca ante agentes RAG.
+
+## 9. Invariante de Aislamiento Acústico en Tests Headless (JSDOM Media Gate)
+Cuando el cliente web implemente capas sonoras interactivas o hápticas (`new window.Audio(...)` / Web Audio API), los entornos de simulación sintéticos (JSDOM) deben inicializarse en `beforeParse(window)` con stubs controlados para `HTMLMediaElement.prototype.play = () => Promise.resolve()` y `pause = () => {}`, previniendo que excepciones no implementadas contaminen la traza de auditoría de errores.
+
+## 10. Veto a la Nata y Superstición GEO (Anti-Cargo-Cult)
 Queda estrictamente prohibido:
 1. Generar archivos `llms.txt` vacíos o redundantes con el HTML semántico sin directiva operativa.
 2. Fragmentar páginas en micro-URLs cosméticas sin contenido de valor diferenciado.

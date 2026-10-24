@@ -42,7 +42,7 @@ En lugar de tratar las páginas como artículos genéricos, cada activo se estru
 
 ---
 
-## 3. Las 8 Estrategias Avanzadas SOTA
+## 3. Las 9 Estrategias Avanzadas SOTA
 
 1. **Query Fan-Out Mapping:** Mapear el grafo multidimensional de subconsultas que un LLM formula al investigar una intención raíz (precios, técnicas, plazos, comparativas, ejemplos reales) mediante nodos `<details>` nativos en el DOM, evitando el schema `FAQPage` depreciado.
 2. **Evidence-First Publishing:** Publicar datos duros, imágenes originales con metadatos técnicos y metodologías antes de redactar prosa narrativa.
@@ -52,6 +52,7 @@ En lugar de tratar las páginas como artículos genéricos, cada activo se estru
 6. **Agent-Ready UX:** Diseñar para agentes de navegación: DOM semántico, `<label>` explícitos, configuradores interactivos con deep-linking directo (`wa.me`) y endpoints WebMCP (`.well-known/mcp.json`).
 7. **First-Party Conversion Data:** Medir la atribución real entre citación generativa, tráfico asistido, leads cualificados y ventas cerradas.
 8. **Push Indexation & Syndication (IndexNow + `feed.xml` + `manifest.webmanifest`):** Garantizar descubrimiento instantáneo post-deploy e ingesta estructurada por lectores RAG y motores multimodales (`acquireLicensePage`).
+9. **WebMCP In-Browser Runtime Testing:** Verificar la disponibilidad y respuesta determinista de las herramientas para agentes (`window.WebMCP.callTool`) en la suite de pruebas headless del DOM.
 
 ---
 
