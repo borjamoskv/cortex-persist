@@ -62,3 +62,17 @@ Ante cualquier búsqueda o verificación sobre la existencia, estado o autoría 
    - **Estrato 5 (Topología de Organización Remota):** Búsqueda de repositorios hermanos y ramas activas vía `gh repo list` o `gh api "repos/<org>/<repo>/branches"`.
    - **Estrato 6 (Artefactos y Transcripciones de Sesión):** Inspección de `brain/` e historiales de sesiones recientes (`transcript.jsonl`).
 3. **Veto a la Consulta Prematura:** Queda estrictamente prohibido solicitar al operador humano confirmación de rutas o nombres sin haber agotado los 6 estratos en silicio.
+
+---
+
+## 7. Invariante de Suites Mixtas y Falsación de Optimizaciones (PCC Negative-Case Invariant)
+Al auditar, optimizar o endurecer scripts de compilación, verificación o tests sobre directorios de programas fuente (ej. `examples/`, `tests/fixtures/`):
+1. **Presunción de Heterogeneidad Semántica:** Queda estrictamente prohibido asumir que todos los archivos de un directorio son casos positivos destinados a compilar o verificar con éxito. En compiladores Proof-Carrying Code (PCC) o con solvers SMT/Z3, una fracción sustancial son pruebas de penetración o exploits intencionales diseñados expresamente para ser **rechazados** (`REJECTED`) en tiempo de compilación.
+2. **Veto a Comodines Globales Rígidos:** Queda terminantemente prohibido imponer `set -euo pipefail` o suprimir banderas de tolerancia a fallos sobre comodines globales (`*.anv`, `*.rs`) sin antes particionar en silicio los casos positivos verificables de los casos de refutación negativos.
+
+---
+
+## 8. Invariante de Prioridad Epistémica de Núcleo frente a Fontanería de CI
+Ante solicitudes conceptuales, análisis dialécticos o demostraciones formales de código:
+1. **Primacía del Núcleo y Silicio Local:** El agente DEBE resolver la consulta en el sustrato matemático, en el código local (`src/`, `tests/`) o en artefactos analíticos de `brain/`.
+2. **Veto a la Desviación hacia Workflows Externos:** Queda terminantemente prohibido desviar la tarea hacia la modificación o refactorización de flujos de integración continua (`.github/workflows/*.yml`) salvo mandato expreso e imperativo del Operador (*"olvida github action"* como directiva por defecto ante dialéctica teórica).
