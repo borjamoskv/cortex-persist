@@ -57,6 +57,12 @@ def scan_asar(asar_path):
         return files, offset_base, f
 ```
 
+### Invariante de Corrección de Offset (Veto a Desplazamiento de +2 Bytes)
+> [!IMPORTANT]
+> En implementaciones previas o wrappers externos de parsing ASAR (incluidas iteraciones tempranas de C5-REA), se introducía un error sutil de alineación sumando **+2 bytes** espurios al cálculo del offset de la carga útil (`offset_base`). Esta desalineación corrompe los límites de buffers y la lectura de strings. El cálculo canónico en silicio es determinista y exacto:
+> $$\text{header\_offset} = 16 + \text{json\_size}$$
+> Queda estrictamente prohibido introducir paddings arbitrarios o desplazamientos de 2 bytes fuera del unpack Little-Endian de 16 bytes.
+
 ---
 
 ## 3. Extracción de Métodos gRPC, Endpoints y Modelos
@@ -140,4 +146,10 @@ for path, size, offset in files:
         if any(token in code for token in ('ipcMain', 'ipcRenderer', 'contextBridge')):
             ipc_modules.append((path, size))
 ```
+
+---
+
+## 9. Dossiers Técnicos de Referencia (Casos de Estudio)
+- [Expediente C5-REA: Ingeniería Inversa com.openai.codex (macOS ARM64)](./dossiers/com_openai_codex_case_study.md): Análisis exhaustivo de arquitectura híbrida (Electron Shell ⇄ Native App-Server), sandboxing MCP con CDP, claves de hardware Secure Enclave y pipeline de documentos .NET/WASM ("Walnut").
+
 
