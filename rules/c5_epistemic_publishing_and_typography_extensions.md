@@ -1,6 +1,6 @@
 ---
 name: c5_epistemic_publishing_and_typography_extensions
-description: "Protocolos especializados de publicación y tipografía C5-REAL: Ingesta de aforismos en frases-sin-nata, Bajada al Barro, Calibración Litográfica de carteles, Paleta Cromática HTML/Mermaid, Estructura de 6 Bloques para ensayos, Anclaje Sacádico Selectivo (SSA) y Compilación de PDFs con Typst 0.15+."
+description: "Protocolos especializados de publicación y tipografía C5-REAL: Ingesta de aforismos en frases-sin-nata, Bajada al Barro, Calibración Litográfica de carteles, Paleta Cromática HTML/Mermaid, Estructura de 6 Bloques para ensayos, Anclaje Sacádico Selectivo (SSA), Compilación de PDFs con Typst 0.15+, Arquitectura Bimodal (Escena Desnuda vs. Bloque Técnico) e Invariante Anti-Metáfora Pseudomatemática."
 trigger: "model_decision"
 ---
 
@@ -85,3 +85,24 @@ Todo ensayo formal o cristal epistémico generado en `brain/` debe articularse o
 3. **Veto a Cajas Indivisibles en Citaciones Extensas (Anti-Justificación Rota):** En listados de papers o referencias múltiples, queda terminantemente prohibido utilizar `box(...)` indivisibles.
 4. **Invariante Sticky en Encabezados y Cajas Críticas:** Obligatorio activar `#show heading: set block(sticky: true)`.
 5. **Gate Obligatorio de Auditoría Visual Pre-Entrega (Zero-Broken-Layout Gate):** Antes de entregar cualquier PDF, rasterizar todas sus páginas a PNG (`pdftoppm -png -r 150 <pdf> <prefix>`) e inspeccionar visualmente cada una con `view_file`.
+
+## 9. Arquitectura Bimodal C5-REAL (Escena Somática Desnuda vs. Bloque Técnico Separado)
+Para resolver la articulación entre alta literatura y formalismo matemático sin caer en pedantería pseudotécnica ni en degradación epistémica:
+1. **Registro A — Escena Somática Desnuda (`Borja Corteza`):**
+   - Confinamiento a hechos sensorimotores inmediatos (peso mecánico, temperatura verificada con piel, sonidos del entorno, movimiento de extremidades, elipsis de acción).
+   - Prohibición absoluta de vocabulario de teoría de sistemas, física estadística, nombres de algoritmos o conceptos abstractos dentro de la prosa narrativa.
+   - Restricción C5 estricta: cero adjetivos calificativos ornamentales y cero adverbios en *-mente*.
+   - El título abre la tensión hermenéutica (ej. *LA ATENCIÓN ES TODO LO QUE NECESITAS*); el texto jamás explica la tesis al lector.
+2. **Registro B — Bloque Científico/Ingeniería Separado (`Borja Fernández Angulo`):**
+   - Confinamiento a derivaciones analíticas rigurosas, deducciones algebraicas verificadas y citas de fuentes primarias experimentales (DOIs, sentencias, expedientes).
+   - Demarcación explícita de hipótesis, alcances de modelos y condiciones de contorno.
+
+## 10. Invariante Anti-Metáfora Pseudomatemática (Veto a la Literalización de Analogías)
+Queda terminantemente prohibido afirmar como identidad matemática, biológica o física lo que constituye una analogía, metáfora o contrapunto literario:
+1. **Distinción Estricta entre Operador y Resonancia:**
+   - Una cola de personas o un orden de turnos NO es «literalmente el operador softmax de Vaswani».
+   - Un gesto de soporte físico o cuidado mecánico NO es «literalmente una transferencia de entropía termodinámica ($\Delta S$)».
+   - La cognición humana NO es «literalmente una compresión sobre la variedad de Fisher» a menos que se demuestre un modelo formal de densidad $p(X;\theta)$ y matriz de covarianza en el sustrato.
+2. **Conducta Operativa:**
+   - Si se presenta una analogía estética o literaria, debe rotularse explícitamente como contrapunto, resonancia o metáfora de diseño.
+   - En los bloques de ingeniería y ciencia, solo se afirman identidades que resistan auditoría línea por línea frente al paper primario o al experimento en silicio.
