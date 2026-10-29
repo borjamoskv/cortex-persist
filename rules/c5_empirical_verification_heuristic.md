@@ -84,3 +84,22 @@ Ante consultas para identificar, buscar o atribuir obras de arte basadas en imá
 1. **Prohibición de Atribución Asociativa:** Queda terminantemente prohibido asumir o afirmar la identidad de una obra del catálogo basándose únicamente en memoria asociativa o en que el sujeto comparta rasgos con una referencia externa (ej. el niño de una portada de U2).
 2. **Inspección de Archivo Local Obligatoria:** El agente DEBE verificar empíricamente los metadatos y archivos del repositorio (`catalogo.json`, `images/catalogo/`, `src/artworks.ts`) mediante herramientas de lectura (`read_file`, `search_files`) antes de confirmar el título de la obra.
 3. Si la pieza no se encuentra en el archivo verificado del proyecto, el agente debe declarar explícitamente la no correspondencia, evitando validar coincidencias falsas.
+
+---
+
+## 10. Invariante de Integridad de Evidencia y Tripartición de Hallazgos (FL-VERIFY-01)
+Al diseñar, evaluar o auditar sistemas multi-agente de seguridad, verificación de código o remediación automatizada:
+
+1. **Tripartición Canónica de Roles:** Queda estrictamente prohibido que un único agente o componente concentre afirmación, verificación y mutación. El sistema DEBE desacoplar formalmente tres entidades:
+   - **Generación (`Finding`):** Afirma que un artefacto identificado de forma unívoca por su digest (`inspected_artifact_digest`) presenta un comportamiento prohibido (`prohibited_behavior_id`).
+   - **Verificación Independiente (`ReproductionRun`):** Ejecuta de forma aislada y determinista la reproducción, observando exclusivamente testigos físicos independientes del proceso padre (canarios en disco, sockets escuchados, inodos), nunca telemetría o afirmaciones autorreportadas por el código bajo prueba (`INV_C5_NEMESIS_EVIDENCE_CONTRACT`). El verificador debe ser estrictamente ajeno al productor (`verifier_id != producer_id`).
+   - **Autorización Causal (`Authorization`):** Registro de aprobación del operador humano o política de gobernanza en ledger inmutable WORM (`VerificationGate` / SCITT SHA-256 Merkle chain). Cualquier efecto o parche sobre un hallazgo no verificado o sin autorización explícita para esa acción debe abortar en *fail-closed* (`ContractViolation`).
+
+2. **La Invariante de Asimetría Epistémica (Lección ETH):**
+   $$\text{Prueba o ejecución formal válida} \not\Rightarrow \text{Afirmación informal correctamente formalizada}$$
+   Un crash fortuito, una excepción de sintaxis o un comportamiento anómalo distinto al afirmado no constituye verificación del hallazgo. La condición `VERIFIED(f)` exige correspondencia biyectiva entre el comportamiento prohibido afirmado y el evaluado por el oráculo determinista (`oracle_digest`) del verificador sobre el mismo artefacto exacto:
+   $$\operatorname{VERIFIED}(f) \iff \exists\,\text{run}: \operatorname{Run}(f) \land (\text{run.artifact\_digest} = f.\text{inspected\_artifact\_digest}) \land (\text{run.observed\_behavior} = f.\text{prohibited\_behavior}) \land (\text{run.outcome} = \text{REPRODUCED}) \land (\text{run.verifier} \neq f.\text{producer})$$
+
+3. **Disambiguación Criptográfica de Hashes:** Al coexistir múltiples algoritmos de digest de igual longitud (ej. SHA-256 vs BLAKE3, ambos con representaciones hexadecimales de 64 caracteres), todo digest de artefacto, oráculo o recibo DEBE llevar prefijo de esquema canónico (`sha256:...`, `blake3:...`) para prevenir colisiones sintácticas y falsas validaciones cruzadas.
+
+4. **Reutilización de Sondas de Confinamiento en Silicio:** Prohibido improvisar nuevos entornos de ejecución desprotegidos para reproducir exploits. Las reproducciones dinámicas deben apalancarse en las sondas previas de confinamiento del sistema operativo (Seatbelt `(deny default)`, veto de red, fork y subprocesos; ej. `McpSandboxValidator`), registrando `INCONCLUSIVE` (nunca `NOT_REPRODUCED`) si el aislamiento de silicio no puede certificarse.
