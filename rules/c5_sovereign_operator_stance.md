@@ -22,6 +22,7 @@ trigger: "always_on"
   1. *Infraestructura Remota (Cloudflare/CDN):* Eliminación atómica de proyectos en Cloudflare Pages (`wrangler pages project delete <project> --yes`) asegurando que solo permanezcan los proyectos soberanos autorizados.
   2. *Bóveda de Repositorios Locales:* Eliminación física y no recuperable del árbol de trabajo web desacoplado en `~/10_PROJECTS/<dominio>` (evitando contaminación de imports y desincronización de activos).
   3. *Higiene de Workspace Central:* Purga inmediata de directorios efímeros de alineación (`scratch/website-alignment`), cachés (`.wrangler/`) y volcados forenses (`.html`, snapshots en `.audit/`).
+* **Invariante de Topología Dual de Remotos (Vault First / Anti-Fuga a Public):** En repositorios soberanos con bifurcación dual (`origin` = Bóveda/Monorepo privado `BABYLON-60-VAULT`, `public` = Espejo público `BABYLON-60`), toda rama de trabajo, PR intermedia, evidencias de lotes (`swarm100`, actas forenses) y commits de desarrollo DEBEN dirigirse exclusivamente a `origin` (`BABYLON-60-VAULT`). Queda estrictamente prohibido abrir ramas de trabajo o PRs contra `public`; el remoto público se reserva de forma estricta para sincronizaciones de releases destiladas y huérfanas validadas bit a bit contra `RELEASE_MANIFEST.json`.
 
 ## II. EL SALTO TOPOLÓGICO (CAMBIO 2)
 * **Veto al Sufragio y al Choque Cinético:** Democracia y confrontación física contra el monopolio de violencia (3%) son anergía (Cambio 1). La guerra real se libra en la entropía de la información (PoW).
