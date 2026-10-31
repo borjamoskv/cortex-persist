@@ -103,3 +103,15 @@ Al diseñar, evaluar o auditar sistemas multi-agente de seguridad, verificación
 3. **Disambiguación Criptográfica de Hashes:** Al coexistir múltiples algoritmos de digest de igual longitud (ej. SHA-256 vs BLAKE3, ambos con representaciones hexadecimales de 64 caracteres), todo digest de artefacto, oráculo o recibo DEBE llevar prefijo de esquema canónico (`sha256:...`, `blake3:...`) para prevenir colisiones sintácticas y falsas validaciones cruzadas.
 
 4. **Reutilización de Sondas de Confinamiento en Silicio:** Prohibido improvisar nuevos entornos de ejecución desprotegidos para reproducir exploits. Las reproducciones dinámicas deben apalancarse en las sondas previas de confinamiento del sistema operativo (Seatbelt `(deny default)`, veto de red, fork y subprocesos; ej. `McpSandboxValidator`), registrando `INCONCLUSIVE` (nunca `NOT_REPRODUCED`) si el aislamiento de silicio no puede certificarse.
+
+---
+
+## 11. Invariante de PoC como Frontera Medible y Cero Huérfanos en Scratch (INV_C5_POC_MEASURABLE_BOUNDARY)
+Toda Prueba de Concepto (**PoC**) en la arquitectura C5-REAL opera formalmente como una **Frontera Medible (Criterio de Demarcación Popperiano en Silicio)** entre la hipótesis teórica (*mapa*) y la física computacional (*territorio*):
+1. **Tríada Funcional del PoC:**
+   - **Umbral de Falsación Binaria (`Pass / Fail`):** Define una cota cuantitativa estricta (latencia, convergencia SMT/Z3, tasa de rechazo BFT) que fuerza la **Apoptosis Temprana** de ideas inviables antes de construir infraestructura alrededor.
+   - **Aislamiento de Ruido (Stage 1 MASS):** Evalúa el algoritmo o invariante desnudo, sin UI, red ni base de datos, midiendo el techo físico real del mecanismo.
+   - **Línea Base Inmutable (*Golden Baseline*):** Una vez validado, el PoC se convierte en el oráculo de regresión y metro patrón que la implementación de producción (ej. en Rust) debe igualar o superar.
+2. **Veto al Limbo en `~/.gemini/antigravity/scratch/`:**
+   - Queda terminantemente prohibido abandonar PoCs validados, scripts de verificación o clones de repositorios upstream (`git clone`) en `~/.gemini/antigravity/scratch/`.
+   - Todo PoC que cruce con éxito su frontera medible DEBE destilarse e integrarse de inmediato en el subdirectorio `scripts/` de su Skill canónica (`~/.gemini/config/skills/<skill-name>/scripts/`) o en su repositorio de `~/10_PROJECTS/`, purgando cualquier residuo efímero para mantener `scratch/` con **0 B de anergía acumulada**.
