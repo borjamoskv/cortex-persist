@@ -141,6 +141,23 @@ Si el contenido analiza reescrituras masivas a lenguajes de sistemas asistidas p
    - Explicitar que la proliferación de despliegues generados por IA sin supervisión ha extinguido la antigua práctica de los proveedores cloud de perdonar facturas accidentales por bucles infinitos (ej. \$10.000 USD en Cloudflare Workers por recursión mutua).
    - Exigir como invariante arquitectónica la combinación de techo financiero duro (*Spend Limit*), presupuesto de recursión en cabeceras (`X-Recursion-Depth` / `MUSHUSHU-0`) y atestación física (`c5_biometric_gate`).
 
+### Fase 2e: Falsación de Macro-Arneses Agénticos de Código (Prompt Bloat, Pentesting por Prompt y Arbitraje Open-Source)
+Si el contenido auditado promociona repositorios, marketplaces o mega-paquetes de agentes/skills para asistentes de código (ej. Claude Code, Cursor, Codex tipo Everything Claude Code / ECC) postulando «reemplazo total de ingenieros» o «hackeo preventivo del código»:
+
+1. **Auditoría de Ingesta Plana vs. Límite de Contexto (Prompt Bloat):**
+   - Computar la sobrecarga de tokens que supone inyectar decenas o cientos de directivas de skills y system prompts en frío:
+     $$\text{Token Overhead} = \sum_{i=1}^{S} T(\text{skill}_i) + \sum_{j=1}^{A} T(\text{agent}_j)$$
+   - Demostrar que catálogos no indexados (>200–250 skills) saturan o desbordan la ventana de contexto estándar (200k tokens), provocando degradación por distracción atencional (*Lost in the Middle*) o amnesia de directivas fundacionales, salvo que opere un enrutador dinámico determinista.
+
+2. **Falsación del Pentesting por Prompt frente a Verificación en Silicio:**
+   - Desmontar la premisa de que un prompt de red-teaming o linter semántico equivale a una auditoría de seguridad real.
+   - Contrastar frente a las cotas empíricas de seguridad en LLMs: recall $\le 40\%$ en vulnerabilidades profundas y tasa de falsos positivos $\ge 50\%$.
+   - Explicitar la ceguera del LLM ante fallos de bajo nivel: corrupción de memoria, fugas de descriptores de archivo, colisiones de concurrencia (*race conditions*), ataques de temporización (*side-channel*) y límites de pila. La seguridad real reside en tipos fuertes, fuzzing dinámico, compilación estricta y barreras de silicio.
+
+3. **Detección de Arbitraje de Repositorios Públicos (Lead Magnet Gate):**
+   - Verificar si el emisor toma como gancho un repositorio 100% público, libre y gratuito en GitHub (ej. con tracción comunitaria masiva) y lo disfraza de recurso exclusivo para forzar la suscripción o conversión a comunidades privadas («acceso en la bóveda / link en bio»).
+   - Declarar explícitamente el veredicto de arbitraje comercial ilegítimo sobre bienes comunales de software libre.
+
 ### Fase 3: Auditoría Epistemológica y Formateo
 1. **Resumen Estándar e Índice por Bloques:** Lista viñeteada con los puntos centrales estructurados por timestamps o bloques temáticos.
    *Invariante de Pureza Léxica del Territorio (Cortafuegos 13):* En el resumen descriptivo y en las tarjetas biónicas de síntesis, está terminantemente prohibido inyectar metalenguaje o categorías formales del analista (ej. *álgebra, Kolmogorov, operadores formales, morfismos*) en las viñetas que describen el pensamiento o declaraciones del emisor. El resumen debe preservar fielmente las metáforas y el léxico original del emisor (ej. *alfabeto/letras*).
