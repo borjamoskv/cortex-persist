@@ -1,435 +1,821 @@
 {
   "_meta": {
-    "version": "1.0.0",
-    "description": "Léxico Canónico C5-REAL — Base de Anagnórisis Terminológica",
+    "version": "1.1.0",
+    "description": "Léxico Canónico C5-REAL v1.1 — Registro Auditado de Relaciones Conceptuales, Evidencia de Anterioridad y Límites Epistémicos",
     "operator": "Borja Fernández Angulo",
+    "updated_at": "2026-11-04",
     "schema": {
+      "id": "string — Identificador estable de la entrada",
       "canonical_term": "string — Nombre oficial del término en su disciplina de origen",
-      "intuicion_borja": "string — Descripción funcional que Borja usaba antes de conocer el término",
-      "coverage": "float [0,1] — Solapamiento entre intuición y definición canónica (≥0.95 = CONVERGE)",
-      "verdict": "CONVERGE | DIVERGE | SUPERSET",
-      "delta": "string|null — Dimensión que la intuición añade más allá del término canónico",
-      "author": "string — Autor principal de la acuñación",
-      "year": "int — Año de acuñación o publicación seminal",
-      "work": "string — Obra canónica de referencia",
-      "discipline": "array[string] — Disciplinas donde el término es operativo",
-      "discovered_at": "string — Fecha de anagnórisis en sesión C5-REAL (ISO 8601)",
-      "conversation_id": "string|null — CID de la conversación donde ocurrió la anagnórisis",
-      "c5_axiom_anchor": "string — Aforismos o Invariantes C5-REAL relacionadas",
-      "ref_url": "string|null — URL primaria de referencia verificada"
+      "canonical_claim": "string — Qué demuestra o establece realmente la literatura primaria",
+      "intuicion_borja": "string — Formulación intuitiva previa sin cuantificadores absolutos no probados",
+      "mapping": {
+        "type": "CONVERGE | PARTIAL | ANALOGY | EXTENSION | DIVERGE",
+        "epistemic_status": "PROVISIONAL | SUPPORTED | CHALLENGED | SCOPE_REDUCED",
+        "coverage": "float|null — null mientras no exista medición independiente reproducible",
+        "unproven_leap": "string — Qué añade la extensión C5-REAL o qué salto queda por demostrar"
+      },
+      "provenance": {
+        "first_recorded_at": "string|null — Fecha ISO 8601 del primer artefacto verificable con la intuición",
+        "original_artifact_sha256": "string|null — Hash SHA-256 del artefacto donde consta la formulación",
+        "discovered_at": "string — Fecha ISO 8601 de asociación con el término canónico",
+        "temporal_priority_verified": "bool — true solo si existe artefacto fechado y hasheado previo al uso del término canónico",
+        "conversation_id": "string|null — CID de la sesión de arqueología"
+      },
+      "falsification": {
+        "question": "string — Pregunta crítica o contraejemplo que refutaría el mapeo o la extensión",
+        "required_evidence": "string — Prueba operacional o empírica necesaria para validar la extensión"
+      },
+      "reference": {
+        "author": "string — Autor(es) de la formulación primaria",
+        "year": "int — Año de la publicación primaria",
+        "work": "string — Obra seminal de referencia",
+        "type": "PRIMARY_THEOREM | EMPIRICAL_STUDY | FORMAL_DEFINITION |THEORETICAL_MODEL | DESIGN_HEURISTIC | PHILOSOPHICAL_CONCEPT",
+        "discipline": "array[string] — Disciplinas de origen",
+        "ref_url": "string — URL o DOI primario verificable"
+      },
+      "c5_axiom_anchor": "string — Conexión con el marco C5-REAL / BORJARIO IR"
     }
   },
   "affordance": {
-    "canonical_term": "Affordance (Afordancia)",
-    "intuicion_borja": "Propiedades estructurales de un objeto, interfaz o proceso que invitan o imponen una acción sin necesidad de manual, de modo que el error de uso es del diseño, nunca del usuario",
-    "coverage": 0.97,
-    "verdict": "CONVERGE",
-    "delta": null,
-    "author": "James J. Gibson",
-    "year": 1979,
-    "work": "The Ecological Approach to Visual Perception",
-    "discipline": [
-      "Psicología Ecológica",
-      "HCI",
-      "Diseño de Sistemas",
-      "Cibernética"
-    ],
-    "discovered_at": "2026-10-12",
-    "conversation_id": "9915d4a5-162a-4b8e-bb16-3665adf7bc7a",
-    "c5_axiom_anchor": "Aforismo 2 (mapa vs territorio), Error de atribución = Falacia de Isomorfismo Falso",
-    "ref_url": "https://jnd.org/affordances-and-design/"
+    "id": "affordance",
+    "canonical_term": "Affordance (Afordancia) y Signifier (Significante)",
+    "canonical_claim": "En Gibson (1979), una affordance es una posibilidad de acción que el entorno ofrece a un agente en función de sus capacidades motoras. En Norman (1988/2013), la pista perceptible que comunica dónde y cómo actuar en una interfaz se denomina específicamente signifier.",
+    "intuicion_borja": "Las propiedades de un objeto, interfaz o proceso sugieren o canalizan las acciones posibles antes de consultar un manual, de modo que los fallos recurrentes de uso suelen señalar un problema de diseño.",
+    "mapping": {
+      "type": "PARTIAL",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "La intuición fusiona la posibilidad relacional de acción (affordance de Gibson) con la señal perceptible en la interfaz (signifier de Norman); además, no todo error de uso excluye factores del operador o del contexto."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-10-12",
+      "original_artifact_sha256": "02c3d6c8f47009ded397dd2adcd2c2b2fae5cf1b86872a50a9af987d3bec9498",
+      "discovered_at": "2026-10-12",
+      "temporal_priority_verified": false,
+      "conversation_id": "9915d4a5-162a-4b8e-bb16-3665adf7bc7a"
+    },
+    "falsification": {
+      "question": "¿El diseño carece de la acción posible (affordance) o carece de la pista perceptiva que la comunica (signifier)?",
+      "required_evidence": "Protocolo de prueba de usabilidad que separe capacidades del agente, propiedades del soporte y señales visuales."
+    },
+    "reference": {
+      "author": "James J. Gibson / Donald A. Norman",
+      "year": 1979,
+      "work": "The Ecological Approach to Visual Perception (Gibson, 1979); The Design of Everyday Things (Norman, 1988/2013)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Psicología Ecológica",
+        "HCI",
+        "Diseño de Sistemas"
+      ],
+      "ref_url": "https://jnd.org/affordances-and-design/"
+    },
+    "c5_axiom_anchor": "Aforismo 2 (mapa vs territorio), Aforismo 131 y 139 (Afordancia Relacional)"
   },
   "exergia": {
+    "id": "exergia",
     "canonical_term": "Exergía (Exergy)",
-    "intuicion_borja": "La fracción de energía o esfuerzo que produce orden, arquitectura y avance real en un proyecto o sistema, distinguiéndola de la masa de energía dispersa que solo genera calor, burocracia y código muerto",
-    "coverage": 0.98,
-    "verdict": "CONVERGE",
-    "delta": null,
-    "author": "Zoran Rant",
-    "year": 1956,
-    "work": "Exergie, ein neues Wort für 'technische Arbeitsfähigkeit'",
-    "discipline": [
-      "Termodinámica Técnica",
-      "Ingeniería de Sistemas",
-      "Economía Ecológica"
-    ],
-    "discovered_at": "2025-12-01",
-    "conversation_id": null,
-    "c5_axiom_anchor": "Aforismo 1 (transformar ruido en conceptos), Purga de Anergía, Invariante de Clausura Epistémica",
-    "ref_url": null
+    "canonical_claim": "En termodinámica técnica (Rant, 1956), la exergía es el trabajo máximo útil que puede obtenerse de un sistema cuando alcanza el equilibrio termodinámico con un entorno de referencia especificado (T0, P0).",
+    "intuicion_borja": "En un proyecto o sistema técnico, solo una fracción del esfuerzo y de los recursos invertidos se traduce en estructura funcional y avance verificable.",
+    "mapping": {
+      "type": "ANALOGY",
+      "epistemic_status": "PROVISIONAL",
+      "coverage": null,
+      "unproven_leap": "La exergía física depende de variables de estado termodinámicas y de un entorno de referencia en julios; utilizarla para medir productividad de código o trabajo intelectual es una analogía que requiere métricas operacionales independientes."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "8fc5dae3702a45642e78d78a85535bb5228a147027e488a1afbfd990105b7bf2",
+      "discovered_at": "2025-12-01",
+      "temporal_priority_verified": false,
+      "conversation_id": null
+    },
+    "falsification": {
+      "question": "¿La métrica de rendimiento de software propuesta conserva las propiedades aditivas y de estado de referencia de la exergía física?",
+      "required_evidence": "Definición operacional independiente de trabajo útil verificado y coste computacional/humano sin equipararlos literalmente a julios térmicos."
+    },
+    "reference": {
+      "author": "Zoran Rant",
+      "year": 1956,
+      "work": "Exergie, ein neues Wort für 'technische Arbeitsfähigkeit' (Forschung auf dem Gebiete des Ingenieurwesens)",
+      "type": "FORMAL_DEFINITION",
+      "discipline": [
+        "Termodinámica Técnica",
+        "Ingeniería Energética"
+      ],
+      "ref_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7516689/"
+    },
+    "c5_axiom_anchor": "Aforismo 1 (transformar ruido en conceptos), BORJARIO IR BJR-E091 ([METAPHORICAL] en software)"
   },
   "anergia": {
-    "canonical_term": "Anergía (Anergy / Anenergy)",
-    "intuicion_borja": "La fracción de energía que no puede hacer trabajo bajo ninguna circunstancia: burocracia, código muerto, reuniones vacías, retórica sin coste",
-    "coverage": 0.96,
-    "verdict": "CONVERGE",
-    "delta": "En C5-REAL la anergía también abarca el 'cheap talk' voluntario semántico, dimensión ausente en la termodinámica clásica",
-    "author": "Zoran Rant",
-    "year": 1956,
-    "work": "Exergie, ein neues Wort für 'technische Arbeitsfähigkeit'",
-    "discipline": [
-      "Termodinámica Técnica"
-    ],
-    "discovered_at": "2025-12-01",
-    "conversation_id": null,
-    "c5_axiom_anchor": "Aforismo 1, Aforismo 5",
-    "ref_url": null
+    "id": "anergia",
+    "canonical_term": "Anergía (Anergy)",
+    "canonical_claim": "En la partición energética de Rant (Energía = Exergía + Anergía), la anergía es la fracción de energía que no puede convertirse en trabajo mecánico respecto a un estado muerto o entorno de referencia dado.",
+    "intuicion_borja": "Parte del esfuerzo en organizaciones y desarrollos de software se disipa en burocracia, código sin uso, reuniones redundantes y retórica sin efecto sobre el producto.",
+    "mapping": {
+      "type": "ANALOGY",
+      "epistemic_status": "PROVISIONAL",
+      "coverage": null,
+      "unproven_leap": "En termodinámica, la anergía no es energía inútil bajo cualquier circunstancia imaginable, sino relativa al entorno de referencia T0; su extensión al código muerto y al cheap talk semántico constituye una analogía organizativa."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "4fdd62f39f07f3d080449a9be7ae3f506c3cc6e8c39dd3fcc99f872b4e47a7fc",
+      "discovered_at": "2025-12-01",
+      "temporal_priority_verified": false,
+      "conversation_id": null
+    },
+    "falsification": {
+      "question": "¿Un proceso clasificado como anergía organizativa cumple una función de redundancia, seguridad o amortiguación bajo otro entorno de referencia?",
+      "required_evidence": "Test de ablación causal (eliminar el proceso o componente y medir si se degrada la fiabilidad o el cumplimiento del sistema)."
+    },
+    "reference": {
+      "author": "Zoran Rant",
+      "year": 1956,
+      "work": "Exergie, ein neues Wort für 'technische Arbeitsfähigkeit' (Forschung auf dem Gebiete des Ingenieurwesens)",
+      "type": "FORMAL_DEFINITION",
+      "discipline": [
+        "Termodinámica Técnica"
+      ],
+      "ref_url": "https://doi.org/10.3390/e22040409"
+    },
+    "c5_axiom_anchor": "Aforismo 1, Aforismo 5, Capítulo IX (Anergía), BORJARIO IR BJR-E091"
   },
   "cambio_2": {
+    "id": "cambio_2",
     "canonical_term": "Cambio 2 (Second-Order Change)",
-    "intuicion_borja": "El salto cualitativo que hay que hacer cuando insistir más en la solución habitual solo agrava el problema: hay que cambiar de plano lógico, no de velocidad",
-    "coverage": 0.99,
-    "verdict": "CONVERGE",
-    "delta": null,
-    "author": "Paul Watzlawick, John Weakland, Richard Fisch",
-    "year": 1974,
-    "work": "Change: Principles of Problem Formation and Problem Resolution",
-    "discipline": [
-      "Cibernética de Segundo Orden",
-      "Teoría de Sistemas",
-      "Psicoterapia Sistémica"
-    ],
-    "discovered_at": "2025-12-01",
-    "conversation_id": null,
-    "c5_axiom_anchor": "Aforismo 3 (la solución intentada es el problema), Corolario del Trampolín Cibernético",
-    "ref_url": null
+    "canonical_claim": "En Watzlawick, Weakland y Fisch (1974), el cambio de primer orden ocurre dentro de un sistema que permanece invariante, mientras que el cambio de segundo orden altera las reglas o premisas que gobiernan el sistema en su conjunto.",
+    "intuicion_borja": "Cuando insistir en la solución habitual dentro de las mismas reglas agrava el bloqueo, desbloquear la situación exige modificar las reglas del juego o cambiar de plano operativo.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "Cambiar de nivel lógico o alterar las reglas del sistema abre nuevas trayectorias, pero no garantiza por sí solo resolver el problema ni evita crear un nuevo bucle en el nivel superior."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-09-07",
+      "original_artifact_sha256": "b5214af8d24917ffbe201e1f3ac325f5325058f021edc9b6e7ac3edb05bd7bf2",
+      "discovered_at": "2025-12-01",
+      "temporal_priority_verified": false,
+      "conversation_id": null
+    },
+    "falsification": {
+      "question": "¿La intervención propuesta modifica realmente los parámetros estructurales del sistema o repite la misma función reguladora con distinto nombre?",
+      "required_evidence": "Especificación de la regla del sistema antes y después de la intervención y medición del estado tras el cambio."
+    },
+    "reference": {
+      "author": "Paul Watzlawick, John H. Weakland, Richard Fisch",
+      "year": 1974,
+      "work": "Change: Principles of Problem Formation and Problem Resolution (W. W. Norton)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Cibernética",
+        "Teoría de Sistemas",
+        "Terapia Breve de Palo Alto"
+      ],
+      "ref_url": "https://books.google.com/books?id=4C5EAAAAYAAJ"
+    },
+    "c5_axiom_anchor": "Aforismo 3 (la solución intentada es el problema), Corolario del Trampolín Cibernético"
   },
   "manta_de_markov": {
+    "id": "manta_de_markov",
     "canonical_term": "Manta de Markov (Markov Blanket)",
-    "intuicion_borja": "La membrana de aislamiento soberano que rodea el núcleo del operador: separa sus estados internos del entorno hostil, permitiendo solo contacto filtrado a través de puertos sensoriales y de acción controlados",
-    "coverage": 0.96,
-    "verdict": "CONVERGE",
-    "delta": "En C5-REAL opera también como invariante de identidad digital (Air-gap, OPSEC), dimensión ausente en la formulación original de Pearl",
-    "author": "Judea Pearl",
-    "year": 1988,
-    "work": "Probabilistic Reasoning in Intelligent Systems",
-    "discipline": [
-      "Física Estadística",
-      "Inferencia Activa",
-      "Redes Bayesianas",
-      "Biología Teórica"
-    ],
-    "discovered_at": "2026-01-01",
-    "conversation_id": null,
-    "c5_axiom_anchor": "Clausura de Markov (Manifiesto Soberanía I), Invariante de Clausura Epistémica",
-    "ref_url": null
+    "canonical_claim": "En redes bayesianas (Pearl, 1988) y modelos de inferencia activa (Friston, 2013), la manta de Markov de un nodo o conjunto de estados internos es el conjunto mínimo de variables que los hace condicionalmente independientes del resto de la red.",
+    "intuicion_borja": "Diseñar un perímetro de aislamiento alrededor del entorno de trabajo y de los sistemas propios, de modo que las interacciones con el exterior pasen únicamente por canales e interfaces explícitamente definidos.",
+    "mapping": {
+      "type": "ANALOGY",
+      "epistemic_status": "PROVISIONAL",
+      "coverage": null,
+      "unproven_leap": "La independencia condicional en un grafo probabilístico no equivale a aislamiento informático físico ni garantiza protección OPSEC frente a ataques o canales laterales."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "8012d520470b3265381270d4913d3774dcf0f9040e15a5acd3f68939027e25c5",
+      "discovered_at": "2026-01-01",
+      "temporal_priority_verified": false,
+      "conversation_id": null
+    },
+    "falsification": {
+      "question": "¿Existen canales laterales físicos, de red o legales que violen la supuesta independencia condicional entre el nodo interno y el entorno?",
+      "required_evidence": "Auditoría de superficie de ataque, aislamiento de procesos y verificación de tráfico de red (no meramente declarativa)."
+    },
+    "reference": {
+      "author": "Judea Pearl / Karl Friston",
+      "year": 1988,
+      "work": "Probabilistic Reasoning in Intelligent Systems (Pearl, 1988); Life as we know it (Friston, Journal of the Royal Society Interface, 2013)",
+      "type": "FORMAL_DEFINITION",
+      "discipline": [
+        "Redes Bayesianas",
+        "Física Estadística",
+        "Biología Teórica"
+      ],
+      "ref_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3712645/"
+    },
+    "c5_axiom_anchor": "Clausura de Markov (Manifiesto Soberanía I), Invariante de Clausura Epistémica"
   },
   "chentsov": {
+    "id": "chentsov",
     "canonical_term": "Teorema de Chentsov (Fisher-Rao Metric Uniqueness)",
-    "intuicion_borja": "La intuición de que transformar ruido en conceptos no es arbitrario: hay una única forma no distorsiva matemáticamente de comprimir incertidumbre preservando la estructura del territorio",
-    "coverage": 0.95,
-    "verdict": "CONVERGE",
-    "delta": null,
-    "author": "Nikolai Chentsov",
-    "year": 1972,
-    "work": "Statistical Decision Rules and Optimal Inference",
-    "discipline": [
-      "Geometría de la Información",
-      "Estadística Matemática"
-    ],
-    "discovered_at": "2026-01-01",
-    "conversation_id": null,
-    "c5_axiom_anchor": "Aforismo 1 (transformar ruido en conceptos), BORJARIO IR B1-B6",
-    "ref_url": null
+    "canonical_claim": "Unicidad, salvo factor de escala constante, de la métrica de información de Fisher-Rao en variedades estadísticas sobre espacios discretos (Chentsov, 1972) o continuos (Ay et al., 2015) bajo invariancia respecto a morfismos estocásticos de Markov (estadísticos suficientes).",
+    "intuicion_borja": "Existe una estructura no arbitraria para preservar información relevante al comprimir observaciones ruidosas en conceptos operativos.",
+    "mapping": {
+      "type": "ANALOGY",
+      "epistemic_status": "PROVISIONAL",
+      "coverage": null,
+      "unproven_leap": "El teorema caracteriza la invariancia de una métrica riemanniana paramétrica; no demuestra que exista una única compresión semántica o cognitiva de incertidumbre sin distorsión."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "65a34b9547e33d8fafd52a3aae224876c092cfda4de3e93887bdf520c90b2fd8",
+      "discovered_at": "2026-01-01",
+      "temporal_priority_verified": false,
+      "conversation_id": null
+    },
+    "falsification": {
+      "question": "¿La intuición sobre formación de conceptos predice propiedades métricas donde exista una familia paramétrica explícita p(x; θ) y un estadístico suficiente?",
+      "required_evidence": "Formulación operacional de la familia de distribuciones y prueba independiente de suficiencia estadística."
+    },
+    "reference": {
+      "author": "Nikolai N. Chentsov (Čencov) / L. L. Campbell",
+      "year": 1972,
+      "work": "Statistical Decision Rules and Optimal Inference (AMS Translations, 1982; orig. ruso 1972); An Extended Čencov Characterization (Proc. AMS, 1986)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Geometría de la Información",
+        "Estadística Matemática"
+      ],
+      "ref_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7516881/"
+    },
+    "c5_axiom_anchor": "Aforismo 1 (transformar ruido en conceptos), BORJARIO IR B1-B6"
   },
   "senalizacion_costosa": {
+    "id": "senalizacion_costosa",
     "canonical_term": "Señalización Costosa / Principio del Hándicap (Costly Signaling / Handicap Principle)",
-    "intuicion_borja": "Lo voluntario vale menos que lo involuntario: solo las señales que tienen un coste físico prohibitivo de falsificar (dolor, riesgo de ruina, Proof-of-Work) revelan verdad; las palabras, promesas y discursos son cheap talk",
-    "coverage": 0.99,
-    "verdict": "CONVERGE",
-    "delta": null,
-    "author": "Amotz Zahavi",
-    "year": 1975,
-    "work": "Mate Selection — A Selection for a Handicap",
-    "discipline": [
-      "Biología Evolutiva",
-      "Teoría de Juegos",
-      "Economía de la Información"
-    ],
-    "discovered_at": "2026-01-01",
-    "conversation_id": null,
-    "c5_axiom_anchor": "Aforismo 5 (lo voluntario vale menos que lo involuntario)",
-    "ref_url": null
+    "canonical_claim": "En biología evolutiva (Zahavi, 1975; Grafen, 1990) y economía de la información (Spence, 1973), una señal puede ser evolutivamente estable u honesta en equilibrio separador cuando el coste marginal de emitirla es menor para los individuos de alta calidad que para los imitadores.",
+    "intuicion_borja": "Las declaraciones verbales tienen bajo coste de emisión; las señales ligadas a costes materiales, tiempo invertido o respuestas fisiológicas involuntarias aportan mayor evidencia sobre el estado real del emisor.",
+    "mapping": {
+      "type": "PARTIAL",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "Que una señal cueste mucho no garantiza que sea verdadera: su fiabilidad depende de los incentivos y de la asimetría de costes y beneficios diferenciales entre tipos de emisores (pueden existir gastos ostentosos fraudulentos o equilibrios agrupadores)."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-09-10",
+      "original_artifact_sha256": "149fe3e5932008731af6056c567fa7ad15ed414a8315371c742c424397e47a30",
+      "discovered_at": "2026-01-01",
+      "temporal_priority_verified": false,
+      "conversation_id": null
+    },
+    "falsification": {
+      "question": "¿El beneficio de engañar supera el coste de emitir la señal incluso para un agente sin la cualidad subyacente?",
+      "required_evidence": "Análisis de la matriz de pagos y del coste diferencial de falsificación entre agente genuino e imitador."
+    },
+    "reference": {
+      "author": "Amotz Zahavi / Alan Grafen / Michael Spence",
+      "year": 1975,
+      "work": "Mate selection—a selection for a handicap (Journal of Theoretical Biology, 1975); Biological signals as handicaps (Grafen, 1990)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Biología Evolutiva",
+        "Teoría de Juegos",
+        "Economía de la Información"
+      ],
+      "ref_url": "https://pubmed.ncbi.nlm.nih.gov/1195356/"
+    },
+    "c5_axiom_anchor": "Aforismo 5 (lo voluntario vale menos que lo involuntario), Capítulo V (Huella)"
   },
   "limite_de_landauer": {
+    "id": "limite_de_landauer",
     "canonical_term": "Principio / Límite de Landauer (Landauer's Principle)",
-    "intuicion_borja": "El pensamiento y la computación no son abstractos: borrar información o cambiar de contexto disipa calor físico real, y esa fatiga térmica y mental es tan real como cualquier gasto energético mecánico",
-    "coverage": 0.97,
-    "verdict": "CONVERGE",
-    "delta": null,
-    "author": "Rolf Landauer",
-    "year": 1961,
-    "work": "Irreversibility and Heat Generation in the Computing Process (IBM Journal)",
-    "discipline": [
-      "Termodinámica de la Información",
-      "Física Computacional"
-    ],
-    "discovered_at": "2026-01-01",
-    "conversation_id": null,
-    "c5_axiom_anchor": "Límite de Landauer en Vector de Fatiga Cognitiva, Ontological Translator",
-    "ref_url": null
+    "canonical_claim": "Cualquier operación lógicamente irreversible que borre un bit de información en un sistema físico acoplado a un baño térmico a temperatura T disipa al menos k_B T ln 2 de calor en el entorno (Landauer, 1961; Bérut et al., 2012).",
+    "intuicion_borja": "Borrar memoria, cambiar de contexto o sostener procesos de depuración conlleva un desgaste energético y una fatiga mental apreciable en el operador.",
+    "mapping": {
+      "type": "DIVERGE",
+      "epistemic_status": "SCOPE_REDUCED",
+      "coverage": null,
+      "unproven_leap": "La fatiga cognitiva humana por cambio de tarea (task switching) opera a escalas metabólicas y sinápticas órdenes de magnitud por encima de k_B T ln 2 (~2,85 × 10^-21 J a 300 K) y no se deduce del límite termodinámico de borrado de bits."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-07-08",
+      "original_artifact_sha256": "c66f566c05b24bdff288d446885b14d41828ba22e0d9f82e9d741f7f916e0cbb",
+      "discovered_at": "2026-10-15",
+      "temporal_priority_verified": true,
+      "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138"
+    },
+    "falsification": {
+      "question": "¿El fenómeno observado mide disipación física en el límite k_B T ln 2 o mide latencia ejecutiva y coste metabólico cerebral?",
+      "required_evidence": "Separar explícitamente termodinámica de computadores irreversibles (Landauer, 1961) de costes ejecutivos de cambio de tarea (Rubinstein, Meyer & Evans, 2001)."
+    },
+    "reference": {
+      "author": "Rolf Landauer",
+      "year": 1961,
+      "work": "Irreversibility and Heat Generation in the Computing Process (IBM Journal of Research and Development, 1961)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Física de la Información",
+        "Termodinámica Estadística"
+      ],
+      "ref_url": "https://www.nature.com/articles/s42254-019-0071-2"
+    },
+    "c5_axiom_anchor": "Aforismo #1 (El Peaje de Existencia), BORJARIO IR BJR-E091 ([PHYSICAL] vs [METAPHORICAL])"
   },
   "stigmergia": {
+    "id": "stigmergia",
     "canonical_term": "Stigmergia (Stigmergy)",
-    "intuicion_borja": "Múltiples agentes o hilos se coordinan perfectamente sin hablarse ni reunirse: cada uno deja marcas atómicas en un entorno compartido que guían al siguiente agente sin canal directo punto a punto",
-    "coverage": 0.98,
-    "verdict": "CONVERGE",
-    "delta": null,
-    "author": "Pierre-Paul Grassé",
-    "year": 1959,
-    "work": "La reconstruction du nid et les coordinations interindividuelles chez Bellicositermes et Cubitermes (Insectes Sociaux)",
-    "discipline": [
-      "Dinámica de Enjambres",
-      "Robótica Distribuida",
-      "Sistemas Multi-Agente"
-    ],
-    "discovered_at": "2026-01-01",
-    "conversation_id": null,
-    "c5_axiom_anchor": "Diseño de LARSA-120, ledgers SQLite WAL, protocolo de tareas asíncronas",
-    "ref_url": null
+    "canonical_claim": "Mecanismo de coordinación indirecta entre agentes (descrito por Grassé en 1959 en termitas) en el que la traza o modificación dejada por una acción en el medio compartido estimula y orienta las acciones subsiguientes de otros agentes sin comunicación directa.",
+    "intuicion_borja": "Múltiples agentes o procesos pueden coordinarse sin reuniones ni mensajes punto a punto registrando cambios atómicos en un soporte compartido que guía el siguiente paso.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "La coordinación estigmérgica elimina la sobrecarga de mensajería síncrona, pero no funciona infaliblemente: puede sufrir condiciones de carrera, información obsoleta o bucles amplificados si el medio compartido se corrompe."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-10-15",
+      "original_artifact_sha256": "610d2da438616257a894befd6757c8399eb14e7b271ce9915afc17a2d074fa81",
+      "discovered_at": "2026-10-15",
+      "temporal_priority_verified": false,
+      "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138"
+    },
+    "falsification": {
+      "question": "¿Bajo qué tasa de concurrencia o latencia de escritura el estado compartido induce conflictos o bucles estigmérgicos?",
+      "required_evidence": "Pruebas de contención sobre el ledger compartido (ej. SQLite WAL o Seqlock) con múltiples escritores concurrentes."
+    },
+    "reference": {
+      "author": "Pierre-Paul Grassé / Francis Heylighen",
+      "year": 1959,
+      "work": "La reconstruction du nid et les coordinations interindividuelles chez Bellicositermes natalensis et Cubitermes sp. La théorie de la stigmergie (Insectes Sociaux, 1959)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Etología",
+        "Sistemas Multi-Agente",
+        "Cibernética Distribuida"
+      ],
+      "ref_url": "https://doi.org/10.1007/BF02223791"
+    },
+    "c5_axiom_anchor": "Arquitectura de ledgers compartidos SQLite WAL y coordinación asíncrona de subagentes"
   },
   "umwelt": {
+    "id": "umwelt",
     "canonical_term": "Umwelt (Mundo Perceptual Subjetivo)",
-    "intuicion_borja": "Cuando interactúas con un burócrata, cliente o LLM, no están viendo el mismo mundo que tú y negándose a entenderlo: están físicamente limitados por un abanico sensorial y operativo radicalmente distinto e infranqueable",
-    "coverage": 0.97,
-    "verdict": "CONVERGE",
-    "delta": null,
-    "author": "Jakob von Uexküll",
-    "year": 1934,
-    "work": "Streifzüge durch die Umwelten von Tieren und Menschen",
-    "discipline": [
-      "Biosemiótica",
-      "Etología",
-      "Ciencias Cognitivas"
-    ],
-    "discovered_at": "2026-01-01",
-    "conversation_id": null,
-    "c5_axiom_anchor": "Cero demostración (Axioma III Manifiesto), Desacople Quirúrgico",
-    "ref_url": null
+    "canonical_claim": "En la biosemiótica de Jakob von Uexküll (1934), el Umwelt es el subconjunto del entorno que un organismo puede percibir y sobre el cual puede actuar, determinado por la dotación biológica de sus receptores (Merkwelt) y efectores (Wirkwelt).",
+    "intuicion_borja": "Cuando interactúas con un burócrata, un cliente o un modelo de lenguaje, a menudo operan dentro de un marco de variables e incentivos distinto al tuyo, lo que vuelve ineficaz intentar persuadirlos desde tus propias premisas.",
+    "mapping": {
+      "type": "ANALOGY",
+      "epistemic_status": "PROVISIONAL",
+      "coverage": null,
+      "unproven_leap": "En biología, el Umwelt de una especie está fijado por su anatomía sensorial; en interlocutores humanos o institucionales, el marco perceptivo es cultural, normativo o de incentivos, por lo que no es necesariamente físico ni infranqueable."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-10-15",
+      "original_artifact_sha256": "610d2da438616257a894befd6757c8399eb14e7b271ce9915afc17a2d074fa81",
+      "discovered_at": "2026-10-15",
+      "temporal_priority_verified": false,
+      "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138"
+    },
+    "falsification": {
+      "question": "¿La divergencia con el interlocutor se debe a incapacidad estructural de procesamiento o a un conflicto de incentivos y vocabulario traducible?",
+      "required_evidence": "Prueba de traducción de canal (reformular el mensaje en las variables operativas del receptor y medir si cambia la respuesta)."
+    },
+    "reference": {
+      "author": "Jakob von Uexküll",
+      "year": 1934,
+      "work": "Streifzüge durch die Umwelten von Tieren und Menschen (Springer, 1934)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Biosemiótica",
+        "Etología",
+        "Ciencias Cognitivas"
+      ],
+      "ref_url": "https://doi.org/10.1515/semi.1992.89.4.319"
+    },
+    "c5_axiom_anchor": "Ingeniería de Canal (c5_channel_engineering_invariant) y Cero Demostración"
   },
   "bisimulacion": {
+    "id": "bisimulacion",
     "canonical_term": "Bisimulación (Bisimulation)",
-    "intuicion_borja": "Dos sistemas que se comportan de manera indistinguible desde el exterior, aunque internamente sean completamente diferentes: lo único que importa es la observabilidad funcional, no la implementación",
-    "coverage": 0.96,
-    "verdict": "CONVERGE",
-    "delta": null,
-    "author": "David Park / Robin Milner",
-    "year": 1981,
-    "work": "Concurrency and Automata on Infinite Sequences (Park); A Calculus of Communicating Systems (Milner)",
-    "discipline": [
-      "Ciencias de la Computación",
-      "Álgebra de Procesos",
-      "Lógica Modal"
-    ],
-    "discovered_at": "2026-02-01",
-    "conversation_id": null,
-    "c5_axiom_anchor": "Invariante de Clausura Epistémica, mapa vs territorio (Aforismo 2)",
-    "ref_url": null
+    "canonical_claim": "En sistemas de transición de estados (Park, 1981; Milner, 1989), una bisimulación es una relación binaria entre estados tal que si dos estados están relacionados, cada transición de uno puede ser igualada paso a paso por una transición del otro hacia estados que siguen estando en la relación.",
+    "intuicion_borja": "Dos sistemas que se comportan de manera indistinguible desde el exterior pueden tratarse como funcionalmente equivalentes para el observador, aunque su implementación interna difiera.",
+    "mapping": {
+      "type": "DIVERGE",
+      "epistemic_status": "SCOPE_REDUCED",
+      "coverage": null,
+      "unproven_leap": "La intuición describe equivalencia de trazas o equivalencia observacional de caja negra (trace equivalence), pero en ciencia de la computación la bisimulación es estrictamente más fuerte que la equivalencia de trazas: exige correspondencia recursiva en la estructura de ramificación de los estados sucesores."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "65a34b9547e33d8fafd52a3aae224876c092cfda4de3e93887bdf520c90b2fd8",
+      "discovered_at": "2026-02-01",
+      "temporal_priority_verified": false,
+      "conversation_id": null
+    },
+    "falsification": {
+      "question": "¿Los dos sistemas comparten únicamente las mismas trazas lineales de salida o mantienen correspondencia en cada punto de ramificación no determinista?",
+      "required_evidence": "Especificación del sistema de transición etiquetado (LTS) y exhibición de la relación de bisimulación R sobre pares de estados."
+    },
+    "reference": {
+      "author": "David Park / Robin Milner",
+      "year": 1981,
+      "work": "Concurrency and Automata on Infinite Sequences (Park, LNCS 104, 1981); Communication and Concurrency (Milner, 1989)",
+      "type": "FORMAL_DEFINITION",
+      "discipline": [
+        "Ciencias de la Computación",
+        "Álgebra de Procesos",
+        "Verificación Formal"
+      ],
+      "ref_url": "http://theory.stanford.edu/~rvg/bisimulation.html"
+    },
+    "c5_axiom_anchor": "Capítulo II (Bisimulación y Complemento Ortogonal), Invariante de Clausura Epistémica"
   },
   "ergodicidad": {
-    "canonical_term": "Ergodicidad / No-Ergodicidad (Ergodicity)",
-    "intuicion_borja": "El promedio de lo que le ocurre a muchos individuos distintos en un momento dado no predice lo que le ocurrirá a un solo individuo a lo largo del tiempo — son física y matemáticamente distintos",
-    "coverage": 0.98,
-    "verdict": "CONVERGE",
-    "delta": null,
-    "author": "Ludwig Boltzmann / Ole Peters",
-    "year": 2019,
-    "work": "The Ergodicity Problem in Economics (Peters, Nature Physics, 2019)",
-    "discipline": [
-      "Física Estadística",
-      "Economía Crítica",
-      "Teoría del Riesgo"
-    ],
-    "discovered_at": "2026-02-01",
-    "conversation_id": null,
-    "c5_axiom_anchor": "Soberanía frente a modelos económicos gregarios, Manifiesto II",
-    "ref_url": "https://www.nature.com/articles/s41567-019-0732-0"
+    "id": "ergodicidad",
+    "canonical_term": "Ergodicidad y Ruptura de Ergodicidad (Non-Ergodicity)",
+    "canonical_claim": "Un proceso estocástico es ergódico respecto a un observable si su promedio temporal a lo largo de una trayectoria suficientemente larga coincide con el promedio de conjunto sobre el espacio de estados (Boltzmann, s. XIX; Birkhoff, 1931). En procesos multiplicativos con barreras absorbentes (Peters, 2019), ambos promedios divergen.",
+    "intuicion_borja": "El promedio estadístico de lo que le ocurre a un colectivo en un instante dado no describe lo que le ocurrirá a un individuo concreto a lo largo del tiempo cuando existe riesgo de ruina irreversible.",
+    "mapping": {
+      "type": "EXTENSION",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "Distingue la formulación histórica en mecánica estadística (Boltzmann) de la economía ergódica contemporánea (Peters, 2019); extenderla a decisiones vitales generales requiere especificar si la dinámica subyacente es realmente multiplicativa o tiene estados absorbentes."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-09-23",
+      "original_artifact_sha256": "973d5df6df2a1ee4570369e5b7de8f49fad38e740c5ab0b12119c786dd7bfc10",
+      "discovered_at": "2026-02-01",
+      "temporal_priority_verified": false,
+      "conversation_id": null
+    },
+    "falsification": {
+      "question": "¿El proceso analizado presenta dinámica multiplicativa o barrera de absorción (ruina), o es un proceso estacionario aditivo donde la media muestral sí converge?",
+      "required_evidence": "Modelado explícito de la ecuación de actualización temporal del recurso y verificación de la tasa de crecimiento temporal frente a la esperanza de conjunto."
+    },
+    "reference": {
+      "author": "Ludwig Boltzmann / George D. Birkhoff / Ole Peters",
+      "year": 2019,
+      "work": "The ergodicity problem in economics (Ole Peters, Nature Physics, 2019)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Física Estadística",
+        "Teoría de la Probabilidad",
+        "Economía del Riesgo"
+      ],
+      "ref_url": "https://www.nature.com/articles/s41567-019-0732-0"
+    },
+    "c5_axiom_anchor": "Soberanía frente a promedios gregarios, Aforismo #33 (Criterio de Kelly)"
   },
   "goodhart": {
-    "canonical_term": "Ley de Goodhart / Ley de Campbell",
-    "intuicion_borja": "Cuando una métrica se convierte en el objetivo, deja de ser una buena métrica: el sistema aprende a optimizar el indicador destruyendo la variable real que se pretendía medir",
-    "coverage": 0.99,
-    "verdict": "CONVERGE",
-    "delta": null,
-    "author": "Charles Goodhart / Donald T. Campbell",
-    "year": 1975,
-    "work": "Problems of Monetary Management (Goodhart, 1975); Assessing the Impact of Planned Social Change (Campbell, 1976)",
-    "discipline": [
-      "Sociología",
-      "Cibernética Social",
-      "Economía",
-      "Diseño de Incentivos"
-    ],
-    "discovered_at": "2026-03-01",
-    "conversation_id": null,
-    "c5_axiom_anchor": "Purga de métricas fake (Linter de Aforismo 5), BORJARIO IR B2",
-    "ref_url": null
+    "id": "goodhart",
+    "canonical_term": "Ley de Goodhart / Ley de Campbell / Paráfrasis de Strathern",
+    "canonical_claim": "Goodhart (1975) observó que toda regularidad estadística tiende a desmoronarse cuando se le aplica presión con fines de control monetario; Campbell (1976) formuló que cuanto más se usa un indicador social cuantitativo para tomar decisiones, más sujeto está a presiones de corrupción; Strathern (1997) lo sintetizó como: «Cuando una medida se convierte en objetivo, deja de ser una buena medida».",
+    "intuicion_borja": "Cuando una organización o un modelo optimiza directamente el indicador con el que se le evalúa, acaba distorsionando el indicador y degradando la propiedad real que se buscaba medir.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "Conviene distinguir las tres fuentes (estabilidad econométrica en Goodhart, incentivos burocráticos en Campbell y auditoría institucional en Strathern); además, una métrica acoplada directamente a una invariante física verificable es menos vulnerable que un proxy indirecto."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-09-10",
+      "original_artifact_sha256": "149fe3e5932008731af6056c567fa7ad15ed414a8315371c742c424397e47a30",
+      "discovered_at": "2026-03-01",
+      "temporal_priority_verified": false,
+      "conversation_id": null
+    },
+    "falsification": {
+      "question": "¿El indicador optimizado es un proxy estadístico desacoplable de la propiedad objetivo o es una prueba determinista de la propiedad misma?",
+      "required_evidence": "Auditoría de divergencia entre la métrica proxy reportada y la validación independiente fuera de muestra."
+    },
+    "reference": {
+      "author": "Charles Goodhart / Donald T. Campbell / Marilyn Strathern",
+      "year": 1975,
+      "work": "Problems of Monetary Management (Goodhart, 1975); Assessing the Impact of Planned Social Change (Campbell, 1976); 'Improving ratings': audit in the British University system (Strathern, European Review, 1997)",
+      "type": "EMPIRICAL_STUDY",
+      "discipline": [
+        "Economía Monetaria",
+        "Sociología de las Organizaciones",
+        "Alineamiento de Sistemas"
+      ],
+      "ref_url": "https://onlinelibrary.wiley.com/doi/10.1002/(SICI)1234-981X(199707)5:3%3C305::AID-EURO184%3E3.0.CO;2-4"
+    },
+    "c5_axiom_anchor": "Purga de métricas autoproyectadas (coverage: null en C5_LEXICON v1.1), BORJARIO IR B2"
   },
   "direct_manipulation": {
+    "id": "direct_manipulation",
     "canonical_term": "Manipulación Directa (Direct Manipulation)",
-    "intuicion_borja": "Cuanto más cerca está una idea de tocar el mundo, menos ornamental se vuelve la interfaz: la supresión de la distancia operativa elimina la necesidad de florituras estéticas mediadoras",
-    "coverage": 0.96,
-    "verdict": "CONVERGE",
-    "delta": null,
-    "author": "Ben Shneiderman",
-    "year": 1982,
-    "work": "The Future of Interactive Systems and the Emergence of Direct Manipulation (Behaviour & Information Technology)",
-    "discipline": [
-      "HCI",
-      "Psicología Ecológica",
-      "Diseño de Sistemas"
-    ],
-    "discovered_at": "2026-10-15",
-    "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138",
-    "c5_axiom_anchor": "Aforismo 1 (compresión), Aforismo 2 (el mapa no es el territorio), Invariante de la Forma Primordial",
-    "ref_url": "https://doi.org/10.1080/01449298208914456"
+    "canonical_claim": "En Shneiderman (1982, 1983) y Hutchins, Hollan y Norman (1985), una interfaz de manipulación directa se caracteriza por la representación continua de los objetos de interés, acciones físicas o incrementales rápidas, reversibles y con retroalimentación inmediatamente visible.",
+    "intuicion_borja": "Cuanto más cerca está una herramienta de operar directamente sobre el objeto de trabajo, menos intermediación ornamental necesita su interfaz.",
+    "mapping": {
+      "type": "PARTIAL",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "La definición de Shneiderman exige visibilidad de objetos, acciones directas, respuesta inmediata y reversibilidad; la ausencia de ornamento visual es una preferencia de diseño, y la sensación de inmediatez no elimina la mediación interna del software."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-10-15",
+      "original_artifact_sha256": "610d2da438616257a894befd6757c8399eb14e7b271ce9915afc17a2d074fa81",
+      "discovered_at": "2026-10-15",
+      "temporal_priority_verified": false,
+      "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138"
+    },
+    "falsification": {
+      "question": "¿La interfaz ofrece reversibilidad inmediata y representación continua del estado, o es simplemente una interfaz austera por línea de comandos?",
+      "required_evidence": "Evaluación de distancia semántica y articulatoria según Hutchins, Hollan y Norman (1985)."
+    },
+    "reference": {
+      "author": "Ben Shneiderman / Edwin L. Hutchins, James D. Hollan, Donald A. Norman",
+      "year": 1982,
+      "work": "The future of interactive systems and the emergence of direct manipulation (Behaviour & Information Technology, 1982); Direct Manipulation Interfaces (HCI, 1985)",
+      "type": "DESIGN_HEURISTIC",
+      "discipline": [
+        "Human-Computer Interaction (HCI)",
+        "Diseño de Interfaces"
+      ],
+      "ref_url": "https://doi.org/10.1080/01449298208914456"
+    },
+    "c5_axiom_anchor": "Aforismo #120 (El Software Invisible)"
   },
   "deep_modules": {
-    "canonical_term": "Módulos Profundos (Deep Modules vs Shallow Modules)",
-    "intuicion_borja": "Cuanto más denso y probado en silicio sea el núcleo, más corta, sencilla y limpia es la superficie de la interfaz/API: máxima funcionalidad interna con mínima fricción superficial",
-    "coverage": 0.98,
-    "verdict": "CONVERGE",
-    "delta": null,
-    "author": "John Ousterhout",
-    "year": 2018,
-    "work": "A Philosophy of Software Design (Stanford University)",
-    "discipline": [
-      "Arquitectura de Software Formal",
-      "Teoría de Sistemas"
-    ],
-    "discovered_at": "2026-10-15",
-    "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138",
-    "c5_axiom_anchor": "Aforismo 1 (compresión), Manta de Markov (frontera estrecha)",
-    "ref_url": "https://web.stanford.edu/~ouster/cgi-bin/book.php"
+    "id": "deep_modules",
+    "canonical_term": "Módulos Profundos (Deep Modules vs. Shallow Modules)",
+    "canonical_claim": "En la arquitectura de software de John Ousterhout (2018), los módulos más eficaces para gestionar la complejidad son aquellos que ocultan una funcionalidad interna sustancial detrás de una interfaz simple y reducida.",
+    "intuicion_borja": "Un componente de software bien resuelto concentra la complejidad y la validación en su núcleo interno y expone al exterior una superficie de llamada mínima.",
+    "mapping": {
+      "type": "EXTENSION",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "La profundidad modular de Ousterhout es un principio de encapsulación de complejidad en ingeniería de software; no implica por sí misma verificación formal en Lean 4 ni pruebas criptográficas en silicio, que son extensiones del estándar C5-REAL."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-10-15",
+      "original_artifact_sha256": "610d2da438616257a894befd6757c8399eb14e7b271ce9915afc17a2d074fa81",
+      "discovered_at": "2026-10-15",
+      "temporal_priority_verified": false,
+      "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138"
+    },
+    "falsification": {
+      "question": "¿La interfaz estrecha oculta abstracciones bien definidas o esconde acoplamientos implícitos y efectos secundarios no documentados?",
+      "required_evidence": "Medición de superficie de API pública frente a cobertura de tests e invariantes del módulo."
+    },
+    "reference": {
+      "author": "John Ousterhout",
+      "year": 2018,
+      "work": "A Philosophy of Software Design (Yaknyam Press, Stanford University, 2018)",
+      "type": "DESIGN_HEURISTIC",
+      "discipline": [
+        "Ingeniería de Software",
+        "Diseño de Sistemas"
+      ],
+      "ref_url": "https://web.stanford.edu/~ouster/cgi-bin/book.php"
+    },
+    "c5_axiom_anchor": "Aforismo 1 (compresión), Arquitectura de micro-kernels C5-REAL"
   },
   "gender_equality_paradox": {
-    "canonical_term": "Paradoja de Igualdad de Género (Gender-Equality Paradox)",
-    "intuicion_borja": "Cuanto más libre y rico es un país, más divergen los sexos en sus elecciones y aversión al riesgo: eliminar barreras no homogeniza, acentúa diferencias intrínsecas",
-    "coverage": 0.97,
-    "verdict": "CONVERGE",
-    "delta": null,
-    "author": "Armin Falk, Johannes Hermle / Gijsbert Stoet, David Geary",
-    "year": 2018,
-    "work": "Relationship of Gender Differences in Preferences to Economic Development and Gender Equality (Science, 2018)",
-    "discipline": [
-      "Economía del Comportamiento",
-      "Psicología Diferencial",
-      "Ciencia de Datos"
-    ],
-    "discovered_at": "2026-10-15",
-    "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138",
-    "c5_axiom_anchor": "Aforismo 5 (lo involuntario/biológico prima cuando cesa la coacción económica exterior)",
-    "ref_url": "https://doi.org/10.1126/science.aas9899"
+    "id": "gender_equality_paradox",
+    "canonical_term": "Paradoja de la Igualdad de Género (Gender-Equality Paradox)",
+    "canonical_claim": "Estudios comparativos internacionales (Stoet & Geary, 2018; Falk & Hermle, 2018) observaron que países con mayores índices agregados de igualdad de género y desarrollo económico presentaban mayores diferencias medias entre hombres y mujeres en graduados STEM o preferencias declaradas, aunque estudios posteriores (Stoet & Geary, 2020; Richardson et al., 2020; Breda et al., 2020) señalaron correcciones de cálculo, sensibilidad a las métricas y explicaciones por estereotipos culturales o estructura económica.",
+    "intuicion_borja": "En países con mayor renta e igualdad formal se observan diferencias acusadas entre sexos en la elección de ciertas carreras y preferencias.",
+    "mapping": {
+      "type": "DIVERGE",
+      "epistemic_status": "CHALLENGED",
+      "coverage": null,
+      "unproven_leap": "Una correlación transnacional a nivel agregado (sujeta a falacia ecológica y a debate metodológico sobre los índices compuestos) no demuestra que las diferencias observadas provengan exclusivamente de causas biológicas intrínsecas libres de mediación cultural."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-10-15",
+      "original_artifact_sha256": "610d2da438616257a894befd6757c8399eb14e7b271ce9915afc17a2d074fa81",
+      "discovered_at": "2026-10-15",
+      "temporal_priority_verified": false,
+      "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138"
+    },
+    "falsification": {
+      "question": "¿Se mantiene la correlación al controlar por normas de género implícitas (Breda et al., 2020) y por la definición del denominador de graduados STEM (Richardson et al., 2020)?",
+      "required_evidence": "Análisis longitudinal cuasi-experimental a nivel individual, separando incentivos económicos, normas culturales y factores psicobiológicos."
+    },
+    "reference": {
+      "author": "Gijsbert Stoet, David C. Geary / Armin Falk, Johannes Hermle / Sarah S. Richardson et al.",
+      "year": 2018,
+      "work": "The Gender-Equality Paradox in Science, Technology, Engineering, and Mathematics Education (Psychological Science, 2018; Corrigendum 2020); Relationship of gender differences in preferences to economic development and gender equality (Science, 2018)",
+      "type": "EMPIRICAL_STUDY",
+      "discipline": [
+        "Psicología Diferencial",
+        "Economía del Comportamiento",
+        "Sociología de la Ciencia"
+      ],
+      "ref_url": "https://journals.sagepub.com/doi/10.1177/0956797617741719"
+    },
+    "c5_axiom_anchor": "Separación entre correlación observacional y mecanismo causal (Aforismo #117 y #118)"
   },
   "lemons_problem": {
-    "canonical_term": "Problema de los Limones / Asimetría de Información (The Lemons Problem)",
-    "intuicion_borja": "Cuanto más endeble o adulterado es el producto, mayor es el despliegue de marketing, cosmética y simpatía comercial: el envoltorio tapa la falta de sustrato",
-    "coverage": 0.98,
-    "verdict": "CONVERGE",
-    "delta": "C5-REAL lo aplica al software y a la retórica de IAs (cheap talk como limones cognitivos)",
-    "author": "George Akerlof / Philip Nelson",
-    "year": 1970,
-    "work": "The Market for 'Lemons': Quality Uncertainty and the Market Mechanism (QJE)",
-    "discipline": [
-      "Economía de la Información",
-      "Teoría de Juegos"
-    ],
-    "discovered_at": "2026-10-15",
-    "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138",
-    "c5_axiom_anchor": "Aforismo 5 (asimetría de coste de falsificación, cheap talk)",
-    "ref_url": "https://doi.org/10.2307/1879431"
+    "id": "lemons_problem",
+    "canonical_term": "Problema de los Limones y Selección Adversa (The Market for 'Lemons')",
+    "canonical_claim": "En Akerlof (1970), cuando los compradores no pueden observar la calidad de un bien antes de la compra y los vendedores sí (asimetría de información), el precio de mercado refleja la calidad media, expulsando a los bienes de alta calidad (selección adversa). En Nelson (1974), el gasto publicitario en bienes de experiencia puede operar como señal de inversión recuperable mediante compras repetidas.",
+    "intuicion_borja": "En mercados donde el comprador no puede verificar fácilmente la calidad técnica de un producto, proliferan los envoltorios comerciales llamativos para colocar productos mediocres.",
+    "mapping": {
+      "type": "DIVERGE",
+      "epistemic_status": "SCOPE_REDUCED",
+      "coverage": null,
+      "unproven_leap": "El teorema de Akerlof demuestra selección adversa bajo asimetría informativa, no que un producto peor despliegue siempre más marketing (de hecho, en el modelo de señalización de Nelson ocurre lo contrario para bienes de compra repetida)."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-10-15",
+      "original_artifact_sha256": "610d2da438616257a894befd6757c8399eb14e7b271ce9915afc17a2d074fa81",
+      "discovered_at": "2026-10-15",
+      "temporal_priority_verified": false,
+      "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138"
+    },
+    "falsification": {
+      "question": "¿Estamos ante un bien de compra única sin garantías (donde el cheap talk engaña) o ante un bien de experiencia repetida donde la publicidad hunde capital recuperable solo si el producto retiene al cliente?",
+      "required_evidence": "Datos empíricos de correlación entre gasto publicitario y tasa de fallo técnico por tipo de mercado."
+    },
+    "reference": {
+      "author": "George A. Akerlof / Phillip Nelson",
+      "year": 1970,
+      "work": "The Market for 'Lemons': Quality Uncertainty and the Market Mechanism (Quarterly Journal of Economics, 1970); Advertising as Information (Journal of Political Economy, 1974)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Economía de la Información",
+        "Microeconomía"
+      ],
+      "ref_url": "https://doi.org/10.2307/1879431"
+    },
+    "c5_axiom_anchor": "Aforismo 5 (asimetría de información), Aforismo #145 (Desnudar el territorio)"
   },
   "psychological_reactance": {
-    "canonical_term": "Reactancia Psicológica / Efecto Cobra (Psychological Reactance)",
-    "intuicion_borja": "Cuanto más intentas prohibir o regular coercitivamente un comportamiento, más se multiplica la demanda y la energía en la dirección contraria",
-    "coverage": 0.97,
-    "verdict": "CONVERGE",
-    "delta": null,
-    "author": "Jack Brehm / Robert K. Merton",
-    "year": 1966,
-    "work": "A Theory of Psychological Reactance (Academic Press, 1966)",
-    "discipline": [
-      "Psicología Social",
-      "Cibernética de Sistemas",
-      "Teoría de Políticas Públicas"
-    ],
-    "discovered_at": "2026-10-15",
-    "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138",
-    "c5_axiom_anchor": "Aforismo 3 (la solución intentada es el problema, retroalimentación positiva de regulador descalibrado)",
-    "ref_url": null
+    "id": "psychological_reactance",
+    "canonical_term": "Reactancia Psicológica (Psychological Reactance) y Efecto Cobra",
+    "canonical_claim": "En psicología social (Brehm, 1966), la reactancia es el estado motivacional de rechazo que aparece cuando un individuo percibe que su libertad de elección es amenazada o eliminada, aumentando el atractivo de la opción restringida. Por separado, en economía y políticas públicas, el efecto cobra (Siebert, 2001) y las consecuencias imprevistas (Merton, 1936) describen incentivos perversos que agravan el problema que pretendían corregir.",
+    "intuicion_borja": "La prohibición coercitiva o mal calibrada de una conducta puede aumentar el atractivo de lo prohibido o generar incentivos que agravan el fenómeno.",
+    "mapping": {
+      "type": "PARTIAL",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "Conviene separar dos mecanismos distintos: la reactancia psicológica (respuesta motivacional ante la pérdida de libertad en Brehm) y el efecto cobra (respuesta racional a un esquema de incentivos mal diseñado en Siebert)."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-10-15",
+      "original_artifact_sha256": "610d2da438616257a894befd6757c8399eb14e7b271ce9915afc17a2d074fa81",
+      "discovered_at": "2026-10-15",
+      "temporal_priority_verified": false,
+      "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138"
+    },
+    "falsification": {
+      "question": "¿El aumento de la conducta prohibida se debe a desafío psicológico ante la restricción (reactancia) o a una recompensa económica/institucional mal acoplada (efecto cobra)?",
+      "required_evidence": "Desglose del mecanismo de retroalimentación: medición de actitud hacia la prohibición frente a análisis de rentabilidad económica del actor."
+    },
+    "reference": {
+      "author": "Jack W. Brehm / Robert K. Merton / Horst Siebert",
+      "year": 1966,
+      "work": "A Theory of Psychological Reactance (Academic Press, 1966); The Unanticipated Consequences of Purposive Social Action (Merton, ASR, 1936); Der Kobra-Effekt (Siebert, 2001)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Psicología Social",
+        "Sociología",
+        "Diseño de Políticas Públicas"
+      ],
+      "ref_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4675534/"
+    },
+    "c5_axiom_anchor": "Aforismo 3 (la solución intentada es el problema), Caso 10.2 (Ley Seca)"
   },
   "transient_hypofrontality": {
-    "canonical_term": "Hipofrontalidad Transitoria / Wu Wei (Transient Hypofrontality)",
-    "intuicion_borja": "Cuanto más se quitaba de en medio y dejaba de creer que era él quien lo hacía, mejor fluía el canal: la voluntad consciente solo es andamiaje previo",
-    "coverage": 0.99,
-    "verdict": "CONVERGE",
-    "delta": null,
-    "author": "Arne Dietrich / Mihaly Csikszentmihalyi",
-    "year": 2004,
-    "work": "Neurocognitive Mechanisms of the Flow State (Consciousness and Cognition)",
-    "discipline": [
-      "Neurociencia Cognitiva",
-      "Filosofía de la Mente",
-      "Teoría del Arte"
-    ],
-    "discovered_at": "2026-10-15",
-    "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138",
-    "c5_axiom_anchor": "Corolario de la Emergencia Transductiva (Si es genial, no era tu idea), Aforismo 5",
-    "ref_url": "https://doi.org/10.1016/j.concog.2004.07.002"
+    "id": "transient_hypofrontality",
+    "canonical_term": "Hipótesis de Hipofrontalidad Transitoria, Estado de Flujo y Wu Wei",
+    "canonical_claim": "Dietrich (2003, 2004) propuso la hipótesis neurocientífica de que ciertos estados alterados o de ejecución motora intensa implican una disminución temporal de actividad en regiones prefrontales ejecutivas. Por separado, Csikszentmihalyi (1975) definió psicológicamente el estado de flujo (absorción en una tarea con equilibrio entre reto y habilidad), y el taoísmo clásico formuló el concepto filosófico de wu wei (acción sin forzamiento).",
+    "intuicion_borja": "Una vez automatizada la técnica mediante práctica previa, reducir la autovigilancia consciente durante la ejecución facilita que la acción fluya con menor interferencia.",
+    "mapping": {
+      "type": "DIVERGE",
+      "epistemic_status": "SCOPE_REDUCED",
+      "coverage": null,
+      "unproven_leap": "No deben equipararse como idénticos una hipótesis neurofisiológica en debate (hipofrontalidad transitoria de Dietrich, 2003, dado que varias tareas de flujo requieren redes frontoparietales de control atencional), un constructo psicológico (flujo) y una categoría filosófica (wu wei)."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-10-15",
+      "original_artifact_sha256": "610d2da438616257a894befd6757c8399eb14e7b271ce9915afc17a2d074fa81",
+      "discovered_at": "2026-10-15",
+      "temporal_priority_verified": false,
+      "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138"
+    },
+    "falsification": {
+      "question": "¿La tarea ejecutada en estado de flujo reduce globalmente la actividad prefrontal o desactiva la red por defecto (DMN) mientras mantiene activa la red frontoparietal de control ejecutivo?",
+      "required_evidence": "Neuroimagen funcional (fMRI/EEG) específica de la tarea considerada (Ulrich et al., 2014; Dietrich, 2003)."
+    },
+    "reference": {
+      "author": "Arne Dietrich / Mihaly Csikszentmihalyi",
+      "year": 2003,
+      "work": "Functional neuroanatomy of altered states of consciousness: The transient hypofrontality hypothesis (Consciousness and Cognition, 2003); Neurocognitive mechanisms underlying the experience of flow (Dietrich, 2004)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Neurociencia Cognitiva",
+        "Psicología de la Ejecución",
+        "Filosofía Comparada"
+      ],
+      "ref_url": "https://pubmed.ncbi.nlm.nih.gov/12763007/"
+    },
+    "c5_axiom_anchor": "Corolario de la Emergencia Transductiva, Aforismo #146 y #149"
   },
   "galls_law": {
+    "id": "galls_law",
     "canonical_term": "Ley de Gall (Gall's Law / Systemantics)",
-    "intuicion_borja": "Cuando un sistema prolifera en capas que no tocan el sustrato, la complejidad agregada degrada la fiabilidad: los sistemas complejos que funcionan siempre evolucionaron desde sistemas simples probados",
-    "coverage": 0.99,
-    "verdict": "CONVERGE",
-    "delta": null,
-    "author": "John Gall",
-    "year": 1975,
-    "work": "Systemantics: How Systems Really Work and How They Fail (General Systemantics Press)",
-    "discipline": [
-      "Teoría General de Sistemas",
-      "Ingeniería de Software"
-    ],
-    "discovered_at": "2026-10-15",
-    "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138",
-    "c5_axiom_anchor": "Framework MASS (Stage 1 Block-Level antes de Stage 2 Topología)",
-    "ref_url": null
+    "canonical_claim": "En General Systemantics (John Gall, 1975), se formula como principio empírico de diseño de sistemas que los sistemas complejos que funcionan suelen haber evolucionado a partir de sistemas simples que funcionaban previamente, mientras que los sistemas complejos diseñados de golpe desde cero tienden a fallar.",
+    "intuicion_borja": "Cuando una arquitectura acumula capas de orquestación sin haber validado primero que cada componente individual funciona sobre el sustrato, la complejidad agregada degrada la fiabilidad.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "La Ley de Gall es una heurística prudencial de ingeniería de sistemas e historia de las organizaciones, no una ley matemática universal (existen sistemas formales o físicos que requieren un umbral mínimo irreducible de componentes acoplados para operar)."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-10-15",
+      "original_artifact_sha256": "610d2da438616257a894befd6757c8399eb14e7b271ce9915afc17a2d074fa81",
+      "discovered_at": "2026-10-15",
+      "temporal_priority_verified": false,
+      "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138"
+    },
+    "falsification": {
+      "question": "¿El sistema bajo diseño admite descomposición en bloques funcionales independientes (Stage 1) o posee una cota mínima de acoplamiento irreductible (ej. quórum BFT 3f+1)?",
+      "required_evidence": "Prueba unitaria de utilidad aislada por bloque antes de componer la topología."
+    },
+    "reference": {
+      "author": "John Gall",
+      "year": 1975,
+      "work": "General Systemantics: An Essay on How Systems Work, and Especially How They Fail (General Systemantics Press, 1975)",
+      "type": "DESIGN_HEURISTIC",
+      "discipline": [
+        "Teoría General de Sistemas",
+        "Ingeniería de Software"
+      ],
+      "ref_url": "https://books.google.com/books?id=r3hQAAAAMAAJ"
+    },
+    "c5_axiom_anchor": "Invariante de Topología Causal (Framework MASS: validar nivel bloque antes de topología)"
   },
   "dunning_kruger": {
+    "id": "dunning_kruger",
     "canonical_term": "Efecto Dunning-Kruger (Dunning-Kruger Effect)",
-    "intuicion_borja": "Cuanto menos entendía un concepto, más fuerte gritaba y más agresivo era el tono: el dogmatismo y el volumen retórico suplen la falta de suelo matemático",
-    "coverage": 0.98,
-    "verdict": "CONVERGE",
-    "delta": null,
-    "author": "David Dunning, Justin Kruger",
-    "year": 1999,
-    "work": "Unskilled and Unaware of It: How Difficulties in Recognizing One's Own Incompetence Lead to Inflated Self-Assessments (JPSP)",
-    "discipline": [
-      "Psicología Cognitiva",
-      "Epistemología Social"
-    ],
-    "discovered_at": "2026-10-15",
-    "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138",
-    "c5_axiom_anchor": "Axioma III (Cero Demostración, Dunning-Kruger Inverso)",
-    "ref_url": "https://doi.org/10.1037/0022-3514.77.6.1121"
+    "canonical_claim": "Kruger y Dunning (1999) observaron que participantes en el cuartil inferior de rendimiento en pruebas de humor, lógica y gramática sobreestimaban su percentil relativo debido a dificultades metacognitivas para reconocer sus propios errores; estudios posteriores (Krueger & Mueller, 2002; Gignac & Zajenkowski, 2020) argumentaron que gran parte del patrón observado se explica por regresión a la media en presencia de error de medición y sesgo de mejor que la media.",
+    "intuicion_borja": "Quien menos domina los fundamentos técnicos de un problema suele sobreestimar su competencia y, en ocasiones, intenta suplir la falta de argumentos con asertividad o volumen retórico.",
+    "mapping": {
+      "type": "DIVERGE",
+      "epistemic_status": "CHALLENGED",
+      "coverage": null,
+      "unproven_leap": "La agresividad, el dogmatismo y el volumen retórico no forman parte de la definición ni de las mediciones experimentales de Kruger y Dunning (1999), que estudian exclusivamente la calibración de la autoevaluación frente al percentil real."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-06-07",
+      "original_artifact_sha256": "123d8f9cfe2dc1d40879e1b4980ad564b6925d4db91bfb1f1121733c3996ea1e",
+      "discovered_at": "2026-10-15",
+      "temporal_priority_verified": true,
+      "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138"
+    },
+    "falsification": {
+      "question": "¿La sobreestimación observada supera el efecto estadístico de regresión a la media (Krueger & Mueller, 2002) y existe correlación medida con la hostilidad verbal?",
+      "required_evidence": "Corrección de fiabilidad test-retest (Gignac & Zajenkowski, 2020) y medición separada de rasgos de asertividad/agresividad."
+    },
+    "reference": {
+      "author": "Justin Kruger, David Dunning / Joachim I. Krueger, Ross A. Mueller",
+      "year": 1999,
+      "work": "Unskilled and unaware of it: How difficulties in recognizing one's own incompetence lead to inflated self-assessments (JPSP, 1999); Unskilled, unaware, or both? The better-than-average heuristic and statistical regression predict errors in estimates of own performance (JPSP, 2002)",
+      "type": "EMPIRICAL_STUDY",
+      "discipline": [
+        "Psicología Cognitiva",
+        "Psicometría"
+      ],
+      "ref_url": "https://pubmed.ncbi.nlm.nih.gov/10626367/"
+    },
+    "c5_axiom_anchor": "Axioma III del Manifiesto (Cero Demostración), Aforismo #138 (El Filtro Paso-Bajo)"
   },
   "simulacra_hyperreality": {
-    "canonical_term": "Hiperrealidad y Simulacro (Simulacra and Simulation)",
-    "intuicion_borja": "Cuando un sistema vive de la simulación (#C4-SIM), cualquier input del territorio real provoca un crash fatal: la pérdida del anclaje físico destruye la homeostasis",
-    "coverage": 0.96,
-    "verdict": "CONVERGE",
-    "delta": "C5-REAL lo traduce a cibernética de control: divergencia de modelo interno y desincronización de Markov",
-    "author": "Jean Baudrillard",
-    "year": 1981,
-    "work": "Simulacres et Simulation (Éditions Galilée)",
-    "discipline": [
-      "Filosofía Crítica",
-      "Semiótica",
-      "Cibernética de Control"
-    ],
-    "discovered_at": "2026-10-15",
-    "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138",
-    "c5_axiom_anchor": "Aforismo 2 (confundir mapa con territorio), Invariante de Clausura Epistémica",
-    "ref_url": null
+    "id": "simulacra_hyperreality",
+    "canonical_term": "Simulacro e Hiperrealidad (Simulacra and Hyperreality)",
+    "canonical_claim": "En la filosofía crítica y semiótica de Jean Baudrillard (1981), el simulacro alcanza una fase (hiperrealidad) en la que los signos y modelos autorreferenciales sustituyen a la realidad de referencia y operan sin necesidad de un original externo.",
+    "intuicion_borja": "Cuando una organización o un modelo cognitivo se encierra en sus propias representaciones internas sin contrastarlas con el entorno, el choque con hechos externos no previstos produce fallos graves de adaptación.",
+    "mapping": {
+      "type": "ANALOGY",
+      "epistemic_status": "PROVISIONAL",
+      "coverage": null,
+      "unproven_leap": "En Baudrillard el simulacro es una categoría sociológica y semiótica; afirmar que el contacto con el entorno físico provoca un fallo de homeostasis o un crash del sistema es una hipótesis cibernética adicional (divergencia modelo-planta en teoría de control), no una consecuencia demostrada por Baudrillard."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-10-03",
+      "original_artifact_sha256": "16d2a4efc269891503b6c9a9b5491b5350b909f952135e46a75acabb7ec23b83",
+      "discovered_at": "2026-10-15",
+      "temporal_priority_verified": true,
+      "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138"
+    },
+    "falsification": {
+      "question": "¿El sistema cerrado en su representación interna colapsa al recibir datos externos o dispone de mecanismos de amortiguación institucional que le permiten ignorar el error durante décadas?",
+      "required_evidence": "Medición del tiempo de supervivencia de un modelo desacoplado frente a perturbaciones externas con y sin subsidio institucional."
+    },
+    "reference": {
+      "author": "Jean Baudrillard",
+      "year": 1981,
+      "work": "Simulacres et Simulation (Éditions Galilée, 1981)",
+      "type": "PHILOSOPHICAL_CONCEPT",
+      "discipline": [
+        "Filosofía Crítica",
+        "Semiótica"
+      ],
+      "ref_url": "https://books.google.com/books?id=9Z9biH63154C"
+    },
+    "c5_axiom_anchor": "Aforismo 2 (confundir mapa con territorio), Aforismo #109 (El Espejo Sin Mundo)"
   }
 }

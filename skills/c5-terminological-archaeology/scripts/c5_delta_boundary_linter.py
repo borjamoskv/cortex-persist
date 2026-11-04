@@ -146,17 +146,17 @@ def compute_similarity(intuition: str, canonical: str) -> dict:
     }
 
 
-def load_lexicon_definitions() -> dict[str, str]:
-    """Carga las definiciones del C5_LEXICON.json para comparación enriquecida."""
+def load_lexicon_definitions() -> dict[str, dict]:
+    """Carga las entradas del C5_LEXICON.json (v1.1) para comparación enriquecida."""
     if not LEXICON_PATH.exists():
         return {}
     try:
         with open(LEXICON_PATH, encoding="utf-8") as f:
             lexicon = json.load(f)
         return {
-            key: entry.get("intuicion_borja", "")
+            key: entry
             for key, entry in lexicon.items()
-            if not key.startswith("_")
+            if not key.startswith("_") and isinstance(entry, dict)
         }
     except Exception:
         return {}
@@ -164,7 +164,7 @@ def load_lexicon_definitions() -> dict[str, str]:
 
 def lint_mapping(mapping_entry: dict) -> dict:
     """
-    Procesa una entrada de mapeos.jsonl y añade el análisis de delta.
+    Procesa una entrada de mapeos.jsonl y añade el análisis de delta (Lexicon v1.1).
     """
     phrase = mapping_entry.get("phrase", "")
     mapping = mapping_entry.get("mapping", {})
@@ -175,35 +175,48 @@ def lint_mapping(mapping_entry: dict) -> dict:
             **mapping_entry,
             "delta_analysis": {
                 "verdict": "NO_MATCH",
+                "epistemic_status": "PROVISIONAL",
+                "coverage": None,
                 "combined_score": 0.0,
                 "delta": None,
                 "note": "Sin término canónico encontrado — candidato potencialmente nuevo",
             },
         }
 
-    canonical_definition = best_match.get("definition", "")
+    canonical_definition = best_match.get("canonical_claim") or best_match.get("definition", "")
     canonical_term = best_match.get("term", "")
 
     # Comparar la frase candidata contra la definición canónica
     sim = compute_similarity(phrase, canonical_definition)
 
-    # Enriquecer con la intuición almacenada en el lexicón (si existe)
-    lexicon_defs = load_lexicon_definitions()
-    lexicon_key = re.sub(r"[^a-z0-9]", "_", canonical_term.lower())[:20]
-    stored_intuicion = lexicon_defs.get(lexicon_key, "")
+    # Enriquecer con la entrada almacenada en el lexicón (si existe)
+    lexicon_entries = load_lexicon_definitions()
+    lexicon_key = best_match.get("id") or re.sub(r"[^a-z0-9]", "_", canonical_term.lower())[:20]
+    stored_entry = lexicon_entries.get(lexicon_key, {})
+    stored_intuicion = stored_entry.get("intuicion_borja", "")
     if stored_intuicion:
         sim2 = compute_similarity(phrase, stored_intuicion)
-        # Tomar el mejor de los dos scores
         if sim2["combined_score"] > sim["combined_score"]:
             sim = sim2
-            sim["note"] = "Score mejorado al comparar contra intuicion_borja almacenada"
+            sim["note"] = "Similitud léxica calculada contra intuicion_borja almacenada"
+
+    stored_mapping = stored_entry.get("mapping", {}) if isinstance(stored_entry.get("mapping"), dict) else {}
+    curated_type = stored_mapping.get("type")
+    if curated_type in {"CONVERGE", "PARTIAL", "ANALOGY", "EXTENSION", "DIVERGE"}:
+        sim["curated_mapping_type"] = curated_type
+        sim["epistemic_status"] = stored_mapping.get("epistemic_status", "PROVISIONAL")
+        sim["unproven_leap"] = stored_mapping.get("unproven_leap")
+    else:
+        sim["epistemic_status"] = "PROVISIONAL"
+
+    sim["coverage"] = None  # v1.1: coverage requiere medición independiente, nunca equiparar a Jaccard léxico
 
     return {
         **mapping_entry,
         "canonical_term": canonical_term,
         "delta_analysis": {
             **sim,
-            "canonical_definition_used": canonical_definition[:150],
+            "canonical_definition_used": canonical_definition[:180],
         },
     }
 

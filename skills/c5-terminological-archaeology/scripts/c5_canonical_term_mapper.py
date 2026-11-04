@@ -73,22 +73,32 @@ def load_local_corpus() -> list[dict]:
     """
     corpus = []
 
-    # 1. C5_LEXICON.json
+    # 1. C5_LEXICON.json (soporta v1.1 y v1.0)
     if LEXICON_PATH.exists():
         with open(LEXICON_PATH, encoding="utf-8") as f:
             lexicon = json.load(f)
         for key, entry in lexicon.items():
-            if key.startswith("_"):
+            if key.startswith("_") or not isinstance(entry, dict):
                 continue
+            ref = entry.get("reference", {}) if isinstance(entry.get("reference"), dict) else {}
+            mapping = entry.get("mapping", {}) if isinstance(entry.get("mapping"), dict) else {}
+            canonical_claim = entry.get("canonical_claim", "")
+            intuicion = entry.get("intuicion_borja", "")
+            term_name = entry.get("canonical_term", key)
             corpus.append({
-                "term": entry.get("canonical_term", key),
-                "definition": entry.get("intuicion_borja", "") + " " + entry.get("canonical_term", ""),
+                "id": entry.get("id", key),
+                "term": term_name,
+                "canonical_claim": canonical_claim,
+                "definition": f"{canonical_claim} {intuicion} {term_name}".strip(),
                 "source": "C5_LEXICON",
-                "author": entry.get("author", ""),
-                "year": entry.get("year"),
-                "work": entry.get("work", ""),
-                "ref_url": entry.get("ref_url"),
-                "discipline": entry.get("discipline", []),
+                "mapping_type": mapping.get("type", entry.get("verdict", "PROVISIONAL")),
+                "epistemic_status": mapping.get("epistemic_status", "PROVISIONAL"),
+                "unproven_leap": mapping.get("unproven_leap", entry.get("delta")),
+                "author": ref.get("author") or entry.get("author", ""),
+                "year": ref.get("year") or entry.get("year"),
+                "work": ref.get("work") or entry.get("work", ""),
+                "ref_url": ref.get("ref_url") or entry.get("ref_url"),
+                "discipline": ref.get("discipline") or entry.get("discipline", []),
             })
 
     # 2. Skills locales (nombre del skill + descripción)
