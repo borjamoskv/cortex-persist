@@ -24,11 +24,11 @@
   "agents": [
     {
       "id": "moskv1",
-      "file": "agents/moskv1.json"
+      "file": "agents/moskv1.md"
     },
     {
       "id": "moskvbot",
-      "file": "agents/moskvbot.json"
+      "file": "agents/moskvbot.md"
     }
   ],
   "skills": [
