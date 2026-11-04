@@ -46,7 +46,7 @@ Cuando el operador use una descripción funcional en sesión, comparar contra `~
 | `direct_manipulation` | Manipulación Directa (Direct Manipulation) | Ben Shneiderman / Edwin L. Hutchins, James D. Hollan, Donald A. Norman (1982) | `PARTIAL` | `SUPPORTED` | No verificada |
 | `deep_modules` | Módulos Profundos (Deep Modules vs. Shallow Modules) | John Ousterhout (2018) | `EXTENSION` | `SUPPORTED` | No verificada |
 | `gender_equality_paradox` | Paradoja de la Igualdad de Género (Gender-Equality Paradox) | Gijsbert Stoet, David C. Geary / Armin Falk, Johannes Hermle / Sarah S. Richardson et al. (2018) | `DIVERGE` | `CHALLENGED` | No verificada |
-| `lemons_problem` | Problema de los Limones y Selección Adversa (The Market for 'Lemons') | George A. Akerlof / Phillip Nelson (1970) | `DIVERGE` | `SCOPE_REDUCED` | No verificada |
+| `lemons_problem` | Problema de los Limones (Akerlof) vs. El Marketing de los Limones (BJR-ATLAS-0158) | George A. Akerlof / Phillip Nelson / Michael R. Darby & Edi Karni (1970) | `DIVERGE` | `PROVISIONAL` | No verificada |
 | `psychological_reactance` | Reactancia Psicológica (Psychological Reactance) y Efecto Cobra | Jack W. Brehm / Robert K. Merton / Horst Siebert (1966) | `PARTIAL` | `SUPPORTED` | No verificada |
 | `transient_hypofrontality` | Hipótesis de Hipofrontalidad Transitoria, Estado de Flujo y Wu Wei | Arne Dietrich / Mihaly Csikszentmihalyi (2003) | `DIVERGE` | `SCOPE_REDUCED` | No verificada |
 | `galls_law` | Ley de Gall (Gall's Law / Systemantics) | John Gall (1975) | `CONVERGE` | `SUPPORTED` | No verificada |

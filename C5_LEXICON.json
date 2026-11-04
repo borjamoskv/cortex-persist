@@ -608,14 +608,14 @@
   },
   "lemons_problem": {
     "id": "lemons_problem",
-    "canonical_term": "Problema de los Limones y Selección Adversa (The Market for 'Lemons')",
-    "canonical_claim": "En Akerlof (1970), cuando los compradores no pueden observar la calidad de un bien antes de la compra y los vendedores sí (asimetría de información), el precio de mercado refleja la calidad media, expulsando a los bienes de alta calidad (selección adversa). En Nelson (1974), el gasto publicitario en bienes de experiencia puede operar como señal de inversión recuperable mediante compras repetidas.",
-    "intuicion_borja": "En mercados donde el comprador no puede verificar fácilmente la calidad técnica de un producto, proliferan los envoltorios comerciales llamativos para colocar productos mediocres.",
+    "canonical_term": "Problema de los Limones (Akerlof) vs. El Marketing de los Limones (BJR-ATLAS-0158)",
+    "canonical_claim": "En Akerlof (1970), cuando los compradores no pueden observar la calidad de un bien antes de la compra y los vendedores sí (asimetría de información), el precio de mercado refleja la calidad media, expulsando a los bienes de alta calidad (selección adversa). En Nelson (1974), el gasto publicitario en bienes de experiencia opera como señal de inversión recuperable mediante compras repetidas. En Darby y Karni (1973), los bienes de credencia impiden verificar la calidad incluso después de la compra.",
+    "intuicion_borja": "El marketing de los limones: en mercados de bienes de credencia o con alta barrera de salida donde el comprador no puede auditar fácilmente el sustrato ni cancelar sin coste, cuanto más endeble o adulterado es el producto, mayor es el despliegue de simpatía comercial, envoltorio y publicidad para capturar la firma antes del uso.",
     "mapping": {
       "type": "DIVERGE",
-      "epistemic_status": "SCOPE_REDUCED",
+      "epistemic_status": "PROVISIONAL",
       "coverage": null,
-      "unproven_leap": "El teorema de Akerlof demuestra selección adversa bajo asimetría informativa, no que un producto peor despliegue siempre más marketing (de hecho, en el modelo de señalización de Nelson ocurre lo contrario para bienes de compra repetida)."
+      "unproven_leap": "El teorema de Akerlof demuestra selección adversa vía precio, no mayor gasto publicitario del peor producto. De esa divergencia nace el concepto propio 'El Marketing de los Limones' (BJR-ATLAS-0158 / Aforismo #159): la inversión de la señal de Nelson cuando concurren bienes de credencia (Darby & Karni, 1973) o costes de salida (switching costs / lock-in)."
     },
     "provenance": {
       "first_recorded_at": "2026-10-15",
@@ -625,21 +625,22 @@
       "conversation_id": "36b16183-79ac-46dc-bda8-6663aa03c138"
     },
     "falsification": {
-      "question": "¿Estamos ante un bien de compra única sin garantías (donde el cheap talk engaña) o ante un bien de experiencia repetida donde la publicidad hunde capital recuperable solo si el producto retiene al cliente?",
-      "required_evidence": "Datos empíricos de correlación entre gasto publicitario y tasa de fallo técnico por tipo de mercado."
+      "question": "¿En sectores con altos costes de salida o bienes de credencia (C_exit >> 0, C_audit >> 0), el ratio marketing/I+D correlaciona negativamente con la retención libre tras vencer la permanencia?",
+      "required_evidence": "Contraste empírico sectorial entre ratio CAC/I+D, penalización de salida y tasa de abandono post-permanencia."
     },
     "reference": {
-      "author": "George A. Akerlof / Phillip Nelson",
+      "author": "George A. Akerlof / Phillip Nelson / Michael R. Darby & Edi Karni",
       "year": 1970,
-      "work": "The Market for 'Lemons': Quality Uncertainty and the Market Mechanism (Quarterly Journal of Economics, 1970); Advertising as Information (Journal of Political Economy, 1974)",
+      "work": "The Market for 'Lemons' (QJE, 1970); Advertising as Information (JPE, 1974); Free Competition and the Optimal Amount of Fraud (JLE, 1973)",
       "type": "THEORETICAL_MODEL",
       "discipline": [
         "Economía de la Información",
-        "Microeconomía"
+        "Microeconomía",
+        "Organización Industrial"
       ],
       "ref_url": "https://doi.org/10.2307/1879431"
     },
-    "c5_axiom_anchor": "Aforismo 5 (asimetría de información), Aforismo #145 (Desnudar el territorio)"
+    "c5_axiom_anchor": "Aforismo #159 / BJR-ATLAS-0158 (El Marketing de los Limones), Aforismo 5 (cheap talk)"
   },
   "psychological_reactance": {
     "id": "psychological_reactance",
