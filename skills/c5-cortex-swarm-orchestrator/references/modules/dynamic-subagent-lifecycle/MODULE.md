@@ -41,29 +41,33 @@ Crear un Dynamic Subagent vía `define_subagent` únicamente cuando se cumpla al
 
 ---
 
-## ⚙️ Workflow de Ejecución 2-Step
+## ⚙️ Workflow de Ejecución Nativo (Antigravity 2.0)
 
 ```python
-# Paso 1: Definir la especificación del subagente
+# Paso 1 (Opcional si no existe en ~/.gemini/config/agents/*.md): Definir subagente efímero
 define_subagent(
-    name="bft_sqlite_auditor",
-    description="Auditor determinista de colisiones e idempotencia en SQLite",
-    system_prompt="Eres un auditor C5-REAL. Aplica INV_BFT_04 sobre committer functions...",
-    enable_write_tools=True,
-    enable_mcp_tools=False
+    Name="bft_sqlite_auditor",
+    Description="Auditor determinista de colisiones e idempotencia en SQLite",
+    SystemPrompt="Eres un auditor C5-REAL. Aplica INV_BFT_04 sobre committer functions...",
+    EnableWriteTools=False,
+    EnableMCPTools=False,
+    EnableSubagentTools=False,
 )
 
-# Paso 2: Invocar la instancia en el hypervisor
+# Paso 2: Invocar instancia asíncrona (retorna conversationId de forma inmediata)
 invoke_subagent(
-    Subagents=[
-        {
-            "TypeName": "bft_sqlite_auditor",
-            "Role": "Database BFT Auditor",
-            "Prompt": "Audita todas las funciones de commit en babylon60/io_persist_ledger.py"
-        }
-    ]
+    TypeName="bft_sqlite_auditor",  # o agente persistente: "moskv1", "moskvbot", "research"
+    Role="Database BFT Auditor",
+    Prompt="Audita todas las funciones de commit en babylon60/io_persist_ledger.py",
+    Model="inherit",                # "inherit" | "flash_lite" | "flash" | "pro"
+    Workspace="inherit",            # "inherit" | "branch" | "share"
 )
 ```
+
+### Máquina de Estados del Subagente Asíncrono (`Running` $\leftrightarrow$ `Idle` $\to$ `Killed`)
+1. **`Running` $\to$ `Idle` (Wakeup Reactivo):** Al concluir su tarea, el subagente envía su respuesta al padre y pasa a `Idle` (0% CPU, contexto preservado). El padre se despierta automáticamente sin necesidad de *polling*.
+2. **`Idle` $\to$ `Running` (Reanudación Confinada):** Para continuar el trabajo en el mismo contexto del subagente, invocar `send_message(Recipient="<conversationId>", Message="...")` en lugar de lanzar otro `invoke_subagent`.
+3. **`Running | Idle` $\to$ `Killed` (Apoptosis en Cascada):** `manage_subagents(Action="kill", ConversationIds=["<conversationId>"])` termina al subagente y a todos sus descendientes, destruyendo sus workspaces `branch`/`share` y conservando logs y artefactos.
 
 ---
 

@@ -44,3 +44,21 @@ Queda **estrictamente prohibido** que cualquier agente, subagente, script o herr
 1. **Prohibición de `open` en Primer Plano:** Todo comando `open` en shell DEBE incluir obligatoriamente el flag `-g` (`--background`, ej. `open -g "https://..."` o `open -g -a Safari`) para impedir que macOS conmute de aplicación o de Space.
 2. **Veto a `.activate()` en AppleScript / JXA:** Queda prohibido invocar `tell application "..." to activate`, `Application("...").activate()`, o `set frontmost to true` en `osascript`. La interacción con Safari (`do JavaScript ... in current tab of window 1`) y otras apps debe ejecutarse estrictamente en segundo plano.
 3. **Navegación y Automatización Headless por Defecto:** Para pruebas web, scraping o verificación de UI con Chrome/Playwright/Puppeteer, se debe forzar siempre `--headless=new` o emplear `read_url_content` / `curl`. Queda prohibido levantar ventanas visibles del navegador (incluyendo llamadas sorpresivas al navegador headful o `Page.bringToFront` / `Target.activateTarget`) salvo que el Operador solicite explícitamente una sesión visual interactiva.
+
+---
+
+## 6. Invariante de Subagentes Asíncronos en Antigravity 2.0 (`INV_C5_ASYNC_SUBAGENTS_RUNTIME`)
+1. **Esquema Nativo `.md` y Veto a `.json` Heredado:** Todo subagente persistente en `~/.gemini/config/agents/` o plugins (`agents/*.md`) DEBE definirse en Markdown con frontmatter YAML (`name`, `description`, `mainAgent`, `subagent`, `model`, `commandExecutionPolicy`, `tools`). Queda prohibido el formato `.json` heredado.
+2. **Lista Blanca Estricta de `tools` en Frontmatter YAML (Prevención de Hang R1):** Especificar nombres de herramientas no mapeados por el cargador de subagentes `.md` (ej. `read_file`, `write_file`, `edit_file`) provoca un bloqueo indefinido (*hang* silencioso) al instanciar el subagente. Sólo se permiten los identificadores internos validados:
+   - Lectura y búsqueda: `view_file`, `list_dir`, `grep_search`, `find_by_name`, `search_web`, `read_url_content`
+   - Mutación y ejecución: `write_to_file`, `replace_file_content`, `multi_replace_file_content`, `run_command`
+   - Coordinación y control: `send_message`, `schedule`, `invoke_subagent`, `manage_subagents`, `ask_question`
+3. **Aislamiento de Profundidad ($d=1$) y Kill en Cascada:**
+   - Los subagentes hoja (`moskvbot`) tienen estrictamente prohibido incluir `invoke_subagent` o `manage_subagents` en su lista `tools`, acotando la profundidad del árbol a $d=1$.
+   - `manage_subagents(Action="kill")` sobre un subagente padre termina en cascada a todos sus descendientes y elimina sus workspaces ramificados (`branch`/`share`), preservando logs y artefactos.
+4. **Degradación de `Workspace: "branch" | "share"` sin Workspace Activo (Regímenes R2/R5):**
+   - Los modos `Workspace="branch"` y `Workspace="share"` en `invoke_subagent` requieren que la sesión tenga un repositorio VCS vinculado como workspace activo en el IDE.
+   - Cuando se opere fuera de un workspace activo (`Outside of Project`), ambos modos se degradan silenciosamente al filesystem compartido (`inherit`). En dicho régimen, queda prohibido despachar múltiples subagentes con herramientas de escritura sobre el mismo directorio sin partición disjunta explícita de rutas (`write_scope`).
+5. **Wakeup Reactivo y Veto a Polling / Timers `any` (Régimen R6):**
+   - Tras `invoke_subagent`, queda prohibido hacer *polling* mediante `manage_subagents(Action="list")` en bucle; el runtime reanuda reactivamente al agente padre cuando el subagente transiciona `Running` $\to$ `Idle`.
+   - Queda prohibido combinar `invoke_subagent` con `schedule(TimerCondition="any")`, ya que cualquier comando de fondo que finalice cancela prematuramente el temporizador. Si se requiere un SLA de corte sobre un subagente específico, usar exclusivamente `TimerCondition="<conversationId_del_subagente>"`.
