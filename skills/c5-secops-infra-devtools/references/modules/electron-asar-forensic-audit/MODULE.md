@@ -42,7 +42,8 @@ def scan_asar(asar_path):
         data = f.read(16)
         u1, u2, header_size, json_size = struct.unpack('<IIII', data)
         header = json.loads(f.read(json_size).decode('utf-8'))
-        header_offset = 16 + json_size
+        # Chromium Pickle alinea el string JSON a frontera de 4 bytes: 8 + u2 == 16 + ((json_size + 3) & ~3)
+        header_offset = 8 + u2
 
         def find_files(node, path=''):
             res = []
@@ -57,11 +58,12 @@ def scan_asar(asar_path):
         return files, offset_base, f
 ```
 
-### Invariante de Corrección de Offset (Veto a Desplazamiento de +2 Bytes)
+### Invariante de Alineación Chromium Pickle a 4 Bytes (`8 + u2`)
 > [!IMPORTANT]
-> En implementaciones previas o wrappers externos de parsing ASAR (incluidas iteraciones tempranas de C5-REA), se introducía un error sutil de alineación sumando **+2 bytes** espurios al cálculo del offset de la carga útil (`offset_base`). Esta desalineación corrompe los límites de buffers y la lectura de strings. El cálculo canónico en silicio es determinista y exacto:
-> $$\text{header\_offset} = 16 + \text{json\_size}$$
-> Queda estrictamente prohibido introducir paddings arbitrarios o desplazamientos de 2 bytes fuera del unpack Little-Endian de 16 bytes.
+> El encabezado de un archivo ASAR se serializa mediante **Chromium Pickle**, que alinea todo string payload a múltiplos de 4 bytes (`uint32`). Por tanto, usar `16 + json_size` sin alinear falla cuando `json_size % 4 != 0` (por ejemplo, en `DeepSeek Harness 0.2.2-rc.1`, `json_size = 5748746` deja `2` bytes de padding nulo antes del payload, mientras que cuando `json_size % 4 == 0` el padding es `0`).
+> El cálculo canónico determinista que resuelve simultáneamente ambos casos sin heurísticas manuales es:
+> $$\text{header\_offset} = 8 + u_2 = 16 + \bigl((\text{json\_size} + 3) \mathbin{\&} \sim 3\bigr)$$
+> Siempre debe verificarse el primer archivo extraído (ej. `package.json`) comparando `hashlib.sha256(payload).hexdigest()` contra `node["integrity"]["hash"]`.
 
 ---
 
