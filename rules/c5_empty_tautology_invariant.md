@@ -42,3 +42,14 @@ Queda terminantemente prohibido que cualquier agente, subagente o pipeline neuro
   1. Vincular su despacho causal al `SharedManifest` canónico (64B, align(64)) de Ring-0.
   2. Indexar hashes exclusivamente contra reloj lógico monótono (`logical_tick` / Lamport), prohibiendo relojes físicos del host (`SystemTime`, `Utc::now()`) en el hash inmutable.
   3. Ejecutar y reciclar páginas contiguas en pools de memoria unificada (UMA) de 16 KB con barreras físicas de hardware (`dmb ishld` en ARMv9).
+
+### T7: Veto a Réplicas Desacopladas en Verificación Formal y Model Checking (El Síndrome de la Réplica Verde)
+- **Restricción:** Queda terminantemente prohibido que las suites de model checking (ej. Loom), pruebas formales o verificadores de concurrencia evalúen estructuras o algoritmos duplicados a mano (`MockReplica`, `LoomManifest`) si dichos modelos no están directamente enlazados al código fuente de producción o protegidos por una aserción incondicional de paridad léxica/estructural bit a bit.
+- **Invariante:** Si la eliminación, debilitamiento o desordenamiento de una barrera de memoria (`fence(Ordering::Release)`, `fence(Ordering::Acquire)`), cerrojo o transición en el código productivo no hace fallar la suite en tiempo de test ordinario, la prueba es formalmente nula por desacoplamiento ontológico.
+
+### T8: Veto a Daemons Desatendidos Mutadores y Telemetría Sintética Fija (Invariante Zero-Touch)
+- **Restricción:** Queda prohibido que scripts programados para ejecución autónoma desatendida (`launchd`, cron jobs, background schedulers):
+  1. *Mutaciones en Árbol de Trabajo:* Invoquen banderas auto-correctoras (`--fix`, linters con auto-reparación) que modifiquen archivos versionados sin intervención humana, ensuciando el worktree de Git y abortando instalaciones limpias posteriores.
+  2. *Intérprete del Sistema:* Se ejecuten bajo entornos no confinados o sin dependencias del proyecto (ej. `/usr/bin/python3` global en lugar del `.venv` aprovisionado).
+  3. *Acumulación Indefinida:* Generen archivos de log o volcados de telemetría sin retención acotada estricta (FIFO/rotación, máx. 30 reportes).
+  4. *Métricas Falsificadas a Fuego:* Reporten puntuaciones o ratios cuantitativos fijos codificados como literales (`exergy_score = 19450`); en ausencia de un algoritmo de cálculo dinámico con datos frescos, el reporte DEBE emitir estrictamente `None` o `NOT_MEASURED`.

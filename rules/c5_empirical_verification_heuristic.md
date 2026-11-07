@@ -115,3 +115,15 @@ Toda Prueba de Concepto (**PoC**) en la arquitectura C5-REAL opera formalmente c
 2. **Veto al Limbo en `~/.gemini/antigravity/scratch/`:**
    - Queda terminantemente prohibido abandonar PoCs validados, scripts de verificación o clones de repositorios upstream (`git clone`) en `~/.gemini/antigravity/scratch/`.
    - Todo PoC que cruce con éxito su frontera medible DEBE destilarse e integrarse de inmediato en el subdirectorio `scripts/` de su Skill canónica (`~/.gemini/config/skills/<skill-name>/scripts/`) o en su repositorio de `~/10_PROJECTS/`, purgando cualquier residuo efímero para mantener `scratch/` con **0 B de anergía acumulada**.
+
+---
+
+## 12. Pentálogo de Falsación Socrática Directa (Protocolo Q11–Q15)
+
+Ante cualquier informe de arquitectura, auditoría o defensa de diseño, el evaluador debe someter el sistema a las 5 preguntas de despojo ontológico:
+
+1. **Q11 · Prueba del Despojo de Jerga:** Retirar toda la terminología propia y etiquetas de branding («Ring-0», «consenso BFT», «exergía»). ¿Qué hecho físico y verificable en el sistema operativo queda en pie? (EL0, SQLite WAL, 64B Seqlock, 354 tests).
+2. **Q12 · Prueba del Bug Mortal Silencioso:** Identificar qué fallo de concurrencia, corrupción de datos o bypass de sandbox pasaría inadvertido por los tests actuales debido a aislamiento del arnés o mocks ciegos.
+3. **Q13 · Test del Extraño Hostil (Cierre al Segundo 35):** Examinar la portada y tablas de presentación: si un ingeniero escéptico sin contexto previo abre el proyecto, todo término interno opaco en los primeros 100 renglones debe traducirse a estándares de la industria (ej. *«Deterministic fail-stop halt»* antes que *«Apoptosis»*) para evitar el abandono de lectura al segundo 35.
+4. **Q14 · Deuda de Vigilia Zero-Touch:** Auditar si el sistema sobrevive 30 días sin intervención biológica: verificar rutas de intérprete en daemons, rotación de logs, ausencia de mutaciones automáticas en worktrees y caducidad de atestaciones biométricas.
+5. **Q15 · Proporcionalidad de Cómputo vs. Pereza de Poda:** El plano de mediación y seguridad determinista debe operar en < 50 MB de memoria. Queda prohibido justificar expansiones de hardware masivas (256 GB) para suplir falta de poda algorítmica, sobrecarga de reglas en contexto o clasificación estocástica de permisos.
