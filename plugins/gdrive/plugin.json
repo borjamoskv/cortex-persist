@@ -2,7 +2,7 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "gdrive",
   "displayName": "Google Drive",
-  "version": "0.0.9",
+  "version": "0.0.11",
   "description": "Search, upload, download, and share files.",
   "logo": "https://www.gstatic.com/images/branding/productlogos/drive_2026/v2/web/192px.svg",
   "suggestedPrompts": [

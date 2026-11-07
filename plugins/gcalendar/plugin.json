@@ -1,7 +1,7 @@
 {
   "name": "gcalendar",
   "displayName": "Google Calendar",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Check availability, schedule events, and RSVP.",
   "logo": "https://www.gstatic.com/images/branding/productlogos/calendar_2026/v2/web/192px.svg",
   "suggestedPrompts": [

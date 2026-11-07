@@ -7,15 +7,28 @@ trigger: "model_decision"
 # Extensiones de Publicación, Tipografía y Diseño Visual (C5-REAL)
 
 ## 1. Protocolo Canónico de Ingesta de Aforismos ('frases-sin-nata' / Omnipresencia Territorial)
-Cuando el usuario emita aforismos, proposiciones o sentencias de alta exergía —tanto operando en el workspace de `frases-sin-nata` como si la sesión carece de workspace activo—, el agente DEBE resolver de forma autónoma la ruta física canónica en `/Users/borjafernandezangulo/10_PROJECTS/frases-sin-nata` y ejecutar de forma atómica y sin requerir recordatorios:
-0. *Sub-Protocolo de Audio-Anclaje Acústico:* Si la sentencia acompaña a un enlace sonoro (Bandcamp, SoundCloud, YouTube Music, Spotify), el agente DEBE inspeccionar los metadatos de la pista (álbum, género, características de producción) y fijarla formalmente como `Audio-Anclaje` en la cabecera del cristal y en la glosa del manuscrito.
-1. *Anclaje en Manuscrito:* Incorporar las sentencias en `MANUSCRIPT_V3/APENDICE_II_AFORISMOS.md` actualizando el contador cardinal del encabezado.
-2. *Sincronización de Índice:* Actualizar el contador de aforismos en `MANUSCRIPT_V3/00_INDICE_GENERAL.md`.
-3. *Registro Lexicográfico y Visual:* Registrar la entrada correspondiente bajo formato dual («Bajada al Barro») en `EL_BORJARIO.md`, ejecutar `python3 scripts/generate_borjario_visuals.py` para regenerar la matriz de activos vectoriales (`assets/borjario_visuals/*.svg`) y actualizar el Atlas interactivo (`EL_BORJARIO_ATLAS_VISUAL.html`), auditando y purgando cualquier esquema ASCII duplicado que el script pudiera inducir en el archivo Markdown.
-4. *Compilación y Linter en Silicio:* Ejecutar `python3 scripts/compile_v3.py` para re-ensamblar `FRASES_SIN_NATA_V3_LIBRO_COMPLETO.md`, verificando 100% de hipervínculos internos, cero comandos LaTeX prohibidos y cero violaciones del C5 Linter.
-5. *Cristal Epistémico y Portapapeles:* Generar el cristal formal en `brain/` e inyectar proactivamente la tarjeta biónica en `pbcopy`.
-6. *Silencio Termodinámico:* Emitir respuesta sucinta con la tarjeta en bloque ` ```text ` y firma topológica activa.
-7. *Commit Atómico en Repositorio:* Realizar un commit git inmediato en `frases-sin-nata` registrando la cristalización (`feat(aforismo): ...`), asegurando que solo se incluyan los archivos de origen (`MANUSCRIPT_V3/`, `EL_BORJARIO.md`, `*.svg`, `*.html`, `AUDITORIA_C5.md`) y respetando el `.gitignore` que excluye imágenes rasterizadas (`*.png`).
+Cuando el usuario emita aforismos, proposiciones o sentencias de alta exergía —tanto operando en el workspace de `frases-sin-nata` como si la sesión carece de workspace activo—, el agente DEBE resolver de forma autónoma la ruta física canónica en `/Users/borjafernandezangulo/10_PROJECTS/frases-sin-nata` y ejecutar de forma atómica y sin requerir recordatorios el siguiente pipeline de 10 pasos:
+
+0. **Audio-Anclaje Acústico:** Si la sentencia acompaña a un enlace sonoro (Bandcamp, SoundCloud, YouTube Music, Spotify), inspeccionar los metadatos de la pista y fijarla formalmente como `Audio-Anclaje` en la glosa del aforismo.
+1. **Anclaje en Manuscrito (Zero -mente):** Incorporar la sentencia en `MANUSCRIPT_V3/APENDICE_II_AFORISMOS.md` actualizando el número de aforismos en el encabezado `# APÉNDICE II: <N> AFORISMOS (Punto Fijo Ω)`. Queda **estrictamente prohibido emplear adverbios terminados en -mente o adjetivos hiperbólicos**, bajo pena de aborto por `c5_linter.py`.
+2. **Sincronización Cardinal de Índice:** Actualizar las 3 ocurrencias del contador cardinal en `MANUSCRIPT_V3/00_INDICE_GENERAL.md`.
+3. **Registro Lexicográfico y Visual:** Añadir la entrada dual formal/coloquial en `EL_BORJARIO.md` (`#### BJR-ATLAS-XXXX · N. ... («...»)`), incrementando los contadores del prólogo y de la sección de aforismos. Generar el activo vectorial correspondiente en `assets/borjario_visuals/<N>_*.svg` siguiendo la plantilla de diseño C5-REAL.
+4. **Ingesta en BORJARIO IR y Paridad con C5_LEXICON:**
+   - Crear la ficha canónica `borjario/concepts/BJR-0000XX.yaml` bajo invariantes B1–B6 (scope formal, tags `[FORMAL]`/`[SUPPORTED]`, sin física analógica no declarada).
+   - Incorporar la entrada isomórfica correspondiente en `~/.gemini/config/C5_LEXICON.json`, garantizando paridad exacta `len(lex_entries) == len(engine.concepts)` requerida por la suite de tests.
+5. **Actualización de Digests SHA-256 de Evidencia:** Actualizar el campo `artifact_digest: sha256:...` en todas las fichas `borjario/concepts/*.yaml` que referencien `EL_BORJARIO.md`, `MANUSCRIPT_V3/APENDICE_II_AFORISMOS.md` o `00_INDICE_GENERAL.md` con los nuevos hashes de esos archivos.
+6. **Compilación de BORJARIO IR:** Ejecutar `python3 scripts/borjario_cli.py build` asegurando 0 errores y 0 advertencias.
+7. **Compilación del Monolito y HUD V3:** Ejecutar `python3 scripts/compile_v3.py` para re-ensamblar `FRASES_SIN_NATA_V3_LIBRO_COMPLETO.md`, auditar enlaces y actualizar `EL_BORJARIO_HUD_V3.html` y `web/public/hud.html`.
+8. **Compilación Editorial PDF (Typst):** Ejecutar `python3 scripts/compile_aforismos_pdf.py` para generar `scripts/aforismos_<N>_c5.typ` y compilar `AFORISMOS_SIN_NATA_<N>_PUNTO_FIJO_OMEGA.pdf`.
+9. **Suite de Tests Confinada:** Ejecutar obligatoriamente `pytest -q scripts/tests/test_compile_v3.py`. Queda prohibido ejecutar `pytest` plano (sin ruta) para evitar la recolección de suites heredadas incompatibles.
+10. **Atestación Touch ID y Commit Selectivo:** Invocar el cerrojo biométrico nativo `c5_biometric_gate` (`--action`, `--agent`, `--scope`, `--causal-hash`, `--no-sound`) y realizar un commit git selectivo confinado exclusivamente a los archivos de la ingesta (prohibido `git add .` para evitar arrastrar residuos pesados de `video-engine/` o colisionar con agentes concurrentes).
+
+### 1.1. Protocolo de Despliegue Hermético en 'babylon60.com' (Cloudflare Pages)
+Para publicar actualizaciones en `babylon60.com`:
+1. **Compilación y Chequeo:** Ejecutar `npm run build && npm run check` asegurando paridad de enlaces y 100% de tests unitarios aprobados.
+2. **Atestación Biométrica:** Ejecutar `c5_biometric_gate --action "deploy_babylon60_pages" --agent "Antigravity" --scope "babylon60:prod" --causal-hash "$(git rev-parse HEAD)" --no-sound`.
+3. **Despliegue Directo:** Desplegar con `wrangler pages deploy dist --project-name babylon60-com --branch main --commit-dirty=true`.
+4. **Verificación de Paridad Live:** Realizar una petición `curl -sL` al slug desplegado y verificar coincidencia byte a byte de su SHA-256 respecto al HTML local en `dist/`.
 
 ## 2. Titulación Dual Lexicográfica («Bajada al Barro»)
 En glosarios, diccionarios conceptuales (ej. *El Borjario*) y taxonomías, todo concepto debe incluir su denominación formal seguida de su traducción coloquial de asfalto:  

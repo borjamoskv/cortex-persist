@@ -2,7 +2,6 @@
 setlocal
 rem Launcher: installs the pinned CLI build for this machine on first use, then runs it.
 set "TOOL=gcalendar"
-set "PLUGIN_VERSION=0.0.7"
 set "CLI_VERSION=986250228"
 set "BASE_URL=https://storage.googleapis.com/antigravity-public/plugin/cli/%CLI_VERSION%"
 rem --- shared launcher logic; keep identical across plugins ---

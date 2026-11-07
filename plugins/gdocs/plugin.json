@@ -1,7 +1,7 @@
 {
   "name": "gdocs",
   "displayName": "Google Docs",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Read, draft, and edit docs.",
   "logo": "https://www.gstatic.com/images/branding/productlogos/docs_2026/v2/web/192px.svg",
   "suggestedPrompts": [
