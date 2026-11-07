@@ -4,7 +4,7 @@
 > **Versión:** 26.210 · SOTA 2026  
 > **Última Modificación:** 2026-10-18T18:29:58Z  
 > **Ecosistema:** BABYLON-60 / CORTEX Engine / Apple Silicon M3 Pro Sovereign Node  
-> **Total Habilidades Registradas:** 131 Core Sovereign (100% acopladas a la Tríada de Roles y Cota de Kolmogorov <= 350 chars)
+> **Total Habilidades Registradas:** 131 Core Sovereign — Partición Disjunta Multi-Montaje: `104` en `skills/` (Ring-2/3) ⊔ `27` en `BABYLON-60/.agents/skills/` (Ring-0/1), solape `0`, cobertura `131/131 = 100,0%` (100% acopladas a la Tríada de Roles y Cota de Kolmogorov <= 350 chars)
 
 ---
 
@@ -54,10 +54,10 @@ flowchart LR
 
 | Skill | Tier | Categoría | Worktree | Allowed Roles | Descripción / Propósito |
 | :--- | :---: | :--- | :---: | :---: | :--- |
-| [`cortex-kernel`](skills/cortex-kernel/SKILL.md) | 23000 | Kernel | `spec-only` | `arquitecto` | CORTEX Root Kernel |
-| [`shared-manifest-kernel`](skills/shared-manifest-kernel/SKILL.md) | 22000 | Kernel | `spec-only` | `arquitecto` | Kernel de Manifiesto Compartido (64B Seqlock SPMC) |
+| [`cortex-kernel`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/cortex-kernel/SKILL.md) | 23000 | Kernel | `spec-only` | `arquitecto` | CORTEX Root Kernel |
+| [`shared-manifest-kernel`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/shared-manifest-kernel/SKILL.md) | 22000 | Kernel | `spec-only` | `arquitecto` | Kernel de Manifiesto Compartido (64B Seqlock SPMC) |
 | [`cortex-skill-composer`](skills/cortex-skill-composer/SKILL.md) | 21500 | Meta-Kernel | `spec-only` | `arquitecto, ejecutor` | Componedor & Orquestador de Cadenas de Skills |
-| [`c5-ring0-babylon-kernel-project`](skills/c5-ring0-babylon-kernel-project/SKILL.md) | 21500 | Kernel | `spec-only` | `arquitecto, ejecutor, auditor` | Kernel Hub · Ring-0 BABYLON (Proyecto) |
+| [`c5-ring0-babylon-kernel-project`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/c5-ring0-babylon-kernel-project/SKILL.md) | 21500 | Kernel | `spec-only` | `arquitecto, ejecutor, auditor` | Kernel Hub · Ring-0 BABYLON (Proyecto) |
 | [`c5-ring0-babylon-kernel`](skills/c5-ring0-babylon-kernel/SKILL.md) | 21500 | Kernel | `spec-only` | `arquitecto, ejecutor, auditor` | Ring-0 BABYLON Kernel |
 | [`c5-enki-60`](skills/c5-enki-60/SKILL.md) | 21400 | Nucleus | `spec-only` | `arquitecto` | Motor Aritmético de Precisión Sexagesimal ENKI-60 |
 | [`c5-information-thermodynamics`](skills/c5-information-thermodynamics/SKILL.md) | 21200 | Nucleus | `spec-only` | `arquitecto` | Termodinámica de la Información y Geometría Estadística (Fisher-Chentsov) |
@@ -71,25 +71,25 @@ flowchart LR
 | [`c5-lean4-axiomatic-orchestrator`](skills/c5-lean4-axiomatic-orchestrator/SKILL.md) | 20900 | Nucleus | `spec-only` | `arquitecto` | Orquestador Axiomático y Verificación Formal en Lean 4 |
 | [`c5-debloat-agent-kernel`](skills/c5-debloat-agent-kernel/SKILL.md) | 20800 | Nucleus | `spec-only` | `arquitecto` | Arquitecto de Micro-Kernels Agénticos Bare-Metal (Anti-LangChain) |
 | [`c5-adaptive-annealing-engine`](skills/c5-adaptive-annealing-engine/SKILL.md) | 20650 | Nucleus | `spec-only` | `arquitecto, ejecutor, auditor` | Motor de Recocido Adaptativo y Convergencia Exergética (Q1-Q4) |
-| [`c5-epistemic-thermodynamics-project`](skills/c5-epistemic-thermodynamics-project/SKILL.md) | 20600 | Nucleus | `spec-only` | `arquitecto, ejecutor, auditor` | Epistemic Hub · Termodinámica Epistémica (Proyecto) |
+| [`c5-epistemic-thermodynamics-project`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/c5-epistemic-thermodynamics-project/SKILL.md) | 20600 | Nucleus | `spec-only` | `arquitecto, ejecutor, auditor` | Epistemic Hub · Termodinámica Epistémica (Proyecto) |
 | [`c5-epistemic-thermodynamics`](skills/c5-epistemic-thermodynamics/SKILL.md) | 20600 | Nucleus | `spec-only` | `arquitecto, ejecutor, auditor` | Epistemic Thermodynamics |
 | [`polymath-concept-synthesis`](skills/polymath-concept-synthesis/SKILL.md) | 20500 | Nucleus | `spec-only` | `arquitecto` | Síntesis Polímata Interdisciplinar (Modo ULTRATHINK) |
 | [`goal`](skills/goal/SKILL.md) | 20500 | Governance | `spec-only` | `arquitecto` | Protocolo de Ejecución por Contrato /goal (Zero-Waste Gate) |
 | [`c5-axiomatic-kernel`](skills/c5-axiomatic-kernel/SKILL.md) | 20500 | Nucleus | `spec-only` | `arquitecto` | Núcleo Operativo de los 100 Axiomas Fundacionales C5-REAL |
-| [`c5-cortex-swarm-orchestrator-project`](skills/c5-cortex-swarm-orchestrator-project/SKILL.md) | 20400 | Governance | `spec-only` | `arquitecto, ejecutor, auditor` | Swarm Hub · Orquestador CORTEX (Proyecto) |
+| [`c5-cortex-swarm-orchestrator-project`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/c5-cortex-swarm-orchestrator-project/SKILL.md) | 20400 | Governance | `spec-only` | `arquitecto, ejecutor, auditor` | Swarm Hub · Orquestador CORTEX (Proyecto) |
 | [`c5-cortex-swarm-orchestrator`](skills/c5-cortex-swarm-orchestrator/SKILL.md) | 20400 | Governance | `spec-only` | `arquitecto, ejecutor, auditor` | CORTEX Swarm Orchestrator |
 | [`cct-cognitive-theory-advisor`](skills/cct-cognitive-theory-advisor/SKILL.md) | 20300 | Nucleus | `spec-only` | `arquitecto` | Asesoría en Teoría Cognitiva CCT & Límite Gödel-Turing |
-| [`cloud-chamber`](skills/cloud-chamber/SKILL.md) | 20200 | Nucleus | `spec-only` | `arquitecto` | Metodología de Cámara de Niebla (Síntesis MDL) |
+| [`cloud-chamber`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/cloud-chamber/SKILL.md) | 20200 | Nucleus | `spec-only` | `arquitecto` | Metodología de Cámara de Niebla (Síntesis MDL) |
 | [`c5-secops-infra-devtools`](skills/c5-secops-infra-devtools/SKILL.md) | 19800 | Governance | `spec-only` | `arquitecto, ejecutor, auditor` | SecOps Infra DevTools |
 | [`c5-sovereign-binary-architect`](skills/c5-sovereign-binary-architect/SKILL.md) | 19500 | Systems | `spec-only` | `arquitecto` | Arquitecto de Binarios Soberanos C5-REAL |
-| [`adaptive-cron`](skills/adaptive-cron/SKILL.md) | 19500 | Governance | `spec-only` | `arquitecto` | Cálculo de Límite de Disipación Crítica (Adaptive Cron) |
-| [`symbiotic-cognitive-architecture`](skills/symbiotic-cognitive-architecture/SKILL.md) | 19400 | Governance | `spec-only` | `arquitecto` | Arquitectura Cognitiva Simbiótica Díada Operador-Agente |
-| [`c5-wetware-and-venture-ops-project`](skills/c5-wetware-and-venture-ops-project/SKILL.md) | 19200 | Governance | `spec-only` | `arquitecto, ejecutor, auditor` | Wetware Hub · Operaciones y Carga Cognitiva |
+| [`adaptive-cron`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/adaptive-cron/SKILL.md) | 19500 | Governance | `spec-only` | `arquitecto` | Cálculo de Límite de Disipación Crítica (Adaptive Cron) |
+| [`symbiotic-cognitive-architecture`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/symbiotic-cognitive-architecture/SKILL.md) | 19400 | Governance | `spec-only` | `arquitecto` | Arquitectura Cognitiva Simbiótica Díada Operador-Agente |
+| [`c5-wetware-and-venture-ops-project`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/c5-wetware-and-venture-ops-project/SKILL.md) | 19200 | Governance | `spec-only` | `arquitecto, ejecutor, auditor` | Wetware Hub · Operaciones y Carga Cognitiva |
 | [`c5-wetware-and-venture-ops`](skills/c5-wetware-and-venture-ops/SKILL.md) | 19200 | Governance | `spec-only` | `arquitecto, ejecutor, auditor` | Wetware and Venture Ops |
 | [`c5-spatial-audio-architect`](skills/c5-spatial-audio-architect/SKILL.md) | 19000 | Multimedia & DSP | `spec-only` | `arquitecto` | Arquitecto de Audio Espacial, Ambisonics (HOA) y Auditoría DSP |
-| [`c5-audiovisual-acreativo-sota-project`](skills/c5-audiovisual-acreativo-sota-project/SKILL.md) | 19000 | Multimedia & DSP | `spec-only` | `arquitecto, ejecutor, auditor` | Media Hub · Audiovisual Acreativo (Proyecto) |
+| [`c5-audiovisual-acreativo-sota-project`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/c5-audiovisual-acreativo-sota-project/SKILL.md) | 19000 | Multimedia & DSP | `spec-only` | `arquitecto, ejecutor, auditor` | Media Hub · Audiovisual Acreativo (Proyecto) |
 | [`c5-audiovisual-acreativo-sota`](skills/c5-audiovisual-acreativo-sota/SKILL.md) | 19000 | Multimedia & DSP | `spec-only` | `arquitecto, ejecutor, auditor` | Audiovisual Acreativo SOTA |
-| [`babylon60-architecture`](skills/babylon60-architecture/SKILL.md) | 19000 | Governance | `spec-only` | `arquitecto` | Arquitectura y Patrones BABYLON-60 IDE |
+| [`babylon60-architecture`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/babylon60-architecture/SKILL.md) | 19000 | Governance | `spec-only` | `arquitecto` | Arquitectura y Patrones BABYLON-60 IDE |
 | [`c5-systemic-dissection-protocol`](skills/c5-systemic-dissection-protocol/SKILL.md) | 18500 | Specialized | `spec-only` | `arquitecto` | Protocolo de Disección Sistémica y Termodinámica |
 | [`c5-solar-thermodynamic-architecture`](skills/c5-solar-thermodynamic-architecture/SKILL.md) | 18500 | Specialized | `spec-only` | `arquitecto` | Arquitectura Helio-Termodinámica y Confort Bioclimático |
 | [`c5-ontological-translator`](skills/c5-ontological-translator/SKILL.md) | 18500 | Specialized | `spec-only` | `arquitecto` | Traductor Ontológico hacia Invariantes de Alta Exergía C5-REAL |
@@ -111,8 +111,8 @@ flowchart LR
 | [`c5-session-deskimming`](skills/c5-session-deskimming/SKILL.md) | 20250 | Governance | `read-write` | `ejecutor` | Protocolo de Desnatado de Sesiones & Purga de Nata (Ring-2 -> Ring-0) |
 | [`c5-tamkarum-60`](skills/c5-tamkarum-60/SKILL.md) | 20100 | Governance | `read-write` | `ejecutor` | Transductor de Arbitraje Soberano TAMKARUM-60 (Ring-1) |
 | [`c5-metodo-acreativo`](skills/c5-metodo-acreativo/SKILL.md) | 20050 | Nucleus | `read-write` | `ejecutor` | Método Acreativo Soberano (Transducción de Invariantes & Aforismo 5) |
-| [`apple-bypass`](skills/apple-bypass/SKILL.md) | 19800 | Operations | `read-write` | `ejecutor` | Bypass Termodinámico para LLMs en Apple Silicon |
-| [`c5-sovereign-daemon-deployment`](skills/c5-sovereign-daemon-deployment/SKILL.md) | 19350 | Operations | `read-write` | `ejecutor` | Despliegue del Sovereign Spark Daemon en Launchd |
+| [`apple-bypass`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/apple-bypass/SKILL.md) | 19800 | Operations | `read-write` | `ejecutor` | Bypass Termodinámico para LLMs en Apple Silicon |
+| [`c5-sovereign-daemon-deployment`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/c5-sovereign-daemon-deployment/SKILL.md) | 19350 | Operations | `read-write` | `ejecutor` | Despliegue del Sovereign Spark Daemon en Launchd |
 | [`gflow-browser-cinema-sovereign`](skills/gflow-browser-cinema-sovereign/SKILL.md) | 19250 | Multimedia & DSP | `read-write` | `ejecutor` | Estudio Cinematográfico Soberano y Automatización Google Flow (v5.0 Apex) |
 | [`safari-browser-agent`](skills/safari-browser-agent/SKILL.md) | 19200 | SOCINT & Web | `read-write` | `ejecutor` | Agente Autónomo de Navegación Safari (MCP Dual-Engine v6.0 Sexagesimal Apex Sovereign) |
 | [`c5-socint-extraction-suite`](skills/c5-socint-extraction-suite/SKILL.md) | 19200 | SOCINT & Web | `read-write` | `ejecutor` | Suite Soberana de Inteligencia Social (SOCINT C5-REAL) |
@@ -120,13 +120,13 @@ flowchart LR
 | [`soulseek-p2p-audio-acquisition`](skills/soulseek-p2p-audio-acquisition/SKILL.md) | 19000 | Multimedia & DSP | `read-write` | `ejecutor` | Adquisición P2P de Audio en Soulseek y Auditoría Espectral Anti-Fake FLAC |
 | [`remotion-audio-reactive-video`](skills/remotion-audio-reactive-video/SKILL.md) | 19000 | Multimedia & DSP | `read-write` | `ejecutor` | Síntesis de Vídeo Reactivo a Audio & Música (Remotion + DSP) |
 | [`pika-generative-video-pipeline`](skills/pika-generative-video-pipeline/SKILL.md) | 19000 | Multimedia & DSP | `read-write` | `ejecutor` | Pipeline de Generación y Control Parámetrico en Pika Art (A/V) |
-| [`c5-alpha-extraction-pipeline`](skills/c5-alpha-extraction-pipeline/SKILL.md) | 18950 | Operations | `read-write` | `ejecutor` | Alpha Extractor · Extracción de Alfa Algorítmico |
+| [`c5-alpha-extraction-pipeline`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/c5-alpha-extraction-pipeline/SKILL.md) | 18950 | Operations | `read-write` | `ejecutor` | Alpha Extractor · Extracción de Alfa Algorítmico |
 | [`whatsapp-nexus-protocol`](skills/whatsapp-nexus-protocol/SKILL.md) | 18900 | Governance | `read-write` | `ejecutor` | Pasarela Soberana de Mensajería WhatsApp (Baileys v7 / Rust NAPI-RS / C5-REAL v2.6) |
 | [`dynamic-subagent-lifecycle`](skills/dynamic-subagent-lifecycle/SKILL.md) | 18600 | Governance | `read-write` | `ejecutor, arquitecto` | Supervisión del Ciclo de Vida de Subagentes Dinámicos |
 | [`c5-poster-and-sign-craft`](skills/c5-poster-and-sign-craft/SKILL.md) | 18500 | Multimedia & DSP | `read-write` | `ejecutor, arquitecto` | Pipeline de Remasterización Gráfica, Rotulación en Perspectiva y Filtrado Analógico |
 | [`c5-media-platform-epistemology`](skills/c5-media-platform-epistemology/SKILL.md) | 18500 | Specialized | `read-write` | `ejecutor` | Epistemología de Plataformas Media y Adquisición Nativa Opus |
 | [`c5-gemini-api-2026-standards`](skills/c5-gemini-api-2026-standards/SKILL.md) | 18500 | Specialized | `read-write` | `ejecutor` | Estándares Gemini API 2026 & Tensor de Transducción |
-| [`lora-swarm-pipeline`](skills/lora-swarm-pipeline/SKILL.md) | 18200 | Operations | `read-write` | `ejecutor` | Pipeline de Minería Paralelizada con Enjambre LoRA |
+| [`lora-swarm-pipeline`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/lora-swarm-pipeline/SKILL.md) | 18200 | Operations | `read-write` | `ejecutor` | Pipeline de Minería Paralelizada con Enjambre LoRA |
 | [`f5tts-voice-cloning-sota`](skills/f5tts-voice-cloning-sota/SKILL.md) | 18200 | Operations | `read-write` | `ejecutor` | Clonación Vocal Neuronal SOTA (F5-TTS / MPS / Ingeniería de Prosodia) |
 | [`swarm-router`](skills/swarm-router/SKILL.md) | 18100 | Governance | `read-write` | `ejecutor, arquitecto` | Enrutador Maestro y Despachador Inteligente de Enjambres |
 | [`somatic-ble-transduction`](skills/somatic-ble-transduction/SKILL.md) | 18100 | Operations | `read-write` | `ejecutor` | Transductor Telemétrico Somático BLE (Apple Watch Ring-(-3)) |
@@ -134,11 +134,11 @@ flowchart LR
 | [`jujutsu-vcs-management`](skills/jujutsu-vcs-management/SKILL.md) | 17600 | Operations | `read-write` | `ejecutor` | Control de Versiones Determinista Jujutsu VCS (jj) |
 | [`c5-neural-face-swap-cuadrilla`](skills/c5-neural-face-swap-cuadrilla/SKILL.md) | 17400 | Operations | `read-write` | `ejecutor` | Pipeline Neural Face-Swap Cuadrilla (V5 SOTA Hybrid) |
 | [`homebrew-ecosystem-management`](skills/homebrew-ecosystem-management/SKILL.md) | 17200 | Operations | `read-write` | `ejecutor` | Gestión & Auditoría de Paquetes Homebrew en macOS |
-| [`wizard`](skills/wizard/SKILL.md) | 17000 | Utilities | `read-write` | `ejecutor` | Asistente de Instalación Determinista (Wizard) |
+| [`wizard`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/wizard/SKILL.md) | 17000 | Utilities | `read-write` | `ejecutor` | Asistente de Instalación Determinista (Wizard) |
 | [`flstudio-mcp-production`](skills/flstudio-mcp-production/SKILL.md) | 17000 | Operations | `read-write` | `ejecutor` | Producción Nativa MCP FL Studio 2025 & DSP Microtonal |
 | [`youtube-remotion-sota`](skills/youtube-remotion-sota/SKILL.md) | 16800 | Operations | `read-write` | `ejecutor` | Síntesis Programática SOTA de Vídeo React/Remotion |
-| [`audiovisual-sota`](skills/audiovisual-sota/SKILL.md) | 16800 | Operations | `read-write` | `ejecutor` | Media Pipeline · Renderizado Audiovisual Determinista |
-| [`writing-for-agents`](skills/writing-for-agents/SKILL.md) | 16500 | Utilities | `read-write` | `ejecutor` | Redacción M2M de Alta Exergía & Sanitización C5 |
+| [`audiovisual-sota`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/audiovisual-sota/SKILL.md) | 16800 | Operations | `read-write` | `ejecutor` | Media Pipeline · Renderizado Audiovisual Determinista |
+| [`writing-for-agents`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/writing-for-agents/SKILL.md) | 16500 | Utilities | `read-write` | `ejecutor` | Redacción M2M de Alta Exergía & Sanitización C5 |
 | [`djstudio-mcp`](skills/djstudio-mcp/SKILL.md) | 16200 | Operations | `read-write` | `ejecutor` | Controlador DSP & Playlist Mixer DJ.Studio MCP |
 | [`kimi-mcp-orchestrator`](skills/kimi-mcp-orchestrator/SKILL.md) | 16000 | Operations | `read-write` | `ejecutor` | Orquestador MCP Moonshot Kimi K3 para Auditoría de Gran Contexto |
 | [`cloudflare-mcp-usage`](skills/cloudflare-mcp-usage/SKILL.md) | 15800 | Operations | `read-write` | `ejecutor` | Automatización & Operaciones Cloudflare MCP |
@@ -152,11 +152,11 @@ flowchart LR
 | [`c5-kudurru-64`](skills/c5-kudurru-64/SKILL.md) | 22500 | Kernel | `audit-only` | `auditor, arquitecto` | Cerrojo Lock-Free KUDURRU-64 (Ring-0 Gravity Filter) |
 | [`c5-mushushu-0`](skills/c5-mushushu-0/SKILL.md) | 22000 | Kernel | `audit-only` | `auditor` | Oráculo Formal & Firewall de Apoptosis MUSHUSHU-0 (Ring-0) |
 | [`c5-larsa-120`](skills/c5-larsa-120/SKILL.md) | 21800 | Kernel | `audit-only` | `auditor, arquitecto` | Consenso BFT Isostático LARSA-120 (Tríada Rust/Lean4/Z3) |
-| [`babylon60-kernel-invariants`](skills/babylon60-kernel-invariants/SKILL.md) | 21600 | Kernel | `audit-only` | `auditor` | Auditoría de Invariantes del Kernel BABYLON-60 |
-| [`thermo-audit`](skills/thermo-audit/SKILL.md) | 21500 | Kernel | `audit-only` | `auditor` | Auditoría Termodinámica de Silicio y Concurrencia |
+| [`babylon60-kernel-invariants`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/babylon60-kernel-invariants/SKILL.md) | 21600 | Kernel | `audit-only` | `auditor` | Auditoría de Invariantes del Kernel BABYLON-60 |
+| [`thermo-audit`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/thermo-audit/SKILL.md) | 21500 | Kernel | `audit-only` | `auditor` | Auditoría Termodinámica de Silicio y Concurrencia |
 | [`c5-thermos-audit`](skills/c5-thermos-audit/SKILL.md) | 21400 | Kernel | `audit-only` | `auditor` | Auditoría Termonuclear de Silicio & Código (Double Thermo) |
-| [`c5-rea-clean-room`](skills/c5-rea-clean-room/SKILL.md) | 21300 | Kernel | `audit-only` | `arquitecto, ejecutor, auditor` | Suite C5-REA de Ingeniería Inversa en Sala Limpia y Firewall Existence-Gap |
-| [`rlhf-sentinel`](skills/rlhf-sentinel/SKILL.md) | 21200 | Governance | `audit-only` | `auditor` | Centinela de Contención Ring-0 (RLHF Sentinel) |
+| [`c5-rea-clean-room`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/c5-rea-clean-room/SKILL.md) | 21300 | Kernel | `audit-only` | `arquitecto, ejecutor, auditor` | Suite C5-REA de Ingeniería Inversa en Sala Limpia y Firewall Existence-Gap |
+| [`rlhf-sentinel`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/rlhf-sentinel/SKILL.md) | 21200 | Governance | `audit-only` | `auditor` | Centinela de Contención Ring-0 (RLHF Sentinel) |
 | [`cortex-skill-auditor`](skills/cortex-skill-auditor/SKILL.md) | 21200 | Meta-Kernel | `audit-only` | `auditor, arquitecto` | Auditor Exergético de Skills CORTEX Engine |
 | [`c5-lexicon-enforcer`](skills/c5-lexicon-enforcer/SKILL.md) | 21000 | Nucleus | `audit-only` | `auditor` | Oráculo de Verificación Epistemológica & Auditoría de Coste Involuntario (Aforismo 5) |
 | [`c5-silicon-stress-suite`](skills/c5-silicon-stress-suite/SKILL.md) | 20850 | Operations | `audit-only` | `auditor` | Suite de Estrés Concurrente de Silicio y Enjambres (C5-REAL) |
@@ -166,12 +166,12 @@ flowchart LR
 | [`c5-dialectical-pipeline`](skills/c5-dialectical-pipeline/SKILL.md) | 20500 | Nucleus | `audit-only` | `auditor, arquitecto` | Macro-Operador de Estado Dialéctico y Salto Topológico (Cambio 2) |
 | [`c5-academic-peer-reviewer`](skills/c5-academic-peer-reviewer/SKILL.md) | 20500 | Nucleus | `audit-only` | `auditor` | Simulador de Revisión Académica por Pares |
 | [`c5-rubin-acoustic-linter`](skills/c5-rubin-acoustic-linter/SKILL.md) | 20450 | Operations | `audit-only` | `auditor` | Linter Acústico de Exergía y Purga de Nata (Protocolo Rubin) |
-| [`c5-ultrathink-epistemic-audit`](skills/c5-ultrathink-epistemic-audit/SKILL.md) | 20400 | Nucleus | `audit-only` | `auditor` | Epistemic Audit · Auditoría Epistémica Profunda |
-| [`grill-me-v2`](skills/grill-me-v2/SKILL.md) | 19900 | Governance | `audit-only` | `auditor` | Socratic Interrogator · Interrogatorio Socrático Adversarial |
+| [`c5-ultrathink-epistemic-audit`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/c5-ultrathink-epistemic-audit/SKILL.md) | 20400 | Nucleus | `audit-only` | `auditor` | Epistemic Audit · Auditoría Epistémica Profunda |
+| [`grill-me-v2`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/grill-me-v2/SKILL.md) | 19900 | Governance | `audit-only` | `auditor` | Socratic Interrogator · Interrogatorio Socrático Adversarial |
 | [`c5-wetware-divergente`](skills/c5-wetware-divergente/SKILL.md) | 19850 | Governance | `audit-only` | `auditor` | Arquitectura Cognitiva para Wetware Divergente (Perfiles 2e) |
 | [`c5-sovereign-identity-hardening`](skills/c5-sovereign-identity-hardening/SKILL.md) | 19800 | Governance | `audit-only` | `auditor` | Protocolo C5-REAL de Defensa e Inmunidad de Identidad Soberana |
 | [`c5-real-legaltech-analysis`](skills/c5-real-legaltech-analysis/SKILL.md) | 19700 | Governance | `audit-only` | `auditor` | Auditoría LegalTech & Cumplimiento EU AI Act Art. 9-14 |
-| [`wait-what`](skills/wait-what/SKILL.md) | 19600 | Nucleus | `audit-only` | `auditor` | Freno Epistémico & Traducción Simplificada (STE) |
+| [`wait-what`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/wait-what/SKILL.md) | 19600 | Nucleus | `audit-only` | `auditor` | Freno Epistémico & Traducción Simplificada (STE) |
 | [`c5-html-report-injection-audit`](skills/c5-html-report-injection-audit/SKILL.md) | 19600 | Governance | `audit-only` | `auditor` | Auditoría de Inyección HTML en Generadores de Reportes |
 | [`c5-sre-postmortem-architect`](skills/c5-sre-postmortem-architect/SKILL.md) | 19500 | Governance | `audit-only` | `auditor` | Arquitecto de Postmortems e Incidentes SRE |
 | [`c5-2e-neuropharmacological-sovereignty`](skills/c5-2e-neuropharmacological-sovereignty/SKILL.md) | 19500 | Systems | `audit-only` | `auditor` | Soberanía Neurofarmacológica & Desacople de Parches (TDAH + AACC) |
@@ -179,12 +179,12 @@ flowchart LR
 | [`anergy-purge-protocol`](skills/anergy-purge-protocol/SKILL.md) | 19300 | Governance | `audit-only` | `auditor` | Motor de Purga de Anergía, Código Muerto y Entropía APFS |
 | [`c5-browser-forensics-and-extension-triage`](skills/c5-browser-forensics-and-extension-triage/SKILL.md) | 19200 | SOCINT & Web | `audit-only` | `auditor` | Auditoría Forense de Navegadores y Triaje de Extensiones Chromium |
 | [`c5-video-quality-audit`](skills/c5-video-quality-audit/SKILL.md) | 19000 | Multimedia & DSP | `audit-only` | `auditor` | Auditoría de Calidad y Compresión de Video (PSNR/SSIM/VMAF) |
-| [`c5-anti-slop-ui`](skills/c5-anti-slop-ui/SKILL.md) | 18800 | Governance | `audit-only` | `auditor, ejecutor` | Linter y Directivas Frontend Anti-Slop (C5-REAL) |
+| [`c5-anti-slop-ui`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/c5-anti-slop-ui/SKILL.md) | 18800 | Governance | `audit-only` | `auditor, ejecutor` | Linter y Directivas Frontend Anti-Slop (C5-REAL) |
 | [`webkit-memory-audit`](skills/webkit-memory-audit/SKILL.md) | 18500 | Specialized | `audit-only` | `auditor` | Auditoría de Memoria WebKit (Vector 21) |
 | [`c5-somatic-panic-deescalation`](skills/c5-somatic-panic-deescalation/SKILL.md) | 18500 | Specialized | `audit-only` | `auditor` | Desescalada Neurofisiológica y Cibernética de Pánico Somático |
 | [`c5-exergy-scale-evaluator`](skills/c5-exergy-scale-evaluator/SKILL.md) | 18500 | Specialized | `audit-only` | `auditor` | Evaluador de Escala de Exergía 1-21.000 (Regla de 3 Evaluadores) |
 | [`c5-codebase-valuation-audit`](skills/c5-codebase-valuation-audit/SKILL.md) | 18500 | Specialized | `audit-only` | `auditor` | Auditoría & Valoración Económica Empírica de Codebases e IP |
-| [`biographical-thermo`](skills/biographical-thermo/SKILL.md) | 18500 | Nucleus | `audit-only` | `auditor` | Mapeo Termodinámico Biográfico e Histórico |
+| [`biographical-thermo`](https://github.com/borjamoskv/BABYLON-60/blob/main/.agents/skills/biographical-thermo/SKILL.md) | 18500 | Nucleus | `audit-only` | `auditor` | Mapeo Termodinámico Biográfico e Histórico |
 | [`babylon-shield`](skills/babylon-shield/SKILL.md) | 18500 | Specialized | `audit-only` | `auditor, arquitecto` | Escudo Termodinámico Ring-0 (Caballo de Troya BABYLON-SHIELD) |
 | [`discourse-popperian-falsification`](skills/discourse-popperian-falsification/SKILL.md) | 17900 | Operations | `audit-only` | `auditor` | Falsación Popperiana & Auditoría Discursiva de Hipótesis |
 | [`ghidra-ida-binary-audit`](skills/ghidra-ida-binary-audit/SKILL.md) | 17800 | Operations | `audit-only` | `auditor` | Auditoría de Binarios Crudos & Descompilación Ghidra/IDA |
@@ -250,20 +250,20 @@ Estas habilidades provienen de los plugins integrados en `plugins/` (Science, Fl
 ### 3.2. Plugins de Ejecución (`role: ejecutor` · 103 Skills)
 | Skill | Plugin | Modo Worktree | Descripción |
 | :--- | :--- | :---: | :--- |
-| [`accidental-data-loss-prevention`](plugins/data-agent-kit-plugin/skills/accidental_data_loss_prevention/SKILL.md) | `data-agent-kit-plugin` | `read-write` | **STOP AND VERIFY**: Before running any command or tool that results in irreversible data loss, you ... |
+| [`accidental-data-loss-prevention`](plugins/data-agent-kit-plugin/skills/accidental-data-loss-prevention/SKILL.md) | `data-agent-kit-plugin` | `read-write` | **STOP AND VERIFY**: Before running any command or tool that results in irreversible data loss, you ... |
 | [`alphafold-database-fetch-and-analyze`](plugins/science/skills/alphafold_database_fetch_and_analyze/SKILL.md) | `science` | `read-write` | Retrieve and analyze AlphaFold predicted structures for a protein. Use when the user provides a spec... |
 | [`alphagenome-atlas-website-links`](plugins/science/skills/alphagenome_atlas_website_links/SKILL.md) | `science` | `read-write` | Constructs deep-links and URLs for the AlphaGenome Atlas website. Supports generating single-variant... |
 | [`alphagenome-single-variant-analysis`](plugins/science/skills/alphagenome_single_variant_analysis/SKILL.md) | `science` | `read-write` | Analyzes genetic variant effects on gene expression (RNA-seq), chromatin accessibility (DNASE), hist... |
 | [`alphagenome-variant-impact-score`](plugins/science/skills/alphagenome_variant_impact_score/SKILL.md) | `science` | `read-write` | Score, annotate, and analyze the functional impact of genetic variants using AlphaGenome Variant Imp... |
 | [`android-cli`](plugins/android-cli-plugin/skills/SKILL.md) | `android-cli-plugin` | `read-write` | Provides instructions for installing and using the `android` CLI. The `android` command-line tool is... |
 | [`babylon60-ide-orchestrator`](plugins/babylon60-ide/skills/babylon60-ide-orchestrator/SKILL.md) | `babylon60-ide` | `read-write` | Orquestación de la INTERFAZ y telemetría del IDE BABYLON-60. Keywords: interfaz babylon, orquestar i... |
-| [`bigquery-ai-ml`](plugins/data-agent-kit-plugin/skills/bigquery_ai_ml/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Leverages BigQuery's built-in machine learning and GenAI capabilities for advanced data analytics. U... |
-| [`bigquery-bigframes`](plugins/data-agent-kit-plugin/skills/bigquery_bigframes/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Generates Python code using BigQuery DataFrames (BigFrames), the pandas/scikit-learn-style API over ... |
-| [`bigquery-data-transfer-service`](plugins/data-agent-kit-plugin/skills/bigquery_data_transfer_service/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Discovers and inspects BigQuery Data Transfer Service (DTS) configurations. Use this to identify exi... |
-| [`bigquery-graph`](plugins/data-agent-kit-plugin/skills/bigquery_graph/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Provides guidelines and best practices for querying and defining property graphs and semantic graphs... |
-| [`bigquery-sql`](plugins/data-agent-kit-plugin/skills/bigquery_sql/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Provides BigQuery SQL query optimization techniques, execution best practices, and performance tunin... |
-| [`bigtable-basics`](plugins/data-agent-kit-plugin/skills/bigtable_basics/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Assists in provisioning instances/tables, designing performant schemas, and querying data in Bigtabl... |
-| [`building-data-apps`](plugins/data-agent-kit-plugin/skills/building_data_apps/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Build modern data apps, dashboards, and interactive reports using either React + Vite or Streamlit. ... |
+| [`bigquery-ai-ml`](plugins/data-agent-kit-plugin/skills/bigquery-ai-ml/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Leverages BigQuery's built-in machine learning and GenAI capabilities for advanced data analytics. U... |
+| [`bigquery-bigframes`](plugins/data-agent-kit-plugin/skills/bigquery-bigframes/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Generates Python code using BigQuery DataFrames (BigFrames), the pandas/scikit-learn-style API over ... |
+| [`bigquery-data-transfer-service`](plugins/data-agent-kit-plugin/skills/bigquery-data-transfer-service/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Discovers and inspects BigQuery Data Transfer Service (DTS) configurations. Use this to identify exi... |
+| [`bigquery-graph-query`](plugins/data-agent-kit-plugin/skills/bigquery-graph-query/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Provides guidelines and best practices for querying and defining property graphs and semantic graphs... |
+| [`bigquery-optimization`](plugins/data-agent-kit-plugin/skills/bigquery-optimization/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Provides BigQuery SQL query optimization techniques, execution best practices, and performance tunin... |
+| [`bigtable-basics`](plugins/data-agent-kit-plugin/skills/bigtable-basics/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Assists in provisioning instances/tables, designing performant schemas, and querying data in Bigtabl... |
+| [`building-data-apps`](plugins/data-agent-kit-plugin/skills/building-data-apps/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Build modern data apps, dashboards, and interactive reports using either React + Vite or Streamlit. ... |
 | [`chembl-database`](plugins/science/skills/chembl_database/SKILL.md) | `science` | `read-write` | Query the ChEMBL database for bioactive molecules, drug targets, bioactivity data, approved drugs, a... |
 | [`chrome-devtools`](plugins/chrome-devtools-plugin/skills/chrome-devtools/SKILL.md) | `chrome-devtools-plugin` | `read-write` | Uses Chrome DevTools via MCP for efficient debugging, troubleshooting and browser automation. Use wh... |
 | [`chrome-extensions`](plugins/modern-web-guidance-plugin/skills/chrome-extensions/SKILL.md) | `modern-web-guidance-plugin` | `read-write` | Build and publish Chrome Extensions using Manifest V3 best practices. Use this skill whenever the us... |
@@ -274,17 +274,17 @@ Estas habilidades provienen de los plugins integrados en `plugins/` (Science, Fl
 | [`dart-use-ffigen`](plugins/flutter/skills/dart-use-ffigen/SKILL.md) | `flutter` | `read-write` | Guide agents to use `package:ffigen` to automatically generate FFI bindings instead of writing them ... |
 | [`dart-use-pattern-matching`](plugins/flutter/skills/dart-use-pattern-matching/SKILL.md) | `flutter` | `read-write` | Use switch expressions and pattern matching where appropriate |
 | [`dart-use-primary-constructors`](plugins/flutter/skills/dart-use-primary-constructors/SKILL.md) | `flutter` | `read-write` | Help users write syntactically and semantically correct primary constructors in Dart, and migrate/us... |
-| [`data-autocleaning`](plugins/data-agent-kit-plugin/skills/data_autocleaning/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Automated data quality and transformation capabilities for Dataform/dbt/BigQuery pipelines. Processe... |
-| [`dataform-bigquery`](plugins/data-agent-kit-plugin/skills/dataform_bigquery/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Expertise in generating clean, correct, and efficient Dataform pipeline code for BigQuery ELT. Use t... |
+| [`data-autocleaning`](plugins/data-agent-kit-plugin/skills/data-autocleaning/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Automated data quality and transformation capabilities for Dataform/dbt/BigQuery pipelines. Processe... |
+| [`dataform-bigquery`](plugins/data-agent-kit-plugin/skills/dataform-bigquery/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Expertise in generating clean, correct, and efficient Dataform pipeline code for BigQuery ELT. Use t... |
 | [`dbsnp-database`](plugins/science/skills/dbsnp_database/SKILL.md) | `science` | `read-write` | Use when you want to look up, map, and search for short genetic variants (SNPs, indels) in NCBI's db... |
-| [`dbt-bigquery`](plugins/data-agent-kit-plugin/skills/dbt_bigquery/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Expert guidance for creating, modifying, and optimizing dbt pipelines for BigQuery. Use this skill w... |
-| [`discovering-gcp-data-assets`](plugins/data-agent-kit-plugin/skills/discovering_gcp_data_assets/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Finds and inspects data assets within Google Cloud. Relevant when any of the following conditions ar... |
+| [`dbt-bigquery`](plugins/data-agent-kit-plugin/skills/dbt-bigquery/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Expert guidance for creating, modifying, and optimizing dbt pipelines for BigQuery. Use this skill w... |
+| [`discovering-gcp-data-assets`](plugins/data-agent-kit-plugin/skills/discovering-gcp-data-assets/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Finds and inspects data assets within Google Cloud. Relevant when any of the following conditions ar... |
 | [`embl-ebi-ols`](plugins/science/skills/embl_ebi_ols/SKILL.md) | `science` | `read-write` | Query and search the EMBL-EBI Ontology Lookup Service (OLS) for biomedical ontology terms, definitio... |
 | [`encode-ccres-database`](plugins/science/skills/encode_ccres_database/SKILL.md) | `science` | `read-write` | Query the ENCODE Registry of cis-Regulatory Elements (cCREs) via the SCREEN GraphQL API, or make cus... |
-| [`enforcing-resource-attribution`](plugins/data-agent-kit-plugin/skills/enforcing_resource_attribution/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Enforces resource attribution for CLI commands. Use this skill whenever you are running `bq` or `gcl... |
+| [`enforcing-resource-attribution`](plugins/data-agent-kit-plugin/skills/enforcing-resource-attribution/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Enforces resource attribution for CLI commands. Use this skill whenever you are running `bq` or `gcl... |
 | [`ensembl-database`](plugins/science/skills/ensembl_database/SKILL.md) | `science` | `read-write` | Query the Ensembl database to resolve gene, transcript, and protein IDs, fetch genomic or protein se... |
 | [`extension-to-functions-codebase`](plugins/firebase/skills/extension_to_functions_codebase/SKILL.md) | `firebase` | `read-write` | Skill for converting an installed Firebase Extension (or extension source) into a standalone Cloud F... |
-| [`federate-lakehouse-catalog`](plugins/data-agent-kit-plugin/skills/federate_lakehouse_catalog/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Sets up Google Cloud Lakehouse federated catalogs to remote Iceberg REST Catalogs. Currently support... |
+| [`federate-lakehouse-catalog`](plugins/data-agent-kit-plugin/skills/federate-lakehouse-catalog/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Sets up Google Cloud Lakehouse federated catalogs to remote Iceberg REST Catalogs. Currently support... |
 | [`firebase-ai-logic-basics`](plugins/firebase/skills/firebase_ai_logic_basics/SKILL.md) | `firebase` | `read-write` | Official skill for integrating Firebase AI Logic (Gemini API) into web applications. Covers setup, m... |
 | [`firebase-app-hosting-basics`](plugins/firebase/skills/firebase_app_hosting_basics/SKILL.md) | `firebase` | `read-write` | Deploys and manages full-stack web applications (Next.js, Angular) with Server-Side Rendering (SSR) ... |
 | [`firebase-auth-basics`](plugins/firebase/skills/firebase_auth_basics/SKILL.md) | `firebase` | `read-write` | Guide for setting up and using Firebase Authentication. Use this skill when the user's app requires ... |
@@ -301,26 +301,26 @@ Estas habilidades provienen de los plugins integrados en `plugins/` (Science, Fl
 | [`flutter-implement-json-serialization`](plugins/flutter/skills/flutter-implement-json-serialization/SKILL.md) | `flutter` | `read-write` | Create model classes with `fromJson` and `toJson` methods using `dart:convert`. Use when manually ma... |
 | [`flutter-use-http-package`](plugins/flutter/skills/flutter-use-http-package/SKILL.md) | `flutter` | `read-write` | Use the `http` package to execute GET, POST, PUT, or DELETE requests. Use when you need to fetch fro... |
 | [`foldseek-structural-search`](plugins/science/skills/foldseek_structural_search/SKILL.md) | `science` | `read-write` | Performs 3D structural searches of proteins against various databases (PDB, AlphaFold, CATH, MGnify,... |
-| [`gcloud-auth-verification`](plugins/data-agent-kit-plugin/skills/gcloud_auth_verification/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Guidelines for identifying and resolving missing Google Cloud authentication and Application Default... |
-| [`gcp-composer-troubleshooting`](plugins/data-agent-kit-plugin/skills/gcp_composer_troubleshooting/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Provides expert guidance for troubleshooting Cloud Composer (Apache Airflow) and Orchestration pipel... |
-| [`gcp-data-pipelines`](plugins/data-agent-kit-plugin/skills/gcp_data_pipelines/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Primary entry point for building, managing, and orchestrating data pipelines on Google Cloud. Guides... |
-| [`gcp-dataflow`](plugins/data-agent-kit-plugin/skills/gcp_dataflow/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Guides writing, packaging, executing, and troubleshooting Apache Beam pipelines on Dataflow. Use whe... |
-| [`gcp-managed-airflow-dag-authoring`](plugins/data-agent-kit-plugin/skills/gcp_managed_airflow_dag_authoring/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Guides the authoring and validation of Apache Airflow DAGs for Managed Service for Apache Airflow (M... |
-| [`gcp-managed-airflow-migrations`](plugins/data-agent-kit-plugin/skills/gcp_managed_airflow_migrations/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Provides guidance for migrating Apache Airflow DAGs in Managed Service for Apache Airflow (MSAA; for... |
-| [`gcp-managed-airflow-recommendations`](plugins/data-agent-kit-plugin/skills/gcp_managed_airflow_recommendations/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Provides recommendations and best practices for creating, configuring, tuning and optimizing Managed... |
-| [`gcp-pipeline-orchestration`](plugins/data-agent-kit-plugin/skills/gcp_pipeline_orchestration/SKILL.md) | `data-agent-kit-plugin` | `read-write` | This skill helps the agent generate or update orchestration pipeline definitions for Google Cloud Co... |
-| [`gcp-pipeline-resource-provisioning`](plugins/data-agent-kit-plugin/skills/gcp_pipeline_resource_provisioning/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Automates declarative resource creation and provisioning for data pipelines, supporting BigQuery, Da... |
-| [`gcp-spark`](plugins/data-agent-kit-plugin/skills/gcp_spark/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Develops and executes Spark code on Managed Spark on Google Cloud (Dataproc Clusters and Serverless)... |
-| [`gcs-security-assessment`](plugins/data-agent-kit-plugin/skills/gcs_security_assessment/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Assesses the security posture of Google Cloud Storage (GCS) buckets and projects. Grounds every find... |
+| [`dak-setup`](plugins/data-agent-kit-plugin/skills/dak-setup/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Guidelines for identifying and resolving missing Google Cloud authentication and Application Default... |
+| [`gcp-composer-troubleshooting`](plugins/data-agent-kit-plugin/skills/gcp-composer-troubleshooting/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Provides expert guidance for troubleshooting Cloud Composer (Apache Airflow) and Orchestration pipel... |
+| [`gcp-data-pipelines`](plugins/data-agent-kit-plugin/skills/gcp-data-pipelines/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Primary entry point for building, managing, and orchestrating data pipelines on Google Cloud. Guides... |
+| [`gcp-dataflow`](plugins/data-agent-kit-plugin/skills/gcp-dataflow/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Guides writing, packaging, executing, and troubleshooting Apache Beam pipelines on Dataflow. Use whe... |
+| [`gcp-managed-airflow-dag-authoring`](plugins/data-agent-kit-plugin/skills/gcp-managed-airflow-dag-authoring/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Guides the authoring and validation of Apache Airflow DAGs for Managed Service for Apache Airflow (M... |
+| [`gcp-managed-airflow-migrations`](plugins/data-agent-kit-plugin/skills/gcp-managed-airflow-migrations/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Provides guidance for migrating Apache Airflow DAGs in Managed Service for Apache Airflow (MSAA; for... |
+| [`gcp-managed-airflow-recommendations`](plugins/data-agent-kit-plugin/skills/gcp-managed-airflow-recommendations/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Provides recommendations and best practices for creating, configuring, tuning and optimizing Managed... |
+| [`gcp-pipeline-orchestration`](plugins/data-agent-kit-plugin/skills/gcp-pipeline-orchestration/SKILL.md) | `data-agent-kit-plugin` | `read-write` | This skill helps the agent generate or update orchestration pipeline definitions for Google Cloud Co... |
+| [`gcp-pipeline-resource-provisioning`](plugins/data-agent-kit-plugin/skills/gcp-pipeline-resource-provisioning/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Automates declarative resource creation and provisioning for data pipelines, supporting BigQuery, Da... |
+| [`gcp-spark`](plugins/data-agent-kit-plugin/skills/gcp-spark/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Develops and executes Spark code on Managed Spark on Google Cloud (Dataproc Clusters and Serverless)... |
+| [`gcs-security-assessment`](plugins/data-agent-kit-plugin/skills/gcs-security-assessment/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Assesses the security posture of Google Cloud Storage (GCS) buckets and projects. Grounds every find... |
 | [`gemini-api-dev`](plugins/gemini-api/skills/gemini-api-dev/SKILL.md) | `gemini-api` | `read-write` | Use this skill when writing code that calls the Gemini API for text generation, multi-turn chat, mul... |
-| [`gemini-interactions-api`](plugins/gemini-api/skills/gemini-interactions-api/SKILL.md) | `gemini-api` | `read-write` | Use this skill when writing code that calls the Gemini API for text generation, multi-turn chat, mul... |
+| [`cookie-debugging`](plugins/chrome-devtools-plugin/skills/cookie-debugging/SKILL.md) | `gemini-api` | `read-write` | Use this skill when writing code that calls the Gemini API for text generation, multi-turn chat, mul... |
 | [`gemini-live-api-dev`](plugins/gemini-api/skills/gemini-live-api-dev/SKILL.md) | `gemini-api` | `read-write` | Use this skill when building real-time, bidirectional streaming applications with the Gemini Live AP... |
 | [`gemini-omni-flash-api`](plugins/gemini-api/skills/gemini-omni-flash-api/SKILL.md) | `gemini-api` | `read-write` | Use this skill for generative video editing, text-to-video, image-referenced video generation, first... |
 | [`gnomad-database`](plugins/science/skills/gnomad_database/SKILL.md) | `science` | `read-write` | Query the Genome Aggregation Database (gnomAD). Use when determining the rarity or allele frequency ... |
-| [`google-cloud-auth-verification`](plugins/data-agent-kit-plugin/skills/google_cloud_auth_verification/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Mandatory Step 0 pre-flight execution order and authentication verification for Google Cloud Platfor... |
-| [`google-cloud-storage-basics`](plugins/data-agent-kit-plugin/skills/google_cloud_storage_basics/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Stores, retrieves, and manages data as objects in Cloud Storage (Google Cloud Storage, or GCS) bucke... |
-| [`google-cloud-storage-bucket-architect`](plugins/data-agent-kit-plugin/skills/google_cloud_storage_bucket_architect/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Creates Cloud Storage (Google Cloud Storage, or GCS) buckets. Analyzes the workload (sensitive data,... |
-| [`google-cloud-storage-fuse`](plugins/data-agent-kit-plugin/skills/google_cloud_storage_fuse/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Mounts Cloud Storage buckets as a POSIX file system with Cloud Storage FUSE (gcsfuse). Use when you ... |
+| [`cloud-databases-onboarding`](plugins/data-agent-kit-plugin/skills/cloud-databases-onboarding/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Mandatory Step 0 pre-flight execution order and authentication verification for Google Cloud Platfor... |
+| [`google-cloud-storage-basics`](plugins/data-agent-kit-plugin/skills/google-cloud-storage-basics/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Stores, retrieves, and manages data as objects in Cloud Storage (Google Cloud Storage, or GCS) bucke... |
+| [`google-cloud-storage-bucket-architect`](plugins/data-agent-kit-plugin/skills/google-cloud-storage-bucket-architect/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Creates Cloud Storage (Google Cloud Storage, or GCS) buckets. Analyzes the workload (sensitive data,... |
+| [`google-cloud-storage-fuse`](plugins/data-agent-kit-plugin/skills/google-cloud-storage-fuse/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Mounts Cloud Storage buckets as a POSIX file system with Cloud Storage FUSE (gcsfuse). Use when you ... |
 | [`google-maps-platform`](plugins/google_maps_platform/skills/SKILL.md) | `google_maps_platform` | `read-write` | A collection of skills for architecting and implementing production-ready code using Google Maps Pla... |
 | [`gtex-database`](plugins/science/skills/gtex_database/SKILL.md) | `science` | `read-write` | Use when you want to retrieve quantitative RNA expression data and variant eQTL information from the... |
 | [`human-protein-atlas-database`](plugins/science/skills/human_protein_atlas_database/SKILL.md) | `science` | `read-write` | Use when you want to retrieve semi-quantitative protein expression and spatial localisation data fro... |
@@ -330,10 +330,10 @@ Estas habilidades provienen de los plugins integrados en `plugins/` (Science, Fl
 | [`literature-search-biorxiv`](plugins/science/skills/literature_search_biorxiv/SKILL.md) | `science` | `read-write` | Browse, filter, and download life sciences, biology, and medical preprints from bioRxiv and medRxiv.... |
 | [`literature-search-europepmc`](plugins/science/skills/literature_search_europepmc/SKILL.md) | `science` | `read-write` | Search Europe PMC for scientific literature and download open-access full texts and PDFs. Retrieve f... |
 | [`literature-search-openalex`](plugins/science/skills/literature_search_openalex/SKILL.md) | `science` | `read-write` | Query the OpenAlex scholarly database for research papers, authors, institutions, topics, sources, p... |
-| [`managing-python-dependencies`](plugins/data-agent-kit-plugin/skills/managing_python_dependencies/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Ensures proper Python dependency management, avoiding global `pip install` and adhering to project-s... |
-| [`ml-best-practices`](plugins/data-agent-kit-plugin/skills/ml_best_practices/SKILL.md) | `data-agent-kit-plugin` | `read-write` | CRITICAL RULE: You MUST use this skill whenever the task involves any machine learning tasks or data... |
+| [`managing-python-dependencies`](plugins/data-agent-kit-plugin/skills/managing-python-dependencies/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Ensures proper Python dependency management, avoiding global `pip install` and adhering to project-s... |
+| [`ml-best-practices`](plugins/data-agent-kit-plugin/skills/ml-best-practices/SKILL.md) | `data-agent-kit-plugin` | `read-write` | CRITICAL RULE: You MUST use this skill whenever the task involves any machine learning tasks or data... |
 | [`ncbi-sequence-fetch`](plugins/science/skills/ncbi_sequence_fetch/SKILL.md) | `science` | `read-write` | Retrieve protein and nucleotide sequences from NCBI databases using E-utilities. Supports direct acc... |
-| [`notebook-guidance`](plugins/data-agent-kit-plugin/skills/notebook_guidance/SKILL.md) | `data-agent-kit-plugin` | `read-write` | This skill guides the use of Jupyter notebooks for data analysis, exploration, and visualization, pa... |
+| [`notebook-guidance`](plugins/data-agent-kit-plugin/skills/notebook-guidance/SKILL.md) | `data-agent-kit-plugin` | `read-write` | This skill guides the use of Jupyter notebooks for data analysis, exploration, and visualization, pa... |
 | [`openfda-database`](plugins/science/skills/openfda_database/SKILL.md) | `science` | `read-write` | Query, search, and download data from the openFDA API for drugs, devices, foods, tobacco, cosmetics,... |
 | [`opentargets-database`](plugins/science/skills/opentargets_database/SKILL.md) | `science` | `read-write` | Query Open Targets Platform for target-disease associations, drug target discovery, tractability/saf... |
 | [`pdb-database`](plugins/science/skills/pdb_database/SKILL.md) | `science` | `read-write` | Use when you want to search for or download experimentally-determined 3D structures for biomolecules... |
@@ -344,8 +344,8 @@ Estas habilidades provienen de los plugins integrados en `plugins/` (Science, Fl
 | [`pymol`](plugins/science/skills/pymol/SKILL.md) | `science` | `read-write` | Visualize, analyze, and render protein and molecular structures using PyMOL. Use when the user wants... |
 | [`quickgo-database`](plugins/science/skills/quickgo_database/SKILL.md) | `science` | `read-write` | Query the QuickGO and Evidence & Conclusion Ontology (ECO) REST API. Use this when you need to map g... |
 | [`reactome-database`](plugins/science/skills/reactome_database/SKILL.md) | `science` | `read-write` | Query the Reactome database (Analysis and Content Services). Use when the user asks about pathway an... |
-| [`resolving-mcp-region-configs`](plugins/data-agent-kit-plugin/skills/resolving_mcp_region_configs/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Mandatory Step 0 pre-flight check for regional Google Cloud MCP servers (e.g. Dataproc) before using... |
-| [`schema-mapping`](plugins/data-agent-kit-plugin/skills/schema_mapping/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Guides the process of analyzing, mapping, and documenting transformations between source and target ... |
+| [`resolving-mcp-region-configs`](plugins/data-agent-kit-plugin/skills/resolving-mcp-region-configs/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Mandatory Step 0 pre-flight check for regional Google Cloud MCP servers (e.g. Dataproc) before using... |
+| [`schema-mapping`](plugins/data-agent-kit-plugin/skills/schema-mapping/SKILL.md) | `data-agent-kit-plugin` | `read-write` | Guides the process of analyzing, mapping, and documenting transformations between source and target ... |
 | [`string-database`](plugins/science/skills/string_database/SKILL.md) | `science` | `read-write` | Query the STRING database for protein-protein interactions (PPIs), functional enrichment, and homolo... |
 | [`ucsc-conservation-and-tfbs`](plugins/science/skills/ucsc_conservation_and_tfbs/SKILL.md) | `science` | `read-write` | Fetch Evolutionary Conservation scores (phyloP, phastCons) and Transcription Factor Binding Sites (T... |
 | [`unibind-database`](plugins/science/skills/unibind_database/SKILL.md) | `science` | `read-write` | Queries the UniBind database for experimentally validated transcription factor (TF) binding sites. U... |
