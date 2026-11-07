@@ -52,3 +52,5 @@ Cuando el operador use una descripción funcional en sesión, comparar contra `~
 | `galls_law` | Ley de Gall (Gall's Law / Systemantics) | John Gall (1975) | `CONVERGE` | `SUPPORTED` | No verificada |
 | `dunning_kruger` | Efecto Dunning-Kruger (Dunning-Kruger Effect) | Justin Kruger, David Dunning / Joachim I. Krueger, Ross A. Mueller (1999) | `DIVERGE` | `CHALLENGED` | Verificada (SHA-256) |
 | `simulacra_hyperreality` | Simulacro e Hiperrealidad (Simulacra and Hyperreality) | Jean Baudrillard (1981) | `ANALOGY` | `PROVISIONAL` | Verificada (SHA-256) |
+| `sovereign_interrogation_decalogue` | Variedad Requerida y Sorpresa Informacional vs. El Decálogo de Interrogación Soberana (BJR-ATLAS-0155) | W. Ross Ashby / Claude E. Shannon (1956) | `EXTENSION` | `PROVISIONAL` | Verificada (SHA-256) |
+| `question_extinction_theorem` | Estados Inválidos Irrepresentables (Make Illegal States Unrepresentable) y Ley de Goodhart vs. El Teorema de Extinción de la Pregunta (BJR-ATLAS-0159) | C. A. R. Hoare / Charles Goodhart / Yaron Minsky (1969) | `EXTENSION` | `SUPPORTED` | Verificada (SHA-256) |

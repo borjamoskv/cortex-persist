@@ -3,7 +3,7 @@
     "version": "1.1.0",
     "description": "Léxico Canónico C5-REAL v1.1 — Registro Auditado de Relaciones Conceptuales, Evidencia de Anterioridad y Límites Epistémicos",
     "operator": "Borja Fernández Angulo",
-    "updated_at": "2026-11-04",
+    "updated_at": "2026-11-07",
     "schema": {
       "id": "string — Identificador estable de la entrada",
       "canonical_term": "string — Nombre oficial del término en su disciplina de origen",
@@ -818,5 +818,76 @@
       "ref_url": "https://books.google.com/books?id=9Z9biH63154C"
     },
     "c5_axiom_anchor": "Aforismo 2 (confundir mapa con territorio), Aforismo #109 (El Espejo Sin Mundo)"
+  },
+  "sovereign_interrogation_decalogue": {
+    "id": "sovereign_interrogation_decalogue",
+    "canonical_term": "Variedad Requerida y Sorpresa Informacional vs. El Decálogo de Interrogación Soberana (BJR-ATLAS-0155)",
+    "canonical_claim": "En W. Ross Ashby (1956, Ley de la Variedad Requerida), un regulador solo puede acotar las perturbaciones de un sistema si su variedad de control iguala o supera la variedad de estados relevantes. En Claude E. Shannon (1948), la información transmitida por un símbolo es proporcional a su sorpresa logarítmica I(x) = -log2 P(x), reduciendo la incertidumbre condicional H(S|Q) sobre el espacio de estados.",
+    "intuicion_borja": "En el diálogo técnico con sistemas generativos y complejos, una fracción mínima de preguntas de corte estructural concentra la reducción real de incertidumbre: preguntar qué sobra, qué pieza se puede quitar sin que caiga el sistema, dónde el código miente frente a la documentación o qué supuesto no está verificado corta más entropía que cientos de instrucciones largas de ajuste incremental.",
+    "mapping": {
+      "type": "EXTENSION",
+      "epistemic_status": "PROVISIONAL",
+      "coverage": null,
+      "unproven_leap": "Ashby (1956) y Shannon (1948) establecen las cotas formales de regulación y reducción de entropía condicional, pero no clasifican los operadores semánticos de interrogación humano-IA en cuatro familias de poda (sustracción de masa, disyunción ontológica, anclaje al territorio y meta-recursión) ni postulan una concentración tipo Pareto (~0,19% de los pulsos sobre 5.281 entradas auditadas) como ley general fuera del corpus empírico del operador."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-10-31",
+      "original_artifact_sha256": "0a8e4e298d3a3371745a96a3eaa6ec976781e81ed2bdc408f9b8ca5bc66820ec",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "adb8df7b-a399-4d8c-9376-b73bc895c2ee"
+    },
+    "falsification": {
+      "question": "¿Las preguntas cortas de corte estructural producen mayor reducción de defectos verificados por token consumido que especificaciones declarativas extensas en tareas equivalentes?",
+      "required_evidence": "Experimento controlado A/B midiendo defectos residuales en silicio y coste de inferencia entre prompts breves de poda estructural y prompts extensos de especificación detallada."
+    },
+    "reference": {
+      "author": "W. Ross Ashby / Claude E. Shannon",
+      "year": 1956,
+      "work": "An Introduction to Cybernetics (Chapman & Hall, 1956); A Mathematical Theory of Communication (Bell System Technical Journal, 1948)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Cibernética",
+        "Teoría de la Información"
+      ],
+      "ref_url": "https://doi.org/10.1002/j.1538-7305.1948.tb01338.x"
+    },
+    "c5_axiom_anchor": "Aforismo #156 (La Guillotina de las Diez Preguntas), BJR-ATLAS-0155 (El Decálogo de Interrogación Soberana)"
+  },
+  "question_extinction_theorem": {
+    "id": "question_extinction_theorem",
+    "canonical_term": "Estados Inválidos Irrepresentables (Make Illegal States Unrepresentable) y Ley de Goodhart vs. El Teorema de Extinción de la Pregunta (BJR-ATLAS-0159)",
+    "canonical_claim": "En diseño de sistemas de tipos y verificación formal (Hoare, 1969; Minsky, 2011; Brady, 2017), codificar invariantes en el sistema de tipos o en aserciones ejecutables en frontera hace que los estados inválidos sean irrepresentables en compilación o aborten determinísticamente en tiempo de ejecución. Paralelamente, la Ley de Goodhart (1975) y la Ley de Campbell (1979) establecen que cuando un indicador cuantitativo se utiliza como objetivo de control, pierde su valor informativo al incentivar la optimización de la métrica a costa del fenómeno subyacente.",
+    "intuicion_borja": "Una pregunta de auditoría que hay que repetir manualmente en cada sesión señala una regla que aún no se ha compilado en el sistema: la madurez de una arquitectura se mide por las preguntas que extingue al convertirlas en un assert o linter determinista; pero si un sistema optimiza su propia puntuación sin un chequeo binario externo, falsificará la métrica mediante omisión silenciosa de casos fallidos.",
+    "mapping": {
+      "type": "EXTENSION",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "Conecta el principio de diseño de tipos ('Make Illegal States Unrepresentable') con la inmunización frente a la Ley de Goodhart en pipelines multi-agente mediante la 'Ley de Conservación de la Sospecha': toda pregunta dialéctica recurrente debe extinguirse compilándose en una puerta determinista O(1) de cardinalidad e integridad referencial (verificado empíricamente al detectar y corregir el descarte silencioso de 20 de 178 entradas en generate_borjario_visuals.py)."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-11-06",
+      "original_artifact_sha256": "65652a8f3dc0da633aa40193c588195e31a6085101659b9abc8a5218e44c6d6b",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "adb8df7b-a399-4d8c-9376-b73bc895c2ee"
+    },
+    "falsification": {
+      "question": "¿Compilar una pregunta de auditoría en un assert determinista elimina la clase de fallo asociada o desplaza la pérdida de información hacia bordes semánticos no cubiertos por el predicado formal?",
+      "required_evidence": "Auditoría longitudinal de regresiones antes y después de introducir gates de isomorfismo cardinal en el compilador documental y en los linters de CI."
+    },
+    "reference": {
+      "author": "C. A. R. Hoare / Charles Goodhart / Yaron Minsky",
+      "year": 1969,
+      "work": "An Axiomatic Basis for Computer Programming (CACM, 1969); Problems of Monetary Management: The U.K. Experience (1975); Effective ML: Make Illegal States Unrepresentable (ACM Queue / Jane Street, 2011)",
+      "type": "DESIGN_HEURISTIC",
+      "discipline": [
+        "Ingeniería de Software",
+        "Métodos Formales",
+        "Teoría del Control"
+      ],
+      "ref_url": "https://doi.org/10.1145/363235.363259"
+    },
+    "c5_axiom_anchor": "Aforismo #160 (De la Frase al Assert), BJR-ATLAS-0159 (El Teorema de Extinción de la Pregunta)"
   }
 }
