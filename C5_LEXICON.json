@@ -1249,5 +1249,41 @@
       "ref_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3479453/"
     },
     "c5_axiom_anchor": "BJR-ATLAS-0038 (Matriz GELABP), Capítulo X (Reificación y GELABP como esquema de trabajo)"
+  },
+  "kudurru_64": {
+    "id": "kudurru_64",
+    "canonical_term": "Seqlock (Sequence Lock) y Alineación de Línea de Caché (False Sharing Mitigation) vs. KUDURRU-64 (BJR-ATLAS-0002 / BJR-000002)",
+    "canonical_claim": "En concurrencia de sistemas operativos (Hemminger / Lameter en el kernel Linux, 2003; Boehm, 2012) y arquitectura de multiprocesadores con coherencia de caché MESI/MOESI (Hennessy & Patterson), un Seqlock permite lecturas optimistas sin bloqueo mediante un contador de secuencia par/impar, mientras que alinear estructuras concurrentes al tamaño de línea de caché (64 o 128 bytes) evita la invalidación cruzada por compartición falsa (false sharing).",
+    "intuicion_borja": "Un cerrojo de frontera alineado a 64 bytes que permite a múltiples lectores verificar el estado en memoria sin bloquearse entre sí ni contaminar la caché de los núcleos vecinos.",
+    "mapping": {
+      "type": "EXTENSION",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "KUDURRU-64 implementa un Seqlock SPMC con #[repr(align(64))] verificado estáticamente en rustc, acoplándolo como filtro de admisión de presupuestos y gravedad cognitiva en el Anillo-0 de BABYLON-60; en Apple Silicon M-Series las líneas de caché L2 coherentes operan a 128 bytes, por lo que la eliminación total de false sharing entre pares requiere considerar múltiplos de 64/128 bytes según la topología del SoC."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-09-14",
+      "original_artifact_sha256": "7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿El alineamiento a 64 bytes basta para eliminar el false sharing en el clúster P-core de Apple Silicon (línea de 128B) o requiere padding adicional bajo contención multi-hilo?",
+      "required_evidence": "Benchmark comparativo en silicio arm64 entre #[repr(align(64))] y #[repr(align(128))] midiendo contadores PMU de invalidación de caché."
+    },
+    "reference": {
+      "author": "Hans-J. Boehm / Christoph Lameter / John L. Hennessy, David A. Patterson",
+      "year": 2012,
+      "work": "Can Seqlocks Get Along With Programming Language Memory Models? (Boehm, ACM MSPC, 2012); Computer Architecture: A Quantitative Approach (Hennessy & Patterson)",
+      "type": "FORMAL_DEFINITION",
+      "discipline": [
+        "Concurrencia Lock-Free",
+        "Arquitectura de Computadores",
+        "Sistemas Operativos"
+      ],
+      "ref_url": "https://doi.org/10.1145/2247684.2247688"
+    },
+    "c5_axiom_anchor": "BJR-000002 / BJR-ATLAS-0002 (KUDURRU-64)"
   }
 }
