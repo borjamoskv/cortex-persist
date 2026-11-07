@@ -39,3 +39,6 @@ __pycache__/
 *.so
 node_modules/
 .npm/
+
+# Never track plugin OAuth credentials
+plugins/**/auth.json

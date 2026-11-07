@@ -41,6 +41,12 @@ Presentar el inventario concreto y esperar autorización explícita para las rut
 
 La ejecución autorizada corresponde a un procedimiento de implementación separado, con revalidación de identidad y uso de las rutas antes de actuar, respaldo o cuarentena recuperable cuando proceda y las compuertas de atestación aplicables. No trasladar globs globales del diagnóstico a un borrado. Abortarla ante cambios concurrentes, identidad incierta o procesos activos.
 
+### Invariante de Purga Quirúrgica en Silicio Efímero (Brain/Scratch)
+1. **Cero comodines:** Prohibido el uso de comodines globales (`scratch/*`, `rm -rf <dir>/*`) sobre árboles efímeros; la eliminación autorizada se ejecuta exclusivamente por inodo y ruta absoluta exacta.
+2. **Criterio de demarcación de candidatos:** Solo son elegibles para purga: (a) cachés de paquetes o tarballs públicos reconstruibles determinísticamente; (b) snapshots de código cuya paridad de contenido o equivalencia AST haya sido verificada contra el historial Git canónico en `~/10_PROJECTS/`.
+3. **Fronteras estrictas de retención:** Quedan blindadas e inmutables: (a) rutas bajo descriptores abiertos por procesos vivos (`lsof`); (b) parches y repositorios locales únicos sin réplica en el ecosistema (`tt_metal_audit`); (c) bases SQLite y recibos JSON que constituyan evidencia primaria de corridas o claims de arquitectura (`evidence_*.json`).
+4. **Verificación post-purga obligatoria:** Tras cualquier intervención autorizada, certificar en silicio: `exists == False` para las rutas eliminadas, `exists == True` para las fronteras protegidas y `PRAGMA integrity_check` en bases SQLite preservadas.
+
 ### Exclusiones y activación
 - Ningún umbral de tamaño, archivo no rastreado, ejecución de PoC o coincidencia de trigger inicia una purga automática.
 - Preservar trabajo ajeno, fuentes, activos privados, stems y masters. `~/Music/` y especialmente `~/Music/LIBRARY` quedan excluidos de cualquier purga.

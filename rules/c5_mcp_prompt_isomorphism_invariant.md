@@ -24,3 +24,8 @@ Cualquier prompt generativo añadido o modificado en un servidor MCP DEBE contar
 En scripts de prueba, enjambres o utilitarios del repositorio:
 - Queda prohibido invocar ejecutores remotos o empaquetados (`uvx --from <package>`) dentro del propio árbol de trabajo del proyecto.
 - Toda ejecución DEBE acoplarse al silicio local mediante `uv run <cli>` o `python -m <module>`, incorporando un parámetro `--project` explícito y `timeout` defensivo en llamadas `subprocess`.
+
+## 5. Invariante de Proyección Programática (PTC) y Podado Determinista
+1. **Proyección Tipada sin Schema Bloat (PTC SDK):** Cuando los agentes operen bajo Programmatic Tool Calling (PTC), los servidores MCP deben exponer generadores de stubs tipados Python (`class ToolsSDK(Protocol)`) para omitir los esquemas JSON Schema verbosos del contexto de inferencia, habilitando llamadas directas vía código tipado.
+2. **Podado Determinista Replay-Safe:** Toda salida masiva de herramientas MCP debe someterse a compactación determinista de 3 zonas (`head_chars=4096`, `\n\n[... tool result middle pruned ...]\n\n`, `tail_chars=1024`, con umbral por defecto $8192$ caracteres), garantizando reproducibilidad idéntica y preservando tanto la cabecera operativa como el colofón/excepción.
+3. **Paso de Autoridad por Argumentos en DSH/Cordis:** En entornos con transporte stdio bajo supervisores como DeepSeek Harness / Cordis, las credenciales, bindings firmados y claves públicas deben inyectarse exclusivamente como argumentos CLI (`--binding`, `--trust-pubkey`), jamás mediante variables de entorno, debido al filtrado estricto de variables sensibles (`/KEY|PASSWORD|SECRET|TOKEN/i` y `DSH_*`).
