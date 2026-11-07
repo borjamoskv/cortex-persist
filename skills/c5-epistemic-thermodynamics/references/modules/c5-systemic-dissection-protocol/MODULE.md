@@ -47,3 +47,14 @@ Utilizar herramientas de búsqueda (Web, arXiv) para encontrar el *corpus* cient
 Sintetizar la iteración final (El Punto Fijo $\Omega$).
 * Formular cómo operar el sistema bajo **Tolerancia a la Incompletitud**.
 * Definir la **Maniobra de Alta Exergía**: En lugar de intentar reparar los límites termodinámicos del sistema, proponer una arquitectura cibernética que utilice esa misma fricción computacional como filtro delimitador o motor de cálculo.
+
+## Caso de Estudio Canónico: El Isomorfismo del Autómata Expendedor (Metro ⟷ Beckett)
+
+Como patrón de referencia para la aplicación de este protocolo a sistemas de lenguaje, arte y confinamiento existencial, el sistema formaliza el isomorfismo estricto entre un **Autómata Finito Determinista (DFA / Máquina Expendedora de Metro)** y la dramaturgia de Samuel Beckett:
+
+1. **5-Tupla Formal con Estado de Aceptación Vacío ($F = \emptyset$):** El sistema procesa entradas (quejas, monedas deformadas, recuerdos), pero la ranura las devuelve a la cazoleta inferior (*«Rien à faire»*).
+2. **Telemetría y Agotamiento de Insumos:** Cuando los consumibles de la tolva se agotan (*«Il n'y a plus de calmant»*), el bus conmuta a `FUERA DE SERVICIO`. El sensor periférico (catalejo) reporta cero continuo en el horizonte.
+3. **El Técnico de Mantenimiento Asintótico:** La figura externa esperada (Godot) opera como un aviso en pantalla de mantenimiento aplazado (*«Vendrá mañana»*).
+4. **Colapso de Myhill-Nerode ($|\operatorname{Min}_\beta| = 1$):** Todas las secuencias de entrada (rezar, lamentarse, intentar suicidio con cuerda rota, esperar) pertenecen a la misma clase de equivalencia conductual: al evaluar la continuación $u = \text{torniquete}$, el electroimán permanece a 0V, imponiendo la acotación determinista inamovible:
+   $$\text{«Alors, on y va ? / Allons-y. / [Ils ne bougent pas]»}$$
+
