@@ -9,7 +9,6 @@ Work with the calendars and events the user names or links to. Commands that act
 on a single event take an **event ID**; commands that act on a calendar take a
 **calendar ID**, which is an email address for a person or a room.
 
->
 > `mutate delete` removes an event immediately. There is no confirmation prompt,
 > no `--confirm` flag, and no undo. **Never** delete an event unless the user
 > explicitly asked you to delete that specific event, and say which event you
@@ -23,38 +22,47 @@ on a single event take an **event ID**; commands that act on a calendar take a
 > **Never invite anyone the user did not name**, and never widen an event's
 > visibility on your own initiative.
 
-## Setup and Authentication
+## Setup
 
-`gcalendar auth status` is the only way to tell whether you are logged in. Do
-not run `--help`, search the filesystem or environment for tokens, check another
-plugin's login, or run an operational command before logging in. Follow these
-steps exactly.
-
-**1. Register and check.** Run this skill's script with `auth status`. It
-downloads the CLI, registers `gcalendar` on the agent's `PATH` (not the user's
-shell), and reports whether you are logged in:
+Run this skill's script once, before anything else. It downloads the CLI for
+this machine, registers `gcalendar` on the agent's `PATH` (not the user's
+shell), and prints the version:
 
 ```bash
-<path/to/this/skill>/scripts/gcalendar auth status
+<path/to/this/skill>/scripts/gcalendar --version
 ```
 
 ```powershell
 # Windows (PowerShell)
-& "<path\to\this\skill>\scripts\gcalendar.cmd" auth status
+& "<path\to\this\skill>\scripts\gcalendar.cmd" --version
 ```
 
-Every later call is just `gcalendar`. Never ask the user to run it; they cannot.
-If it reports `Logged in`, you are ready.
+After that, always run bare `gcalendar`, never the script by its path: only
+`gcalendar` gets the user's sign-in. Never ask the user to run it; they cannot.
 
-**2. Log in for the user.** Start this as a background command:
+## Authentication
 
-```bash
-gcalendar auth login
-```
+Run bare `gcalendar` and let the result tell you how sign-in works. Don't search
+the filesystem or environment for credentials, and don't ask the user for a
+token.
 
-It prints an authorization URL and exits on its own once the user approves. Read
-the URL from the task's log, open it in the user's browser or hand them the
-link, then stop and wait. Confirm with `gcalendar auth status`.
+-   **Antigravity manages sign-in** when a command fails with Antigravity's
+    "needs authentication" message. Follow it: show the plugin card it gives and
+    ask the user to click **Sign in** on it, then retry once they say they have
+    signed in. Do not run `gcalendar auth login` in this case. If more than one
+    account is connected, choose one by prefixing the command with
+    `AGY_ACCOUNT=<account>`, for example
+    `AGY_ACCOUNT=me@example.com gcalendar ...`. In PowerShell, set it first:
+    `$env:AGY_ACCOUNT = "me@example.com"; gcalendar ...`.
+-   **The CLI manages sign-in** when it says
+    `no credentials found: run gcalendar auth login`. This version of
+    Antigravity doesn't sign in for this plugin, so log in for the user: start
+    `gcalendar auth login` as a background command. It prints an authorization
+    URL and exits on its own once the user approves. Read the URL from the
+    task's log, open it in the user's browser or hand them the link, then stop
+    and wait. Confirm with `gcalendar auth status`, then retry.
+-   A 403 that names a missing permission or scope is not a sign-in problem.
+    Report it instead of asking the user to sign in again.
 
 ## Usage
 
@@ -127,32 +135,31 @@ The essentials are below. For every flag of every command, including the
 defaults that are easy to get wrong, see
 [references/commands.md](references/commands.md).
 
-| Command                  | Description                                       |
-| ------------------------ | ------------------------------------------------- |
-| `readonly events`        | List events over a date or a range                |
-| `readonly today`         | Today's events                                    |
-| `readonly search`        | Search events by keyword                          |
-| `readonly get`           | Full details for one event                        |
-| `readonly instances`     | Occurrences of a recurring event                  |
-| `readonly conflicts`     | Overlapping events today                          |
-| `readonly calendars`     | List calendars and their IDs                      |
-| `readonly colors`        | Color IDs for `--color`                           |
-| `readonly acl`           | Who a calendar is shared with                     |
-| `readonly freebusy`      | Busy intervals for one or more people             |
-| `readonly next-free`     | First open slot on the user's own calendar        |
-| `readonly working-hours` | Calendar settings, including timezone and working |
-:                          : hours                                             :
-| `readonly workloc`       | Where someone is working from                     |
-| `mutate create`          | Create an event                                   |
-| `mutate update`          | Update an event                                   |
-| `mutate recurring`       | Create a recurring series from an RRULE           |
-| `mutate focus-time`      | Block out solo focus time                         |
-| `mutate quick-add`       | Create an event from a natural-language phrase    |
-| `mutate rsvp`            | Respond to an invitation                          |
-| `mutate move`            | Move an event to another calendar                 |
-| `mutate delete`          | Delete an event                                   |
-| `mutate import-ics`      | Import an event from an ICS file                  |
-| `mutate workloc-set`     | Set your working location                         |
+Command                  | Description
+------------------------ | -----------
+`readonly events`        | List events over a date or a range
+`readonly today`         | Today's events
+`readonly search`        | Search events by keyword
+`readonly get`           | Full details for one event
+`readonly instances`     | Occurrences of a recurring event
+`readonly conflicts`     | Overlapping events today
+`readonly calendars`     | List calendars and their IDs
+`readonly colors`        | Color IDs for `--color`
+`readonly acl`           | Who a calendar is shared with
+`readonly freebusy`      | Busy intervals for one or more people
+`readonly next-free`     | First open slot on the user's own calendar
+`readonly working-hours` | Calendar settings, including timezone and working hours
+`readonly workloc`       | Where someone is working from
+`mutate create`          | Create an event
+`mutate update`          | Update an event
+`mutate recurring`       | Create a recurring series from an RRULE
+`mutate focus-time`      | Block out solo focus time
+`mutate quick-add`       | Create an event from a natural-language phrase
+`mutate rsvp`            | Respond to an invitation
+`mutate move`            | Move an event to another calendar
+`mutate delete`          | Delete an event
+`mutate import-ics`      | Import an event from an ICS file
+`mutate workloc-set`     | Set your working location
 
 ### Notifications
 

@@ -15,38 +15,47 @@ take a **file ID** — the segment after `/d/` or `/folders/` in a
 > undone. Never run it, or any other destructive command, unless the user asks
 > explicitly.
 
-## Setup and Authentication
+## Setup
 
-`gdrive auth status` is the only way to tell whether you are logged in. Do not
-run `--help`, search the filesystem or environment for tokens, check another
-plugin's login, or run an operational command before logging in. Follow these
-steps exactly.
-
-**1. Register and check.** Run this skill's script with `auth status`. It
-downloads the CLI, registers `gdrive` on the agent's `PATH` (not the user's
-shell), and reports whether you are logged in:
+Run this skill's script once, before anything else. It downloads the CLI for
+this machine, registers `gdrive` on the agent's `PATH` (not the user's shell),
+and prints the version:
 
 ```bash
-<path/to/this/skill>/scripts/gdrive auth status
+<path/to/this/skill>/scripts/gdrive --version
 ```
 
 ```powershell
 # Windows (PowerShell)
-& "<path\to\this\skill>\scripts\gdrive.cmd" auth status
+& "<path\to\this\skill>\scripts\gdrive.cmd" --version
 ```
 
-Every later call is just `gdrive`. Never ask the user to run it; they cannot. If
-it reports `Logged in`, you are ready.
+After that, always run bare `gdrive`, never the script by its path: only
+`gdrive` gets the user's sign-in. Never ask the user to run it; they cannot.
 
-**2. Log in for the user.** Start this as a background command:
+## Authentication
 
-```bash
-gdrive auth login
-```
+Run bare `gdrive` and let the result tell you how sign-in works. Don't search
+the filesystem or environment for credentials, and don't ask the user for a
+token.
 
-It prints an authorization URL and exits on its own once the user approves. Read
-the URL from the task's log, open it in the user's browser or hand them the
-link, then stop and wait. Confirm with `gdrive auth status`.
+-   **Antigravity manages sign-in** when a command fails with Antigravity's
+    "needs authentication" message. Follow it: show the plugin card it gives and
+    ask the user to click **Sign in** on it, then retry once they say they have
+    signed in. Do not run `gdrive auth login` in this case. If more than one
+    account is connected, choose one by prefixing the command with
+    `AGY_ACCOUNT=<account>`, for example
+    `AGY_ACCOUNT=me@example.com gdrive ...`. In PowerShell, set it first:
+    `$env:AGY_ACCOUNT = "me@example.com"; gdrive ...`.
+-   **The CLI manages sign-in** when it says
+    `no credentials found: run gdrive auth login`. This version of Antigravity
+    doesn't sign in for this plugin, so log in for the user: start
+    `gdrive auth login` as a background command. It prints an authorization URL
+    and exits on its own once the user approves. Read the URL from the task's
+    log, open it in the user's browser or hand them the link, then stop and
+    wait. Confirm with `gdrive auth status`, then retry.
+-   A 403 that names a missing permission or scope is not a sign-in problem.
+    Report it instead of asking the user to sign in again.
 
 ## Usage
 
@@ -178,49 +187,42 @@ done
 
 ## Commands
 
-| Command                      | Description                                   |
-| ---------------------------- | --------------------------------------------- |
-| `readonly ls`                | List files with auto-pagination (unlimited by |
-:                              : default; pass `--max N` to limit results;     :
-:                              : supports `--trashed`)                         :
-| `readonly count`             | Count files in folder with pagination         |
-| `readonly search`            | Search files (supports `--trashed`)           |
-| `readonly info`              | Get file info                                 |
-| `readonly url`               | Print web URL                                 |
-| `readonly download`          | Download file                                 |
-| `mutate upload`              | Upload file (supports `--mime-type`)          |
-| `mutate update`              | Update file content in-place (preserves ID,   |
-:                              : link, permissions; supports `--mime-type`)    :
-| `mutate mkdir`               | Create folder                                 |
-| `mutate create-shortcut`     | Create a shortcut to a file in a folder       |
-| `mutate cp`                  | Copy file (supports `--parent`)               |
-| `mutate mv`                  | Move file                                     |
-| `mutate rename`              | Rename file                                   |
-| `readonly export`            | Export Google Workspace document (supports    |
-:                              : `--format=pdf` / `docx` / `xlsx` / `pptx` /   :
-:                              : `csv` / `tsv` / `txt` / `md` / `html`)        :
-| `mutate trash`               | Trash file                                    |
-| `mutate untrash`             | Restore file                                  |
-| `mutate empty-trash`         | Empty trash                                   |
-| `mutate share`               | Share file (`--notify=false` to suppress      |
-:                              : email)                                        :
-| `readonly permissions`       | List permissions                              |
-| `mutate remove-permission`   | Remove permission                             |
-| `readonly audit-permissions` | Recursive permission audit                    |
-| `readonly capabilities`      | List file capabilities (supports `--filter`)  |
-| `readonly recent`            | Recent files                                  |
-| `readonly starred`           | Starred files                                 |
-| `readonly quota`             | Show quota                                    |
-| `readonly revisions`         | List file revisions                           |
-| `readonly shared-drives`     | List shared drives                            |
-| `readonly tree`              | Display folder tree                           |
-| `readonly list-comments`     | List comments (supports `--author`,           |
-:                              : `--mentioned`, `--assignee`)                  :
-| `mutate add-comment`         | Add a comment                                 |
-| `mutate reply-comment`       | Reply to a specific comment thread            |
-| `mutate resolve-comment`     | Resolve a comment thread                      |
-| `mutate batch`               | Execute batch ops                             |
-| `readonly watch`             | Start a background watcher for Drive activity |
+Command                      | Description
+---------------------------- | -----------
+`readonly ls`                | List files with auto-pagination (unlimited by default; pass `--max N` to limit results; supports `--trashed`)
+`readonly count`             | Count files in folder with pagination
+`readonly search`            | Search files (supports `--trashed`)
+`readonly info`              | Get file info
+`readonly url`               | Print web URL
+`readonly download`          | Download file
+`mutate upload`              | Upload file (supports `--mime-type`)
+`mutate update`              | Update file content in-place (preserves ID, link, permissions; supports `--mime-type`)
+`mutate mkdir`               | Create folder
+`mutate create-shortcut`     | Create a shortcut to a file in a folder
+`mutate cp`                  | Copy file (supports `--parent`)
+`mutate mv`                  | Move file
+`mutate rename`              | Rename file
+`readonly export`            | Export Google Workspace document (supports `--format=pdf` / `docx` / `xlsx` / `pptx` / `csv` / `tsv` / `txt` / `md` / `html`)
+`mutate trash`               | Trash file
+`mutate untrash`             | Restore file
+`mutate empty-trash`         | Empty trash
+`mutate share`               | Share file (`--notify=false` to suppress email)
+`readonly permissions`       | List permissions
+`mutate remove-permission`   | Remove permission
+`readonly audit-permissions` | Recursive permission audit
+`readonly capabilities`      | List file capabilities (supports `--filter`)
+`readonly recent`            | Recent files
+`readonly starred`           | Starred files
+`readonly quota`             | Show quota
+`readonly revisions`         | List file revisions
+`readonly shared-drives`     | List shared drives
+`readonly tree`              | Display folder tree
+`readonly list-comments`     | List comments (supports `--author`, `--mentioned`, `--assignee`)
+`mutate add-comment`         | Add a comment
+`mutate reply-comment`       | Reply to a specific comment thread
+`mutate resolve-comment`     | Resolve a comment thread
+`mutate batch`               | Execute batch ops
+`readonly watch`             | Start a background watcher for Drive activity
 
 ## Tips
 

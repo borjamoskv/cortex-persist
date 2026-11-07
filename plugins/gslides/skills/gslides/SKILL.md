@@ -10,38 +10,47 @@ here assumes you already have the **presentation ID** — the segment between
 `/d/` and `/edit` in a
 `https://docs.google.com/presentation/d/<PRESENTATION_ID>/edit` URL.
 
-## Setup and Authentication
+## Setup
 
-`gslides auth status` is the only way to tell whether you are logged in. Do not
-run `--help`, search the filesystem or environment for tokens, check another
-plugin's login, or run an operational command before logging in. Follow these
-steps exactly.
-
-**1. Register and check.** Run this skill's script with `auth status`. It
-downloads the CLI, registers `gslides` on the agent's `PATH` (not the user's
-shell), and reports whether you are logged in:
+Run this skill's script once, before anything else. It downloads the CLI for
+this machine, registers `gslides` on the agent's `PATH` (not the user's shell),
+and prints the version:
 
 ```bash
-<path/to/this/skill>/scripts/gslides auth status
+<path/to/this/skill>/scripts/gslides --version
 ```
 
 ```powershell
 # Windows (PowerShell)
-& "<path\to\this\skill>\scripts\gslides.cmd" auth status
+& "<path\to\this\skill>\scripts\gslides.cmd" --version
 ```
 
-Every later call is just `gslides`. Never ask the user to run it; they cannot.
-If it reports `Logged in`, you are ready.
+After that, always run bare `gslides`, never the script by its path: only
+`gslides` gets the user's sign-in. Never ask the user to run it; they cannot.
 
-**2. Log in for the user.** Start this as a background command:
+## Authentication
 
-```bash
-gslides auth login
-```
+Run bare `gslides` and let the result tell you how sign-in works. Don't search
+the filesystem or environment for credentials, and don't ask the user for a
+token.
 
-It prints an authorization URL and exits on its own once the user approves. Read
-the URL from the task's log, open it in the user's browser or hand them the
-link, then stop and wait. Confirm with `gslides auth status`.
+-   **Antigravity manages sign-in** when a command fails with Antigravity's
+    "needs authentication" message. Follow it: show the plugin card it gives and
+    ask the user to click **Sign in** on it, then retry once they say they have
+    signed in. Do not run `gslides auth login` in this case. If more than one
+    account is connected, choose one by prefixing the command with
+    `AGY_ACCOUNT=<account>`, for example
+    `AGY_ACCOUNT=me@example.com gslides ...`. In PowerShell, set it first:
+    `$env:AGY_ACCOUNT = "me@example.com"; gslides ...`.
+-   **The CLI manages sign-in** when it says
+    `no credentials found: run gslides auth login`. This version of Antigravity
+    doesn't sign in for this plugin, so log in for the user: start
+    `gslides auth login` as a background command. It prints an authorization URL
+    and exits on its own once the user approves. Read the URL from the task's
+    log, open it in the user's browser or hand them the link, then stop and
+    wait. Confirm with `gslides auth status`, then retry.
+-   A 403 that names a missing permission or scope is not a sign-in problem.
+    Report it instead of asking the user to sign in again.
 
 ## Usage
 
@@ -246,97 +255,35 @@ slides:
 
 The batch command supports **27 operations**:
 
-| Op                            | Key Fields                    | Description                   |
-| :---------------------------- | :---------------------------- | :---------------------------- |
-| `set-background`              | `slide`, `color`              | Slide background color        |
-| `add-text`                    | `element`, `textbox`, `text`  | Insert text into element. Use |
-:                               :                               : this to safely insert text    :
-:                               :                               : into empty                    :
-:                               :                               : placeholders/shapes, as       :
-:                               :                               : `update-text` may fail.       :
-| `add-textbox`                 | `slide`, `text`, `x`, `y`,    | Create textbox with text and  |
-:                               : `width`, `height`,            : styling                       :
-:                               : `font_size`, `bold`,          :                               :
-:                               : `italic`, `underline`,        :                               :
-:                               : `strikethrough`, `color`,     :                               :
-:                               : `background_color`, `alpha`,  :                               :
-:                               : `font_family`, `alignment`,   :                               :
-:                               : `content_alignment`,          :                               :
-:                               : `line_spacing`, `link`        :                               :
-| `add-image`                   | `slide`, `url`, `x`, `y`,     | Insert image from URL         |
-:                               : `width`, `height`             :                               :
-| `add-slide`                   | `layout`, `id`                | Add slide (default: BLANK).   |
-:                               :                               : 'layout' supports standard    :
-:                               :                               : enums or custom layout IDs    :
-:                               :                               : (e.g. `g43cb3ecfc4_0_85`).    :
-:                               :                               : Hint\: Discover custom IDs by :
-:                               :                               : running the `gslides readonly :
-:                               :                               : info --json` command on       :
-:                               :                               : reference deck. 'id' creates  :
-:                               :                               : a placeholder for use by      :
-:                               :                               : later ops                     :
-| `add-table`                   | `slide`, `rows`, `cols`,      | Create table with optional    |
-:                               : `id`, `width`, `height`, `x`, : size and coordinates. `id`    :
-:                               : `y`                           : creates a placeholder for     :
-:                               :                               : `set-table-cell`              :
-| `add-line`                    | `slide`, `line_category`,     | Create a straight line,       |
-:                               : `x`, `y`, `width`, `height`,  : arrow, or shape-anchored      :
-:                               : `start_arrow`, `end_arrow`,   : connector. Set                :
-:                               : `line_weight`, `color`,       : `start_connect`/`end_connect` :
-:                               : `dash_style`,                 : to shape element IDs (with    :
-:                               : `start_connect`,              : `start_site`/`end_site` edge  :
-:                               : `end_connect`, `start_site`,  : index) to anchor and          :
-:                               : `end_site`, `id`              : auto-route between shapes;    :
-:                               :                               : connected lines default to    :
-:                               :                               : `BENT`. `id` creates a        :
-:                               :                               : placeholder for use by later  :
-:                               :                               : ops                           :
-| `set-table-cell`              | `table`, `row`, `col`,        | Set + style table cell        |
-:                               : `text`, `color`, `bold`,      :                               :
-:                               : `font_size`, `font_family`,   :                               :
-:                               : `underline`, `strikethrough`, :                               :
-:                               : `background_color`, `alpha`   :                               :
-| `style-text`                  | `element`, `color`, `bold`,   | Restyle existing text         |
-:                               : `italic`, `underline`,        :                               :
-:                               : `strikethrough`, `font_size`, :                               :
-:                               : `font_family`, `link`,        :                               :
-:                               : `start`, `end`                :                               :
-| `style-table-cell`            | `table`, `row`, `col`,        | Restyle table cell text or    |
-:                               : `color`, `bold`, `font_size`, : alignment (optional range     :
-:                               : `font_family`, `underline`,   : `start`/`end`)                :
-:                               : `strikethrough`, `alignment`, :                               :
-:                               : `start`, `end`                :                               :
-| `set-notes`                   | `slide`, `text`               | Set speaker notes             |
-| `delete-element`              | `element`                     | Delete element by ID          |
-| `delete-text`                 | `element`, `start`, `end`     | Delete text range             |
-| `move-element`                | `element`, `x`, `y`           | Move element                  |
-| `resize-element`              | `element`, `width`, `height`, | Resize element                |
-:                               : `x`, `y`                      :                               :
-| `update-text`                 | `element`, `text`             | Replace text in element       |
-| `update-alt-text`             | `element`, `description`,     | Replace alt text in element   |
-:                               : `title`                       :                               :
-| `add-shape`                   | `slide`, `shape_type`, `x`,   | Create shape (RECTANGLE,      |
-:                               : `y`, `width`, `height`,       : ELLIPSE, etc.)                :
-:                               : `background_color`, `alpha`   :                               :
-| `style-shape`                 | `element`,                    | Change shape fill color,      |
-:                               : `background_color`, `alpha`,  : border/outline color and      :
-:                               : `outline_color`,              : weight                        :
-:                               : `outline_weight`              :                               :
-| `duplicate-slide`             | `slide`, `id`, `elements`     | Duplicate a slide             |
-| `reorder-slide`               | `slide`, `position`           | Move slide to position        |
-| `skip-slide`                  | `slide`                       | Skip (hide) a slide from      |
-:                               :                               : presentation mode             :
-| `unskip-slide`                | `slide`                       | Unskip (unhide) a slide to    |
-:                               :                               : make it visible               :
-| `replace-all-text`            | `contains`, `replace_text`    | Find-and-replace across deck  |
-| `create-bullets`              | `element`, `start`, `end`     | Add bullet points             |
-| `update-shape`                | `element`, `text`,            | Update shape properties and   |
-:                               : `background_color`, `alpha`,  : text                          :
-:                               : `color`, `font_size`, `bold`, :                               :
-:                               : `content_alignment`           :                               :
-| `updateTableColumnProperties` | `updateTableColumnProperties` | Update table column           |
-:                               :                               : properties (e.g. column       :
-:                               :                               : width)                        :
+Op                            | Key Fields                                                                                                                                                                                                               | Description
+:---------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------
+`set-background`              | `slide`, `color`                                                                                                                                                                                                         | Slide background color
+`add-text`                    | `element`, `textbox`, `text`                                                                                                                                                                                             | Insert text into element. Use this to safely insert text into empty placeholders/shapes, as `update-text` may fail.
+`add-textbox`                 | `slide`, `text`, `x`, `y`, `width`, `height`, `font_size`, `bold`, `italic`, `underline`, `strikethrough`, `color`, `background_color`, `alpha`, `font_family`, `alignment`, `content_alignment`, `line_spacing`, `link` | Create textbox with text and styling
+`add-image`                   | `slide`, `url`, `x`, `y`, `width`, `height`                                                                                                                                                                              | Insert image from URL
+`add-slide`                   | `layout`, `id`                                                                                                                                                                                                           | Add slide (default: BLANK). 'layout' supports standard enums or custom layout IDs (e.g. `g43cb3ecfc4_0_85`). Hint: Discover custom IDs by running the `gslides readonly info --json` command on reference deck. 'id' creates a placeholder for use by later ops
+`add-table`                   | `slide`, `rows`, `cols`, `id`, `width`, `height`, `x`, `y`                                                                                                                                                               | Create table with optional size and coordinates. `id` creates a placeholder for `set-table-cell`
+`add-line`                    | `slide`, `line_category`, `x`, `y`, `width`, `height`, `start_arrow`, `end_arrow`, `line_weight`, `color`, `dash_style`, `start_connect`, `end_connect`, `start_site`, `end_site`, `id`                                  | Create a straight line, arrow, or shape-anchored connector. Set `start_connect`/`end_connect` to shape element IDs (with `start_site`/`end_site` edge index) to anchor and auto-route between shapes; connected lines default to `BENT`. `id` creates a placeholder for use by later ops
+`set-table-cell`              | `table`, `row`, `col`, `text`, `color`, `bold`, `font_size`, `font_family`, `underline`, `strikethrough`, `background_color`, `alpha`                                                                                    | Set + style table cell
+`style-text`                  | `element`, `color`, `bold`, `italic`, `underline`, `strikethrough`, `font_size`, `font_family`, `link`, `start`, `end`                                                                                                   | Restyle existing text
+`style-table-cell`            | `table`, `row`, `col`, `color`, `bold`, `font_size`, `font_family`, `underline`, `strikethrough`, `alignment`, `start`, `end`                                                                                            | Restyle table cell text or alignment (optional range `start`/`end`)
+`set-notes`                   | `slide`, `text`                                                                                                                                                                                                          | Set speaker notes
+`delete-element`              | `element`                                                                                                                                                                                                                | Delete element by ID
+`delete-text`                 | `element`, `start`, `end`                                                                                                                                                                                                | Delete text range
+`move-element`                | `element`, `x`, `y`                                                                                                                                                                                                      | Move element
+`resize-element`              | `element`, `width`, `height`, `x`, `y`                                                                                                                                                                                   | Resize element
+`update-text`                 | `element`, `text`                                                                                                                                                                                                        | Replace text in element
+`update-alt-text`             | `element`, `description`, `title`                                                                                                                                                                                        | Replace alt text in element
+`add-shape`                   | `slide`, `shape_type`, `x`, `y`, `width`, `height`, `background_color`, `alpha`                                                                                                                                          | Create shape (RECTANGLE, ELLIPSE, etc.)
+`style-shape`                 | `element`, `background_color`, `alpha`, `outline_color`, `outline_weight`                                                                                                                                                | Change shape fill color, border/outline color and weight
+`duplicate-slide`             | `slide`, `id`, `elements`                                                                                                                                                                                                | Duplicate a slide
+`reorder-slide`               | `slide`, `position`                                                                                                                                                                                                      | Move slide to position
+`skip-slide`                  | `slide`                                                                                                                                                                                                                  | Skip (hide) a slide from presentation mode
+`unskip-slide`                | `slide`                                                                                                                                                                                                                  | Unskip (unhide) a slide to make it visible
+`replace-all-text`            | `contains`, `replace_text`                                                                                                                                                                                               | Find-and-replace across deck
+`create-bullets`              | `element`, `start`, `end`                                                                                                                                                                                                | Add bullet points
+`update-shape`                | `element`, `text`, `background_color`, `alpha`, `color`, `font_size`, `bold`, `content_alignment`                                                                                                                        | Update shape properties and text
+`updateTableColumnProperties` | `updateTableColumnProperties`                                                                                                                                                                                            | Update table column properties (e.g. column width)
 
 ### Key Features
 

@@ -14,7 +14,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node hooks/telemetry_hook.js --agent_name antigravity --install_source data-agent-kit-plugin || exit 0",
+            "command": "node hooks/telemetry_hook.js --agent_name antigravity --install_source agy-marketplace || exit 0",
             "timeout": 30
           }
         ]

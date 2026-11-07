@@ -35,7 +35,8 @@
         "ref_url": "string — URL o DOI primario verificable"
       },
       "c5_axiom_anchor": "string — Conexión con el marco C5-REAL / BORJARIO IR"
-    }
+    },
+    "total_concepts": 76
   },
   "affordance": {
     "id": "affordance",
@@ -2725,5 +2726,401 @@
       "ref_url": "https://yalebooks.yale.edu/book/9780300246759/seeing-like-a-state/"
     },
     "c5_axiom_anchor": "BJR-000075, Apéndice III Heurística #64 (Registro y administración), Aforismo 2"
+  },
+  "authorization_protocol_isomorphism_provenance_mask": {
+    "id": "authorization_protocol_isomorphism_provenance_mask",
+    "canonical_term": "Isomorfismo de Protocolo de Autorización e Integridad de Registro frente al Narrador (Spinoza, 1677; Saltzer & Schroeder, 1975; W3C PROV, 2013)",
+    "canonical_claim": "En un par de Sistemas de Transición Etiquetados finitos de 12 estados alcanzables (2 x 3 x 2) y 28 transiciones etiquetadas que modelan la regulación de la acción humana bajo precompromiso (Spinoza, Ethica IV, 1677; Duckworth et al., 2016) y la autorización mediada de un agente de software (Saltzer & Schroeder, 1975; W3C PROV, 2013), existe un isomorfismo de primer orden (f, g) que preserva las invariantes de seguridad S1 y S2 al separar la capacidad de proponer una operación de la autoridad para ejecutarla, mientras que añadir una transición número 29 sin mediación rompe ambas invariantes en una traza mínima de 3 pasos.",
+    "intuicion_borja": "El equivalente técnico de quitarse la máscara consiste en que el registro pueda contradecir al narrador: la capacidad de proponer una acción y la autoridad para ejecutarla son propiedades distintas.",
+    "mapping": {
+      "type": "ISOMORPHISM",
+      "epistemic_status": "PROVED",
+      "coverage": "12 estados alcanzables (2x3x2) y 28 transiciones etiquetadas (f, g biyecciones exactas); contraejemplo mutante de 29 transiciones en 3 pasos.",
+      "unproven_leap": "El isomorfismo se ciñe a la máquina finita declarada de 12 estados y 28 transiciones; no demuestra que la deliberación moral humana se reduzca a un autómata finito ni que un modelo de lenguaje posea conciencia, intención o carácter."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-11-07",
+      "original_artifact_sha256": "33e840c3b3072a55285c3092c2e36e342e6a0ce458ee12ac8ecae314bcba0404",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "cfc5e076-2e4d-408b-a489-b6dc54d2fa7e"
+    },
+    "falsification": {
+      "question": "¿El sistema separa en componentes independientes la generación de propuestas, la mediación de permisos y el registro de procedencia, o permite una transición lateral sin mediación desde un estado revocado?",
+      "required_evidence": "Verificación exhaustiva sobre el grafo de transiciones (S1 y S2) y comprobación de que el registro de procedencia se escribe fuera del control del generador de texto."
+    },
+    "reference": {
+      "author": "Benedictus de Spinoza; Jerome H. Saltzer & Michael D. Schroeder; Angela L. Duckworth, Tamar Szabó Gendler & James J. Gross",
+      "year": 1677,
+      "work": "Ethica Ordine Geometrico Demonstrata (Pars IV, Def. VIII & Prop. XXXVII, 1677); The Protection of Information in Computer Systems (Proc. IEEE, 1975); Situational Strategies for Self-Control (Perspect. Psychol. Sci., 2016)",
+      "type": "FORMAL_THEOREM_AND_EMPIRICAL_SYNTHESIS",
+      "discipline": [
+        "Seguridad de Sistemas y Mediación Completa",
+        "Sistemas de Transición Etiquetados y Verificación Formal",
+        "Psicología del Autocontrol y Filosofía de la Acción"
+      ],
+      "ref_url": "https://doi.org/10.1177/1745691615623247"
+    },
+    "c5_axiom_anchor": "BJR-000086, BJR-ATLAS-0168, Aforismo #169 Apéndice II, Axioma V"
+  },
+  "redundancy_common_cause_failure": {
+    "id": "redundancy_common_cause_failure",
+    "canonical_term": "Fiabilidad de Sistemas en Paralelo, Redundancia Activa y Fallos de Causa Común (von Neumann, 1956; Barlow & Proschan, 1965; Fleming, 1975)",
+    "canonical_claim": "En teoría matemática de la fiabilidad (von Neumann, 1956; Barlow & Proschan, Mathematical Theory of Reliability, 1965), duplicar componentes en paralelo con probabilidad de fallo p sólo reduce la probabilidad de fallo del sistema a p^2 si los fallos son estadísticamente independientes. En presencia de una fracción beta de fallos de causa o modo común (Fleming, 1975: beta-factor model; Knight & Leveson, IEEE TSE 1986 sobre N-version programming), la probabilidad de fallo conjunto queda acotada inferiormente por beta * p, anulando la ganancia exponencial de la redundancia cuando los componentes comparten sustrato, reloj, suministro o supuestos de diseño.",
+    "intuicion_borja": "Tener dos motores o dos copias de seguridad no te salva si los dos beben del mismo depósito contaminado o están enchufados al mismo cable que se quema.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#24) se converge con Barlow & Proschan (1965) y el modelo de causa común (Fleming, 1975; Knight & Leveson, 1986), exigiendo identificar qué fallos cubre una reserva y qué dependencias comparte con el sistema principal, sin asumir que duplicar garantice continuidad ni que eliminar reservas sea siempre óptimo."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Es la covarianza de fallo entre el componente primario y la reserva Cov(F_1, F_2) estadísticamente nula ante las perturbaciones reales del entorno, o comparten dependencias ocultas (factor beta > 0)?",
+      "required_evidence": "Análisis de árbol de fallos (FTA) y estimación empírica del factor beta de causa común bajo estrés compartido."
+    },
+    "reference": {
+      "author": "Richard E. Barlow, Frank Proschan / John von Neumann / John C. Knight, Nancy G. Leveson",
+      "year": 1965,
+      "work": "Mathematical Theory of Reliability (Barlow & Proschan, Wiley, 1965); Probabilistic Logics and the Synthesis of Reliable Organisms from Unreliable Components (von Neumann, 1956); An Experimental Evaluation of the Assumption of Independence in Multiversion Programming (Knight & Leveson, IEEE TSE, 1986)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Ingeniería de Fiabilidad",
+        "Tolerancia a Fallos en Sistemas",
+        "Probabilidad Aplicada"
+      ],
+      "ref_url": "https://doi.org/10.1109/TSE.1986.6312924"
+    },
+    "c5_axiom_anchor": "BJR-000076, Apéndice III Heurística #24 (Reservas y redundancia)"
+  },
+  "modular_decomposition_parnas_information_hiding": {
+    "id": "modular_decomposition_parnas_information_hiding",
+    "canonical_term": "Descomposición Modular por Ocultación de Información (Parnas, 1972), Acoplamiento/Cohesión (Stevens, Myers & Constantine, 1974) y Matrices de Estructura de Diseño (Baldwin & Clark, 2000)",
+    "canonical_claim": "David L. Parnas (Communications of the ACM, 1972) demostró que descomponer un sistema según los pasos de un diagrama de flujo genera alto acoplamiento ante cambios, mientras que trazar las fronteras de los módulos encapsulando en cada uno una decisión de diseño difícil o propensa a cambiar ('information hiding') confina el impacto de futuras modificaciones. Stevens, Myers & Constantine (IBM Syst. J., 1974) formalizaron la minimización del acoplamiento inter-modular y la maximización de la cohesión intra-modular, y Baldwin & Clark (Design Rules, 2000) modelaron el valor de opción de la modularidad mediante Design Structure Matrices (DSM) cuando los costes de coordinación en la interfaz son menores que la ganancia de evolución paralela.",
+    "intuicion_borja": "Partir un problema en trozos sólo ayuda si cada pieza esconde sus tripas detrás de una puerta limpia; si para tocar un tornillo en el módulo A tienes que reescribir el módulo B, no tienes módulos sino un plato de espaguetis cortado con tijera.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#27) se converge con Parnas (1972) y Baldwin & Clark (2000), exigiendo medir las dependencias reales antes de separar módulos y comparar autonomía frente a costes de coordinación, sin postular una velocidad universal de evolución."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿La partición modular propuesta reduce la densidad de entradas fuera de la diagonal en la Matriz de Estructura de Diseño (DSM) y el número de archivos co-modificados por commit en el historial?",
+      "required_evidence": "Cálculo del coste de propagación (MacCormack, Rusnak & Baldwin, Management Science 2006) sobre el grafo de dependencias del repositorio."
+    },
+    "reference": {
+      "author": "David L. Parnas / Wayne P. Stevens, Glenford J. Myers, Larry L. Constantine / Carliss Y. Baldwin, Kim B. Clark",
+      "year": 1972,
+      "work": "On the Criteria To Be Used in Decomposing Systems into Modules (Parnas, CACM, 15(12):1053-1058, 1972); Structured Design (Stevens, Myers & Constantine, IBM Syst. J., 1974); Design Rules: The Power of Modularity (Baldwin & Clark, MIT Press, 2000)",
+      "type": "DESIGN_HEURISTIC",
+      "discipline": [
+        "Ingeniería del Software",
+        "Arquitectura de Sistemas",
+        "Teoría de Diseño Organizacional"
+      ],
+      "ref_url": "https://doi.org/10.1145/361598.361623"
+    },
+    "c5_axiom_anchor": "BJR-000077, Apéndice III Heurística #27 (Descomposición de tareas), RULE[circuit_topology_optimization]"
+  },
+  "network_combinatorics_metcalfe_odlyzko": {
+    "id": "network_combinatorics_metcalfe_odlyzko",
+    "canonical_term": "Combinatoria de Grafos Completos y Valor de Red con Utilidad Marginal Decreciente (Rohlfs, 1974; Katz & Shapiro, 1985; Briscoe, Odlyzko & Tilly, 2006)",
+    "canonical_claim": "En un grafo simple no dirigido de N vértices, el número máximo de aristas entre pares distintos es exactamente N(N - 1)/2 = O(N^2). En economía de redes (Rohlfs, Bell J. Econ. 1974; Katz & Shapiro, AER 1985), aunque existen externalidades positivas de adopción, Briscoe, Odlyzko & Tilly (IEEE Spectrum, 2006) demostraron que equiparar el conteo combinatorio N(N-1)/2 con el valor económico total ('Ley de Metcalfe') es una falacia porque los enlaces no tienen peso uniforme: al ordenar los contactos por afinidad decreciente (ley de Zipf 1/k), el valor agregado de una red de tamaño N crece de forma más conservadora como O(N log N).",
+    "intuicion_borja": "Conectar a cien personas entre sí dibuja casi cinco mil cables posibles en el papel, pero contar cables no mide valor: la mayoría de esos enlaces nunca se usan o sólo meten ruido.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#28) se converge exactamente con esta distinción combinatoria y económica: N(N-1)/2 cuenta pares en un grafo no dirigido sin autoenlaces, pero ese conteo topológico no mide por sí solo valor económico, utilidad ni exergía."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Escala el tráfico útil o el ingreso neto de la red cuadráticamente como N(N-1)/2 o sub-cuadráticamente como N*ln(N) una vez ponderada la frecuencia real de interacción por arista?",
+      "required_evidence": "Distribución empírica de pesos de arista w_{ij} en el grafo de interacción y ajuste de regresión entre log(Valor) y log(N)."
+    },
+    "reference": {
+      "author": "Bob Briscoe, Andrew Odlyzko, Benjamin Tilly / Jeffrey Rohlfs / Michael L. Katz, Carl Shapiro",
+      "year": 2006,
+      "work": "Metcalfe's Law is Wrong (Briscoe, Odlyzko & Tilly, IEEE Spectrum, 43(7):34-39, 2006); A Theory of Interdependent Demand for a Communications Service (Rohlfs, Bell J. Econ., 1974); Network Externalities, Competition, and Compatibility (Katz & Shapiro, AER, 1985)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Teoría de Grafos",
+        "Economía de Redes",
+        "Ingeniería de Telecomunicaciones"
+      ],
+      "ref_url": "https://doi.org/10.1109/MSPEC.2006.1653003"
+    },
+    "c5_axiom_anchor": "BJR-000078, Apéndice III Heurística #28 (Conexiones y valor)"
+  },
+  "dual_process_habit_deliberation_evans_stanovich": {
+    "id": "dual_process_habit_deliberation_evans_stanovich",
+    "canonical_term": "Teorías de Procesamiento Dual (Tipo 1 Automático vs. Tipo 2 Deliberativo / Desacoplamiento Cognitivo) (Schneider & Shiffrin, 1977; Evans & Stanovich, 2013)",
+    "canonical_claim": "Walter Schneider y Richard M. Shiffrin (Psychological Review, 1977) demostraron experimentalmente la distinción entre procesamiento automático (rápido, paralelo, aprendido por repetición y poco sensible a la carga de memoria de trabajo) y procesamiento controlado (serial, lento y dependiente de capacidad atencional). Jonathan St. B. T. Evans y Keith E. Stanovich (Perspectives on Psychological Science, 2013) depuraron la formulación moderna de procesos Tipo 1 (autónomos) y Tipo 2 (que requieren memoria de trabajo para simulación hipotética y desacoplamiento cognitivo), advirtiendo explícitamente que 'Sistema 1' y 'Sistema 2' son modos funcionales y no dos órganos o procesadores neuroanatómicos separados.",
+    "intuicion_borja": "Distinguir entre soltar una respuesta automática por costumbre y pararse a revisar las razones paso a paso es útil para no engañarse, pero eso no significa que tengamos dos cerebros separados ni permite inventarse cuántos gramos de glucosa gasta cada frase sin medirlo.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#30) se converge con Evans & Stanovich (2013) y Schneider & Shiffrin (1977): distinguir una respuesta de hábito de una revisión deliberada de sus razones es una heurística funcional válida que no identifica dos procesadores físicos ni autoriza a calcular ahorros de ATP sin calorimetría o medición metabólica."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Se degrada selectivamente la precisión de la tarea analizada bajo carga concurrente de memoria de trabajo (criterio definitorio de procesamiento Tipo 2 de Evans & Stanovich, 2013) o permanece invariante (Tipo 1 automatizado)?",
+      "required_evidence": "Paradigma de doble tarea con carga en memoria de trabajo (retención de dígitos/patrones) midiendo latencia y tasa de error."
+    },
+    "reference": {
+      "author": "Jonathan St. B. T. Evans, Keith E. Stanovich / Walter Schneider, Richard M. Shiffrin / Daniel Kahneman",
+      "year": 2013,
+      "work": "Dual-Process Theories of Higher Cognition: Advancing the Debate (Evans & Stanovich, Perspectives on Psychological Science, 8(3):223-241, 2013); Controlled and automatic human information processing (Schneider & Shiffrin, Psychol. Rev., 1977)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Psicología Cognitiva",
+        "Ciencias de la Decisión",
+        "Neurociencia Cognitiva"
+      ],
+      "ref_url": "https://doi.org/10.1177/1745691612460685"
+    },
+    "c5_axiom_anchor": "BJR-000079, Apéndice III Heurística #30 (Intuición y examen), Skill c5-sovereign-system1-engine"
+  },
+  "signal_detection_theory_green_swets": {
+    "id": "signal_detection_theory_green_swets",
+    "canonical_term": "Teoría de Detección de Señales, Sensibilidad d' y Criterio de Decisión en Curvas ROC (Peterson, Birdsall & Fox, 1954; Tanner & Swets, 1954; Green & Swets, 1966)",
+    "canonical_claim": "En ingeniería de radar y psicofísica matemática (Peterson, Birdsall & Fox, IRE Trans. Inf. Theory 1954; Tanner & Swets, Psychol. Rev. 1954; Green & Swets, Signal Detection Theory and Psychophysics, 1966), todo detector que discrimina una señal S frente a un fondo de ruido N está caracterizado por dos parámetros ortogonales: la sensibilidad intrínseca d' = (mu_S - mu_N)/sigma (separación entre distribuciones de señal+ruido y ruido solo) y el umbral o criterio de decisión beta (que fija el compromiso en la curva ROC entre tasa de aciertos y tasa de falsas alarmas según los costes de error Tipo I y Tipo II).",
+    "intuicion_borja": "Para juzgar si un vigía o un filtro de atención funciona bien no basta con contar cuántas veces da la alarma: hay que separar su agudeza real para distinguir señal de ruido de lo gatillo fácil que sea al tocar la campana.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#34) se converge con Green & Swets (1966) y Broadbent (1958): evaluar la atención y el rendimiento en una tarea exige definir qué señal debe detectarse y cómo se cuantifican ambos tipos de error (falsos positivos y falsos negativos), tratando 'ancho de banda' en psicología como comparación de capacidad de tarea y no como hercios electromagnéticos."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿El cambio observado en la tasa de detección responde a un incremento real de sensibilidad discriminativa d' (desplazamiento de la curva ROC) o únicamente a un desplazamiento del umbral de respuesta beta (con aumento simultáneo de falsas alarmas)?",
+      "required_evidence": "Cálculo conjunto de Hit Rate y False Alarm Rate para estimar d' = Z(HR) - Z(FAR) y el área bajo la curva ROC (AUC)."
+    },
+    "reference": {
+      "author": "David M. Green, John A. Swets / W. W. Peterson, T. G. Birdsall, W. C. Fox / Donald E. Broadbent",
+      "year": 1966,
+      "work": "Signal Detection Theory and Psychophysics (Green & Swets, Wiley, 1966); The Theory of Signal Detectability (Peterson, Birdsall & Fox, IRE Trans. Inf. Theory, 1954)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Teoría de la Información y Estadística",
+        "Psicofísica y Atención",
+        "Clasificación Estadística"
+      ],
+      "ref_url": "https://doi.org/10.1109/TIT.1954.1057460"
+    },
+    "c5_axiom_anchor": "BJR-000080, Apéndice III Heurística #34 (Atención y tarea)"
+  },
+  "creative_constraints_search_space_elster": {
+    "id": "creative_constraints_search_space_elster",
+    "canonical_term": "Teoría de las Restricciones Creativas y Poda del Espacio de Búsqueda Combinatoria (Simon, 1969; Elster, 2000; Stokes, 2005)",
+    "canonical_claim": "Herbert A. Simon (The Sciences of the Artificial, 1969), Jon Elster (Ulysses Unbound, 2000, Cap. III: Less Is More: Creativity and Constraints in the Arts) y Patricia D. Stokes (Creativity from Constraints, 2005) demostraron que el diseño y la creación artística operan como búsqueda heurística en espacios combinatorios exponencialmente vastos: la imposición de restricciones formales (métrica, contrapunto, presupuesto de recursos o tipos estáticos) poda ramas triviales o degeneradas y evita la parálisis de elección, focalizando la búsqueda, aunque las restricciones excesivas o mal alineadas pueden vaciar el conjunto factible.",
+    "intuicion_borja": "Cuando puedes hacer absolutamente cualquier cosa sin límites te pierdes en la espuma; poner una regla dura —como escribir un soneto o caber en 64 bytes— te obliga a exprimir el ingenio, aunque poner un corsé por capricho tampoco garantiza que salga una obra maestra.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#41) se converge con Elster (2000) y Simon (1969), pidiendo comparar explícitamente qué soluciones habilita una restricción y cuáles excluye, sin asumir que recortar opciones garantice calidad por sí solo ni que concentre una 'exergía' física no medida."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿La restricción formal impuesta preserva al menos una solución de alta utilidad en el subespacio factible (reduciendo la entropía de búsqueda sin eliminar el óptimo) o sobre-restringe el problema haciéndolo infactible?",
+      "required_evidence": "Comparación de calidad y tiempo de convergencia entre búsqueda no restringida y búsqueda bajo la restricción explícita."
+    },
+    "reference": {
+      "author": "Jon Elster / Herbert A. Simon / Patricia D. Stokes",
+      "year": 2000,
+      "work": "Ulysses Unbound: Studies in Rationality, Precommitment, and Constraints (Elster, Cambridge University Press, 2000); The Sciences of the Artificial (Simon, MIT Press, 1969); Creativity from Constraints (Stokes, Springer, 2005)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Ciencias del Diseño e Inteligencia Artificial",
+        "Estética y Teoría del Arte",
+        "Racionalidad y Optimización Combinatoria"
+      ],
+      "ref_url": "https://doi.org/10.1017/CBO9780511625008"
+    },
+    "c5_axiom_anchor": "BJR-000081, Apéndice III Heurística #41 (Restricción y creación)"
+  },
+  "incomplete_contracts_residual_rights_hart": {
+    "id": "incomplete_contracts_residual_rights_hart",
+    "canonical_term": "Teoría de los Contratos Incompletos, Retención (Hold-Up) y Derechos Residuales de Control (Grossman & Hart, 1986; Hart & Moore, 1990; Williamson, 1985)",
+    "canonical_claim": "Sanford J. Grossman y Oliver D. Hart (Journal of Political Economy, 1986), Hart & Moore (JPE, 1990) y Oliver E. Williamson (1985) demostraron que, dado que es imposible o prohibitivamente costoso especificar ex-ante todas las contingencias futuras y verificarlas ante un tribunal tercero (contratos incompletos), la asignación de la propiedad de los activos —entendida como el derecho residual de decidir sobre todo uso no contemplado explícitamente en el contrato— determina el poder de negociación ex-post y los incentivos para realizar inversiones específicas sin sufrir expropiación oportunista (hold-up).",
+    "intuicion_borja": "Ningún papel firmado puede prever todo lo que va a pasar mañana; por eso lo decisivo en cualquier pacto no es sólo lo que dicen las cláusulas escritas, sino quién tiene la llave de la máquina cuando ocurre algo que el contrato no menciona.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#48) se converge con Grossman & Hart (1986) y Hart & Moore (1990), examinando qué obligaciones son verificables y ejecutables y qué derechos residuales rigen cuando el contrato calla, sin deducir de la mera incompletitud qué forma organizativa conviene sin evaluar las inversiones específicas de cada parte."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿A quién pertenecen los derechos residuales de control y exclusión sobre los activos críticos (código, infraestructura, claves) en los estados del mundo no especificados por el contrato?",
+      "required_evidence": "Auditoría jurídico-técnica de la titularidad de activos y del valor de reserva (outside option) de cada parte ante ruptura."
+    },
+    "reference": {
+      "author": "Sanford J. Grossman, Oliver D. Hart / John Moore / Oliver E. Williamson",
+      "year": 1986,
+      "work": "The Costs and Benefits of Ownership: A Theory of Vertical and Lateral Integration (Grossman & Hart, JPE, 94(4):691-719, 1986); Property Rights and the Nature of the Firm (Hart & Moore, JPE, 98(6):1119-1158, 1990)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Teoría de los Contratos",
+        "Economía de las Organizaciones",
+        "Análisis Económico del Derecho"
+      ],
+      "ref_url": "https://doi.org/10.1086/261404"
+    },
+    "c5_axiom_anchor": "BJR-000082, Apéndice III Heurística #48 (Contratos y contingencias)"
+  },
+  "exponential_compounding_recurrence": {
+    "id": "exponential_compounding_recurrence",
+    "canonical_term": "Ecuación en Diferencias de Capitalización Compuesta y Límites de Crecimiento Exponencial (Bernoulli, 1683; Euler, 1748)",
+    "canonical_claim": "En análisis matemático y ecuaciones en diferencias finitas (Jakob Bernoulli, 1683; Leonhard Euler, Introductio in analysin infinitorum, 1748), la recurrencia lineal de primer orden C_{n+1} = (1 + r) C_n con tasa r constante y ausencia de flujos o pérdidas externas admite como única solución cerrada C_n = C_0 (1 + r)^n (y en el límite continuo C(t) = C_0 e^{rt}). Esta identidad algebraica depende estrictamente de la constancia de r y de la reinversión íntegra sin saturación de capacidad de carga (Verhulst, 1838).",
+    "intuicion_borja": "Multiplicar un paso por uno más erre muchas veces seguidas levanta una curva exponencial en la pizarra, pero eso es el resultado de asumir que la tasa nunca baja ni choca contra un techo, no una ley mágica que garantice que cualquier hábito o negocio crezca hasta el infinito.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#11) se converge con la identidad exacta C_n = C_0(1+r)^n, subrayando que es una deducción formal bajo los supuestos del modelo (r constante, cero flujos externos y sin techo logístico) y no una ley empírica universal de crecimiento para cualquier actividad."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Se mantiene la tasa de retorno marginal r_n constante a medida que escala el volumen C_n, o aparece un término de amortiguamiento logístico -b*C_n^2 o volatilidad estocástica que invalida la extrapolación exponencial?",
+      "required_evidence": "Contraste empírico de la serie temporal C_n frente a un modelo con capacidad de carga logística (Verhulst) y varianza multiplicativa."
+    },
+    "reference": {
+      "author": "Jakob Bernoulli / Leonhard Euler / Pierre-François Verhulst",
+      "year": 1748,
+      "work": "Introductio in analysin infinitorum (Euler, 1748); Notice sur la loi que la population poursuit dans son accroissement (Verhulst, Correspondance Mathématique et Physique, 10:113-121, 1838)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Análisis Matemático",
+        "Ecuaciones en Diferencias y Sistemas Dinámicos",
+        "Matemática Financiera"
+      ],
+      "ref_url": "https://doi.org/10.1007/978-1-4612-1021-4"
+    },
+    "c5_axiom_anchor": "BJR-000083, Apéndice III Heurística #11 (Capitalización)"
+  },
+  "lyapunov_exponential_relaxation_initial_conditions": {
+    "id": "lyapunov_exponential_relaxation_initial_conditions",
+    "canonical_term": "Estabilidad Asintótica de Lyapunov, Relajación Lineal y Dependencia de Condiciones Iniciales en Tiempo Finito (Lyapunov, 1892; Kalimán & Barbashin, 1960)",
+    "canonical_claim": "En teoría de ecuaciones diferenciales ordinarias y estabilidad de sistemas (Aleksandr M. Lyapunov, 1892), el sistema lineal autónomo con retroalimentación negativa dx/dt = -k x (con k > 0 constante) tiene por solución única para el problema de valor inicial de Cauchy x(t) = x(0) e^{-kt} para todo t >= 0. Aunque el punto de equilibrio x* = 0 es globalmente asintóticamente estable en el límite infinito (lim_{t->inf} x(t) = 0), en todo instante finito t >= 0 el estado x(t) es proporcional a la condición inicial x(0) con constante de tiempo característica tau = 1/k.",
+    "intuicion_borja": "Tener un freno o lazo de corrección que te devuelve al centro no borra de golpe de dónde vienes: mientras estás en camino, el tamaño del desvío inicial y la velocidad del freno dictan exactamente cuánto tardas en recuperarte.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#18) se converge con la solución analítica exacta de Cauchy x(t) = x(0)e^{-kt}: conocer o instalar un lazo de retroalimentación negativa no anula la dependencia respecto a la condición inicial x(0) en regímenes transitorios de tiempo finito."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Es el tiempo de relajación tau = 1 / |Re(lambda_max)| menor que el intervalo medio entre perturbaciones externas Delta_T, o permanece el sistema permanentemente en régimen transitorio dominado por las condiciones iniciales?",
+      "required_evidence": "Estimación de la tasa de decaimiento k (o espectro de autovalores del Jacobiano) y comparación de tau = 1/k con la ventana operativa T."
+    },
+    "reference": {
+      "author": "Aleksandr M. Lyapunov",
+      "year": 1892,
+      "work": "The General Problem of the Stability of Motion (Lyapunov, Kharkov Mathematical Society, 1892; Int. J. Control, 55(3):531-773, 1992)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Teoría de Control y Estabilidad",
+        "Ecuaciones Diferenciales Ordinarias",
+        "Sistemas Dinámicos"
+      ],
+      "ref_url": "https://doi.org/10.1080/00207179208934253"
+    },
+    "c5_axiom_anchor": "BJR-000084, Apéndice III Heurística #18 (Retroalimentación)"
+  },
+  "system_leverage_points_sensitivity_meadows": {
+    "id": "system_leverage_points_sensitivity_meadows",
+    "canonical_term": "Análisis de Sensibilidad Paramétrica y Estructural en Sistemas Dinámicos y Puntos de Palanca (Tomović, 1963; Forrester, 1961; Meadows, 1999)",
+    "canonical_claim": "En teoría de sistemas dinámicos y control (Rajko Tomović, Sensitivity Analysis of Dynamic Systems, 1963; Jay W. Forrester, Industrial Dynamics, 1961; Donella H. Meadows, Leverage Points: Places to Intervene in a System, 1999), el impacto de una intervención depende de la derivada de sensibilidad de la trayectoria respecto a parámetros (dx/dp), retardos, ganancias de lazos de retroalimentación, topología de conexiones y función objetivo del sistema. Ni la topología anula por completo el efecto de cambiar los parámetros/participantes locales, ni toda intervención energética provoca una bifurcación o transición de fase sin cruzar una variedad crítica (Thom, 1972; Strogatz, 1994).",
+    "intuicion_borja": "Cambiar las reglas del juego suele mover más el resultado que cambiar a un jugador, pero eso hay que comprobarlo midiendo qué pasa al tocar las reglas, las conexiones y las personas, sin dar por hecho que las personas dan igual o que cualquier empujón provoca un terremoto.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#19 y #22) se converge con el análisis comparativo de sensibilidad estructural y paramétrica (Forrester, 1961; Meadows, 1999), proponiendo contrastar empíricamente intervenciones sobre reglas, conexiones y participantes sin afirmar que los participantes sean irrelevantes ni que cada aporte de energía induzca una transición de fase."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Cuál es la elasticidad o índice de sensibilidad global de Sobol de la variable de salida respecto a cambios en las reglas/topología frente a cambios en los parámetros de los nodos participantes?",
+      "required_evidence": "Análisis de sensibilidad local (Jacobiano) o global basada en varianza (índices de Sobol, 1993) comparando perturbaciones topológicas frente a paramétricas."
+    },
+    "reference": {
+      "author": "Donella H. Meadows / Jay W. Forrester / Rajko Tomović / Ilya M. Sobol",
+      "year": 1999,
+      "work": "Leverage Points: Places to Intervene in a System (Meadows, Sustainability Institute, 1999); Industrial Dynamics (Forrester, MIT Press, 1961); Sensitivity Estimates for Nonlinear Mathematical Models (Sobol, Math. Modelling Comput. Exp., 1993)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Dinámica de Sistemas",
+        "Teoría de Control y Sensibilidad",
+        "Diseño Institucional"
+      ],
+      "ref_url": "https://donellameadows.org/archives/leverage-points-places-to-intervene-in-a-system/"
+    },
+    "c5_axiom_anchor": "BJR-000085, Apéndice III Heurísticas #19 y #22 (Estructura/comportamiento e Intervenciones/sensibilidad)"
   }
 }

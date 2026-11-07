@@ -10,8 +10,8 @@ documentation lookup for building applications with the
 
 | Skill | Description |
 | :--- | :--- |
-| `gemini-api-dev` | Build applications with the [Interactions API](https://aistudio.google.com/docs/interactions). Covers text generation, stateful multi-turn chat, streaming, function calling, structured output, image generation, speech generation (TTS), Voice Design, Voice Replication, managed agents, Deep Research, and migrations from `generateContent`. |
-| `gemini-live-api-dev` | Build low-latency, bidirectional voice and video applications over WebSockets with the [Gemini Live API](https://aistudio.google.com/docs/live). Covers real-time audio/video streaming, background reasoning (extended thinking), asynchronous non-blocking tool calls, real-time transcription, live speech translation, and session management. |
+| `gemini-api-dev` | Build applications with the [Interactions API](https://aistudio.google.com/docs/interactions-overview). Covers text generation, stateful multi-turn chat, streaming, function calling, structured output, image generation, speech generation (TTS), Voice Design, Voice Replication, managed agents, Deep Research, and migrations from `generateContent`. |
+| `gemini-live-api-dev` | Build low-latency, bidirectional voice and video applications over WebSockets with the [Gemini Live API](https://aistudio.google.com/docs/live-api). Covers real-time audio/video streaming, background reasoning (extended thinking), asynchronous non-blocking tool calls, real-time transcription, live speech translation, and session management. |
 | `gemini-omni-flash-api` | Generate and edit videos with Gemini Omni Flash using the Interactions API, including text-to-video, first-and-last-frame transitions, reference-guided generation, and video extensions. |
 
 ### MCP server
@@ -42,5 +42,5 @@ documentation lookup for building applications with the
 ## Resources
 
 - [Gemini API Documentation in Google AI Studio](https://aistudio.google.com/docs)
-- [Interactions API Guide](https://aistudio.google.com/docs/interactions)
+- [Interactions API Guide](https://aistudio.google.com/docs/interactions-overview)
 - [GitHub Repository (`google-gemini/gemini-skills`)](https://github.com/google-gemini/gemini-skills)

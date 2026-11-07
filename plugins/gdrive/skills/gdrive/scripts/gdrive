@@ -1,8 +1,8 @@
 #!/bin/sh
 # Launcher: installs the pinned CLI build for this machine on first use, then runs it.
 TOOL=gdrive
-PLUGIN_VERSION=0.0.7
-CLI_VERSION=999922155
+PLUGIN_VERSION=0.0.9
+CLI_VERSION=1013145354
 BASE_URL=https://storage.googleapis.com/antigravity-public/plugin/cli/$CLI_VERSION
 # --- shared launcher logic; keep identical across plugins ---
 set -eu

@@ -2,8 +2,8 @@
 setlocal
 rem Launcher: installs the pinned CLI build for this machine on first use, then runs it.
 set "TOOL=gdrive"
-set "PLUGIN_VERSION=0.0.7"
-set "CLI_VERSION=999922155"
+set "PLUGIN_VERSION=0.0.9"
+set "CLI_VERSION=1013145354"
 set "BASE_URL=https://storage.googleapis.com/antigravity-public/plugin/cli/%CLI_VERSION%"
 rem --- shared launcher logic; keep identical across plugins ---
 

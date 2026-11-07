@@ -23,38 +23,47 @@ already have the **spreadsheet ID** — the segment between `/d/` and `/edit` in
 > organization. The user already has access to anything created on their behalf
 > — let them handle sharing unless they explicitly instruct otherwise.
 
-## Setup and Authentication
+## Setup
 
-`gsheets auth status` is the only way to tell whether you are logged in. Do not
-run `--help`, search the filesystem or environment for tokens, check another
-plugin's login, or run an operational command before logging in. Follow these
-steps exactly.
-
-**1. Register and check.** Run this skill's script with `auth status`. It
-downloads the CLI, registers `gsheets` on the agent's `PATH` (not the user's
-shell), and reports whether you are logged in:
+Run this skill's script once, before anything else. It downloads the CLI for
+this machine, registers `gsheets` on the agent's `PATH` (not the user's shell),
+and prints the version:
 
 ```bash
-<path/to/this/skill>/scripts/gsheets auth status
+<path/to/this/skill>/scripts/gsheets --version
 ```
 
 ```powershell
 # Windows (PowerShell)
-& "<path\to\this\skill>\scripts\gsheets.cmd" auth status
+& "<path\to\this\skill>\scripts\gsheets.cmd" --version
 ```
 
-Every later call is just `gsheets`. Never ask the user to run it; they cannot.
-If it reports `Logged in`, you are ready.
+After that, always run bare `gsheets`, never the script by its path: only
+`gsheets` gets the user's sign-in. Never ask the user to run it; they cannot.
 
-**2. Log in for the user.** Start this as a background command:
+## Authentication
 
-```bash
-gsheets auth login
-```
+Run bare `gsheets` and let the result tell you how sign-in works. Don't search
+the filesystem or environment for credentials, and don't ask the user for a
+token.
 
-It prints an authorization URL and exits on its own once the user approves. Read
-the URL from the task's log, open it in the user's browser or hand them the
-link, then stop and wait. Confirm with `gsheets auth status`.
+-   **Antigravity manages sign-in** when a command fails with Antigravity's
+    "needs authentication" message. Follow it: show the plugin card it gives and
+    ask the user to click **Sign in** on it, then retry once they say they have
+    signed in. Do not run `gsheets auth login` in this case. If more than one
+    account is connected, choose one by prefixing the command with
+    `AGY_ACCOUNT=<account>`, for example
+    `AGY_ACCOUNT=me@example.com gsheets ...`. In PowerShell, set it first:
+    `$env:AGY_ACCOUNT = "me@example.com"; gsheets ...`.
+-   **The CLI manages sign-in** when it says
+    `no credentials found: run gsheets auth login`. This version of Antigravity
+    doesn't sign in for this plugin, so log in for the user: start
+    `gsheets auth login` as a background command. It prints an authorization URL
+    and exits on its own once the user approves. Read the URL from the task's
+    log, open it in the user's browser or hand them the link, then stop and
+    wait. Confirm with `gsheets auth status`, then retry.
+-   A 403 that names a missing permission or scope is not a sign-in problem.
+    Report it instead of asking the user to sign in again.
 
 ## Usage
 
@@ -198,93 +207,71 @@ than silently producing no-op writes.
 
 ## Commands
 
-| Namespace  | Command                | Description                     |
-| ---------- | ---------------------- | ------------------------------- |
-| `readonly` | `read`                 | Read range                      |
-| `readonly` | `read-all`             | Read all sheets                 |
-| `readonly` | `read-links`           | Extract hyperlinks, rich text,  |
-:            :                        : and smart chips                 :
-| `readonly` | `info`                 | Spreadsheet info                |
-| `readonly` | `list`                 | List or search spreadsheets in  |
-:            :                        : Drive                           :
-| `readonly` | `list-revisions`       | List spreadsheet revision       |
-:            :                        : history                         :
-| `readonly` | `list-sheets`          | List sheets                     |
-| `readonly` | `list-named-ranges`    | List named ranges               |
-| `readonly` | `list-filter-views`    | List filter views               |
-| `readonly` | `list-comments`        | List comment threads            |
-| `readonly` | `get-settings`         | View locale and timezone        |
-:            :                        : properties                      :
-| `readonly` | `inspect-cell`         | Detailed cell diagnostics       |
-:            :                        : (values, formulas, errors)      :
-| `readonly` | `export`               | Export spreadsheet (csv, xlsx,  |
-:            :                        : pdf, ods, tsv, png)             :
-| `readonly` | `export-chart`         | Export chart as image           |
-| `mutate`   | `write`                | Write to range                  |
-| `mutate`   | `append`               | Append rows                     |
-| `mutate`   | `clear`                | Clear range                     |
-| `mutate`   | `create`               | Create spreadsheet              |
-| `mutate`   | `delete`               | Permanently delete spreadsheet  |
-:            :                        : document (`--confirm`)          :
-| `mutate`   | `rename`               | Rename spreadsheet document     |
-:            :                        : file                            :
-| `mutate`   | `copy-spreadsheet`     | Copy entire spreadsheet         |
-| `mutate`   | `add-sheet`            | Add sheet                       |
-| `mutate`   | `delete-sheet`         | Delete sheet                    |
-| `mutate`   | `rename-sheet`         | Rename sheet                    |
-| `mutate`   | `copy-sheet`           | Copy sheet to another           |
-:            :                        : spreadsheet                     :
-| `mutate`   | `format`               | Format range (hex background    |
-:            :                        : and text colors)                :
-| `mutate`   | `set-col-width`        | Set column width                |
-| `mutate`   | `autosize`             | Auto-resize columns             |
-| `mutate`   | `merge`                | Merge cells                     |
-| `mutate`   | `unmerge`              | Unmerge cells                   |
-| `mutate`   | `sort`                 | Sort range                      |
-| `mutate`   | `freeze`               | Freeze rows/cols                |
-| `mutate`   | `borders`              | Set cell borders (hex color)    |
-| `mutate`   | `conditional-format`   | Add conditional formatting      |
-| `mutate`   | `insert-rows`          | Insert rows (range or manual    |
-:            :                        : offsets)                        :
-| `mutate`   | `delete-rows`          | Delete rows (range or manual    |
-:            :                        : offsets)                        :
-| `mutate`   | `insert-cols`          | Insert columns (range or manual |
-:            :                        : offsets)                        :
-| `mutate`   | `delete-cols`          | Delete columns (range or manual |
-:            :                        : offsets)                        :
-| `mutate`   | `copy-paste`           | Copy-paste range (supports      |
-:            :                        : paste-type)                     :
-| `mutate`   | `auto-fill`            | Auto-fill range (manual         |
-:            :                        : coordinates)                    :
-| `mutate`   | `smart-fill`           | Auto-fill down, detecting       |
-:            :                        : contiguous depth                :
-| `mutate`   | `formula-fill`         | Fill formula across range       |
-:            :                        : (shifts relative refs)          :
-| `mutate`   | `find-replace`         | Find and replace                |
-| `mutate`   | `notes`                | Get/set cell notes              |
-| `mutate`   | `add-named-range`      | Add a named range               |
-| `mutate`   | `import-csv`           | Import CSV file                 |
-| `mutate`   | `data-validation`      | Add data validation             |
-| `mutate`   | `protect`              | Protect range (range and        |
-:            :                        : restricted editors)             :
-| `mutate`   | `change-settings`      | Update locale and timezone      |
-:            :                        : properties                      :
-| `mutate`   | `add-chart`            | Add a chart                     |
-| `mutate`   | `add-filter-view`      | Add a filter view               |
-| `mutate`   | `delete-filter-view`   | Delete filter view by ID        |
-| `mutate`   | `pivot`                | Create pivot table              |
-| `mutate`   | `share`                | Share spreadsheet               |
-| `mutate`   | `create-from-template` | Create from template            |
-| `mutate`   | `add-table`            | Add a structured table          |
-| `mutate`   | `update-table`         | Update structured table range   |
-| `mutate`   | `delete-table`         | Delete a structured table       |
-| `mutate`   | `batch`                | Execute simplified batch        |
-:            :                        : operations                      :
-| `mutate`   | `raw-batch`            | Execute raw                     |
-:            :                        : `BatchUpdateSpreadsheetRequest` :
-| `mutate`   | `add-comment`          | Add a comment                   |
-| `mutate`   | `reply-comment`        | Reply to a comment              |
-| `mutate`   | `resolve-comment`      | Resolve a comment               |
+Namespace  | Command                | Description
+---------- | ---------------------- | -----------
+`readonly` | `read`                 | Read range
+`readonly` | `read-all`             | Read all sheets
+`readonly` | `read-links`           | Extract hyperlinks, rich text, and smart chips
+`readonly` | `info`                 | Spreadsheet info
+`readonly` | `list`                 | List or search spreadsheets in Drive
+`readonly` | `list-revisions`       | List spreadsheet revision history
+`readonly` | `list-sheets`          | List sheets
+`readonly` | `list-named-ranges`    | List named ranges
+`readonly` | `list-filter-views`    | List filter views
+`readonly` | `list-comments`        | List comment threads
+`readonly` | `get-settings`         | View locale and timezone properties
+`readonly` | `inspect-cell`         | Detailed cell diagnostics (values, formulas, errors)
+`readonly` | `export`               | Export spreadsheet (csv, xlsx, pdf, ods, tsv, png)
+`readonly` | `export-chart`         | Export chart as image
+`mutate`   | `write`                | Write to range
+`mutate`   | `append`               | Append rows
+`mutate`   | `clear`                | Clear range
+`mutate`   | `create`               | Create spreadsheet
+`mutate`   | `delete`               | Permanently delete spreadsheet document (`--confirm`)
+`mutate`   | `rename`               | Rename spreadsheet document file
+`mutate`   | `copy-spreadsheet`     | Copy entire spreadsheet
+`mutate`   | `add-sheet`            | Add sheet
+`mutate`   | `delete-sheet`         | Delete sheet
+`mutate`   | `rename-sheet`         | Rename sheet
+`mutate`   | `copy-sheet`           | Copy sheet to another spreadsheet
+`mutate`   | `format`               | Format range (hex background and text colors)
+`mutate`   | `set-col-width`        | Set column width
+`mutate`   | `autosize`             | Auto-resize columns
+`mutate`   | `merge`                | Merge cells
+`mutate`   | `unmerge`              | Unmerge cells
+`mutate`   | `sort`                 | Sort range
+`mutate`   | `freeze`               | Freeze rows/cols
+`mutate`   | `borders`              | Set cell borders (hex color)
+`mutate`   | `conditional-format`   | Add conditional formatting
+`mutate`   | `insert-rows`          | Insert rows (range or manual offsets)
+`mutate`   | `delete-rows`          | Delete rows (range or manual offsets)
+`mutate`   | `insert-cols`          | Insert columns (range or manual offsets)
+`mutate`   | `delete-cols`          | Delete columns (range or manual offsets)
+`mutate`   | `copy-paste`           | Copy-paste range (supports paste-type)
+`mutate`   | `auto-fill`            | Auto-fill range (manual coordinates)
+`mutate`   | `smart-fill`           | Auto-fill down, detecting contiguous depth
+`mutate`   | `formula-fill`         | Fill formula across range (shifts relative refs)
+`mutate`   | `find-replace`         | Find and replace
+`mutate`   | `notes`                | Get/set cell notes
+`mutate`   | `add-named-range`      | Add a named range
+`mutate`   | `import-csv`           | Import CSV file
+`mutate`   | `data-validation`      | Add data validation
+`mutate`   | `protect`              | Protect range (range and restricted editors)
+`mutate`   | `change-settings`      | Update locale and timezone properties
+`mutate`   | `add-chart`            | Add a chart
+`mutate`   | `add-filter-view`      | Add a filter view
+`mutate`   | `delete-filter-view`   | Delete filter view by ID
+`mutate`   | `pivot`                | Create pivot table
+`mutate`   | `share`                | Share spreadsheet
+`mutate`   | `create-from-template` | Create from template
+`mutate`   | `add-table`            | Add a structured table
+`mutate`   | `update-table`         | Update structured table range
+`mutate`   | `delete-table`         | Delete a structured table
+`mutate`   | `batch`                | Execute simplified batch operations
+`mutate`   | `raw-batch`            | Execute raw `BatchUpdateSpreadsheetRequest`
+`mutate`   | `add-comment`          | Add a comment
+`mutate`   | `reply-comment`        | Reply to a comment
+`mutate`   | `resolve-comment`      | Resolve a comment
 
 ## Tips
 
