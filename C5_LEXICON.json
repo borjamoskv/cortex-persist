@@ -3122,5 +3122,581 @@
       "ref_url": "https://donellameadows.org/archives/leverage-points-places-to-intervene-in-a-system/"
     },
     "c5_axiom_anchor": "BJR-000085, Apéndice III Heurísticas #19 y #22 (Estructura/comportamiento e Intervenciones/sensibilidad)"
+  },
+  "rant_exergy_partition_newcomen_watt_condenser": {
+    "id": "rant_exergy_partition_newcomen_watt_condenser",
+    "canonical_term": "Partición Exergía-Anergía (Rant, 1956), Teorema de Gouy-Stodola y Condensador Separado (Watt, 1769) vs. La Partición Termodinámica de Bolsillo y el Ciclo de Newcomen (BJR-ATLAS-0169 / BJR-000087)",
+    "canonical_claim": "En termodinámica técnica (Zoran Rant, 1956), la entalpía de flujo estacionario respecto al estado muerto (T_0, P_0) se descompone en exergía disponible para trabajo útil B = (H - H_0) - T_0(S - S_0) y anergía degradada B_an = T_0(S - S_0), destruyéndose exergía en todo proceso irreversible según B_dest = T_0 * S_gen >= 0 (Gouy-Stodola). En ingeniería de máquinas térmicas, la patente de James Watt de 1769 introdujo el condensador separado para evitar la pérdida de combustible causada al enfriar y recalentar el mismo cilindro de vapor en cada ciclo de la máquina atmosférica de Newcomen (1712).",
+    "intuicion_borja": "La energía es cuánto tienes; la entalpía, lo que llevas puesto bajo presión; la exergía, lo que gastas en trabajo útil; la anergía, el residuo tibio que no mueve nada; y si para hacer una tarea calientas y enfrías el mismo cilindro cincuenta veces, no estás trabajando: estás haciendo la máquina de Newcomen.",
+    "mapping": {
+      "type": "EXTENSION",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "Conecta la partición termodinámica de Rant (1956) y el condensador separado de Watt (1769) con el coste cognitivo del cambio de contexto y la fricción burocrática (Rubinstein, Meyer & Evans, 2001): separar físicamente el bloque de creación del contenedor de trámites evita enfriar y recalentar el foco en cada ciclo."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-10-16",
+      "original_artifact_sha256": "e07b9a8308610c46c5a3abd09774ad333b9a41817e82bef81f4aa5b1191914e4",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "b8d50fa5-c70c-4970-a2ee-6a238949f0a9"
+    },
+    "falsification": {
+      "question": "¿Aislar las interrupciones administrativas en un bloque separado reduce el tiempo total de reanudación y la tasa de error frente a intercalarlas dentro de la sesión de trabajo?",
+      "required_evidence": "Medición comparativa de latencia de cambio de tarea y entregables completados bajo aislamiento por lotes (condensador separado) frente a atención intercalada."
+    },
+    "reference": {
+      "author": "Zoran Rant / James Watt",
+      "year": 1956,
+      "work": "Exergie, ein neues Wort für 'technische Arbeitsfähigkeit' (Forschung auf dem Gebiete des Ingenieurwesens, 22(1):36–37, 1956); A New Invented Method of Lessening the Consumption of Steam and Fuel in Fire Engines (British Patent 913, 1769)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Termodinámica Técnica",
+        "Ingeniería de Máquinas Térmicas",
+        "Cibernética del Trabajo"
+      ],
+      "ref_url": "https://ci.nii.ac.jp/naid/10004425695/"
+    },
+    "c5_axiom_anchor": "BJR-000087 / BJR-ATLAS-0169, Aforismo #170 (La partición termodinámica y el cilindro de Newcomen)"
+  },
+  "absent_sign_subtractive_affordance_landauer": {
+    "id": "absent_sign_subtractive_affordance_landauer",
+    "canonical_term": "Compresión con Pérdida Lógica (Landauer, 1961), Afordancias Ecológicas (Gibson, 1979) y Lugares de Indeterminación (Iser, 1972) vs. El Signo Ausente y la Afordancia por Sustracción (BJR-ATLAS-0170 / BJR-000088)",
+    "canonical_claim": "En física de la información (Landauer, 1961), toda aplicación sobreyectiva no inyectiva f : X -> Y que descarta entropía condicional H(X|Y) > 0 sin copia reversible disipa al menos k_B T ln 2 por bit borrado en el soporte físico. En psicología ecológica (Gibson, 1979) y estética de la recepción (Iser, 1972), las posibilidades de acción dependen del acoplamiento agente-entorno y los vacíos o elipsis estructurales de una obra convocan al receptor a articular las relaciones omitidas.",
+    "intuicion_borja": "Abstraer cuesta exergía: toda compresión con pérdida exige quemar trabajo físico, y el signo ausente no es nostalgia por lo que falta en la imagen, sino el hueco tallado por sustracción que obliga al observador a poner su propia energía para cerrar la acción.",
+    "mapping": {
+      "type": "EXTENSION",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "Cruza el coste físico de la compresión con pérdida (Landauer, 1961) con las afordancias de Gibson (1979) y los vacíos de indeterminación de Iser (1972) / Sontag (1977), formulando el 'signo ausente' como una afordancia negativa tallada por sustracción (Método Acreativo) que transfiere el trabajo de cierre inferencial al observador."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-10-19",
+      "original_artifact_sha256": "e07b9a8308610c46c5a3abd09774ad333b9a41817e82bef81f4aa5b1191914e4",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "b8d50fa5-c70c-4970-a2ee-6a238949f0a9"
+    },
+    "falsification": {
+      "question": "¿La omisión deliberada de elementos explicativos redundantes incrementa la retención y la inferencia activa del receptor o degrada la comprensión por debajo del umbral de reconstrucción?",
+      "required_evidence": "Experimento de recepción comparando recuerdo e inferencia generativa entre versiones con elipsis estructurada y versiones completamente explícitas."
+    },
+    "reference": {
+      "author": "Rolf Landauer / James J. Gibson / Wolfgang Iser",
+      "year": 1979,
+      "work": "Irreversibility and Heat Generation in the Computing Process (Landauer, IBM J. Res. Dev., 1961); The Ecological Approach to Visual Perception (Gibson, 1979); The Reading Process: A Phenomenological Approach (Iser, New Literary History, 1972)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Física de la Información",
+        "Psicología Ecológica",
+        "Estética de la Recepción"
+      ],
+      "ref_url": "https://doi.org/10.2307/468316"
+    },
+    "c5_axiom_anchor": "BJR-000088 / BJR-ATLAS-0170, Aforismo #171 (El signo ausente y la afordancia por sustracción)"
+  },
+  "chunking_recoding_thinkable_space_revision": {
+    "id": "chunking_recoding_thinkable_space_revision",
+    "canonical_term": "Recodificación en Bloques (Chunking; Simon, 1974) y Representaciones Epistémicas (Kirsh, 2010) vs. La Compresión de lo Comprendido y el Espacio de lo Pensable (BJR-ATLAS-0171 / BJR-000089)",
+    "canonical_claim": "En ciencia cognitiva, Herbert A. Simon (Science, 1974) demostró que la memoria de trabajo opera sobre un número acotado de unidades integradas (chunks), de modo que comprimir una estructura compleja en un único bloque permite manipular composiciones de orden superior sin saturar la capacidad atencional. David Kirsh (AI & Society, 2010) mostró que las representaciones externas e internas reconfiguran el espacio de estados y reducen el coste computacional de las inferencias.",
+    "intuicion_borja": "Lo que te costó comprender una vez tras quemar entropía se convierte en aquello con lo que piensas: inteligencia es alterar el espacio de lo pensable conservando la capacidad de corregirse.",
+    "mapping": {
+      "type": "EXTENSION",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "Integra la compresión por chunking (Simon, 1974) y el cambio de espacio representacional (Kirsh, 2010) con una condición cibernética de falsabilidad: el concepto comprimido pasa de ser objeto pensado a operador de pensamiento, pero debe conservar ganchos de revisión para no degenerar en dogma."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-10-26",
+      "original_artifact_sha256": "e07b9a8308610c46c5a3abd09774ad333b9a41817e82bef81f4aa5b1191914e4",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "b8d50fa5-c70c-4970-a2ee-6a238949f0a9"
+    },
+    "falsification": {
+      "question": "¿La recodificación de una derivación en un operador compacto reduce los pasos de búsqueda en problemas nuevos manteniendo la detección de contraejemplos que invalidan el supuesto base?",
+      "required_evidence": "Evaluación de resolución de problemas y detección de anomalías antes y después de consolidar una primitiva formal."
+    },
+    "reference": {
+      "author": "Herbert A. Simon / David Kirsh",
+      "year": 1974,
+      "work": "How Big Is a Chunk? (Simon, Science, 183(4124):482–488, 1974); Thinking with External Representations (Kirsh, AI & Society, 25(4):441–454, 2010)",
+      "type": "EMPIRICAL_STUDY",
+      "discipline": [
+        "Ciencias Cognitivas",
+        "Teoría de la Información",
+        "Epistemología"
+      ],
+      "ref_url": "https://doi.org/10.1126/science.183.4124.482"
+    },
+    "c5_axiom_anchor": "BJR-000089 / BJR-ATLAS-0171, Aforismo #172 (Lo comprendido y la alteración de lo pensable)"
+  },
+  "shared_frontier_coupling_experience_reorganization": {
+    "id": "shared_frontier_coupling_experience_reorganization",
+    "canonical_term": "Bisimulación Observacional (Park, 1981) y Sistemas Cibernéticos Acoplados (Ashby, 1956) vs. La Frontera Compartida y la Reorganización de la Experiencia (BJR-ATLAS-0172 / BJR-000090)",
+    "canonical_claim": "En teoría de concurrencia y autómatas (David M. R. Park, 1981; Robin Milner, 1989), la bisimulación establece equivalencia observacional sobre las transiciones externas de dos sistemas sin exigir acceso ni identidad física de sus estados internos privados. En cibernética (W. Ross Ashby, 1956), el acoplamiento entre dos máquinas dinámicas se verifica por el cambio inducido en las trayectorias y en la partición de estados del receptor tras la interacción.",
+    "intuicion_borja": "La clave está en compartir un conocimiento cuando es frontera para ti, porque si te lo guardas abres una brecha cuyos dos límites te incluyen; no podemos demostrar que hemos habitado la experiencia del otro, pero sí descubrir que la nuestra ya no se organiza igual después de conocerlo.",
+    "mapping": {
+      "type": "EXTENSION",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "Traduce la imposibilidad de verificar qualia internos y la definición de acoplamiento/bisimulación (Ashby, 1956; Park, 1981) a un criterio interpersonal y pedagógico: transmitir los descubrimientos cuando aún están en la frontera de aprendizaje y verificar el encuentro por la reorganización estructural de la propia experiencia."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-10-21",
+      "original_artifact_sha256": "e07b9a8308610c46c5a3abd09774ad333b9a41817e82bef81f4aa5b1191914e4",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "b8d50fa5-c70c-4970-a2ee-6a238949f0a9"
+    },
+    "falsification": {
+      "question": "¿Compartir un concepto durante su fase de frontera produce mayor convergencia de vocabulario y menor divergencia interpretativa que presentarlo únicamente como sistema cerrado final?",
+      "required_evidence": "Comparación de tasas de adopción y alineamiento conceptual entre pares con transmisión incremental en frontera frente a entrega monolítica diferida."
+    },
+    "reference": {
+      "author": "David M. R. Park / W. Ross Ashby",
+      "year": 1981,
+      "work": "Concurrency and Automata on Infinite Sequences (Park, LNCS 104:167–183, 1981); An Introduction to Cybernetics (Ashby, Chapman & Hall, 1956)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Teoría de la Concurrencia",
+        "Cibernética",
+        "Epistemología de la Comunicación"
+      ],
+      "ref_url": "https://doi.org/10.1007/BFb0017309"
+    },
+    "c5_axiom_anchor": "BJR-000090 / BJR-ATLAS-0172, Aforismo #173 (La frontera compartida y la reorganización de la experiencia)"
+  },
+  "nominal_reification_budget_derivative_opposition": {
+    "id": "nominal_reification_budget_derivative_opposition",
+    "canonical_term": "Compromiso Ontológico (Quine, 1948), Maximización Presupuestaria (Niskanen, 1971) y Activos Derivados (Black & Scholes, 1973) vs. La Sustantivación del Vacío y el Producto Derivado (BJR-ATLAS-0173 / BJR-000091)",
+    "canonical_claim": "En filosofía analítica (Willard Van Orman Quine, 1948), el uso de un sustantivo gramatical no prueba la existencia de un referente independiente, la cual depende de las variables ligadas de la teoría. En elección pública (William A. Niskanen, 1971), las agencias burocráticas maximizan su presupuesto cuando el producto es difícil de medir unitariamente. En matemática financiera (Fischer Black & Myron Scholes, 1973), un instrumento derivado carece de valor autónomo al ser función V(S, t) del activo subyacente S.",
+    "intuicion_borja": "Convertir verbos en cosas imaginarias es el truco más viejo para cobrar por gestionar el aire; y si necesitas aquello que rechazas para construir tu identidad, no eres antisistema: eres su producto derivado.",
+    "mapping": {
+      "type": "EXTENSION",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "Unifica el análisis de la reificación nominal (Quine, 1948; Niskanen, 1971) con la dependencia funcional de un derivado financiero (Black & Scholes, 1973): sustituir verbos verificables por sustantivos abstractos elimina la condición de parada presupuestaria, y definir una identidad por oposición simétrica (correlación -1) mantiene dependencia total respecto al subyacente que se afirma rechazar."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-10-30",
+      "original_artifact_sha256": "e07b9a8308610c46c5a3abd09774ad333b9a41817e82bef81f4aa5b1191914e4",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "b8d50fa5-c70c-4970-a2ee-6a238949f0a9"
+    },
+    "falsification": {
+      "question": "¿Los programas institucionales formulados mediante sustantivos abstractos sin predicado verbal de cierre presentan mayor perpetuación presupuestaria ante ausencia de resultados que los contratos definidos por verbos de acción acotada?",
+      "required_evidence": "Auditoría presupuestaria comparando la tasa de renovación de partidas nominalizadas sin métrica de extinción frente a proyectos con condición de parada explícita."
+    },
+    "reference": {
+      "author": "Willard Van Orman Quine / William A. Niskanen / Fischer Black, Myron Scholes",
+      "year": 1948,
+      "work": "On What There Is (Quine, Review of Metaphysics, 2(5):21–38, 1948); Bureaucracy and Representative Government (Niskanen, 1971); The Pricing of Options and Corporate Liabilities (Black & Scholes, JPE, 1973)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Ontología Analítica",
+        "Economía Pública",
+        "Matemática Financiera"
+      ],
+      "ref_url": "https://www.jstor.org/stable/20123117"
+    },
+    "c5_axiom_anchor": "BJR-000091 / BJR-ATLAS-0173, Aforismo #174 (La sustantivación del vacío y el producto derivado)"
+  },
+  "beckett_metro_ticket_automaton_empty_acceptance": {
+    "id": "beckett_metro_ticket_automaton_empty_acceptance",
+    "canonical_term": "Autómatas Finitos con Lenguaje Vacío (Rabin & Scott, 1959) y Estructura Dramática de Samuel Beckett (1952) vs. La Máquina de Billetes de Metro y el Autómata de Beckett (BJR-ATLAS-0174 / BJR-000092)",
+    "canonical_claim": "En teoría de autómatas finitos deterministas M = (Q, Sigma, delta, q_0, F) de Rabin y Scott (1959), cuando el conjunto de estados de aceptación es vacío (F = empty) y las transiciones retornan al estado inicial delta(q_0, sigma) = q_0, el lenguaje reconocido es el conjunto vacío y ninguna secuencia de entrada produce transición de salida. En la dramaturgia de Samuel Beckett (En attendant Godot, 1952; Fin de partie, 1957), la acción escénica se articula mediante ciclos de espera, réplicas breves acotadas y retorno al estado inicial.",
+    "intuicion_borja": "El teatro de Beckett funciona como una máquina expendedora de billetes de metro sin estado de salida: toda queja o recuerdo entra como moneda doblada que cae de inmediato al cajetín devolviendo el marcador a saldo cero.",
+    "mapping": {
+      "type": "EXTENSION",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "Establece un isomorfismo estructural pedagógico y formal entre un autómata finito sin estado de aceptación (máquina expendedora de metro que devuelve toda moneda doblada al cajetín con saldo cero, display LCD de dos líneas y tolva sin papel térmico) y las invariantes escénicas del teatro de Samuel Beckett."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-10-23",
+      "original_artifact_sha256": "e07b9a8308610c46c5a3abd09774ad333b9a41817e82bef81f4aa5b1191914e4",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "b8d50fa5-c70c-4970-a2ee-6a238949f0a9"
+    },
+    "falsification": {
+      "question": "¿Permite el modelo de autómata finito con F = empty clasificar y predecir exhaustivamente los puntos de retorno y corte dialógico en el corpus escénico de Beckett sin residuos narrativos de progresión clásica?",
+      "required_evidence": "Análisis formal del grafo de transiciones escénicas en En attendant Godot y Fin de partie verificando el retorno a estado basal tras cada tentativa de acción."
+    },
+    "reference": {
+      "author": "Michael O. Rabin, Dana Scott / Samuel Beckett",
+      "year": 1959,
+      "work": "Finite Automata and Their Decision Problems (Rabin & Scott, IBM J. Res. Dev., 3(2):114–125, 1959); En attendant Godot (Beckett, Éditions de Minuit, 1952)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Teoría de Autómatas",
+        "Dramaturgia Formal",
+        "Literatura Comparada"
+      ],
+      "ref_url": "https://doi.org/10.1147/rd.32.0114"
+    },
+    "c5_axiom_anchor": "BJR-000092 / BJR-ATLAS-0174, Aforismo #175 (La máquina de billetes de metro y el autómata de Beckett)"
+  },
+  "ashby_requisite_variety_regulator": {
+    "id": "ashby_requisite_variety_regulator",
+    "canonical_term": "Ley de la Variedad Requerida (Ashby, 1956) y Teorema del Buen Regulador (Conant & Ashby, 1970)",
+    "canonical_claim": "W. Ross Ashby (An Introduction to Cybernetics, 1956) demostró analíticamente la Ley de la Variedad Requerida: para que un regulador R logre mantener los resultados del sistema dentro de un conjunto objetivo acotado frente a perturbaciones del entorno D, la entropía o variedad de las respuestas del regulador debe ser al menos tan grande como la variedad de las perturbaciones (H(R) >= H(D) - H(E)). Conant & Ashby (Int. J. Syst. Sci., 1970) demostraron que todo regulador óptimo debe ser un modelo isomórfico del sistema regulado, bajo supuestos de transformación unívoca y estados distinguibles.",
+    "intuicion_borja": "No puedes controlar un entorno complejo y cambiante con cuatro botones rígidos: para frenar la dispersión del mundo exterior necesitas que tu sistema de control tenga al menos tantas respuestas posibles como trucos tiene el entorno para sacarte del carril.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "PROVED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#25, AP2-S032) se converge con Ashby (1956) y Conant & Ashby (1970), exigiendo definir transformaciones unívocas y estados distinguibles antes de invocar la ley, advirtiendo que no establece que cualquier entorno venza por definición a cualquier regulador ni mide energía institucional sin modelo."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿El número de estados de control distinguibles del regulador |R| es menor que |D|/|E| para el conjunto de perturbaciones D y el margen de tolerancia admisible E?",
+      "required_evidence": "Cálculo formal de las matrices de juego o partición condicional H(E) = H(D) + H_D(R) - H(R) sobre el espacio de estados."
+    },
+    "reference": {
+      "author": "W. Ross Ashby / Roger C. Conant",
+      "year": 1956,
+      "work": "An Introduction to Cybernetics (Ashby, Chapman & Hall, 1956); Every good regulator of a system must be a model of that system (Conant & Ashby, Int. J. Syst. Sci., 1970)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Cibernética Teórica",
+        "Teoría de Control de Sistemas",
+        "Teoría de la Información"
+      ],
+      "ref_url": "https://doi.org/10.1080/00207727008920220"
+    },
+    "c5_axiom_anchor": "BJR-000093, Apéndice III Heurística #25 (Variedad requerida · AP2-S032)"
+  },
+  "spence_zahavi_costly_signaling": {
+    "id": "spence_zahavi_costly_signaling",
+    "canonical_term": "Equilibrio de Separación por Señalización Costosa (Spence, 1973) y Principio del Handicap (Zahavi, 1975; Grafen, 1990)",
+    "canonical_claim": "A. Michael Spence (Quarterly Journal of Economics, 1973) demostró que bajo asimetría de información entre emisores de alta y baja productividad, una señal pública permite alcanzar un equilibrio de separación (separating equilibrium) creíble si y solo si satisface la condición de cruce único (single-crossing condition: el coste marginal de emitir la señal es estrictamente menor para el emisor de alta calidad que para el de baja calidad). Amotz Zahavi (J. Theor. Biol., 1975) y Alan Grafen (J. Theor. Biol., 1990) formalizaron el mismo principio en biología evolutiva (Principio del Handicap).",
+    "intuicion_borja": "Las palabras son gratis y cualquiera puede jurar que es honrado o genial; una señal sólo es de fiar cuando emitirla le cuesta tan caro al que miente que fingir le lleva a la ruina.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "PROVED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#38, AP2-S061) se converge con Spence (1973) y Grafen (1990), subrayando que un gasto no acredita verdad por sí solo ni la credibilidad es una función del calor de falsificación, sino que depende de que la estructura de costes y recompensas sostenga un equilibrio de separación entre tipos."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Satisface la función de coste de la señal c(s, theta) la condición de cruce único d^2 c / ds dtheta < 0 tal que al tipo de baja calidad no le compense imitar la señal?",
+      "required_evidence": "Verificación formal de las desigualdades de compatibilidad de incentivos (IC) del equilibrio de separación en la matriz de pagos."
+    },
+    "reference": {
+      "author": "A. Michael Spence / Amotz Zahavi / Alan Grafen",
+      "year": 1973,
+      "work": "Job Market Signaling (Spence, QJE, 87(3):355-374, 1973); Mate selection—a selection for a handicap (Zahavi, J. Theor. Biol., 1975); Biological signals as handicaps (Grafen, J. Theor. Biol., 1990)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Economía de la Información",
+        "Biología Evolutiva",
+        "Teoría de Juegos"
+      ],
+      "ref_url": "https://doi.org/10.2307/1882010"
+    },
+    "c5_axiom_anchor": "BJR-000094, Apéndice III Heurística #38 (Señalización y costes · AP2-S061), Aforismo 5"
+  },
+  "goodhart_campbell_surrogate_law": {
+    "id": "goodhart_campbell_surrogate_law",
+    "canonical_term": "Ley de Campbell (Campbell, 1979), Ley de Goodhart (Goodhart, 1975) y Corolario de Strathern (Strathern, 1997)",
+    "canonical_claim": "Donald T. Campbell (Evaluation and Program Planning, 1979) formuló que cuanto más se utiliza un indicador social cuantitativo para la toma de decisiones, más sujeto está a presiones de corrupción y mayor distorsión introduce en los procesos que debía monitorear. Charles Goodhart (1975) y Marilyn Strathern (European Review, 1997) generalizaron el principio: 'Cuando una medida se convierte en un objetivo, deja de ser una buena medida', debido a que los agentes optimizan el proxy a expensas de la cualidad latente no medida.",
+    "intuicion_borja": "En el momento en que premias a la gente por subir un número en un gráfico en vez de por hacer bien el trabajo, dejan de hacer el trabajo y se dedican a inflar el gráfico por la vía más barata.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#60, AP2-S006) se converge con Campbell (1979) y Goodhart (1975), advirtiendo que examinar si premiar una medida altera su correlación con la tarea es una necesidad empírica, pero no demuestra la pérdida instantánea y total de valor de todo indicador que se emplee."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Cae significativamente la correlación entre el indicador proxy y la variable latente de calidad de fondo tras ligar incentivos contractuales al indicador?",
+      "required_evidence": "Análisis de cointegración y ruptura estructural en la correlación proxy-variable latente pre y post intervención de incentivos."
+    },
+    "reference": {
+      "author": "Donald T. Campbell / Charles A. E. Goodhart / Marilyn Strathern",
+      "year": 1979,
+      "work": "Assessing the impact of planned social change (Campbell, 1979); Problems of Monetary Management (Goodhart, 1975); 'Improving ratings': audit in the British University system (Strathern, Eur. Rev., 1997)",
+      "type": "EMPIRICAL_STUDY",
+      "discipline": [
+        "Sociología de la Evaluación",
+        "Econometría de Políticas Públicas",
+        "Teoría del Alineamiento y Proxies"
+      ],
+      "ref_url": "https://doi.org/10.1016/0149-7189(79)90048-X"
+    },
+    "c5_axiom_anchor": "BJR-000095, Apéndice III Heurística #60 (Indicadores e incentivos · AP2-S006), BJR-000047 (Bode Waterbed)"
+  },
+  "dunning_kruger_metacognitive_calibration": {
+    "id": "dunning_kruger_metacognitive_calibration",
+    "canonical_term": "Efecto Dunning-Kruger sobre Incompetencia No Calibrada (Kruger & Dunning, 1999) y Puntuación de Calibración de Brier (Brier, 1950)",
+    "canonical_claim": "Justin Kruger y David Dunning (Journal of Personality and Social Psychology, 1999) demostraron experimentalmente que los individuos con bajo rendimiento relativo en dominios de razonamiento lógico, gramática o humor carecen de la competencia metacognitiva necesaria para evaluar con precisión tanto su propio desempeño como el de terceros, sobreestimando su percentil relativo; por su parte, Glenn W. Brier (Mon. Weather Rev., 1950) formuló la regla cuadrática estrictamente propia para cuantificar el error cuadrático medio de calibración de probabilidades subjetivas.",
+    "intuicion_borja": "El que menos sabe de un tema suele ser el último en darse cuenta de lo poco que sabe, porque las mismas herramientas mentales que necesitas para no equivocarte son las que te harían falta para ver que te has equivocado.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#37) se converge con Kruger & Dunning (1999) y Brier (1950), pidiendo medir empíricamente rendimiento objetivo y autoevaluación en una tarea antes de atribuir exceso de confianza o ignorancia, recordando que el nombre del efecto no diagnostica a una persona por etiqueta verbal."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿La brecha observada entre autoevaluación y rendimiento objetivo se explica completamente por regresión estadística a la media y ruido de medición (Krueger & Mueller, 2002) o persiste una asimetría metacognitiva genuina?",
+      "required_evidence": "Diseño experimental cruzado con corrección por error de medida y cálculo de la puntuación Brier de calibración probabilística."
+    },
+    "reference": {
+      "author": "Justin Kruger, David Dunning / Glenn W. Brier",
+      "year": 1999,
+      "work": "Unskilled and unaware of it: How difficulties in recognizing one's own incompetence lead to inflated self-assessments (Kruger & Dunning, JPSP, 77(6):1121-1134, 1999); Verification of forecasts expressed in terms of probability (Brier, 1950)",
+      "type": "EMPIRICAL_STUDY",
+      "discipline": [
+        "Psicología Cognitiva y Social",
+        "Metacognición y Calibración del Juicio",
+        "Epistemología Experimental"
+      ],
+      "ref_url": "https://doi.org/10.1037/0022-3514.77.6.1121"
+    },
+    "c5_axiom_anchor": "BJR-000096, Apéndice III Heurística #37 (Calibración de competencia)"
+  },
+  "watzlawick_attempted_solution_feedback": {
+    "id": "watzlawick_attempted_solution_feedback",
+    "canonical_term": "La Solución Intentada como Problema y Cambio 1 vs. Cambio 2 (Watzlawick, Weakland & Fisch, 1974)",
+    "canonical_claim": "Paul Watzlawick, John H. Weakland y Richard Fisch (Change: Principles of Problem Formation and Problem Resolution, 1974) formalizaron cibernéticamente que en sistemas humanos disfuncionales, las 'soluciones intentadas' de tipo Cambio 1 (aplicar 'más de lo mismo' dentro de las reglas del atractor existente) actúan como el mecanismo primario de retroalimentación positiva que alimenta y perpetúa el problema; la resolución exige un Cambio 2 (una discontinuidad lógica o salto que transmuta las premisas o reglas del propio sistema).",
+    "intuicion_borja": "La solución intentada es el problema: cuando un regulador está mal calibrado, cada maniobra desesperada por arreglar la avería sin cambiar de marco es precisamente la gasolina que mantiene viva la oscilación.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#26 y #43) se converge con Watzlawick et al. (1974) y el Aforismo 3 de C5-REAL, exigiendo aislar el mecanismo causal concreto y contrastarlo empíricamente en lugar de deducir automáticamente bucles oscilatorios de cualquier intervención."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Cesar la aplicación de la solución intentada de tipo Cambio 1 reduce la amplitud del error o inestabilidad sistémica en comparación con intensificar dicha intervención?",
+      "required_evidence": "Ensayo controlado de retirada (paralización de la política correctora) y observación de la tasa de atenuación del fallo."
+    },
+    "reference": {
+      "author": "Paul Watzlawick, John H. Weakland, Richard Fisch",
+      "year": 1974,
+      "work": "Change: Principles of Problem Formation and Problem Resolution (Watzlawick, Weakland & Fisch, W. W. Norton, 1974); Pragmatics of Human Communication (Watzlawick et al., 1967)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Cibernética de Segundo Orden",
+        "Teoría de Sistemas Complejos",
+        "Resolución Estratégica de Problemas"
+      ],
+      "ref_url": "https://wwnorton.com/books/9780393707069"
+    },
+    "c5_axiom_anchor": "BJR-000097, Apéndice III Heurística #26 (Consecuencias de intervenir), Aforismo 3 C5-REAL"
+  },
+  "hard_to_fake_involuntary_signals": {
+    "id": "hard_to_fake_involuntary_signals",
+    "canonical_term": "Asimetría de Coste de Falsificación y Señales Involuntarias Difíciles de Fingir (Goffman, 1959; Krebs & Dawkins, 1984; Frank, 1988)",
+    "canonical_claim": "Erving Goffman (The Presentation of Self in Everyday Life, 1959) demostró la asimetría fundamental entre 'expresiones emitidas' (señales verbales voluntarias, sujetas a cálculo y manipulación retórica) y 'expresiones desprendidas' (señales involuntarias, microfisiológicas o conductuales difíciles de controlar). Krebs & Dawkins (1984) y Robert H. Frank (Passions Within Reason, 1988) demostraron que en interacciones estratégicas y evolutivas, los receptores descuentan las declaraciones baratas e інvierten en monitorear pistas corporales y huellas materiales que conllevan un coste prohibitivo de simulación.",
+    "intuicion_borja": "Lo voluntario vale menos que lo involuntario: lo que una persona o un sistema dice queriendo decir tiene coste cero y puede estar fabricado, pero su tono de voz, su respiración o su gasto real revelan la verdad sin que pueda evitarlo.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#39, AP2-S004, AP2-S061) se converge con Goffman (1959) y Frank (1988), fundamentando el Aforismo 5 de C5-REAL: contrastar declaraciones con huellas involuntarias es necesario para filtrar retórica manipulada, sin ignorar que una emisión involuntaria también puede transportar ruido estocástico del canal."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Posee la señal involuntaria monitoreada un coste de falsificación deliberada C_falsificacion significativamente superior a la ganancia de engaño esperada G_engano?",
+      "required_evidence": "Medición empírica de tasas de disimulo y precisión diagnóstica de marcadores fisiológicos involuntarios frente a auto-reportes verbales."
+    },
+    "reference": {
+      "author": "Erving Goffman / John R. Krebs, Richard Dawkins / Robert H. Frank",
+      "year": 1959,
+      "work": "The Presentation of Self in Everyday Life (Goffman, Doubleday, 1959); Animal signals: mind-reading and manipulation (Krebs & Dawkins, 1984); Passions Within Reason (Frank, W. W. Norton, 1988)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Sociología Microsistémica",
+        "Etología Evolutiva",
+        "Economía del Comportamiento"
+      ],
+      "ref_url": "https://www.penguinrandomhouse.com/books/60644/the-presentation-of-self-in-everyday-life-by-erving-goffman/"
+    },
+    "c5_axiom_anchor": "BJR-000098, Apéndice III Heurística #39 (Control de una señal), Aforismo 5 C5-REAL"
+  },
+  "brillouin_szilard_measurement_dissipation": {
+    "id": "brillouin_szilard_measurement_dissipation",
+    "canonical_term": "Principio de Negentropía de la Información y Coste Energético de Medición (Szilard, 1929; Brillouin, 1956; Landauer, 1961)",
+    "canonical_claim": "Leo Szilard (Z. Phys., 1929) demostró que el Demonio de Maxwell no viola la segunda ley de la termodinámica porque adquirir un bit de información para distinguir la posición de una molécula exige disipar energía. Léon Brillouin (Science and Information Theory, 1956) formalizó el Principio de Negentropía: toda medición física de información I sobre un sistema a temperatura T requiere al menos una disipación Delta S >= k_B ln(2) I. Rolf Landauer (1961) y Bennett (1982) precisaron que la cota mínima ineludible de disipación k_B T ln(2) se acopla estrictamente a la fase irreversible de borrado o reseteo de la memoria del instrumento.",
+    "intuicion_borja": "Mirar o medir la realidad no sale gratis en el universo físico: acoplar un sensor a un objeto altera el sistema y exige pagar una factura energética mínima por cada bit que se borra de la memoria del aparato.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "PROVED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#2 y #9, AP2-S001, AP2-S002) se converge con Brillouin (1956), Landauer (1961) y Bennett (1982), acotando con rigor termodinámico que la disipación mínima obligatoria procede de operaciones de borrado lógico irreversible en condiciones isotermas y no de almacenar pasivamente o medir sin reseteo."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿El protocolo de medición y registro incluye una operación de borrado lógico de estados sin información previa en un baño térmico que satisfaga la cota de disipación Q >= k_B T ln(2)?",
+      "required_evidence": "Balance termodinámico microscópico de calor disipado en experimentos de Szilard y trampas ópticas (Bérut et al., Nature 2012)."
+    },
+    "reference": {
+      "author": "Leo Szilard / Léon Brillouin / Rolf Landauer / Charles H. Bennett",
+      "year": 1956,
+      "work": "Science and Information Theory (Brillouin, Academic Press, 1956); Über die Entropieverminderung (Szilard, Z. Phys., 1929); Irreversibility and Heat Generation (Landauer, IBM J. Res. Dev., 1961)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Física de la Información",
+        "Termodinámica Estadística",
+        "Computación Reversible"
+      ],
+      "ref_url": "https://doi.org/10.1007/BF01341281"
+    },
+    "c5_axiom_anchor": "BJR-000099, Apéndice III Heurísticas #2 y #9 (Borrado de memoria y Medición/disipación · AP2-S001, AP2-S002)"
+  },
+  "model_scope_vc_dimension_box": {
+    "id": "model_scope_vc_dimension_box",
+    "canonical_term": "Dimensión Vapnik-Chervonenkis, Error de Generalización y Alcance del Modelo (Vapnik & Chervonenkis, 1971; Box, 1976)",
+    "canonical_claim": "Vladimir N. Vapnik y Alexey Ya. Chervonenkis (Theory Probab. Appl., 1971) formalizaron la capacidad de una clase de funciones estadísticas mediante la dimensión VC (h): la cota superior del error de prueba respecto al error de entrenamiento escala como O(sqrt((h (ln(2N/h) + 1) - ln(eta/4)) / N)). George E. P. Box (J. Am. Stat. Assoc., 1976) formuló el aforismo fundacional: 'Todos los modelos están equivocados, pero algunos son útiles', demostrando que proyectar la realidad sobre un subespacio de menor dimensión descarta variables de forma deliberada pero permite generalizar predictivamente dentro de un dominio delimitado.",
+    "intuicion_borja": "Todo modelo o teoría simplifica la realidad y por tanto es técnicamente incompleto; lo importante no es quejarse de que le faltan dimensiones, sino saber con precisión matemática en qué rango de situaciones sus predicciones funcionan y dónde se rompen.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "PROVED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#7) se converge con Box (1976) y la teoría estadística del aprendizaje (Vapnik & Chervonenkis, 1971), exigiendo comparar predicciones y observaciones dentro de un dominio explícito, recordando que modelar no exige por definición falsear la realidad y que perder variables no prueba por sí solo ni falsedad ni utilidad."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿El error de generalización en datos fuera de muestra converge a la cota teórica de Vapnik-Chervonenkis en función del número de muestras de entrenamiento N y la capacidad h de la clase de hipótesis?",
+      "required_evidence": "Evaluación empírica de curvas de aprendizaje en datos independientes de prueba y estimación de la dimensión VC o complejidad de Rademacher."
+    },
+    "reference": {
+      "author": "Vladimir N. Vapnik, Alexey Ya. Chervonenkis / George E. P. Box",
+      "year": 1971,
+      "work": "On the uniform convergence of relative frequencies of events to their probabilities (Vapnik & Chervonenkis, 1971); Science and Statistics (Box, JASA, 71(356):791-799, 1976)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Teoría del Aprendizaje Estadístico",
+        "Inferencia Inductiva",
+        "Filosofía de la Modelización Científica"
+      ],
+      "ref_url": "https://doi.org/10.1137/1116029"
+    },
+    "c5_axiom_anchor": "BJR-000100, Apéndice III Heurística #7 (Alcance del modelo)"
+  },
+  "prototype_theory_natural_categories_rosch": {
+    "id": "prototype_theory_natural_categories_rosch",
+    "canonical_term": "Teoría de Prototipos, Nivel Básico de Categorización y Compromiso Ontológico (Rosch, 1973/1978; Quine, 1948)",
+    "canonical_claim": "Eleanor Rosch (Cognitive Psychology, 1973; Principles of Categorization, 1978) demostró empíricamente que las categorías semánticas humanas no están delimitadas por condiciones necesarias y suficientes clásicas (aristotélicas), sino organizadas alrededor de prototipos con pertenencia gradual y un 'nivel básico' (basic-level categories) que maximiza la validez de clave de atributos. W. V. O. Quine (Review of Metaphysics, 1948: On What There Is) estableció que la formulación de cualquier teoría lingüística implica un compromiso ontológico explícito con las entidades sobre las que cuantifica.",
+    "intuicion_borja": "Las palabras y etiquetas que usamos para ordenar el mundo no son cajas perfectas con bordes de cristal: son puntos de gravedad difusos que agrupan cosas parecidas, y declarar qué nombres aceptas en tu modelo es decidir qué cosas existen para ti.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#40) se converge con Rosch (1978) y Quine (1948), pidiendo declarar explícitamente los conceptos que organizan una pregunta y revisar qué permiten observar, tratando la compresión categorial como una heurística de selección y no como una prueba neurobiológica cerrada."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Muestra la estructura categorial efectos de gradiente de tipicidad (latencia de verificación y acuerdo inter-jueces) que refutan la hipótesis de fronteras lógicas necesarias y suficientes?",
+      "required_evidence": "Tiempos de reacción en tareas de verificación de categorías y análisis de similitud en distancias semánticas."
+    },
+    "reference": {
+      "author": "Eleanor Rosch / Willard Van Orman Quine",
+      "year": 1978,
+      "work": "Principles of Categorization (Rosch, 1978); Natural categories (Rosch, Cogn. Psychol., 1973); On What There Is (Quine, Rev. Metaphys., 1948)",
+      "type": "EMPIRICAL_STUDY",
+      "discipline": [
+        "Ciencias Cognitivas y Psicología Semántica",
+        "Filosofía del Lenguaje",
+        "Ontología Formal"
+      ],
+      "ref_url": "https://doi.org/10.1016/0010-0285(73)90017-0"
+    },
+    "c5_axiom_anchor": "BJR-000101, Apéndice III Heurística #40 (Categorías de partida)"
+  },
+  "switching_costs_hysteresis_klemperer": {
+    "id": "switching_costs_hysteresis_klemperer",
+    "canonical_term": "Mercados con Costes de Cambio, Histéresis de Cuota y Bloqueo de Salida (Klemperer, 1987; Farrell & Klemperer, 2007)",
+    "canonical_claim": "Paul Klemperer (Quarterly Journal of Economics, 1987; Review of Economic Studies, 1987) demostró que en mercados donde los consumidores incurren en un coste de cambio s > 0 al abandonar un proveedor (costes de aprendizaje, compatibilidad técnica, costes contractuales o costes de transacción), las empresas adquieren poder de monopolio ex-post sobre su base instalada, compiten agresivamente ex-ante por capturar clientes y generan histéresis de mercado: una vez superado el umbral s, una alternativa más eficiente no logra desplazar a la incumbente a menos que su diferencial de valor Delta V supere los costes de cambio (Delta V > s).",
+    "intuicion_borja": "Una vez que una empresa o costumbre te hace montar todo tu sistema a su alrededor, ya no compite en calidad: sabe perfectamente cuánto te costaría marcharte y te sube el precio o baja el servicio hasta ese límite exacto.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "PROVED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#50) se converge con Klemperer (1987) y Farrell & Klemperer (2007), exigiendo medir empíricamente recursos, riesgos y restricciones de conmutación antes de afirmar bloqueo, sin convertir metafóricamente el coste económico en energía de activación física sin modelo explícito."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Supera la ganancia de utilidad neta esperada del nuevo proveedor Delta U al coste de conmutación s (incluyendo reentrenamiento, migración de datos y fricción contractual) en el horizonte de decisión?",
+      "required_evidence": "Estimación econométrica de la elasticidad de demanda y umbral de conmutación s en cohortes de usuarios con base instalada."
+    },
+    "reference": {
+      "author": "Paul Klemperer / Joseph Farrell",
+      "year": 1987,
+      "work": "Markets with Consumer Switching Costs (Klemperer, QJE, 102(2):375-394, 1987); Coordination and Lock-In: Competition with Switching Costs and Network Effects (Farrell & Klemperer, 2007)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Organización Industrial",
+        "Microeconomía Aplicada",
+        "Estrategia de Plataformas y Redes"
+      ],
+      "ref_url": "https://doi.org/10.2307/1885068"
+    },
+    "c5_axiom_anchor": "BJR-000102, Apéndice III Heurística #50 (Costes del cambio)"
   }
 }
