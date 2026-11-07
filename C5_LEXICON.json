@@ -1285,5 +1285,365 @@
       "ref_url": "https://doi.org/10.1145/2247684.2247688"
     },
     "c5_axiom_anchor": "BJR-000002 / BJR-ATLAS-0002 (KUDURRU-64)"
+  },
+  "structural_hypocrisy_decoupling": {
+    "id": "structural_hypocrisy_decoupling",
+    "canonical_term": "Desacoplamiento Institucional (Meyer & Rowan), Hipocresía Organizacional (Brunsson) y Falsificación de Preferencias (Kuran) vs. Invariante de Hipocresía Estructural (BJR-ATLAS-0160)",
+    "canonical_claim": "En sociología institucional y teoría de las organizaciones, Meyer y Rowan (AJS, 1977) demostraron que las organizaciones preservan su legitimidad externa adoptando estructuras formales ceremoniales ('myth and ceremony') desacopladas de su operativa técnica real. Brunsson (The Organization of Hypocrisy, 1989) probó que desacoplar retórica ('talk'), decisiones y acciones permite absorber demandas normativas incompatibles sin fracturar la coalición. Kuran (1995) formalizó cómo la falsificación de preferencias públicas sostiene equilibrios sociales aparentes, y von Hippel & Trivers (BBS, 2011) documentaron el valor adaptativo del autoengaño para reducir el coste cognitivo de persuadir a terceros.",
+    "intuicion_borja": "En los grupos humanos, la hipocresía no es una anomalía accidental sino el lubricante cohesivo que permite que individuos con intereses incompatibles convivan bajo un velo de ficción compartida sin destruirse.",
+    "mapping": {
+      "type": "EXTENSION",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "La Invariante de Hipocresía Estructural (BJR-ATLAS-0160) integra el desacoplamiento neoinstitucional (Meyer & Rowan, 1977; Brunsson, 1989) y la falsificación de preferencias (Kuran, 1995) con el Aforismo 5: modela el mito ceremonial como un amortiguador de bajo coste ('cheap talk') que estabiliza la coalición a corto plazo, pero acumula deuda epistémica hasta colapsar cuando la fricción con el sustrato físico supera el margen de solvencia."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-09-29",
+      "original_artifact_sha256": "a4c82211bc062ec0e41d2a83e5c50be23075e015121b5aa74f3fc0a9bb334f03",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Las organizaciones expuestas a mandatos normativos contradictorios presentan mayor tasa de fractura interna cuando se fuerza acoplamiento estricto entre declaración pública y operativa técnica que cuando mantienen desacoplamiento ceremonial?",
+      "required_evidence": "Estudio comparativo longitudinal de supervivencia y conflicto en organizaciones bajo auditoría de transparencia total frente a regímenes con amortiguación ceremonial."
+    },
+    "reference": {
+      "author": "John W. Meyer, Brian Rowan / Nils Brunsson / Timur Kuran / William von Hippel, Robert Trivers",
+      "year": 1977,
+      "work": "Institutionalized Organizations: Formal Structure as Myth and Ceremony (Meyer & Rowan, AJS, 1977); The Organization of Hypocrisy (Brunsson, 1989); Private Truths, Public Lies (Kuran, 1995)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Sociología Institucional",
+        "Teoría de las Organizaciones",
+        "Psicología Evolutiva"
+      ],
+      "ref_url": "https://doi.org/10.1086/226550"
+    },
+    "c5_axiom_anchor": "BJR-000036 / BJR-ATLAS-0160 (La Invariante de Hipocresía Estructural · El Velo Cohesivo de la Tribu), Aforismo 5"
+  },
+  "embodied_somatic_comprehension": {
+    "id": "embodied_somatic_comprehension",
+    "canonical_term": "Hipótesis del Marcador Somático (Damasio), Inferencia Interoceptiva (Seth) y Cognición Encarnada (Barsalou) vs. Cierre Visceral (BJR-ATLAS-0161)",
+    "canonical_claim": "Damasio (Phil. Trans. R. Soc. B, 1996) demostró que la toma de decisiones humana depende de marcadores somáticos (estados autonómicos y viscerales integrados en la corteza prefrontal ventromedial y la ínsula) cuya ausencia deja intacto el cálculo declarativo pero destruye el juicio práctico. Barsalou (Annu. Rev. Psychol., 2008) estableció que el procesamiento conceptual reactiva simulaciones multimodales sensoriomotoras, y Seth (Trends Cogn. Sci., 2013) formalizó el sentimiento subjetivo como inferencia predictiva sobre señales interoceptivas aferentes.",
+    "intuicion_borja": "Repetir una idea con la cabeza no es entenderla; comprender algo de verdad es un evento físico que baja al estómago, cambia la respiración y reorganiza la postura del cuerpo sin pedir permiso.",
+    "mapping": {
+      "type": "EXTENSION",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "El Cierre Visceral (BJR-ATLAS-0161) articula los marcadores somáticos (Damasio, 1996) y la inferencia interoceptiva (Seth, 2013) como detector operativo del Aforismo 5: distingue la manipulación sintáctica desacoplada ('cheap talk' cortical) del aprendizaje genuinamente integrado que altera el tono vagal y los umbrales de acción motora."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-09-29",
+      "original_artifact_sha256": "a4c82211bc062ec0e41d2a83e5c50be23075e015121b5aa74f3fc0a9bb334f03",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿El cierre comprensivo capaz de modificar la conducta futura del operador va acompañado invariablemente de una firma autonómica/interoceptiva medible (VFC, conductancia dérmica) ausente en la mera memorización verbal?",
+      "required_evidence": "Registro simultáneo de telemetría autonómica (HRV/EDA) y transferencia conductual en tareas de resolución de problemas tras insight frente a instrucción memorística."
+    },
+    "reference": {
+      "author": "Antonio R. Damasio / Anil K. Seth / Lawrence W. Barsalou",
+      "year": 1996,
+      "work": "The somatic marker hypothesis and the possible functions of the prefrontal cortex (Damasio, Phil. Trans. R. Soc. B, 1996); Interoceptive inference, emotion, and the embodied self (Seth, TiCS, 2013); Grounded Cognition (Barsalou, Annu. Rev. Psychol., 2008)",
+      "type": "EMPIRICAL_STUDY",
+      "discipline": [
+        "Neurociencia Cognitiva",
+        "Neurofisiología Autonómica",
+        "Ciencias Cognitivas"
+      ],
+      "ref_url": "https://doi.org/10.1098/rstb.1996.0125"
+    },
+    "c5_axiom_anchor": "BJR-000037 / BJR-ATLAS-0161 (La Comprensión como Evento Somático Encarnado · El Cierre Visceral), Aforismo 5"
+  },
+  "stigmergic_pollination_emergence": {
+    "id": "stigmergic_pollination_emergence",
+    "canonical_term": "Estigmergia (Grassé / Heylighen) y Mutualismo Difuso (Bronstein) vs. La Polinización Estigmérgica (BJR-ATLAS-0162)",
+    "canonical_claim": "Grassé (Insectes Sociaux, 1959) formuló la teoría de la estigmergia al demostrar que los insectos sociales construyen estructuras macroscópicas complejas sin plan maestro ni comunicación directa, respondiendo localmente a las modificaciones depositadas previamente en el sustrato. Heylighen (Cognitive Systems Research, 2016) generalizó la estigmergia como mecanismo universal de coordinación indirecta mediada por trazas en sistemas distribuidos, y Bronstein (Q. Rev. Biol., 1994) caracterizó el mutualismo ecológico como subproducto recíproco de agentes que persiguen su propio retorno metabólico local.",
+    "intuicion_borja": "La abeja no tiene el plano del bosque en la cabeza: va a por su néctar, pero al dejar polen en el camino levanta un jardín entero sin que ningún comité haya diseñado el plano.",
+    "mapping": {
+      "type": "ANALOGY",
+      "epistemic_status": "PROVISIONAL",
+      "coverage": null,
+      "unproven_leap": "La Polinización Estigmérgica (BJR-ATLAS-0162) traslada el mecanismo entomológico de Grassé (1959) y el mutualismo de Bronstein (1994) a la estrategia de publicación de artefactos soberanos: depositar herramientas y tratados autocontenidos en el medio público para inducir coordinación asíncrona sin incurrir en el coste de gestión de comunidades o comités."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-09-29",
+      "original_artifact_sha256": "a4c82211bc062ec0e41d2a83e5c50be23075e015121b5aa74f3fc0a9bb334f03",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿En qué condiciones la coordinación puramente estigmérgica (mediada por artefactos sin canal síncrono) fracasa frente a perturbaciones adversariales o requisitos de consenso estricto?",
+      "required_evidence": "Modelado de tasas de convergencia y vulnerabilidad al envenenamiento de trazas en repositorios distribuidos estigmérgicos frente a arquitecturas con arbitraje explícito."
+    },
+    "reference": {
+      "author": "Pierre-Paul Grassé / Francis Heylighen / Judith L. Bronstein",
+      "year": 1959,
+      "work": "La reconstruction du nid et les coordinations interindividuelles chez Bellicositermes natalensis et Cubitermes sp. La théorie de la stigmergie (Grassé, Insectes Sociaux, 1959); Stigmergy as a universal coordination mechanism (Heylighen, 2016)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Sistemas Complejos",
+        "Ecología Evolutiva",
+        "Cibernética Distribuida"
+      ],
+      "ref_url": "https://doi.org/10.1007/BF02223791"
+    },
+    "c5_axiom_anchor": "BJR-000038 / BJR-ATLAS-0162 (La Polinización Estigmérgica · El Jardín sin Arquitecto)"
+  },
+  "symbol_grounding_skin_in_the_game": {
+    "id": "symbol_grounding_skin_in_the_game",
+    "canonical_term": "Problema del Anclaje Simbólico (Harnad), Paradoja de Moravec (Moravec) y Skin in the Game (Taleb) vs. La Poda de lo Humano (BJR-ATLAS-0163)",
+    "canonical_claim": "Harnad (Physica D, 1990) formuló el Symbol Grounding Problem demostrando que la manipulación puramente sintáctica de símbolos mediante reglas formales no puede generar significado intrínseco sin un acoplamiento causal sensoriomotor con el mundo físico. Moravec (Mind Children, 1988) observó que el razonamiento abstracto de alto nivel exige mucha menos capacidad computacional que la percepción y motricidad encarnadas evolucionadas durante millones de años. Taleb y Sandis (2014) establecieron que la validez ética y epistémica de una decisión en entornos abiertos requiere exposición simétrica al daño irreversible ('Skin in the Game').",
+    "intuicion_borja": "A medida que las máquinas absorben todo lo que es receta, cálculo y trámite mecánico, no destruyen lo humano: podan todo lo que teníamos de robot hasta dejar desnudo lo único que la máquina no puede poner, que es el cuerpo y el coste de sangrar si te equivocas.",
+    "mapping": {
+      "type": "EXTENSION",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "La Poda de lo Humano (BJR-ATLAS-0163) sintetiza a Harnad (1990), Moravec (1988) y Taleb (2014) como fundamento de la Tripartición de Roles AX-0 (`INV_C5_EPISTEMIC_AUTHORITY_DECOUPLING`): delega la exploración sintáctica masiva en el silicio y reserva en exclusiva al operador biológico el anclaje al territorio y la firma de autoridad con responsabilidad irreversible."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-09-29",
+      "original_artifact_sha256": "a4c82211bc062ec0e41d2a83e5c50be23075e015121b5aa74f3fc0a9bb334f03",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Puede un agente estadístico sin exposición propia a pérdidas irreversibles calibrar sus probabilidades en colas extremas (cisnes negros) con la misma fiabilidad que un operador sometido a selección por bancarrota o daño físico?",
+      "required_evidence": "Comparación empírica de calibración fuera de distribución (OOD) y supervivencia a largo plazo entre sistemas de decisión con penalización puramente sintética frente a agentes con restricción de solvencia real."
+    },
+    "reference": {
+      "author": "Stevan Harnad / Hans Moravec / Nassim Nicholas Taleb, Constantine Sandis",
+      "year": 1990,
+      "work": "The Symbol Grounding Problem (Harnad, Physica D, 1990); Mind Children (Moravec, 1988); The Skin in the Game Heuristic for Protection Against Tail Events (Taleb & Sandis, 2014)",
+      "type": "PHILOSOPHICAL_CONCEPT",
+      "discipline": [
+        "Filosofía de la Ciencia y de la IA",
+        "Robótica Cognitiva",
+        "Teoría de la Decisión y del Riesgo"
+      ],
+      "ref_url": "https://doi.org/10.1016/0167-2789(90)90087-6"
+    },
+    "c5_axiom_anchor": "BJR-000039 / BJR-ATLAS-0163 (La Poda de lo Humano · El Residuo del Territorio), Tripartición AX-0"
+  },
+  "cross_disciplinary_isomorphism": {
+    "id": "cross_disciplinary_isomorphism",
+    "canonical_term": "Equivalencias Naturales Categóricas (Eilenberg & Mac Lane), Límite de Memoria de Trabajo 4±1 (Cowan) y Cascadas Informacionales (Bikhchandani et al.) vs. El Isomorfismo Huérfano (BJR-ATLAS-0164)",
+    "canonical_claim": "Eilenberg y Mac Lane (Trans. AMS, 1945) fundaron la teoría de categorías precisamente para formalizar funtores y transformaciones naturales que conectan estructuras matemáticamente isomorfas expresadas en lenguajes distintos. En psicología cognitiva, Cowan (BBS, 2001) demostró que el foco de atención humano sólo puede mantener simultáneamente 4 ± 1 bloques (chunks) independientes. Bikhchandani, Hirshleifer y Welch (JPE, 1992) probaron cómo las cascadas informacionales llevan a comunidades especializadas a imitar decisiones y marcos locales ignorando señales externas.",
+    "intuicion_borja": "Dos gremios académicos pueden pasarse medio siglo resolviendo exactamente la misma ecuación bajo nombres distintos en edificios contiguos sin enterarse, porque su jerga local les llena la cabeza y nadie premia al que cruza el pasillo para traducirla.",
+    "mapping": {
+      "type": "EXTENSION",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "El Isomorfismo Huérfano (BJR-ATLAS-0164) explica la ceguera interdisciplinar acoplando el límite atencional de Cowan (2001) y las cascadas de citas (Bikhchandani et al., 1992) con la compresión categórica (Eilenberg & Mac Lane, 1945), fundamentando el diseño de C5_LEXICON como traductor de clases de equivalencia entre silos."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-09-29",
+      "original_artifact_sha256": "a4c82211bc062ec0e41d2a83e5c50be23075e015121b5aa74f3fc0a9bb334f03",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿La explicitación de la transformación natural (diccionario de traducción formal libre de jerga) entre dos disciplinas reduce el tiempo de transferencia de teoremas y la carga en memoria de trabajo medida empíricamente?",
+      "required_evidence": "Experimento controlado de resolución de problemas isomorfos entre especialistas de dominios distintos con y sin tabla de mapeo estructural explícita."
+    },
+    "reference": {
+      "author": "Samuel Eilenberg, Saunders Mac Lane / Nelson Cowan / Sushil Bikhchandani, David Hirshleifer, Ivo Welch",
+      "year": 1945,
+      "work": "General Theory of Natural Equivalences (Eilenberg & Mac Lane, Trans. AMS, 1945); The magical number 4 in short-term memory (Cowan, BBS, 2001); A Theory of Fads, Fashion, Custom, and Cultural Change as Informational Cascades (Bikhchandani et al., JPE, 1992)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Teoría de Categorías",
+        "Psicología Cognitiva",
+        "Economía de la Información"
+      ],
+      "ref_url": "https://doi.org/10.2307/1990284"
+    },
+    "c5_axiom_anchor": "BJR-000040 / BJR-ATLAS-0164 (El Isomorfismo Huérfano · La Ceguera de Silo Gremial), Aforismo 1"
+  },
+  "kinetic_proofreading_tutte_hopfield": {
+    "id": "kinetic_proofreading_tutte_hopfield",
+    "canonical_term": "Kinetic Proofreading (Hopfield / Ninio) y Teorema de Matriz-Árbol de Tutte-Schnakenberg vs. Cortocircuito por Debate Horizontal (BJR-ATLAS-0165)",
+    "canonical_claim": "Hopfield (PNAS, 1974) y Ninio (Biochimie, 1975) demostraron que un sistema de reconocimiento molecular sólo puede reducir su tasa de error por debajo del límite termodinámico de equilibrio $\\epsilon_0$ hasta $\\epsilon_0^n$ concatenando etapas intermedias acopladas a salidas irreversibles que disipan energía libre. Por la teoría de redes de ecuaciones maestras de Schnakenberg (Rev. Mod. Phys., 1976) y el teorema de arborescencias dirigidas de Tutte (1948), la distribución estacionaria viene dada por los árboles generadores dirigidos; introducir transiciones reversibles laterales entre etapas intermedias cortocircuita los filtros secuenciales y devuelve la tasa de error a $\\mathcal{O}(\\epsilon_0)$.",
+    "intuicion_borja": "Si pones a tres auditores independientes a filtrar un fallo en serie con descarte definitivo, multiplicas la precisión al cubo; pero si les dejas charlar y consensuar entre ellos antes de emitir su veredicto, el debate horizontal cortocircuita el filtro y te deja con la misma tasa de error mediocre de uno solo.",
+    "mapping": {
+      "type": "EXTENSION",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "La Invariancia de Tutte-Hopfield (BJR-ATLAS-0165) traslada la representación en arborescencias de Tutte-Schnakenberg del modelo biofísico de Hopfield (1974) a la arquitectura de verificación multi-agente (Regla de 3 Evaluadores y `RULE[circuit_topology_optimization]`), probando sobre el grafo de Markov del comité que el acoplamiento horizontal previo al voto destruye la independencia condicional de las etapas de rechazo."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-09-29",
+      "original_artifact_sha256": "a4c82211bc062ec0e41d2a83e5c50be23075e015121b5aa74f3fc0a9bb334f03",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿En qué regímenes de correlación de errores de entrada un comité con comunicación horizontal acotada (ej. intercambio de contraejemplos verificables sin voto social) supera al filtrado secuencial estricto sin comunicación?",
+      "required_evidence": "Evaluación sobre benchmarks de código y pruebas formales comparando 3 verificadores aislados con descarte irreversible frente a 3 agentes con ronda de debate multi-turno."
+    },
+    "reference": {
+      "author": "John J. Hopfield / Jacques Ninio / Jürgen Schnakenberg / W. T. Tutte",
+      "year": 1974,
+      "work": "Kinetic Proofreading: A New Mechanism for Reducing Errors in Biosynthetic Processes Requiring High Specificity (Hopfield, PNAS, 1974); Network theory of microscopic and macroscopic behavior of master equation systems (Schnakenberg, Rev. Mod. Phys., 1976)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Biofísica Molecular",
+        "Mecánica Estadística Fuera del Equilibrio",
+        "Teoría de Grafos"
+      ],
+      "ref_url": "https://doi.org/10.1073/pnas.71.10.4135"
+    },
+    "c5_axiom_anchor": "BJR-000041 / BJR-ATLAS-0165 (El Cortocircuito por Debate Horizontal · La Invariancia de Tutte-Hopfield), Regla de 3 Evaluadores"
+  },
+  "kramers_escape_barrier": {
+    "id": "kramers_escape_barrier",
+    "canonical_term": "Tasa de Escape de Kramers sobre Barreras de Potencial Metaestables (Kramers, 1940 / Arrhenius, 1889 / Hänggi et al., 1990) vs. Aforismo 4 y Atasco de Kramers (BJR-ATLAS-0073)",
+    "canonical_claim": "Kramers (Physica, 1940) resolvió la ecuación de Fokker-Planck para una partícula browniana atrapada en un pozo de potencial metaestable $U(x_a)$ separado de un estado más estable por una barrera de silla $U(x_b)$, demostrando que la tasa de transición $k_{\\mathrm{esc}} = (\\omega_a \\omega_b / 2\\pi\\gamma) \\exp(-\\Delta U / k_B T)$ depende exponencialmente de la razón entre la altura de la barrera $\\Delta U = U(x_b) - U(x_a)$ y la energía de fluctuación $k_B T$ (Hänggi, Talkner & Borkovec, Rev. Mod. Phys., 1990).",
+    "intuicion_borja": "El cambio surge cuando el dolor de permanecer igual supera al de cambiar: nadie salta de una rutina o situación degradada mientras el pozo siga siendo soportable, hasta que el coste acumulado de quedarse ahí levanta el suelo del pozo y hace que saltar la valla cueste menos que seguir dentro.",
+    "mapping": {
+      "type": "ANALOGY",
+      "epistemic_status": "PROVISIONAL",
+      "coverage": null,
+      "unproven_leap": "El Capítulo IV y BJR-ATLAS-0073 utilizan la ley de Kramers (1940) como modelo matemático formal del Aforismo 4: en sistemas cognitivos y sociales la función de potencial $U(x)$ y la temperatura efectiva $T$ operan como una analogía dinámica controlada (`[METAPHORICAL]`) a menos que se especifique una función de pérdida u objetivo empíricamente medible."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "885fe375bdb8301b245cf20fa1d8b41bd896012ebe8807a786607d1a186a4749",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Las transiciones de abandono de estado en decisiones humanas u organizacionales exhiben una distribución exponencial de tiempos de espera modulada por la reducción de la barrera relativa $\\Delta U$ (coste de transición menos coste de permanencia)?",
+      "required_evidence": "Ajuste empírico de tiempos de supervivencia (hazard rate) en cohortes de cambio conductual u organizacional frente a modelos de umbral con coste acumulado."
+    },
+    "reference": {
+      "author": "Hendrik A. Kramers / Svante Arrhenius / Peter Hänggi, Peter Talkner, Michal Borkovec",
+      "year": 1940,
+      "work": "Brownian motion in a field of force and the diffusion model of chemical reactions (Kramers, Physica, 1940); Reaction-rate theory: fifty years after Kramers (Hänggi et al., Rev. Mod. Phys., 1990)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Física Estadística",
+        "Cinética Química",
+        "Procesos Estocásticos"
+      ],
+      "ref_url": "https://doi.org/10.1016/S0031-8914(40)90098-2"
+    },
+    "c5_axiom_anchor": "BJR-000042 / BJR-ATLAS-0073 (Atasco de Kramers), Aforismo 4, Capítulo IV (Kramers)"
+  },
+  "kuramoto_phase_synchronization": {
+    "id": "kuramoto_phase_synchronization",
+    "canonical_term": "Modelo de Kuramoto de Osciladores Acoplados y Umbral Crítico de Sincronización (Kuramoto, 1975 / Strogatz, 2000)",
+    "canonical_claim": "Kuramoto (1975, 1984) y Strogatz (Physica D, 2000) demostraron analíticamente que en una población de $N \\to \\infty$ osciladores de fase con frecuencias naturales distribuidas según $g(\\omega)$ y acoplamiento sinusoidal de intensidad $K$, el parámetro de orden macroscópico $r = |N^{-1}\\sum_j e^{i\\theta_j}|$ permanece nulo para $K < K_c = 2/[\\pi g(0)]$ y sufre una bifurcación continua hacia sincronización colectiva ($r \\propto \\sqrt{K - K_c}$) al cruzar el umbral crítico $K_c$.",
+    "intuicion_borja": "Para que un grupo de elementos con ritmos propios entre en sintonía no hace falta obligar a todos a ser idénticos desde arriba; basta con que el acoplamiento mutuo supere un umbral crítico respecto a su dispersión para que emerja un pulso compartido de golpe.",
+    "mapping": {
+      "type": "ANALOGY",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Capítulo V de MANUSCRIPT_V3, el umbral crítico $K_c = 2/[\\pi g(0)]$ de Kuramoto se aplica tanto a osciladores físicos/acústicos (`[FORMAL]`) como a la coordinación de cadencia en redes de agentes; fuera de sistemas con fase bien definida y acoplamiento periódico, su aplicación a grupos humanos es una analogía estructural."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "5fd337468a439f32c71fdc623c0cf533c4ecc946bd1a6e2ad4c5acf57f44ea89",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿En sistemas de interacción donde los agentes no poseen una fase periódica intrínseca sino estados discretos aperiódicos, el modelo de Kuramoto predice mejor la transición de consenso que los modelos de percolación o Ising?",
+      "required_evidence": "Comparación de ajuste entre el parámetro de orden de Kuramoto y modelos de umbral discreto (Granovetter / Ising) sobre series temporales de coordinación."
+    },
+    "reference": {
+      "author": "Yoshiki Kuramoto / Steven H. Strogatz",
+      "year": 1975,
+      "work": "Self-entrainment of a population of coupled non-linear oscillators (Kuramoto, LNPH 39, 1975); From Kuramoto to Crawford: exploring the onset of synchronization in populations of coupled oscillators (Strogatz, Physica D, 2000)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Dinámica No Lineal",
+        "Física Estadística",
+        "Biología Matemática"
+      ],
+      "ref_url": "https://doi.org/10.1016/S0167-2789(00)00094-4"
+    },
+    "c5_axiom_anchor": "BJR-000043, Capítulo V (Sistemas Vivos, Redes y Emergencia · Kuramoto)"
+  },
+  "physiological_sigh_vagal_reset": {
+    "id": "physiological_sigh_vagal_reset",
+    "canonical_term": "Suspiro Fisiológico Cíclico (Balban, Spiegel & Huberman, 2023), Circuito Peptidérgico Pre-Bötzinger (Li & Krasnow, 2016) y Freno Vagal Barorreflejo vs. BJR-ATLAS-0084I",
+    "canonical_claim": "Li, Yackle, Krasnow et al. (Nature, 2016) identificaron el circuito peptidergico (Nmb/Grp) del complejo pre-Bötzinger que dispara el suspiro fisiológico (doble inhalación) para reabrir alvéolos atelectásicos y restaurar la complianza pulmonar. Balban, Spiegel, Huberman et al. (Cell Reports Medicine, 2023) demostraron en un ensayo controlado aleatorizado que 5 minutos diarios de suspiro cíclico voluntario (doble inhalación nasal seguida de exhalación prolongada) reducen la frecuencia respiratoria y la activación simpática de forma significativamente superior a la meditación mindfulness, mediado por el barorreflejo arterial y la arritmia sinusal respiratoria vagal (Lehrer & Gevirtz, 2014).",
+    "intuicion_borja": "Cuando el sistema nervioso entra en secuestro de alerta, intentar calmarse pensando razones es inútil; necesitas un freno mecánico directo —dos inhalaciones seguidas por la nariz para abrir los sacos pulmonares y una exhalación larga— que obligue físicamente al nervio vago a bajar las pulsaciones.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "Converge directamente con la evidencia neurofisiológica y clínica primaria (Li et al., 2016; Balban et al., 2023); en C5-REAL (`BJR-ATLAS-0084I` y `c5-somatic-panic-deescalation`) se codifica como intervención de hardware de Anillo-0 que ejemplifica el Aforismo 5 en regulación autonómica."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-09-29",
+      "original_artifact_sha256": "a4c82211bc062ec0e41d2a83e5c50be23075e015121b5aa74f3fc0a9bb334f03",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Produce la doble inhalación seguida de exhalación prolongada una caída más rápida de la frecuencia cardíaca instantánea y mayor incremento de RMSSD en los primeros 60 segundos tras un estresor agudo que la respiración cuadrada (box breathing) o la reevaluación cognitiva?",
+      "required_evidence": "Medición con pulsómetro BLE GATT (0x2A37) de intervalos RR latido a latido durante maniobra de suspiro fisiológico frente a control cognitivo."
+    },
+    "reference": {
+      "author": "Melis Yilmaz Balban, David Spiegel, Andrew D. Huberman / Peng Li, Mark A. Krasnow",
+      "year": 2023,
+      "work": "Brief structured respiration practices enhance mood and reduce physiological arousal (Balban et al., Cell Reports Medicine, 2023); The peptidergic control circuit for sighing (Li et al., Nature, 2016)",
+      "type": "EMPIRICAL_STUDY",
+      "discipline": [
+        "Neurofisiología Respiratoria",
+        "Medicina Autonómica",
+        "Psicofisiología Clínica"
+      ],
+      "ref_url": "https://doi.org/10.1016/j.xcrm.2022.100895"
+    },
+    "c5_axiom_anchor": "BJR-000044 / BJR-ATLAS-0084I (El Doble Suspiro Fisiológico), Skill c5-somatic-panic-deescalation, Aforismo 5"
+  },
+  "autonomic_manual_override_trap": {
+    "id": "autonomic_manual_override_trap",
+    "canonical_term": "Modelo Cognitivo del Pánico Interoceptivo (Clark, 1986) y Degradación por Monitorización Explícita (Masters, 1992; Beilock & Carr, 2001) vs. Manual Override Trap (BJR-ATLAS-0084B)",
+    "canonical_claim": "Clark (Behaviour Research and Therapy, 1986) demostró que los ataques de pánico se mantienen por un bucle de retroalimentación positiva en el que la atención hipervigilante interpreta sensaciones autonómicas benignas como señal de catástrofe inminente, incrementando la descarga simpática y amplificando el síntoma vigilado. En control motor y cognitivo, Masters (1992) y Beilock & Carr (JEP:General, 2001) probaron que cuando el ejecutivo consciente intenta supervisar y controlar paso a paso un proceso procedimental ya automatizado, descompone su fluidez subcortical y provoca el colapso de la ejecución ('choking under pressure').",
+    "intuicion_borja": "En cuanto intentas controlar manualmente con la mente consciente una función automática del cuerpo —como vigilar cada latido o calcular cada milímetro de aire al respirar para no marearte—, el propio intento de supervisión atasca el piloto automático y dispara la espiral de pánico.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "Converge plenamente con Clark (1986), Masters (1992) y Beilock & Carr (2001), formulándose en C5-REAL (`BJR-ATLAS-0084B` y `c5-somatic-panic-deescalation`) como la instanciación neurofisiológica directa del Aforismo 3 ('La solución intentada es el problema') cuando un controlador cortical de alta latencia invade un lazo homeostático troncoencefálico."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-09-29",
+      "original_artifact_sha256": "a4c82211bc062ec0e41d2a83e5c50be23075e015121b5aa74f3fc0a9bb334f03",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿El desvío del foco ejecutivo hacia una tarea externa de alta demanda sensoriomotora o de cálculo desacopla el bucle interoceptivo y acelera la recuperación vagal más rápido que la instrucción de monitorizar y controlar voluntariamente el síntoma?",
+      "required_evidence": "Comparación experimental de tiempo de extinción de hiperventilación/taquicardia bajo foco interoceptivo de control voluntario frente a tarea de absorción externa."
+    },
+    "reference": {
+      "author": "David M. Clark / Sian L. Beilock, Thomas H. Carr / Richard S. W. Masters",
+      "year": 1986,
+      "work": "A cognitive approach to panic (Clark, Behaviour Research and Therapy, 1986); On the fragility of skilled performance: What governs choking under pressure? (Beilock & Carr, JEP:General, 2001)",
+      "type": "EMPIRICAL_STUDY",
+      "discipline": [
+        "Psicopatología Cognitiva",
+        "Control Motor y Neurociencia",
+        "Cibernética de Regulación"
+      ],
+      "ref_url": "https://doi.org/10.1016/0005-7967(86)90011-2"
+    },
+    "c5_axiom_anchor": "BJR-000045 / BJR-ATLAS-0084B (Manual Override Trap), Skill c5-somatic-panic-deescalation, Aforismo 3"
   }
 }
