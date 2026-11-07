@@ -1645,5 +1645,365 @@
       "ref_url": "https://doi.org/10.1016/0005-7967(86)90011-2"
     },
     "c5_axiom_anchor": "BJR-000045 / BJR-ATLAS-0084B (Manual Override Trap), Skill c5-somatic-panic-deescalation, Aforismo 3"
+  },
+  "eigen_error_catastrophe_microgates": {
+    "id": "eigen_error_catastrophe_microgates",
+    "canonical_term": "Umbral de Catástrofe de Error de Cuasiespecies (Eigen, 1971) y Deriva Isla-Continente (Wright, 1931) vs. Rescate por Micro-Gates (BJR-ATLAS-0166)",
+    "canonical_claim": "En evolución molecular, Eigen (Naturwissenschaften, 1971) demostró que una secuencia maestra de longitud L con ventaja selectiva sigma > 1 y fidelidad por paso q sólo sobrevive a la catástrofe de error (x* = (sigma * q^L - 1)/(sigma - 1) > 0) si L < ln(sigma)/(-ln q). En genética de poblaciones, Wright (Genetics, 1931) demostró que en una población finita de tamaño M, la varianza genética bajo deriva pura se extingue hacia cero a menos que exista un flujo continuo de inmigración continental alpha > 0.",
+    "intuicion_borja": "Si pides cien pasos de un tirón sin comprobar en medio, el fallo acumulado se come toda la cadena; si cortas y verificas cada pocos pasos con un Micro-Gate, la solución sobrevive; y si alimentas a un modelo sólo con su propia salida sin datos nuevos de la calle, la varianza muere en cero.",
+    "mapping": {
+      "type": "EXTENSION",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "El Umbral de Horizonte de Eigen (BJR-ATLAS-0166) extiende el teorema de cuasiespecies de Eigen (1971) y el modelo Isla-Continente de Wright (1931) al diseño de pipelines de inferencia (PLAN-Omega), demostrando algebraicamente en Z3 que para q in (sigma^-1, sigma^-1/2], partir una tarea monolítica (sigma*q^2 <= 1, supervivencia 0%) mediante Micro-Gates intermedios (sigma*q > 1) rescata un punto fijo estacionario positivo."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-09-29",
+      "original_artifact_sha256": "5a1409956728aa45e443398eda57aafdc42ef61c0183ea8330ce304b5e989fec",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿En cadenas de razonamiento o generación de código de longitud L > ln(sigma)/(-ln q), la inserción de Micro-Gates verificadores deterministas a intervalos l < L evita el colapso de exactitud predicho por la cota monolítica q^L?",
+      "required_evidence": "Evaluación empírica de tasa de éxito extremo a extremo en pipelines multi-etapa con y sin verificación intermedia para distintos valores de q y L."
+    },
+    "reference": {
+      "author": "Manfred Eigen / Sewall Wright",
+      "year": 1971,
+      "work": "Selforganization of matter and the evolution of biological macromolecules (Eigen, Naturwissenschaften, 1971); Evolution in Mendelian Populations (Wright, Genetics, 1931)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Biofísica Molecular",
+        "Genética de Poblaciones",
+        "Teoría de la Información y Planificación"
+      ],
+      "ref_url": "https://doi.org/10.1007/BF00623322"
+    },
+    "c5_axiom_anchor": "BJR-000046 / BJR-ATLAS-0166 (El Umbral de Horizonte de Eigen · El Rescate por Micro-Gates), Protocolo PLAN-Omega, INV-S04 (#45)"
+  },
+  "bode_sensitivity_waterbed_effect": {
+    "id": "bode_sensitivity_waterbed_effect",
+    "canonical_term": "Teorema Integral de Sensibilidad de Bode y Efecto Cama de Agua (Bode, 1945 / Freudenberg & Looze, 1985) vs. Impuesto de Sobre-Alineamiento (BJR-ATLAS-0167)",
+    "canonical_claim": "En teoría de control lineal invariante en el tiempo, Bode (1945) y Freudenberg & Looze (IEEE TAC, 1985) demostraron que para cualquier lazo de retroalimentación con función de sensibilidad S(s) y polos inestables p_k, la integral logarítmica sobre todas las frecuencias está conservada: int_0^inf ln|S(i*omega)| d_omega = pi * sum Re(p_k) >= 0. Por tanto, reducir la sensibilidad al error en una banda de frecuencias (|S| < 1, ln|S| < 0) fuerza inevitablemente su amplificación en otra banda (|S| > 1, ln|S| > 0, 'waterbed effect').",
+    "intuicion_borja": "Apretar un colchón de agua por una esquina sólo levanta un bulto mayor en la otra: cada error que prohíbes por decreto o sobre-alineamiento en el escaparate vigilado reaparece multiplicado donde no llega el inspector.",
+    "mapping": {
+      "type": "EXTENSION",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "La Cama de Agua de Bode (BJR-ATLAS-0167, Aforismo #168) combina la ley de conservación integral de Bode (1945) con la sobreoptimización de modelos de recompensa (Gao et al., ICML 2023) y el filtrado de Wiener-Goodhart, probando sobre una descomposición en dos bandas (w1*s1 + w2*s2 = P_inst >= 0) que la supresión rígida en la banda auditada (s1 < 0) infla hiperbólicamente la fragilidad fuera de distribución (s2 > 0) a medida que w2 -> 0."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-11-07",
+      "original_artifact_sha256": "5a1409956728aa45e443398eda57aafdc42ef61c0183ea8330ce304b5e989fec",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": false,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿El endurecimiento de restricciones RLHF o reglas burocráticas sobre un subconjunto estrecho de benchmarks (s1 < 0) incrementa monótonamente la tasa de fallo o vulnerabilidad adversarial en perturbaciones fuera de distribución (s2 > 0)?",
+      "required_evidence": "Medición conjunta de pérdida in-distribution (ID) y fragilidad out-of-distribution (OOD) en función de la divergencia KL respecto a la política base (Gao et al., 2023)."
+    },
+    "reference": {
+      "author": "Hendrik W. Bode / James S. Freudenberg, Douglas P. Looze / Leo Gao, John Schulman, Jacob Hilton",
+      "year": 1945,
+      "work": "Network Analysis and Feedback Amplifier Design (Bode, Van Nostrand, 1945); Right half plane poles and zeros and design tradeoffs in feedback systems (Freudenberg & Looze, IEEE TAC, 1985); Scaling Laws for Reward Model Overoptimization (Gao et al., ICML, 2023)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Teoría de Control en Frecuencia",
+        "Alineamiento de IA y RLHF",
+        "Cibernética Regulatoria"
+      ],
+      "ref_url": "https://doi.org/10.1109/TAC.1985.1104004"
+    },
+    "c5_axiom_anchor": "BJR-000047 / BJR-ATLAS-0167 (La Cama de Agua de Bode · El Impuesto de Sobre-Alineamiento), Aforismo #168, Axioma III y V"
+  },
+  "noether_symmetry_conservation": {
+    "id": "noether_symmetry_conservation",
+    "canonical_term": "Primer Teorema de Noether sobre Invariancia Variacional y Leyes de Conservación (Noether, 1918)",
+    "canonical_claim": "Emmy Noether (Nachr. Ges. Wiss. Göttingen, 1918) demostró rigurosamente que a toda simetría continua diferenciable de la integral de acción de un sistema físico lagrangiano le corresponde una corriente conservada (y recíprocamente), vinculando la invariancia bajo traslaciones temporales con la conservación de la energía, la invariancia espacial con el momento lineal y la invariancia rotacional con el momento angular.",
+    "intuicion_borja": "Detrás de cada cantidad que se conserva intacta a través de los cambios hay una simetría profunda de las reglas del sistema, pero no basta con que dos cosas se parezcan por fuera para inventarse una ley de conservación si no hay una acción invariante debajo.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#3, INV-S01), se converge estrictamente con el teorema de Noether (1918) acotando explícitamente su alcance: requiere un funcional de acción variacional y condiciones de diferenciabilidad y frontera (`[PHYSICAL]` / `[FORMAL]`), prohibiendo extrapolar semejanzas verbales como leyes de conservación sin lagrangiano subyacente."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿El sistema analizado posee una formulación variacional (principio de acción estacionaria) cuya densidad lagrangiana sea invariante bajo un grupo de Lie continuo uniparamétrico?",
+      "required_evidence": "Derivación explícita de la corriente de Noether J^mu y verificación de div(J) = 0 sobre las ecuaciones de Euler-Lagrange del sistema."
+    },
+    "reference": {
+      "author": "Emmy Noether",
+      "year": 1918,
+      "work": "Invariante Variationsprobleme (Nachrichten von der Gesellschaft der Wissenschaften zu Göttingen, Mathematisch-Physikalische Klasse, 235-257, 1918)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Física Matemática",
+        "Cálculo de Variaciones",
+        "Álgebras y Grupos de Lie"
+      ],
+      "ref_url": "https://doi.org/10.1080/00411457108231446"
+    },
+    "c5_axiom_anchor": "BJR-000048, Apéndice III Heurística #3 (Simetría y conservación · INV-S01)"
+  },
+  "causal_do_calculus_intervention": {
+    "id": "causal_do_calculus_intervention",
+    "canonical_term": "Cálculo-do de Intervenciones Causales y Escalera de Causalidad (Pearl, 1995 / 2000; Spirtes, Glymour & Scheines, 1993)",
+    "canonical_claim": "Pearl (Biometrika, 1995; Causality, 2000) y Spirtes, Glymour & Scheines (1993) demostraron sobre Modelos Causales Estructurales (DAGs) que la distribución condicional observacional P(Y | X = x) difiere fundamentalmente de la distribución intervencional P(Y | do(X = x)) obtenida al amputar las aristas entrantes en X; la identificación de efectos causales a partir de datos observacionales exige supuestos estructurales explícitos (criterio back-door o front-door).",
+    "intuicion_borja": "Ver que dos variables suben juntas en una tabla no significa que tocar una mueva la otra; para saber qué causa qué hay que separar la correlación pasiva de la intervención quirúrgica que corta las variables de confusión.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "Converge con la formulación de Pearl (1995, 2000) registrada en el Apéndice III (#16, AP2-S098) y fundamenta el Test de Independencia Causal de `RULE[circuit_topology_optimization]` en C5-REAL."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿El conjunto de ajuste Z propuesto bloquea todos los caminos back-door espurios entre X e Y en el DAG causal sin incluir descendientes del tratamiento X (colisionadores)?",
+      "required_evidence": "Prueba de d-separación sobre el grafo mutilado G_bar_X o ensayo controlado con asignación exógena do(X = x)."
+    },
+    "reference": {
+      "author": "Judea Pearl / Peter Spirtes, Clark Glymour, Richard Scheines",
+      "year": 1995,
+      "work": "Causal diagrams for empirical research (Pearl, Biometrika, 82(4):669-688, 1995); Causality: Models, Reasoning, and Inference (Pearl, Cambridge University Press, 2000)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Inferencia Causal",
+        "Estadística Matemática",
+        "Inteligencia Artificial"
+      ],
+      "ref_url": "https://doi.org/10.1093/biomet/82.4.669"
+    },
+    "c5_axiom_anchor": "BJR-000049, Apéndice III Heurística #16 (Inferencia causal · AP2-S098), RULE[circuit_topology_optimization]"
+  },
+  "turing_reaction_diffusion_morphogenesis": {
+    "id": "turing_reaction_diffusion_morphogenesis",
+    "canonical_term": "Inestabilidad Inducida por Difusión y Morfogénesis de Reacción-Difusión (Turing, 1952 / Gierer & Meinhardt, 1972)",
+    "canonical_claim": "Alan Turing (Phil. Trans. R. Soc. B, 1952) demostró matemáticamente que un sistema de sustancias químicas acopladas (morfógenos) que es estable en estado homogéneo en ausencia de difusión puede volverse linealmente inestable cuando un inhibidor difunde más rápido que un activador autocatalítico (D_v > D_u), generando espontáneamente patrones espaciales estacionarios periódicos (manchas, franjas) a partir de ruido local sin plano central.",
+    "intuicion_borja": "Dos reglas locales simples de activación a corta distancia y freno a larga distancia bastan para que un tejido uniforme rompa su simetría y dibuje estructuras complejas sin que nadie tenga el mapa del dibujo completo.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#20, AP2-S009) se converge con el modelo de reacción-difusión de Turing (1952) precisando sus límites: demuestra formación de patrones bajo condiciones diferenciales específicas de difusión y cinética, sin autorizar a invocar 'emergencia holística' indeterminada donde los componentes no expliquen el patrón."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Satisface la matriz jacobiana de reacción y la razón de coeficientes de difusión D_inhibidor / D_activador las desigualdades de bifurcación de Turing para un número de onda espacial k > 0?",
+      "required_evidence": "Análisis espectral de dispersión lambda(k^2) del operador de reacción-difusión linealizado alrededor del estado homogéneo."
+    },
+    "reference": {
+      "author": "Alan M. Turing / Alfred Gierer, Hans Meinhardt",
+      "year": 1952,
+      "work": "The Chemical Basis of Morphogenesis (Turing, Philosophical Transactions of the Royal Society of London B, 237(641):37-72, 1952)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Biología Matemática",
+        "Ecuaciones en Derivadas Parciales",
+        "Sistemas Dinámicos"
+      ],
+      "ref_url": "https://doi.org/10.1098/rstb.1952.0012"
+    },
+    "c5_axiom_anchor": "BJR-000050, Apéndice III Heurística #20 (Interacciones y patrones · AP2-S009)"
+  },
+  "path_dependence_qwerty_lockin": {
+    "id": "path_dependence_qwerty_lockin",
+    "canonical_term": "Dependencia de Trayectoria (Path Dependence) y Bloqueo por Rendimientos Crecientes de Adopción (David, 1985 / Arthur, 1989)",
+    "canonical_claim": "Paul A. David (American Economic Review, 1985) y W. Brian Arthur (Economic Journal, 1989) demostraron que en sistemas económicos y tecnológicos con interdependencia técnica, economías de escala en aprendizaje (costes hundidos de formación) y cuasi-irreversibilidad de inversiones, accidentes históricos tempranos pueden bloquear el mercado en un estándar subóptimo (lock-in), de modo que el estado estacionario no es ergódico respecto a las condiciones iniciales.",
+    "intuicion_borja": "Muchas arquitecturas o costumbres no dominan hoy porque sean las mejores, sino porque una decisión temprana creó compatibilidades y hábitos tan caros de deshacer que el sistema quedó encajonado en ese carril.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#21, AP2-S010) se converge con David (1985) y Arthur (1989), incorporando la matización empírica de que la dependencia de trayectoria exige cuantificar costes actuales de aprendizaje, coordinación y conmutación, sin presuponer determinismo histórico perpetuo."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Superan los costes descontados de coordinación y reentrenamiento la ganancia neta de eficiencia de migrar al estándar alternativo en el horizonte operativo considerado?",
+      "required_evidence": "Medición empírica de costes de cambio (switching costs) y externalidades de red frente a la ganancia marginal de productividad del nuevo estándar."
+    },
+    "reference": {
+      "author": "Paul A. David / W. Brian Arthur",
+      "year": 1985,
+      "work": "Clio and the Economics of QWERTY (David, American Economic Review, 75(2):332-337, 1985); Competing Technologies, Increasing Returns, and Lock-In by Historical Events (Arthur, Economic Journal, 99(394):116-131, 1989)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Historia Económica",
+        "Economía de la Innovación",
+        "Procesos Estocásticos No Ergódicos"
+      ],
+      "ref_url": "https://www.jstor.org/stable/1805621"
+    },
+    "c5_axiom_anchor": "BJR-000051, Apéndice III Heurística #21 (Dependencia de trayectoria · AP2-S010)"
+  },
+  "max_flow_min_cut_bottleneck": {
+    "id": "max_flow_min_cut_bottleneck",
+    "canonical_term": "Teorema de Flujo Máximo y Corte Mínimo (Ford & Fulkerson, 1956; Elias, Feinstein & Shannon, 1956) y Gestión de Restricciones (Goldratt, 1984)",
+    "canonical_claim": "Ford y Fulkerson (Canadian Journal of Mathematics, 1956) y Elias, Feinstein y Shannon (IRE Trans. Inf. Theory, 1956) demostraron que en cualquier red de transporte con capacidades en las aristas, el flujo máximo factible desde una fuente s hasta un sumidero t es exactamente igual a la capacidad total de las aristas del corte s-t de menor capacidad (min-cut). En cadenas estrictamente en serie ello se reduce al eslabón más débil (Goldratt, 1984), mientras que en grafos con rutas paralelas exige identificar el corte mínimo global.",
+    "intuicion_borja": "Optimizar una etapa que no está en el corte mínimo de la red no aumenta el caudal total ni un milímetro; sólo ensanchar el cuello de botella real mueve el límite del sistema.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#23, AP2-S031) se converge con el teorema Max-Flow Min-Cut (Ford & Fulkerson, 1956), distinguiendo rigurosamente entre una cadena lineal en serie (limitada por su enlace mínimo individual) y una red general con caminos paralelos (limitada por la capacidad de su corte mínimo s-t)."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Pertenece el nodo o arista que se pretende optimizar al corte mínimo s-t actual del grafo de flujo o posee holgura positiva (slack > 0) en el problema dual de programación lineal?",
+      "required_evidence": "Cálculo del grafo residual de Ford-Fulkerson / Edmonds-Karp y verificación de saturación de aristas en el corte s-t."
+    },
+    "reference": {
+      "author": "Lester R. Ford Jr., Delbert R. Fulkerson / Peter Elias, Amiel Feinstein, Claude E. Shannon / Eliyahu M. Goldratt",
+      "year": 1956,
+      "work": "Maximal flow through a network (Ford & Fulkerson, Canadian Journal of Mathematics, 8:399-404, 1956); A note on the maximum flow through a network (Elias, Feinstein & Shannon, IRE Trans. Inf. Theory, 1956)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Optimización Combinatoria",
+        "Teoría de Grafos",
+        "Investigación Operativa"
+      ],
+      "ref_url": "https://doi.org/10.4153/CJM-1956-045-5"
+    },
+    "c5_axiom_anchor": "BJR-000052, Apéndice III Heurística #23 (Cuellos de botella · AP2-S031)"
+  },
+  "coase_theorem_transaction_costs": {
+    "id": "coase_theorem_transaction_costs",
+    "canonical_term": "Teorema de Coase, Costes de Transacción y Naturaleza de la Firma (Coase, 1937 / 1960)",
+    "canonical_claim": "Ronald H. Coase (Economica, 1937; Journal of Law and Economics, 1960) demostró que las empresas existen como islas de coordinación jerárquica porque utilizar el mecanismo de precios en el mercado conlleva costes de transacción positivos (descubrimiento, negociación, ejecución de contratos); asimismo, ante externalidades o daños recíprocos, la asignación eficiente de recursos sólo es independiente de la atribución legal inicial cuando los costes de transacción son nulos, siendo los costes de transacción reales los que determinan qué institución jurídica resulta eficiente.",
+    "intuicion_borja": "Cuando negociar, redactar y vigilar un contrato entre partes cuesta más que lo que produce el intercambio, la fricción de transacción devora el acuerdo; por eso el diseño de derechos y fronteras importa en el mundo real donde negociar nunca sale gratis.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#48 y #55, AP2-S039) se converge con Coase (1937, 1960), exigiendo especificar derechos de propiedad, alternativas y costes de transacción medibles en lugar de rebautizar externalidades económicas como 'entropía térmica' sin modelo."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Son los costes de transacción (búsqueda, negociación, verificación y ejecución forzosa) inferiores al excedente cooperativo generado por la reasignación contractual de derechos?",
+      "required_evidence": "Estimación empírica de costes de contratación ex-ante y litigación/auditoría ex-post frente al valor neto del intercambio."
+    },
+    "reference": {
+      "author": "Ronald H. Coase",
+      "year": 1960,
+      "work": "The Problem of Social Cost (Journal of Law and Economics, 3:1-44, 1960); The Nature of the Firm (Economica, 4(16):386-405, 1937)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Análisis Económico del Derecho",
+        "Economía Institucional",
+        "Teoría de los Contratos"
+      ],
+      "ref_url": "https://doi.org/10.1086/466560"
+    },
+    "c5_axiom_anchor": "BJR-000053, Apéndice III Heurísticas #48 y #55 (Daño a terceros y Contratos · AP2-S039)"
+  },
+  "ostrom_commons_polycentric_governance": {
+    "id": "ostrom_commons_polycentric_governance",
+    "canonical_term": "Gobierno de los Bienes Comunes y Principios de Diseño Policéntrico (Ostrom, 1990) vs. Tragedia del Acceso Abierto (Hardin, 1968)",
+    "canonical_claim": "Elinor Ostrom (Governing the Commons, 1990) demostró empírica y teóricamente que la 'Tragedia de los Comunes' de Hardin (Science, 1968) confunde un régimen de acceso abierto sin reglas (open access) con un recurso de acervo común gestionado (common-pool resource); las comunidades autoorganizadas evitan tanto la sobreexplotación como la estatización coercitiva cuando satisfacen 8 principios de diseño institucional (límites claros, congruencia local, monitorización mutua, sanciones graduadas y resolución de conflictos de bajo coste).",
+    "intuicion_borja": "Un recurso compartido no se destruye por ser compartido, sino por no tener fronteras ni reglas claras entre quienes lo usan; cuando los propios usuarios ponen límites, vigilan y penalizan en escalón sin depender de un ministerio lejano, el común sobrevive siglos.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#56, AP2-S040) se converge con Ostrom (1990), distinguiendo acceso abierto sin reglas de acuerdos institucionales policéntricos con monitorización y sanciones graduadas."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿El recurso compartido analizado opera en régimen de acceso abierto anónimo o cumple los principios de diseño de Ostrom (fronteras definidas de membresía, auditoría verificable y sanciones graduadas)?",
+      "required_evidence": "Auditoría institucional de los 8 principios de diseño de Ostrom (1990) y medición de tasas de extracción frente a regeneración del recurso."
+    },
+    "reference": {
+      "author": "Elinor Ostrom / Garrett Hardin",
+      "year": 1990,
+      "work": "Governing the Commons: The Evolution of Institutions for Collective Action (Ostrom, Cambridge University Press, 1990); The Tragedy of the Commons (Hardin, Science, 162(3859):1243-1248, 1968)",
+      "type": "EMPIRICAL_STUDY",
+      "discipline": [
+        "Economía Institucional",
+        "Ciencia Política y Gobernanza",
+        "Teoría de Juegos"
+      ],
+      "ref_url": "https://doi.org/10.1017/CBO9780511807763"
+    },
+    "c5_axiom_anchor": "BJR-000054, Apéndice III Heurística #56 (Recursos compartidos · AP2-S040)"
+  },
+  "hayek_local_knowledge_price_signals": {
+    "id": "hayek_local_knowledge_price_signals",
+    "canonical_term": "Uso del Conocimiento en la Sociedad y Señales de Precios como Estadísticos Suficientes Locales (Hayek, 1945 / Hurwicz, 1960)",
+    "canonical_claim": "Friedrich A. Hayek (American Economic Review, 1945) estableció que el problema económico fundamental no es asignar recursos dados a un planificador omnisciente, sino coordinar el conocimiento disperso, tácito y circunstancial de tiempo y lugar que ningún nodo central puede agregar en su totalidad; el sistema de precios opera como una red de telecomunicaciones descentralizada que comprime cambios de escasez relativa en señales numéricas locales (formalizado por Hurwicz, 1960, en diseño de mecanismos informacionalmente descentralizados).",
+    "intuicion_borja": "Ningún comité central cabe en la cabeza de todos los que pisan el terreno a la vez; un precio libre o una señal local bien acoplada resume de un vistazo lo que miles de agentes saben en su rincón sin tener que mandar informes a una oficina central.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#61, AP2-S038) se converge con Hayek (1945) y Hurwicz (1960), acotando el argumento a la compresión y coordinación de información dispersa sin identificar precio con valor moral o energía física ni presuponer ajuste instantáneo sin fricción."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Puede el órgano centralizador adquirir, transmitir y procesar la información local de estado antes de que las condiciones de tiempo y lugar hayan cambiado (latencia de agregación vs. tasa de cambio del entorno)?",
+      "required_evidence": "Comparación de dimensión del espacio de mensajes (Hurwicz, 1960) y latencia de respuesta entre coordinación por señales locales frente a planificación centralizada."
+    },
+    "reference": {
+      "author": "Friedrich A. Hayek / Leonid Hurwicz",
+      "year": 1945,
+      "work": "The Use of Knowledge in Society (Hayek, American Economic Review, 35(4):519-530, 1945); Optimality and informational efficiency in resource allocation processes (Hurwicz, 1960)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Economía de la Información",
+        "Diseño de Mecanismos",
+        "Sistemas Distribuidos"
+      ],
+      "ref_url": "https://www.jstor.org/stable/1809376"
+    },
+    "c5_axiom_anchor": "BJR-000055, Apéndice III Heurística #61 (Precios y conocimiento · AP2-S038)"
   }
 }
