@@ -2005,5 +2005,365 @@
       "ref_url": "https://www.jstor.org/stable/1809376"
     },
     "c5_axiom_anchor": "BJR-000055, Apéndice III Heurística #61 (Precios y conocimiento · AP2-S038)"
+  },
+  "ergodicity_birkhoff_peters": {
+    "id": "ergodicity_birkhoff_peters",
+    "canonical_term": "Teorema Ergódico Puntual (Birkhoff, 1931) y Economía de la Ergodicidad en Procesos Multiplicativos (Peters, 2019; Kelly, 1956)",
+    "canonical_claim": "George D. Birkhoff (PNAS, 1931) demostró que el promedio temporal a lo largo de una única trayectoria infinita coincide con el promedio de conjunto sobre el espacio de estados (esperanza matemática) si y solo si la transformación dinámica es ergódica y preserva una medida estacionaria. Ole Peters (Nature Physics, 2019) y John L. Kelly Jr. (Bell Syst. Tech. J., 1956) demostraron que en procesos estocásticos multiplicativos (como el movimiento browniano geométrico de riqueza o supervivencia con riesgo de ruina), el promedio de conjunto crece exponencialmente con la media aritmética mientras la tasa de crecimiento temporal de casi toda trayectoria individual viene gobernada por la media geométrica (logarítmica), pudiendo divergir en signo.",
+    "intuicion_borja": "No es lo mismo que cien personas jueguen una vez a la ruleta rusa a que una sola persona juegue cien veces seguidas: cuando hay riesgo de ruina o crecimiento multiplicativo, el promedio del grupo te engaña porque el muerto no puede seguir tirando los dados.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#12) se converge con Birkhoff (1931) y Peters (2019), exigiendo verificar explícitamente las hipótesis del proceso estocástico antes de igualar o separar promedios temporales y de conjunto."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Es la dinámica del observable analizado aditiva y estacionaria (donde media temporal y de conjunto coinciden) o multiplicativa/con estado absorbente de ruina (donde domina la tasa de crecimiento logarítmica de Kelly-Peters)?",
+      "required_evidence": "Especificación de la ecuación diferencial estocástica (Itô) del proceso y comparación entre E[X_t] y exp(E[ln X_t])."
+    },
+    "reference": {
+      "author": "George D. Birkhoff / Ole Peters / John L. Kelly Jr.",
+      "year": 1931,
+      "work": "Proof of the Ergodic Theorem (Birkhoff, PNAS, 17(12):656-660, 1931); The ergodicity problem in economics (Peters, Nature Physics, 15:1216-1221, 2019); A New Interpretation of Information Rate (Kelly, BSTJ, 1956)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Sistemas Dinámicos y Teoría Ergódica",
+        "Física Estadística",
+        "Teoría de la Información y Riesgo"
+      ],
+      "ref_url": "https://doi.org/10.1038/s41567-019-0732-0"
+    },
+    "c5_axiom_anchor": "BJR-000056, Apéndice III Heurística #12 (Ergodicidad)"
+  },
+  "pareto_heavy_tails_lindy": {
+    "id": "pareto_heavy_tails_lindy",
+    "canonical_term": "Distribuciones de Cola Pesada de Pareto-Lévy y Esperanza Residual Condicional (Pareto, 1896; Mandelbrot, 1963; Embrechts et al., 1997)",
+    "canonical_claim": "En teoría de la probabilidad y valores extremos (Pareto, 1896; Mandelbrot, J. Business 1963; Embrechts, Klüppelberg & Mikosch, 1997), una variable aleatoria positiva con función de supervivencia tipo ley de potencia S(x) = (x_0 / x)^alpha para x >= x_0 > 0 y alpha > 0 carece de varianza finita para alpha <= 2 y carece de media finita para alpha <= 1. Para alpha > 1, la esperanza de vida residual condicional E[T - t | T > t] = t / (alpha - 1) crece linealmente con la edad alcanzada t (propiedad de tasa de fallo decreciente, popularizada como Efecto Lindy).",
+    "intuicion_borja": "En mundos extremos un solo suceso gigante pesa más que diez mil normales sumados, y para las cosas que no envejecen por desgaste biológico sino que sobreviven a choques, cada año que aguantan en pie multiplica el tiempo que les queda de vida.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#13 y #29) se converge exactamente con el cálculo analítico de la integral de cola de Pareto, advirtiendo que la proporcionalidad E[T - t | T > t] = t/(alpha - 1) depende estrictamente del supuesto paramétrico S(t) = (x_0/t)^alpha con alpha > 1 y no se demuestra por el mero uso de las palabras 'Pareto' o 'Lindy'."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Los datos empíricos de supervivencia del fenómeno ajustan mejor una ley de potencia (cola regular variacional con alpha > 1) que una distribución log-normal o Weibull en tests de razón de verosimilitud (Clauset, Shalizi & Newman, 2009)?",
+      "required_evidence": "Estimación de máxima verosimilitud del exponente de Hill alpha y contraste de bondad de ajuste de Kolmogorov-Smirnov frente a alternativas exponenciales/Weibull."
+    },
+    "reference": {
+      "author": "Vilfredo Pareto / Benoit B. Mandelbrot / Paul Embrechts, Claudia Klüppelberg, Thomas Mikosch / Aaron Clauset, Cosma R. Shalizi, M. E. J. Newman",
+      "year": 1896,
+      "work": "Cours d'Économie Politique (Pareto, 1896); Modelling Extremal Events (Embrechts et al., Springer, 1997); Power-Law Distributions in Empirical Data (Clauset et al., SIAM Review, 2009)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Teoría de la Probabilidad",
+        "Teoría de Valores Extremos",
+        "Estadística Matemática"
+      ],
+      "ref_url": "https://doi.org/10.1137/070710111"
+    },
+    "c5_axiom_anchor": "BJR-000057, Apéndice III Heurísticas #13 y #29 (Colas de distribución y Persistencia)"
+  },
+  "bayes_base_rate_neglect": {
+    "id": "bayes_base_rate_neglect",
+    "canonical_term": "Teorema de Bayes y Falacia de Omisión de la Tasa Base (Bayes, 1763; Tversky & Kahneman, 1974; Bar-Hillel, 1980)",
+    "canonical_claim": "Por el teorema de probabilidad condicional de Bayes (Phil. Trans., 1763) y Laplace (1774), la razón de probabilidades posterior ante una evidencia E viene dada por P(H|E)/P(~H|E) = [P(E|H)/P(E|~H)] * [P(H)/P(~H)]. En psicología del juicio bajo incertidumbre, Tversky & Kahneman (Science, 1974) y Maya Bar-Hillel (Acta Psychologica, 1980) demostraron que los decisores humanos tienden sistemáticamente a evaluar P(H|E) atendiendo sólo a la verosimilitud o representatividad del caso P(E|H) e ignorando la probabilidad previa o tasa base P(H), lo que distorsiona severamente el diagnóstico cuando P(H) es muy baja o muy alta.",
+    "intuicion_borja": "Por muy espectacular o sospechoso que parezca un indicio aislado, si no miras primero cuán frecuente es el fenómeno de partida en la población general, vas a confundir falsos positivos cotidianos con milagros o conspiraciones.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#14, AP2-S007) se converge con Bayes (1763) y Bar-Hillel (1980), puntualizando que omitir la tasa base no fuerza un error en una única dirección fija sino que el sesgo resultante depende de los valores concretos de P(H), sensibilidad y tasa de falsos positivos."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Se han especificado explícitamente la prevalencia previa P(H), la sensibilidad P(E|H) y la tasa de falsos positivos P(E|~H) antes de emitir la probabilidad posterior P(H|E)?",
+      "required_evidence": "Cálculo explícito de la regla de Bayes en formato de frecuencias naturales (Gigerenzer & Hoffrage, 1995) o razón de verosimilitud."
+    },
+    "reference": {
+      "author": "Thomas Bayes / Amos Tversky, Daniel Kahneman / Maya Bar-Hillel",
+      "year": 1763,
+      "work": "An Essay towards solving a Problem in the Doctrine of Chances (Bayes, Phil. Trans. R. Soc., 1763); The base-rate fallacy in probability judgments (Bar-Hillel, Acta Psychologica, 44(3):211-233, 1980)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Teoría de la Probabilidad",
+        "Inferencia Bayesiana",
+        "Psicología de la Decisión"
+      ],
+      "ref_url": "https://doi.org/10.1016/0001-6918(80)90046-3"
+    },
+    "c5_axiom_anchor": "BJR-000058, Apéndice III Heurística #14 (Tasa de base · AP2-S007)"
+  },
+  "galton_regression_to_the_mean": {
+    "id": "galton_regression_to_the_mean",
+    "canonical_term": "Regresión Estadística a la Media en Variables Imperfectamente Correlacionadas (Galton, 1886; Stigler, 1997)",
+    "canonical_claim": "Francis Galton (J. Anthropol. Inst., 1886) descubrió y Stephen M. Stigler (Stat. Methods Med. Res., 1997) formalizó que para cualesquiera dos variables aleatorias estandarizadas (X, Y) con coeficiente de correlación lineal |rho| < 1, la esperanza condicional E[Y | X = x] = rho * x está necesariamente más próxima a la media poblacional (0) que la observación inicial x. Se trata de una propiedad geométrica de la proyección condicional bajo varianza no compartida, que ocurre en ambos sentidos temporales (E[X | Y = y] = rho * y) sin requerir una fuerza física restauradora ni disipación térmica.",
+    "intuicion_borja": "Cuando alguien tiene una racha extraordinariamente buena o catastróficamente mala donde interviene el azar, lo más probable es que el siguiente intento sea más normal por pura estadística, lo que hace creer erróneamente que el premio estropea o que la bronca corrige.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#15, AP2-S005) se converge con Galton (1886), separando rigurosamente el efecto estadístico de selección sobre observaciones con correlación |rho| < 1 de una fuerza dinámica de retorno o relajación física (como un potencial de Ornstein-Uhlenbeck)."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿El acercamiento al promedio tras seleccionar un subconjunto extremo persiste en igual magnitud al invertir el eje temporal de condicionamiento E[X_t | X_{t+1}], confirmando que es un artefacto de correlación imperfecta y no el efecto causal de una intervención?",
+      "required_evidence": "Contraste con grupo de control no intervenido seleccionado bajo el mismo umbral extremo o test de simetría temporal de covarianza."
+    },
+    "reference": {
+      "author": "Francis Galton / Stephen M. Stigler",
+      "year": 1886,
+      "work": "Regression Towards Mediocrity in Hereditary Stature (Galton, Journal of the Anthropological Institute, 15:246-263, 1886); Regression towards the mean, historically considered (Stigler, Statistical Methods in Medical Research, 1997)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Estadística Matemática",
+        "Diseño Experimental",
+        "Metodología de la Ciencia"
+      ],
+      "ref_url": "https://doi.org/10.2307/2841583"
+    },
+    "c5_axiom_anchor": "BJR-000059, Apéndice III Heurística #15 (Regresión a la media · AP2-S005)"
+  },
+  "bisimulation_park_milner": {
+    "id": "bisimulation_park_milner",
+    "canonical_term": "Bisimulación en Sistemas de Transición Etiquetados y Equivalencia Comportamental (Park, 1981; Milner, 1980 / 1989)",
+    "canonical_claim": "En ciencias de la computación teórica y concurrencia, David Park (1981) y Robin Milner (CCS, 1980; Communication and Concurrency, 1989) definieron una relación de bisimulación R entre los estados de dos sistemas de transición etiquetados como una relación binaria tal que para todo par (p, q) in R y toda acción alpha, cada transición p -alpha-> p' puede ser replicada por una transición q -alpha-> q' con (p', q') in R, y simétricamente. La bisimilaridad (~) es el mayor punto fijo de este operador coinductivo y caracteriza la equivalencia observacional paso a paso frente a cualquier entorno reactivo.",
+    "intuicion_borja": "Un mapa o simulador sólo equivale funcionalmente al sistema real dentro de las acciones definidas si para cada movimiento posible en uno existe un paso correspondiente en el otro que mantiene cerradas las mismas opciones futuras.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#8) se converge con la definición formal de Park (1981) y Milner (1989): establecer o refutar una bisimulación exige especificar formalmente los sistemas de transición (S, Act, ->) y verificar el cierre coinductivo de la relación R, sin confundirlo con una metáfora cartográfica de 'mapa y territorio'."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Existe una fórmula en lógica modal de Hennessy-Milner que sea satisfecha por el estado del modelo p pero violada por el estado de la planta q (refutando la bisimilaridad)?",
+      "required_evidence": "Construcción explícita de la relación candidata R sobre el sistema de transición etiquetado o exhibición de una traza/fórmula de Hennessy-Milner diferenciadora."
+    },
+    "reference": {
+      "author": "David Park / Robin Milner / Matthew Hennessy",
+      "year": 1981,
+      "work": "Concurrency and Automata on Infinite Sequences (Park, LNCS 104:167-183, 1981); Communication and Concurrency (Milner, Prentice Hall, 1989)",
+      "type": "FORMAL_DEFINITION",
+      "discipline": [
+        "Ciencias de la Computación Teórica",
+        "Álgebras de Procesos y Coálgebras",
+        "Verificación Formal"
+      ],
+      "ref_url": "https://doi.org/10.1007/BFb0017309"
+    },
+    "c5_axiom_anchor": "BJR-000060, Apéndice III Heurística #8 (Mapa y territorio · Bisimulación), Aforismo 2"
+  },
+  "prospect_theory_framing_kahneman": {
+    "id": "prospect_theory_framing_kahneman",
+    "canonical_term": "Teoría de las Perspectivas (Prospect Theory), Dependencia de Referencia y Efecto de Encuadre (Kahneman & Tversky, 1979 / 1981)",
+    "canonical_claim": "Daniel Kahneman y Amos Tversky (Econometrica, 1979; Science, 1981) demostraron empíricamente que las elecciones humanas bajo riesgo violan el axioma de invariancia extensional de la utilidad esperada de von Neumann-Morgenstern: los individuos evalúan resultados como ganancias o pérdidas respecto a un punto de referencia neutro, exhibiendo aversión al riesgo en el dominio de las ganancias (concavidad), búsqueda de riesgo en el dominio de las pérdidas (convexidad) y aversión a las pérdidas (pendiente más pronunciada en pérdidas). En consecuencia, dos descripciones lógicamente equivalentes del mismo problema ('framing') invierten sistemáticamente la preferencia al desplazar el punto de referencia.",
+    "intuicion_borja": "La misma decisión exacta con los mismos números provoca respuestas opuestas según la presentes como ganar algo seguro o como evitar perder lo que ya tenías en la mano, porque el cerebro mide cambios respecto a un ancla y teme más el golpe que el premio.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#36, AP2-S063) se converge con Tversky & Kahneman (1981), acotando el efecto a elecciones bajo riesgo con formulaciones que preservan consecuencias y probabilidades, sin extrapolar que cualquier cambio retórico controle arbitrariamente la conducta."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Se mantiene invariante la distribución de elecciones de los sujetos cuando la misma lotería de resultados finales se presenta en marco de supervivencia/ganancia frente a marco de mortalidad/pérdida?",
+      "required_evidence": "Experimento entre sujetos con loterías isomorfas en riqueza final (paradigma de la enfermedad asiática de Tversky & Kahneman, 1981)."
+    },
+    "reference": {
+      "author": "Daniel Kahneman, Amos Tversky",
+      "year": 1979,
+      "work": "Prospect Theory: An Analysis of Decision under Risk (Econometrica, 47(2):263-291, 1979); The Framing of Decisions and the Psychology of Choice (Science, 211(4481):453-458, 1981)",
+      "type": "EMPIRICAL_STUDY",
+      "discipline": [
+        "Economía Conductual",
+        "Psicología Cognitiva",
+        "Teoría de la Decisión"
+      ],
+      "ref_url": "https://doi.org/10.2307/1914185"
+    },
+    "c5_axiom_anchor": "BJR-000061, Apéndice III Heurística #36 (Encuadre · AP2-S063)"
+  },
+  "exploration_exploitation_gittins_ucb": {
+    "id": "exploration_exploitation_gittins_ucb",
+    "canonical_term": "Dilema Exploración-Explotación en Bandidos Multibrazo, Índices de Gittins y Cota UCB (Robbins, 1952; Gittins, 1979; Lai & Robbins, 1985; Auer et al., 2002)",
+    "canonical_claim": "En decisión secuencial bajo incertidumbre (Robbins, Bull. AMS 1952), un agente que busca maximizar su recompensa acumulada debe equilibrar la explotación de la mejor opción conocida con la exploración de alternativas inciertas. John C. Gittins (J. R. Stat. Soc. B, 1979) resolvió el problema bayesiano descontado demostrando que la política óptima selecciona en cada paso el brazo con mayor Índice de Gittins (tiempo de parada óptima). Lai & Robbins (Adv. Appl. Math., 1985) y Auer, Cesa-Bianchi & Fischer (Mach. Learn., 2002) demostraron que el arrepentimiento (regret) acumulado mínimo crece logarítmicamente O(ln T) y se alcanza mediante optimismo ante la incertidumbre (Upper Confidence Bound, UCB).",
+    "intuicion_borja": "Elegir cuándo exprimir lo que ya sabes que funciona y cuándo gastar tiempo probando caminos nuevos depende de cuánto horizonte te queda por delante y de cuánta incertidumbre real hay en las alternativas.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#43) se converge con la teoría formal de bandidos (Gittins, 1979; Lai & Robbins, 1985), precisando que antes de elegir una política de exploración hay que definir distribución de incertidumbre, horizonte temporal y presupuesto, y que explorar información dirigida no equivale a inyectar ruido ciego."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿El horizonte restante T y la varianza epistémica del brazo alternativo justifican el coste de oportunidad inmediato de explorar según el índice de Gittins o la cota UCB1?",
+      "required_evidence": "Cálculo del arrepentimiento acumulado R_T = T*mu* - sum E[X_t] de la política propuesta frente a la cota inferior asintótica de Lai-Robbins."
+    },
+    "reference": {
+      "author": "John C. Gittins / Tze Leung Lai, Herbert Robbins / Peter Auer, Nicolò Cesa-Bianchi, Paul Fischer",
+      "year": 1979,
+      "work": "Bandit Processes and Dynamic Allocation Indices (Gittins, JRSS B, 41(2):148-177, 1979); Asymptotically efficient adaptive allocation rules (Lai & Robbins, Adv. Appl. Math., 1985); Finite-time Analysis of the Multiarmed Bandit Problem (Auer et al., Machine Learning, 2002)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Aprendizaje por Refuerzo",
+        "Investigación Operativa",
+        "Estadística Secuencial"
+      ],
+      "ref_url": "https://doi.org/10.1111/j.2517-6161.1979.tb01068.x"
+    },
+    "c5_axiom_anchor": "BJR-000062, Apéndice III Heurística #43 (Explorar y explotar)"
+  },
+  "convexity_jensen_option_payoff": {
+    "id": "convexity_jensen_option_payoff",
+    "canonical_term": "Desigualdad de Jensen, Convexidad de Pagos y Valoración de Opciones con Pérdida Acotada (Jensen, 1906; Black & Scholes, 1973; Merton, 1973)",
+    "canonical_claim": "Johan Jensen (Acta Mathematica, 1906) demostró que para toda función convexa phi y toda variable aleatoria integrable X, E[phi(X)] >= phi(E[X]), siendo la brecha creciente con la dispersión de X. En finanzas matemáticas, Black & Scholes (JPE, 1973) y Merton (Bell J. Econ., 1973) demostraron que el pago terminal de una opción de compra europea max(S_T - K, 0) es una función convexa del activo subyacente S_T cuya pérdida máxima sin apalancamiento está contractualmente truncada a la prima pagada c_0, por lo que su valor esperado aumenta con la volatilidad sigma del subyacente (vega > 0).",
+    "intuicion_borja": "Cuando tienes una posición donde lo máximo que puedes perder está tapado de antemano por contrato pero la ganancia potencial queda abierta hacia arriba, la volatilidad deja de ser tu enemiga y trabaja a tu favor.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#49, AP2-S036) se converge con Jensen (1906) y Merton (1973), recalcando que la acotación de la pérdida en una opción procede de las condiciones contractuales explícitas (pago de prima sin deuda ni costes ocultos de margen) y no de pronunciar la palabra 'convexidad' en abstracto."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿La estructura de pagos neta phi(X) verifica realmente d^2 phi / dX^2 >= 0 con cota inferior finita sin obligaciones de margen ni pasivos contingentes en la cola izquierda?",
+      "required_evidence": "Inspección de la función de pagos contractual completa en ambos extremos de la distribución y cálculo de E[phi(X)] - phi(E[X])."
+    },
+    "reference": {
+      "author": "Johan L. W. V. Jensen / Fischer Black, Myron Scholes / Robert C. Merton",
+      "year": 1906,
+      "work": "Sur les fonctions convexes et les inégalités entre les valeurs moyennes (Jensen, Acta Mathematica, 30:175-193, 1906); Theory of Rational Option Pricing (Merton, Bell Journal of Economics, 4(1):141-183, 1973)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Análisis Matemático y Probabilidad",
+        "Finanzas Matemáticas",
+        "Teoría de Contratos y Riesgo"
+      ],
+      "ref_url": "https://doi.org/10.1007/BF02418571"
+    },
+    "c5_axiom_anchor": "BJR-000063, Apéndice III Heurística #49 (Pérdidas y convexidad · AP2-S036)"
+  },
+  "repeated_games_folk_theorem_tit_for_tat": {
+    "id": "repeated_games_folk_theorem_tit_for_tat",
+    "canonical_term": "Juegos Repetidos con Factor de Descuento, Teorema Folk y Estrategia Tit-for-Tat (Aumann & Shapley, 1976; Axelrod & Hamilton, 1981; Fudenberg & Maskin, 1986)",
+    "canonical_claim": "En teoría de juegos repetidos (Aumann & Shapley, 1976; Fudenberg & Maskin, Econometrica 1986), el Teorema Folk demuestra que cualquier vector de pagos individualmente racional y factible puede sostenerse como equilibrio de Nash perfecto en subjuegos si el factor de descuento o probabilidad de continuación delta es suficientemente cercano a 1 ('la sombra del futuro'). Axelrod y Hamilton (Science, 1981) mostraron la eficacia evolutiva de la reciprocidad directa Tit-for-Tat (cooperar en t=1 y copiar la acción previa del oponente) cuando delta supera el umbral crítico del dilema del prisionero, aunque bajo ruido de observación requiere generosidad o contrición para evitar ciclos infinitos de represalia (Nowak & Sigmund, 1992).",
+    "intuicion_borja": "Cuando dos partes saben que van a volver a cruzarse mañana con alta probabilidad, engañar hoy deja de ser rentable porque el castigo futuro pesa más que el botín inmediato; pero el reencuentro por sí solo no garantiza cooperación si los pagos o el ruido rompen la reciprocidad.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#52 y #53, INV-S02) se converge con Axelrod & Hamilton (1981) y Fudenberg & Maskin (1986), precisando que los juegos repetidos dependen de la matriz de pagos y de delta, y que Tit-for-Tat estricto no incluye por definición una regla de perdón ante errores de percepción."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Supera la probabilidad de continuación delta el umbral (T - R) / (T - P) de la matriz del dilema del prisionero, y existe un mecanismo de corrección ante ruido de observación (Generous Tit-for-Tat / Win-Stay Lose-Shift)?",
+      "required_evidence": "Verificación de la desigualdad de incentivos de subjuego delta >= (T - R)/(T - P) y simulación bajo tasa de error de ejecución epsilon > 0."
+    },
+    "reference": {
+      "author": "Robert Axelrod, William D. Hamilton / Drew Fudenberg, Eric Maskin / Martin A. Nowak, Karl Sigmund",
+      "year": 1981,
+      "work": "The Evolution of Cooperation (Axelrod & Hamilton, Science, 211(4489):1390-1396, 1981); The Folk Theorem in Repeated Games with Discounting or with Incomplete Information (Fudenberg & Maskin, Econometrica, 54(3):533-554, 1986)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Teoría de Juegos",
+        "Biología Evolutiva",
+        "Economía Matemática"
+      ],
+      "ref_url": "https://doi.org/10.1126/science.7466396"
+    },
+    "c5_axiom_anchor": "BJR-000064, Apéndice III Heurísticas #52 y #53 (Horizonte de cooperación y Tit-for-tat · INV-S02)"
+  },
+  "satisficing_bounded_rationality_simon": {
+    "id": "satisficing_bounded_rationality_simon",
+    "canonical_term": "Racionalidad Acotada (Bounded Rationality), Satisficing y Parada Óptima por Umbral de Reserva (Simon, 1955 / 1956; Stigler, 1961)",
+    "canonical_claim": "Herbert A. Simon (Quarterly Journal of Economics, 1955; Psychological Review, 1956) demostró que los agentes reales, sujetos a cómputo limitado, información incompleta y plazos finitos, no maximizan globalmente sobre todas las alternativas posibles sino que operan mediante racionalidad acotada y 'satisficing': fijan un nivel de aspiración o umbral de suficiencia y detienen la búsqueda al hallar la primera opción que lo satisface. En teoría económica de la búsqueda (Stigler, JPE 1961; McCall, QJE 1970), una regla de parada por umbral de reserva resulta estrictamente óptima cuando se internaliza el coste marginal de seguir muestreando.",
+    "intuicion_borja": "Buscar la perfección absoluta cuando cada hora extra de búsqueda cuesta más de lo que mejora el resultado es irracional; definir de antemano qué nivel es suficientemente bueno y cortar en cuanto lo alcanzas es la única forma de terminar a tiempo.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#58 y #59) se converge con Simon (1955, 1956) y la teoría de parada óptima (McCall, 1970), distinguiendo la fijación explícita de umbrales de suficiencia y presupuestos de tiempo de la heurística satírica de Parkinson (1955)."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿El beneficio esperado marginal de una iteración adicional de búsqueda E[max(X - x*, 0)] es menor que el coste marginal de cómputo y latencia c de realizar esa iteración?",
+      "required_evidence": "Comparación entre el coste de búsqueda por unidad de tiempo c y la ganancia esperada sobre el umbral de reserva actual x*."
+    },
+    "reference": {
+      "author": "Herbert A. Simon / George J. Stigler / John J. McCall",
+      "year": 1955,
+      "work": "A Behavioral Model of Rational Choice (Simon, QJE, 69(1):99-118, 1955); Rational choice and the structure of the environment (Simon, Psychol. Rev., 1956); Economics of Information and Job Search (McCall, QJE, 1970)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Ciencias de la Decisión y Cognición",
+        "Economía de la Información",
+        "Investigación Operativa"
+      ],
+      "ref_url": "https://doi.org/10.2307/1884852"
+    },
+    "c5_axiom_anchor": "BJR-000065, Apéndice III Heurísticas #58 y #59 (Umbrales de búsqueda y Plazo/trabajo)"
   }
 }
