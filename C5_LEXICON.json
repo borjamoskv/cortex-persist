@@ -2365,5 +2365,365 @@
       "ref_url": "https://doi.org/10.2307/1884852"
     },
     "c5_axiom_anchor": "BJR-000065, Apéndice III Heurísticas #58 y #59 (Umbrales de búsqueda y Plazo/trabajo)"
+  },
+  "popper_wason_confirmation_bias": {
+    "id": "popper_wason_confirmation_bias",
+    "canonical_term": "Falsacionismo Asimétrico (Popper, 1934) y Sesgo de Confirmación en la Tarea de Selección (Wason, 1960 / 1968; Nickerson, 1998)",
+    "canonical_claim": "Karl R. Popper (Logik der Forschung, 1934 / 1959) demostró la asimetría lógica entre verificación y refutación: ningún número finito de casos particulares puede demostrar deductivamente un enunciado universal (forall x: P(x) -> Q(x)), mientras que un único contraejemplo verificable (P(a) and ~Q(a)) basta por Modus Tollens para falsarlo. Peter C. Wason (Q. J. Exp. Psychol., 1960, 1968) y Raymond S. Nickerson (Rev. Gen. Psychol., 1998) demostraron experimentalmente que los sujetos humanos buscan por defecto instancias positivas que confirmen su hipótesis de partida en lugar de someter a prueba la condición que podría refutarla (~Q).",
+    "intuicion_borja": "Acumular mil ejemplos a favor de tu teoría favorita no prueba que sea cierta; la única prueba de fuego real consiste en ir activamente a buscar el dato exacto que, si apareciera, te obligaría a tirarla a la basura.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#6 y #31) se converge con Popper (1934) y Wason (1960, 1968), exigiendo declarar qué observación obligaría a revisar una hipótesis y buscando contraejemplos, sin atribuir al sesgo de confirmación un consumo metabólico en ATP no medido ni declarar información mutua nula por decreto."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿La regla condicional propuesta P -> Q ha sido evaluada inspeccionando deliberadamente los casos P y ~Q (potenciales contraejemplos de Modus Tollens) en lugar de acumular casos P y Q?",
+      "required_evidence": "Especificación pre-registrada de la observación refutadora (P and ~Q) y ejecución del test sobre instancias con consecuente negado."
+    },
+    "reference": {
+      "author": "Karl R. Popper / Peter C. Wason / Raymond S. Nickerson",
+      "year": 1934,
+      "work": "Logik der Forschung (Popper, 1934 / The Logic of Scientific Discovery, 1959); On the failure to eliminate hypotheses in a conceptual task (Wason, QJEP, 12(3):129-140, 1960); Confirmation Bias: A Ubiquitous Phenomenon in Many Guises (Nickerson, Rev. Gen. Psychol., 1998)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Filosofía de la Ciencia y Lógica",
+        "Psicología del Razonamiento",
+        "Metodología Experimental"
+      ],
+      "ref_url": "https://doi.org/10.1080/17470216008416717"
+    },
+    "c5_axiom_anchor": "BJR-000066, Apéndice III Heurísticas #6 y #31 (Contraste de hipótesis y Confirmación)"
+  },
+  "fundamental_attribution_error_ross": {
+    "id": "fundamental_attribution_error_ross",
+    "canonical_term": "Error Fundamental de Atribución (Ross, 1977), Sesgo de Correspondencia (Gilbert & Malone, 1995) y Asimetría Actor-Observador (Jones & Nisbett, 1971)",
+    "canonical_claim": "Lee Ross (Adv. Exp. Soc. Psychol., 1977) y Jones & Nisbett (1971) demostraron que al explicar el comportamiento ajeno los observadores tienden a sobreestimar el peso de disposiciones internas estables (carácter, intención, personalidad) y a subestimar las restricciones situacionales e incentivos del entorno, mientras que al explicar la propia conducta atienden preferentemente a las demandas del contexto.",
+    "intuicion_borja": "Cuando otro tropieza pensamos que es torpe de nacimiento, y cuando tropezamos nosotros decimos que la baldosa estaba suelta: casi siempre confundimos la presión invisible del escenario con el carácter de la persona.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#32) se converge con Ross (1977) y Gilbert & Malone (1995), prescribiendo contrastar explicaciones disposicionales y situacionales (incluido el propio evaluador), sin asignar por ello una tasa fija universal de sesgo ni negar toda agencia individual."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Persiste la conducta observada cuando se permuta al individuo manteniendo idéntica la estructura de incentivos y restricciones situacionales, o varía principalmente con el cambio de entorno?",
+      "required_evidence": "Descomposición de varianza (ANOVA entre sujetos vs. entre situaciones) de la conducta bajo permutación de condiciones de contorno."
+    },
+    "reference": {
+      "author": "Lee Ross / Edward E. Jones, Richard E. Nisbett / Daniel T. Gilbert, Patrick S. Malone",
+      "year": 1977,
+      "work": "The intuitive psychologist and his shortcomings: Distortions in the attribution process (Ross, Advances in Experimental Social Psychology, 10:173-220, 1977); The correspondence bias (Gilbert & Malone, Psychol. Bull., 1995)",
+      "type": "EMPIRICAL_STUDY",
+      "discipline": [
+        "Psicología Social",
+        "Ciencias de la Decisión",
+        "Diseño Institucional"
+      ],
+      "ref_url": "https://doi.org/10.1016/S0065-2601(08)60357-3"
+    },
+    "c5_axiom_anchor": "BJR-000067, Apéndice III Heurística #32 (Atribución y contexto)"
+  },
+  "reconstructive_memory_bartlett_loftus": {
+    "id": "reconstructive_memory_bartlett_loftus",
+    "canonical_term": "Memoria Reconstructiva por Esquemas (Bartlett, 1932), Efecto de Información Errónea Post-Evento (Loftus, 1974 / 2005) y Reconsolidación Lábil (Nader et al., 2000)",
+    "canonical_claim": "Frederic C. Bartlett (Remembering, 1932) demostró que el recuerdo episódico humano no es la reproducción literal de una traza estática sino una reconstrucción inferencial guiada por esquemas previos. Elizabeth F. Loftus y John C. Palmer (J. Verbal Learn. Verbal Behav., 1974; Learn. Mem., 2005) probaron que la exposición a información o preguntas sugestivas tras un suceso reescribe el recuerdo reportado, y Karim Nader, Glenn E. Schafe y Joseph E. LeDoux (Nature, 2000) demostraron a nivel neurobiológico que la reactivación de una traza de memoria consolidada la devuelve a un estado lábil dependiente de síntesis proteica antes de su reconsolidación.",
+    "intuicion_borja": "La memoria humana no es un disco duro de sólo lectura donde abres un vídeo antiguo tal como ocurrió; cada vez que sacas un recuerdo a la luz lo vuelves a montar con lo que sientes hoy y lo guardas editado encima del original.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#35) se converge con Bartlett (1932) y Loftus (1974, 2005), exigiendo cotejar todo recuerdo con registros documentales contemporáneos y condiciones de obtención, sin postular por ello un algoritmo de compresión neuronal único no medido."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿El testimonio retrospectivo coincide con el registro físico o documental fechado en el instante t_0 antes de la exposición a narrativas posteriores?",
+      "required_evidence": "Contraste cruzado entre el reporte de memoria en t_1 y el artefacto primario inmutable (log, grabación o documento sellado en t_0)."
+    },
+    "reference": {
+      "author": "Frederic C. Bartlett / Elizabeth F. Loftus, John C. Palmer / Karim Nader, Glenn E. Schafe, Joseph E. LeDoux",
+      "year": 1932,
+      "work": "Remembering: A Study in Experimental and Social Psychology (Bartlett, Cambridge University Press, 1932); Reconstruction of automobile destruction (Loftus & Palmer, JVLVB, 1974); Fear memories require protein synthesis in the amygdala for reconsolidation after retrieval (Nader et al., Nature, 2000)",
+      "type": "EMPIRICAL_STUDY",
+      "discipline": [
+        "Psicología Cognitiva",
+        "Neurobiología de la Memoria",
+        "Psicología Forense y Epistemología"
+      ],
+      "ref_url": "https://doi.org/10.1016/S0022-5371(74)80011-3"
+    },
+    "c5_axiom_anchor": "BJR-000068, Apéndice III Heurística #35 (Recuerdo y registro)"
+  },
+  "desirable_difficulties_bjork_vygotsky": {
+    "id": "desirable_difficulties_bjork_vygotsky",
+    "canonical_term": "Dificultades Deseables en el Aprendizaje (Bjork, 1994), Zona de Desarrollo Próximo (Vygotsky, 1934 / 1978) y Regla del 85% (Wilson et al., 2019)",
+    "canonical_claim": "Robert A. Bjork (Metacognition: Knowing about Knowing, 1994; Bjork & Bjork, 2011) demostró que las condiciones de práctica que ralentizan la ejecución inmediata e introducen esfuerzo de recuperación (práctica espaciada, intercalada y generación activa) maximizan la retención y transferencia a largo plazo ('desirable difficulties'), a diferencia de la fluidez engañosa del repaso masivo. Lev S. Vygotsky (1934/1978) acotó el aprendizaje efectivo en la franja intermedia entre el dominio autónomo actual y el techo alcanzable con andamiaje, y Wilson, Shenhav, Straccia & Cohen (Nature Communications, 2019) demostraron analítica y experimentalmente que en algoritmos de descenso de gradiente estocástico y aprendizaje perceptual la tasa de actualización se maximiza en torno a una precisión de entrenamiento de ~85% (tasa de error ~15.87%).",
+    "intuicion_borja": "Si una práctica te sale perfecta sin sudar es que estás repitiendo lo que ya sabías, y si fallas todo el rato te bloqueas; el aprendizaje real sólo ocurre en esa franja incómoda donde aciertas la mayoría pero tienes que pelear cada paso.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#42) se converge con Bjork (1994) y el ajuste empírico de la dificultad a objetivos y resultados de práctica, advirtiendo que ello no convierte la vivencia subjetiva de 'flujo' (Csikszentmihalyi, 1990) en un máximo neurobiológico universal sin medición de retención y transferencia."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Produce el protocolo de práctica con recuperación activa y espaciada una retención diferida y transferencia superior a la práctica en bloque de alta fluidez inmediata?",
+      "required_evidence": "Evaluación diferida (post-test a 7-30 días y tarea de transferencia) comparando esfuerzo de recuperación frente a fluidez de sesión."
+    },
+    "reference": {
+      "author": "Robert A. Bjork, Elizabeth L. Bjork / Lev S. Vygotsky / Robert C. Wilson, Amitai Shenhav, Mark Straccia, Jonathan D. Cohen",
+      "year": 1994,
+      "work": "Memory and metamemory considerations in the training of human beings (Bjork, MIT Press, 1994); The Eighty Five Percent Rule for optimal learning (Wilson et al., Nature Communications, 10:4646, 2019)",
+      "type": "EMPIRICAL_STUDY",
+      "discipline": [
+        "Psicología Cognitiva y del Aprendizaje",
+        "Neurociencia Computacional",
+        "Diseño Instruccional"
+      ],
+      "ref_url": "https://doi.org/10.1038/s41467-019-12552-4"
+    },
+    "c5_axiom_anchor": "BJR-000069, Apéndice III Heurística #42 (Dificultad y aprendizaje), Skill c5-spaced-repetition-architect"
+  },
+  "multilevel_selection_price_equation": {
+    "id": "multilevel_selection_price_equation",
+    "canonical_term": "Ecuación de Covarianza de Price (Price, 1970) y Niveles de Selección Evolutiva (Williams, 1966; Hamilton, 1964; Okasha, 2006)",
+    "canonical_claim": "George R. Price (Nature, 1970) formuló la identidad algebraica exacta del cambio evolutivo de un carácter promedio: w_bar * Delta(z_bar) = Cov(w_i, z_i) + E[w_i * Delta(z_i)], que descompone la evolución en covariación selectiva entre subpoblaciones (selección entre grupos) y cambio esperado dentro de las subpoblaciones (selección individual o sesgo de transmisión). George C. Williams (Adaptation and Natural Selection, 1966), William D. Hamilton (J. Theor. Biol., 1964) y Samir Okasha (2006) demostraron que las adaptaciones a nivel de grupo sólo prevalecen sobre la deserción individual cuando la varianza entre grupos y el parentesco/acoplamiento de destino superan la presión selectiva interna.",
+    "intuicion_borja": "Lo que es bueno para que un individuo trepe dentro de su grupo puede hundir al grupo entero frente a otros grupos: no puedes mezclar gen, persona y tribu en la misma frase sin declarar en qué escalón estás midiendo quién sobrevive.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#44 y #45, INV-S04) se converge con Price (1970), Williams (1966) y Wright (1931), exigiendo declarar la unidad de reproducción y descomponer selección, mutación, migración y deriva antes de afirmar que cualquier rasgo persistente es una adaptación."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿En qué nivel de la partición jerárquica (gen, individuo, coalición) es positiva la covarianza Cov(w, z) y supera en magnitud al término intragrupo E[w * Delta(z)] de signo opuesto?",
+      "required_evidence": "Partición empírica de la ecuación de Price en componentes inter-grupo e intra-grupo sobre datos longitudinales de reproducción/supervivencia."
+    },
+    "reference": {
+      "author": "George R. Price / William D. Hamilton / George C. Williams / Samir Okasha",
+      "year": 1970,
+      "work": "Selection and Covariance (Price, Nature, 227:520-521, 1970); The genetical evolution of social behaviour (Hamilton, J. Theor. Biol., 1964); Evolution and the Levels of Selection (Okasha, Oxford University Press, 2006)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Biología Evolutiva",
+        "Genética de Poblaciones",
+        "Filosofía de la Biología"
+      ],
+      "ref_url": "https://doi.org/10.1038/227520a0"
+    },
+    "c5_axiom_anchor": "BJR-000070, Apéndice III Heurísticas #44 y #45 (Unidades de análisis y Persistencia · INV-S04)"
+  },
+  "marginal_utility_opportunity_cost_wieser": {
+    "id": "marginal_utility_opportunity_cost_wieser",
+    "canonical_term": "Coste de Oportunidad (Wieser, 1914; Buchanan, 1969) y Condiciones de Optimización Marginal de Karush-Kuhn-Tucker (Jevons / Menger / Walras, 1871; Kuhn & Tucker, 1951)",
+    "canonical_claim": "Friedrich von Wieser (Theorie der gesellschaftlichen Wirtschaft, 1914) y James M. Buchanan (Cost and Choice, 1969) establecieron que el coste económico real de cualquier elección bajo escasez es el valor de la mejor alternativa sacrificada al tomarla (coste de oportunidad). En teoría de optimización con restricciones (Jevons, Menger & Walras, 1871; Karush, 1939; Kuhn & Tucker, 1951), un punto interior óptimo iguala las utilidades marginales ponderadas por el precio al multiplicador de Lagrange de la restricción presupuestaria (du/dx_i = lambda * p_i), bajo supuestos explícitos de diferenciabilidad y cuasiconcavidad.",
+    "intuicion_borja": "El precio real de hacer algo no es sólo el dinero que pagas, sino la mejor alternativa que matas por dedicar tu tiempo y tus recursos a esto en vez de a aquello.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#46 y #47) se converge con Wieser (1914), Buchanan (1969) y las condiciones marginales de optimización, subrayando que igualar derivadas exige condiciones matemáticas de regularidad y que el coste de oportunidad depende del criterio y alternativas declaradas, sin equivaler a calor disipado."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Se ha identificado explícitamente la mejor alternativa factible renunciada y el conjunto de restricciones activas antes de evaluar la eficiencia de la asignación?",
+      "required_evidence": "Especificación del conjunto factible, valoración de la siguiente mejor opción (next-best alternative) y verificación de condiciones de primer y segundo orden."
+    },
+    "reference": {
+      "author": "Friedrich von Wieser / Carl Menger / James M. Buchanan / Harold W. Kuhn, Albert W. Tucker",
+      "year": 1914,
+      "work": "Theorie der gesellschaftlichen Wirtschaft (Wieser, 1914); Cost and Choice: An Inquiry in Economic Theory (Buchanan, 1969); Nonlinear Programming (Kuhn & Tucker, Proc. Second Berkeley Symp., 1951)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Teoría Microeconómica",
+        "Optimización Matemática",
+        "Teoría de la Decisión"
+      ],
+      "ref_url": "https://doi.org/10.1525/9780520411586-036"
+    },
+    "c5_axiom_anchor": "BJR-000071, Apéndice III Heurísticas #46 y #47 (Comparación marginal y Coste de oportunidad)"
+  },
+  "schelling_focal_points_coordination": {
+    "id": "schelling_focal_points_coordination",
+    "canonical_term": "Puntos Focales de Prominencia (Schelling, 1960), Convenciones como Equilibrios de Coordinación (Lewis, 1969) y Conocimiento Común (Aumann, 1976)",
+    "canonical_claim": "Thomas C. Schelling (The Strategy of Conflict, 1960) demostró experimental y teóricamente que en juegos de coordinación pura con múltiples equilibrios de Nash simétricos y ausencia de comunicación previa, los jugadores convergen con frecuencia muy superior al azar sobre 'puntos focales' (Schelling points) dotados de saliencia perceptual, cultural o estructural (unicidad, simetría, precedencia). David K. Lewis (Convention, 1969) y Robert J. Aumann (Ann. Stat., 1976) formalizaron cómo las regularidades compartidas y el conocimiento común estabilizan estas convenciones.",
+    "intuicion_borja": "Cuando dos personas tienen que encontrarse en una ciudad sin haber podido hablar antes, no eligen una esquina al azar: van a la plaza o al reloj más obvio que ambos saben que el otro también espera que elija.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#51) se converge con Schelling (1960) y Lewis (1969), examinando qué señales, expectativas o convenciones permiten coordinar una elección sin presuponer que la coordinación ocurra sin cálculo o por telepatía topológica."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Posee la opción candidata una propiedad de saliencia o simetría mutuamente reconocida (conocimiento común de orden k >= 2) que permita romper el empate entre equilibrios de coordinación sin comunicación explícita?",
+      "required_evidence": "Medición empírica de la tasa de coordinación sin comunicación frente a la línea base uniforme 1/N (experimentos tipo Mehta, Starmer & Sugden, AER 1994)."
+    },
+    "reference": {
+      "author": "Thomas C. Schelling / David K. Lewis / Robert J. Aumann / Judith Mehta, Chris Starmer, Robert Sugden",
+      "year": 1960,
+      "work": "The Strategy of Conflict (Schelling, Harvard University Press, 1960); Convention: A Philosophical Study (Lewis, 1969); The Nature of Salience: An Experimental Investigation of Pure Coordination Games (Mehta et al., AER, 1994)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Teoría de Juegos",
+        "Economía Experimental",
+        "Lógica Epistémica"
+      ],
+      "ref_url": "https://www.jstor.org/stable/2118076"
+    },
+    "c5_axiom_anchor": "BJR-000072, Apéndice III Heurística #51 (Coordinación y referencias)"
+  },
+  "comparative_advantage_ricardo": {
+    "id": "comparative_advantage_ricardo",
+    "canonical_term": "Ley de la Ventaja Comparativa y Ganancias del Intercambio por Coste de Oportunidad Relativo (Ricardo, 1817; Haberler, 1930; Samuelson, 1962)",
+    "canonical_claim": "David Ricardo (On the Principles of Political Economy and Taxation, 1817) y Gottfried Haberler (1930) demostraron que incluso cuando un agente o economía es absolutamente más productivo que otro en todas las tareas (ventaja absoluta), la especialización según el menor coste de oportunidad interno (ventaja comparativa: a_{1A}/a_{2A} < a_{1B}/a_{2B}) y el intercambio a una relación de precios intermedia (p_1/p_2 in (a_{1A}/a_{2A}, a_{1B}/a_{2B})) expanden estrictamente la frontera de posibilidades de consumo de ambas partes, siempre que los costes de transporte y transacción no anulen el diferencial.",
+    "intuicion_borja": "Aunque seas mejor que tu ayudante tanto programando el núcleo como haciendo las facturas, si tu ventaja programando es de diez a uno y en las facturas es de dos a uno, pierdes valor cada minuto que pasas haciendo tus propias facturas.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#54) se converge con el teorema de ventaja comparativa de Ricardo (1817) y Haberler (1930), exigiendo comparar costes de oportunidad relativos y condiciones de intercambio reales sin equiparar la ganancia del modelo comercial con una medición física de exergía."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Es el diferencial entre las razones de costes internos |a_{1A}/a_{2A} - a_{1B}/a_{2B}| mayor que los costes de coordinación, verificación y transferencia entre los dos agentes?",
+      "required_evidence": "Cálculo explícito de la matriz de tiempos/costes unitarios a_{ij} y de la sobrecarga de handoff/verificación inter-agente."
+    },
+    "reference": {
+      "author": "David Ricardo / Gottfried Haberler / Paul A. Samuelson",
+      "year": 1817,
+      "work": "On the Principles of Political Economy and Taxation, Ch. 7 (Ricardo, 1817); The Theory of International Trade with its Applications to Commercial Policy (Haberler, 1930/1936)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Teoría Económica",
+        "Programación Lineal",
+        "Organización Industrial y División del Trabajo"
+      ],
+      "ref_url": "https://doi.org/10.1017/CBO9781107589421"
+    },
+    "c5_axiom_anchor": "BJR-000073, Apéndice III Heurística #54 (Especialización e intercambio)"
+  },
+  "technical_debt_software_entropy_lehman": {
+    "id": "technical_debt_software_entropy_lehman",
+    "canonical_term": "Metáfora de la Deuda Técnica (Cunningham, 1992) y Leyes de Evolución del Software y Complejidad Creciente (Lehman, 1980; Parnas, 1994)",
+    "canonical_claim": "Ward Cunningham (OOPSLA, 1992) acuñó la metáfora de la 'deuda técnica' para describir el compromiso deliberado de despachar código con un modelo incompleto del dominio y pagar el sobrecoste de refactorizarlo una vez adquirido el aprendizaje; Meir M. Lehman (Proc. IEEE, 1980) y David L. Parnas (ICSE, 1994: Software Aging) demostraron empíricamente que en sistemas de tipo E (acoplados a un entorno cambiante), la complejidad estructural crece con las modificaciones sucesivas a menos que se invierta trabajo explícito en reducir el acoplamiento y preservar la modularidad.",
+    "intuicion_borja": "Dejar parches rápidos sin limpiar en la arquitectura te ahorra una tarde hoy, pero hace que cada cambio de mañana cueste el doble de tiempo y rompa tres sitios distintos hasta que refactorizas la base.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#63) se converge con Cunningham (1992) y Lehman (1980), exigiendo medir empíricamente costes de cambio, tasa de defectos y tiempos de entrega antes y después de refactorizar, en lugar de asumir que la palabra 'deuda' implica un tipo de interés compuesto fijo o una ley termodinámica literal."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Reduce la intervención de refactorización propuesta el tiempo medio de modificación (lead time for changes) y la tasa de regresiones en los módulos tocados con frecuencia (hotspots)?",
+      "required_evidence": "Medición en el historial de control de versiones (frecuencia de churn x complejidad ciclomática, Tornhill 2015) y tiempos de ciclo pre/post intervención."
+    },
+    "reference": {
+      "author": "Ward Cunningham / Meir M. Lehman / David L. Parnas",
+      "year": 1992,
+      "work": "The WyCash Portfolio Management System (Cunningham, OOPSLA Experience Report, 1992); Programs, Life Cycles, and Laws of Software Evolution (Lehman, Proc. IEEE, 68(9):1060-1076, 1980); Software Aging (Parnas, ICSE, 1994)",
+      "type": "DESIGN_HEURISTIC",
+      "discipline": [
+        "Ingeniería del Software",
+        "Arquitectura de Sistemas",
+        "Economía del Mantenimiento"
+      ],
+      "ref_url": "https://doi.org/10.1145/157709.157715"
+    },
+    "c5_axiom_anchor": "BJR-000074, Apéndice III Heurística #63 (Mantenimiento y deuda), Skill anergy-purge-protocol"
+  },
+  "state_legibility_high_modernism_scott": {
+    "id": "state_legibility_high_modernism_scott",
+    "canonical_term": "Legibilidad Administrativa, Simplificación Sinóptica y Fracaso de la Alta Modernidad frente a la Mētis Local (Scott, 1998)",
+    "canonical_claim": "James C. Scott (Seeing Like a State, Yale University Press, 1998) demostró a través de casos históricos (silvicultura científica prusiana, urbanismo de alta modernidad, colectivización agrícola) que las burocracias centralizadas necesitan transformar realidades locales complejas e informales en categorías estandarizadas y contables ('legibilidad') para poder gravarlas y administrarlas; cuando esa rejilla administrativa simplificada se impone coercitivamente suprimiendo el saber práctico contextual ('mētis') y la diversidad ecológica/social, el sistema pierde resiliencia y colapsa ante perturbaciones.",
+    "intuicion_borja": "Para que una oficina central pueda contar y cobrar impuestos sobre un bosque o un oficio, primero tiene que reducirlo a cuatro casillas de formulario; el desastre llega cuando el burócrata obliga al bosque real a comportarse como su formulario y mata todo lo que lo mantenía vivo.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "En el Apéndice III (#64) se converge con el análisis institucional de Scott (1998) sobre sistemas de registro y clasificación administrativa, pidiendo auditar qué variables conserva una tabla, qué decisiones habilita y qué pérdidas induce, sin deducir que cualquier estandarización destruya por definición toda variedad local."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-08-30",
+      "original_artifact_sha256": "7c50c144cdefeaaeb74875970766f1000cc7ae885f14ba8726ec6f8ca0e682db",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿El esquema de clasificación y registro estandarizado actúa como interfaz no destructiva de consulta o fuerza activamente la poda de variables críticas de resiliencia local (mētis) en la planta física?",
+      "required_evidence": "Auditoría de las variables omitidas por el esquema administrativo y comparación de tasa de fallo entre unidades gestionadas por plantilla rígida frente a unidades con adaptación local."
+    },
+    "reference": {
+      "author": "James C. Scott",
+      "year": 1998,
+      "work": "Seeing Like a State: How Certain Schemes to Improve the Human Condition Have Failed (Yale University Press, 1998)",
+      "type": "EMPIRICAL_STUDY",
+      "discipline": [
+        "Ciencia Política y Administración Pública",
+        "Antropología Institucional",
+        "Epistemología de los Sistemas de Información"
+      ],
+      "ref_url": "https://yalebooks.yale.edu/book/9780300246759/seeing-like-a-state/"
+    },
+    "c5_axiom_anchor": "BJR-000075, Apéndice III Heurística #64 (Registro y administración), Aforismo 2"
   }
 }
