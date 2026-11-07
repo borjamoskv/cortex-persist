@@ -87,6 +87,16 @@ $$E = a \times (\text{KSLOC})^b \times \prod \text{EAF}$$
   - Especialistas en Verificación Formal (Lean 4, Coq, Isabelle, SMT): ~140K € - 180K € / año.
 * Sumar costes de infraestructura (CI/CD runner credits, licencias, testing suites).
 
+#### 3.1. Asimetría de Reemplazo (Build vs. Buy) y Colapso de Brooks
+Al auditar sistemas construidos por arquitectos soberanos con asistencia de enjambres gobernados, COCOMO II no mide "cuánto tardó el autor", sino **el coste de reemplazo institucional para el comprador**. Desglosar los 4 factores de compresión:
+1. **Eliminación de la Ley de Brooks:** Fricción de coordinación nula ($\frac{N(N-1)}{2} = 0$). Mientras un equipo corporativo de $N=20$ quema el 65% de sus horas en reuniones y desalineamiento, el arquitecto único transfiere el 100% de la energía a código.
+2. **Apalancamiento de Enjambres Gobernados:** Sustratos como `AGENTS.md` y compuertas deterministas multiplican el rendimiento al trasladar la codificación repetitiva a arneses confinados.
+3. **Censo Forense Formal (Lean 4):** Desglosar con rigor el árbol formal:
+   - *Núcleo Propietario (Ring-0):* LOC de teoremas, lemas y definiciones inductivas demostradas en sala limpia.
+   - *Librerías Certificadas (Lake):* Soporte de toolchain (`batteries`, `aesop`).
+   - Aplicar el multiplicador $\text{RELY} \times \text{CPLX} > 2.0\times$ sobre el núcleo verificado.
+4. **Convergencia de Flota Previa:** Reconocer la IP preexistente y componentes reutilizados que aceleraron la cristalización.
+
 ---
 
 ### Fase 4: Reclasificación de Madurez de IP
@@ -105,7 +115,11 @@ Evaluar el estado del software contra la siguiente matriz estricta:
 Si el censo de `git shortlog` revela que un único autor representa $>85\%$ de los commits:
 
 * Aplicar un descuento del **20% al 35%** en la valoración de *Acqui-hire* / Adquisición Corporativa debido al alto riesgo de transferencia de conocimiento.
-* Medir si existen pruebas formales comprobables por máquina (Lean 4) o especificaciones ejecutables que mitiguen parcialmente este descuento.
+* **Protocolo de Mitigación Matemática y Causal del Bus Factor (Reducción del Descuento a <10%):**
+  El auditor debe anular o reducir drásticamente el descuento si el repositorio demuestra tres invariantes de transferibilidad:
+  1. **Verificación Formal Agnóstica:** Las garantías clave están demostradas en Lean 4 / Coq. El kernel de tipos valida la verdad sin requerir memoria biológica ni confianza en el autor.
+  2. **Gobernanza Agéntica Reproducible:** Contratos por anillos y directivas (`AGENTS.md`, `.babylon60rules`) que permiten a cualquier equipo o enjambre mantener el código bajo compuertas automáticas.
+  3. **Atestación Criptográfica Inmutable (L5 Bitcoin OTS):** Presencia de sellos OpenTimestamps (`.ots`) que anclan la precedencia y autoría temporal sin riesgo de litigio de autoría.
 
 ---
 
