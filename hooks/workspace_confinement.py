@@ -69,19 +69,49 @@ def authorize_target(target: Path, roots: Sequence[Path]) -> None:
     if not roots:
         raise ValueError("At least one authorized root is required.")
     authorized: list[Path] = []
+    missing_roots: list[Path] = []
     for root in roots:
         root = root.expanduser()
         if not root.is_absolute():
-            raise ValueError("Authorized roots must be absolute paths.")
-        canonical = root.resolve(strict=True)
+            raise ValueError(f"Authorized root '{root}' must be an absolute path.")
+        try:
+            canonical = root.resolve(strict=True)
+        except FileNotFoundError:
+            # Tolerantly allow non-existent root directory if its non-strict resolution is valid
+            canonical = root.resolve(strict=False)
+            missing_roots.append(canonical)
+            continue
+        except OSError as error:
+            raise ValueError(f"Authorized root '{root}' cannot be resolved: {error}.") from None
         if not canonical.is_dir():
-            raise ValueError("Authorized roots must be existing directories.")
+            raise ValueError(f"Authorized root '{root}' must be an existing directory.")
         authorized.append(canonical)
+
     resolved = resolve_destination(target)
-    if not any(resolved.is_relative_to(root) for root in authorized):
-        raise ValueError("TargetFile is outside the authorized roots.")
-    if resolved.is_dir():
-        raise ValueError("TargetFile must not be a directory.")
+    # Check against active existing roots first
+    if any(resolved.is_relative_to(root) for root in authorized):
+        if resolved.is_dir():
+            raise ValueError("TargetFile must not be a directory.")
+        return
+
+    # Check against tolerated non-existent roots
+    if any(resolved.is_relative_to(root) for root in missing_roots):
+        if resolved.is_dir():
+            raise ValueError("TargetFile must not be a directory.")
+        return
+
+    # Target is outside all authorized roots
+    if missing_roots and not authorized:
+        missing_str = ", ".join(f"'{r}'" for r in missing_roots)
+        raise ValueError(
+            f"TargetFile '{target}' is outside authorized roots; configured roots do not exist: {missing_str}."
+        )
+    if missing_roots:
+        missing_str = ", ".join(f"'{r}'" for r in missing_roots)
+        raise ValueError(
+            f"TargetFile '{target}' is outside authorized roots (inactive missing roots: {missing_str})."
+        )
+    raise ValueError(f"TargetFile '{target}' is outside the authorized roots.")
 
 
 def evaluate_request(raw: bytes, roots: Sequence[Path]) -> dict[str, str]:

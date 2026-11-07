@@ -18,6 +18,8 @@ projects/
 sidecars/
 plugins_disabled/
 .migrated
+.skills-backup-*
+.skills-release-*
 logs/
 *.log
 DevToolsActivePort

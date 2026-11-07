@@ -214,11 +214,17 @@ class TestWorkspaceConfinement(unittest.TestCase):
     def test_all_authorized_roots_must_be_existing_absolute_directories(self) -> None:
         root_file = self.root / "not-a-directory"
         root_file.touch()
-        for root in (Path("relative"), self.root / "missing", root_file):
+        for root in (Path("relative"), root_file):
             with self.subTest(root=root):
                 self.assert_denied(
                     self.request(self.projects / "new.py"), roots=[self.projects, root]
                 )
+        missing_root = self.root / "missing"
+        response = self.run_hook(
+            self.request(self.projects / "new.py"), roots=[missing_root]
+        )
+        self.assertEqual(response["decision"], "deny")
+        self.assertIn("missing", response["reason"])
 
     def test_directory_destinations_and_roots_themselves_are_rejected(self) -> None:
         nested = self.projects / "existing-directory"
