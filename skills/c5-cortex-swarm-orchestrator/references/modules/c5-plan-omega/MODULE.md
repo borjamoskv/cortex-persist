@@ -77,3 +77,9 @@ Si el Micro-Assert de un bloque falla 2 veces consecutivas:
 1. Suspender mutaciones en caliente.
 2. Congelar el bloque y marcarlo como `[BLOCKED]` en el documento del plan.
 3. Proponer dos bifurcaciones alternativas (Fallback A / Fallback B) al Operador Raíz.
+
+### F. Oráculo Unificado de la Tríada Trans-Dominio (`c5_triad_gate.py` en `Z3`)
+Todo diseño de workflow multi-agente o cadena autorregresiva bajo `PLAN-Ω` debe satisfacer las 6 compuertas formales verificadas en [c5_triad_gate.py](../../../../c5-plan-omega/scripts/c5_triad_gate.py):
+1. **`G1_AIR_GAP_TUTTE` & `G2_HOPFIELD_CASCADE` (Eje Espacial):** Acoplamiento horizontal P2P nulo (`k_12 == 0`) y amplificación en cascada $R^{(m)} \ge R_{\min}$.
+2. **`G3_EIGEN_MICROGATE` & `G4_WRIGHT_TERRITORY` (Eje Temporal):** Longitud de bloque entre `Micro-Gates` acotada por el umbral de Eigen ($\sigma q^L > 1 \iff L < \ln\sigma / (-\ln q)$) y anclaje no nulo al territorio real ($\alpha > 0$).
+3. **`G5_BODE_WATERBED` & `G6_GOODHART_FALSIFICATION_COST` (Eje de Control):** Sensibilidad fuera de distribución acotada bajo la integral de Bode ($w_1 s_1 + w_2 s_2 = P_{\mathrm{inst}}$) y coste de falsificación del oráculo superior al trabajo real ($c_X \le \rho c_E$).
