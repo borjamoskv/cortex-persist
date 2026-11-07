@@ -127,3 +127,23 @@ Ante cualquier informe de arquitectura, auditoría o defensa de diseño, el eval
 3. **Q13 · Test del Extraño Hostil (Cierre al Segundo 35):** Examinar la portada y tablas de presentación: si un ingeniero escéptico sin contexto previo abre el proyecto, todo término interno opaco en los primeros 100 renglones debe traducirse a estándares de la industria (ej. *«Deterministic fail-stop halt»* antes que *«Apoptosis»*) para evitar el abandono de lectura al segundo 35.
 4. **Q14 · Deuda de Vigilia Zero-Touch:** Auditar si el sistema sobrevive 30 días sin intervención biológica: verificar rutas de intérprete en daemons, rotación de logs, ausencia de mutaciones automáticas en worktrees y caducidad de atestaciones biométricas.
 5. **Q15 · Proporcionalidad de Cómputo vs. Pereza de Poda:** El plano de mediación y seguridad determinista debe operar en < 50 MB de memoria. Queda prohibido justificar expansiones de hardware masivas (256 GB) para suplir falta de poda algorítmica, sobrecarga de reglas en contexto o clasificación estocástica de permisos.
+
+---
+
+## 13. Invariante de Verificación Criptográfica de Releases y Clausura de Bundles Standalone (INV_C5_ZERO_TRUST_RELEASE_BUNDLE)
+Al diseñar, auditar o implementar empaquetadores y scripts de verificación de releases (`verify_release.sh`, `verify.sh`):
+
+1. **Tipado Booleano Estricto (Veto a Coerción de Strings):**
+   - En parsers de evidencia, queda terminantemente prohibido utilizar conversiones de veracidad implícitas (`bool(x)`). El verificador DEBE evaluar `isinstance(raw_value, bool) is True`.
+   - Cualquier valor que no sea un booleano estricto (ej. el string `"false"`, enteros `0`/`1`, nulos no declarados) DEBE abortar en `FAIL-CLOSED` con código de salida no nulo.
+
+2. **Reconstrucción Inductiva de Cardinalidades (Merkle Leaf Counts):**
+   - Queda estrictamente prohibido validar contadores basándose únicamente en sumarios de alto nivel o en `failed == 0`.
+   - El verificador DEBE recalcular inductivamente cada categoría (`verified`, `empirical_and_bounded`, `experimental`, `failed`, `total`) iterando sobre la totalidad de las hojas evaluadas del árbol Merkle.
+   - La discrepancia entre los contadores reconstruidos y los declarados en `RELEASE_MANIFEST.json` o `evidence.json` constituye adulteración de evidencia y aborta en `FAIL`.
+
+3. **Clausura Autónoma de Bundles Distribuidos (Sin `.git`):**
+   - Todo archivo comprimido de release (`.zip` / `.tar.gz`) destinado a distribución pública o auditoría independiente DEBE ser autocontenido y verificable sin depender de metadatos `.git`:
+     a) **Paridad de Gobernanza:** DEBE incluir el 100% de los archivos declarados en `artifacts_sha256`.
+     b) **Paridad de Construcción:** DEBE contener todos los activos exigidos por directivas de empaquetado (ej. `tool.hatch.build.targets.wheel.force-include`).
+     c) **Inventario Autenticado de Fuentes:** El manifiesto DEBE registrar el listado exhaustivo de archivos del bundle (`release_bundle.source_files`) y su digest determinista (`release_bundle.tree_digest`), permitiendo al verificador certificar la autenticidad del árbol público en ausencia de `.git`.

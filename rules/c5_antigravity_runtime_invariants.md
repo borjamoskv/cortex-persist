@@ -62,3 +62,11 @@ Queda **estrictamente prohibido** que cualquier agente, subagente, script o herr
 5. **Wakeup Reactivo y Veto a Polling / Timers `any` (Régimen R6):**
    - Tras `invoke_subagent`, queda prohibido hacer *polling* mediante `manage_subagents(Action="list")` en bucle; el runtime reanuda reactivamente al agente padre cuando el subagente transiciona `Running` $\to$ `Idle`.
    - Queda prohibido combinar `invoke_subagent` con `schedule(TimerCondition="any")`, ya que cualquier comando de fondo que finalice cancela prematuramente el temporizador. Si se requiere un SLA de corte sobre un subagente específico, usar exclusivamente `TimerCondition="<conversationId_del_subagente>"`.
+
+---
+
+## 7. Invariante de Confinamiento de Workspace con Raíces Efímeras Tolerantes (INV_C5_WORKSPACE_CONFINEMENT_TOLERANCE)
+En hooks de pre-escritura o validadores de confinamiento de rutas (`workspace_confinement.py` y equivalentes):
+1. **Tolerancia a Raíces Opcionales Inexistentes:** La canonicalización de raíces configuradas (`authorized_roots`) DEBE emplear `resolve(strict=False)` para permitir que variables de entorno o raíces opcionales (ej. `CORTEX_BRAIN_ROOT`) no lancen `FileNotFoundError` si aún no existen físicamente en disco.
+2. **Requisito Mínimo de Existencia:** La autorización exige que **al menos una** raíz configurada exista físicamente como directorio absoluto en el host. Si ninguna existe, la denegación debe ser inmediata.
+3. **Diagnóstico Explícito Obligatorio:** Queda estrictamente prohibido retornar `reason: None` al denegar un destino (`authorize_target -> False`). La respuesta DEBE especificar el motivo exacto, la ruta denegada y las raíces autorizadas evaluadas.
