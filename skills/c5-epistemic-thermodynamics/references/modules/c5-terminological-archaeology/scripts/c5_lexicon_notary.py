@@ -27,6 +27,15 @@ from typing import Optional
 CONFIG_DIR = Path.home() / ".gemini" / "config"
 LEXICON_PATH = CONFIG_DIR / "C5_LEXICON.json"
 LEXICON_ENFORCER_SKILL = CONFIG_DIR / "skills" / "c5-lexicon-enforcer" / "SKILL.md"
+LEXICON_ENFORCER_MODULE = (
+    CONFIG_DIR
+    / "skills"
+    / "c5-epistemic-thermodynamics"
+    / "references"
+    / "modules"
+    / "c5-lexicon-enforcer"
+    / "MODULE.md"
+)
 
 # Umbral mínimo de confianza para registrar un término en el lexicón
 MIN_CONFIDENCE_TO_REGISTER = 0.30
@@ -58,7 +67,7 @@ def _key_from_term(term: str) -> str:
 def _build_entry(
     canonical_term: str,
     intuicion: str,
-    coverage: float,
+    coverage: Optional[float],
     verdict: str,
     delta: Optional[str],
     author: Optional[str],
@@ -67,21 +76,50 @@ def _build_entry(
     ref_url: Optional[str],
     conversation_id: Optional[str],
     discipline: Optional[list[str]],
+    canonical_claim: Optional[str] = None,
+    epistemic_status: str = "PROVISIONAL",
+    first_recorded_at: Optional[str] = None,
+    original_artifact_sha256: Optional[str] = None,
 ) -> dict:
+    key = _key_from_term(canonical_term)
+    discovered_at = datetime.now(timezone.utc).date().isoformat()
+    mapping_type = verdict if verdict in {"CONVERGE", "PARTIAL", "ANALOGY", "EXTENSION", "DIVERGE"} else "PROVISIONAL"
+    if verdict == "SUPERSET":
+        mapping_type = "EXTENSION"
+    priority_verified = bool(
+        first_recorded_at and original_artifact_sha256 and first_recorded_at < discovered_at
+    )
     return {
+        "id": key,
         "canonical_term": canonical_term,
+        "canonical_claim": canonical_claim or "Pendiente de síntesis de literatura primaria verificada.",
         "intuicion_borja": intuicion,
-        "coverage": round(coverage, 4),
-        "verdict": verdict,
-        "delta": delta,
-        "author": author or "NO_DISPONIBLE_EN_TERRITORIO_VERIFICABLE",
-        "year": year,
-        "work": work or "NO_DISPONIBLE_EN_TERRITORIO_VERIFICABLE",
-        "discipline": discipline or [],
-        "discovered_at": datetime.now(timezone.utc).date().isoformat(),
-        "conversation_id": conversation_id,
+        "mapping": {
+            "type": mapping_type,
+            "epistemic_status": epistemic_status,
+            "coverage": None,
+            "unproven_leap": delta or "Pendiente de delimitar alcance y diferencia frente a la fuente primaria.",
+        },
+        "provenance": {
+            "first_recorded_at": first_recorded_at,
+            "original_artifact_sha256": original_artifact_sha256,
+            "discovered_at": discovered_at,
+            "temporal_priority_verified": priority_verified,
+            "conversation_id": conversation_id,
+        },
+        "falsification": {
+            "question": "¿La intuición predice propiedades que la fuente primaria no establece?",
+            "required_evidence": "Formulación operacional y prueba independiente.",
+        },
+        "reference": {
+            "author": author or "NO_DISPONIBLE_EN_TERRITORIO_VERIFICABLE",
+            "year": year,
+            "work": work or "NO_DISPONIBLE_EN_TERRITORIO_VERIFICABLE",
+            "type": "THEORETICAL_MODEL",
+            "discipline": discipline or [],
+            "ref_url": ref_url,
+        },
         "c5_axiom_anchor": "Pendiente de asignación manual por el operador",
-        "ref_url": ref_url,
     }
 
 
@@ -91,25 +129,22 @@ def register_entry(
     verbose: bool = False,
 ) -> tuple[bool, str]:
     """
-    Registra una entrada en C5_LEXICON.json.
+    Registra una entrada en C5_LEXICON.json (schema v1.1).
     Retorna (was_written, key).
-    No sobreescribe entradas existentes con cobertura alta.
+    No sobreescribe entradas existentes ya auditadas en v1.1 salvo que carezcan de mapping.
     """
     lexicon = _load_lexicon()
     canonical_term = entry.get("canonical_term", "")
-    key = _key_from_term(canonical_term)
+    key = entry.get("id") or _key_from_term(canonical_term)
 
     if not key or not canonical_term:
         return False, ""
 
-    # No sobreescribir si ya existe y tiene cobertura >= 0.90
     existing = lexicon.get(key)
-    if existing and isinstance(existing, dict):
-        existing_cov = existing.get("coverage", 0.0)
-        if existing_cov >= 0.90:
-            if verbose:
-                print(f"  ⏭️  Entrada '{key}' ya existe con coverage={existing_cov} — omitida", file=sys.stderr)
-            return False, key
+    if existing and isinstance(existing, dict) and isinstance(existing.get("mapping"), dict):
+        if verbose:
+            print(f"  ⏭️  Entrada '{key}' ya auditada bajo schema v1.1 — omitida", file=sys.stderr)
+        return False, key
 
     lexicon[key] = entry
 
@@ -118,59 +153,68 @@ def register_entry(
         print(json.dumps(entry, indent=2, ensure_ascii=False))
     else:
         _save_lexicon(lexicon)
-        print(f"  ✅ Registrado en lexicón: '{key}' (coverage={entry['coverage']})", file=sys.stderr)
+        mtype = entry.get("mapping", {}).get("type", "?")
+        print(f"  ✅ Registrado en lexicón v1.1: '{key}' (mapping={mtype}, coverage=None)", file=sys.stderr)
 
     return True, key
 
 
 def _build_phase_2f_block(registered_entries: list[dict]) -> str:
-    """Genera el bloque de texto de la Fase 2f para el SKILL.md del lexicon-enforcer."""
+    """Genera el bloque de texto de la Fase 2f para el SKILL.md del lexicon-enforcer (v1.1)."""
     lines = [
-        "\n\n### Fase 2f: Gate de Anagnórisis Pasiva (Cross-Referencia con C5_LEXICON.json)\n",
-        "Cuando el operador use una descripción funcional en sesión, comparar en tiempo real contra "
-        "`~/.gemini/config/C5_LEXICON.json`. Si la frase supera 0.80 de similitud con una entrada registrada, "
-        "sugerir el término canónico de forma inmediata y no intrusiva:\n\n",
-        "> 💡 **Detección pasiva de anagnórisis:** Lo que describes como «X» corresponde al término canónico "
-        "**[TÉRMINO]** ([Autor], [año]). Definición: [definición breve]. ¿Usar este término en adelante?\n\n",
-        "#### Léxico Activo (generado automáticamente — no editar a mano)\n\n",
-        "| Clave | Término Canónico | Autor | Año | Cobertura | Veredicto |\n",
+        "\n\n### Fase 2f: Gate de Anagnórisis Pasiva (Cross-Referencia con C5_LEXICON.json v1.1)\n",
+        "Cuando el operador use una descripción funcional en sesión, comparar contra "
+        "`~/.gemini/config/C5_LEXICON.json`. Sugerir el término canónico distinguiendo siempre "
+        "qué establece la literatura primaria (`canonical_claim`) y cuál es el salto o extensión propia (`unproven_leap`):\n\n",
+        "> 💡 **Detección pasiva de anagnórisis:** Lo que describes se relaciona con **[TÉRMINO]** "
+        "([Autor], [año]) [Relación: `CONVERGE | PARTIAL | ANALOGY | EXTENSION | DIVERGE`]. "
+        "Literatura: [canonical_claim]. Límite/Salto: [unproven_leap].\n\n",
+        "#### Léxico Auditado v1.1 (generado automáticamente — no editar a mano)\n\n",
+        "| Clave | Término Canónico | Autor (Año) | Relación (`mapping.type`) | Estatus Epistémico | Prioridad Temporal |\n",
         "| :--- | :--- | :--- | :--- | :--- | :--- |\n",
     ]
     for e in registered_entries:
-        key = _key_from_term(e.get("canonical_term", ""))
+        key = e.get("id") or _key_from_term(e.get("canonical_term", ""))
+        ref = e.get("reference", {}) if isinstance(e.get("reference"), dict) else {}
+        mapping = e.get("mapping", {}) if isinstance(e.get("mapping"), dict) else {}
+        prov = e.get("provenance", {}) if isinstance(e.get("provenance"), dict) else {}
+        author = ref.get("author") or e.get("author", "?")
+        year = ref.get("year") or e.get("year", "?")
+        mtype = mapping.get("type") or e.get("verdict", "?")
+        status = mapping.get("epistemic_status", "PROVISIONAL")
+        prio = "Verificada (SHA-256)" if prov.get("temporal_priority_verified") else "No verificada"
         lines.append(
-            f"| `{key}` | {e.get('canonical_term', '')} | {e.get('author', '?')} | "
-            f"{e.get('year', '?')} | {e.get('coverage', 0):.2f} | {e.get('verdict', '?')} |\n"
+            f"| `{key}` | {e.get('canonical_term', '')} | {author} ({year}) | "
+            f"`{mtype}` | `{status}` | {prio} |\n"
         )
     return "".join(lines)
 
 
 def _inject_phase_2f(entries: list[dict], dry_run: bool = False) -> bool:
-    """Inyecta o actualiza la Fase 2f en el SKILL.md del lexicon-enforcer."""
-    if not LEXICON_ENFORCER_SKILL.exists():
+    """Inyecta o actualiza la Fase 2f en el SKILL.md y MODULE.md del lexicon-enforcer."""
+    targets = [p for p in (LEXICON_ENFORCER_SKILL, LEXICON_ENFORCER_MODULE) if p.exists()]
+    if not targets:
         print(f"  ⚠️  {LEXICON_ENFORCER_SKILL} no encontrado — Fase 2f omitida", file=sys.stderr)
         return False
 
-    content = LEXICON_ENFORCER_SKILL.read_text(encoding="utf-8")
     new_block = _build_phase_2f_block(entries)
-
-    # Eliminar bloque anterior de Fase 2f si existe
-    content = re.sub(
-        r"\n\n### Fase 2f:.*",
-        "",
-        content,
-        flags=re.DOTALL,
-    )
-
-    new_content = content.rstrip() + new_block
 
     if dry_run:
         print("[DRY-RUN] Bloque Fase 2f generado (no escrito):")
         print(new_block[:500])
         return True
 
-    LEXICON_ENFORCER_SKILL.write_text(new_content, encoding="utf-8")
-    print(f"  ✅ Fase 2f inyectada en {LEXICON_ENFORCER_SKILL}", file=sys.stderr)
+    for target in targets:
+        content = target.read_text(encoding="utf-8")
+        content = re.sub(
+            r"\n\n### Fase 2f:.*",
+            "",
+            content,
+            flags=re.DOTALL,
+        )
+        new_content = content.rstrip() + new_block
+        target.write_text(new_content, encoding="utf-8")
+        print(f"  ✅ Fase 2f inyectada en {target}", file=sys.stderr)
     return True
 
 
@@ -185,10 +229,12 @@ def _generate_anagnorisis_log(entries: list[dict], artifact_dir: Optional[Path])
     ]
     for e in entries:
         term = e.get("canonical_term", "?")
-        cov = e.get("coverage", 0.0)
-        verdict = e.get("verdict", "?")
-        delta = e.get("delta", "") or "—"
-        lines.append(f"| {term} | {cov:.2f} | {verdict} | {delta[:60]} |\n")
+        mapping = e.get("mapping", {}) if isinstance(e.get("mapping"), dict) else {}
+        cov_val = mapping.get("coverage")
+        cov_str = f"{cov_val:.2f}" if isinstance(cov_val, (int, float)) else "null"
+        verdict = mapping.get("type") or e.get("verdict", "?")
+        delta = mapping.get("unproven_leap") or e.get("delta") or "—"
+        lines.append(f"| {term} | {cov_str} | {verdict} | {delta[:60]} |\n")
 
     content = "".join(lines)
 

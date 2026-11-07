@@ -889,5 +889,365 @@
       "ref_url": "https://doi.org/10.1145/363235.363259"
     },
     "c5_axiom_anchor": "Aforismo #160 (De la Frase al Assert), BJR-ATLAS-0159 (El Teorema de Extinción de la Pregunta)"
+  },
+  "causal_emergence": {
+    "id": "causal_emergence",
+    "canonical_term": "Emergencia Causal y Suficiencia Estadística (Causal Emergence & Sufficient Statistic) vs. La Potencia Causal / Poda de Grados Parásitos (BJR-ATLAS-0143)",
+    "canonical_claim": "En Hoel, Albantakis y Tononi (2013), una proyección de grano grueso sobre un sistema de transición de Markov puede exhibir mayor Información Efectiva (EI = Determinismo - Degeneración) en el nivel macroscópico que en el microscópico cuando agrupa estados microscópicos degenerados o ruidosos. En estadística matemática (Fisher, 1922; Neyman, 1935), un estadístico suficiente T(X) conserva toda la información de Fisher de la muestra respecto al parámetro θ.",
+    "intuicion_borja": "Eliminar grados de libertad parásitos (opciones, capas o estados internos que vibran sin decidir nada en el resultado) no debilita el sistema: reduce el ruido y el desgaste sin perder capacidad de intervención.",
+    "mapping": {
+      "type": "EXTENSION",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "Hoel et al. (2013) demuestran el incremento de Información Efectiva en cadenas de Markov discretas bajo distribución de intervención de máxima entropía; extenderlo como regla general de poda en arquitectura de software requiere definir explícitamente el espacio de estados, las intervenciones do(X) y verificar mediante tests que la reducción no amputa casos de borde."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-09-29",
+      "original_artifact_sha256": "2eef577e3ee2d9b2fe0180329fe60f2cfe591ac121addc9c6542a199a5eefaf0",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿La poda de variables propuesta conserva o incrementa la Información Efectiva sobre las salidas verificables o elimina estados necesarios ante perturbaciones fuera de distribución?",
+      "required_evidence": "Prueba de ablación funcional en silicio que compare fallos, latencia y cobertura de invariantes antes y después de eliminar los grados de libertad candidatos."
+    },
+    "reference": {
+      "author": "Erik P. Hoel, Larissa Albantakis, Giulio Tononi / Ronald A. Fisher",
+      "year": 2013,
+      "work": "Quantifying causal emergence shows that macro can beat micro (PNAS, 2013); On the Mathematical Foundations of Theoretical Statistics (Fisher, Phil. Trans. R. Soc. A, 1922)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Teoría de la Información",
+        "Causalidad",
+        "Sistemas Complejos"
+      ],
+      "ref_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3856819/"
+    },
+    "c5_axiom_anchor": "Aforismo #144 (La Potencia Causal), BJR-ATLAS-0143 (La Poda de Grados Parásitos)"
+  },
+  "metodo_acreativo": {
+    "id": "metodo_acreativo",
+    "canonical_term": "Cambio Sustractivo (Subtractive Change) y Vía Negativa vs. Método Acreativo (BJR-ATLAS-0018 / BJR-000001)",
+    "canonical_claim": "En psicología cognitiva e ingeniería de diseño, Adams, Converse, Hales y Klotz (Nature, 2021) demostraron experimentalmente que los seres humanos pasan por alto de forma sistemática las mejoras por sustracción (subtractive changes) a favor de añadir componentes por defecto (adición heurística), incluso cuando quitar elementos resuelve la tarea con menor coste y mayor eficacia.",
+    "intuicion_borja": "Crear o mejorar un sistema no consiste siempre en añadir piezas, sino en sustraer complejidad parasitaria hasta que la estructura se sostenga sin adornos, conservando o aumentando su potencia, observabilidad y robustez.",
+    "mapping": {
+      "type": "EXTENSION",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "Adams et al. (2021) demuestran el sesgo cognitivo contra la sustracción en tareas de diseño, pero el Método Acreativo (BJR-ATLAS-0018) añade una condición formal de guarda: Acrear(S, S') <=> C(S') < C(S) ^ U(S') >= U(S) ^ Inv(S'), rechazando como amputación funcional cualquier poda que degrade una invariante."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-09-29",
+      "original_artifact_sha256": "2eef577e3ee2d9b2fe0180329fe60f2cfe591ac121addc9c6542a199a5eefaf0",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿La sustracción ejecutada reduce realmente la complejidad estructural manteniendo intactas las invariantes y la utilidad (acreación), o traslada la complejidad a otro módulo / degrada la tolerancia a fallos (amputación)?",
+      "required_evidence": "Ejecución de la suite de invariantes y medición de complejidad ciclomática/líneas/dependencias antes y después de la sustracción."
+    },
+    "reference": {
+      "author": "Gabrielle S. Adams, Benjamin A. Converse, Andrew H. Hales, Leidy E. Klotz",
+      "year": 2021,
+      "work": "People systematically overlook subtractive changes (Nature, 592:258–261, 2021)",
+      "type": "EMPIRICAL_STUDY",
+      "discipline": [
+        "Ciencia del Diseño",
+        "Psicología Cognitiva",
+        "Ingeniería de Sistemas"
+      ],
+      "ref_url": "https://www.nature.com/articles/s41586-021-03380-y"
+    },
+    "c5_axiom_anchor": "BJR-000001 / BJR-ATLAS-0018 (Método Acreativo), Aforismo #145 (La Acreación Soberana)"
+  },
+  "model_collapse_exteriority": {
+    "id": "model_collapse_exteriority",
+    "canonical_term": "Colapso de Modelos (Model Collapse) y Clausura Operacional vs. El Exterior Cognitivo (BJR-ATLAS-0111)",
+    "canonical_claim": "Shumailov et al. (Nature, 2024) demostraron matemática y empíricamente que los modelos generativos entrenados recursivamente con datos sintéticos producidos por otros modelos sufren un proceso degenerativo (model collapse) en el que las colas de la distribución original desaparecen y la varianza colapsa hacia modos distorsionados. En teoría de sistemas (Maturana & Varela, 1972; Luhmann, 1984), la clausura operacional sin acoplamiento estructural al entorno impide la adaptación.",
+    "intuicion_borja": "Un sistema cognitivo o modelo que solo se alimenta de sus propias salidas y filtra cualquier dato externo que contradiga sus premisas deja de tener mundo y pasa a mirarse en un espejo hasta degenerar.",
+    "mapping": {
+      "type": "EXTENSION",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "Integra la demostración estadística del colapso de modelos (Shumailov et al., 2024) con la teoría de la Manta de Markov, formulando la regla de diseño de permeabilidad selectiva (BJR-ATLAS-0111 y #149): alta impedancia frente al ruido social (cheap talk), pero impedancia nula ante contraejemplos empíricos con D_KL(P || Q_θ) > 0."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-09-29",
+      "original_artifact_sha256": "2eef577e3ee2d9b2fe0180329fe60f2cfe591ac121addc9c6542a199a5eefaf0",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿El protocolo de filtrado perimetral del sistema bloquea únicamente ruido redundante o está descartando también contraejemplos empíricos de las colas de la distribución real?",
+      "required_evidence": "Auditoría de la distribución de errores de predicción sobre datos primarios del territorio no generados por el propio pipeline."
+    },
+    "reference": {
+      "author": "Ilia Shumailov, Zakhar Shumaylov, Yiren Zhao, Nicolas Papernot, Ross Anderson, Yarin Gal",
+      "year": 2024,
+      "work": "AI models collapse when trained on recursively generated data (Nature, 631:755–759, 2024)",
+      "type": "PRIMARY_THEOREM",
+      "discipline": [
+        "Aprendizaje Estadístico",
+        "Teoría de la Información",
+        "Cibernética"
+      ],
+      "ref_url": "https://www.nature.com/articles/s41586-024-07566-y"
+    },
+    "c5_axiom_anchor": "BJR-ATLAS-0111 (El Exterior Cognitivo), Aforismo #109 (El Espejo Sin Mundo), BJR-ATLAS-0149"
+  },
+  "principal_agent_cronicity": {
+    "id": "principal_agent_cronicity",
+    "canonical_term": "Problema Principal-Agente (Principal-Agent Problem) y Demanda Inducida vs. El Peaje del Gol (BJR-ATLAS-0151)",
+    "canonical_claim": "En teoría económica de la agencia (Ross, 1973; Jensen & Meckling, 1976) y economía de la salud (Arrow, 1963; Evans, 1974), cuando existe asimetría de información entre el cliente (principal) y el experto (agente) y la remuneración se vincula al volumen o duración del servicio en lugar del resultado final, se genera un conflicto estructural de incentivos donde resolver definitivamente el problema reduce los ingresos futuros del agente.",
+    "intuicion_borja": "Si en un contrato con un profesional o intermediario el hecho de resolver definitivamente el problema («meter el gol») implica que dejas de pagarle, su estructura de incentivos está desalineada con tu victoria.",
+    "mapping": {
+      "type": "CONVERGE",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "La existencia de un incentivo económico perverso en contratos por tiempo o sesión señala un riesgo estructural de agencia, pero no demuestra por sí sola mala fe intencional en cada profesional individual (donde también operan restricciones de reputación, deontología o cronicidad biológica real)."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-09-29",
+      "original_artifact_sha256": "2eef577e3ee2d9b2fe0180329fe60f2cfe591ac121addc9c6542a199a5eefaf0",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿La prolongación del servicio responde a la estructura de facturación del intermediario o a la complejidad irreducible del problema medida bajo pagos por resultado?",
+      "required_evidence": "Comparación de tasas de resolución y duración de intervenciones entre esquemas de pago por sesión (fee-for-service) y contratos cerrados por hito u outcome verificado."
+    },
+    "reference": {
+      "author": "Stephen A. Ross / Michael C. Jensen, William H. Meckling / Kenneth J. Arrow",
+      "year": 1973,
+      "work": "The Economic Theory of Agency: The Principal's Problem (Ross, AER, 1973); Theory of the Firm: Managerial Behavior, Agency Costs and Ownership Structure (Jensen & Meckling, JFE, 1976); Uncertainty and the Welfare Economics of Medical Care (Arrow, AER, 1963)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Teoría de Juegos",
+        "Economía de los Contratos",
+        "Economía de la Salud"
+      ],
+      "ref_url": "https://doi.org/10.1016/0304-405X(76)90026-X"
+    },
+    "c5_axiom_anchor": "Aforismo #152 / BJR-ATLAS-0151 (El Peaje del Gol / La Paradoja del Mercenario Clínico), Monetización por Appliance"
+  },
+  "precommitment_ulysses": {
+    "id": "precommitment_ulysses",
+    "canonical_term": "Precompromiso (Precommitment / Ulysses Pact) y Control Situacional vs. El Judo al Impulso (BJR-ATLAS-0156)",
+    "canonical_claim": "En teoría de la decisión intertemporal (Strotz, 1955; Schelling, 1978; Elster, 1979) y psicología del autocontrol (Duckworth, Gendler & Gross, 2016), cuando las preferencias sufren descuento hiperbólico ante estímulos inmediatos, las estrategias situacionales tempranas (modificar el entorno físico y bloquear opciones antes de que suba la activación del impulso) son más eficaces que la inhibición volitiva tardía en el momento de máxima tentación.",
+    "intuicion_borja": "Intentar frenar un impulso a base de fuerza de voluntad cuando ya está disparado agota al operador; conocer su dinámica sirve para rediseñar el entorno minutos antes y desviar esa energía hacia el trabajo productivo.",
+    "mapping": {
+      "type": "EXTENSION",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "Combina la teoría del precompromiso de Schelling/Elster y la modificación de situación (Duckworth et al., 2016) con el Cambio 2 de Watzlawick: en lugar de usar el pacto de Ulises solo para bloquear la acción indeseada, propone acoplar la activación dopaminérgica/fisiológica como energía cinética para entrar en hiper-foco creativo."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-09-29",
+      "original_artifact_sha256": "2eef577e3ee2d9b2fe0180329fe60f2cfe591ac121addc9c6542a199a5eefaf0",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿La modificación previa del entorno en la ventana de inicio del estímulo redirige de forma medible el tiempo de sesión hacia producción verificable frente al intento de inhibición consciente sin cambio de entorno?",
+      "required_evidence": "Registro longitudinal comparando episodios con rediseño de barrera de acceso (fricción ambiental previa) frente a episodios de resistencia volitiva directa."
+    },
+    "reference": {
+      "author": "Thomas C. Schelling / Jon Elster / Angela L. Duckworth, Tamar Szabó Gendler, James J. Gross",
+      "year": 1978,
+      "work": "Egonomics, or the Art of Self-Management (Schelling, AER, 1978); Ulysses and the Sirens (Elster, Cambridge UP, 1979); Situational Strategies for Self-Control (Duckworth et al., Perspectives on Psychological Science, 2016)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Teoría de la Decisión",
+        "Psicología Cognitiva",
+        "Cibernética del Comportamiento"
+      ],
+      "ref_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4734878/"
+    },
+    "c5_axiom_anchor": "Aforismo #157 / BJR-ATLAS-0156 (La Física del Vicio y el Salto de Cambio 2 / El Judo al Impulso)"
+  },
+  "attention_entropy_collapse": {
+    "id": "attention_entropy_collapse",
+    "canonical_term": "Atención por Producto Punto Escalado (Scaled Dot-Product Attention) y Temperatura Softmax vs. La Ley Común de la Atención (BJR-ATLAS-0157)",
+    "canonical_claim": "En el mecanismo de atención de Vaswani et al. (2017), la salida de una cabeza para una consulta q es la combinación convexa o = sum_i a_i v_i con pesos a = softmax(q K^T / sqrt(d_k)). Matemáticamente, cuando las puntuaciones son uniformes (entropía máxima de atención), a_i = 1/n y la salida colapsa a la media aritmética de los vectores de valor; cuando la distribución se concentra en un único índice j* (entropía nula), o converge a v_{j*}.",
+    "intuicion_borja": "Tanto en un modelo de lenguaje como en la atención humana, dispersar el foco devuelve una respuesta genérica y promediada, mientras que concentrar toda la atención en el problema o interlocutor concreto permite captar su especificidad.",
+    "mapping": {
+      "type": "ANALOGY",
+      "epistemic_status": "PROVISIONAL",
+      "coverage": null,
+      "unproven_leap": "La identidad algebraica sobre la fila de una matriz softmax es exacta en redes Transformer (Vaswani et al., 2017), pero ni una cabeza de atención aislada determina por sí sola todo el texto final del LLM, ni la atención selectiva del cerebro humano calcula literalmente productos escalares con normalización exponencial."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-09-29",
+      "original_artifact_sha256": "2eef577e3ee2d9b2fe0180329fe60f2cfe591ac121addc9c6542a199a5eefaf0",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿En qué condiciones el colapso extremo de entropía de atención en un Transformer produce sobreajuste o colapso de rango (Dong, Cordonnier & Loukas, ICML 2021) en lugar de mayor calidad de representación?",
+      "required_evidence": "Medición de la entropía de Shannon de los mapas de atención H(a) frente a la precisión de salida en tareas de razonamiento específico."
+    },
+    "reference": {
+      "author": "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin",
+      "year": 2017,
+      "work": "Attention Is All You Need (Advances in Neural Information Processing Systems 30, NeurIPS 2017)",
+      "type": "FORMAL_DEFINITION",
+      "discipline": [
+        "Aprendizaje Profundo",
+        "Álgebra Lineal",
+        "Ciencias Cognitivas"
+      ],
+      "ref_url": "https://arxiv.org/abs/1706.03762"
+    },
+    "c5_axiom_anchor": "Aforismo #158 / BJR-ATLAS-0157 (La Ley Común de la Atención y la Emergencia de la Singularidad)"
+  },
+  "sunk_cost_virtuosity": {
+    "id": "sunk_cost_virtuosity",
+    "canonical_term": "Efecto del Coste Hundido (Sunk Cost Effect) y Práctica Deliberada vs. La Histéresis del Virtuosismo (BJR-ATLAS-0152)",
+    "canonical_claim": "Arkes y Blumer (1985) demostraron que los decisores tienden a mantener o utilizar un recurso una vez realizada una inversión previa de tiempo, esfuerzo o dinero (coste hundido), incluso cuando prescindir de él produce un mejor resultado presente. Por su parte, Ericsson, Krampe y Tesch-Römer (1993) documentaron el papel de la práctica deliberada prolongada en la adquisición del control motor experto.",
+    "intuicion_borja": "El entrenamiento técnico intenso es necesario primero para que la herramienta o el instrumento no te limiten, pero se vuelve un lastre cuando el autor mete alardes técnicos innecesarios en la obra solo para amortizar lo que le costó aprenderlos.",
+    "mapping": {
+      "type": "EXTENSION",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "Articula un modelo bifásico que conecta a Ericsson et al. (1993) con Arkes y Blumer (1985): en la Fase 1 (adquisición), el esfuerzo expande el repertorio de estados posibles; en la Fase 2 (composición/edición), el coste hundido motor sesga al creador contra la poda de pasajes virtuosos superfluos."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-09-29",
+      "original_artifact_sha256": "2eef577e3ee2d9b2fe0180329fe60f2cfe591ac121addc9c6542a199a5eefaf0",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿La conservación de un pasaje o componente de alta complejidad técnica obedece a una función estructural verificable en la obra o al sesgo de amortizar el esfuerzo invertido en su construcción?",
+      "required_evidence": "Prueba ciega A/B de recepción o rendimiento funcional comparando la versión con el pasaje complejo frente a la versión podada."
+    },
+    "reference": {
+      "author": "Hal R. Arkes, Catherine Blumer / K. Anders Ericsson, Ralf Th. Krampe, Clemens Tesch-Römer",
+      "year": 1985,
+      "work": "The Psychology of Sunk Cost (Organizational Behavior and Human Decision Processes, 1985); The Role of Deliberate Practice in the Acquisition of Expert Performance (Psychological Review, 1993)",
+      "type": "EMPIRICAL_STUDY",
+      "discipline": [
+        "Psicología de la Decisión",
+        "Psicología de la Ejecución Musical",
+        "Teoría Acreativa"
+      ],
+      "ref_url": "https://doi.org/10.1016/0749-5978(85)90049-4"
+    },
+    "c5_axiom_anchor": "Aforismo #146, Aforismo #153 / BJR-ATLAS-0152 (La Histéresis del Virtuosismo)"
+  },
+  "dissipative_energy_calendar": {
+    "id": "dissipative_energy_calendar",
+    "canonical_term": "Estructuras Disipativas (Dissipative Structures) y Gestión de Energía Ultradiana vs. El Calendario por Estados Energéticos 1-2-4 (BJR-ATLAS-0153)",
+    "canonical_claim": "En física de no-equilibrio (Schrödinger, 1944; Prigogine, 1977), los sistemas abiertos mantienen su organización interna importando energía libre y exportando entropía al entorno. En cronobiología y psicofisiología del trabajo (Kleitman, 1963; Rossi, 1991), el rendimiento cognitivo humano oscila en ciclos ultradianos y circadianos de activación y recuperación, no de forma lineal uniforme a lo largo del reloj.",
+    "intuicion_borja": "Planificar la semana por estados de energía en lugar de horarios rígidos de oficina, reservando una cuota acotada para descargar fricción y conflicto (1 día), una para el juego y la exploración (2 días) y la mayoría del ciclo para el trabajo propio concentrado (4 días).",
+    "mapping": {
+      "type": "ANALOGY",
+      "epistemic_status": "PROVISIONAL",
+      "coverage": null,
+      "unproven_leap": "La partición semanal 1-2-4 (1/7 fricción, 2/7 jarana/exploración, 4/7 creación focalizada) es una heurística de diseño de agenda personal inspirada en la metáfora de los sistemas disipativos y el recocido simulado; no es una constante fisiológica derivada de las ecuaciones termodinámicas de Prigogine."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-09-29",
+      "original_artifact_sha256": "2eef577e3ee2d9b2fe0180329fe60f2cfe591ac121addc9c6542a199a5eefaf0",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿La asignación por bloques de estado energético (partición 1-2-4) produce mayor producción verificada y menor fatiga subjetiva que un horario isócrono tradicional en el mismo operador?",
+      "required_evidence": "Seguimiento empírico longitudinal de entregables completados y biomarcadores de descanso (HRV/sueño) bajo ambos regímenes de calendario."
+    },
+    "reference": {
+      "author": "Ilya Prigogine / Erwin Schrödinger / Nathaniel Kleitman",
+      "year": 1977,
+      "work": "Time, Structure, and Fluctuations (Prigogine, Nobel Lecture in Chemistry, 1977); What is Life? (Schrödinger, 1944); Sleep and Wakefulness (Kleitman, 1963)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Termodinámica de No-Equilibrio",
+        "Cronobiología",
+        "Cibernética Somática"
+      ],
+      "ref_url": "https://www.nobelprize.org/prizes/chemistry/1977/prigogine/lecture/"
+    },
+    "c5_axiom_anchor": "Aforismo #154 / BJR-ATLAS-0153 (El Calendario por Estados Energéticos / La Partición 1-2-4)"
+  },
+  "allomone_pharmacological_realism": {
+    "id": "allomone_pharmacological_realism",
+    "canonical_term": "Alomonas Defensivas (Allomones) y Farmacología de Receptores de Incilius alvarius vs. La Toxina del Sapo y la Hipocresía Chamánica (BJR-ATLAS-0154)",
+    "canonical_claim": "En ecología química (Brown, Eisner & Whittaker, 1970), una alomona es una secreción química producida por una especie para modificar la conducta o fisiología de otra en beneficio adaptativo del emisor (como las toxinas defensivas de las glándulas parotoides de los bufonidos frente a depredadores). Weil y Davis (1994) identificaron 5-MeO-DMT y bufotenina en el exudado de Incilius alvarius (antes Bufo alvarius), cuya acción psicoactiva en humanos depende de su afinidad farmacológica por receptores serotoninérgicos (5-HT2A / 5-HT1A), con independencia de que el compuesto sea de origen biológico o sintético.",
+    "intuicion_borja": "La secreción del sapo evolucionó como veneno defensivo para que no se lo coman, no como medicina espiritual diseñada para humanos, y su efecto bioquímico obedece a la misma farmacología de receptores que un compuesto sintético equivalente, más allá de la liturgia comercial que rodee a la ceremonia.",
+    "mapping": {
+      "type": "PARTIAL",
+      "epistemic_status": "SUPPORTED",
+      "coverage": null,
+      "unproven_leap": "La función evolutiva de la secreción como alomona antipredador (Brown et al., 1970) y la equivalencia farmacodinámica receptor-ligando están respaldadas por la literatura; sin embargo, el origen defensivo de una molécula vegetal o animal no excluye que dosis controladas puedan investigarse clínicamente (como ocurre con alcaloides o péptidos), y la crítica a las motivaciones de los asistentes a retiros comerciales describe un fenómeno sociológico particular, no una ley universal sobre todo participante."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-09-29",
+      "original_artifact_sha256": "2eef577e3ee2d9b2fe0180329fe60f2cfe591ac121addc9c6542a199a5eefaf0",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Existe diferencia farmacodinámica ciega en el receptor 5-HT1A/5-HT2A entre 5-MeO-DMT sintético puro y el alcaloide extraído del anfibio una vez controlado el efecto séquito de los bufadienólidos?",
+      "required_evidence": "Ensayo farmacológico doble ciego comparando 5-MeO-DMT sintético frente a extracto parotoideo estandarizado y evaluación del daño ecológico por captura de ejemplares silvestres."
+    },
+    "reference": {
+      "author": "William L. Brown Jr., Thomas Eisner, Robert H. Whittaker / Andrew T. Weil, Wade Davis",
+      "year": 1970,
+      "work": "Allomones and Kairomones: Transspecific Chemical Messengers (BioScience, 20(1):21–22, 1970); Bufo alvarius: a potent hallucinogen of animal origin (Journal of Ethnopharmacology, 41(1-2):1–8, 1994)",
+      "type": "EMPIRICAL_STUDY",
+      "discipline": [
+        "Ecología Química",
+        "Neurofarmacología",
+        "Etnofarmacología"
+      ],
+      "ref_url": "https://pubmed.ncbi.nlm.nih.gov/8170151/"
+    },
+    "c5_axiom_anchor": "Aforismo #155 / BJR-ATLAS-0154 (La Toxina del Sapo y la Hipocresía Chamánica), Auditoría Somática C5"
+  },
+  "gelabp_generative_mind": {
+    "id": "gelabp_generative_mind",
+    "canonical_term": "Intérprete del Hemisferio Izquierdo (Gazzaniga), Veto Consciente (Libet) y Acumulador Estocástico (Schurger) vs. Matriz GELABP (BJR-ATLAS-0038)",
+    "canonical_claim": "En neurociencia cognitiva, Gazzaniga (1985, 1998) demostró en pacientes con cerebro dividido que un módulo narrativo elabora explicaciones causales post-hoc para justificar acciones iniciadas por procesos no conscientes. Libet (1983) observó que el potencial de preparación precede a la conciencia de la intención motora, reservando al control consciente una ventana tardía de veto (free won't). Schurger, Sitt y Dehaene (PNAS, 2012) modelaron ese potencial de preparación como la fluctuación de un acumulador estocástico que cruza un umbral de decisión.",
+    "intuicion_borja": "Gran parte del comportamiento y del habla fluye en automático por el camino de menor esfuerzo como un generador de texto; la agencia consciente opera sobre todo como un filtro o freno tardío que decide qué cortar, mientras el ego narra a posteriori que él lo había planeado todo.",
+    "mapping": {
+      "type": "EXTENSION",
+      "epistemic_status": "PROVISIONAL",
+      "coverage": null,
+      "unproven_leap": "La Matriz GELABP (Gradiente, Entropía, Leverage/Veto, Atractor, Bottleneck causal y Post-hoc) construye un modelo integrador que mapea la arquitectura de inferencia autorregresiva (Transformers) sobre los hallazgos de Gazzaniga (1998), Libet (1983) y Schurger (2012); constituye una síntesis teórica y heurística de control, no una identidad neurobiológica demostrada entre sinapsis y matrices de pesos."
+    },
+    "provenance": {
+      "first_recorded_at": "2026-09-15",
+      "original_artifact_sha256": "21cea35d23b3daf852e78c8163d731ed43640574c4584f52097320e64bcbba32",
+      "discovered_at": "2026-11-07",
+      "temporal_priority_verified": true,
+      "conversation_id": "5b81f0a1-cd84-46a4-81bd-638acfe0488d"
+    },
+    "falsification": {
+      "question": "¿Las intervenciones sobre el operador de veto (L) y la inyección controlada de variabilidad (E) permiten interrumpir rutinas perseverativas (A) con menor coste ejecutivo que la planificación declarativa previa?",
+      "required_evidence": "Protocolos experimentales de inhibición de respuesta (stop-signal paradigm) y desacoplamiento de justificaciones post-hoc en tareas de toma de decisiones."
+    },
+    "reference": {
+      "author": "Michael S. Gazzaniga / Benjamin Libet / Aaron Schurger, Jacobo D. Sitt, Stanislas Dehaene",
+      "year": 1983,
+      "work": "The Mind's Past (Gazzaniga, 1998); Time of conscious intention to act in relation to onset of cerebral activity (Libet et al., Brain, 1983); An accumulator model for spontaneous neural activity prior to self-initiated movement (Schurger et al., PNAS, 2012)",
+      "type": "THEORETICAL_MODEL",
+      "discipline": [
+        "Neurociencia Cognitiva",
+        "Ciencia de la Computación",
+        "Filosofía de la Mente"
+      ],
+      "ref_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3479453/"
+    },
+    "c5_axiom_anchor": "BJR-ATLAS-0038 (Matriz GELABP), Capítulo X (Reificación y GELABP como esquema de trabajo)"
   }
 }

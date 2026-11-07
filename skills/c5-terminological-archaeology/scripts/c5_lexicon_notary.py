@@ -27,6 +27,15 @@ from typing import Optional
 CONFIG_DIR = Path.home() / ".gemini" / "config"
 LEXICON_PATH = CONFIG_DIR / "C5_LEXICON.json"
 LEXICON_ENFORCER_SKILL = CONFIG_DIR / "skills" / "c5-lexicon-enforcer" / "SKILL.md"
+LEXICON_ENFORCER_MODULE = (
+    CONFIG_DIR
+    / "skills"
+    / "c5-epistemic-thermodynamics"
+    / "references"
+    / "modules"
+    / "c5-lexicon-enforcer"
+    / "MODULE.md"
+)
 
 # Umbral mínimo de confianza para registrar un término en el lexicón
 MIN_CONFIDENCE_TO_REGISTER = 0.30
@@ -182,31 +191,30 @@ def _build_phase_2f_block(registered_entries: list[dict]) -> str:
 
 
 def _inject_phase_2f(entries: list[dict], dry_run: bool = False) -> bool:
-    """Inyecta o actualiza la Fase 2f en el SKILL.md del lexicon-enforcer."""
-    if not LEXICON_ENFORCER_SKILL.exists():
+    """Inyecta o actualiza la Fase 2f en el SKILL.md y MODULE.md del lexicon-enforcer."""
+    targets = [p for p in (LEXICON_ENFORCER_SKILL, LEXICON_ENFORCER_MODULE) if p.exists()]
+    if not targets:
         print(f"  ⚠️  {LEXICON_ENFORCER_SKILL} no encontrado — Fase 2f omitida", file=sys.stderr)
         return False
 
-    content = LEXICON_ENFORCER_SKILL.read_text(encoding="utf-8")
     new_block = _build_phase_2f_block(entries)
-
-    # Eliminar bloque anterior de Fase 2f si existe
-    content = re.sub(
-        r"\n\n### Fase 2f:.*",
-        "",
-        content,
-        flags=re.DOTALL,
-    )
-
-    new_content = content.rstrip() + new_block
 
     if dry_run:
         print("[DRY-RUN] Bloque Fase 2f generado (no escrito):")
         print(new_block[:500])
         return True
 
-    LEXICON_ENFORCER_SKILL.write_text(new_content, encoding="utf-8")
-    print(f"  ✅ Fase 2f inyectada en {LEXICON_ENFORCER_SKILL}", file=sys.stderr)
+    for target in targets:
+        content = target.read_text(encoding="utf-8")
+        content = re.sub(
+            r"\n\n### Fase 2f:.*",
+            "",
+            content,
+            flags=re.DOTALL,
+        )
+        new_content = content.rstrip() + new_block
+        target.write_text(new_content, encoding="utf-8")
+        print(f"  ✅ Fase 2f inyectada en {target}", file=sys.stderr)
     return True
 
 
