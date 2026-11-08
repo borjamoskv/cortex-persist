@@ -1,0 +1,380 @@
+{
+  "timestamp": "2026-11-08T20:20:32.375602+00:00",
+  "moved": [
+    {
+      "name": "autodidact-omega",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/autodidact-omega",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/autodidact-omega"
+    },
+    {
+      "name": "c5-2e-neuropharmacological-sovereignty",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-2e-neuropharmacological-sovereignty",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-2e-neuropharmacological-sovereignty"
+    },
+    {
+      "name": "c5-academic-peer-reviewer",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-academic-peer-reviewer",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-academic-peer-reviewer"
+    },
+    {
+      "name": "c5-adaptive-annealing-engine",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-adaptive-annealing-engine",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-adaptive-annealing-engine"
+    },
+    {
+      "name": "c5-axiomatic-kernel",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-axiomatic-kernel",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-axiomatic-kernel"
+    },
+    {
+      "name": "c5-benchmark-eval-protocol",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-benchmark-eval-protocol",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-benchmark-eval-protocol"
+    },
+    {
+      "name": "c5-codebase-valuation-audit",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-codebase-valuation-audit",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-codebase-valuation-audit"
+    },
+    {
+      "name": "c5-ctm-formal-architect",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-ctm-formal-architect",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-ctm-formal-architect"
+    },
+    {
+      "name": "c5-dialectical-pipeline",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-dialectical-pipeline",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-dialectical-pipeline"
+    },
+    {
+      "name": "c5-enki-60",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-enki-60",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-enki-60"
+    },
+    {
+      "name": "c5-epistemic-dissemination-engine",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-epistemic-dissemination-engine",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-epistemic-dissemination-engine"
+    },
+    {
+      "name": "c5-exergy-scale-evaluator",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-exergy-scale-evaluator",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-exergy-scale-evaluator"
+    },
+    {
+      "name": "c5-gemini-api-2026-standards",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-gemini-api-2026-standards",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-gemini-api-2026-standards"
+    },
+    {
+      "name": "c5-geo-sota-2026",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-geo-sota-2026",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-geo-sota-2026"
+    },
+    {
+      "name": "c5-html-report-injection-audit",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-html-report-injection-audit",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-html-report-injection-audit"
+    },
+    {
+      "name": "c5-information-thermodynamics",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-information-thermodynamics",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-information-thermodynamics"
+    },
+    {
+      "name": "c5-kudurru-64",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-kudurru-64",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-kudurru-64"
+    },
+    {
+      "name": "c5-lean4-axiomatic-orchestrator",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-lean4-axiomatic-orchestrator",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-lean4-axiomatic-orchestrator"
+    },
+    {
+      "name": "c5-lean4-neurosymbolic-architect",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-lean4-neurosymbolic-architect",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-lean4-neurosymbolic-architect"
+    },
+    {
+      "name": "c5-media-platform-epistemology",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-media-platform-epistemology",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-media-platform-epistemology"
+    },
+    {
+      "name": "c5-metodo-acreativo",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-metodo-acreativo",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-metodo-acreativo"
+    },
+    {
+      "name": "c5-mushushu-0",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-mushushu-0",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-mushushu-0"
+    },
+    {
+      "name": "c5-ontological-translator",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-ontological-translator",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-ontological-translator"
+    },
+    {
+      "name": "c5-popperian-falsification-auditor",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-popperian-falsification-auditor",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-popperian-falsification-auditor"
+    },
+    {
+      "name": "c5-poster-and-sign-craft",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-poster-and-sign-craft",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-poster-and-sign-craft"
+    },
+    {
+      "name": "c5-session-deskimming",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-session-deskimming",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-session-deskimming"
+    },
+    {
+      "name": "c5-sharur-3600",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-sharur-3600",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-sharur-3600"
+    },
+    {
+      "name": "c5-silicon-stress-suite",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-silicon-stress-suite",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-silicon-stress-suite"
+    },
+    {
+      "name": "c5-somatic-panic-deescalation",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-somatic-panic-deescalation",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-somatic-panic-deescalation"
+    },
+    {
+      "name": "c5-sovereign-binary-architect",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-sovereign-binary-architect",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-sovereign-binary-architect"
+    },
+    {
+      "name": "c5-sovereign-inference-runtime",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-sovereign-inference-runtime",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-sovereign-inference-runtime"
+    },
+    {
+      "name": "c5-sovereign-system1-engine",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-sovereign-system1-engine",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-sovereign-system1-engine"
+    },
+    {
+      "name": "c5-spaced-repetition-architect",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-spaced-repetition-architect",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-spaced-repetition-architect"
+    },
+    {
+      "name": "c5-spatial-audio-architect",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-spatial-audio-architect",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-spatial-audio-architect"
+    },
+    {
+      "name": "c5-sre-postmortem-architect",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-sre-postmortem-architect",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-sre-postmortem-architect"
+    },
+    {
+      "name": "c5-systemic-dissection-protocol",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-systemic-dissection-protocol",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-systemic-dissection-protocol"
+    },
+    {
+      "name": "c5-tamkarum-60",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-tamkarum-60",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-tamkarum-60"
+    },
+    {
+      "name": "c5-thermos-audit",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-thermos-audit",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-thermos-audit"
+    },
+    {
+      "name": "c5-venture-pitch-architect",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-venture-pitch-architect",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-venture-pitch-architect"
+    },
+    {
+      "name": "c5-video-quality-audit",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-video-quality-audit",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-video-quality-audit"
+    },
+    {
+      "name": "c5-weighted-decision-matrix",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-weighted-decision-matrix",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-weighted-decision-matrix"
+    },
+    {
+      "name": "c5-wetware-divergente",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/c5-wetware-divergente",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/c5-wetware-divergente"
+    },
+    {
+      "name": "cct-cognitive-theory-advisor",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/cct-cognitive-theory-advisor",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/cct-cognitive-theory-advisor"
+    },
+    {
+      "name": "cloudflare-mcp-usage",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/cloudflare-mcp-usage",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/cloudflare-mcp-usage"
+    },
+    {
+      "name": "cortex-skill-composer",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/cortex-skill-composer",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/cortex-skill-composer"
+    },
+    {
+      "name": "cortex-skill-genesis",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/cortex-skill-genesis",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/cortex-skill-genesis"
+    },
+    {
+      "name": "cortex-telemetry",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/cortex-telemetry",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/cortex-telemetry"
+    },
+    {
+      "name": "cta-cognitive-transition-algebra",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/cta-cognitive-transition-algebra",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/cta-cognitive-transition-algebra"
+    },
+    {
+      "name": "discourse-popperian-falsification",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/discourse-popperian-falsification",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/discourse-popperian-falsification"
+    },
+    {
+      "name": "djstudio-mcp",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/djstudio-mcp",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/djstudio-mcp"
+    },
+    {
+      "name": "dynamic-subagent-lifecycle",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/dynamic-subagent-lifecycle",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/dynamic-subagent-lifecycle"
+    },
+    {
+      "name": "electron-asar-forensic-audit",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/electron-asar-forensic-audit",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/electron-asar-forensic-audit"
+    },
+    {
+      "name": "electron-mac-bundle-collision-diagnostics",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/electron-mac-bundle-collision-diagnostics",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/electron-mac-bundle-collision-diagnostics"
+    },
+    {
+      "name": "epistemic-extinction-protocol",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/epistemic-extinction-protocol",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/epistemic-extinction-protocol"
+    },
+    {
+      "name": "gflow-browser-cinema-sovereign",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/gflow-browser-cinema-sovereign",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/gflow-browser-cinema-sovereign"
+    },
+    {
+      "name": "ghidra-ida-binary-audit",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/ghidra-ida-binary-audit",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/ghidra-ida-binary-audit"
+    },
+    {
+      "name": "github-api-rate-limit-optimization",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/github-api-rate-limit-optimization",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/github-api-rate-limit-optimization"
+    },
+    {
+      "name": "goal",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/goal",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/goal"
+    },
+    {
+      "name": "handoff",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/handoff",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/handoff"
+    },
+    {
+      "name": "homebrew-ecosystem-management",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/homebrew-ecosystem-management",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/homebrew-ecosystem-management"
+    },
+    {
+      "name": "jujutsu-vcs-management",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/jujutsu-vcs-management",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/jujutsu-vcs-management"
+    },
+    {
+      "name": "kimi-mcp-orchestrator",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/kimi-mcp-orchestrator",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/kimi-mcp-orchestrator"
+    },
+    {
+      "name": "macos-lulu-firewall-diagnostics",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/macos-lulu-firewall-diagnostics",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/macos-lulu-firewall-diagnostics"
+    },
+    {
+      "name": "opentimestamps-l5-diagnostics",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/opentimestamps-l5-diagnostics",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/opentimestamps-l5-diagnostics"
+    },
+    {
+      "name": "pika-generative-video-pipeline",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/pika-generative-video-pipeline",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/pika-generative-video-pipeline"
+    },
+    {
+      "name": "polymath-concept-synthesis",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/polymath-concept-synthesis",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/polymath-concept-synthesis"
+    },
+    {
+      "name": "safari-browser-agent",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/safari-browser-agent",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/safari-browser-agent"
+    },
+    {
+      "name": "somatic-ble-transduction",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/somatic-ble-transduction",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/somatic-ble-transduction"
+    },
+    {
+      "name": "soulseek-p2p-audio-acquisition",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/soulseek-p2p-audio-acquisition",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/soulseek-p2p-audio-acquisition"
+    },
+    {
+      "name": "suno-bracket-tagging",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/suno-bracket-tagging",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/suno-bracket-tagging"
+    },
+    {
+      "name": "swarm-quantum-collapse",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/swarm-quantum-collapse",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/swarm-quantum-collapse"
+    },
+    {
+      "name": "swarm-router",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/swarm-router",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/swarm-router"
+    },
+    {
+      "name": "vscode-git-packed-refs-diagnostics",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/vscode-git-packed-refs-diagnostics",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/vscode-git-packed-refs-diagnostics"
+    },
+    {
+      "name": "webkit-memory-audit",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/webkit-memory-audit",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/webkit-memory-audit"
+    },
+    {
+      "name": "youtube-remotion-sota",
+      "src": "/Users/borjafernandezangulo/.gemini/config/skills/youtube-remotion-sota",
+      "dst": "/Users/borjafernandezangulo/.gemini/config/skills/_archive/20261108_poda_v1/youtube-remotion-sota"
+    }
+  ]
+}

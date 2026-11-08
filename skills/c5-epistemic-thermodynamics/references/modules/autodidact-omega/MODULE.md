@@ -29,6 +29,8 @@ Este protocolo rige el proceso agéntico de **investigación profunda de fronter
 ## 1. Disparadores (Triggers)
 - `"autodidact"`
 - `"autodidact-omega"`
+- `"autodidact+"`
+- `"autodidat+"`
 - `"investigación profunda"`
 - `"investigar paper"`
 - `"cristal ontológico"`
@@ -133,6 +135,9 @@ Generar el artefacto formal con la siguiente taxonomía:
 Si tras la atestación el usuario emite una directiva de avance continuo (ej. `"sigue"`, `"ejecuta"`, `"falsa esto"`):
 - Queda **terminantemente prohibido** emitir más texto discursivo o justificaciones abstractas.
 - El agente **DEBE** escribir un **Proof of Concept (PoC) aislado y ejecutable**, ejecutarlo en el entorno y reportar la telemetría empírica como único veredicto válido.
+
+*Nota para Entradas Audiovisuales («autodidact+» / «autodidat+»):*  
+Cuando el disparador proceda de un vídeo o medio interactivo, la Fase 5 exige obligatoriamente la entrega del **Reproductor Interactivo Ring-3 (Video Audit HUD)** en HTML puro según la especificación de `youtube-analysis-pipeline` (Fase 3f), garantizando la verificación somática del operador en el bucle de control.
 
 ---
 

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import fnmatch
 import json
 import sys
 from collections.abc import Sequence
@@ -65,7 +66,28 @@ def resolve_destination(target: Path) -> Path:
             return resolved
 
 
-def authorize_target(target: Path, roots: Sequence[Path]) -> None:
+def matches_deny_pattern(target_path: Path, pattern: str) -> bool:
+    norm = pattern.strip()
+    if not norm:
+        return False
+    posix_path = target_path.as_posix()
+    if fnmatch.fnmatch(target_path.name, norm):
+        return True
+    if fnmatch.fnmatch(posix_path, norm) or fnmatch.fnmatch(posix_path, f"*/{norm.lstrip('/')}"):
+        return True
+    try:
+        if target_path.match(norm):
+            return True
+    except Exception:
+        pass
+    if norm.endswith(("/*", "/**")):
+        clean_seg = norm.rstrip("/*").lstrip("/*")
+        if clean_seg and clean_seg in target_path.parts[:-1]:
+            return True
+    return False
+
+
+def authorize_target(target: Path, roots: Sequence[Path], deny_patterns: Sequence[str] = ()) -> None:
     if not roots:
         raise ValueError("At least one authorized root is required.")
     authorized: list[Path] = []
@@ -88,36 +110,40 @@ def authorize_target(target: Path, roots: Sequence[Path]) -> None:
         authorized.append(canonical)
 
     resolved = resolve_destination(target)
-    # Check against active existing roots first
-    if any(resolved.is_relative_to(root) for root in authorized):
-        if resolved.is_dir():
-            raise ValueError("TargetFile must not be a directory.")
-        return
+    is_authorized = any(resolved.is_relative_to(root) for root in authorized) or any(
+        resolved.is_relative_to(root) for root in missing_roots
+    )
 
-    # Check against tolerated non-existent roots
-    if any(resolved.is_relative_to(root) for root in missing_roots):
-        if resolved.is_dir():
-            raise ValueError("TargetFile must not be a directory.")
-        return
+    if not is_authorized:
+        # Target is outside all authorized roots
+        if missing_roots and not authorized:
+            missing_str = ", ".join(f"'{r}'" for r in missing_roots)
+            raise ValueError(
+                f"TargetFile '{target}' is outside authorized roots; configured roots do not exist: {missing_str}."
+            )
+        if missing_roots:
+            missing_str = ", ".join(f"'{r}'" for r in missing_roots)
+            raise ValueError(
+                f"TargetFile '{target}' is outside authorized roots (inactive missing roots: {missing_str})."
+            )
+        raise ValueError(f"TargetFile '{target}' is outside the authorized roots.")
 
-    # Target is outside all authorized roots
-    if missing_roots and not authorized:
-        missing_str = ", ".join(f"'{r}'" for r in missing_roots)
-        raise ValueError(
-            f"TargetFile '{target}' is outside authorized roots; configured roots do not exist: {missing_str}."
-        )
-    if missing_roots:
-        missing_str = ", ".join(f"'{r}'" for r in missing_roots)
-        raise ValueError(
-            f"TargetFile '{target}' is outside authorized roots (inactive missing roots: {missing_str})."
-        )
-    raise ValueError(f"TargetFile '{target}' is outside the authorized roots.")
+    if resolved.is_dir():
+        raise ValueError("TargetFile must not be a directory.")
+
+    for pattern in deny_patterns:
+        if matches_deny_pattern(resolved, pattern) or matches_deny_pattern(target, pattern):
+            raise ValueError(
+                f"TargetFile '{target}' is blocked by deny rule '{pattern}' (INV_C5_EMPTY_TAUTOLOGY / FROZEN_ASSET: direct mutation is prohibited)."
+            )
 
 
-def evaluate_request(raw: bytes, roots: Sequence[Path]) -> dict[str, str]:
+def evaluate_request(
+    raw: bytes, roots: Sequence[Path], deny_patterns: Sequence[str] = ()
+) -> dict[str, str]:
     try:
         target = target_from_payload(raw)
-        authorize_target(target, roots)
+        authorize_target(target, roots, deny_patterns)
     except ValueError as error:
         return {"decision": "deny", "reason": str(error)}
     except (OSError, RuntimeError) as error:
@@ -128,12 +154,30 @@ def evaluate_request(raw: bytes, roots: Sequence[Path]) -> dict[str, str]:
     return {"decision": "allow"}
 
 
+DEFAULT_DENY_PATTERNS: tuple[str, ...] = (
+    "tests/*",
+    "acceptance/*",
+    "cases.json",
+    "skills-lock.json",
+    ".babylon60rules",
+    "*.lock",
+    "package-lock.json",
+)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--allow-root", action="append", type=Path, default=[])
+    parser.add_argument("--deny-path", action="append", type=str, default=[])
+    parser.add_argument("--deny-pattern", action="append", type=str, default=[])
+    parser.add_argument("--allow-tests", action="store_true", default=False)
+    parser.add_argument("--allow-frozen", action="store_true", default=False)
     args = parser.parse_args()
     roots = cast(list[Path], args.allow_root)
-    result = evaluate_request(sys.stdin.buffer.read(), roots)
+    base_deny = () if (args.allow_tests or args.allow_frozen) else DEFAULT_DENY_PATTERNS
+    deny_patterns = list(base_deny) + list(args.deny_path) + list(args.deny_pattern)
+    unique_deny = list(dict.fromkeys(deny_patterns))
+    result = evaluate_request(sys.stdin.buffer.read(), roots, unique_deny)
     print(json.dumps(result))
 
 

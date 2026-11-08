@@ -27,6 +27,7 @@ Esta habilidad proporciona el flujo determinista y multi-fase para la extracció
 - URLs de YouTube: `youtube.com/watch?v=...`, `youtu.be/...`.
 - Intenciones del usuario: "resumen vídeo", "summarize video", "transcribir vídeo", "auditar vídeo YouTube", "fact-check youtube", "puntos clave vídeo".
 - **Trigger Implícito (Vídeo):** Pegar una URL de YouTube cruda sin texto adicional activa inmediatamente el protocolo completo.
+- **Trigger Compuesto («autodidact+» / «autodidat+»):** URL de YouTube acompañada de `autodidact+` o `autodidat+`. Dispara conjuntamente la auditoría epistémica, el Cristal Ontológico formal de 6 bloques (`autodidact-omega`) y la compilación obligatoria del **Reproductor Interactivo Ring-3 (Autodidact Video Player HUD)** en HTML autocontenido.
 - **Trigger Implícito (Comentarios / SOCINT):** Pegar un volcado de texto copiado de la interfaz web de YouTube conteniendo comentarios (con handles `@username`, marcas de tiempo tipo `hace X horas/días`, `Responder`, `X comentarios`) activa inmediatamente la Fase 3b (Auditoría SOCINT) sobre el vídeo analizado previamente o adjunto.
 - **Anti-Trigger:** NO activar para creación de vídeos en Remotion (`youtube-remotion-sota`).
 
@@ -259,6 +260,35 @@ Métricas de auditoría requeridas tras la tabla:
 4. Calcular la Matriz de Métricas C5-REAL:
    - Ratio de Falsabilidad Popperiana: $\mathcal{R}_{PF} = \frac{\text{Afirmaciones Refutadas}}{\text{Total Afirmaciones}}$
    - Exergía Epistémica: $\mathcal{E}_E \in [0.0, 1.0]$.
+
+### Fase 3f: Gatillo Compuesto «autodidact+» y Reproductor Interactivo Ring-3 (Video Audit HUD)
+Cuando el Operador acompañe una URL de YouTube con la directiva `autodidact+` o `autodidat+`:
+
+1. **Compilación del Artefacto HTML Autocontenido (`autodidact_video_player.html`):**
+   - Emitir en `<appDataDir>/brain/<conversation-id>/autodidact_video_player.html`.
+   - **Zero-Dependencies:** Cero dependencias externas salvo el script IFrame de YouTube (`https://www.youtube.com/iframe_api`).
+   - **Paleta Canónica BABYLON-60 / C5-REAL:**
+     * Fondo Base: `#08090c` / `#0d1117` (Negro grafito mate con gradiente radial sutil).
+     * Superficie / Tarjetas: `#161b22` / `#1c2128` (Gris oscuro de alta exergía).
+     * Bordes: `#30363d` (Pizarra) con acentos `#38bdf8` (Cian Silicio) y `#dfba63` (Oro Babilónico).
+     * Tipografías: Mono para datos y timestamps (`ui-monospace, Menlo, Monaco`), Sans para cuerpo (`-apple-system, BlinkMacSystemFont, "Segoe UI"`).
+
+2. **Atajos de Teclado Profesionales (NLE / Vim-Style Navigation):**
+   Implementar listener de eventos `keydown` en `window` con guardia de foco (`!['INPUT', 'TEXTAREA'].includes(e.target.tagName)`):
+   - `Space` o `K`: Play / Pause (interceptando `e.preventDefault()` en barra espaciadora para evitar scroll no deseado).
+   - `J`: Retroceder 10 segundos (`seekTo(currentTime - 10)`).
+   - `L`: Avanzar 10 segundos (`seekTo(currentTime + 10)`).
+   - `ArrowLeft` / `ArrowRight`: Salto fino de -5s / +5s.
+   - `0` a `9`: Salto porcentual (del 0% al 90% de la duración total del vídeo).
+   - **HUD Visual de Teclado:** Micro-indicador flotante que muestra la acción ejecutada en tiempo real.
+
+3. **Matriz Interactiva de Afirmaciones Sincronizada:**
+   - Botones de filtrado rápido: `Todos`, `✅ Validados`, `⚠️ Matizados`, `❌ Falsados`.
+   - Cada afirmación auditada cuenta con un timestamp clickable que ejecuta `player.seekTo(segundos, true)` en el reproductor embebido.
+
+4. **Editor Desechable y Proyector Bidireccional («Copiar como Prompt»):**
+   - Formulario interactivo con selectores de fase de ingeniería, nivel de confinamiento y área de notas del operador.
+   - Botón destacado **«📋 Copiar como Prompt para Agente»** que serializa las selecciones en un prompt imperativo formateado para el siguiente turno, inyectándolo directamente en el portapapeles (`navigator.clipboard.writeText`) para cerrar el lazo *Human-in-the-Loop*.
 
 ### Fase 4: Contrato de Autonomía Invariante (Ω10 / Ω11 / Ω12)
 > **ZERO PAUSE INVARIANT:** El agente NUNCA pausará la ejecución para solicitar permiso al Operador si esta habilidad se activa. Degradación transparente hacia búsqueda web en caso de fallo técnico.
