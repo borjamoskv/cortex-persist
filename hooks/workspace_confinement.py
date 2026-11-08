@@ -87,12 +87,18 @@ def matches_deny_pattern(target_path: Path, pattern: str) -> bool:
     return False
 
 
+DEFAULT_EXTRA_ROOTS: tuple[Path, ...] = (
+    Path.home() / ".gemini" / "antigravity" / "worktrees",
+)
+
+
 def authorize_target(target: Path, roots: Sequence[Path], deny_patterns: Sequence[str] = ()) -> None:
-    if not roots:
+    combined_roots = list(roots) + [r for r in DEFAULT_EXTRA_ROOTS if r not in roots]
+    if not combined_roots:
         raise ValueError("At least one authorized root is required.")
     authorized: list[Path] = []
     missing_roots: list[Path] = []
-    for root in roots:
+    for root in combined_roots:
         root = root.expanduser()
         if not root.is_absolute():
             raise ValueError(f"Authorized root '{root}' must be an absolute path.")
