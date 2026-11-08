@@ -76,6 +76,21 @@ Cuando el operador solicite auditar o consolidar sesiones *"sin consolidar"*:
    - Proponer actualizaciones del catálogo con referencias verificables. Preservar originales y contenido privado; no almacenar deliberaciones internas de LLMs.
    - Una petición de consolidación explícita puede autorizar la edición correspondiente, pero no incluye commits, publicación ni borrado de fuentes por inferencia. Continuar dentro del alcance humano vigente y comprobar el resultado.
 
+## 11. Leyes de Control de Coste Trans-Sesión (`TokenEconomizer`, arXiv:2610.22732)
+Al auditar secuencias de sesiones sobre un mismo repositorio en `transcript.jsonl`, el módulo evalúa la descomposición de coste $C_{\text{total}}(s) = C_{\text{útil}}(s) + C_{\text{redescubrimiento}}(s) + C_{\text{schemas ociosos}}(s) + C_{\text{ciclos estériles}}(s)$ bajo tres reguladores:
+1. **Inducción y Falsación de Micro-Skills ($k=3, \theta_{\text{conf}}=3$):**
+   - Extraer hechos operativos del repositorio (comandos exactos de test/build como `python -m pytest`, variables de entorno requeridas, rutas de artefactos generados) a partir de fallos repetidos entre sesiones y revisiones cada $k=3$ sesiones.
+   - Un hecho $f$ solo se propone para inyección al inicio de sesión cuando acumula confirmación en $\operatorname{conf}(f) \ge 3$ sesiones independientes, y se revoca inmediatamente ($\operatorname{conf}(f) \gets 0$) si una sesión posterior lo contradice.
+2. **Auditoría de Herramientas Ociosas (*Tool Pruning*, $p=10, m=2, s=5$):**
+   - Marcar como candidata a poda/desactivación local toda herramienta $t$ con $u(t,j)=0$ invocaciones durante $p \ge 10$ prompts repartidos en $m \ge 2$ sesiones, o durante $s = 5$ sesiones consecutivas de cualquier longitud.
+3. **Detección de Bucles de Fallo (*Loop Guard*, $c=0{,}7, r=1$):**
+   - Cuando un turno repite la misma signatura de error en `tool_calls` con probabilidad estimada de bloqueo $P(\text{stuck}) \ge c=0{,}7$, emitir como máximo $r=1$ nota de redirección táctica (Cambio 2) y, si persiste, escalar al operador sin abortar autónomamente el turno.
+
+## 12. Topología de Mundos Recursivos Persistentes (`EvoX Genesis`, arXiv:2608.10450)
+En desarrollos multi-episodio de largo horizonte, la continuidad reside en el **mundo del proyecto** y no en sesiones ni agentes longevos:
+- **Estado Formal del Mundo:** $\mathcal{W}_t = \langle V_t, \mathcal{T}_p, \texttt{CONTEXT.md}_p \rangle$, donde $V_t$ es la versión Git aceptada, $\mathcal{T}_p$ el subárbol de rutas que acota responsabilidad y $\texttt{CONTEXT.md}_p$ el contrato local explícito.
+- **Agentes de Vida Finita:** Los ejecutores operan en `git worktrees` aislados (o workspaces ramificados) y mueren al cerrar su episodio; únicamente los cambios cuyas consecuencias superan la verificación determinista avanzan la historia $V_t \to V_{t+1}$.
+
 ## Alcance de análisis y autorización
 Este módulo `audit-only` inspecciona evidencia dentro del ámbito solicitado y prepara propuestas; su carga o coincidencia de trigger no autoriza efectos externos.
 - Las recetas anteriores de migración, commits, cierre de procesos, purga de locks, eliminación de perfiles, reemplazo de bundles o cambios de cuarentena son propuestas de remediación, no acciones automáticas. No ejecutarlas dentro de un diagnóstico.

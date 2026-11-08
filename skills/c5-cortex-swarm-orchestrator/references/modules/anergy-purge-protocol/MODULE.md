@@ -47,6 +47,17 @@ La ejecución autorizada corresponde a un procedimiento de implementación separ
 3. **Fronteras estrictas de retención:** Quedan blindadas e inmutables: (a) rutas bajo descriptores abiertos por procesos vivos (`lsof`); (b) parches y repositorios locales únicos sin réplica en el ecosistema (`tt_metal_audit`); (c) bases SQLite y recibos JSON que constituyan evidencia primaria de corridas o claims de arquitectura (`evidence_*.json`).
 4. **Verificación post-purga obligatoria:** Tras cualquier intervención autorizada, certificar en silicio: `exists == False` para las rutas eliminadas, `exists == True` para las fronteras protegidas y `PRAGMA integrity_check` en bases SQLite preservadas.
 
+### Aseguramiento Epistémico Adversarial y Anti-Sobredefensa (`ARIS` + `HERO`, arXiv:2605.03042)
+Para erradicar la anergía cognitiva de «éxito plausible sin soporte empírico» (*plausible unsupported success*) y el *prompt bloat* reactivo:
+1. **Heterogeneidad Adversarial ($\operatorname{Fam}(\mathcal{M}_{\text{exec}}) \neq \operatorname{Fam}(\mathcal{M}_{\text{rev}})$):** En auditorías de investigación o código crítico, el revisor debe pertenecer a una familia de modelos distinta a la del ejecutor, verificando en 3 etapas: (i) Integridad determinista (`Anti-Autoresearch`, 61 señales forenses contra fabricación), (ii) Mapeo bipartito Resultado $\to$ Afirmación, y (iii) Auditoría contra el *Claim Ledger* y evidencia cruda (`EvidenceRef`).
+2. **Filtro `HERO` (*Anti-OverDefense*):** Queda prohibido responder a hallazgos de auditoría inflando el sistema en las cuatro formas patológicas de sobre-defensa:
+   - **H**ashing (capas redundantes de hashes o wrappers sin necesidad causal),
+   - **E**dge cases (casos borde especulativos que ensucian la ruta crítica),
+   - **R**ubrics (optimizar para la rúbrica verbal del revisor en vez del territorio físico),
+   - **O**verbuild (sobre-arquitectura que viola la cota de complejidad de Kolmogorov).
+   - *Regla de oro `HERO`:* Acotar estrictamente lo que el agente *propone* añadir, sin restringir jamás lo que el agente *busca* al inspeccionar.
+3. **Poda de Schemas Ociosos (`TokenEconomizer`, arXiv:2610.22732):** Identificar como `prompt bloat` todo schema de herramienta o servidor MCP con $0$ invocaciones a lo largo de $p \ge 10$ prompts en $m \ge 2$ sesiones o en $s = 5$ sesiones consecutivas, proponiendo su paso a carga diferida (`Lazy`) de forma reversible.
+
 ### Exclusiones y activación
 - Ningún umbral de tamaño, archivo no rastreado, ejecución de PoC o coincidencia de trigger inicia una purga automática.
 - Preservar trabajo ajeno, fuentes, activos privados, stems y masters. `~/Music/` y especialmente `~/Music/LIBRARY` quedan excluidos de cualquier purga.

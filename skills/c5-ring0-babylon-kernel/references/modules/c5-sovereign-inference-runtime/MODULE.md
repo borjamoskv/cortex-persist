@@ -137,3 +137,22 @@ El motor `eridu-infer` se empaqueta y monetiza como un appliance físico llave e
 ### 8.5. Ecuación de Salida M&A (3,5M € – 4,5M €)
 - Con 35 a 50 unidades instaladas: ~500.000 € limpios acumulados en caja + 100.000 € a 120.000 € de ARR recurrente (churn = 0%).
 - Teaser de venta para consultoras IT / integradores (Indra, Seidor, Telefónica Tech): adquisición por 3,5M € – 4,5M € (70% cash al cierre).
+
+---
+
+## 9. Aceleración Especulativa `W12 + TLV` y Ruteo Predictivo MoE en Apple Silicon
+
+Para saturar el ancho de banda de memoria unificada (UMA) en **MacBook Pro M3 Pro** y **Mac Studio Ultra (256 GB)** sin pérdida matemática de calidad:
+
+### 9.1. Empaquetado Sin Pérdidas `W12` y Verificación en Dos Niveles (`SpecPilot`, arXiv:2611.02501)
+1. **Formato de Pesos `W12` Lossless ($12{,}01\text{--}12{,}02\text{ bits/peso}$):**
+   - Los pesos `BF16` del modelo objetivo se descomponen sin pérdidas en **tres planos de 4 bits** y se reconstruyen bit a bit de forma exacta en registros dentro del kernel GEMM (`Metal Shading Language`), reduciendo el tráfico de lectura UMA un **$25\%$** y acelerando la inferencia `BF16` densa entre $1{,}15\times\text{ y }1{,}26\times$.
+2. **Verificación en Dos Niveles (`TLV`) sobre Vista Anidada de 8 Bits:**
+   - Los dos primeros planos de 4 bits de `W12` conforman gratuitamente en UMA una **vista anidada de 8 bits** (cero duplicación de RAM).
+   - **Nivel 1 (`TLV`):** Filtra un árbol de borrador de 32 nodos (condicionado por Markov sobre un retículo de candidatos) leyendo únicamente los dos primeros planos (8 bits / `INT6` escalado).
+   - **Nivel 2 (Exacto `W12`):** Verifica solo los nodos supervivientes cargando el tercer plano de 4 bits para reconstruir el peso `BF16` exacto con una cabeza LM de `exact-argmax` certificada, elevando los tokens confirmados por pase exacto de $\tau = 4{,}65 \to 13{,}08$ ($8{,}86\times\text{--}10{,}87\times$ sobre decodificación autorregresiva).
+3. **Compuerta de *Token Forcing* (Cero Deriva):**
+   - Toda optimización de kernel o árbol especulativo debe certificar mediante *token forcing* que cada token comprometido coincide con la elección `argmax` del modelo objetivo en esa posición.
+
+### 9.2. Streaming MoE con `Prerouter` (`Edge0`, arXiv:2609.18063) y Ejecución Elástica (`FreeToken`, arXiv:2608.16157)
+- Cuando un modelo Mixture-of-Experts supere la cuota de residencia UMA (o en nodos con memoria acotada), un cabezal ligero por capa (`prerouter`) predice el ruteo de la capa $N+1$ con **1 token de antelación**, permitiendo disparar la pre-carga asíncrona de expertos desde NVMe antes de que finalice la capa $N$, compensando la cuantización `INT4` y el ruteo adelantado mediante un adaptador LoRA de recuperación no fusionado.
