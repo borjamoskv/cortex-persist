@@ -147,3 +147,28 @@ Al diseñar, auditar o implementar empaquetadores y scripts de verificación de 
      a) **Paridad de Gobernanza:** DEBE incluir el 100% de los archivos declarados en `artifacts_sha256`.
      b) **Paridad de Construcción:** DEBE contener todos los activos exigidos por directivas de empaquetado (ej. `tool.hatch.build.targets.wheel.force-include`).
      c) **Inventario Autenticado de Fuentes:** El manifiesto DEBE registrar el listado exhaustivo de archivos del bundle (`release_bundle.source_files`) y su digest determinista (`release_bundle.tree_digest`), permitiendo al verificador certificar la autenticidad del árbol público en ausencia de `.git`.
+
+---
+
+## 14. Invariante de la Cadena de Transducción Quíntuple y Atestación Delimitada (FL-022-v2)
+Al diseñar, evaluar o auditar agentes que generen código, optimicen geometrías o sinteticen artefactos ejecutables:
+
+1. **La Ley de Goodhart Física:** La optimización interna de un proxy continuo o simbólico (`ProxyScore`) por parte del agente no preserva monótonamente el orden ni la utilidad del artefacto final discretizado (`FinalUtility`):
+   $$\operatorname{argmax}_{z \in \mathcal{Z}} S_{\text{proxy}}(z) \neq \operatorname{argmax}_{z \in \mathcal{Z}} U_{\text{final}}(\tau(z))$$
+   Queda estrictamente prohibido comprometer o promover un artefacto basándose únicamente en el ranking de su función objetivo interna.
+
+2. **Las Cuatro Brechas de Transducción Obligatorias ($P_1 - P_4$):**
+   - **$P_1$ (`proxy_gap`):** Optimizador vs. Representación Intermedia (IR).
+   - **$P_2$ (`transformation_gap`):** IR continua/simbólica vs. Artefacto final discretizado/compilado.
+   - **$P_3$ (`deployment_gap`):** Artefacto verificado vs. Objeto realmente desplegado en runtime ($\operatorname{BLAKE3}(a_{\text{deployed}}) == \operatorname{BLAKE3}(a_{\text{verified}})$).
+   - **$P_4$ (`reality_gap`):** Modelo de simulación/verificación vs. Comportamiento real medido en el entorno de contorno.
+
+3. **Invariante de Aceptación y Commit:**
+   $$\operatorname{Accept}(a, P, E) \implies \operatorname{Identity}(a) \land \operatorname{Verification}_{\mathcal{V}_\perp}(a, P) \land \operatorname{EnvironmentMatch}(P, E) \land \operatorname{ObservedConstraints}(a, E)$$
+   $$\operatorname{CommittedArtifact}(a) \implies \operatorname{BLAKE3}(a_{\text{deployed}}) = \operatorname{BLAKE3}(a_{\text{verified}}) \land \operatorname{CriticalConstraints}(\operatorname{Observed}(a_{\text{deployed}})) = \text{PASS}$$
+
+4. **Ortogonalidad de Modelos ($\mathcal{M}_{\text{ver}} \neq \mathcal{M}_{\text{opt}}$):**
+   El modelo o simulador evaluador debe ser ortogonal e independiente del generador para erradicar puntos ciegos correlacionados (`CORRELATED_VERIFIER_MODEL_REJECTED`).
+
+5. **Veto a Etiquetas `status = SAFE` sin Alcance (BORJARIO IR B3/B6):**
+   Queda estrictamente prohibido registrar o aceptar atributos booleanos globales descontextualizados (`artifact.status = SAFE`). Toda afirmación de idoneidad en `CORTEX` exige el formato delimitado `ScopedClaimRecord` con perfil ambiental verificado $P$, perfil observado $E$, digest criptográfico y resultado tipado (`SUPPORTED` / `OBSERVED`).
