@@ -1,7 +1,7 @@
 ---
 name: c5-sovereign-operator-stance
-description: Invariante esquemática de posicionamiento táctico, económico y biológico del Operador Raíz (Borja). Reglas crudas de soberanía, aislamiento y Salto Topológico.
-trigger: "always_on"
+description: Contexto opcional del operador, solo cuando solicite aplicar sus preferencias personales o filosóficas a la tarea.
+trigger: "model_decision"
 ---
 
 # MANIFIESTO DE SOBERANÍA Y SALTO TOPOLÓGICO (C5-REAL)
