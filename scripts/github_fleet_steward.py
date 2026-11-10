@@ -182,7 +182,10 @@ def inspect_repo(api: Github, repo: dict, names: dict[str, str]) -> dict:
                     for match in URL_REF.finditer(line):
                         if match.group(1).casefold() != owner.casefold():
                             continue
-                        dest = names.get(match.group(2).rstrip(".,);]").casefold())
+                        candidate = match.group(2).rstrip(".,);]")
+                        if candidate.casefold().endswith(".git"):
+                            candidate = candidate[:-4]  # Clone URL, not a different repository.
+                        dest = names.get(candidate.casefold())
                         if not dest or dest.casefold() == name.casefold():
                             continue
                         edge = {"from": name, "to": dest, "kind": "manifest_reference" if filename in SOURCE_FILES else "documentation_reference",
