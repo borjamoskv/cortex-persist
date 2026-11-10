@@ -66,6 +66,14 @@ class InventoryTests(unittest.TestCase):
         self.assertEqual(result["edges"], [{"from": "alpha", "to": "beta", "kind": "documentation_reference", "evidence": "README.md:L2"}])
         self.assertFalse(result["ci"])
 
+    def test_clone_urls_do_not_create_ghost_repositories(self):
+        api = FakeGitHub({
+            "/repos/borjamoskv/alpha/contents": [{"name": "README.md", "type": "file"}],
+            "/repos/borjamoskv/alpha/contents/README.md": encoded("git clone https://github.com/borjamoskv/beta.git\n"),
+        })
+        result = steward.inspect_repo(api, repo("alpha"), {"alpha": "alpha", "beta": "beta"})
+        self.assertEqual(result["edges"], [{"from": "alpha", "to": "beta", "kind": "documentation_reference", "evidence": "README.md:L1"}])
+
     def test_nonexistent_repos_do_not_generate_edges(self):
         api = FakeGitHub({
             "/repos/borjamoskv/alpha/contents": [{"name": "README.md", "type": "file"}],
