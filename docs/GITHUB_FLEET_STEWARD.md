@@ -39,3 +39,7 @@ The issue gate checks live account ownership, target archival status, and prior 
 - **No token leakage:** uses `GH_TOKEN`, `GITHUB_TOKEN` or `gh auth token`; tokens never enter output or command arguments.
 
 Known boundaries: root README/manifest scanning does not search every branch or every nested module; it does not prove whether a repo is in production, abandoned, or safe to delete. GitHub's `pushed_at` is a weak activity signal. High-quality dependency contracts must be verified within the relevant project before wiring code. Run a new scan immediately before acting on old reports.
+
+### Copilot custom agent
+
+After merging the draft PR to the repository default branch, GitHub Copilot can discover the native profile at `.github/agents/moskv-github-steward.agent.md` (user-invocable only). Copilot's built-in token is scoped to the source repository; the cloud profile runs public-only by default, while a local GitHub CLI session with the owner's credentials can scan the full private fleet. Do not treat a profile file as an autonomous running process.
