@@ -1,0 +1,440 @@
+#!/usr/bin/env python3
+"""MOSKV GitHub Steward: paginated fleet inventory, evidence graph, safe issue gate.
+
+Python 3.11+; standard library only. `scan` is strictly read-only.
+`apply` can create ONE review issue only after a specific human confirmation.
+"""
+from __future__ import annotations
+
+import argparse
+import base64
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime, timezone
+from difflib import SequenceMatcher
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import subprocess
+import sys
+import time
+from urllib.error import HTTPError, URLError
+from urllib.parse import quote
+from urllib.request import Request, urlopen
+
+API = "https://api.github.com"
+VERSION = "2026-11-10"
+SLUG = re.compile(r"^[A-Za-z0-9_.-]{1,100}$")
+URL_REF = re.compile(r"https?://(?:www\.)?github\.com/([\w.-]+)/([\w.-]+)", re.I)
+SOURCE_FILES = {"pyproject.toml", "package.json", "Cargo.toml", "go.mod", "requirements.txt", ".gitmodules"}
+PUBLIC_GROUPS = {
+    "runtime-security": ("babylon", "c5-rea", "cassandra", "sanedrin", "guard", "socint"),
+    "knowledge-formal": ("cortex", "axiom", "anvil", "teorema", "corpus", "epistemic"),
+    "music-media": ("flstudio", "audio", "master", "music", "montage"),
+    "sites-design": ("site", "web", "naroa", "landing", ".com", ".online"),
+    "automation-tools": ("mcp", "maestro", "gflow", "mandato", "agents", "bot"),
+}
+
+
+def slug(value: str) -> str:
+    if not SLUG.fullmatch(value):
+        raise ValueError(f"Invalid GitHub owner/repo slug: {value!r}")
+    return value
+
+
+def utc_now() -> datetime:
+    return datetime.now(timezone.utc)
+
+
+def auth_token(required: bool) -> str:
+    token = os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN")
+    if not token:
+        try:
+            token = subprocess.run(
+                ["gh", "auth", "token"], capture_output=True, text=True,
+                timeout=5, check=False,
+            ).stdout.strip()
+        except (FileNotFoundError, subprocess.SubprocessError):
+            pass
+    if not token and required:
+        raise ValueError("Private inventory needs GH_TOKEN or `gh auth login`.")
+    return token or ""
+
+
+class Github:
+    def __init__(self, token: str = "", timeout: int = 20):
+        self.token, self.timeout = token, timeout
+
+    def request(self, method: str, path: str, payload: dict | None = None, optional: bool = False):
+        if not path.startswith("/") or "//" in path or ".." in path or "?" not in path and "#" in path:
+            raise ValueError("Invalid GitHub API path")
+        headers = {
+            "Accept": "application/vnd.github+json",
+            "User-Agent": "moskv-github-steward/1.0",
+            "X-GitHub-Api-Version": "2022-11-28",
+        }
+        if self.token:
+            headers["Authorization"] = "Bearer " + self.token
+        data = json.dumps(payload).encode() if payload is not None else None
+        if data is not None:
+            headers["Content-Type"] = "application/json"
+        request = Request(API + path, method=method, headers=headers, data=data)
+        for attempt in range(3):
+            try:
+                with urlopen(request, timeout=self.timeout) as response:
+                    body = response.read(5_000_000)
+                    return json.loads(body) if body else None
+            except HTTPError as exc:
+                if exc.code == 404 and optional:
+                    return None
+                retryable = exc.code in (429, 500, 502, 503, 504) or (
+                    exc.code == 403 and bool(exc.headers.get("Retry-After"))
+                )
+                if not retryable or attempt == 2:
+                    raise RuntimeError(f"GitHub HTTP {exc.code} for {method} {path.split('?')[0]}") from None
+                delay = min(20, max(1, int(exc.headers.get("Retry-After", "0")) or 2**attempt))
+                time.sleep(delay)
+            except URLError as exc:
+                if attempt == 2:
+                    raise RuntimeError(f"GitHub request failed for {method} {path.split('?')[0]}: {exc.reason}") from None
+                time.sleep(2**attempt)
+        raise RuntimeError("GitHub API retry exhausted")
+
+    def get(self, path: str, optional: bool = False):
+        return self.request("GET", path, optional=optional)
+
+    def post(self, path: str, payload: dict):
+        return self.request("POST", path, payload=payload)
+
+
+def paginated_repos(api: Github, owner: str, scope: str) -> list[dict]:
+    owner = slug(owner)
+    if scope == "all":
+        me = api.get("/user")
+        if not me or me.get("login", "").casefold() != owner.casefold():
+            raise PermissionError("Authenticated GitHub identity must match --owner for private scan.")
+        prefix = "/user/repos?affiliation=owner&sort=full_name&direction=asc"
+    else:
+        prefix = f"/users/{owner}/repos?sort=full_name&direction=asc"
+    output: dict[str, dict] = {}
+    for page in range(1, 21):
+        batch = api.get(f"{prefix}&per_page=100&page={page}")
+        if not isinstance(batch, list):
+            raise ValueError("Unexpected repository API response")
+        for repo in batch:
+            if (repo.get("owner") or {}).get("login", "").casefold() == owner.casefold():
+                if scope != "public" or not repo.get("private", False):
+                    output[repo["name"].casefold()] = repo
+        if len(batch) < 100:
+            break
+    else:
+        raise RuntimeError("Repository pagination exceeded 2000 results; refusing partial inventory")
+    return sorted(output.values(), key=lambda x: x["name"].casefold())
+
+
+def text_content(obj: dict | None) -> str | None:
+    if not obj or obj.get("type") not in (None, "file"):
+        return None
+    if obj.get("encoding") != "base64" or not obj.get("content"):
+        return None
+    try:
+        return base64.b64decode(obj["content"], validate=False).decode("utf-8", "replace")[:180_000]
+    except (ValueError, TypeError):
+        return None
+
+
+def inspect_repo(api: Github, repo: dict, names: dict[str, str]) -> dict:
+    owner, name = slug(repo["owner"]["login"]), slug(repo["name"])
+    path = f"/repos/{owner}/{name}"
+    inspection: dict = {"name": name, "root_scanned": False, "readme": None, "ci": None,
+                        "security": None, "files_checked": [], "edges": [], "errors": []}
+    try:
+        entries = api.get(path + "/contents", optional=True)
+        if not isinstance(entries, list):
+            inspection["errors"].append("root_contents_unavailable")
+            return inspection
+        inspection["root_scanned"] = True
+        files = {x.get("name", "").casefold(): x.get("name", "") for x in entries if x.get("type") == "file"}
+        dirs = {x.get("name", "").casefold() for x in entries if x.get("type") == "dir"}
+        inspection["readme"] = any(n.startswith("readme") for n in files)
+        inspection["security"] = "security.md" in files or ".github" in dirs  # May exist in .github; unknown unless checked.
+        inspection["ci"] = None  # Do not infer CI from presence of .github alone.
+        if ".github" in dirs:
+            workflows = api.get(path + "/contents/.github/workflows", optional=True)
+            inspection["ci"] = bool(workflows) if isinstance(workflows, list) else False
+            if "security.md" not in files:
+                inspection["security"] = None  # Unknown until .github/SECURITY.md checked.
+        else:
+            inspection["ci"] = False
+            inspection["security"] = "security.md" in files
+        candidate_files = [p for p in files.values() if p.casefold().startswith("readme")]
+        candidate_files += [files[p.casefold()] for p in SOURCE_FILES if p.casefold() in files]
+        candidate_files = list(dict.fromkeys(candidate_files))[:7]
+        for filename in candidate_files:
+            try:
+                item = api.get(path + "/contents/" + quote(filename, safe=""), optional=True)
+                contents = text_content(item)
+                if contents is None:
+                    continue
+                inspection["files_checked"].append(filename)
+                for lineno, line in enumerate(contents.splitlines(), start=1):
+                    for match in URL_REF.finditer(line):
+                        if match.group(1).casefold() != owner.casefold():
+                            continue
+                        dest = names.get(match.group(2).rstrip(".,);]").casefold())
+                        if not dest or dest.casefold() == name.casefold():
+                            continue
+                        edge = {"from": name, "to": dest, "kind": "manifest_reference" if filename in SOURCE_FILES else "documentation_reference",
+                                "evidence": f"{filename}:L{lineno}"}
+                        if edge not in inspection["edges"] and len(inspection["edges"]) < 120:
+                            inspection["edges"].append(edge)
+            except RuntimeError:
+                inspection["errors"].append(f"cannot_read:{filename}")
+        # `SECURITY.md` under .github is a valid location but not proof of an implemented security process.
+        if inspection["security"] is None:
+            inspection["security"] = api.get(path + "/contents/.github/SECURITY.md", optional=True) is not None
+    except RuntimeError:
+        inspection["errors"].append("inspection_request_failed")
+    return inspection
+
+
+def group_for(name: str) -> str:
+    lower = name.casefold()
+    for group, words in PUBLIC_GROUPS.items():
+        if any(word in lower for word in words):
+            return group
+    return "other"
+
+
+def age_days(value: str | None, now: datetime) -> int | None:
+    if not value:
+        return None
+    try:
+        return max(0, (now - datetime.fromisoformat(value.replace("Z", "+00:00"))).days)
+    except (ValueError, TypeError):
+        return None
+
+
+def normalize_name(name: str) -> str:
+    return re.sub(r"(?:-vieja|-old|-alpha|-v\d+|-\d+)$", "", name.casefold())
+
+
+def item(repo: str, finding: str, evidence: str, proposal: str, priority: str) -> dict:
+    digest = hashlib.sha256("\x1f".join([repo, finding, evidence, proposal]).encode()).hexdigest()[:14]
+    return {"id": "STW-" + digest, "repo": repo, "finding": finding,
+            "evidence": evidence, "proposal": proposal, "priority": priority,
+            "action": "open_review_issue"}
+
+
+def build_plan(repos: list[dict], inspections: dict[str, dict], now: datetime) -> list[dict]:
+    findings: list[dict] = []
+    incoming = {r["name"].casefold(): 0 for r in repos}
+    archive_by_name = {r["name"].casefold(): bool(r.get("archived")) for r in repos}
+    for scan in inspections.values():
+        for edge in scan["edges"]:
+            incoming[edge["to"].casefold()] += 1
+            if archive_by_name[edge["to"].casefold()]:
+                findings.append(item(edge["from"], "reference_to_archived_repo", edge["evidence"] + " => " + edge["to"],
+                                     "Verify integration, document replacement or unarchive after explicit approval", "high"))
+    for repo in repos:
+        name = repo["name"]
+        scan = inspections.get(name.casefold())
+        if repo.get("archived"):
+            continue
+        if scan and scan["root_scanned"]:
+            if scan["readme"] is False:
+                findings.append(item(name, "readme_missing", "Root directory contains no README", "Add a scoped README via a reviewable PR", "medium"))
+            if scan["ci"] is False:
+                findings.append(item(name, "ci_not_observed", "No .github/workflows found", "Assess whether this repository needs a CI workflow", "low"))
+            if not repo.get("private") and scan["security"] is False:
+                findings.append(item(name, "security_policy_missing", "No root or .github/SECURITY.md found", "Assess vulnerability disclosure process", "low"))
+        if scan is None or not scan["root_scanned"]:
+            findings.append(item(name, "deep_scan_incomplete", "Repository content scan not completed", "Re-run scan with adequate permission and rate budget", "low"))
+        age = age_days(repo.get("pushed_at"), now)
+        if age is not None and age > 180:
+            findings.append(item(name, "stale_180_days", f"Last push {age} days ago", "Review project lifecycle; never auto-archive", "low"))
+        if incoming[name.casefold()] == 0 and len(inspections) > 0:
+            findings.append(item(name, "no_observed_inbound_links", "No inbound GitHub references in scanned files", "Review documentation links; this does not prove isolation", "low"))
+    # Names alone are weak evidence, so a duplicate flag is *never* a delete request.
+    candidates = sorted(repos, key=lambda r: r["name"].casefold())
+    for i, left in enumerate(candidates):
+        for right in candidates[i + 1:]:
+            a, b = normalize_name(left["name"]), normalize_name(right["name"])
+            if a == b or (min(len(a), len(b)) >= 8 and SequenceMatcher(None, a, b).ratio() >= .91):
+                target = left if not left.get("archived") else right
+                findings.append(item(target["name"], "possible_duplicate_name",
+                                     left["name"] + " vs " + right["name"],
+                                     "Compare source trees, releases and consumers before any consolidation", "low"))
+    return sorted({f["id"]: f for f in findings}.values(), key=lambda f: (0 if f["priority"] == "high" else 1 if f["priority"] == "medium" else 2, f["repo"], f["finding"]))
+
+
+def markdown_report(owner: str, scope: str, repos: list[dict], scans: dict[str, dict], plan: list[dict], now: datetime) -> str:
+    active = sum(not r.get("archived") for r in repos)
+    private = sum(bool(r.get("private")) for r in repos)
+    edges = sum(len(x["edges"]) for x in scans.values())
+    lines = [f"# GitHub fleet audit: `{owner}`", "", f"Observed at: {now.isoformat(timespec='seconds')}",
+             f"Scope: `{scope}` | Total: **{len(repos)}** | Active: **{active}** | Archived: **{len(repos)-active}** | Private: **{private}**",
+             f"Content inspections: **{len(scans)}** | Observed explicit link occurrences: **{edges}**", "",
+             "> References are evidence of *links*, not proof of runtime dependencies. Name similarities are review candidates, not duplicates.",
+             "> GitHub state is not changed by `scan`. This report may be sensitive in `all` scope.", "",
+             "## Review backlog", "", "| Priority | Repo | Finding | Evidence | Plan ID |", "|:--|:--|:--|:--|:--|" ]
+    for p in plan:
+        # Slug-validated repository names; evidence always generated by the scanner.
+        evidence = p["evidence"].replace("|", "/").replace("\n", " ")
+        lines.append(f"| {p['priority']} | `{p['repo']}` | {p['finding']} | {evidence} | `{p['id']}` |")
+    if not plan:
+        lines.append("| - | - | No findings with current rules | - | - |")
+    lines += ["", "## Active repository groups (name-based only)", ""]
+    groups: dict[str, list[str]] = {}
+    for repo in repos:
+        if not repo.get("archived"):
+            groups.setdefault(group_for(repo["name"]), []).append(repo["name"])
+    for group, members in sorted(groups.items()):
+        lines.append(f"- **{group}**: " + ", ".join(f"`{x}`" for x in sorted(members)))
+    return "\n".join(lines) + "\n"
+
+
+def mermaid_graph(repos: list[dict], scans: dict[str, dict]) -> str:
+    lines = ["flowchart LR", "  %% Observed README/manifest references, not verified runtime dependencies."]
+    present = {r["name"].casefold(): r for r in repos}
+    node = lambda n: "R" + hashlib.sha1(n.casefold().encode()).hexdigest()[:10]
+    for repo in repos:
+        name = repo["name"]
+        lines.append(f'  {node(name)}["{name}"]')
+        if repo.get("archived"):
+            lines.append(f"  class {node(name)} archived")
+    links = {(e["from"], e["to"], e["kind"]) for x in scans.values() for e in x["edges"]}
+    for source, target, kind in sorted(links):
+        if source.casefold() in present and target.casefold() in present:
+            lines.append(f"  {node(source)} -->|{ 'manifest' if kind == 'manifest_reference' else 'docs' }| {node(target)}")
+    lines.append("  classDef archived fill:#ddd,stroke:#888,color:#555")
+    return "\n".join(lines) + "\n"
+
+
+def secure_output(out: Path, scope: str, payloads: dict[str, str]) -> None:
+    out = out.expanduser().resolve()
+    if scope == "all":
+        # Avoid accidentally checking the private inventory into a Git worktree.
+        if any((parent / ".git").exists() for parent in (out, *out.parents)):
+            raise PermissionError("Refusing to store private inventory inside a Git worktree")
+    out.mkdir(parents=True, exist_ok=True, mode=0o700)
+    if scope == "all":
+        out.chmod(0o700)
+    for filename, content in payloads.items():
+        dest = out / filename
+        fd = os.open(dest, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            f.write(content)
+        if scope == "all":
+            dest.chmod(0o600)
+
+
+def scan_command(args, api: Github) -> int:
+    repos = paginated_repos(api, args.owner, args.scope)
+    names = {r["name"].casefold(): r["name"] for r in repos}
+    selected = [r for r in repos if not r.get("archived") or args.deep_archived]
+    inspections: dict[str, dict] = {}
+    if not args.no_deep:
+        with ThreadPoolExecutor(max_workers=args.workers) as pool:
+            pending = {pool.submit(inspect_repo, api, r, names): r["name"] for r in selected}
+            for fut in as_completed(pending):
+                inspection = fut.result()
+                inspections[inspection["name"].casefold()] = inspection
+    now = utc_now()
+    plan = build_plan(repos, inspections, now)
+    output = {
+        "schema": "moskv-steward/v1", "version": VERSION, "owner": args.owner,
+        "scope": args.scope, "observed_at": now.isoformat(),
+        "repos": [
+            {"name": r["name"], "archived": bool(r.get("archived")), "private": bool(r.get("private")),
+             "default_branch": r.get("default_branch"), "pushed_at": r.get("pushed_at"),
+             "language": r.get("language"), "fork": bool(r.get("fork")),
+             "html_url": r.get("html_url")}
+            for r in repos
+        ],
+        "inspections": sorted(inspections.values(), key=lambda x: x["name"].casefold()),
+    }
+    plan_doc = {"schema": "moskv-steward-plan/v1", "owner": args.owner, "scope": args.scope,
+                "generated_at": now.isoformat(), "proposals": plan}
+    dest = args.out or Path.home() / ".local" / "share" / "moskv-github-steward" / args.scope
+    secure_output(dest, args.scope, {
+        "inventory.json": json.dumps(output, sort_keys=True, indent=2, ensure_ascii=False) + "\n",
+        "plan.json": json.dumps(plan_doc, sort_keys=True, indent=2, ensure_ascii=False) + "\n",
+        "report.md": markdown_report(args.owner, args.scope, repos, inspections, plan, now),
+        "graph.mmd": mermaid_graph(repos, inspections),
+    })
+    print(f"[READ-ONLY] {len(repos)} repositories; {len(inspections)} inspected; {len(plan)} review proposals. Reports: {dest}")
+    return 0
+
+
+def apply_command(args, api: Github) -> int:
+    if args.confirm != "OPEN_REVIEW_ISSUE":
+        raise PermissionError("Required: --confirm OPEN_REVIEW_ISSUE")
+    document = json.loads(args.plan.read_text(encoding="utf-8"))
+    if document.get("schema") != "moskv-steward-plan/v1":
+        raise ValueError("Unknown plan schema")
+    owner = slug(document["owner"])
+    repo = slug(args.repo)
+    me = api.get("/user")
+    if not me or me.get("login", "").casefold() != owner.casefold():
+        raise PermissionError("GitHub identity mismatch")
+    proposals = [p for p in document.get("proposals", []) if p.get("id") == args.approve and p.get("repo", "").casefold() == repo.casefold()]
+    if len(proposals) != 1:
+        raise PermissionError("No unique exact matching approval ID and repository")
+    p = proposals[0]
+    expected_id = item(p["repo"], p["finding"], p["evidence"], p["proposal"], p["priority"])["id"]
+    if p.get("action") != "open_review_issue" or expected_id != p["id"]:
+        raise PermissionError("Tampered or non-allowlisted proposal")
+    base = f"/repos/{owner}/{repo}"
+    identity = api.get(base)
+    if not identity or identity.get("archived") or (identity.get("owner") or {}).get("login", "").casefold() != owner.casefold():
+        raise PermissionError("Target repo is archived or not owned")
+    marker = f"<!-- moskv-steward:{p['id']} -->"
+    for page in range(1, 31):
+        issues = api.get(base + f"/issues?state=all&per_page=100&page={page}")
+        if any(marker in (issue.get("body") or "") for issue in issues):
+            print(f"Existing review issue already recorded for {p['id']}; no new issue created")
+            return 0
+        if len(issues) < 100:
+            break
+    else:
+        raise RuntimeError("Too many issues to verify idempotency; aborting")
+    # Never interpolate file contents or untrusted repository descriptions into an issue.
+    body = ("## Human review requested\n\n"
+            + f"Finding: `{p['finding']}`\n\nEvidence: `{p['evidence']}`\n\n"
+            + f"Proposed next step: {p['proposal']}\n\n"
+            + "No repository deletion, archive, rename, visibility change, or merge is authorized by this issue.\n\n"
+            + marker)
+    created = api.post(base + "/issues", {"title": f"[GitHub Steward] Review {p['finding']}", "body": body})
+    print(f"Created one review issue: {created.get('html_url', '(URL unavailable)')}")
+    return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    sub = parser.add_subparsers(dest="command", required=True)
+    scan = sub.add_parser("scan", help="Read-only inventory, relationship graph and review backlog")
+    scan.add_argument("--owner", default="borjamoskv")
+    scan.add_argument("--scope", choices=("public", "all"), default="all")
+    scan.add_argument("--out", type=Path)
+    scan.add_argument("--deep-archived", action="store_true")
+    scan.add_argument("--no-deep", action="store_true")
+    scan.add_argument("--workers", type=int, choices=range(1, 9), default=3)
+    apply = sub.add_parser("apply", help="Create ONE explicitly approved review issue; never mutates code")
+    apply.add_argument("--plan", type=Path, required=True)
+    apply.add_argument("--repo", required=True)
+    apply.add_argument("--approve", required=True)
+    apply.add_argument("--confirm", required=True)
+    args = parser.parse_args(argv)
+    token = auth_token(required=(args.command == "apply" or args.scope == "all"))
+    api = Github(token)
+    try:
+        return scan_command(args, api) if args.command == "scan" else apply_command(args, api)
+    except (RuntimeError, ValueError, PermissionError, OSError, KeyError, TypeError) as exc:
+        print(f"STEWARD ERROR: {exc}", file=sys.stderr)
+        return 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
