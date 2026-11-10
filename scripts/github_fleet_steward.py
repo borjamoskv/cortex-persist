@@ -11,8 +11,11 @@ import base64
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from difflib import SequenceMatcher
+from email.utils import parsedate_to_datetime
 import hashlib
+from http.client import HTTPException
 import json
+import math
 import os
 from pathlib import Path
 import re
@@ -22,11 +25,13 @@ import tempfile
 import time
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote
-from urllib.request import Request, urlopen
+from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 API = "https://api.github.com"
-VERSION = "2026-11-10-v2"
+VERSION = "2026-11-10-v3"
+EXIT_OK, EXIT_ERROR, EXIT_PARTIAL = 0, 2, 3
 MAX_PLAN_AGE_SECONDS = 7 * 24 * 60 * 60
+MAX_RETRY_AFTER_SECONDS = 60
 ALLOWED_FINDINGS = frozenset({
     "reference_to_archived_repo", "readme_missing", "ci_not_observed",
     "security_policy_missing", "deep_scan_incomplete", "stale_180_days",
@@ -56,7 +61,7 @@ def utc_now() -> datetime:
 
 
 def auth_token(required: bool) -> str:
-    token = os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN")
+    token = os.getenv("GH_TOKEN", "").strip() or os.getenv("GITHUB_TOKEN", "").strip()
     if not token:
         try:
             token = subprocess.run(
@@ -67,7 +72,53 @@ def auth_token(required: bool) -> str:
             pass
     if not token and required:
         raise ValueError("Private inventory needs GH_TOKEN or `gh auth login`.")
-    return token or ""
+    # http.client refuses such a header value with an error that quotes it, token included.
+    if any(ch.isspace() or not ch.isprintable() for ch in token):
+        raise ValueError("Invalid GitHub token format")
+    return token
+
+
+class RateLimitError(RuntimeError):
+    """GitHub will not answer again soon: rate limit exhausted, or a Retry-After too long to sit out."""
+
+
+class NoRedirectHandler(HTTPRedirectHandler):
+    """Refuses redirects: urllib would forward the token and replay a POST as a GET without its body."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl) -> None:
+        return None
+
+
+urlopen = build_opener(NoRedirectHandler).open
+
+
+def retry_after_seconds(value: str | None, now: datetime) -> int | None:
+    """Wait asked for by a Retry-After value (integer seconds or HTTP-date), at least 1; None if absent or unparseable."""
+    try:
+        return max(1, int(value or ""))
+    except ValueError:
+        pass
+    try:
+        when = parsedate_to_datetime(value or "")
+    except (ValueError, OverflowError):
+        return None
+    if when.tzinfo is None:  # An HTTP-date is GMT even when its zone is missing or "-0000".
+        when = when.replace(tzinfo=timezone.utc)
+    return max(1, math.ceil((when - now).total_seconds()))
+
+
+def reset_time(value: str | None) -> str | None:
+    """UTC ISO-8601 form of an x-ratelimit-reset epoch; None if absent, not a number or out of range."""
+    try:
+        return datetime.fromtimestamp(int(value or ""), timezone.utc).isoformat(timespec="seconds")
+    except (ValueError, OverflowError, OSError):
+        return None
+
+
+def failure_name(exc: Exception) -> str:
+    """Type name of a transport failure. Its text is never reported: it can echo the URL with its query string."""
+    cause = exc.reason if isinstance(exc, URLError) and isinstance(exc.reason, Exception) else exc
+    return type(cause).__name__
 
 
 class Github:
@@ -75,7 +126,9 @@ class Github:
         self.token, self.timeout = token, timeout
 
     def request(self, method: str, path: str, payload: dict | None = None, optional: bool = False):
-        if not path.startswith("/") or "//" in path or ".." in path or "?" not in path and "#" in path:
+        route = path.split("?", 1)[0]
+        dot_segment = any(part in (".", "..") for part in route.split("/"))
+        if not path.startswith("/") or "//" in route or dot_segment or "?" not in path and "#" in path:
             raise ValueError("Invalid GitHub API path")
         headers = {
             "Accept": "application/vnd.github+json",
@@ -88,24 +141,41 @@ class Github:
         if data is not None:
             headers["Content-Type"] = "application/json"
         request = Request(API + path, method=method, headers=headers, data=data)
-        for attempt in range(3):
+        # Only reads are repeated: a write whose answer was lost may already have taken effect.
+        retries = 2 if method == "GET" else 0
+        for attempt in range(retries + 1):
             try:
                 with urlopen(request, timeout=self.timeout) as response:
                     body = response.read(5_000_000)
                     return json.loads(body) if body else None
             except HTTPError as exc:
+                exc.close()  # Frees the connection; the status and headers stay readable.
                 if exc.code == 404 and optional:
                     return None
-                retryable = exc.code in (429, 500, 502, 503, 504) or (
-                    exc.code == 403 and bool(exc.headers.get("Retry-After"))
+                if exc.code in (403, 429) and exc.headers.get("x-ratelimit-remaining") == "0":
+                    reset = reset_time(exc.headers.get("x-ratelimit-reset"))
+                    raise RateLimitError(f"GitHub rate limit exhausted for {method} {route}"
+                                         + (f"; resets at {reset}" if reset else "")) from None
+                if exc.code in (301, 302, 303, 307, 308):
+                    raise RuntimeError(f"GitHub HTTP {exc.code} redirect refused for {method} {route}") from None
+                retry_after = exc.headers.get("Retry-After")
+                retryable = method == "GET" and (
+                    exc.code in (429, 500, 502, 503, 504) or exc.code == 403 and bool(retry_after)
                 )
-                if not retryable or attempt == 2:
-                    raise RuntimeError(f"GitHub HTTP {exc.code} for {method} {path.split('?')[0]}") from None
-                delay = min(20, max(1, int(exc.headers.get("Retry-After", "0")) or 2**attempt))
-                time.sleep(delay)
-            except URLError as exc:
-                if attempt == 2:
-                    raise RuntimeError(f"GitHub request failed for {method} {path.split('?')[0]}: {exc.reason}") from None
+                delay = retry_after_seconds(retry_after, utc_now()) if retryable else None
+                if delay is not None and delay > MAX_RETRY_AFTER_SECONDS:
+                    raise RateLimitError(
+                        f"GitHub asked to wait {delay} seconds before retrying {method} {route} (HTTP {exc.code})"
+                    ) from None
+                if not retryable or attempt == retries:
+                    raise RuntimeError(f"GitHub HTTP {exc.code} for {method} {route}") from None
+                time.sleep(2**attempt if delay is None else delay)
+            except (OSError, HTTPException, ValueError) as exc:
+                failure = f"GitHub request failed for {method} {route}: {failure_name(exc)}"
+                if method != "GET":
+                    raise RuntimeError(failure + "; outcome unknown, not retried") from None
+                if attempt == retries:
+                    raise RuntimeError(failure) from None
                 time.sleep(2**attempt)
         raise RuntimeError("GitHub API retry exhausted")
 
