@@ -43,3 +43,15 @@ Known boundaries: root README/manifest scanning does not search every branch or 
 ### Copilot custom agent
 
 After merging the draft PR to the repository default branch, GitHub Copilot can discover the native profile at `.github/agents/moskv-github-steward.agent.md` (user-invocable only). Copilot's built-in token is scoped to the source repository; the cloud profile runs public-only by default, while a local GitHub CLI session with the owner's credentials can scan the full private fleet. Do not treat a profile file as an autonomous running process.
+
+## v2.0: hardened fleet governance (2026-11-10)
+
+- Corrected a CLI bug that prevented the review-issue `apply` command from running.
+- Plan approvals now require a scan generated in the previous seven days and an allowlisted finding.
+- A private-fleet (`--scope all`) plan **cannot create an issue in a public repository**. Generate and explicitly approve a fresh `--scope public` plan instead.
+- Private reports are written with atomic replacement, 0600 file permissions and symlink-path checks.
+- Inspects up to 12 GitHub Actions workflow YAMLs per scanned repository. An explicit `uses: owner/repo@ref` entry is recorded as `workflow_action_reference`, with file/line evidence. This is a *declared reference*, not proof of a healthy integration.
+- Reports now include precise inspection coverage and a reference table. Missing inbound links are not flagged when the active-source scan is incomplete. Intentional `--no-deep` scans do not trigger missing-scan proposals.
+- Local regression suite expanded to **20 tests**. CI on GitHub remains an independent gate: do not infer it passes from this count.
+
+The `apply` command creates one human-approved review issue only. It does **not** clean or rewire repositories by itself. For a live integration, establish API contracts and test an explicit PR in the target repository.
