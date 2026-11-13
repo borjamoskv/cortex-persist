@@ -104,17 +104,20 @@ Al diseñar, evaluar o auditar sistemas multi-agente de seguridad, verificación
 
 4. **Reutilización de Sondas de Confinamiento en Silicio:** Prohibido improvisar nuevos entornos de ejecución desprotegidos para reproducir exploits. Las reproducciones dinámicas deben apalancarse en las sondas previas de confinamiento del sistema operativo (Seatbelt `(deny default)`, veto de red, fork y subprocesos; ej. `McpSandboxValidator`), registrando `INCONCLUSIVE` (nunca `NOT_REPRODUCED`) si el aislamiento de silicio no puede certificarse.
 
+5. **Independencia de Contexto y Aislamiento Efectivo:** Otra conversación o identidad de agente no constituye una frontera de permisos. Un revisor de solo lectura debe carecer de herramientas de edición y shell libre, incluidas capacidades equivalentes vía MCP, delegación o herramientas heredadas. Ejecutar Cargo, Lean o `verify.sh` exige un ejecutor restringido: operaciones y argumentos permitidos explícitamente, fuentes e inputs protegidos contra escritura y directorios de salida separados. Redirigir salidas o declarar una política de sandbox no prueba por sí solo el confinamiento.
+
+6. **Aceptación del Verificador:** Comprobar por separado su carga e invocación en el cliente real, el rechazo efectivo de escrituras sobre fuentes e inputs mediante una prueba negativa controlada y la vinculación del resultado al contenido ejecutado. Conservar versión y configuración del cliente, capacidades efectivas, comando, entorno, resultado y digests con algoritmo explícito de inputs, oráculo y evidencias. Incluir cambios locales y archivos no versionados que sean inputs; `HEAD`, el índice Git o `git status` por sí solos no identifican ni protegen todo el contenido leído. Verificar que cambiar un input o el oráculo invalida el resultado anterior; proteger la instantánea durante la ejecución, pues comparar hashes antes y después no impide modificaciones transitorias. Sin estas comprobaciones, declarar la propiedad pendiente como `NO_VERIFICADO` o la ejecución como `INCONCLUSIVE`.
+
+7. **Diagnósticos y Valoraciones Delimitados:** Distinguir formato documentado, archivos presentes, configuración declarada y comportamiento observado, registrando fecha y versión. Un formato antiguo, una ausencia en un listado o un vocabulario impropio no demuestran por sí solos el rechazo completo de un plugin ni su causa; tampoco prueban que una causa esté descartada. Etiquetas como «P0», «Óptimo» o puntuaciones sin método, datos y comparación reproducible son valoraciones, no resultados medidos.
+
 ---
 
-## 11. Invariante de PoC como Frontera Medible y Cero Huérfanos en Scratch (INV_C5_POC_MEASURABLE_BOUNDARY)
-Toda Prueba de Concepto (**PoC**) en la arquitectura C5-REAL opera formalmente como una **Frontera Medible (Criterio de Demarcación Popperiano en Silicio)** entre la hipótesis teórica (*mapa*) y la física computacional (*territorio*):
-1. **Tríada Funcional del PoC:**
-   - **Umbral de Falsación Binaria (`Pass / Fail`):** Define una cota cuantitativa estricta (latencia, convergencia SMT/Z3, tasa de rechazo BFT) que fuerza la **Apoptosis Temprana** de ideas inviables antes de construir infraestructura alrededor.
-   - **Aislamiento de Ruido (Stage 1 MASS):** Evalúa el algoritmo o invariante desnudo, sin UI, red ni base de datos, midiendo el techo físico real del mecanismo.
-   - **Línea Base Inmutable (*Golden Baseline*):** Una vez validado, el PoC se convierte en el oráculo de regresión y metro patrón que la implementación de producción (ej. en Rust) debe igualar o superar.
-2. **Veto al Limbo en `~/.gemini/antigravity/scratch/`:**
-   - Queda terminantemente prohibido abandonar PoCs validados, scripts de verificación o clones de repositorios upstream (`git clone`) en `~/.gemini/antigravity/scratch/`.
-   - Todo PoC que cruce con éxito su frontera medible DEBE destilarse e integrarse de inmediato en el subdirectorio `scripts/` de su Skill canónica (`~/.gemini/config/skills/<skill-name>/scripts/`) o en su repositorio de `~/10_PROJECTS/`, purgando cualquier residuo efímero para mantener `scratch/` con **0 B de anergía acumulada**.
+## 11. Invariante de PoC como Frontera Medible y Conservación de Evidencia (INV_C5_POC_MEASURABLE_BOUNDARY)
+Una Prueba de Concepto (**PoC**) contrasta una hipótesis acotada; su aceptación no certifica automáticamente producción ni demuestra un óptimo físico.
+1. **Criterio Fijado Antes de Ejecutar:** Declarar hipótesis, inputs, entorno, comando reproducible y umbral observable de aceptación o rechazo. Registrar `PASS` o `FAIL` cuando el ensayo sea válido; usar `INCONCLUSIVE` si faltan condiciones para evaluarlo, sin convertirlo en éxito ni en refutación.
+2. **Aislamiento del Mecanismo:** Reducir dependencias ajenas a la hipótesis y declarar las que permanecen. Omitir UI, red o base de datos solo cuando no formen parte del comportamiento estudiado; medir el componente aislado no demuestra su comportamiento integrado.
+3. **Línea Base Versionada:** Conservar fuentes, configuración, versiones de herramientas, inputs, umbrales y resultados vinculados por digests. Comparar producción bajo condiciones equivalentes y con tolerancias declaradas; cualquier revisión de la línea base conserva la anterior y explica la causa.
+4. **Destino Canónico y Limpieza Acotada:** Integrar los PoCs reutilizables y su evidencia en `scripts/` de la skill correspondiente o en su repositorio de `~/10_PROJECTS/`. Registrar destino y procedencia de clones de terceros. Limpiar únicamente temporales propios identificados, dentro del alcance autorizado y después de comprobar la copia conservada; no borrar trabajo ajeno o evidencia para imponer un objetivo global de `0 B` en `~/.gemini/antigravity/scratch/`.
 
 ---
 
