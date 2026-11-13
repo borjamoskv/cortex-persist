@@ -66,6 +66,22 @@ el destino. La aplicación de `deny` por Antigravity debe comprobarse tras
 desplegar la configuración; las pruebas de CI verifican el proceso y el comando
 configurado, no ese ejecutor.
 
+## Analizador de escalabilidad
+
+El analizador offline convierte benchmarks JSONL en métricas observadas,
+informes JSON/Markdown y una recomendación de concurrencia sujeta a una
+política explícita. No ejecuta agentes ni realiza llamadas a proveedores.
+
+```bash
+python3 scripts/analyze_scalability.py \
+  --input .github/tests/fixtures/scalability/synthetic.jsonl \
+  --policy .github/tests/fixtures/scalability/policy.json
+```
+
+Los informes quedan en `logs/scalability`. El ejemplo y el resumen de CI son
+demostraciones sintéticas, no mediciones productivas. Consulta el
+[contrato de datos, las fórmulas y la exportación de benchmarks](docs/scalability.md).
+
 ## Tests de CI
 
 Los casos de regresión ejecutan los controles de `.github/workflows/ci.yml`
