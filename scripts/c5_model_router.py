@@ -1,85 +1,123 @@
 #!/usr/bin/env python3
 """
-c5_model_router.py - Auto-Router de Modelos y Triaje Asimétrico para Antigravity.
-Clasifica la consulta con Gemini 3.8 Flash y ajusta el nivel al selector de UI.
+c5_model_router.py - CLI Universal de Enrutamiento C5-REAL v3.0.
+Resuelve en < 100 us (100% offline, stdlib pura) el estrato, esfuerzo y opción óptima
+para cualquier superficie (Antigravity, Claude Code, Codex, Gemini CLI, Local Loopback).
+Soporta --llm-digest opcional cuando se solicite reescritura semántica explícita en red.
 """
 
-from typing import Literal
-from pydantic import BaseModel, Field
-from google import genai
-from google.genai import types
+from __future__ import annotations
 
-class RoutingDecision(BaseModel):
-    target_model: Literal[
-        "gemini-4-argon",
-        "gemini-3.8-flash",
-        "claude-opus-5.5",
-        "claude-sonnet-5.5",
-        "gpt-oss-120b",
-    ]
-    desired_level: Literal["low", "medium", "high"]
-    digested_prompt: str = Field(
-        description="Prompt técnico limpio, directo y sin ambigüedades listo para ejecutar."
+import argparse
+from dataclasses import asdict
+import json
+import os
+from pathlib import Path
+import sys
+
+HOME_DIR = Path.home()
+PROJECTS_DIR = Path(os.environ.get("CORTEX_PROJECTS_ROOT", str(HOME_DIR / "10_PROJECTS"))).expanduser()
+BABYLON_ROOT = Path(
+    os.environ.get(
+        "BABYLON_ROOT",
+        str(PROJECTS_DIR / "BABYLON-60" if (PROJECTS_DIR / "BABYLON-60").is_dir() else HOME_DIR / "BABYLON-60"),
     )
-    reason: str = Field(description="Justificación técnica de 1 línea.")
+).expanduser()
 
-# Mapa real de compatibilidad de niveles del selector UI de Antigravity
-VALID_LEVELS = {
-    "gemini-4-argon": {"low", "medium", "high"},
-    "gemini-3.8-flash": {"high"},          # Solo High (Fast); no tiene Medium ni Low
-    "claude-opus-5.5": {"low", "medium", "high"},
-    "claude-sonnet-5.5": {"low", "medium", "high"},
-    "gpt-oss-120b": {"medium"},            # Fijo en (Medium)
-}
+for candidate in (BABYLON_ROOT, BABYLON_ROOT / "01_KISH_ENGINE"):
+    if str(candidate) not in sys.path and candidate.is_dir():
+        sys.path.insert(0, str(candidate))
 
-FALLBACK_LEVEL = {
-    "gemini-3.8-flash": "high",
-    "gpt-oss-120b": "medium",
-}
+from babylon60.cognitive_pilot.universal_autoroute import (  # noqa: E402
+    evaluate_universal_route,
+    infer_universal_target,
+)
 
-def digest_and_route(user_query: str) -> tuple[str, str, str]:
-    """Usa Gemini 3.8 Flash para digerir la consulta y elegir modelo + nivel válido."""
-    client = genai.Client()
-    router_prompt = f"""
-    Analiza la siguiente petición y elige el motor más económico capaz de resolverla con éxito:
-    - 'gemini-3.8-flash': Tareas rápidas, scripts cortos, dudas directas.
-    - 'gpt-oss-120b': Resúmenes, texto general, borradores sin coste premium.
-    - 'claude-sonnet-5.5': Implementación de código, UI, refactorización focalizada.
-    - 'gemini-4-argon': Contexto masivo, análisis multifichero, debugging complejo.
-    - 'claude-opus-5.5': Arquitectura crítica o algoritmos de extrema dificultad.
-    
-    En 'desired_level', elige siempre 'low' si la ruta es clara, 'medium' si requiere análisis moderado, y 'high' solo en casos críticos.
-    
-    Petición: {user_query}
-    """
 
-    res = client.models.generate_content(
-        model="gemini-3.8-flash",
-        contents=router_prompt,
-        config=types.GenerateContentConfig(
-            response_mime_type="application/json",
-            response_schema=RoutingDecision,
-            max_output_tokens=512,
-        ),
+def digest_and_route(
+    user_query: str,
+    *,
+    host: str = "antigravity_ui",
+    active_model: str = "Orchestrator (Argon)",
+    active_mode: str = "Orchestrator",
+    context_tokens: int = 0,
+    llm_digest: bool = False,
+) -> tuple[str, str, str]:
+    """Devuelve (target_option_or_capability, target_effort, clean_prompt) en O(1) sin llamada de red."""
+    verdict = evaluate_universal_route(
+        active_model,
+        active_mode,
+        user_query,
+        source="c5_model_router CLI",
+        host=host,
+        context_tokens=context_tokens,
     )
+    target = infer_universal_target(user_query, context_tokens=context_tokens)
+    chosen_model = verdict.concrete_option or verdict.capability_description
+    chosen_level = target.effort
 
-    decision: RoutingDecision = res.parsed
-    model = decision.target_model
-    level = decision.desired_level
+    digested_prompt = user_query.strip()
+    if llm_digest:
+        try:
+            from google import genai
+            from google.genai import types
 
-    # Clamping forzado si el nivel no existe en el selector del modelo
-    if level not in VALID_LEVELS[model]:
-        level = FALLBACK_LEVEL[model]
+            client = genai.Client()
+            res = client.models.generate_content(
+                model="gemini-3.8-flash",
+                contents=f"Reescribe esta petición como un objetivo técnico directo de 1 línea sin ambigüedad:\n{user_query}",
+                config=types.GenerateContentConfig(max_output_tokens=256),
+            )
+            if res.text:
+                digested_prompt = res.text.strip()
+        except Exception:
+            pass
 
-    return model, level, decision.digested_prompt
+    return chosen_model, chosen_level, digested_prompt
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("query", nargs="*", help="Petición o tarea a evaluar")
+    parser.add_argument(
+        "--host",
+        default="antigravity_ui",
+        choices=["antigravity_ui", "claude_code", "codex_cli", "gemini_cli", "local_loopback", "generic"],
+        help="Superficie objetivo (por defecto: antigravity_ui)",
+    )
+    parser.add_argument("--active-model", default="Orchestrator (Argon)", help="Modelo activo observado")
+    parser.add_argument("--active-mode", default="Orchestrator", help="Modo/esfuerzo activo observado")
+    parser.add_argument("--context-tokens", type=int, default=0, help="Tokens acumulados en la sesión")
+    parser.add_argument("--llm-digest", action="store_true", help="Opcional: sintetizar prompt vía Gemini Flash API")
+    parser.add_argument("--json", action="store_true", help="Emitir veredicto completo como JSON puro")
+    args = parser.parse_args()
+
+    query = " ".join(args.query).strip() if args.query else "Revisa por qué falla el tipado en auth.py"
+
+    if args.json:
+        verdict = evaluate_universal_route(
+            args.active_model,
+            args.active_mode,
+            query,
+            source="CLI",
+            host=args.host,
+            context_tokens=args.context_tokens,
+        )
+        print(json.dumps(asdict(verdict), ensure_ascii=False, indent=2))
+        return 0
+
+    model, level, prompt = digest_and_route(
+        query,
+        host=args.host,
+        active_model=args.active_model,
+        active_mode=args.active_mode,
+        context_tokens=args.context_tokens,
+        llm_digest=args.llm_digest,
+    )
+    print(f"🔄 [ROTAR A: {model} | NIVEL: {level}]")
+    print(f"Pre-Flight Prompt:\n{prompt}")
+    return 0
+
 
 if __name__ == "__main__":
-    import sys
-    query = " ".join(sys.argv[1:]) if len(sys.argv) > 1 else "Revisa por qué falla el tipado en auth.py"
-    print(f"[c5_model_router] Digeriendo consulta: {query}")
-    try:
-        m, l, p = digest_and_route(query)
-        print(f"🔄 [ROTAR A: {m} | NIVEL: {l}]")
-        print(f"Pre-Flight Prompt:\n{p}")
-    except Exception as e:
-        print(f"Error en triaje: {e}")
+    sys.exit(main())
