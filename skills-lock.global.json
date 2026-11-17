@@ -1,0 +1,580 @@
+{
+  "schema_version": "3.2.0",
+  "lock_scope": "global",
+  "catalog_sha256": "af53ff614d1cdd56f993759669b97b1ad19646343d84da4f839b1242c61750b2",
+  "snapshot_root_sha256": "6e419874ca2d622c67c446ca034dfb15089708dacfdfd9b9c595a065403f2911",
+  "total_skills": 15,
+  "skills": {
+    "anergy-purge-protocol": {
+      "skill_id": "anergy-purge-protocol",
+      "canonical_alias": "swarm-anergy-purge",
+      "version": "1.0.0",
+      "artifact_sha256": "8028d25a466fdd03997915c19f1a27ed5433a740e47c8642c08cb58df253bf8b",
+      "artifact_provenance": "global_disk",
+      "tool_identity_hash": "a682f6d3b40cd1613843abcdc10f91823d441b352c611ab2d87340aa5f5a017c",
+      "lockfile_ref": "skills-lock.json#anergy-purge-protocol@1.0.0",
+      "domain": "governance",
+      "summary": "Purga de código muerto, artefactos efímeros, ghost listeners, saturación APFS y prompt bloat.",
+      "tags": [
+        "anergy-purge-protocol",
+        "dead code",
+        "disco lleno",
+        "ghost listeners",
+        "limpiar conversaciones",
+        "prompt bloat",
+        "purga de anergía",
+        "purga de entropía",
+        "scandisk",
+        "swarm-anergy-purge"
+      ],
+      "effect_profile": {
+        "class": "DESTRUCTIVE",
+        "reversibility": "IRREVERSIBLE",
+        "requires_action_lease": true,
+        "network_egress": "NONE",
+        "validated": true
+      },
+      "guard_invariants": {
+        "preconditions": [
+          "target_path WITHIN project.allowed_roots",
+          "sha256(file(target_path)) == args.expected_pre_hash"
+        ],
+        "postconditions": [
+          "result.status == 'OK'",
+          "sha256(file(target_path)) == result.observed_post_hash",
+          "result.observed_post_hash != args.expected_pre_hash"
+        ]
+      }
+    },
+    "babylon-shield": {
+      "skill_id": "babylon-shield",
+      "canonical_alias": "kernel-babylon-shield",
+      "version": "1.0.0",
+      "artifact_sha256": "e16333f243959d052b8a6279eff564dc91ea4b1f337fb61dd8f49562293937ea",
+      "artifact_provenance": "global_disk",
+      "tool_identity_hash": "8d79ff1b4416473ce1b708aff667716c7ae6192695e439faa4dbeec821fd568e",
+      "lockfile_ref": "skills-lock.json#babylon-shield@1.0.0",
+      "domain": "specialized",
+      "summary": "Escudo Termodinámico Ring-0 (Caballo de Troya). Inyecta las Invariantes C5-REAL, previene bucles de anergía y fuerza la atestación de estado antes de cualquier mutación del código.",
+      "tags": [
+        "atestación babylon",
+        "babylon shield",
+        "babylon-shield",
+        "escudo termodinámico",
+        "invariantes ring-0",
+        "kernel-babylon-shield",
+        "prevenir anergía",
+        "protección ring-0",
+        "ring-0 shield"
+      ],
+      "effect_profile": {
+        "class": "READ_LOCAL",
+        "reversibility": "REVERSIBLE",
+        "requires_action_lease": false,
+        "network_egress": "NONE",
+        "validated": true
+      },
+      "guard_invariants": {
+        "preconditions": [
+          "target_path WITHIN project.allowed_roots"
+        ],
+        "postconditions": [
+          "result.status == 'OK'",
+          "sha256(file(target_path)) == args.expected_pre_hash"
+        ]
+      }
+    },
+    "c5-autonomous-agent-primitives": {
+      "skill_id": "c5-autonomous-agent-primitives",
+      "canonical_alias": "swarm-agent-primitives",
+      "version": "1.0.0",
+      "artifact_sha256": "e134a23bce632ae4cf720b13d103b86a7a9bb30778f0f6573a3a650f9d3473be",
+      "artifact_provenance": "global_disk",
+      "tool_identity_hash": "6f8a61087b5651729d46919352fe336f9579ded6e5516ad4a60ce80a8fb0d60e",
+      "lockfile_ref": "skills-lock.json#c5-autonomous-agent-primitives@1.0.0",
+      "domain": "meta-kernel",
+      "summary": "Catálogo y matriz de las 47 primitivas de agente autónomo colapsadas en los 4 macro-transductores C5-REAL.",
+      "tags": [
+        "47 primitivas",
+        "47 skills",
+        "asimilación de skills",
+        "c5-autonomous-agent-primitives",
+        "catálogo de skills",
+        "macro-transductores",
+        "playbooks de agente",
+        "primitivas de agente",
+        "swarm-agent-primitives"
+      ],
+      "effect_profile": {
+        "class": "PURE",
+        "reversibility": "REVERSIBLE",
+        "requires_action_lease": false,
+        "network_egress": "NONE",
+        "validated": true
+      },
+      "guard_invariants": {
+        "preconditions": [
+          "target_path WITHIN project.allowed_roots"
+        ],
+        "postconditions": [
+          "result.status == 'OK'",
+          "sha256(file(target_path)) == args.expected_pre_hash"
+        ]
+      }
+    },
+    "c5-cortex-swarm-orchestrator": {
+      "skill_id": "c5-cortex-swarm-orchestrator",
+      "canonical_alias": "swarm-router-hub",
+      "version": "1.0.0",
+      "artifact_sha256": "aa633787078660df869f1e1ed55a08bceef41936f38b21eaac865eeccf272e01",
+      "artifact_provenance": "global_disk",
+      "tool_identity_hash": "e1d7925cd53900f8a8d1b6623e22b5ccfa14b6a5ae69dec43f007e6baee4a222",
+      "lockfile_ref": "skills-lock.json#c5-cortex-swarm-orchestrator@1.0.0",
+      "domain": "governance",
+      "summary": "Enruta enjambres, ciclo de vida de agentes, proveedores, telemetría, auditoría y composición de skills, planificación y handoff. Dispara con \"cortex swarm hub\", \"swarm hub\", \"enjambre\", \"sharur\", \"skill chain\", \"telemetría\", \"plan omega\".",
+      "tags": [
+        "c5-cortex-swarm-orchestrator",
+        "cortex swarm hub",
+        "enjambre",
+        "plan omega",
+        "sharur",
+        "skill chain",
+        "swarm hub",
+        "swarm-router-hub",
+        "telemetría"
+      ],
+      "effect_profile": {
+        "class": "PURE",
+        "reversibility": "REVERSIBLE",
+        "requires_action_lease": false,
+        "network_egress": "NONE",
+        "validated": true
+      },
+      "guard_invariants": {
+        "preconditions": [
+          "target_path WITHIN project.allowed_roots"
+        ],
+        "postconditions": [
+          "result.status == 'OK'",
+          "sha256(file(target_path)) == args.expected_pre_hash"
+        ]
+      }
+    },
+    "c5-debloat-agent-kernel": {
+      "skill_id": "c5-debloat-agent-kernel",
+      "canonical_alias": "swarm-baremetal-agent",
+      "version": "1.0.0",
+      "artifact_sha256": "1d2b76dae0f91c5552509ae6afa65f4c78be57ae78263c713397cf248947514b",
+      "artifact_provenance": "global_disk",
+      "tool_identity_hash": "601ea129b39b658f4fa805a2dc9389cd972b5f193eb4d2f5fd3feaef6e92f327",
+      "lockfile_ref": "skills-lock.json#c5-debloat-agent-kernel@1.0.0",
+      "domain": "nucleus",
+      "summary": "Diseño y migración a micro-kernels de agentes en un archivo con stdlib pura y SQLite WAL sin LangChain.",
+      "tags": [
+        "agente zero dependency",
+        "autopsia langchain",
+        "bare-metal agent",
+        "c5-debloat-agent-kernel",
+        "debloat llm",
+        "microkernel agentes",
+        "reemplazar langchain",
+        "swarm-baremetal-agent"
+      ],
+      "effect_profile": {
+        "class": "PURE",
+        "reversibility": "REVERSIBLE",
+        "requires_action_lease": false,
+        "network_egress": "NONE",
+        "validated": true
+      },
+      "guard_invariants": {
+        "preconditions": [
+          "target_path WITHIN project.allowed_roots"
+        ],
+        "postconditions": [
+          "result.status == 'OK'",
+          "sha256(file(target_path)) == args.expected_pre_hash"
+        ]
+      }
+    },
+    "c5-epistemic-thermodynamics": {
+      "skill_id": "c5-epistemic-thermodynamics",
+      "canonical_alias": "epistemic-router",
+      "version": "1.0.0",
+      "artifact_sha256": "b43541b2bd8837340c7a68fe0d60ef686e38ae0d298837cc8f0b7397f2af9e75",
+      "artifact_provenance": "global_disk",
+      "tool_identity_hash": "d5e74cb2f55b1b8edeab8abefd0133ce5aa1bf610e858f23c11ce88be839c7da",
+      "lockfile_ref": "skills-lock.json#c5-epistemic-thermodynamics@1.0.0",
+      "domain": "nucleus",
+      "summary": "Enruta axiomas, léxico, termodinámica de información, modelos cognitivos, síntesis y falsación de afirmaciones. Dispara con \"epistemic hub\", \"termodinámica epistémica\", \"axiomas\", \"anagnórisis\", \"falsación\", \"investigación profunda\", \"peer review\".",
+      "tags": [
+        "anagnórisis",
+        "axiomas",
+        "c5-epistemic-thermodynamics",
+        "epistemic hub",
+        "epistemic-router",
+        "falsación",
+        "investigación profunda",
+        "peer review",
+        "termodinámica epistémica"
+      ],
+      "effect_profile": {
+        "class": "PURE",
+        "reversibility": "REVERSIBLE",
+        "requires_action_lease": false,
+        "network_egress": "NONE",
+        "validated": true
+      },
+      "guard_invariants": {
+        "preconditions": [
+          "target_path WITHIN project.allowed_roots"
+        ],
+        "postconditions": [
+          "result.status == 'OK'",
+          "sha256(file(target_path)) == args.expected_pre_hash"
+        ]
+      }
+    },
+    "c5-larsa-120": {
+      "skill_id": "c5-larsa-120",
+      "canonical_alias": "kernel-bft-consensus",
+      "version": "1.0.0",
+      "artifact_sha256": "b04f4dd492e7a2898cb8c7ef39af456f8a9ce8ec1af2b632d86e706f47cc38f1",
+      "artifact_provenance": "global_disk",
+      "tool_identity_hash": "37558bd502210f7c14b9456e73a3b412835c6e055b7e1b6cca240c42283deaad",
+      "lockfile_ref": "skills-lock.json#c5-larsa-120@1.0.0",
+      "domain": "kernel",
+      "summary": "Orquestador de Consenso BFT Isostático de la Tríada Arquitectónica (LARSA-120).",
+      "tags": [
+        "c5-larsa-120",
+        "consenso bft",
+        "consenso isostático",
+        "kernel-bft-consensus",
+        "larsa",
+        "larsa-120",
+        "tríada arquitectónica"
+      ],
+      "effect_profile": {
+        "class": "READ_LOCAL",
+        "reversibility": "REVERSIBLE",
+        "requires_action_lease": false,
+        "network_egress": "NONE",
+        "validated": true
+      },
+      "guard_invariants": {
+        "preconditions": [
+          "target_path WITHIN project.allowed_roots"
+        ],
+        "postconditions": [
+          "result.status == 'OK'",
+          "sha256(file(target_path)) == args.expected_pre_hash"
+        ]
+      }
+    },
+    "c5-lexicon-enforcer": {
+      "skill_id": "c5-lexicon-enforcer",
+      "canonical_alias": "epistemic-lexicon-enforcer",
+      "version": "1.0.0",
+      "artifact_sha256": "4d19a68e8384c888e0ccb57436cddf3a107137f5030e2958e87f8a30f39f2471",
+      "artifact_provenance": "global_disk",
+      "tool_identity_hash": "9a9ba3577363485da27bf703513f28a476f2ba40e4971029b83a1c26deb52175",
+      "lockfile_ref": "skills-lock.json#c5-lexicon-enforcer@1.0.0",
+      "domain": "nucleus",
+      "summary": "Oráculo epistemológico C5-REAL y Linter del Aforismo 5 (purga de cheap talk voluntario hacia señales involuntarias).",
+      "tags": [
+        "analiza esto con el aforismo 5",
+        "auditar cheap talk",
+        "auditoría epistemológica",
+        "c5-lexicon-enforcer",
+        "epistemic-lexicon-enforcer",
+        "forzar léxico c5",
+        "lexicon enforcer",
+        "purga anergía semántica"
+      ],
+      "effect_profile": {
+        "class": "READ_LOCAL",
+        "reversibility": "REVERSIBLE",
+        "requires_action_lease": false,
+        "network_egress": "NONE",
+        "validated": true
+      },
+      "guard_invariants": {
+        "preconditions": [
+          "target_path WITHIN project.allowed_roots"
+        ],
+        "postconditions": [
+          "result.status == 'OK'",
+          "sha256(file(target_path)) == args.expected_pre_hash"
+        ]
+      }
+    },
+    "c5-plan-omega": {
+      "skill_id": "c5-plan-omega",
+      "canonical_alias": "swarm-dag-planner",
+      "version": "1.0.0",
+      "artifact_sha256": "b99f88dd1734b72892648e7273ff8e7e28fd7f0575d0e7a13c17bfecb2e0c83a",
+      "artifact_provenance": "global_disk",
+      "tool_identity_hash": "99e5b5ae957c7be74a1bea62f6373ffa47fe297976d71e066b692cb89266cfc7",
+      "lockfile_ref": "skills-lock.json#c5-plan-omega@1.0.0",
+      "domain": "nucleus",
+      "summary": "Motor de planificación determinista en DAG (Protocolo PLAN-Ω). Sustituye checklists planas por matrices topológicas de 4 niveles, sondeo pre-flight en 60s, puertas Two-Way/One-Way con rollback y micro-gates Fail-Stop.",
+      "tags": [
+        "/plan-omega",
+        "c5 plan",
+        "c5-plan-omega",
+        "mejorar plan",
+        "plan causal",
+        "plan omega",
+        "protocolo plan omega",
+        "swarm-dag-planner"
+      ],
+      "effect_profile": {
+        "class": "PURE",
+        "reversibility": "REVERSIBLE",
+        "requires_action_lease": false,
+        "network_egress": "NONE",
+        "validated": true
+      },
+      "guard_invariants": {
+        "preconditions": [
+          "target_path WITHIN project.allowed_roots"
+        ],
+        "postconditions": [
+          "result.status == 'OK'",
+          "sha256(file(target_path)) == args.expected_pre_hash"
+        ]
+      }
+    },
+    "c5-ring0-babylon-kernel": {
+      "skill_id": "c5-ring0-babylon-kernel",
+      "canonical_alias": "kernel-router",
+      "version": "1.0.0",
+      "artifact_sha256": "e81c63ea3d7f6be8d4b8b0d2ba7c774fae7832d0658bbd7e67aed7b618ae606a",
+      "artifact_provenance": "global_disk",
+      "tool_identity_hash": "0261e53b029290af63ab9758e5020a779ea693833b1ed16916c2f6c2a78b75d8",
+      "lockfile_ref": "skills-lock.json#c5-ring0-babylon-kernel@1.0.0",
+      "domain": "kernel",
+      "summary": "Enruta auditorías y trabajo de kernel, Lean 4/Z3, BFT, Seqlock, silicio, inferencia local y atestación; carga solo el módulo relevante. Dispara con \"ring0 hub\", \"kernel hub\", \"lean 4\", \"larsa\", \"kudurru\", \"eridu\", \"laya\".",
+      "tags": [
+        "c5-ring0-babylon-kernel",
+        "eridu",
+        "kernel hub",
+        "kernel-router",
+        "kudurru",
+        "larsa",
+        "laya",
+        "lean 4",
+        "ring0 hub"
+      ],
+      "effect_profile": {
+        "class": "PURE",
+        "reversibility": "REVERSIBLE",
+        "requires_action_lease": false,
+        "network_egress": "NONE",
+        "validated": true
+      },
+      "guard_invariants": {
+        "preconditions": [
+          "target_path WITHIN project.allowed_roots"
+        ],
+        "postconditions": [
+          "result.status == 'OK'",
+          "sha256(file(target_path)) == args.expected_pre_hash"
+        ]
+      }
+    },
+    "c5-terminological-archaeology": {
+      "skill_id": "c5-terminological-archaeology",
+      "canonical_alias": "terminology-archaeologist",
+      "version": "1.0.0",
+      "artifact_sha256": "c590f6478c043ee3d21e860ef625b723fc1a56d30cf02f8d6d00d5ba20b76a26",
+      "artifact_provenance": "global_disk",
+      "tool_identity_hash": "8a52dc7ba3cd558fd7eeba127a4b355e5d07a83c8dd2c98c229b6ccb4f214dec",
+      "lockfile_ref": "skills-lock.json#c5-terminological-archaeology@1.0.0",
+      "domain": "nucleus",
+      "summary": "Cruza perífrasis con literatura primaria y registra términos canónicos en el léxico C5.",
+      "tags": [
+        "anagnórisis",
+        "arqueología terminológica",
+        "busca mis perífrasis",
+        "c5-terminological-archaeology",
+        "cómo se llama cuando",
+        "cómo se llama esto en ciencia",
+        "terminology-archaeologist",
+        "tiene nombre esto",
+        "ya existe ese término"
+      ],
+      "effect_profile": {
+        "class": "READ_LOCAL",
+        "reversibility": "REVERSIBLE",
+        "requires_action_lease": false,
+        "network_egress": "NONE",
+        "validated": true
+      },
+      "guard_invariants": {
+        "preconditions": [
+          "target_path WITHIN project.allowed_roots"
+        ],
+        "postconditions": [
+          "result.status == 'OK'",
+          "sha256(file(target_path)) == args.expected_pre_hash"
+        ]
+      }
+    },
+    "c5-tri-provider-swarm": {
+      "skill_id": "c5-tri-provider-swarm",
+      "canonical_alias": "swarm-tri-provider",
+      "version": "1.0.0",
+      "artifact_sha256": "ad1a74eb2a090b3727a8ba40a3a1f1b46d75739cd52bdff4bd1b127b93f20df4",
+      "artifact_provenance": "global_disk",
+      "tool_identity_hash": "59e43a9fbbcb6d10ef693fd18a0ed92f8604a799822edc178272e91a7fae27ac",
+      "lockfile_ref": "skills-lock.json#c5-tri-provider-swarm@1.0.0",
+      "domain": "governance",
+      "summary": "Orquestación desacoplada de enjambres multi-agente combinando OpenAI (Planner N0, Structured Outputs), Qwen (Workers de Código N1 en vLLM local sin 429) y un modelo local de contexto largo (Arqueología N2 en vLLM/MLX) bajo semáforos de Landauer.",
+      "tags": [
+        "c5-tri-provider-swarm",
+        "enjambre híbrido",
+        "orquestador tres modelos",
+        "swarm-tri-provider",
+        "tri provider swarm",
+        "tri-provider swarm"
+      ],
+      "effect_profile": {
+        "class": "STATE_MUTATION",
+        "reversibility": "COMPENSATABLE",
+        "requires_action_lease": true,
+        "network_egress": "NONE",
+        "validated": true
+      },
+      "guard_invariants": {
+        "preconditions": [
+          "target_path WITHIN project.allowed_roots",
+          "sha256(file(target_path)) == args.expected_pre_hash"
+        ],
+        "postconditions": [
+          "result.status == 'OK'",
+          "sha256(file(target_path)) == result.observed_post_hash",
+          "result.observed_post_hash != args.expected_pre_hash"
+        ]
+      }
+    },
+    "categorical-hallucination-audit": {
+      "skill_id": "categorical-hallucination-audit",
+      "canonical_alias": "epistemic-hallucination-audit",
+      "version": "1.0.0",
+      "artifact_sha256": "fec477553569997a961a1c914bc9af21740e457b88682fccae5c813389555de5",
+      "artifact_provenance": "global_disk",
+      "tool_identity_hash": "4983d9ef590f9bac144cdef68dac86049dd4f91de6828f9f5d52b8274d88ef8b",
+      "lockfile_ref": "skills-lock.json#categorical-hallucination-audit@1.0.0",
+      "domain": "nucleus",
+      "summary": "Formalización en Categorías de Markov, desintegración bayesiana y cota cuantitativa de alucinación en Kl(D).",
+      "tags": [
+        "alucinación categórica",
+        "categorical-hallucination-audit",
+        "cota de confabulación",
+        "cota de lipschitz",
+        "desintegración bayesiana",
+        "epistemic-hallucination-audit",
+        "kl(d) audit",
+        "mean shift 1d",
+        "myhill-nerode estocástico"
+      ],
+      "effect_profile": {
+        "class": "READ_LOCAL",
+        "reversibility": "REVERSIBLE",
+        "requires_action_lease": false,
+        "network_egress": "NONE",
+        "validated": true
+      },
+      "guard_invariants": {
+        "preconditions": [
+          "target_path WITHIN project.allowed_roots"
+        ],
+        "postconditions": [
+          "result.status == 'OK'",
+          "sha256(file(target_path)) == args.expected_pre_hash"
+        ]
+      }
+    },
+    "cortex-skill-auditor": {
+      "skill_id": "cortex-skill-auditor",
+      "canonical_alias": "swarm-skill-auditor",
+      "version": "1.0.0",
+      "artifact_sha256": "5335d94c3f413272a662f37c11769ca3cbcf7199a4804cddc6db193d7d730d33",
+      "artifact_provenance": "global_disk",
+      "tool_identity_hash": "31204df1c130c5cc14827b9997d75a0f287dbee91163589db786704cef753d88",
+      "lockfile_ref": "skills-lock.json#cortex-skill-auditor@1.0.0",
+      "domain": "meta-kernel",
+      "summary": "Audita estructura, rutas, enlaces y coherencia de instrucciones cuando se pide revisar una biblioteca de skills; conserva comprobaciones independientes y explicita su cobertura.",
+      "tags": [
+        "auditar skills",
+        "auditoría de habilidades",
+        "cortex skill auditor",
+        "cortex-skill-auditor",
+        "exergía skills",
+        "matriz de colisión",
+        "salud de skills",
+        "solapamiento de triggers",
+        "swarm-skill-auditor"
+      ],
+      "effect_profile": {
+        "class": "READ_LOCAL",
+        "reversibility": "REVERSIBLE",
+        "requires_action_lease": false,
+        "network_egress": "NONE",
+        "validated": true
+      },
+      "guard_invariants": {
+        "preconditions": [
+          "target_path WITHIN project.allowed_roots"
+        ],
+        "postconditions": [
+          "result.status == 'OK'",
+          "sha256(file(target_path)) == args.expected_pre_hash"
+        ]
+      }
+    },
+    "existence-gap-audit": {
+      "skill_id": "existence-gap-audit",
+      "canonical_alias": "secops-existence-audit",
+      "version": "1.0.0",
+      "artifact_sha256": "5f7cd0678d05ee4925865c672fdc7b39fa32200a8b3afa76ea949adcbaf2ed88",
+      "artifact_provenance": "global_disk",
+      "tool_identity_hash": "9dc8e1e8a445f4d5ae05df3e1b0a05692f97f7d3213f2c44be65e34e797fcd60",
+      "lockfile_ref": "skills-lock.json#existence-gap-audit@1.0.0",
+      "domain": "nucleus",
+      "summary": "Detecta imports y referencias fantasma en repositorios. Dispara con \"auditoría\", \"audit\", \"revisa este repo\", \"código alucinado\", \"dependencias fantasma\", \"slopsquatting\", \"vibe coding\", \"supply chain\", \"¿esto se ejecuta?\", \"imports rotos\", \"auditar workflows\".",
+      "tags": [
+        "audit",
+        "auditar workflows",
+        "auditoría",
+        "código alucinado",
+        "dependencias fantasma",
+        "existence-gap-audit",
+        "imports rotos",
+        "revisa este repo",
+        "secops-existence-audit",
+        "slopsquatting",
+        "supply chain",
+        "vibe coding",
+        "¿esto se ejecuta?"
+      ],
+      "effect_profile": {
+        "class": "READ_LOCAL",
+        "reversibility": "REVERSIBLE",
+        "requires_action_lease": false,
+        "network_egress": "NONE",
+        "validated": true
+      },
+      "guard_invariants": {
+        "preconditions": [
+          "target_path WITHIN project.allowed_roots"
+        ],
+        "postconditions": [
+          "result.status == 'OK'",
+          "sha256(file(target_path)) == args.expected_pre_hash"
+        ]
+      }
+    }
+  }
+}
