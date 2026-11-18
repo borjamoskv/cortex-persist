@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "currency": "EUR",
+  "budget_per_hour": 50,
+  "min_success_rate": 0.95,
+  "max_p95_ms": 10000,
+  "max_critical_failure_rate": 0
+}

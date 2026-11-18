@@ -27,6 +27,25 @@ jobs:
       - name: Run CI regression tests
         run: python3 -B -m unittest discover -s .github/tests -p 'test_*.py' -v
 
+      - name: Analyze synthetic scalability fixtures
+        run: >-
+          python3 -B scripts/analyze_scalability.py
+          --input .github/tests/fixtures/scalability/synthetic.jsonl
+          --policy .github/tests/fixtures/scalability/policy.json
+
+      - name: Publish synthetic scalability report
+        run: |
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+
+          report = Path("logs/scalability/report.md").read_text(encoding="utf-8")
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as summary:
+              summary.write("## Synthetic demonstration\n\n")
+              summary.write("These fixtures test the analyzer; they are not production measurements.\n\n")
+              summary.write(report)
+          PY
+
       - name: Validate JSON configs
         run: |
           python3 - <<'PY'
