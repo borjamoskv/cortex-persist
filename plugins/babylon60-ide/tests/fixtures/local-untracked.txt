@@ -1,0 +1,1 @@
+This input is deliberately copied from the working tree, without consulting HEAD.

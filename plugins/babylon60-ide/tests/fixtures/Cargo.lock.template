@@ -1,0 +1,6 @@
+# Copy to Cargo.lock only inside the private disposable fixture directory.
+version = 4
+
+[[package]]
+name = "nemesis-fixture"
+version = "0.0.0"

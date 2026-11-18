@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "nemesis": {
+      "command": "python3",
+      "args": ["-I", "${PLUGIN_ROOT}/scripts/nemesis/stdio.py"]
+    }
+  }
+}
