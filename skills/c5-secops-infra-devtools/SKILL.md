@@ -42,6 +42,7 @@ Los recursos de cada módulo se resuelven desde su carpeta preservada.
 
 | Procedimiento | Intención contextual |
 | --- | --- |
+| [c5-bounty-specialist](references/modules/c5-bounty-specialist/MODULE.md) | Auditoría adversarial de bug bounties Web3/híbridos, triaje Primacy of Rules (Immunefi/GHSA), atestación REA 6.8 y PoCs Foundry/Rust sin mocks. |
 | [c5-browser-forensics-and-extension-triage](references/modules/c5-browser-forensics-and-extension-triage/MODULE.md) | Auditoría forense de navegadores, triaje de content_scripts, desinfección Chromium y navegador por defecto macOS. |
 | [c5-html-report-injection-audit](references/modules/c5-html-report-injection-audit/MODULE.md) | Verifica el escape HTML de datos del ledger en exportadores Jinja2 y string.Template. |
 | [c5-socint-extraction-suite](references/modules/c5-socint-extraction-suite/MODULE.md) | Suite SOCINT omnivectorial en 11 plataformas (X, Substack, Reddit, YouTube, HN, Bluesky, Telegram, GitHub, Mastodon, Polymarket, Wikipedia) con detección de astroturfing y bóveda SQLite. |

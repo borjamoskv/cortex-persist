@@ -1787,6 +1787,44 @@
           "sintetizar"
         ]
       }
+    },
+    {
+      "name": "c5-bounty-specialist",
+      "aliases": [
+        "/c5-bounty-specialist",
+        "c5-bounty-specialist",
+        "especialista en bounties",
+        "bug bounty",
+        "immunefi",
+        "triaje de bounty",
+        "elegibilidad immunefi",
+        "ghsa privado"
+      ],
+      "module": "references/modules/c5-bounty-specialist/MODULE.md",
+      "intent": {
+        "actions": [
+          "audita",
+          "auditar",
+          "revisa",
+          "revisar",
+          "verifica",
+          "verificar",
+          "evalua",
+          "evaluar",
+          "clasifica",
+          "clasificar",
+          "prepara",
+          "preparar"
+        ],
+        "topics": [
+          "bug bounty",
+          "bounties",
+          "immunefi",
+          "ghsa",
+          "primacy of rules",
+          "elegibilidad bounty"
+        ]
+      }
     }
   ]
 }
