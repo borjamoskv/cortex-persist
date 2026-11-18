@@ -51,5 +51,7 @@ Siempre que el agente proponga bifurcaciones, opciones de ejecución o vectores 
    - *Exergía Proyectada ($\hat{\Phi}$):* Estimación cuantitativa normalizada (escala 0–21.000 / $\eta\%$).
    - *Veredicto de Prioridad:* Clasificación binaria o escalonada (ej. `P0 Óptimo`, `P1 Secundario`, `Anergia / Drop`).
 3. **Proyección Obligatoria del Siguiente Prompt en Sombreado (Shaded Next-Prompt Gate):**
-   - Al cierre de **toda respuesta**, el agente DEBE proyectar siempre el **Siguiente Prompt Óptimo (`P0`)** —redactado en primera persona / modo imperativo directo para el siguiente turno— dentro de un **bloque sombreado** (bloque cercado ```` ```text ```` con copia en 1-click y/o bloque `> ` sombreado), eliminando toda fricción de tecleo del Operador.
+   - Al cierre de **toda respuesta**, el agente DEBE proyectar siempre el **Siguiente Prompt Óptimo (`P0`)** —redactado en primera persona / modo imperativo directo del Operador hacia el Agente— dentro de un **bloque sombreado** (bloque cercado ```` ```text ```` con copia en 1-click y/o bloque `> ` sombreado), eliminando toda fricción de tecleo.
+   - **Veto a Meta-Preguntas y Auto-Bucles en `P0`:** El contenido del bloque `P0` debe ser ejecutable de forma unívoca en 1-click; queda prohibido redactarlo como pregunta de vuelta al Operador o condicional abierto (*"confirma si..."*, *"verifica en tu terminal..."*).
+   - **Isomorfismo de Alcance con Etiquetas:** Si `P0` referencia un vector o lote de la tabla (ej. `V1`, `V-A`), la enumeración de rutas u operaciones en `P0` debe coincidir 1:1 con dicha fila sin recortes ni añadidos implícitos.
 

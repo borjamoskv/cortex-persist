@@ -118,13 +118,33 @@ def _entry_kind(mode: int) -> str:
 
 
 def _dir_tree_bytes(root: Path) -> int:
+    try:
+        root_dev = os.lstat(root).st_dev
+    except OSError:
+        return 0
     total = 0
+    seen_inos: set[int] = set()
     for cur_root, dirs, files in os.walk(root, followlinks=False):
-        dirs[:] = [d for d in dirs if not (Path(cur_root) / d).is_symlink()]
+        kept_dirs: list[str] = []
+        for dname in dirs:
+            dp = Path(cur_root) / dname
+            try:
+                dst = os.lstat(dp)
+            except OSError:
+                continue
+            if stat.S_ISLNK(dst.st_mode) or dst.st_dev != root_dev:
+                continue
+            kept_dirs.append(dname)
+        dirs[:] = kept_dirs
         for fname in files:
             fpath = Path(cur_root) / fname
             try:
                 st = os.lstat(fpath)
+                if st.st_dev != root_dev:
+                    continue
+                if st.st_ino in seen_inos:
+                    continue
+                seen_inos.add(st.st_ino)
                 total += st.st_size
             except OSError:
                 continue
@@ -209,11 +229,64 @@ def _pid_is_alive(pid: int) -> bool | None:
         return None
 
 
-def probe_open_pids(target: Path, recursive: bool = False) -> list[int] | str:
+def _read_lsof_table(lsof_bin: str) -> list[tuple[int, str]] | str:
+    proc = subprocess.run([lsof_bin, "-F", "pn"], capture_output=True, text=True, check=False)
+    if proc.returncode not in (0, 1):
+        return "NO_VERIFICADO"
+    if not proc.stdout.strip() and proc.stderr.strip():
+        return "NO_VERIFICADO"
+    entries: list[tuple[int, str]] = []
+    cur_pid: int | None = None
+    for line in proc.stdout.splitlines():
+        if line.startswith("p"):
+            pid_txt = line[1:].strip()
+            cur_pid = int(pid_txt) if pid_txt.isdigit() else None
+        elif line.startswith("n") and cur_pid is not None:
+            entries.append((cur_pid, line[1:]))
+    return entries
+
+
+def _match_open_pids_from_table(
+    target: Path, lsof_bin: str, open_table: list[tuple[int, str]] | str | None = None
+) -> list[int] | str:
+    table = open_table if open_table is not None else _read_lsof_table(lsof_bin)
+    if isinstance(table, str):
+        return table
+    prefixes: list[tuple[str, str]] = []
+    for raw in (str(target.absolute()), os.path.realpath(target)):
+        norm = raw.rstrip("/") or "/"
+        pref = "/" if norm == "/" else norm + "/"
+        if (norm, pref) not in prefixes:
+            prefixes.append((norm, pref))
+
+    matched_pids: set[int] = set()
+    for pid, oname in table:
+        for exact, pref in prefixes:
+            if oname == exact or oname.startswith(pref):
+                matched_pids.add(pid)
+                break
+
+    live_pids: list[int] = []
+    for pid in sorted(matched_pids):
+        alive = _pid_is_alive(pid)
+        if alive is None:
+            return "NO_VERIFICADO"
+        if alive:
+            live_pids.append(pid)
+    return live_pids
+
+
+def probe_open_pids(
+    target: Path,
+    recursive: bool = False,
+    open_table: list[tuple[int, str]] | str | None = None,
+) -> list[int] | str:
     lsof_bin = shutil.which("lsof")
     if lsof_bin is None:
         return "NO_VERIFICADO"
-    cmd = [lsof_bin, "-t", "+D" if recursive else "--", str(target)]
+    if recursive:
+        return _match_open_pids_from_table(target, lsof_bin, open_table=open_table)
+    cmd = [lsof_bin, "-t", "--", str(target)]
     proc = subprocess.run(cmd, capture_output=True, text=True, check=False)
     if proc.returncode not in (0, 1):
         return "NO_VERIFICADO"
@@ -249,6 +322,7 @@ def _build_item(
     eligible_default: bool,
     reason_default: str,
     check_fds: bool = False,
+    open_table: list[tuple[int, str]] | str | None = None,
 ) -> InventoryItem | None:
     try:
         st = os.lstat(path)
@@ -257,7 +331,7 @@ def _build_item(
     kind = _entry_kind(st.st_mode)
     size = _dir_tree_bytes(path) if kind == "dir" else st.st_size
     open_pids: list[int] | str = (
-        probe_open_pids(path, recursive=(kind == "dir")) if check_fds else []
+        probe_open_pids(path, recursive=(kind == "dir"), open_table=open_table) if check_fds else []
     )
     eligible = eligible_default
     reason = reason_default
@@ -351,6 +425,17 @@ def audit_anergy(workspace_path: Path) -> dict[str, object]:
     _validate_workspace_scope(ws)
     has_git, tracked, ignored = _load_git_state(ws)
 
+    lsof_bin = shutil.which("lsof")
+    cached_open_table: list[tuple[int, str]] | str | None = None
+
+    def _get_open_table() -> list[tuple[int, str]] | str:
+        nonlocal cached_open_table
+        if cached_open_table is None:
+            cached_open_table = (
+                _read_lsof_table(lsof_bin) if lsof_bin is not None else "NO_VERIFICADO"
+            )
+        return cached_open_table
+
     candidates: list[InventoryItem] = []
     exclusions: list[InventoryItem] = []
 
@@ -379,6 +464,7 @@ def audit_anergy(workspace_path: Path) -> dict[str, object]:
                     True,
                     "Caché reconstruible determinísticamente.",
                     check_fds=True,
+                    open_table=_get_open_table(),
                 )
                 if item is not None:
                     (candidates if item.eligible else exclusions).append(item)

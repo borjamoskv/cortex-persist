@@ -36,6 +36,12 @@ Este módulo opera en modo `audit-only`: inventaría y prepara una propuesta. No
 - No proponer borrar archivos WAL/SHM de SQLite de forma aislada por su nombre. Verificar propietarios, conexiones, recuperación y checkpoint mediante el procedimiento de la base afectada antes de cualquier intervención.
 - Las bases de conversaciones y sus estados no se reescriben para aparentar inactividad.
 
+### Contabilidad APFS, `lsof -F pn` y Trampas macOS
+- **Detección de descriptores por tabla de procesos (`lsof -F pn`):** En directorios medianos o grandes (y en toda revalidación pre-purga anti-TOCTOU tras pausas entre turnos), preferir un escaneo único de `lsof -F pn` emparejado por prefijo de `realpath` frente a `lsof +D`, que resulta lento en árboles densos y puede omitir mapeos `txt` de binarios en ejecución (ej. helpers Sparkle/Crashpad).
+- **Falsos positivos de espacio en APFS (`clonefile(2)` y `st_nlink > 1`):** En APFS, `clonefile(2)` crea inodos (`st_ino`) únicos cuyo `du` y `st_blocks * 512` reportan el tamaño lógico completo aun cuando compartan extensiones físicas (ej. `*.code_sign_clone`). Todo inventario debe separar `st_nlink == 1` de `st_nlink > 1` y contrastar cualquier cifra anómala con `diskutil apfs list` antes de prometer espacio físico recuperable.
+- **Confinamiento de montaje (`-x` / `st_dev`):** Toda medición (`du -x` o recorrido Python) debe mantenerse en el `st_dev` del directorio raíz para no contabilizar DMGs o volúmenes montados dentro del subárbol (ej. `disk7s1`/`disk9s1` dentro de tiendas de evidencia).
+- **Spotlight UTI en macOS:** Prohibido clasificar vídeos mediante `mdfind 'kMDItemContentTypeTree == "public.movie"'` sin excluir fuentes TypeScript (`.ts`, `.d.ts`), ya que macOS asigna `.ts` a MPEG Transport Stream.
+
 ### Autorización de una intervención
 Presentar el inventario concreto y esperar autorización explícita para las rutas y operaciones indicadas. Si ya existe autorización humana vigente que cubre exactamente el inventario y la operación, documentarla sin pedirla de nuevo. Cambios de alcance requieren nueva autorización.
 
