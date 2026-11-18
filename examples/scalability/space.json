@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "campaign_id": "synthetic-demo-v1",
+  "budget": {"currency": "EUR", "total_cost": 2, "max_runs": 18},
+  "control_every": 5,
+  "reprobe_after": 3,
+  "drift_tolerance": 0.5,
+  "sequential_alpha": 0.01,
+  "candidates": [
+    {
+      "candidate_id": "demo-n1", "workload_id": "synthetic-demo-v1",
+      "evaluator_id": "fixture-only-v1", "config_id": "simulated-v1",
+      "configuration": {"model": "synthetic-no-inference", "hardware": "simulated", "quotas": {}},
+      "currency": "EUR", "concurrency": 1, "expected_cost": 0.05, "max_cost": 0.1,
+      "timeout_seconds": 10, "task_count": 10
+    },
+    {
+      "candidate_id": "demo-n2", "workload_id": "synthetic-demo-v1",
+      "evaluator_id": "fixture-only-v1", "config_id": "simulated-v1",
+      "configuration": {"model": "synthetic-no-inference", "hardware": "simulated", "quotas": {}},
+      "currency": "EUR", "concurrency": 2, "expected_cost": 0.05, "max_cost": 0.1,
+      "timeout_seconds": 10, "task_count": 10
+    },
+    {
+      "candidate_id": "demo-n4", "workload_id": "synthetic-demo-v1",
+      "evaluator_id": "fixture-only-v1", "config_id": "simulated-v1",
+      "configuration": {"model": "synthetic-no-inference", "hardware": "simulated", "quotas": {}},
+      "currency": "EUR", "concurrency": 4, "expected_cost": 0.05, "max_cost": 0.1,
+      "timeout_seconds": 10, "task_count": 10
+    }
+  ]
+}

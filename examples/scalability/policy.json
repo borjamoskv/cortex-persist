@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "objective": "successes_per_hour",
+  "min_runs": 5,
+  "min_tasks": 20,
+  "confidence": 0.95,
+  "bootstrap_samples": 1000,
+  "seed": 42,
+  "relative_tolerance": 0.05,
+  "deadline_ms": 2000,
+  "constraints": {},
+  "abort_on_critical": true
+}

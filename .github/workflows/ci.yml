@@ -84,3 +84,65 @@ jobs:
           if errors:
               raise SystemExit("\n".join(errors))
           PY
+
+  scalability-tests:
+    name: Scalability tests (standard library)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+
+      - name: Test scalability without site packages
+        run: python3 -S -B -m unittest discover -s .github/tests -p 'test_scalability*.py' -v
+
+  scalability-report:
+    name: Scalability example (informational)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+
+      - name: Exercise synthetic campaign without providers
+        run: |
+          python3 -B scripts/run_scalability.py \
+            --input logs/scalability/runs.jsonl \
+            --space examples/scalability/space.json \
+            --policy examples/scalability/policy.json \
+            --runner python3 -B examples/scalability/synthetic_runner.py
+          python3 -B scripts/analyze_scalability.py \
+            --input logs/scalability/runs.jsonl \
+            --policy examples/scalability/policy.json
+          python3 -B scripts/plan_scalability.py \
+            --input logs/scalability/runs.jsonl \
+            --space examples/scalability/space.json \
+            --policy examples/scalability/policy.json
+
+      - name: Publish informational summary
+        if: always()
+        run: |
+          if [ -f logs/scalability/report.md ]; then
+            cat logs/scalability/report.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'Scalability example did not produce a report; inspect job logs.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Preserve example evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: scalability-example
+          path: |
+            logs/scalability/*.json
+            logs/scalability/*.jsonl
+            logs/scalability/*.md
+          if-no-files-found: warn
+          retention-days: 14

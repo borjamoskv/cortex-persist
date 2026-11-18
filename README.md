@@ -66,6 +66,18 @@ el destino. La aplicación de `deny` por Antigravity debe comprobarse tras
 desplegar la configuración; las pruebas de CI verifican el proceso y el comando
 configurado, no ese ejecutor.
 
+## Analizador de escalabilidad
+
+Las herramientas de [escalabilidad](docs/scalability.md) validan benchmarks JSONL,
+calculan rendimiento observado e incertidumbre, recomiendan concurrencia cuando
+hay evidencia suficiente y planifican experimentos con presupuesto explícito.
+Usan Python 3.12 y biblioteca estándar. La CI publica un ejemplo sintético
+informativo, sin llamadas a proveedores ni umbrales de rendimiento bloqueantes.
+
+```bash
+python3 scripts/analyze_scalability.py --input resultados.jsonl
+```
+
 ## Tests de CI
 
 Los casos de regresión ejecutan los controles de `.github/workflows/ci.yml`
