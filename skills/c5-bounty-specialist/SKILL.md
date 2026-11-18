@@ -25,7 +25,7 @@ Lee [el procedimiento especializado](../c5-secops-infra-devtools/references/modu
 Antes de preparar cualquier envío externo, valida el recibo con [bounty_gate.py](scripts/bounty_gate.py). Es fail-closed: lo que no está probado o está malformado se bloquea y nunca se redirige.
 
 **Recibo (`schema_version: 4`):**
-- `target`: `{"kind":"evm","chain_id","address","block"}` (fork fijado, nunca `latest`) o `{"kind":"commit","repo","sha"}` con el SHA completo.
+- `target`: `{"kind":"evm","chain_id","address","block"}` (fork fijado, nunca `latest`), `{"kind":"commit","repo","sha"}` (SHA completo 40/64 hex), o `{"kind":"web_bundle","origin","bundle_sha256"}` (`http(s)://host[:port]` sin ruta/query/userinfo + SHA-256 de 64 hex minúsculas).
 - 11 flags obligatorios: `asset_in_scope`, `impact_in_scope`, `onchain_or_commit_verified`, `silicon_poc_passes`, `uses_mocks`, `algebraic_invariant_verified`, `self_inflicted_only`, `admin_recovery_excluded_by_rules`, `public_remote_clean`, `not_known_issue_or_prior_audit`, `inference_retention_verified`. Opcionales: `is_doc_drift_only` y `patch_regression_free`.
 - `estimated_payout_usd`, `payout_probability`, `validity_probability` y `pay_to_submit_fee_usd`.
 - `rea_evidence_ids` y `evidence_map`: cada afirmación positiva cita al menos un `ev_*` registrado, y un `ev_*` solo respalda afirmaciones de un grupo (scope, target, poc, invariant, known_issues, retention).
@@ -35,7 +35,7 @@ Antes de preparar cualquier envío externo, valida el recibo con [bounty_gate.py
 
 **EV con reembolso en créditos:** `EV = p_pay·payout − (1 − p_valid)·fee`, con `p_pay ≤ p_valid`.
 
-**Evidencia verificada:** `rea` no mantiene un registro persistente de `ev_*`: devuelve Evidence JSON por comando. Guarda cada salida como archivo y genera un manifiesto `{ev_id: {path, sha256}}`. El gate recalcula el SHA-256 y bloquea si un archivo falta, está vacío, no coincide, es el mismo archivo o el mismo contenido que otro id, o es el propio recibo o manifiesto. La evidencia de `silicon_poc_passes` debe ser una ejecución de tests aprobada: `forge test --json > poc.json` (≥ 1 `Success`, 0 `Failure`) o la salida de `cargo test` (resumen libtest con ≥ 1 passed y 0 failed). Sin manifiesto, los veredictos que salen al exterior (`SUBMIT_BOUNTY`, `REDIRECT_*`) se bloquean.
+**Evidencia verificada:** `rea` no mantiene un registro persistente de `ev_*`: devuelve Evidence JSON por comando. Guarda cada salida como archivo y genera un manifiesto `{ev_id: {path, sha256}}`. El gate recalcula el SHA-256 y bloquea si un archivo falta, está vacío, no coincide, es el mismo archivo o el mismo contenido que otro id, o es el propio recibo o manifiesto. La evidencia de `silicon_poc_passes` debe ser una ejecución de tests aprobada: `forge test --json > poc.json` (≥ 1 `Success`, 0 `Failure`), resumen libtest de `cargo test` (≥ 1 passed y 0 failed) o salida de `python -m unittest` (`Ran ≥ 1 test(s) ... OK` con ≥ 1 pasado efectivo y 0 failed/errors). Sin manifiesto, los veredictos que salen al exterior (`SUBMIT_BOUNTY`, `REDIRECT_*`) se bloquean.
 
 | Veredicto | Exit | Acción |
 |---|---|---|

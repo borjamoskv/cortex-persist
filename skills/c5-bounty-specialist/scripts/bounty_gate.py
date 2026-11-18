@@ -17,7 +17,8 @@ EV con reembolso en créditos (la cuota solo se pierde si el reporte es inválid
 Recibo (schema_version 4):
   - target: {"kind": "evm", "chain_id": int, "address": "0x" + 40 hex, "block": int}
           | {"kind": "commit", "repo": str, "sha": 40|64 hex}
-    Sin objetivo fijado (fork en bloque concreto o commit exacto) no hay veredicto.
+          | {"kind": "web_bundle", "origin": "http(s)://host[:port]", "bundle_sha256": 64 hex}
+    Sin objetivo fijado (fork en bloque concreto, commit exacto o origen + hash SHA-256 de bundle) no hay veredicto.
   - Claves desconocidas o duplicadas -> BLOCKED.
   - Cada afirmación positiva de EVIDENCE_BOUND_CLAIMS cita >= 1 ev_* registrado en rea_evidence_ids.
   - Un mismo ev_* no puede respaldar afirmaciones de grupos distintos (scope, target, poc,
@@ -28,8 +29,9 @@ Manifiesto (--evidence-manifest): {"manifest_version": 1, "evidence": {"ev_x": {
   - Archivo ausente o vacío, hash distinto, dos ids sobre el mismo archivo o el mismo contenido,
     o evidencia que es el propio recibo/manifiesto -> BLOCKED.
   - La evidencia citada para silicon_poc_passes debe ser la salida de un test runner reconocido
-    y aprobada: `forge test --json` (>= 1 Success, 0 Failure) o el resumen libtest de
-    `cargo test` (>= 1 passed, 0 failed, ningún FAILED). Formato no reconocido -> BLOCKED.
+    y aprobada: `forge test --json` (>= 1 Success, 0 Failure), el resumen libtest de
+    `cargo test` (>= 1 passed, 0 failed, ningún FAILED), o la salida de `python -m unittest`
+    (`Ran N test(s) ... OK` con >= 1 pasado efectivo y 0 failed/errors). Formato no reconocido -> BLOCKED.
   - Sin manifiesto, los veredictos que salen al exterior se bloquean; DROP_* y HOLD_* se mantienen.
   Generarlo: --build-manifest out.json ev_poc=forge_out.json ev_scope=scope.json ...
 
@@ -47,6 +49,7 @@ from pathlib import Path
 import re
 import sys
 from typing import Any
+from urllib.parse import urlsplit
 
 SCHEMA_VERSION = 4
 MANIFEST_VERSION = 1
@@ -119,6 +122,29 @@ def _is_strict_int(x: Any, lo: int) -> bool:
     return isinstance(x, int) and not isinstance(x, bool) and x >= lo
 
 
+def _is_hex(x: Any, *lengths: int) -> bool:
+    return isinstance(x, str) and len(x) in lengths and set(x) <= _HEX
+
+
+def _validate_web_origin(origin: Any) -> bool:
+    if not isinstance(origin, str) or not origin or origin != origin.strip() or any(c.isspace() for c in origin):
+        return False
+    u = urlsplit(origin)
+    try:
+        _ = u.port
+    except ValueError:
+        return False
+    return (
+        u.scheme in ("http", "https")
+        and bool(u.hostname)
+        and u.username is None
+        and u.password is None
+        and not u.path
+        and not u.query
+        and not u.fragment
+    )
+
+
 def _validate_target(t: Any) -> list[str]:
     if not isinstance(t, dict):
         return ["target(object)"]
@@ -130,7 +156,7 @@ def _validate_target(t: Any) -> list[str]:
         if not _is_strict_int(t["chain_id"], 1):
             errs.append("target.chain_id(int >= 1)")
         a = t["address"]
-        if not (isinstance(a, str) and len(a) == 42 and a[:2] == "0x" and set(a[2:].lower()) <= _HEX):
+        if not (isinstance(a, str) and a[:2] == "0x" and _is_hex(a[2:].lower(), 40)):
             errs.append("target.address(0x + 40 hex)")
         if not _is_strict_int(t["block"], 1):
             errs.append("target.block(int >= 1: fork pinned, never 'latest')")
@@ -141,11 +167,19 @@ def _validate_target(t: Any) -> list[str]:
         errs = []
         if not (isinstance(t["repo"], str) and t["repo"].strip()):
             errs.append("target.repo(non-empty string)")
-        s = t["sha"]
-        if not (isinstance(s, str) and len(s) in (40, 64) and set(s) <= _HEX):
+        if not _is_hex(t["sha"], 40, 64):
             errs.append("target.sha(40|64 lowercase hex, full SHA)")
         return errs
-    return ["target.kind(evm|commit)"]
+    if kind == "web_bundle":
+        if set(t) != {"kind", "origin", "bundle_sha256"}:
+            return ["target(web_bundle: exactly kind, origin, bundle_sha256)"]
+        errs = []
+        if not _validate_web_origin(t["origin"]):
+            errs.append("target.origin(http(s)://host[:port], without path/query/fragment/userinfo)")
+        if not _is_hex(t["bundle_sha256"], 64):
+            errs.append("target.bundle_sha256(64 lowercase hex)")
+        return errs
+    return ["target.kind(evm|commit|web_bundle)"]
 
 
 def _validate(data: Any) -> list[str]:
@@ -370,6 +404,13 @@ def _parse_forge_json(text: str) -> tuple[int, int] | None:
     return None
 
 
+_UNITTEST_RE = re.compile(
+    r"^-{70}\r?\nRan (\d+) tests? in \d+(?:\.\d+)?s\r?\n\r?\n(OK|FAILED|NO TESTS RAN)(?: \(([^)\r\n]+)\))?[ \t]*$",
+    re.MULTILINE,
+)
+_UNITTEST_KEYS = frozenset({"failures", "errors", "skipped", "expected failures", "unexpected successes"})
+
+
 def _parse_libtest(text: str) -> tuple[int, int] | None:
     rows = _LIBTEST_RE.findall(text)
     if not rows:
@@ -379,17 +420,52 @@ def _parse_libtest(text: str) -> tuple[int, int] | None:
     return passed, failed
 
 
+def _parse_unittest(text: str) -> tuple[int, int] | None:
+    rows = _UNITTEST_RE.findall(text)
+    if not rows:
+        return None
+    passed = failed = 0
+    for ran_s, status, detail in rows:
+        ran = int(ran_s)
+        counts: dict[str, int] = {}
+        if detail:
+            for item in detail.split(", "):
+                key, sep, val = item.partition("=")
+                if not sep or key not in _UNITTEST_KEYS or not val.isdigit() or key in counts:
+                    return None
+                counts[key] = int(val)
+        if status == "NO TESTS RAN":
+            if ran != 0 or counts:
+                return None
+            continue
+        if status == "OK":
+            if any(counts.get(k, 0) > 0 for k in ("failures", "errors", "unexpected successes")):
+                return None
+            skipped_like = counts.get("skipped", 0) + counts.get("expected failures", 0)
+            if skipped_like > ran:
+                return None
+            passed += ran - skipped_like
+        else:
+            bad = counts.get("failures", 0) + counts.get("errors", 0) + counts.get("unexpected successes", 0)
+            skipped_like = counts.get("skipped", 0) + counts.get("expected failures", 0)
+            failed += max(bad, 1)
+            passed += max(0, ran - bad - skipped_like)
+    return passed, failed
+
+
 def classify_poc_evidence(raw: bytes) -> tuple[str, int, int] | None:
     try:
         text = raw.decode("utf-8")
     except UnicodeDecodeError:
         return None
-    parsed = _parse_forge_json(text)
-    if parsed is not None:
-        return ("forge-json", *parsed)
-    parsed = _parse_libtest(text)
-    if parsed is not None:
-        return ("cargo-libtest", *parsed)
+    for runner, parser in (
+        ("forge-json", _parse_forge_json),
+        ("cargo-libtest", _parse_libtest),
+        ("python-unittest", _parse_unittest),
+    ):
+        parsed = parser(text)
+        if parsed is not None:
+            return (runner, *parsed)
     return None
 
 
@@ -419,7 +495,7 @@ def verify_manifest(
             errors.append(f"manifest.{ev_id}(missing or not {{path, sha256}})")
             continue
         declared = e["sha256"]
-        if not (isinstance(declared, str) and len(declared) == 64 and set(declared) <= _HEX):
+        if not _is_hex(declared, 64):
             errors.append(f"manifest.{ev_id}.sha256(64 lowercase hex)")
             continue
         if not isinstance(e["path"], str) or not e["path"]:
@@ -456,7 +532,9 @@ def verify_manifest(
         if raw is not None:
             kind = classify_poc_evidence(raw)
             if kind is None:
-                errors.append(f"manifest.{ev_id}(PoC evidence is not a recognized test run: forge test --json | cargo test output)")
+                errors.append(
+                    f"manifest.{ev_id}(PoC evidence is not a recognized test run: forge test --json | cargo test | python unittest output)"
+                )
             elif kind[2] > 0:
                 errors.append(f"manifest.{ev_id}({kind[0]}: {kind[2]} failed)")
             elif kind[1] == 0:
@@ -582,6 +660,7 @@ def _target(**kw: Any) -> dict[str, Any]:
 
 _ONE_FILE = dict(VALID, rea_evidence_ids=["ev_any"], evidence_map={k: ["ev_any"] for k in VALID["evidence_map"]})
 _COMMIT = {"kind": "commit", "repo": "github.com/org/protocol", "sha": "a" * 40}
+_WEB = {"kind": "web_bundle", "origin": "https://rollbit.com", "bundle_sha256": "b" * 64}
 
 SELFTEST_CASES: list[tuple[str, Any, str]] = [
     # --- caminos base ---
@@ -640,6 +719,19 @@ SELFTEST_CASES: list[tuple[str, Any, str]] = [
     ("O8_commit_short_sha", dict(VALID, target=dict(_COMMIT, sha="abc1234")), "BLOCKED_INCOMPLETE_EVIDENCE"),
     ("O9_commit_uppercase_sha", dict(VALID, target=dict(_COMMIT, sha="A" * 40)), "BLOCKED_INCOMPLETE_EVIDENCE"),
     ("O10_unknown_kind", dict(VALID, target={"kind": "solana", "program": "x"}), "BLOCKED_INCOMPLETE_EVIDENCE"),
+    # --- v4+: extensión web_bundle ---
+    ("O11_web_bundle_ok", dict(VALID, target=_WEB), "SUBMIT_BOUNTY"),
+    ("O12_web_bundle_http_localhost_ok", dict(VALID, target={"kind": "web_bundle", "origin": "http://127.0.0.1:8080", "bundle_sha256": "c" * 64}), "SUBMIT_BOUNTY"),
+    ("O13_web_bundle_ipv6_ok", dict(VALID, target={"kind": "web_bundle", "origin": "https://[::1]:8443", "bundle_sha256": "d" * 64}), "SUBMIT_BOUNTY"),
+    ("O14_web_bundle_path_rejected", dict(VALID, target=dict(_WEB, origin="https://rollbit.com/trading/rollercoaster")), "BLOCKED_INCOMPLETE_EVIDENCE"),
+    ("O15_web_bundle_trailing_slash_rejected", dict(VALID, target=dict(_WEB, origin="https://rollbit.com/")), "BLOCKED_INCOMPLETE_EVIDENCE"),
+    ("O16_web_bundle_bad_scheme", dict(VALID, target=dict(_WEB, origin="ftp://rollbit.com")), "BLOCKED_INCOMPLETE_EVIDENCE"),
+    ("O17_web_bundle_userinfo_rejected", dict(VALID, target=dict(_WEB, origin="https://u:p@rollbit.com")), "BLOCKED_INCOMPLETE_EVIDENCE"),
+    ("O18_web_bundle_bad_port", dict(VALID, target=dict(_WEB, origin="https://rollbit.com:99999")), "BLOCKED_INCOMPLETE_EVIDENCE"),
+    ("O19_web_bundle_query_rejected", dict(VALID, target=dict(_WEB, origin="https://rollbit.com?x=1")), "BLOCKED_INCOMPLETE_EVIDENCE"),
+    ("O20_web_bundle_short_hash", dict(VALID, target=dict(_WEB, bundle_sha256="b" * 40)), "BLOCKED_INCOMPLETE_EVIDENCE"),
+    ("O21_web_bundle_uppercase_hash", dict(VALID, target=dict(_WEB, bundle_sha256="B" * 64)), "BLOCKED_INCOMPLETE_EVIDENCE"),
+    ("O22_web_bundle_extra_key", dict(VALID, target=dict(_WEB, url="https://rollbit.com")), "BLOCKED_INCOMPLETE_EVIDENCE"),
     ("P_one_file_proves_everything", _ONE_FILE, "BLOCKED_INCOMPLETE_EVIDENCE"),
     ("P2_poc_reused_as_invariant", dict(VALID, evidence_map=dict(VALID["evidence_map"], algebraic_invariant_verified=["ev_forge_poc"])), "BLOCKED_INCOMPLETE_EVIDENCE"),
 ]
@@ -649,6 +741,20 @@ FORGE_FAIL = FORGE_PASS.replace('"Success"', '"Failure"')
 FORGE_SKIP = FORGE_PASS.replace('"Success"', '"Skipped"')
 LIBTEST_OK = "running 1 test\ntest poc::exploit ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n"
 LIBTEST_FAIL = "running 1 test\ntest poc::exploit ... FAILED\n\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n"
+_UT_SEP = "-" * 70
+UNITTEST_OK = f"test_a ... ok\ntest_b ... ok\n\n{_UT_SEP}\nRan 2 tests in 0.012s\n\nOK\n"
+UNITTEST_SINGLE_OK = f".\n{_UT_SEP}\nRan 1 test in 0.001s\n\nOK\n"
+UNITTEST_PARTIAL_SKIP_OK = f"test_a ... ok\ntest_b ... skipped 'x'\n\n{_UT_SEP}\nRan 2 tests in 0.002s\n\nOK (skipped=1)\n"
+UNITTEST_FAIL = f"test_a ... FAIL\n\n{_UT_SEP}\nRan 1 test in 0.001s\n\nFAILED (failures=1)\n"
+UNITTEST_ERROR = f"test_a ... ERROR\n\n{_UT_SEP}\nRan 1 test in 0.001s\n\nFAILED (errors=1)\n"
+UNITTEST_ONLY_SKIP = f"test_a ... skipped 'reason'\n\n{_UT_SEP}\nRan 1 test in 0.000s\n\nOK (skipped=1)\n"
+UNITTEST_EMPTY = f"\n{_UT_SEP}\nRan 0 tests in 0.000s\n\nNO TESTS RAN\n"
+UNITTEST_LEGACY_EMPTY = f"\n{_UT_SEP}\nRan 0 tests in 0.000s\n\nOK\n"
+UNITTEST_XFAIL_ONLY = f"test_x ... expected failure\n\n{_UT_SEP}\nRan 1 test in 0.000s\n\nOK (expected failures=1)\n"
+UNITTEST_XPASS = f"test_x ... unexpected success\n\n{_UT_SEP}\nRan 1 test in 0.000s\n\nFAILED (unexpected successes=1)\n"
+UNITTEST_NO_DASHES = "Ran 2 tests in 0.001s\n\nOK\n"
+UNITTEST_TAMPERED_OK = f"{_UT_SEP}\nRan 2 tests in 0.001s\n\nOK (failures=1)\n"
+UNITTEST_IMPOSSIBLE_SKIP = f"{_UT_SEP}\nRan 1 test in 0.001s\n\nOK (skipped=2)\n"
 
 
 def _selftest_manifest() -> tuple[list[dict[str, Any]], int]:
@@ -695,6 +801,12 @@ def _selftest_manifest() -> tuple[list[dict[str, Any]], int]:
         check("MF_ok_cargo_libtest", status(m) == "SUBMIT_BOUNTY", errs(m))
         m = fresh("Compiling 3 files with Solc 0.8.28\n" + FORGE_PASS + "\n")
         check("MF_ok_forge_with_leading_noise", status(m) == "SUBMIT_BOUNTY", errs(m))
+        m = fresh(UNITTEST_OK)
+        check("MF_ok_python_unittest", status(m) == "SUBMIT_BOUNTY", errs(m))
+        m = fresh(UNITTEST_SINGLE_OK)
+        check("MF_ok_python_unittest_single", status(m) == "SUBMIT_BOUNTY", errs(m))
+        m = fresh(UNITTEST_PARTIAL_SKIP_OK)
+        check("MF_ok_python_unittest_partial_skip", status(m) == "SUBMIT_BOUNTY", errs(m))
 
         m = fresh()
         (base / "ev_forge_poc.json").write_text(FORGE_PASS.replace("12ms", "13ms"), encoding="utf-8")
@@ -722,6 +834,16 @@ def _selftest_manifest() -> tuple[list[dict[str, Any]], int]:
         check("MF_poc_forge_only_skipped", *has(fresh(FORGE_SKIP), "0 passed"))
         check("MF_poc_forge_no_tests", *has(fresh("{}"), "0 passed"))
         check("MF_poc_cargo_failed", *has(fresh(LIBTEST_FAIL), "failed"))
+        check("MF_poc_unittest_failure", *has(fresh(UNITTEST_FAIL), "1 failed"))
+        check("MF_poc_unittest_error", *has(fresh(UNITTEST_ERROR), "1 failed"))
+        check("MF_poc_unittest_only_skipped", *has(fresh(UNITTEST_ONLY_SKIP), "0 passed"))
+        check("MF_poc_unittest_no_tests", *has(fresh(UNITTEST_EMPTY), "0 passed"))
+        check("MF_poc_unittest_legacy_empty", *has(fresh(UNITTEST_LEGACY_EMPTY), "0 passed"))
+        check("MF_poc_unittest_xfail_only", *has(fresh(UNITTEST_XFAIL_ONLY), "0 passed"))
+        check("MF_poc_unittest_xpass", *has(fresh(UNITTEST_XPASS), "1 failed"))
+        check("MF_poc_unittest_no_dashes", *has(fresh(UNITTEST_NO_DASHES), "not a recognized test run"))
+        check("MF_poc_unittest_tampered_ok", *has(fresh(UNITTEST_TAMPERED_OK), "not a recognized test run"))
+        check("MF_poc_unittest_impossible_skip", *has(fresh(UNITTEST_IMPOSSIBLE_SKIP), "not a recognized test run"))
         check("MF_poc_unrecognized", *has(fresh('{"pwned": true}'), "not a recognized test run"))
 
         # aliasing, copias, vacíos, autorreferencia
