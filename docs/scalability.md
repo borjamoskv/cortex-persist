@@ -256,9 +256,10 @@ The existing full CI suite still uses its existing pinned PyYAML dependency:
 ```
 
 [CI](../.github/workflows/ci.yml) keeps correctness tests in the existing sanity
-job. A separate informational job runs only the synthetic example, writes a job
-summary and uploads JSON/JSONL/Markdown evidence. It makes no provider calls and
-does not gate merges on measured performance.
+job and also runs the scalability tests in a separate Python 3.12 job without
+site packages. A separate informational job runs only the synthetic example,
+writes a job summary and uploads JSON/JSONL/Markdown evidence. It makes no provider
+calls and does not gate merges on measured performance.
 
 Acceptance of a real 10x improvement needs an independent comparison against the
 previous version at a fixed workload/evaluator, counting experiment, verification,
