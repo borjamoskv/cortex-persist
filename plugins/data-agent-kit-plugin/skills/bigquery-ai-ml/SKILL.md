@@ -2,7 +2,7 @@
 name: bigquery-ai-ml
 license: Apache-2.0
 metadata:
-  version: v3
+  version: v5
   publisher: google
 description: >-
   Leverages BigQuery's built-in machine learning and GenAI capabilities
@@ -24,8 +24,11 @@ generative AI capabilities directly within SQL queries using built-in functions
 like `AI.FORECAST`, `AI.KEY_DRIVERS`, `AI.DETECT_ANOMALIES`, and `AI.GENERATE`.
 
 > [!IMPORTANT]
-> You MUST read and follow the global constraints and mandatory function routing rules in
-> [ai_function_best_practices.md](references/ai_function_best_practices.md) before writing any BQML AI/ML SQL query.
+>
+> You MUST read and follow the global constraints and mandatory function routing
+> rules in
+> [ai_function_best_practices.md](references/ai_function_best_practices.md)
+> before writing any BQML AI/ML SQL query.
 
 ## Reference Directory
 
