@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright 2026 Borja Moskv (borjamoskv)
-"""Verify disjoint multi-mount skill partition (104 cp/skills + 27 b60/.agents/skills = 131/131)."""
+"""Verify active and archived local skills and any supplied BABYLON mount."""
 
 from __future__ import annotations
 
@@ -25,11 +25,60 @@ def verify_partition(
     sec2_text = skills_md_text.split("## 3. Protocolo Funtorial", 1)[0]
     sec2_rows = re.findall(r"^\| \[`([^`]+)`\]\(([^)]+)\) \|", sec2_text, re.M)
 
-    local_declared = {name for name, target in sec2_rows if not target.startswith("http")}
+    archive_prefix = "skills/_archive/20261108_poda_v1/"
+    local_declared = {
+        name for name, target in sec2_rows
+        if not target.startswith("http") and not target.startswith(archive_prefix)
+    }
+    archive_declared = {
+        name for name, target in sec2_rows if target.startswith(archive_prefix)
+    }
     workspace_declared = {name for name, target in sec2_rows if target.startswith("http")}
 
     cp_registry = json.loads(skills_json_path.read_text(encoding="utf-8"))
-    cp_entries = {entry["name"] for entry in cp_registry["entries"]}
+    entries = cp_registry["entries"]
+    archived_entries = cp_registry["archived_entries"]
+    all_entries = entries + archived_entries
+    cp_entries = {entry["name"] for entry in entries}
+    archived = {entry["name"] for entry in archived_entries}
+    routing_fields = {"tier", "category", "canonical_alias", "triggers", "exergy_audit"}
+    incomplete_routing_metadata = sorted(
+        entry["name"] for entry in entries if not routing_fields.issubset(entry)
+    )
+    invalid_edges = [
+        edge for edge in cp_registry["adjacency"]
+        if edge.get("source") not in cp_entries or edge.get("target") not in cp_entries
+    ]
+    invalid_archived_edges = [
+        edge for edge in cp_registry["archived_adjacency"]
+        if edge.get("source") not in cp_entries | archived
+        or edge.get("target") not in cp_entries | archived
+        or not ({edge.get("source"), edge.get("target")} & archived)
+    ]
+    archive_manifest = json.loads(
+        (cp_root / archive_prefix / "MANIFEST_PODA_V1.json").read_text(encoding="utf-8")
+    )
+    archived_by_manifest = {entry["name"] for entry in archive_manifest["moved"]}
+    invalid_registry_paths = sorted(
+        entry["name"] for entry in all_entries
+        if entry.get("path") != (
+            f"_archive/20261108_poda_v1/{entry['name']}/SKILL.md"
+            if entry.get("status") == "archived"
+            else f"{entry['name']}/SKILL.md"
+        )
+    )
+    invalid_declared_paths = sorted(
+        name for name, target in sec2_rows
+        if not target.startswith("http") and target != (
+            f"{archive_prefix}{name}/SKILL.md"
+            if target.startswith(archive_prefix)
+            else f"skills/{name}/SKILL.md"
+        )
+    )
+    missing_archived = sorted(
+        name for name in archived
+        if not (cp_root / archive_prefix / name / "SKILL.md").is_file()
+    )
     cp_materialized = {
         p.parent.name
         for p in (cp_root / "skills").glob("*/SKILL.md")
@@ -59,6 +108,7 @@ def verify_partition(
 
     overlap_declared = sorted(local_declared & workspace_declared)
     missing_local = sorted(cp_entries - cp_materialized)
+    unregistered_local = sorted(cp_materialized - cp_entries)
     missing_workspace = (
         sorted(workspace_declared - workspace_materialized) if mounts else []
     )
@@ -67,12 +117,25 @@ def verify_partition(
     )
 
     ok = (
-        len(sec2_rows) == 131
-        and len(local_declared) == 104
-        and len(workspace_declared) == 27
+        len(sec2_rows) == len(local_declared) + len(archive_declared) + len(workspace_declared)
+        and all(entry.get("status", "active") == "active" for entry in entries)
+        and all(entry.get("status") == "archived" for entry in archived_entries)
+        and len({entry["name"] for entry in all_entries}) == len(all_entries)
+        and len(cp_entries) == len(entries)
+        and len(archived) == len(archived_entries)
+        and cp_registry["total_skills"] == len(entries)
         and local_declared == cp_entries
+        and archive_declared == archived
+        and archived <= archived_by_manifest
+        and not (cp_entries & archived)
+        and not invalid_registry_paths
+        and not invalid_declared_paths
+        and not invalid_edges
+        and not invalid_archived_edges
         and not overlap_declared
         and not missing_local
+        and not unregistered_local
+        and not missing_archived
         and not missing_workspace
         and not overlap_mounts
         and not broken_local_links
@@ -85,7 +148,17 @@ def verify_partition(
         "workspace_ring0_1_count": len(workspace_declared),
         "cp_registry_count": len(cp_entries),
         "cp_materialized_count": len(cp_entries & cp_materialized),
+        "archived_count": len(archived),
+        "incomplete_routing_metadata": incomplete_routing_metadata,
+        "routing_readiness": "NOT_VERIFIED" if incomplete_routing_metadata else "NOT_ASSESSED",
+        "missing_archived": missing_archived,
+        "unregistered_local": unregistered_local,
+        "invalid_registry_paths": invalid_registry_paths,
+        "invalid_declared_paths": invalid_declared_paths,
+        "invalid_edges": invalid_edges,
+        "invalid_archived_edges": invalid_archived_edges,
         "workspace_mounts_checked": [str(m) for m in mounts],
+        "workspace_verification": "CHECKED" if mounts else "NOT_CHECKED",
         "workspace_materialized_count": len(workspace_materialized),
         "overlap_declared": overlap_declared,
         "overlap_mounts": overlap_mounts,
