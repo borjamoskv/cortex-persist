@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 # Copyright 2026 Borja Moskv (borjamoskv)
-"""Verify active and archived local skills and any supplied BABYLON mount."""
+"""Verify the partition and report structural routing metadata separately.
+
+The partition status does not certify routing or the truth of metadata values.
+"""
 
 from __future__ import annotations
 
@@ -42,9 +45,30 @@ def verify_partition(
     cp_entries = {entry["name"] for entry in entries}
     archived = {entry["name"] for entry in archived_entries}
     routing_fields = {"tier", "category", "canonical_alias", "triggers", "exergy_audit"}
-    incomplete_routing_metadata = sorted(
-        entry["name"] for entry in entries if not routing_fields.issubset(entry)
-    )
+    missing_routing_fields: dict[str, list[str]] = {}
+    invalid_routing_fields: dict[str, list[str]] = {}
+    for entry in entries:
+        missing = sorted(routing_fields - entry.keys())
+        invalid = []
+        for field in sorted(routing_fields & entry.keys()):
+            value = entry[field]
+            if field == "tier":
+                valid = type(value) is int and value > 0
+            elif field in {"category", "canonical_alias"}:
+                valid = isinstance(value, str) and bool(value.strip())
+            elif field == "triggers":
+                valid = isinstance(value, list) and bool(value) and all(
+                    isinstance(item, str) and bool(item.strip()) for item in value
+                )
+            else:
+                valid = isinstance(value, dict) and bool(value)
+            if not valid:
+                invalid.append(field)
+        if missing:
+            missing_routing_fields[entry["name"]] = missing
+        if invalid:
+            invalid_routing_fields[entry["name"]] = invalid
+    incomplete_routing_metadata = sorted(missing_routing_fields.keys() | invalid_routing_fields.keys())
     invalid_edges = [
         edge for edge in cp_registry["adjacency"]
         if edge.get("source") not in cp_entries or edge.get("target") not in cp_entries
@@ -150,6 +174,8 @@ def verify_partition(
         "cp_materialized_count": len(cp_entries & cp_materialized),
         "archived_count": len(archived),
         "incomplete_routing_metadata": incomplete_routing_metadata,
+        "missing_routing_fields": missing_routing_fields,
+        "invalid_routing_fields": invalid_routing_fields,
         "routing_readiness": "NOT_VERIFIED" if incomplete_routing_metadata else "NOT_ASSESSED",
         "missing_archived": missing_archived,
         "unregistered_local": unregistered_local,

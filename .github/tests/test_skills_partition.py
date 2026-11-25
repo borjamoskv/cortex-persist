@@ -23,6 +23,10 @@ class TestSkillsPartition(unittest.TestCase):
         self.assertEqual(report["cp_materialized_count"], 32)
         self.assertEqual(report["archived_count"], 73)
         self.assertEqual(report["incomplete_routing_metadata"], ["c5-bounty-specialist"])
+        self.assertEqual(report["missing_routing_fields"]["c5-bounty-specialist"], [
+            "canonical_alias", "category", "exergy_audit", "tier", "triggers"
+        ])
+        self.assertEqual(report["invalid_routing_fields"], {})
         self.assertEqual(report["routing_readiness"], "NOT_VERIFIED")
         self.assertEqual(report["workspace_verification"], "NOT_CHECKED")
         self.assertEqual(report["overlap_declared"], [])
@@ -55,6 +59,34 @@ class TestSkillsPartition(unittest.TestCase):
                 "## 3. Protocolo Funtorial\n", encoding="utf-8"
             )
             self.assertEqual(verify_partition(root, [])["status"], "PASS")
+            registry_path = root / "skills" / "skills.json"
+            registry = json.loads(registry_path.read_text(encoding="utf-8"))
+            entry = registry["entries"][0]
+            entry.update({
+                "tier": None, "category": " ", "canonical_alias": None,
+                "triggers": ["valid", ""], "exergy_audit": {},
+            })
+            registry_path.write_text(json.dumps(registry), encoding="utf-8")
+            report = verify_partition(root, [])
+            self.assertEqual(report["status"], "PASS")  # Partition, not routing.
+            self.assertEqual(report["missing_routing_fields"], {})
+            self.assertEqual(report["invalid_routing_fields"], {"active": [
+                "canonical_alias", "category", "exergy_audit", "tier", "triggers"
+            ]})
+            self.assertEqual(report["routing_readiness"], "NOT_VERIFIED")
+            entry.update({"tier": True, "triggers": []})
+            registry_path.write_text(json.dumps(registry), encoding="utf-8")
+            report = verify_partition(root, [])
+            self.assertIn("tier", report["invalid_routing_fields"]["active"])
+            self.assertIn("triggers", report["invalid_routing_fields"]["active"])
+            entry.update({
+                "tier": 1, "category": "Security", "canonical_alias": "active",
+                "triggers": ["active"], "exergy_audit": {"source": "fixture"},
+            })
+            registry_path.write_text(json.dumps(registry), encoding="utf-8")
+            report = verify_partition(root, [])
+            self.assertEqual(report["incomplete_routing_metadata"], [])
+            self.assertEqual(report["routing_readiness"], "NOT_ASSESSED")
             active.unlink()
             report = verify_partition(root, [])
             self.assertEqual(report["status"], "FAIL")
